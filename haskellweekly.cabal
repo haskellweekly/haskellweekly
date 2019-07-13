@@ -1,0 +1,50 @@
+cabal-version: 2.4
+
+name: haskellweekly
+version: 0.0.0.0
+
+category: Web
+description: Haskell Weekly publishes curated news about Haskell.
+license: ISC
+maintainer: Taylor Fausak
+synopsis: Publishes curated news about Haskell.
+
+common library
+  build-depends:
+    base ^>= 4.11.1,
+    bytestring ^>= 0.10.8,
+    http-types ^>= 0.12.3,
+    lucid ^>= 2.9.11,
+    postgresql-simple ^>= 0.6.2,
+    text ^>= 1.2.3,
+    wai ^>= 3.2.2.1,
+    warp ^>= 3.3.0,
+  default-language: Haskell2010
+  ghc-options:
+    -Weverything
+    -Wno-all-missed-specialisations
+    -Wno-implicit-prelude
+    -Wno-missed-specialisations
+    -Wno-missing-exported-signatures
+    -Wno-safe
+    -Wno-unsafe
+
+common executable
+  import: library
+
+  build-depends: haskellweekly
+  ghc-options: -rtsopts -threaded
+
+library
+  import: library
+
+  autogen-modules: Paths_haskellweekly
+  exposed-modules: HaskellWeekly
+  hs-source-dirs: source/library
+  other-modules: Paths_haskellweekly
+
+executable haskellweekly
+  import: executable
+
+  hs-source-dirs: source/executable
+  main-is: Main.hs

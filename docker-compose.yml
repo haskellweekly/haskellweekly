@@ -1,0 +1,12 @@
+version: '3'
+services:
+  haskellweekly:
+    build: .
+    depends_on:
+      - postgres
+    environment:
+      DATABASE_URL: postgresql://postgres@postgres/postgres
+    ports:
+      - 8080:8080
+  postgres:
+    image: postgres:11.4-alpine

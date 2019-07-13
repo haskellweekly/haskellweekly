@@ -1,0 +1,12 @@
+{
+  "addons": [
+    "heroku-postgresql"
+  ],
+  "formation": {
+    "web": {
+      "quantity": 1
+    }
+  },
+  "name": "haskellweekly",
+  "stack": "container"
+}
