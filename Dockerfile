@@ -8,11 +8,13 @@ FROM alpine:3.10.1
   RUN cabal v2-build --only-dependencies
 
   COPY . .
-  RUN cabal v2-build
-  RUN cp -v "$( cabal v2-exec which haskellweekly )" /usr/local/bin/
+  RUN cabal v2-install .
+  RUN cp ~/.cabal/bin/haskellweekly /usr/local/bin/
 
 FROM alpine:3.10.1
 
   RUN apk add --no-cache gmp libffi libpq
   COPY --from=0 /usr/local/bin/haskellweekly /usr/local/bin/
+  COPY data/ /var/opt/haskellweekly/
+  ENV DATA_DIRECTORY /var/opt/haskellweekly
   CMD haskellweekly
