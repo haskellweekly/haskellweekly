@@ -169,42 +169,50 @@ configToState config = do
     }
 
 stateToApplication :: State -> Network.Wai.Application
-stateToApplication state request respond =
+stateToApplication state request respond = do
   let
-    path = map Data.Text.unpack $ Network.Wai.pathInfo request
     method =
       Data.Text.unpack
         . Data.Text.Encoding.decodeUtf8With
             Data.Text.Encoding.Error.lenientDecode
         $ Network.Wai.requestMethod request
-  in do
-    [[True]] <- Database.PostgreSQL.Simple.query_
-      (stateDatabaseConnection state)
-      (Data.String.fromString "select true")
-    response <- case path of
-      [] -> case method of
-        "GET" -> pure . htmlResponse Network.HTTP.Types.ok200 [] $ defaultHtml
-          "200 OK"
-        _ -> pure notAllowedResponse
-      ["favicon.ico"] -> case method of
-        "GET" -> pure $ Network.Wai.responseFile
-          Network.HTTP.Types.ok200
-          [ ( Network.HTTP.Types.hContentType
-            , Data.Text.Encoding.encodeUtf8 $ Data.Text.pack "image/x-icon"
-            )
-          ]
-          (System.FilePath.combine
-            (configDataDirectory $ stateConfig state)
-            "favicon.ico"
-          )
-          Nothing
-        _ -> pure notAllowedResponse
-      _ -> pure notFoundResponse
-    respond $! response
+  response <- if method == "GET"
+    then do
+      let path = map Data.Text.unpack $ Network.Wai.pathInfo request
+      case toRoute path of
+        Just route -> case route of
+          RouteIndex -> do
+            [[True]] <- Database.PostgreSQL.Simple.query_
+              (stateDatabaseConnection state)
+              (Data.String.fromString "select true")
+            pure . htmlResponse Network.HTTP.Types.ok200 [] $ defaultHtml
+              "200 OK"
+          RouteFavicon -> do
+            let
+              contentType =
+                Data.Text.Encoding.encodeUtf8 $ Data.Text.pack "image/x-icon"
+              file = System.FilePath.combine
+                (configDataDirectory $ stateConfig state)
+                "favicon.ico"
+            pure $ Network.Wai.responseFile
+              Network.HTTP.Types.ok200
+              [(Network.HTTP.Types.hContentType, contentType)]
+              file
+              Nothing
+        Nothing -> pure notFoundResponse
+    else pure notFoundResponse
+  respond $! response
 
-notAllowedResponse :: Network.Wai.Response
-notAllowedResponse = htmlResponse Network.HTTP.Types.methodNotAllowed405 []
-  $ defaultHtml "405 Method Not Allowed"
+data Route
+  = RouteIndex
+  | RouteFavicon
+  deriving (Eq, Show)
+
+toRoute :: [String] -> Maybe Route
+toRoute path = case path of
+  [] -> Just RouteIndex
+  ["favicon.ico"] -> Just RouteFavicon
+  _ -> Nothing
 
 notFoundResponse :: Network.Wai.Response
 notFoundResponse =
