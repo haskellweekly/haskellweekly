@@ -147,9 +147,40 @@ defaultHtml content = Lucid.doctypehtml_ $ do
         $ Data.Text.pack "initial-scale = 1, width = device-width"
       ]
     Lucid.title_ $ Lucid.toHtml "Haskell Weekly"
-  Lucid.body_ $ do
-    Lucid.h1_ $ Lucid.toHtml "Haskell Weekly"
-    Lucid.p_ $ Lucid.toHtml content
+    Lucid.link_
+      [ Lucid.href_ . Data.Text.pack $ fromRoute RouteTachyons
+      , Lucid.rel_ $ Data.Text.pack "stylesheet"
+      ]
+  Lucid.body_
+      [ Lucid.class_
+          $ Data.Text.pack "bg-white black flex justify-center ma3 sans-serif"
+      ]
+    . Lucid.div_ [Lucid.class_ $ Data.Text.pack "mw7 w-100"]
+    $ do
+        Lucid.header_ [Lucid.class_ $ Data.Text.pack "mv3"]
+          . Lucid.h1_ [Lucid.class_ $ Data.Text.pack "f1 purple"]
+          $ Lucid.toHtml "Haskell Weekly"
+        Lucid.main_ [Lucid.class_ $ Data.Text.pack "mv3"]
+          . Lucid.p_
+          $ Lucid.toHtml content
+        Lucid.footer_ [Lucid.class_ $ Data.Text.pack "gray mv3"]
+          . Lucid.p_
+          $ do
+              Lucid.toHtml "Content on this site is licensed under a "
+              Lucid.a_
+                  [ Lucid.class_ $ Data.Text.pack "color-inherit"
+                  , Lucid.href_ $ Data.Text.pack
+                    "https://creativecommons.org/licenses/by/4.0/"
+                  ]
+                $ Lucid.toHtml "Creative Commons Attribution 4.0 International"
+              Lucid.toHtml " license. The "
+              Lucid.a_
+                  [ Lucid.class_ $ Data.Text.pack "color-inherit"
+                  , Lucid.href_ $ Data.Text.pack
+                    "https://github.com/haskellweekly/haskellweekly"
+                  ]
+                $ Lucid.toHtml "source code"
+              Lucid.toHtml " for this site is available on GitHub."
 
 serverName :: Data.ByteString.ByteString
 serverName = Data.ByteString.empty
@@ -187,32 +218,42 @@ stateToApplication state request respond = do
               (Data.String.fromString "select true")
             pure . htmlResponse Network.HTTP.Types.ok200 [] $ defaultHtml
               "200 OK"
-          RouteFavicon -> do
-            let
-              contentType =
-                Data.Text.Encoding.encodeUtf8 $ Data.Text.pack "image/x-icon"
-              file = System.FilePath.combine
-                (configDataDirectory $ stateConfig state)
-                "favicon.ico"
-            pure $ Network.Wai.responseFile
-              Network.HTTP.Types.ok200
-              [(Network.HTTP.Types.hContentType, contentType)]
-              file
-              Nothing
+          RouteFavicon ->
+            pure $ fileResponse state "image/x-icon" "favicon.ico"
+          RouteTachyons ->
+            pure $ fileResponse state "text/css" "tachyons-4-11-2.css"
         Nothing -> pure notFoundResponse
     else pure notFoundResponse
   respond $! response
 
+fileResponse :: State -> String -> String -> Network.Wai.Response
+fileResponse state mime file = Network.Wai.responseFile
+  Network.HTTP.Types.ok200
+  [ ( Network.HTTP.Types.hContentType
+    , Data.Text.Encoding.encodeUtf8 $ Data.Text.pack mime
+    )
+  ]
+  (System.FilePath.combine (configDataDirectory $ stateConfig state) file)
+  Nothing
+
 data Route
   = RouteIndex
   | RouteFavicon
+  | RouteTachyons
   deriving (Eq, Show)
 
 toRoute :: [String] -> Maybe Route
 toRoute path = case path of
   [] -> Just RouteIndex
   ["favicon.ico"] -> Just RouteFavicon
+  ["tachyons-4-11-2.css"] -> Just RouteTachyons
   _ -> Nothing
+
+fromRoute :: Route -> String
+fromRoute route = case route of
+  RouteIndex -> "/"
+  RouteFavicon -> "/favicon.ico"
+  RouteTachyons -> "/tachyons-4-11-2.css"
 
 notFoundResponse :: Network.Wai.Response
 notFoundResponse =

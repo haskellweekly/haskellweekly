@@ -10,7 +10,9 @@ maintainer: Taylor Fausak
 synopsis: Publishes curated news about Haskell.
 
 data-dir: data
-data-files: favicon.ico
+data-files:
+  favicon.ico
+  tachyons-4-11-2.css
 extra-source-files: README.markdown
 license-file: LICENSE.markdown
 
