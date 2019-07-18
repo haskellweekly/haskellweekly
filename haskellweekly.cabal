@@ -20,6 +20,7 @@ common library
   build-depends:
     base ^>= 4.11.1,
     bytestring ^>= 0.10.8,
+    case-insensitive ^>= 1.2.1,
     filepath ^>= 1.4.2,
     http-types ^>= 0.12.3,
     lucid ^>= 2.9.11,

@@ -6,6 +6,7 @@ where
 import qualified Control.Exception
 import qualified Data.ByteString
 import qualified Data.ByteString.Lazy
+import qualified Data.CaseInsensitive
 import qualified Data.Maybe
 import qualified Data.String
 import qualified Data.Text
@@ -34,7 +35,7 @@ defaultMain = do
   config <- getConfig
   let settings = configToSettings config
   state <- configToState config
-  let application = stateToApplication state
+  let application = securityMiddleware $ stateToApplication state
   Network.Wai.Handler.Warp.runSettings settings application
 
 data Config = Config
@@ -183,7 +184,11 @@ defaultHtml content = Lucid.doctypehtml_ $ do
               Lucid.toHtml " for this site is available on GitHub."
 
 serverName :: Data.ByteString.ByteString
-serverName = Data.ByteString.empty
+serverName =
+  Data.Text.Encoding.encodeUtf8
+    . Data.Text.pack
+    $ "haskellweekly/"
+    <> Data.Version.showVersion Paths_haskellweekly.version
 
 data State = State
   { stateConfig :: Config
@@ -198,6 +203,29 @@ configToState config = do
     { stateConfig = config
     , stateDatabaseConnection = databaseConnection
     }
+
+-- | Adds security headers as recommended by <https://securityheaders.com>.
+securityMiddleware :: Network.Wai.Middleware
+securityMiddleware =
+  Network.Wai.modifyResponse
+    . Network.Wai.mapResponseHeaders
+    $ addHeader "Feature-Policy" "'none'; speaker 'self'"
+    . addHeader "Referrer-Policy" "no-referrer"
+    . addHeader "X-Content-Type-Options" "nosniff"
+    . addHeader "X-Frame-Options" "deny"
+    . addHeader "X-XSS-Protection" "1; mode=block"
+
+addHeader
+  :: String
+  -> String
+  -> [Network.HTTP.Types.Header]
+  -> [Network.HTTP.Types.Header]
+addHeader name value headers =
+  ( Data.CaseInsensitive.mk . Data.Text.Encoding.encodeUtf8 $ Data.Text.pack
+      name
+    , Data.Text.Encoding.encodeUtf8 $ Data.Text.pack value
+    )
+    : headers
 
 stateToApplication :: State -> Network.Wai.Application
 stateToApplication state request respond = do
