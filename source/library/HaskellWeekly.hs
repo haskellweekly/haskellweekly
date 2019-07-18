@@ -211,6 +211,7 @@ securityMiddleware =
   Network.Wai.modifyResponse
     . Network.Wai.mapResponseHeaders
     $ addHeader "Content-Security-Policy" "default-src 'self'"
+    . addHeader "Expect-CT" "max-age=60"
     . addHeader
         "Feature-Policy"
         (Data.List.intercalate "; " $ fmap (<> " 'none'") features)
@@ -238,7 +239,6 @@ features =
   , "autoplay"
   , "accelerometer"
   , "camera"
-  , "display-capture"
   , "document-domain"
   , "encrypted-media"
   , "fullscreen"
@@ -252,7 +252,6 @@ features =
   , "speaker"
   , "sync-xhr"
   , "usb"
-  , "wake-lock"
   , "vr"
   ]
 
