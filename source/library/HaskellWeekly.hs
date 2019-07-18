@@ -7,6 +7,7 @@ import qualified Control.Exception
 import qualified Data.ByteString
 import qualified Data.ByteString.Lazy
 import qualified Data.CaseInsensitive
+import qualified Data.List
 import qualified Data.Maybe
 import qualified Data.String
 import qualified Data.Text
@@ -209,8 +210,12 @@ securityMiddleware :: Network.Wai.Middleware
 securityMiddleware =
   Network.Wai.modifyResponse
     . Network.Wai.mapResponseHeaders
-    $ addHeader "Feature-Policy" "'none'; speaker 'self'"
+    $ addHeader "Content-Security-Policy" "default-src 'self'"
+    . addHeader
+        "Feature-Policy"
+        (Data.List.intercalate "; " $ fmap (<> " 'none'") features)
     . addHeader "Referrer-Policy" "no-referrer"
+    . addHeader "Strict-Transport-Security" "max-age=60"
     . addHeader "X-Content-Type-Options" "nosniff"
     . addHeader "X-Frame-Options" "deny"
     . addHeader "X-XSS-Protection" "1; mode=block"
@@ -226,6 +231,30 @@ addHeader name value headers =
     , Data.Text.Encoding.encodeUtf8 $ Data.Text.pack value
     )
     : headers
+
+features :: [String]
+features =
+  [ "ambient-light-sensor"
+  , "autoplay"
+  , "accelerometer"
+  , "camera"
+  , "display-capture"
+  , "document-domain"
+  , "encrypted-media"
+  , "fullscreen"
+  , "geolocation"
+  , "gyroscope"
+  , "magnetometer"
+  , "microphone"
+  , "midi"
+  , "payment"
+  , "picture-in-picture"
+  , "speaker"
+  , "sync-xhr"
+  , "usb"
+  , "wake-lock"
+  , "vr"
+  ]
 
 stateToApplication :: State -> Network.Wai.Application
 stateToApplication state request respond = do
