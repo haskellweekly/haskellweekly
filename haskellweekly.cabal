@@ -16,6 +16,10 @@ data-files:
 extra-source-files: README.markdown
 license-file: LICENSE.markdown
 
+source-repository head
+  location: https://github.com/haskellweekly/haskellweekly.git
+  type: git
+
 common library
   build-depends:
     base ^>= 4.11.1,
@@ -52,7 +56,11 @@ library
   exposed-modules: HaskellWeekly
   hs-source-dirs: source/library
   other-modules:
+    HaskellWeekly.Application
+    HaskellWeekly.Handler.Base
     HaskellWeekly.Main
+    HaskellWeekly.Middleware
+    HaskellWeekly.Server
     HaskellWeekly.Type.Config
     HaskellWeekly.Type.Route
     HaskellWeekly.Type.State
