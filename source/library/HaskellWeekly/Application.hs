@@ -17,7 +17,7 @@ import qualified Network.Wai
 
 defaultHtml :: String -> Lucid.Html ()
 defaultHtml content = Lucid.doctypehtml_ $ do
-  Lucid.head_ $ do
+  Lucid.head_ [Lucid.class_ $ Data.Text.pack "b--purple bt bw2" ] $ do
     Lucid.meta_ [Lucid.charset_ $ Data.Text.pack "utf-8"]
     Lucid.meta_
       [ Lucid.name_ $ Data.Text.pack "viewport"
@@ -37,7 +37,7 @@ defaultHtml content = Lucid.doctypehtml_ $ do
     . Lucid.div_ [Lucid.class_ $ Data.Text.pack "mw7 w-100"]
     $ do
         Lucid.header_ [Lucid.class_ $ Data.Text.pack "mv3"]
-          . Lucid.h1_ [Lucid.class_ $ Data.Text.pack "f1 purple"]
+          . Lucid.h1_ [Lucid.class_ $ Data.Text.pack "f1 tracked-tight"]
           $ Lucid.toHtml "Haskell Weekly"
         Lucid.main_ [Lucid.class_ $ Data.Text.pack "mv3"]
           . Lucid.p_
