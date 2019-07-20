@@ -27,6 +27,7 @@ common library
     postgresql-simple ^>= 0.6.2,
     text ^>= 1.2.3,
     wai ^>= 3.2.2.1,
+    wai-extra ^>= 3.0.27,
     warp ^>= 3.3.0,
   default-language: Haskell2010
   ghc-options:

@@ -19,6 +19,7 @@ import qualified Lucid
 import qualified Network.HTTP.Types
 import qualified Network.Wai
 import qualified Network.Wai.Handler.Warp
+import qualified Network.Wai.Middleware.Gzip
 import qualified Paths_haskellweekly
 import qualified System.Environment
 import qualified System.FilePath
@@ -36,7 +37,7 @@ defaultMain = do
   config <- getConfig
   let settings = configToSettings config
   state <- configToState config
-  let application = securityMiddleware $ stateToApplication state
+  let application = middleware $ stateToApplication state
   Network.Wai.Handler.Warp.runSettings settings application
 
 data Config = Config
@@ -205,18 +206,18 @@ configToState config = do
     , stateDatabaseConnection = databaseConnection
     }
 
+middleware :: Network.Wai.Middleware
+middleware =
+  Network.Wai.Middleware.Gzip.gzip Network.Wai.Middleware.Gzip.def
+    . addSecurityHeaders
+
 -- | Adds security headers as recommended by <https://securityheaders.com>.
-securityMiddleware :: Network.Wai.Middleware
-securityMiddleware =
+addSecurityHeaders :: Network.Wai.Middleware
+addSecurityHeaders =
   Network.Wai.modifyResponse
     . Network.Wai.mapResponseHeaders
     $ addHeader "Content-Security-Policy" "default-src 'self'"
-    . addHeader "Expect-CT" "max-age=60"
-    . addHeader
-        "Feature-Policy"
-        (Data.List.intercalate "; " $ fmap (<> " 'none'") features)
     . addHeader "Referrer-Policy" "no-referrer"
-    . addHeader "Strict-Transport-Security" "max-age=60"
     . addHeader "X-Content-Type-Options" "nosniff"
     . addHeader "X-Frame-Options" "deny"
     . addHeader "X-XSS-Protection" "1; mode=block"
@@ -232,28 +233,6 @@ addHeader name value headers =
     , Data.Text.Encoding.encodeUtf8 $ Data.Text.pack value
     )
     : headers
-
-features :: [String]
-features =
-  [ "ambient-light-sensor"
-  , "autoplay"
-  , "accelerometer"
-  , "camera"
-  , "document-domain"
-  , "encrypted-media"
-  , "fullscreen"
-  , "geolocation"
-  , "gyroscope"
-  , "magnetometer"
-  , "microphone"
-  , "midi"
-  , "payment"
-  , "picture-in-picture"
-  , "speaker"
-  , "sync-xhr"
-  , "usb"
-  , "vr"
-  ]
 
 stateToApplication :: State -> Network.Wai.Application
 stateToApplication state request respond = do
