@@ -16,8 +16,8 @@ import qualified Network.HTTP.Types
 import qualified Network.Wai
 
 defaultHtml :: String -> Lucid.Html ()
-defaultHtml content = Lucid.doctypehtml_ $ do
-  Lucid.head_ [Lucid.class_ $ Data.Text.pack "b--purple bt bw2" ] $ do
+defaultHtml content = Lucid.doctype_ . Lucid.html_ [Lucid.class_ $ Data.Text.pack "b--purple bt bw2" ] $ do
+  Lucid.head_ $ do
     Lucid.meta_ [Lucid.charset_ $ Data.Text.pack "utf-8"]
     Lucid.meta_
       [ Lucid.name_ $ Data.Text.pack "viewport"
