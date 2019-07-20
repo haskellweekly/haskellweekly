@@ -51,7 +51,12 @@ library
   autogen-modules: Paths_haskellweekly
   exposed-modules: HaskellWeekly
   hs-source-dirs: source/library
-  other-modules: Paths_haskellweekly
+  other-modules:
+    HaskellWeekly.Main
+    HaskellWeekly.Type.Config
+    HaskellWeekly.Type.Route
+    HaskellWeekly.Type.State
+    Paths_haskellweekly
 
 executable haskellweekly
   import: executable
