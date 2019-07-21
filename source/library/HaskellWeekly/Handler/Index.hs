@@ -55,7 +55,7 @@ html = do
           Lucid.footer_ [Lucid.class_ $ Data.Text.pack "gray mv3"]
             . Lucid.p_
             $ do
-                Lucid.toHtml "Content on this site is licensed under a "
+                Lucid.toHtml "The content on this site is licensed under a "
                 Lucid.a_
                     [ Lucid.class_ $ Data.Text.pack "color-inherit"
                     , Lucid.href_ $ Data.Text.pack
@@ -63,11 +63,12 @@ html = do
                     ]
                   $ Lucid.toHtml
                       "Creative Commons Attribution 4.0 International"
-                Lucid.toHtml " license. The "
+                Lucid.toHtml
+                  " license. The code that powers this site is available "
                 Lucid.a_
                     [ Lucid.class_ $ Data.Text.pack "color-inherit"
                     , Lucid.href_ $ Data.Text.pack
                       "https://github.com/haskellweekly/haskellweekly"
                     ]
-                  $ Lucid.toHtml "source code"
-                Lucid.toHtml " for this site is available on GitHub."
+                  $ Lucid.toHtml "on GitHub"
+                Lucid.toHtml "."
