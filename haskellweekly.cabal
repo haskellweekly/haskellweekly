@@ -58,6 +58,9 @@ library
   other-modules:
     HaskellWeekly.Application
     HaskellWeekly.Handler.Base
+    HaskellWeekly.Handler.Favicon
+    HaskellWeekly.Handler.Index
+    HaskellWeekly.Handler.Tachyons
     HaskellWeekly.Main
     HaskellWeekly.Middleware
     HaskellWeekly.Server
