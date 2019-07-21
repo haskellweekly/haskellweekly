@@ -15,6 +15,64 @@ import qualified Lucid
 import qualified Network.HTTP.Types
 import qualified Network.Wai
 
+application :: HaskellWeekly.Type.State.State -> Network.Wai.Application
+application state request respond =
+  case (requestMethod request, requestRoute request) of
+    ("GET", Just route) -> do
+      response <- handle state route
+      respond response
+    _ -> respond notFoundResponse
+
+requestMethod :: Network.Wai.Request -> String
+requestMethod =
+  Data.Text.unpack
+    . Data.Text.Encoding.decodeUtf8With Data.Text.Encoding.Error.lenientDecode
+    . Network.Wai.requestMethod
+
+requestRoute :: Network.Wai.Request -> Maybe HaskellWeekly.Type.Route.Route
+requestRoute =
+  HaskellWeekly.Type.Route.stringToRoute
+    . fmap Data.Text.unpack
+    . Network.Wai.pathInfo
+
+notFoundResponse :: Network.Wai.Response
+notFoundResponse = HaskellWeekly.Handler.Base.textResponse
+  Network.HTTP.Types.notFound404
+  []
+  "404 Not Found"
+
+handle
+  :: HaskellWeekly.Type.State.State
+  -> HaskellWeekly.Type.Route.Route
+  -> IO Network.Wai.Response
+handle state route = case route of
+  HaskellWeekly.Type.Route.RouteIndex -> indexHandler state
+  HaskellWeekly.Type.Route.RouteFavicon -> faviconHandler state
+  HaskellWeekly.Type.Route.RouteTachyons -> tachyonsHandler state
+
+indexHandler :: HaskellWeekly.Type.State.State -> IO Network.Wai.Response
+indexHandler state = do
+  [[True]] <- Database.PostgreSQL.Simple.query_
+    (HaskellWeekly.Type.State.stateDatabaseConnection state)
+    (Data.String.fromString "select true")
+  pure
+    . HaskellWeekly.Handler.Base.htmlResponse Network.HTTP.Types.ok200 []
+    $ defaultHtml "200 OK"
+
+faviconHandler
+  :: Applicative f => HaskellWeekly.Type.State.State -> f Network.Wai.Response
+faviconHandler state = pure $ HaskellWeekly.Handler.Base.fileResponse
+  state
+  "image/x-icon"
+  "favicon.ico"
+
+tachyonsHandler
+  :: Applicative f => HaskellWeekly.Type.State.State -> f Network.Wai.Response
+tachyonsHandler state = pure $ HaskellWeekly.Handler.Base.fileResponse
+  state
+  "text/css; charset=utf-8"
+  "tachyons-4-11-2.css"
+
 defaultHtml :: String -> Lucid.Html ()
 defaultHtml content = do
   Lucid.doctype_
@@ -63,45 +121,3 @@ defaultHtml content = do
                     ]
                   $ Lucid.toHtml "source code"
                 Lucid.toHtml " for this site is available on GitHub."
-
-application :: HaskellWeekly.Type.State.State -> Network.Wai.Application
-application state request respond = do
-  let
-    method =
-      Data.Text.unpack
-        . Data.Text.Encoding.decodeUtf8With
-            Data.Text.Encoding.Error.lenientDecode
-        $ Network.Wai.requestMethod request
-  response <- if method == "GET"
-    then do
-      let path = fmap Data.Text.unpack $ Network.Wai.pathInfo request
-      case HaskellWeekly.Type.Route.stringToRoute path of
-        Just route -> case route of
-          HaskellWeekly.Type.Route.RouteIndex -> do
-            [[True]] <- Database.PostgreSQL.Simple.query_
-              (HaskellWeekly.Type.State.stateDatabaseConnection state)
-              (Data.String.fromString "select true")
-            pure
-              . HaskellWeekly.Handler.Base.htmlResponse
-                  Network.HTTP.Types.ok200
-                  []
-              $ defaultHtml "200 OK"
-          HaskellWeekly.Type.Route.RouteFavicon ->
-            pure $ HaskellWeekly.Handler.Base.fileResponse
-              state
-              "image/x-icon"
-              "favicon.ico"
-          HaskellWeekly.Type.Route.RouteTachyons ->
-            pure $ HaskellWeekly.Handler.Base.fileResponse
-              state
-              "text/css; charset=utf-8"
-              "tachyons-4-11-2.css"
-        Nothing -> pure notFoundResponse
-    else pure notFoundResponse
-  respond response
-
-notFoundResponse :: Network.Wai.Response
-notFoundResponse = HaskellWeekly.Handler.Base.textResponse
-  Network.HTTP.Types.notFound404
-  []
-  "404 Not Found"
