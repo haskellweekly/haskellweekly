@@ -60,7 +60,7 @@ lbsResponse status extraHeaders body =
         $ Data.ByteString.Lazy.length body
     headers =
       (Network.HTTP.Types.hContentLength, contentLength) : extraHeaders
-  in seq contentLength $ Network.Wai.responseLBS status headers body
+  in Network.Wai.responseLBS status headers body
 
 textResponse
   :: Network.HTTP.Types.Status

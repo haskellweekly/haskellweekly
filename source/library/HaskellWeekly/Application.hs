@@ -94,11 +94,11 @@ application state request respond = do
           HaskellWeekly.Type.Route.RouteTachyons ->
             pure $ HaskellWeekly.Handler.Base.fileResponse
               state
-              "text/css"
+              "text/css; charset=utf-8"
               "tachyons-4-11-2.css"
         Nothing -> pure notFoundResponse
     else pure notFoundResponse
-  respond $! response
+  respond response
 
 notFoundResponse :: Network.Wai.Response
 notFoundResponse = HaskellWeekly.Handler.Base.textResponse
