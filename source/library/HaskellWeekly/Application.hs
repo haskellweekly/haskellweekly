@@ -6,6 +6,7 @@ where
 import qualified Data.Text
 import qualified Data.Text.Encoding
 import qualified Data.Text.Encoding.Error
+import qualified HaskellWeekly.Handler.Advertising
 import qualified HaskellWeekly.Handler.Base
 import qualified HaskellWeekly.Handler.Favicon
 import qualified HaskellWeekly.Handler.Index
@@ -46,6 +47,8 @@ handle
   -> HaskellWeekly.Type.Route.Route
   -> IO Network.Wai.Response
 handle state route = case route of
+  HaskellWeekly.Type.Route.RouteAdvertising ->
+    HaskellWeekly.Handler.Advertising.advertisingHandler
   HaskellWeekly.Type.Route.RouteIndex ->
     HaskellWeekly.Handler.Index.indexHandler state
   HaskellWeekly.Type.Route.RouteFavicon ->

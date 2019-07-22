@@ -57,6 +57,7 @@ library
   hs-source-dirs: source/library
   other-modules:
     HaskellWeekly.Application
+    HaskellWeekly.Handler.Advertising
     HaskellWeekly.Handler.Base
     HaskellWeekly.Handler.Favicon
     HaskellWeekly.Handler.Index
