@@ -7,10 +7,11 @@ where
 import qualified Database.PostgreSQL.Simple
 import qualified HaskellWeekly.Type.Config
 
-data State = State
-  { stateConfig :: HaskellWeekly.Type.Config.Config
-  , stateDatabaseConnection :: Database.PostgreSQL.Simple.Connection
-  }
+data State =
+  State
+    { stateConfig :: HaskellWeekly.Type.Config.Config
+    , stateDatabaseConnection :: Database.PostgreSQL.Simple.Connection
+    }
 
 configToState :: HaskellWeekly.Type.Config.Config -> IO State
 configToState config = do

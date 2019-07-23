@@ -12,11 +12,13 @@ import qualified Network.Wai.Handler.Warp
 import qualified System.Environment
 import qualified Text.Read
 
-data Config = Config
-  { configDatabaseUrl :: Data.ByteString.ByteString
-  , configDataDirectory :: FilePath
-  , configPort :: Network.Wai.Handler.Warp.Port
-  } deriving (Eq, Show)
+data Config =
+  Config
+    { configDatabaseUrl :: Data.ByteString.ByteString
+    , configDataDirectory :: FilePath
+    , configPort :: Network.Wai.Handler.Warp.Port
+    }
+  deriving (Eq, Show)
 
 getConfig :: IO Config
 getConfig = do
