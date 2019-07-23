@@ -65,6 +65,7 @@ library
     HaskellWeekly.Main
     HaskellWeekly.Middleware
     HaskellWeekly.Server
+    HaskellWeekly.Template.Base
     HaskellWeekly.Type.Config
     HaskellWeekly.Type.Route
     HaskellWeekly.Type.State
