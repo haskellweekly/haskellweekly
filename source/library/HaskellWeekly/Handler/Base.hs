@@ -1,10 +1,12 @@
 module HaskellWeekly.Handler.Base
   ( fileResponse
   , htmlResponse
+  , jsonResponse
   , textResponse
   )
 where
 
+import qualified Data.Aeson
 import qualified Data.ByteString.Lazy
 import qualified Data.Text
 import qualified Data.Text.Encoding
@@ -43,6 +45,20 @@ htmlResponse status extraHeaders html =
     body = Lucid.renderBS html
     contentType =
       Data.Text.Encoding.encodeUtf8 $ Data.Text.pack "text/html; charset=utf-8"
+    headers = (Network.HTTP.Types.hContentType, contentType) : extraHeaders
+  in lbsResponse status headers body
+
+jsonResponse
+  :: Data.Aeson.ToJSON a
+  => Network.HTTP.Types.Status
+  -> Network.HTTP.Types.ResponseHeaders
+  -> a
+  -> Network.Wai.Response
+jsonResponse status extraHeaders json =
+  let
+    body = Data.Aeson.encode json
+    contentType = Data.Text.Encoding.encodeUtf8
+      $ Data.Text.pack "application/json; charset=utf-8"
     headers = (Network.HTTP.Types.hContentType, contentType) : extraHeaders
   in lbsResponse status headers body
 

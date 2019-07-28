@@ -9,6 +9,7 @@ import qualified Data.Text.Encoding.Error
 import qualified HaskellWeekly.Handler.Advertising
 import qualified HaskellWeekly.Handler.Base
 import qualified HaskellWeekly.Handler.Favicon
+import qualified HaskellWeekly.Handler.HealthCheck
 import qualified HaskellWeekly.Handler.Index
 import qualified HaskellWeekly.Handler.Tachyons
 import qualified HaskellWeekly.Type.Route
@@ -50,7 +51,9 @@ handle state route = case route of
   HaskellWeekly.Type.Route.RouteAdvertising ->
     HaskellWeekly.Handler.Advertising.advertisingHandler
   HaskellWeekly.Type.Route.RouteIndex ->
-    HaskellWeekly.Handler.Index.indexHandler state
+    HaskellWeekly.Handler.Index.indexHandler
+  HaskellWeekly.Type.Route.RouteHealthCheck ->
+    HaskellWeekly.Handler.HealthCheck.healthCheckHandler state
   HaskellWeekly.Type.Route.RouteFavicon ->
     HaskellWeekly.Handler.Favicon.faviconHandler state
   HaskellWeekly.Type.Route.RouteTachyons ->
