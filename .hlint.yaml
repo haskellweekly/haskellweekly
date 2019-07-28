@@ -1,0 +1,14 @@
+# https://github.com/ndmitchell/hlint
+- extensions:
+  - default: false
+  - name: OverloadedStrings
+- flags:
+  - default: false
+- group:
+    enabled: true
+    name: dollar
+- group:
+    enabled: true
+    name: generalise
+- ignore:
+    name: Use <$>

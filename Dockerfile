@@ -1,3 +1,4 @@
+# https://docs.docker.com/engine/reference/builder/
 FROM alpine:3.10.1
 
   WORKDIR /opt/haskellweekly

@@ -1,0 +1,4 @@
+# https://github.com/chrisdone/hindent
+force-trailing-newline: true
+line-length: 79
+sort-imports: true

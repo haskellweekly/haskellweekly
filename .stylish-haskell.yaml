@@ -1,0 +1,22 @@
+# https://github.com/jaspervdj/stylish-haskell
+columns: 79
+newline: lf
+steps:
+  - simple_align:
+      cases: false
+      top_level_patterns: false
+      records: false
+  - imports:
+      align: none
+      empty_list_align: inherit
+      list_align: after_alias
+      list_padding: 2
+      long_list_align: inline
+      pad_module_names: false
+      separate_lists: true
+      space_surround: false
+  - language_pragmas:
+      align: false
+      remove_redundant: true
+      style: compact_line
+  - trailing_whitespace: {}
