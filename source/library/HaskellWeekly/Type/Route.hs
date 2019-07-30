@@ -34,12 +34,12 @@ stringToRoute path = case path of
   ["advertising.html"] -> Just RouteAdvertising
   ["favicon.ico"] -> Just RouteFavicon
   ["health-check.json"] -> Just RouteHealthCheck
+  ["podcast", ""] -> Just RoutePodcast
+  ["tachyons-4-11-2.css"] -> Just RouteTachyons
   ["index.html"] -> Just . RouteRedirect $ routeToRedirect RouteIndex
   ["podcast"] -> Just . RouteRedirect $ routeToRedirect RoutePodcast
   ["podcast", "index.html"] ->
     Just . RouteRedirect $ routeToRedirect RoutePodcast
-  ["podcast", ""] -> Just RoutePodcast
-  ["tachyons-4-11-2.css"] -> Just RouteTachyons
   _ -> Nothing
 
 routeToRedirect :: Route -> HaskellWeekly.Type.Redirect.Redirect
