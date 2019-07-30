@@ -17,7 +17,6 @@ healthCheckHandler state = do
   [[True]] <- Database.PostgreSQL.Simple.query_
     (HaskellWeekly.Type.State.stateDatabaseConnection state)
     (Data.String.fromString "select true")
-  pure . HaskellWeekly.Handler.Base.jsonResponse
-    Network.HTTP.Types.ok200
-    []
+  pure
+    . HaskellWeekly.Handler.Base.jsonResponse Network.HTTP.Types.ok200 []
     $ Data.Aeson.object [Data.Text.pack "healthy" Data.Aeson..= True]

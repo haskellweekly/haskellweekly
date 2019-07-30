@@ -64,6 +64,7 @@ library
     HaskellWeekly.Handler.Favicon
     HaskellWeekly.Handler.HealthCheck
     HaskellWeekly.Handler.Index
+    HaskellWeekly.Handler.Podcast
     HaskellWeekly.Handler.Tachyons
     HaskellWeekly.Main
     HaskellWeekly.Middleware

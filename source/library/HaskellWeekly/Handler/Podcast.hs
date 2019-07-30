@@ -1,5 +1,5 @@
-module HaskellWeekly.Handler.Index
-  ( indexHandler
+module HaskellWeekly.Handler.Podcast
+  ( podcastHandler
   )
 where
 
@@ -9,9 +9,9 @@ import qualified Lucid
 import qualified Network.HTTP.Types
 import qualified Network.Wai
 
-indexHandler :: Applicative f => f Network.Wai.Response
-indexHandler = pure
+podcastHandler :: Applicative f => f Network.Wai.Response
+podcastHandler = pure
   $ HaskellWeekly.Handler.Base.htmlResponse Network.HTTP.Types.ok200 [] html
 
 html :: Lucid.Html ()
-html = HaskellWeekly.Template.Base.baseTemplate [] $ Lucid.toHtml "Index"
+html = HaskellWeekly.Template.Base.baseTemplate [] $ Lucid.toHtml "Podcast"
