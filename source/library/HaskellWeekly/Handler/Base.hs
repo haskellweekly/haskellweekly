@@ -2,6 +2,7 @@ module HaskellWeekly.Handler.Base
   ( fileResponse
   , htmlResponse
   , jsonResponse
+  , lbsResponse
   , textResponse
   )
 where

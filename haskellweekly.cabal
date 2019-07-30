@@ -65,12 +65,14 @@ library
     HaskellWeekly.Handler.HealthCheck
     HaskellWeekly.Handler.Index
     HaskellWeekly.Handler.Podcast
+    HaskellWeekly.Handler.Redirect
     HaskellWeekly.Handler.Tachyons
     HaskellWeekly.Main
     HaskellWeekly.Middleware
     HaskellWeekly.Server
     HaskellWeekly.Template.Base
     HaskellWeekly.Type.Config
+    HaskellWeekly.Type.Redirect
     HaskellWeekly.Type.Route
     HaskellWeekly.Type.State
     Paths_haskellweekly
