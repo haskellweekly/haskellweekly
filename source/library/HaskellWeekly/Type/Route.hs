@@ -5,10 +5,13 @@ module HaskellWeekly.Type.Route
   )
 where
 
+import qualified HaskellWeekly.Type.EpisodeId
 import qualified HaskellWeekly.Type.Redirect
+import qualified System.FilePath
 
 data Route
   = RouteAdvertising
+  | RouteEpisode HaskellWeekly.Type.EpisodeId.EpisodeId
   | RouteHealthCheck
   | RouteIndex
   | RouteFavicon
@@ -20,9 +23,13 @@ data Route
 routeToString :: Route -> String
 routeToString route = case route of
   RouteAdvertising -> "/advertising.html"
+  RouteEpisode episodeId ->
+    "/podcast/episodes/"
+      <> HaskellWeekly.Type.EpisodeId.episodeIdToString episodeId
+      <> ".html"
+  RouteFavicon -> "/favicon.ico"
   RouteHealthCheck -> "/health-check.json"
   RouteIndex -> "/"
-  RouteFavicon -> "/favicon.ico"
   RoutePodcast -> "/podcast/"
   RouteRedirect redirect ->
     HaskellWeekly.Type.Redirect.redirectToString redirect
@@ -35,7 +42,15 @@ stringToRoute path = case path of
   ["favicon.ico"] -> Just RouteFavicon
   ["health-check.json"] -> Just RouteHealthCheck
   ["podcast", ""] -> Just RoutePodcast
+  ["podcast", "episodes", file] ->
+    case System.FilePath.stripExtension "html" file of
+      Nothing -> Nothing
+      Just string ->
+        case HaskellWeekly.Type.EpisodeId.stringToEpisodeId string of
+          Left _ -> Nothing
+          Right episodeId -> Just $ RouteEpisode episodeId
   ["tachyons-4-11-2.css"] -> Just RouteTachyons
+--
   ["index.html"] -> Just . RouteRedirect $ routeToRedirect RouteIndex
   ["podcast"] -> Just . RouteRedirect $ routeToRedirect RoutePodcast
   ["podcast", "index.html"] ->

@@ -61,6 +61,7 @@ library
     HaskellWeekly.Application
     HaskellWeekly.Handler.Advertising
     HaskellWeekly.Handler.Base
+    HaskellWeekly.Handler.Episode
     HaskellWeekly.Handler.Favicon
     HaskellWeekly.Handler.HealthCheck
     HaskellWeekly.Handler.Index
@@ -72,6 +73,7 @@ library
     HaskellWeekly.Server
     HaskellWeekly.Template.Base
     HaskellWeekly.Type.Config
+    HaskellWeekly.Type.EpisodeId
     HaskellWeekly.Type.Redirect
     HaskellWeekly.Type.Route
     HaskellWeekly.Type.State
