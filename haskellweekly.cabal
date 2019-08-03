@@ -65,6 +65,7 @@ library
     HaskellWeekly.Handler.Favicon
     HaskellWeekly.Handler.HealthCheck
     HaskellWeekly.Handler.Index
+    HaskellWeekly.Handler.Issue
     HaskellWeekly.Handler.Podcast
     HaskellWeekly.Handler.Redirect
     HaskellWeekly.Handler.Tachyons
@@ -74,6 +75,7 @@ library
     HaskellWeekly.Template.Base
     HaskellWeekly.Type.Config
     HaskellWeekly.Type.EpisodeNumber
+    HaskellWeekly.Type.IssueNumber
     HaskellWeekly.Type.Redirect
     HaskellWeekly.Type.Route
     HaskellWeekly.Type.State
