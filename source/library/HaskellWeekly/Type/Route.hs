@@ -50,7 +50,6 @@ stringToRoute path = case path of
           Left _ -> Nothing
           Right episodeId -> Just $ RouteEpisode episodeId
   ["tachyons-4-11-2.css"] -> Just RouteTachyons
---
   ["index.html"] -> Just . RouteRedirect $ routeToRedirect RouteIndex
   ["podcast"] -> Just . RouteRedirect $ routeToRedirect RoutePodcast
   ["podcast", "index.html"] ->

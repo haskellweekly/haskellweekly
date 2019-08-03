@@ -14,4 +14,5 @@ indexHandler = pure
   $ HaskellWeekly.Handler.Base.htmlResponse Network.HTTP.Types.ok200 [] html
 
 html :: Lucid.Html ()
-html = HaskellWeekly.Template.Base.baseTemplate [] $ Lucid.toHtml "Index"
+html =
+  HaskellWeekly.Template.Base.baseTemplate [] . Lucid.p_ $ Lucid.toHtml "TODO"

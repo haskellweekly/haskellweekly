@@ -3,6 +3,7 @@ module HaskellWeekly.Handler.Podcast
   )
 where
 
+import qualified Data.Text
 import qualified HaskellWeekly.Handler.Base
 import qualified HaskellWeekly.Template.Base
 import qualified Lucid
@@ -14,4 +15,6 @@ podcastHandler = pure
   $ HaskellWeekly.Handler.Base.htmlResponse Network.HTTP.Types.ok200 [] html
 
 html :: Lucid.Html ()
-html = HaskellWeekly.Template.Base.baseTemplate [] $ Lucid.toHtml "Podcast"
+html = HaskellWeekly.Template.Base.baseTemplate [] $ do
+  Lucid.h2_ [Lucid.class_ $ Data.Text.pack "f2"] $ Lucid.toHtml "Podcast"
+  Lucid.p_ $ Lucid.toHtml "TODO"
