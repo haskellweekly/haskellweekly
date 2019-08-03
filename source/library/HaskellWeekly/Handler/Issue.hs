@@ -24,11 +24,12 @@ html :: HaskellWeekly.Type.IssueNumber.IssueNumber -> Lucid.Html ()
 html issueNumber =
   HaskellWeekly.Template.Base.baseTemplate ["Newsletter", title issueNumber]
     $ do
-        Lucid.h2_ [Lucid.class_ $ Data.Text.pack "f2"] $ Lucid.toHtml "Newsletter"
+        Lucid.h2_ [Lucid.class_ $ Data.Text.pack "f2"]
+          $ Lucid.toHtml "Newsletter"
         Lucid.h3_ [Lucid.class_ $ Data.Text.pack "f3"] . Lucid.toHtml $ title
           issueNumber
         Lucid.p_ $ Lucid.toHtml "TODO"
 
 title :: HaskellWeekly.Type.IssueNumber.IssueNumber -> String
-title issueNumber = "Issue "
-  <> HaskellWeekly.Type.IssueNumber.issueNumberToString issueNumber
+title issueNumber =
+  "Issue " <> HaskellWeekly.Type.IssueNumber.issueNumberToString issueNumber

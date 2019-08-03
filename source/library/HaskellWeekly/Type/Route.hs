@@ -17,6 +17,7 @@ data Route
   | RouteHealthCheck
   | RouteIndex
   | RouteIssue HaskellWeekly.Type.IssueNumber.IssueNumber
+  | RouteNewsletterFeed
   | RoutePodcast
   | RouteRedirect HaskellWeekly.Type.Redirect.Redirect
   | RouteTachyons
@@ -36,6 +37,7 @@ routeToString route = case route of
     "/podcast/issues/"
       <> HaskellWeekly.Type.IssueNumber.issueNumberToString issueNumber
       <> ".html"
+  RouteNewsletterFeed -> "/haskell-weekly.atom"
   RoutePodcast -> "/podcast/"
   RouteRedirect redirect ->
     HaskellWeekly.Type.Redirect.redirectToString redirect
@@ -46,6 +48,7 @@ stringToRoute path = case path of
   [] -> Just RouteIndex
   ["advertising.html"] -> Just RouteAdvertising
   ["favicon.ico"] -> Just RouteFavicon
+  ["haskell-weekly.atom"] -> Just RouteNewsletterFeed
   ["health-check.json"] -> Just RouteHealthCheck
   ["issues", file] -> case System.FilePath.stripExtension "html" file of
     Nothing -> Nothing

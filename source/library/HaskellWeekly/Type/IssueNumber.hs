@@ -20,8 +20,7 @@ issueNumberToNatural (IssueNumber natural) = natural
 issueNumberToString :: IssueNumber -> String
 issueNumberToString = show . issueNumberToNatural
 
-naturalToIssueNumber
-  :: Numeric.Natural.Natural -> Either String IssueNumber
+naturalToIssueNumber :: Numeric.Natural.Natural -> Either String IssueNumber
 naturalToIssueNumber natural = if natural < 1
   then Left $ "invalid IssueNumber: " <> show natural
   else Right $ IssueNumber natural

@@ -66,6 +66,7 @@ library
     HaskellWeekly.Handler.HealthCheck
     HaskellWeekly.Handler.Index
     HaskellWeekly.Handler.Issue
+    HaskellWeekly.Handler.NewsletterFeed
     HaskellWeekly.Handler.Podcast
     HaskellWeekly.Handler.Redirect
     HaskellWeekly.Handler.Tachyons
