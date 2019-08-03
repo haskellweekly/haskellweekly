@@ -19,6 +19,7 @@ data Route
   | RouteIssue HaskellWeekly.Type.IssueNumber.IssueNumber
   | RouteNewsletterFeed
   | RoutePodcast
+  | RoutePodcastFeed
   | RouteRedirect HaskellWeekly.Type.Redirect.Redirect
   | RouteTachyons
   deriving (Eq, Show)
@@ -39,6 +40,7 @@ routeToString route = case route of
       <> ".html"
   RouteNewsletterFeed -> "/haskell-weekly.atom"
   RoutePodcast -> "/podcast/"
+  RoutePodcastFeed -> "/podcast/feed.rss"
   RouteRedirect redirect ->
     HaskellWeekly.Type.Redirect.redirectToString redirect
   RouteTachyons -> "/tachyons-4-11-2.css"
@@ -64,6 +66,7 @@ stringToRoute path = case path of
         case HaskellWeekly.Type.EpisodeNumber.stringToEpisodeNumber string of
           Left _ -> Nothing
           Right episodeNumber -> Just $ RouteEpisode episodeNumber
+  ["podcast", "feed.rss"] -> Just RoutePodcastFeed
   ["tachyons-4-11-2.css"] -> Just RouteTachyons
   ["index.html"] -> Just . RouteRedirect $ routeToRedirect RouteIndex
   ["podcast"] -> Just . RouteRedirect $ routeToRedirect RoutePodcast
