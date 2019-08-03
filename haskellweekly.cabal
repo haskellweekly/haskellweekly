@@ -73,7 +73,7 @@ library
     HaskellWeekly.Server
     HaskellWeekly.Template.Base
     HaskellWeekly.Type.Config
-    HaskellWeekly.Type.EpisodeId
+    HaskellWeekly.Type.EpisodeNumber
     HaskellWeekly.Type.Redirect
     HaskellWeekly.Type.Route
     HaskellWeekly.Type.State
