@@ -87,6 +87,7 @@ library
     HaskellWeekly.Template.Index
     HaskellWeekly.Template.Issue
     HaskellWeekly.Template.Podcast
+    HaskellWeekly.Template.PodcastFeed
     HaskellWeekly.Type.Config
     HaskellWeekly.Type.Episode
     HaskellWeekly.Type.Number
