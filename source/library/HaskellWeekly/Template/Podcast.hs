@@ -5,10 +5,32 @@ module HaskellWeekly.Template.Podcast
   )
 where
 
+import qualified Data.List
+import qualified Data.Ord
+import qualified Data.Text
 import qualified HaskellWeekly.Template.Base
+import qualified HaskellWeekly.Type.Episode
+import qualified HaskellWeekly.Type.Route
+import qualified HaskellWeekly.Type.Title
 import qualified Lucid as H
 
-podcastTemplate :: H.Html ()
-podcastTemplate = HaskellWeekly.Template.Base.baseTemplate [] $ do
+podcastTemplate :: [HaskellWeekly.Type.Episode.Episode] -> H.Html ()
+podcastTemplate episodes = HaskellWeekly.Template.Base.baseTemplate [] $ do
   H.h2_ [H.class_ "f2"] "Podcast"
-  H.p_ "TODO"
+  H.ul_ . mapM_ episodeTemplate $ Data.List.sortOn
+    (Data.Ord.Down . HaskellWeekly.Type.Episode.episodeNumber)
+    episodes
+
+episodeTemplate :: HaskellWeekly.Type.Episode.Episode -> H.Html ()
+episodeTemplate episode =
+  H.li_
+    . H.a_
+        [ H.href_
+          . Data.Text.pack
+          . HaskellWeekly.Type.Route.routeToString
+          . HaskellWeekly.Type.Route.RouteEpisode
+          $ HaskellWeekly.Type.Episode.episodeNumber episode
+        ]
+    . H.toHtml
+    . HaskellWeekly.Type.Title.titleToString
+    $ HaskellWeekly.Type.Episode.episodeTitle episode
