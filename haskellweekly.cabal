@@ -83,6 +83,7 @@ library
     HaskellWeekly.Server
     HaskellWeekly.Template.Advertising
     HaskellWeekly.Template.Base
+    HaskellWeekly.Template.Episode
     HaskellWeekly.Type.Config
     HaskellWeekly.Type.Episode
     HaskellWeekly.Type.Number
