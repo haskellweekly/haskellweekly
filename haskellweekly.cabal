@@ -84,6 +84,7 @@ library
     HaskellWeekly.Template.Advertising
     HaskellWeekly.Template.Base
     HaskellWeekly.Template.Episode
+    HaskellWeekly.Template.Issue
     HaskellWeekly.Template.Podcast
     HaskellWeekly.Type.Config
     HaskellWeekly.Type.Episode
