@@ -50,7 +50,7 @@ handle state route = case route of
   HaskellWeekly.Type.Route.RouteAdvertising ->
     HaskellWeekly.Handler.Advertising.advertisingHandler
   HaskellWeekly.Type.Route.RouteEpisode episodeNumber ->
-    HaskellWeekly.Handler.Episode.episodeHandler episodeNumber
+    HaskellWeekly.Handler.Episode.episodeHandler state episodeNumber
   HaskellWeekly.Type.Route.RouteFavicon ->
     HaskellWeekly.Handler.Favicon.faviconHandler state
   HaskellWeekly.Type.Route.RouteHealthCheck ->
