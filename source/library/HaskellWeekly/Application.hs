@@ -20,7 +20,6 @@ import qualified HaskellWeekly.Handler.Redirect
 import qualified HaskellWeekly.Handler.Tachyons
 import qualified HaskellWeekly.Type.Route
 import qualified HaskellWeekly.Type.State
-import qualified Network.HTTP.Types
 import qualified Network.Wai
 
 application :: HaskellWeekly.Type.State.State -> Network.Wai.Application
@@ -29,7 +28,7 @@ application state request respond =
     ("GET", Just route) -> do
       response <- handle state route
       respond response
-    _ -> respond notFoundResponse
+    _ -> respond HaskellWeekly.Handler.Base.notFoundResponse
 
 requestMethod :: Network.Wai.Request -> String
 requestMethod =
@@ -42,12 +41,6 @@ requestRoute =
   HaskellWeekly.Type.Route.stringToRoute
     . fmap Data.Text.unpack
     . Network.Wai.pathInfo
-
-notFoundResponse :: Network.Wai.Response
-notFoundResponse = HaskellWeekly.Handler.Base.textResponse
-  Network.HTTP.Types.notFound404
-  []
-  "404 Not Found"
 
 handle
   :: HaskellWeekly.Type.State.State

@@ -20,10 +20,7 @@ episodeHandler
 episodeHandler episodeNumber = case HaskellWeekly.Episodes.episodes of
   Left problem -> fail problem
   Right episodes -> pure $ case Data.Map.lookup episodeNumber episodes of
-    Nothing -> HaskellWeekly.Handler.Base.textResponse
-      Network.HTTP.Types.notFound404
-      []
-      "404 Not Found"
+    Nothing -> HaskellWeekly.Handler.Base.notFoundResponse
     Just episode ->
       HaskellWeekly.Handler.Base.htmlResponse Network.HTTP.Types.ok200 []
         $ html episode

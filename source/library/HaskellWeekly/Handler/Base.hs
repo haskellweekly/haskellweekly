@@ -4,6 +4,7 @@ module HaskellWeekly.Handler.Base
   , htmlResponse
   , jsonResponse
   , lbsResponse
+  , notFoundResponse
   , textResponse
   )
 where
@@ -99,6 +100,10 @@ lbsResponse status extraHeaders body =
     headers =
       (Network.HTTP.Types.hContentLength, contentLength) : extraHeaders
   in Network.Wai.responseLBS status headers body
+
+notFoundResponse :: Network.Wai.Response
+notFoundResponse =
+  textResponse Network.HTTP.Types.notFound404 [] "404 Not Found"
 
 textResponse
   :: Network.HTTP.Types.Status
