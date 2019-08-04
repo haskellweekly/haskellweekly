@@ -80,6 +80,7 @@ library
     HaskellWeekly.Server
     HaskellWeekly.Template.Base
     HaskellWeekly.Type.Config
+    HaskellWeekly.Type.Episode
     HaskellWeekly.Type.EpisodeNumber
     HaskellWeekly.Type.IssueNumber
     HaskellWeekly.Type.Redirect
