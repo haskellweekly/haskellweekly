@@ -36,11 +36,7 @@ feedResponse status extraHeaders feed =
     mime = case feed of
       Text.Feed.Types.AtomFeed _ -> "application/atom+xml; charset=utf-8"
       _ -> "application/rss+xml; charset=utf-8"
-    headers =
-      ( Network.HTTP.Types.hContentType
-        , Data.Text.Encoding.encodeUtf8 $ Data.Text.pack mime
-        )
-        : extraHeaders
+    headers = withContentType mime extraHeaders
     prologue = Data.XML.Types.Prologue [] Nothing []
     element = Text.Feed.Export.xmlFeed feed
     document = Data.XML.Types.Document prologue element []
@@ -51,20 +47,19 @@ feedResponse status extraHeaders feed =
   in lbsResponse status headers body
 
 fileResponse
-  :: HaskellWeekly.Type.State.State -> String -> String -> Network.Wai.Response
-fileResponse state mime file = Network.Wai.responseFile
-  Network.HTTP.Types.ok200
-  [ ( Network.HTTP.Types.hContentType
-    , Data.Text.Encoding.encodeUtf8 $ Data.Text.pack mime
-    )
-  ]
-  (System.FilePath.combine
-    (HaskellWeekly.Type.Config.configDataDirectory
-    $ HaskellWeekly.Type.State.stateConfig state
-    )
-    file
-  )
-  Nothing
+  :: HaskellWeekly.Type.State.State
+  -> String
+  -> FilePath
+  -> Network.Wai.Response
+fileResponse state mime file =
+  let
+    headers = withContentType mime []
+    path = System.FilePath.combine
+      (HaskellWeekly.Type.Config.configDataDirectory
+      $ HaskellWeekly.Type.State.stateConfig state
+      )
+      file
+  in Network.Wai.responseFile Network.HTTP.Types.ok200 headers path Nothing
 
 htmlResponse
   :: Network.HTTP.Types.Status
@@ -74,9 +69,7 @@ htmlResponse
 htmlResponse status extraHeaders html =
   let
     body = Lucid.renderBS html
-    contentType =
-      Data.Text.Encoding.encodeUtf8 $ Data.Text.pack "text/html; charset=utf-8"
-    headers = (Network.HTTP.Types.hContentType, contentType) : extraHeaders
+    headers = withContentType "text/html; charset=utf-8" extraHeaders
   in lbsResponse status headers body
 
 jsonResponse
@@ -88,9 +81,7 @@ jsonResponse
 jsonResponse status extraHeaders json =
   let
     body = Data.Aeson.encode json
-    contentType = Data.Text.Encoding.encodeUtf8
-      $ Data.Text.pack "application/json; charset=utf-8"
-    headers = (Network.HTTP.Types.hContentType, contentType) : extraHeaders
+    headers = withContentType "application/json; charset=utf-8" extraHeaders
   in lbsResponse status headers body
 
 lbsResponse
@@ -117,7 +108,15 @@ textResponse
 textResponse status extraHeaders text =
   let
     body = Data.Text.Lazy.Encoding.encodeUtf8 $ Data.Text.Lazy.pack text
-    contentType = Data.Text.Encoding.encodeUtf8
-      $ Data.Text.pack "text/plain; charset=utf-8"
-    headers = (Network.HTTP.Types.hContentType, contentType) : extraHeaders
+    headers = withContentType "text/plain; charset=utf-8" extraHeaders
   in lbsResponse status headers body
+
+withContentType
+  :: String
+  -> Network.HTTP.Types.ResponseHeaders
+  -> Network.HTTP.Types.ResponseHeaders
+withContentType mime headers =
+  ( Network.HTTP.Types.hContentType
+    , Data.Text.Encoding.encodeUtf8 $ Data.Text.pack mime
+    )
+    : headers
