@@ -18,12 +18,16 @@ episodes
            HaskellWeekly.Type.Episode.Episode
        )
 episodes = do
-  es <- Data.Traversable.sequenceA [HaskellWeekly.Episodes.Episode1.episode1]
-  checkEpisodeNumbers es
+  validEpisodes <- Data.Traversable.sequenceA
+    [HaskellWeekly.Episodes.Episode1.episode1]
+  checkEpisodeNumbers validEpisodes
   pure $ foldr
-    (\e -> Data.Map.insert (HaskellWeekly.Type.Episode.episodeNumber e) e)
+    (\episode -> Data.Map.insert
+      (HaskellWeekly.Type.Episode.episodeNumber episode)
+      episode
+    )
     Data.Map.empty
-    es
+    validEpisodes
 
 checkEpisodeNumbers :: [HaskellWeekly.Type.Episode.Episode] -> Either String ()
 checkEpisodeNumbers =
