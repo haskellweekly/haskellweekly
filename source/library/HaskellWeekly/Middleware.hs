@@ -29,11 +29,13 @@ addSecurityHeaders =
 addHeader
   :: String
   -> String
-  -> [Network.HTTP.Types.Header]
-  -> [Network.HTTP.Types.Header]
-addHeader name value headers =
+  -> Network.HTTP.Types.ResponseHeaders
+  -> Network.HTTP.Types.ResponseHeaders
+addHeader name value headers = makeHeader name value : headers
+
+makeHeader :: String -> String -> Network.HTTP.Types.Header
+makeHeader name value =
   ( Data.CaseInsensitive.mk . Data.Text.Encoding.encodeUtf8 $ Data.Text.pack
-      name
-    , Data.Text.Encoding.encodeUtf8 $ Data.Text.pack value
-    )
-    : headers
+    name
+  , Data.Text.Encoding.encodeUtf8 $ Data.Text.pack value
+  )
