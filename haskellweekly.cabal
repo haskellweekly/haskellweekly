@@ -81,6 +81,7 @@ library
     HaskellWeekly.Main
     HaskellWeekly.Middleware
     HaskellWeekly.Server
+    HaskellWeekly.Template.Advertising
     HaskellWeekly.Template.Base
     HaskellWeekly.Type.Config
     HaskellWeekly.Type.Episode
