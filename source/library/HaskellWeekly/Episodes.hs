@@ -8,19 +8,19 @@ import qualified Data.Map
 import qualified Data.Traversable
 import qualified HaskellWeekly.Episodes.Episode1
 import qualified HaskellWeekly.Type.Episode
-import qualified HaskellWeekly.Type.EpisodeNumber
+import qualified HaskellWeekly.Type.Number
 
 episodes
   :: Either
        String
        ( Data.Map.Map
-           HaskellWeekly.Type.EpisodeNumber.EpisodeNumber
+           HaskellWeekly.Type.Number.Number
            HaskellWeekly.Type.Episode.Episode
        )
 episodes = do
   validEpisodes <- Data.Traversable.sequenceA
     [HaskellWeekly.Episodes.Episode1.episode1]
-  checkEpisodeNumbers validEpisodes
+  checkNumbers validEpisodes
   pure $ foldr
     (\episode -> Data.Map.insert
       (HaskellWeekly.Type.Episode.episodeNumber episode)
@@ -29,12 +29,12 @@ episodes = do
     Data.Map.empty
     validEpisodes
 
-checkEpisodeNumbers :: [HaskellWeekly.Type.Episode.Episode] -> Either String ()
-checkEpisodeNumbers =
+checkNumbers :: [HaskellWeekly.Type.Episode.Episode] -> Either String ()
+checkNumbers =
   Data.Bool.bool (Left "invalid episode numbers") (Right ())
     . all (uncurry (==))
     . zip [1 ..]
     . fmap
-        (HaskellWeekly.Type.EpisodeNumber.episodeNumberToNatural
+        (HaskellWeekly.Type.Number.numberToNatural
         . HaskellWeekly.Type.Episode.episodeNumber
         )

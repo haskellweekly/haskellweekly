@@ -8,7 +8,7 @@ import qualified Data.Text
 import qualified HaskellWeekly.Handler.Base
 import qualified HaskellWeekly.Template.Base
 import qualified HaskellWeekly.Type.Episode
-import qualified HaskellWeekly.Type.EpisodeNumber
+import qualified HaskellWeekly.Type.Number
 import qualified HaskellWeekly.Type.State
 import qualified HaskellWeekly.Type.Title
 import qualified Lucid
@@ -18,13 +18,12 @@ import qualified Network.Wai
 episodeHandler
   :: Applicative f
   => HaskellWeekly.Type.State.State
-  -> HaskellWeekly.Type.EpisodeNumber.EpisodeNumber
+  -> HaskellWeekly.Type.Number.Number
   -> f Network.Wai.Response
-episodeHandler state episodeNumber =
+episodeHandler state number =
   pure
     $ case
-        Data.Map.lookup episodeNumber
-          $ HaskellWeekly.Type.State.stateEpisodes state
+        Data.Map.lookup number $ HaskellWeekly.Type.State.stateEpisodes state
       of
         Nothing -> HaskellWeekly.Handler.Base.notFoundResponse
         Just episode ->

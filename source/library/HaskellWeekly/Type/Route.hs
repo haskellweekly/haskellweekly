@@ -5,18 +5,17 @@ module HaskellWeekly.Type.Route
   )
 where
 
-import qualified HaskellWeekly.Type.EpisodeNumber
-import qualified HaskellWeekly.Type.IssueNumber
+import qualified HaskellWeekly.Type.Number
 import qualified HaskellWeekly.Type.Redirect
 import qualified System.FilePath
 
 data Route
   = RouteAdvertising
-  | RouteEpisode HaskellWeekly.Type.EpisodeNumber.EpisodeNumber
+  | RouteEpisode HaskellWeekly.Type.Number.Number
   | RouteFavicon
   | RouteHealthCheck
   | RouteIndex
-  | RouteIssue HaskellWeekly.Type.IssueNumber.IssueNumber
+  | RouteIssue HaskellWeekly.Type.Number.Number
   | RouteNewsletterFeed
   | RoutePodcast
   | RoutePodcastFeed
@@ -27,16 +26,16 @@ data Route
 routeToString :: Route -> String
 routeToString route = case route of
   RouteAdvertising -> "/advertising.html"
-  RouteEpisode episodeNumber ->
+  RouteEpisode number ->
     "/podcast/episodes/"
-      <> HaskellWeekly.Type.EpisodeNumber.episodeNumberToString episodeNumber
+      <> HaskellWeekly.Type.Number.numberToString number
       <> ".html"
   RouteFavicon -> "/favicon.ico"
   RouteHealthCheck -> "/health-check.json"
   RouteIndex -> "/"
-  RouteIssue issueNumber ->
+  RouteIssue number ->
     "/podcast/issues/"
-      <> HaskellWeekly.Type.IssueNumber.issueNumberToString issueNumber
+      <> HaskellWeekly.Type.Number.numberToString number
       <> ".html"
   RouteNewsletterFeed -> "/haskell-weekly.atom"
   RoutePodcast -> "/podcast/"
@@ -54,18 +53,16 @@ stringToRoute path = case path of
   ["health-check.json"] -> Just RouteHealthCheck
   ["issues", file] -> case System.FilePath.stripExtension "html" file of
     Nothing -> Nothing
-    Just string ->
-      case HaskellWeekly.Type.IssueNumber.stringToIssueNumber string of
-        Left _ -> Nothing
-        Right issueNumber -> Just $ RouteIssue issueNumber
+    Just string -> case HaskellWeekly.Type.Number.stringToNumber string of
+      Left _ -> Nothing
+      Right number -> Just $ RouteIssue number
   ["podcast", ""] -> Just RoutePodcast
   ["podcast", "episodes", file] ->
     case System.FilePath.stripExtension "html" file of
       Nothing -> Nothing
-      Just string ->
-        case HaskellWeekly.Type.EpisodeNumber.stringToEpisodeNumber string of
-          Left _ -> Nothing
-          Right episodeNumber -> Just $ RouteEpisode episodeNumber
+      Just string -> case HaskellWeekly.Type.Number.stringToNumber string of
+        Left _ -> Nothing
+        Right number -> Just $ RouteEpisode number
   ["podcast", "feed.rss"] -> Just RoutePodcastFeed
   ["tachyons-4-11-2.css"] -> Just RouteTachyons
   ["index.html"] -> Just . RouteRedirect $ routeToRedirect RouteIndex
