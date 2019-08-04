@@ -4,8 +4,11 @@ module HaskellWeekly.Type.Episode
 where
 
 import qualified HaskellWeekly.Type.EpisodeNumber
+import qualified HaskellWeekly.Type.Title
 
-newtype Episode = Episode
-  { episodeNumber :: HaskellWeekly.Type.EpisodeNumber.EpisodeNumber
-  } deriving (Eq, Show)
-
+data Episode =
+  Episode
+    { episodeNumber :: HaskellWeekly.Type.EpisodeNumber.EpisodeNumber
+    , episodeTitle :: HaskellWeekly.Type.Title.Title
+    }
+  deriving (Eq, Show)
