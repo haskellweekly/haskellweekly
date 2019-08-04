@@ -8,7 +8,9 @@ where
 import qualified Data.Char
 import qualified Data.Text
 
-newtype Title = Title Data.Text.Text deriving (Eq, Show)
+newtype Title =
+  Title Data.Text.Text
+  deriving (Eq, Show)
 
 stringToTitle :: String -> Either String Title
 stringToTitle string = if all Data.Char.isSpace string

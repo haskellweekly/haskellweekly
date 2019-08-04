@@ -12,7 +12,7 @@ import qualified Text.Read
 
 newtype EpisodeNumber =
   EpisodeNumber Numeric.Natural.Natural
-  deriving (Eq, Show)
+  deriving (Eq, Ord, Show)
 
 episodeNumberToNatural :: EpisodeNumber -> Numeric.Natural.Natural
 episodeNumberToNatural (EpisodeNumber natural) = natural
