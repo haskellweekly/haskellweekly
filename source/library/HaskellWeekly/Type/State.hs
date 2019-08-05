@@ -1,3 +1,5 @@
+-- | This module defines a type for capturing all of the runtime state of the
+-- Haskell Weekly server.
 module HaskellWeekly.Type.State
   ( State(..)
   , configToState
@@ -18,6 +20,8 @@ data State =
     , stateEpisodes :: Data.Map.Map HaskellWeekly.Type.Number.Number HaskellWeekly.Type.Episode.Episode
     }
 
+-- | Builds up the state using the given config. If anything goes wrong, this
+-- will fail.
 configToState :: HaskellWeekly.Type.Config.Config -> IO State
 configToState config = do
   databaseConnection <- Database.PostgreSQL.Simple.connectPostgreSQL

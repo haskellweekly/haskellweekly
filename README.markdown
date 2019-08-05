@@ -41,6 +41,12 @@ Haskell Weekly makes use of the following services:
 - [Square](https://squareup.com):
   Accepts payments for advertisements.
 
+- [Reddit](https://www.reddit.com):
+  Announcements and community interaction.
+
+- [Twitter](https://twitter.com):
+  Also announcements and community interaction.
+
 - [Airtable](https://airtable.com):
   Manages featured author information. (This repository will eventually take
   on this functionality.)
@@ -48,12 +54,6 @@ Haskell Weekly makes use of the following services:
 - [Meetup](https://www.meetup.com):
   Provides event information. (Their API is changing soon, so this will
   probably go away.)
-
-- [Reddit](https://www.reddit.com):
-  Announcements and community interaction.
-
-- [Twitter](https://twitter.com):
-  Also announcements and community interaction.
 
 - [Discourse](https://discourse.haskell.org):
   Also also announcements and community interaction. (Unfortunately engagement
