@@ -1,3 +1,5 @@
+-- | This module defines the application that the server, uh, serves.
+-- Applications take in requests and give out responses.
 module HaskellWeekly.Application
   ( application
   )
@@ -22,6 +24,9 @@ import qualified HaskellWeekly.Type.Route
 import qualified HaskellWeekly.Type.State
 import qualified Network.Wai
 
+-- | The whole application. From a high level, this is responsible for checking
+-- the request method and path. If those route to an appropriate handler, this
+-- calls that handler and returns the response.
 application :: HaskellWeekly.Type.State.State -> Network.Wai.Application
 application state request respond =
   case (requestMethod request, requestRoute request) of
@@ -30,18 +35,25 @@ application state request respond =
       respond response
     _ -> respond HaskellWeekly.Handler.Base.notFoundResponse
 
+-- | Gets the request method as a string. This is convenient because request
+-- methods are technically byte strings, but almost always they can be thought
+-- of as plain ASCII strings.
 requestMethod :: Network.Wai.Request -> String
 requestMethod =
   Data.Text.unpack
     . Data.Text.Encoding.decodeUtf8With Data.Text.Encoding.Error.lenientDecode
     . Network.Wai.requestMethod
 
+-- | Gets the route out of the request. If the request's path doesn't match
+-- any known routes, returns 'Nothing'.
 requestRoute :: Network.Wai.Request -> Maybe HaskellWeekly.Type.Route.Route
 requestRoute =
   HaskellWeekly.Type.Route.stringToRoute
     . fmap Data.Text.unpack
     . Network.Wai.pathInfo
 
+-- | Handles a particular route by calling the appropriate handler and
+-- returning the response.
 handle
   :: HaskellWeekly.Type.State.State
   -> HaskellWeekly.Type.Route.Route

@@ -1,3 +1,4 @@
+-- | This module defines a type for an episode of the podcast.
 module HaskellWeekly.Type.Episode
   ( Episode(..)
   )

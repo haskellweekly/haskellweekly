@@ -1,3 +1,6 @@
+-- | This module defines a type for all of the routes that the server knows
+-- about. By representing the possible routes as a type, it's possible to do
+-- type safe routing.
 module HaskellWeekly.Type.Route
   ( Route(..)
   , routeToString
@@ -23,6 +26,7 @@ data Route
   | RouteTachyons
   deriving (Eq, Show)
 
+-- | Renders a route as a string.
 routeToString :: Route -> String
 routeToString route = case route of
   RouteAdvertising -> "/advertising.html"
@@ -44,6 +48,8 @@ routeToString route = case route of
     HaskellWeekly.Type.Redirect.redirectToString redirect
   RouteTachyons -> "/tachyons-4-11-2.css"
 
+-- | Parses a list of strings as a route. Note that some lists of strings go to
+-- the same place, so this isn't necessarily a one to one mapping.
 stringToRoute :: [String] -> Maybe Route
 stringToRoute path = case path of
   [] -> Just RouteIndex
@@ -71,6 +77,8 @@ stringToRoute path = case path of
     Just . RouteRedirect $ routeToRedirect RoutePodcast
   _ -> Nothing
 
+-- | Converts a normal route into a redirect. This is handy when redirecting
+-- old routes to their new canonical destinations.
 routeToRedirect :: Route -> HaskellWeekly.Type.Redirect.Redirect
 routeToRedirect route = case route of
   RouteRedirect redirect -> redirect
