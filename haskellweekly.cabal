@@ -35,7 +35,7 @@ common library
     lucid ^>= 2.9.11,
     postgresql-simple ^>= 0.6.2,
     text ^>= 1.2.3,
-    time ^>= 1.9.3,
+    time ^>= 1.8.0,
     wai ^>= 3.2.2.1,
     wai-extra ^>= 3.0.27,
     warp ^>= 3.3.0,
