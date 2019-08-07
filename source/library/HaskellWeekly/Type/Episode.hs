@@ -4,12 +4,14 @@ module HaskellWeekly.Type.Episode
   )
 where
 
+import qualified HaskellWeekly.Type.Date
 import qualified HaskellWeekly.Type.Number
 import qualified HaskellWeekly.Type.Title
 
 data Episode =
   Episode
-    { episodeNumber :: HaskellWeekly.Type.Number.Number
+    { episodeDate :: HaskellWeekly.Type.Date.Date
+    , episodeNumber :: HaskellWeekly.Type.Number.Number
     , episodeTitle :: HaskellWeekly.Type.Title.Title
     }
   deriving (Eq, Show)
