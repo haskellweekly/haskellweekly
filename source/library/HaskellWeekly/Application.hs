@@ -76,7 +76,7 @@ handle state route = case route of
   HaskellWeekly.Type.Route.RoutePodcast ->
     HaskellWeekly.Handler.Podcast.podcastHandler state
   HaskellWeekly.Type.Route.RoutePodcastFeed ->
-    HaskellWeekly.Handler.PodcastFeed.podcastFeedHandler
+    HaskellWeekly.Handler.PodcastFeed.podcastFeedHandler state
   HaskellWeekly.Type.Route.RouteRedirect redirect ->
     HaskellWeekly.Handler.Redirect.redirectHandler redirect
   HaskellWeekly.Type.Route.RouteTachyons ->

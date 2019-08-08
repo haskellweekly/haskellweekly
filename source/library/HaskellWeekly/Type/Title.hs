@@ -3,6 +3,7 @@ module HaskellWeekly.Type.Title
   ( Title
   , stringToTitle
   , titleToString
+  , titleToText
   )
 where
 
@@ -22,4 +23,8 @@ stringToTitle string = if all Data.Char.isSpace string
 
 -- | Converts a title into a string.
 titleToString :: Title -> String
-titleToString (Title text) = Data.Text.unpack text
+titleToString = Data.Text.unpack . titleToText
+
+-- | Converts a title into text.
+titleToText :: Title -> Data.Text.Text
+titleToText (Title text) = text
