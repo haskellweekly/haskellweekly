@@ -13,7 +13,7 @@ import qualified Data.Time
 
 newtype Date =
   Date Data.Time.Day
-  deriving (Eq, Show)
+  deriving (Eq, Ord, Show)
 
 -- | Formats a date using /the/ correct way to write numeric dates, according
 -- to xkcd: <https://xkcd.com/1179/>. Fortunately ISO 8601 agrees with xkcd by

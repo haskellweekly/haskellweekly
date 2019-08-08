@@ -5,8 +5,6 @@ module HaskellWeekly.Template.Podcast
   )
 where
 
-import qualified Data.List
-import qualified Data.Ord
 import qualified Data.Text
 import qualified HaskellWeekly.Template.Base
 import qualified HaskellWeekly.Type.Episode
@@ -17,9 +15,7 @@ import qualified Lucid as H
 podcastTemplate :: [HaskellWeekly.Type.Episode.Episode] -> H.Html ()
 podcastTemplate episodes = HaskellWeekly.Template.Base.baseTemplate [] $ do
   H.h2_ [H.class_ "f2"] "Podcast"
-  H.ul_ . mapM_ episodeTemplate $ Data.List.sortOn
-    (Data.Ord.Down . HaskellWeekly.Type.Episode.episodeNumber)
-    episodes
+  H.ul_ $ mapM_ episodeTemplate episodes
 
 episodeTemplate :: HaskellWeekly.Type.Episode.Episode -> H.Html ()
 episodeTemplate episode =

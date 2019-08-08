@@ -19,7 +19,6 @@ podcastFeedHandler =
   pure
     . HaskellWeekly.Handler.Base.feedResponse Network.HTTP.Types.ok200 []
     . HaskellWeekly.Template.PodcastFeed.podcastFeedTemplate
-    . Data.List.sortOn
-        (Data.Ord.Down . HaskellWeekly.Type.Episode.episodeNumber)
+    . Data.List.sortOn (Data.Ord.Down . HaskellWeekly.Type.Episode.episodeDate)
     . Data.Map.elems
     . HaskellWeekly.Type.State.stateEpisodes
