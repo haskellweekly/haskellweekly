@@ -14,10 +14,10 @@ import qualified Text.Feed.Types
 import qualified Text.RSS.Syntax
 
 podcastFeedTemplate
-  :: [HaskellWeekly.Type.Episode.Episode] -> Text.Feed.Types.Feed
-podcastFeedTemplate episodes =
+  :: String -> [HaskellWeekly.Type.Episode.Episode] -> Text.Feed.Types.Feed
+podcastFeedTemplate baseUrl episodes =
   Text.Feed.Constructor.withFeedDescription feedDescription
-    . Text.Feed.Constructor.withFeedHome feedHome
+    . Text.Feed.Constructor.withFeedHome (feedHome baseUrl)
     . Text.Feed.Constructor.withFeedItems (fmap episodeToItem episodes)
     . Text.Feed.Constructor.withFeedTitle "Haskell Weekly"
     $ Text.Feed.Constructor.newFeed feedKind
@@ -30,14 +30,12 @@ feedDescription = Data.Text.unwords
   , "two-host format and runs for about 15 minutes."
   ]
 
--- TODO: This needs to be an absolute URL, but the server doesn't currently
--- know where it lives. I'll need to introduce a new part of the config that
--- has the base URL. Also I'll probably want a convenience function for
--- smashing together a base URL and a route.
-feedHome :: Text.RSS.Syntax.URLString
-feedHome = "https://haskellweekly.news" <> Data.Text.pack
-  (HaskellWeekly.Type.Route.routeToString HaskellWeekly.Type.Route.RoutePodcast
-  )
+feedHome :: String -> Text.RSS.Syntax.URLString
+feedHome baseUrl =
+  Data.Text.pack
+    $ baseUrl
+    <> HaskellWeekly.Type.Route.routeToString
+         HaskellWeekly.Type.Route.RoutePodcast
 
 feedKind :: Text.Feed.Types.FeedKind
 feedKind = Text.Feed.Constructor.RSSKind Nothing

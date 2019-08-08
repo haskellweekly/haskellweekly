@@ -16,7 +16,8 @@ import qualified Text.Read
 
 data Config =
   Config
-    { configDatabaseUrl :: Data.ByteString.ByteString
+    { configBaseUrl :: String
+    , configDatabaseUrl :: Data.ByteString.ByteString
     , configDataDirectory :: FilePath
     , configPort :: Network.Wai.Handler.Warp.Port
     }
@@ -31,11 +32,21 @@ getConfig = do
   databaseUrl <- getDatabaseUrl
   dataDirectory <- getDataDirectory
   port <- getPort
+  baseUrl <- getBaseUrl port
   pure Config
-    { configDatabaseUrl = databaseUrl
+    { configBaseUrl = baseUrl
+    , configDatabaseUrl = databaseUrl
     , configDataDirectory = dataDirectory
     , configPort = port
     }
+
+-- | Gets the base URL that the server will be available at. This is necessary
+-- because the server could be behind a reverse proxy or in a conatiner or
+-- something.
+getBaseUrl :: Network.Wai.Handler.Warp.Port -> IO String
+getBaseUrl port = do
+  maybeString <- System.Environment.lookupEnv "BASE_URL"
+  pure $ Data.Maybe.fromMaybe ("http://localhost:" <> show port) maybeString
 
 -- | Gets the database connection information. Although this says "URL" it
 -- could also be a PostgreSQL connection string. That means both
