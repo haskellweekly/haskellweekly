@@ -9,8 +9,10 @@ where
 import qualified Data.Map
 import qualified Database.PostgreSQL.Simple
 import qualified HaskellWeekly.Episodes
+import qualified HaskellWeekly.Issues
 import qualified HaskellWeekly.Type.Config
 import qualified HaskellWeekly.Type.Episode
+import qualified HaskellWeekly.Type.Issue
 import qualified HaskellWeekly.Type.Number
 
 data State =
@@ -18,6 +20,7 @@ data State =
     { stateConfig :: HaskellWeekly.Type.Config.Config
     , stateDatabaseConnection :: Database.PostgreSQL.Simple.Connection
     , stateEpisodes :: Data.Map.Map HaskellWeekly.Type.Number.Number HaskellWeekly.Type.Episode.Episode
+    , stateIssues :: Data.Map.Map HaskellWeekly.Type.Number.Number HaskellWeekly.Type.Issue.Issue
     }
 
 -- | Builds up the state using the given config. If anything goes wrong, this
@@ -27,8 +30,10 @@ configToState config = do
   databaseConnection <- Database.PostgreSQL.Simple.connectPostgreSQL
     $ HaskellWeekly.Type.Config.configDatabaseUrl config
   episodes <- either fail pure HaskellWeekly.Episodes.episodes
+  issues <- either fail pure HaskellWeekly.Issues.issues
   pure State
     { stateConfig = config
     , stateDatabaseConnection = databaseConnection
     , stateEpisodes = episodes
+    , stateIssues = issues
     }
