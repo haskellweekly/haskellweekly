@@ -38,9 +38,7 @@ routeToString route = case route of
   RouteHealthCheck -> "/health-check.json"
   RouteIndex -> "/"
   RouteIssue number ->
-    "/podcast/issues/"
-      <> HaskellWeekly.Type.Number.numberToString number
-      <> ".html"
+    "/issues/" <> HaskellWeekly.Type.Number.numberToString number <> ".html"
   RouteNewsletterFeed -> "/haskell-weekly.atom"
   RoutePodcast -> "/podcast/"
   RoutePodcastFeed -> "/podcast/feed.rss"
