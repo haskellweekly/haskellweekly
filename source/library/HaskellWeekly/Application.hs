@@ -72,7 +72,7 @@ handle state route = case route of
   HaskellWeekly.Type.Route.RouteIssue number ->
     HaskellWeekly.Handler.Issue.issueHandler state number
   HaskellWeekly.Type.Route.RouteNewsletterFeed ->
-    HaskellWeekly.Handler.NewsletterFeed.newsletterFeedHandler
+    HaskellWeekly.Handler.NewsletterFeed.newsletterFeedHandler state
   HaskellWeekly.Type.Route.RoutePodcast ->
     HaskellWeekly.Handler.Podcast.podcastHandler state
   HaskellWeekly.Type.Route.RoutePodcastFeed ->
