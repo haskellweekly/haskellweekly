@@ -79,6 +79,8 @@ library
     HaskellWeekly.Handler.PodcastFeed
     HaskellWeekly.Handler.Redirect
     HaskellWeekly.Handler.Tachyons
+    HaskellWeekly.Issues
+    HaskellWeekly.Issues.Issue1
     HaskellWeekly.Main
     HaskellWeekly.Middleware
     HaskellWeekly.Server
@@ -92,6 +94,7 @@ library
     HaskellWeekly.Type.Config
     HaskellWeekly.Type.Date
     HaskellWeekly.Type.Episode
+    HaskellWeekly.Type.Issue
     HaskellWeekly.Type.Number
     HaskellWeekly.Type.Redirect
     HaskellWeekly.Type.Route
