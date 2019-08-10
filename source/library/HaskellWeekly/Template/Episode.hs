@@ -40,4 +40,5 @@ title =
 
 date :: HaskellWeekly.Type.Episode.Episode -> String
 date =
-  HaskellWeekly.Type.Date.dateToString . HaskellWeekly.Type.Episode.episodeDate
+  HaskellWeekly.Type.Date.dateToShortString
+    . HaskellWeekly.Type.Episode.episodeDate

@@ -29,4 +29,5 @@ title number = "Issue " <> HaskellWeekly.Type.Number.numberToString number
 
 date :: HaskellWeekly.Type.Issue.Issue -> String
 date =
-  HaskellWeekly.Type.Date.dateToString . HaskellWeekly.Type.Issue.issueDate
+  HaskellWeekly.Type.Date.dateToShortString
+    . HaskellWeekly.Type.Issue.issueDate

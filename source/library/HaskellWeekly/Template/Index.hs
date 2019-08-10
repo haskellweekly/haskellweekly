@@ -28,7 +28,7 @@ episodeTemplate :: HaskellWeekly.Type.Episode.Episode -> H.Html ()
 episodeTemplate episode = H.p_ $ do
   let number = HaskellWeekly.Type.Episode.episodeNumber episode
   H.toHtml
-    . HaskellWeekly.Type.Date.dateToString
+    . HaskellWeekly.Type.Date.dateToShortString
     $ HaskellWeekly.Type.Episode.episodeDate episode
   ": "
   H.a_
@@ -45,7 +45,7 @@ issueTemplate :: HaskellWeekly.Type.Issue.Issue -> H.Html ()
 issueTemplate issue = H.p_ $ do
   let number = HaskellWeekly.Type.Issue.issueNumber issue
   H.toHtml
-    . HaskellWeekly.Type.Date.dateToString
+    . HaskellWeekly.Type.Date.dateToShortString
     $ HaskellWeekly.Type.Issue.issueDate issue
   ": "
   H.a_

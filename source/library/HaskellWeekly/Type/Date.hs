@@ -4,7 +4,8 @@
 -- "July 6th, 2019" without adding the unnecessarily precise "at 7:54 AM ET".
 module HaskellWeekly.Type.Date
   ( Date
-  , dateToString
+  , dateToLongString
+  , dateToShortString
   , gregorianToDate
   )
 where
@@ -15,12 +16,26 @@ newtype Date =
   Date Data.Time.Day
   deriving (Eq, Ord, Show)
 
+-- | Unwraps a date to get at the day on the inside.
+dateToDay :: Date -> Data.Time.Day
+dateToDay (Date day) = day
+
+-- | Formats a date along with a time. The time is arbitrarily chosen to be
+-- noon UTC, which may not reflect reality. However it has a good chance of
+-- landing on the correct date regardless of time zone.
+dateToLongString :: Date -> String
+dateToLongString = formatDate "%Y-%m-%dT12:00:00Z"
+
 -- | Formats a date using /the/ correct way to write numeric dates, according
 -- to xkcd: <https://xkcd.com/1179/>. Fortunately ISO 8601 agrees with xkcd by
 -- recommending @YYYY-mm-dd@, like @2001-02-03@ for February 3rd, 2001.
-dateToString :: Date -> String
-dateToString (Date day) =
-  Data.Time.formatTime Data.Time.defaultTimeLocale "%Y-%m-%d" day
+dateToShortString :: Date -> String
+dateToShortString = formatDate "%Y-%m-%d"
+
+-- | Renders a date using the given format.
+formatDate :: String -> Date -> String
+formatDate format =
+  Data.Time.formatTime Data.Time.defaultTimeLocale format . dateToDay
 
 -- | Converts a typical Gregorian year-month-day into a date. Note that this
 -- validates the date rather than clamping or overflowing. So you can't produce
