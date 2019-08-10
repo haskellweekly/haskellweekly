@@ -55,18 +55,17 @@ stringToRoute path = case path of
   ["favicon.ico"] -> Just RouteFavicon
   ["haskell-weekly.atom"] -> Just RouteNewsletterFeed
   ["health-check.json"] -> Just RouteHealthCheck
-  ["issues", file] -> case System.FilePath.stripExtension "html" file of
-    Nothing -> Nothing
-    Just string -> case HaskellWeekly.Type.Number.stringToNumber string of
-      Left _ -> Nothing
-      Right number -> Just $ RouteIssue number
+  ["issues", file] -> routeContent
+    "html"
+    HaskellWeekly.Type.Number.stringToNumber
+    RouteIssue
+    file
   ["podcast", ""] -> Just RoutePodcast
-  ["podcast", "episodes", file] ->
-    case System.FilePath.stripExtension "html" file of
-      Nothing -> Nothing
-      Just string -> case HaskellWeekly.Type.Number.stringToNumber string of
-        Left _ -> Nothing
-        Right number -> Just $ RouteEpisode number
+  ["podcast", "episodes", file] -> routeContent
+    "html"
+    HaskellWeekly.Type.Number.stringToNumber
+    RouteEpisode
+    file
   ["podcast", "feed.rss"] -> Just RoutePodcastFeed
   ["tachyons-4-11-2.css"] -> Just RouteTachyons
   ["index.html"] -> Just . RouteRedirect $ routeToRedirect RouteIndex
@@ -74,6 +73,21 @@ stringToRoute path = case path of
   ["podcast", "index.html"] ->
     Just . RouteRedirect $ routeToRedirect RoutePodcast
   _ -> Nothing
+
+-- | Handles routing content by stripping the given extension, parsing what's
+-- left of the path, and wrapping the result in a route.
+routeContent
+  :: String
+  -> (String -> Either String a)
+  -> (a -> HaskellWeekly.Type.Route.Route)
+  -> FilePath
+  -> Maybe HaskellWeekly.Type.Route.Route
+routeContent extension convert route file =
+  case System.FilePath.stripExtension extension file of
+    Nothing -> Nothing
+    Just string -> case convert string of
+      Left _ -> Nothing
+      Right value -> Just $ route value
 
 -- | Converts a normal route into a redirect. This is handy when redirecting
 -- old routes to their new canonical destinations.

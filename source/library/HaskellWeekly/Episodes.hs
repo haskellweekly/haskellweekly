@@ -2,7 +2,8 @@
 -- published on the website. Collecting them here makes it easy to create
 -- "draft" episodes by simply not including them here.
 module HaskellWeekly.Episodes
-  ( episodes
+  ( Episodes
+  , episodes
   )
 where
 
@@ -13,28 +14,22 @@ import qualified HaskellWeekly.Episodes.Episode1
 import qualified HaskellWeekly.Type.Episode
 import qualified HaskellWeekly.Type.Number
 
+-- | Convenient type alias for a map of episodes by number.
+type Episodes
+  = Data.Map.Map
+      HaskellWeekly.Type.Number.Number
+      HaskellWeekly.Type.Episode.Episode
+
 -- | All of the published episodes. Note that this is wrapper in 'Either' to
 -- handle any of the episodes being invalid or the entire collection being
 -- invalid. Since the server won't start without this being 'Right', you can be
 -- reasonably sure that no 'Left's have snuck in.
-episodes
-  :: Either
-       String
-       ( Data.Map.Map
-           HaskellWeekly.Type.Number.Number
-           HaskellWeekly.Type.Episode.Episode
-       )
+episodes :: Either String Episodes
 episodes = do
   validEpisodes <- Data.Traversable.sequenceA
     [HaskellWeekly.Episodes.Episode1.episode1]
   checkNumbers validEpisodes
-  pure $ foldr
-    (\episode -> Data.Map.insert
-      (HaskellWeekly.Type.Episode.episodeNumber episode)
-      episode
-    )
-    Data.Map.empty
-    validEpisodes
+  pure $ foldr insertEpisode Data.Map.empty validEpisodes
 
 -- | Checks to make sure that all of the episode numbers are increasing without
 -- gaps starting from one.
@@ -47,3 +42,10 @@ checkNumbers =
         (HaskellWeekly.Type.Number.numberToNatural
         . HaskellWeekly.Type.Episode.episodeNumber
         )
+
+-- | Inserts a single episode into the map of episodes. If for some reason an
+-- episode already exists with this episode's number, the existing episode will
+-- be overwritten with the new one.
+insertEpisode :: HaskellWeekly.Type.Episode.Episode -> Episodes -> Episodes
+insertEpisode episode =
+  Data.Map.insert (HaskellWeekly.Type.Episode.episodeNumber episode) episode

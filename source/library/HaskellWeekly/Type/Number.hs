@@ -1,8 +1,8 @@
 -- | This module defines a type for podcast episode or newsletter issue
 -- numbers. Originally those were separate types, but it wasn't worth it to
 -- differentiate between them. Although "number" sounds pretty general, it
--- might be better to think of this as an ID for a thing (episode or issue)
--- instead.
+-- might be better to think of this as an ID for a piece of content (episode or
+-- issue) instead.
 module HaskellWeekly.Type.Number
   ( Number
   , naturalToNumber

@@ -48,7 +48,7 @@ beforeMainLoop :: Network.Wai.Handler.Warp.Port -> IO ()
 beforeMainLoop port = putStrLn $ "Listening on port " <> show port <> " ..."
 
 -- | Logs HTTP requests. Compared to the default Apache style logging this is
--- pretty minimal: @method path status@.
+-- pretty minimal: @METHOD PATH STATUS@. For example: @GET / 200@.
 logger
   :: Network.Wai.Request -> Network.HTTP.Types.Status -> Maybe Integer -> IO ()
 logger request status _ =

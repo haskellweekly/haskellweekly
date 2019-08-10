@@ -14,7 +14,7 @@ import qualified Paths_haskellweekly
 import qualified System.IO
 
 -- | Runs the main Haskell Weekly server. This function never returns. It's
--- called 'defaultMain' instead of @main@ in order to avoid a conflict with the
+-- called @defaultMain@ instead of @main@ in order to avoid a conflict with the
 -- @main@ defined by the executable.
 defaultMain :: IO ()
 defaultMain = do
