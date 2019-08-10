@@ -1,6 +1,5 @@
 {-# LANGUAGE OverloadedStrings #-}
 
--- TODO
 module HaskellWeekly.Template.NewsletterFeed
   ( newsletterFeedTemplate
   )
@@ -23,21 +22,21 @@ newsletterFeedTemplate
 newsletterFeedTemplate baseUrl issues =
   let
     atom = Text.Atom.Feed.nullFeed
-      (feedId baseUrl)
+      (atomId baseUrl)
       (Text.Atom.Feed.TextString "Haskell Weekly")
-      (feedUpdated issues)
+      (atomUpdated issues)
     entries = fmap (issueToEntry baseUrl) issues
   in Text.Feed.Constructor.feedFromAtom atom
     { Text.Atom.Feed.feedEntries = entries
     }
 
-feedId :: String -> Text.Atom.Feed.URI
-feedId baseUrl =
+atomId :: String -> Text.Atom.Feed.URI
+atomId baseUrl =
   Data.Text.pack . mappend baseUrl $ HaskellWeekly.Type.Route.routeToString
     HaskellWeekly.Type.Route.RouteNewsletterFeed
 
-feedUpdated :: [HaskellWeekly.Type.Issue.Issue] -> Text.Atom.Feed.Date
-feedUpdated =
+atomUpdated :: [HaskellWeekly.Type.Issue.Issue] -> Text.Atom.Feed.Date
+atomUpdated =
   Data.Text.pack
     . maybe "2001-01-01T12:00:00Z" HaskellWeekly.Type.Date.dateToLongString
     . Data.Maybe.listToMaybe

@@ -18,6 +18,7 @@ import qualified HaskellWeekly.Handler.Issue
 import qualified HaskellWeekly.Handler.NewsletterFeed
 import qualified HaskellWeekly.Handler.Podcast
 import qualified HaskellWeekly.Handler.PodcastFeed
+import qualified HaskellWeekly.Handler.PodcastLogo
 import qualified HaskellWeekly.Handler.Redirect
 import qualified HaskellWeekly.Handler.Tachyons
 import qualified HaskellWeekly.Type.Route
@@ -77,6 +78,8 @@ handle state route = case route of
     HaskellWeekly.Handler.Podcast.podcastHandler state
   HaskellWeekly.Type.Route.RoutePodcastFeed ->
     HaskellWeekly.Handler.PodcastFeed.podcastFeedHandler state
+  HaskellWeekly.Type.Route.RoutePodcastLogo ->
+    HaskellWeekly.Handler.PodcastLogo.podcastLogoHandler state
   HaskellWeekly.Type.Route.RouteRedirect redirect ->
     HaskellWeekly.Handler.Redirect.redirectHandler redirect
   HaskellWeekly.Type.Route.RouteTachyons ->

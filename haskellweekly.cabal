@@ -13,6 +13,7 @@ synopsis: Publishes curated news about Haskell.
 data-dir: data
 data-files:
   favicon.ico
+  podcast-logo.png
   tachyons-4-11-2.css
 extra-source-files: README.markdown
 license-file: LICENSE.markdown
@@ -77,6 +78,7 @@ library
     HaskellWeekly.Handler.NewsletterFeed
     HaskellWeekly.Handler.Podcast
     HaskellWeekly.Handler.PodcastFeed
+    HaskellWeekly.Handler.PodcastLogo
     HaskellWeekly.Handler.Redirect
     HaskellWeekly.Handler.Tachyons
     HaskellWeekly.Issues

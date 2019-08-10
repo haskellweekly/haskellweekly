@@ -5,6 +5,7 @@
 module HaskellWeekly.Type.Date
   ( Date
   , dateToLongString
+  , dateToRfc2822
   , dateToShortString
   , gregorianToDate
   )
@@ -25,6 +26,11 @@ dateToDay (Date day) = day
 -- landing on the correct date regardless of time zone.
 dateToLongString :: Date -> String
 dateToLongString = formatDate "%Y-%m-%dT12:00:00Z"
+
+-- | Formats a date along with a time in the RFC 2822 format. Aside from the
+-- format this works just like 'dateToLongString'.
+dateToRfc2822 :: Date -> String
+dateToRfc2822 = formatDate "%a, %d %b %Y 12:00:00 GMT"
 
 -- | Formats a date using /the/ correct way to write numeric dates, according
 -- to xkcd: <https://xkcd.com/1179/>. Fortunately ISO 8601 agrees with xkcd by
