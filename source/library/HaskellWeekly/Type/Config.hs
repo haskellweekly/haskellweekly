@@ -50,7 +50,7 @@ getBaseUrl port = do
 
 -- | Gets the database connection information. Although this says "URL" it
 -- could also be a PostgreSQL connection string. That means both
--- @postgres://...@ URLs and stuff like @host=...@ work. Also be aware that
+-- @postgresql://...@ URLs and stuff like @host=...@ work. Also be aware that
 -- normal @PG*@ environment variables also play into this.
 getDatabaseUrl :: IO Data.ByteString.ByteString
 getDatabaseUrl = do

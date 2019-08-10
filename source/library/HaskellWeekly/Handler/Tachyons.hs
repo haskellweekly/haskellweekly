@@ -7,9 +7,7 @@ import qualified HaskellWeekly.Handler.Base
 import qualified HaskellWeekly.Type.State
 import qualified Network.Wai
 
-tachyonsHandler
-  :: Applicative f => HaskellWeekly.Type.State.State -> f Network.Wai.Response
-tachyonsHandler state = pure $ HaskellWeekly.Handler.Base.fileResponse
-  state
+tachyonsHandler :: HaskellWeekly.Type.State.State -> IO Network.Wai.Response
+tachyonsHandler = HaskellWeekly.Handler.Base.fileResponse
   "text/css; charset=utf-8"
   "tachyons-4-11-2.css"

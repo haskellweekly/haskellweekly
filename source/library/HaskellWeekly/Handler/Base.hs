@@ -48,19 +48,19 @@ feedResponse status extraHeaders feed =
   in lbsResponse status headers body
 
 fileResponse
-  :: HaskellWeekly.Type.State.State
-  -> String
+  :: String
   -> FilePath
-  -> Network.Wai.Response
-fileResponse state mime file =
+  -> HaskellWeekly.Type.State.State
+  -> IO Network.Wai.Response
+fileResponse mime file state = do
   let
+    status = Network.HTTP.Types.ok200
     headers = withContentType mime []
-    path = System.FilePath.combine
-      (HaskellWeekly.Type.Config.configDataDirectory
+    directory = HaskellWeekly.Type.Config.configDataDirectory
       $ HaskellWeekly.Type.State.stateConfig state
-      )
-      file
-  in Network.Wai.responseFile Network.HTTP.Types.ok200 headers path Nothing
+    path = System.FilePath.combine directory file
+  body <- Data.ByteString.Lazy.readFile path
+  pure $ lbsResponse status headers body
 
 htmlResponse
   :: Network.HTTP.Types.Status
