@@ -9,9 +9,11 @@ where
 
 import qualified Data.Bool
 import qualified Data.Map
+import qualified Data.Set
 import qualified Data.Traversable
 import qualified HaskellWeekly.Episodes.Episode1
 import qualified HaskellWeekly.Type.Episode
+import qualified HaskellWeekly.Type.Guid
 import qualified HaskellWeekly.Type.Number
 
 -- | Convenient type alias for a map of episodes by number.
@@ -28,8 +30,24 @@ episodes :: Either String Episodes
 episodes = do
   validEpisodes <- Data.Traversable.sequenceA
     [HaskellWeekly.Episodes.Episode1.episode1]
+  checkGuids validEpisodes Data.Set.empty
   checkNumbers validEpisodes
   pure $ foldr insertEpisode Data.Map.empty validEpisodes
+
+-- | Checks to make sure that none of the episode GUIDs have been used more
+-- than once.
+checkGuids
+  :: [HaskellWeekly.Type.Episode.Episode]
+  -> Data.Set.Set HaskellWeekly.Type.Guid.Guid
+  -> Either String ()
+checkGuids es guids = case es of
+  [] -> Right ()
+  episode : rest ->
+    let guid = HaskellWeekly.Type.Episode.episodeGuid episode
+    in
+      if Data.Set.member guid guids
+        then Left $ "duplicate Guid: " <> show guid
+        else checkGuids rest $ Data.Set.insert guid guids
 
 -- | Checks to make sure that all of the episode numbers are increasing without
 -- gaps starting from one.

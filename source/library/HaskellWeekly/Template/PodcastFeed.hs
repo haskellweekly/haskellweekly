@@ -9,6 +9,7 @@ import qualified Data.Text
 import qualified Data.XML.Types
 import qualified HaskellWeekly.Type.Date
 import qualified HaskellWeekly.Type.Episode
+import qualified HaskellWeekly.Type.Guid
 import qualified HaskellWeekly.Type.Number
 import qualified HaskellWeekly.Type.Route
 import qualified HaskellWeekly.Type.Title
@@ -129,11 +130,19 @@ episodeToItem baseUrl episode =
     item
       { Text.RSS.Syntax.rssItemDescription = Nothing
       , Text.RSS.Syntax.rssItemEnclosure = Nothing
-      , Text.RSS.Syntax.rssItemGuid = Nothing
+      , Text.RSS.Syntax.rssItemGuid = itemGuid episode
       , Text.RSS.Syntax.rssItemLink = itemLink baseUrl episode
       , Text.RSS.Syntax.rssItemOther = itemOther episode
       , Text.RSS.Syntax.rssItemPubDate = itemPubDate episode
       }
+
+itemGuid :: HaskellWeekly.Type.Episode.Episode -> Maybe Text.RSS.Syntax.RSSGuid
+itemGuid =
+  Just
+    . (\guid -> guid { Text.RSS.Syntax.rssGuidPermanentURL = Just False })
+    . Text.RSS.Syntax.nullGuid
+    . HaskellWeekly.Type.Guid.guidToText
+    . HaskellWeekly.Type.Episode.episodeGuid
 
 itemLink
   :: String
