@@ -3,6 +3,7 @@
 -- type does not actually enforce this.
 module HaskellWeekly.Type.Audio
   ( Audio
+  , audioToText
   , stringToAudio
   )
 where
@@ -13,6 +14,10 @@ import qualified Data.Text
 newtype Audio =
   Audio Data.Text.Text
   deriving (Eq, Show)
+
+-- | Unwraps an audio URL and gives you back the underlying text.
+audioToText :: Audio -> Data.Text.Text
+audioToText (Audio text) = text
 
 -- | Converts a string into an audio URL. If the string is all blank spaces,
 -- this will fail.

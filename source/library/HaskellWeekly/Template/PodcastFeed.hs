@@ -7,12 +7,14 @@ where
 
 import qualified Data.Text
 import qualified Data.XML.Types
+import qualified HaskellWeekly.Type.Audio
 import qualified HaskellWeekly.Type.Date
 import qualified HaskellWeekly.Type.Duration
 import qualified HaskellWeekly.Type.Episode
 import qualified HaskellWeekly.Type.Guid
 import qualified HaskellWeekly.Type.Number
 import qualified HaskellWeekly.Type.Route
+import qualified HaskellWeekly.Type.Size
 import qualified HaskellWeekly.Type.Title
 import qualified Text.Feed.Constructor
 import qualified Text.Feed.Types
@@ -130,12 +132,24 @@ episodeToItem baseUrl episode =
   in
     item
       { Text.RSS.Syntax.rssItemDescription = Nothing
-      , Text.RSS.Syntax.rssItemEnclosure = Nothing
+      , Text.RSS.Syntax.rssItemEnclosure = itemEnclosure episode
       , Text.RSS.Syntax.rssItemGuid = itemGuid episode
       , Text.RSS.Syntax.rssItemLink = itemLink baseUrl episode
       , Text.RSS.Syntax.rssItemOther = itemOther episode
       , Text.RSS.Syntax.rssItemPubDate = itemPubDate episode
       }
+
+itemEnclosure
+  :: HaskellWeekly.Type.Episode.Episode -> Maybe Text.RSS.Syntax.RSSEnclosure
+itemEnclosure episode = Just $ Text.RSS.Syntax.nullEnclosure
+  (HaskellWeekly.Type.Audio.audioToText
+  $ HaskellWeekly.Type.Episode.episodeAudio episode
+  )
+  (Just
+  . HaskellWeekly.Type.Size.sizeToInteger
+  $ HaskellWeekly.Type.Episode.episodeSize episode
+  )
+  "audio/mpeg"
 
 itemGuid :: HaskellWeekly.Type.Episode.Episode -> Maybe Text.RSS.Syntax.RSSGuid
 itemGuid =
