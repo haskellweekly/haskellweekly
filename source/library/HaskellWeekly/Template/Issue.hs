@@ -18,7 +18,10 @@ issueTemplate issue = do
       ["Newsletter", title number, date issue]
     $ do
         H.h2_ [H.class_ "f2"] "Newsletter"
-        H.h3_ [H.class_ "f3"] . H.toHtml $ title number
+        H.h3_ [H.class_ "f3"] $ do
+          H.toHtml $ title number
+          ": "
+          H.toHtml $ date issue
         H.p_ $ do
           "This issue was published on "
           H.toHtml $ date issue
