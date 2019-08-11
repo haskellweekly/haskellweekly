@@ -1,6 +1,10 @@
 -- | This module defines a type for specifying audio file URLs. These are used
 -- by podcast episodes. Typically the source will be an absolute URL, but this
 -- type does not actually enforce this.
+--
+-- If you host audio on a domain name that hasn't been used before, make sure
+-- you update the Content-Security-Policy headers to allow it otherwise you'll
+-- get mysterious failures.
 module HaskellWeekly.Type.Audio
   ( Audio
   , audioToText

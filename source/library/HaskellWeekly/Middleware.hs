@@ -24,7 +24,9 @@ addSecurityHeaders :: Network.Wai.Middleware
 addSecurityHeaders =
   Network.Wai.modifyResponse
     . Network.Wai.mapResponseHeaders
-    $ addHeader "Content-Security-Policy" "default-src 'self'"
+    $ addHeader
+        "Content-Security-Policy"
+        "default-src 'self'; media-src https://haskell-weekly-podcast.nyc3.cdn.digitaloceanspaces.com:443"
     . addHeader "Referrer-Policy" "no-referrer"
     . addHeader "X-Content-Type-Options" "nosniff"
     . addHeader "X-Frame-Options" "deny"

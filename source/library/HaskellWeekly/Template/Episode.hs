@@ -5,15 +5,18 @@ module HaskellWeekly.Template.Episode
   )
 where
 
+import qualified Data.Text
 import qualified HaskellWeekly.Template.Base
+import qualified HaskellWeekly.Type.Audio
 import qualified HaskellWeekly.Type.Date
 import qualified HaskellWeekly.Type.Episode
 import qualified HaskellWeekly.Type.Number
+import qualified HaskellWeekly.Type.Route
 import qualified HaskellWeekly.Type.Title
 import qualified Lucid as H
 
-episodeTemplate :: HaskellWeekly.Type.Episode.Episode -> H.Html ()
-episodeTemplate episode =
+episodeTemplate :: String -> HaskellWeekly.Type.Episode.Episode -> H.Html ()
+episodeTemplate baseUrl episode =
   HaskellWeekly.Template.Base.baseTemplate
       ["Podcast", number episode, title episode]
     $ do
@@ -22,6 +25,23 @@ episodeTemplate episode =
           H.toHtml $ number episode
           ": "
           H.toHtml $ title episode
+        H.video_
+            [ H.controls_ "controls"
+            , H.height_ "256"
+            , H.term "poster"
+            . Data.Text.pack
+            . mappend baseUrl
+            $ HaskellWeekly.Type.Route.routeToString
+                HaskellWeekly.Type.Route.RoutePodcastLogo
+            , H.preload_ "metadata"
+            , H.width_ "256"
+            ]
+          $ H.source_
+              [ H.src_
+              . HaskellWeekly.Type.Audio.audioToText
+              $ HaskellWeekly.Type.Episode.episodeAudio episode
+              , H.type_ "audio/mpeg"
+              ]
         H.p_ $ do
           "This episode was published on "
           H.toHtml $ date episode
