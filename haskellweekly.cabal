@@ -95,6 +95,7 @@ library
     HaskellWeekly.Template.NewsletterFeed
     HaskellWeekly.Template.Podcast
     HaskellWeekly.Template.PodcastFeed
+    HaskellWeekly.Type.Audio
     HaskellWeekly.Type.Config
     HaskellWeekly.Type.Content
     HaskellWeekly.Type.Date
