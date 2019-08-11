@@ -8,6 +8,7 @@ where
 import qualified Data.Text
 import qualified Data.XML.Types
 import qualified HaskellWeekly.Type.Date
+import qualified HaskellWeekly.Type.Duration
 import qualified HaskellWeekly.Type.Episode
 import qualified HaskellWeekly.Type.Guid
 import qualified HaskellWeekly.Type.Number
@@ -165,7 +166,11 @@ itemOther episode =
   , Data.XML.Types.Element
     "itunes:duration"
     []
-    [Data.XML.Types.NodeContent $ Data.XML.Types.ContentText ""]
+    [ Data.XML.Types.NodeContent
+      . Data.XML.Types.ContentText
+      . HaskellWeekly.Type.Duration.durationToText
+      $ HaskellWeekly.Type.Episode.episodeDuration episode
+    ]
   , Data.XML.Types.Element
     "itunes:episode"
     []

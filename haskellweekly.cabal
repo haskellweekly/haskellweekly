@@ -98,6 +98,7 @@ library
     HaskellWeekly.Type.Config
     HaskellWeekly.Type.Content
     HaskellWeekly.Type.Date
+    HaskellWeekly.Type.Duration
     HaskellWeekly.Type.Episode
     HaskellWeekly.Type.Guid
     HaskellWeekly.Type.Issue
