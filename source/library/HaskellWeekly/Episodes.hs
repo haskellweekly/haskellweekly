@@ -7,7 +7,6 @@ module HaskellWeekly.Episodes
   )
 where
 
-import qualified Data.Bool
 import qualified Data.Map
 import qualified Data.Set
 import qualified Data.Traversable
@@ -15,6 +14,7 @@ import qualified HaskellWeekly.Episodes.Episode1
 import qualified HaskellWeekly.Type.Episode
 import qualified HaskellWeekly.Type.Guid
 import qualified HaskellWeekly.Type.Number
+import qualified Numeric.Natural
 
 -- | Convenient type alias for a map of episodes by number.
 type Episodes
@@ -31,7 +31,7 @@ episodes = do
   validEpisodes <- Data.Traversable.sequenceA
     [HaskellWeekly.Episodes.Episode1.episode1]
   checkGuids validEpisodes Data.Set.empty
-  checkNumbers validEpisodes
+  checkNumbers validEpisodes 1
   pure $ foldr insertEpisode Data.Map.empty validEpisodes
 
 -- | Checks to make sure that none of the episode GUIDs have been used more
@@ -51,19 +51,22 @@ checkGuids es guids = case es of
 
 -- | Checks to make sure that all of the episode numbers are increasing without
 -- gaps starting from one.
-checkNumbers :: [HaskellWeekly.Type.Episode.Episode] -> Either String ()
-checkNumbers =
-  Data.Bool.bool (Left "invalid episode numbers") (Right ())
-    . all (uncurry (==))
-    . zip [1 ..]
-    . fmap
-        (HaskellWeekly.Type.Number.numberToNatural
-        . HaskellWeekly.Type.Episode.episodeNumber
-        )
+checkNumbers
+  :: [HaskellWeekly.Type.Episode.Episode]
+  -> Numeric.Natural.Natural
+  -> Either String ()
+checkNumbers es current = case es of
+  [] -> Right ()
+  episode : rest ->
+    let number = HaskellWeekly.Type.Episode.episodeNumber episode
+    in
+      if HaskellWeekly.Type.Number.numberToNatural number == current
+        then checkNumbers rest $ current + 1
+        else Left $ "invalid Number: " <> show number
 
--- | Inserts a single episode into the map of episodes. If for some reason an
--- episode already exists with this episode's number, the existing episode will
--- be overwritten with the new one.
+-- | Inserts a single episode into the map of episodes. This assumes that
+-- 'checkNumbers' has already been called on the episodes, so there's no danger
+-- of keys being overwritten.
 insertEpisode :: HaskellWeekly.Type.Episode.Episode -> Episodes -> Episodes
 insertEpisode episode =
   Data.Map.insert (HaskellWeekly.Type.Episode.episodeNumber episode) episode
