@@ -105,6 +105,7 @@ library
     HaskellWeekly.Type.Number
     HaskellWeekly.Type.Redirect
     HaskellWeekly.Type.Route
+    HaskellWeekly.Type.Size
     HaskellWeekly.Type.State
     HaskellWeekly.Type.Title
     Paths_haskellweekly
