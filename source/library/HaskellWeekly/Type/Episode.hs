@@ -10,6 +10,7 @@ import qualified HaskellWeekly.Type.Duration
 import qualified HaskellWeekly.Type.Guid
 import qualified HaskellWeekly.Type.Number
 import qualified HaskellWeekly.Type.Size
+import qualified HaskellWeekly.Type.Summary
 import qualified HaskellWeekly.Type.Title
 
 data Episode =
@@ -20,6 +21,7 @@ data Episode =
     , episodeGuid :: HaskellWeekly.Type.Guid.Guid
     , episodeNumber :: HaskellWeekly.Type.Number.Number
     , episodeSize :: HaskellWeekly.Type.Size.Size
+    , episodeSummary :: HaskellWeekly.Type.Summary.Summary
     , episodeTitle :: HaskellWeekly.Type.Title.Title
     }
   deriving (Eq, Show)

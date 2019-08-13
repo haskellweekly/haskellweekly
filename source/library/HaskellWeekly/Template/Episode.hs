@@ -12,6 +12,7 @@ import qualified HaskellWeekly.Type.Date
 import qualified HaskellWeekly.Type.Episode
 import qualified HaskellWeekly.Type.Number
 import qualified HaskellWeekly.Type.Route
+import qualified HaskellWeekly.Type.Summary
 import qualified HaskellWeekly.Type.Title
 import qualified Lucid as H
 
@@ -42,6 +43,10 @@ episodeTemplate baseUrl episode =
               $ HaskellWeekly.Type.Episode.episodeAudio episode
               , H.type_ "audio/mpeg"
               ]
+        H.p_
+          . H.toHtml
+          . HaskellWeekly.Type.Summary.summaryToText
+          $ HaskellWeekly.Type.Episode.episodeSummary episode
         H.p_ $ do
           "This episode was published on "
           H.toHtml $ date episode

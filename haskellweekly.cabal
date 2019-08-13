@@ -108,6 +108,7 @@ library
     HaskellWeekly.Type.Route
     HaskellWeekly.Type.Size
     HaskellWeekly.Type.State
+    HaskellWeekly.Type.Summary
     HaskellWeekly.Type.Title
     Paths_haskellweekly
 
