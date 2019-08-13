@@ -7,6 +7,7 @@ where
 
 import qualified Data.Text
 import qualified HaskellWeekly.Template.Base
+import qualified HaskellWeekly.Type.Article
 import qualified HaskellWeekly.Type.Audio
 import qualified HaskellWeekly.Type.Date
 import qualified HaskellWeekly.Type.Episode
@@ -47,6 +48,8 @@ episodeTemplate baseUrl episode =
           . H.toHtml
           . HaskellWeekly.Type.Summary.summaryToText
           $ HaskellWeekly.Type.Episode.episodeSummary episode
+        H.ul_ . mapM_ articleLink $ HaskellWeekly.Type.Episode.episodeArticles
+          episode
         H.p_ $ do
           "This episode was published on "
           H.toHtml $ date episode
@@ -67,3 +70,8 @@ date :: HaskellWeekly.Type.Episode.Episode -> String
 date =
   HaskellWeekly.Type.Date.dateToShortString
     . HaskellWeekly.Type.Episode.episodeDate
+
+articleLink :: HaskellWeekly.Type.Article.Article -> H.Html ()
+articleLink article =
+  let text = HaskellWeekly.Type.Article.articleToText article
+  in H.li_ . H.a_ [H.href_ text] $ H.toHtml text

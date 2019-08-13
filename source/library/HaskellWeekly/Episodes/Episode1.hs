@@ -3,6 +3,7 @@ module HaskellWeekly.Episodes.Episode1
   )
 where
 
+import qualified HaskellWeekly.Type.Articles
 import qualified HaskellWeekly.Type.Audio
 import qualified HaskellWeekly.Type.Date
 import qualified HaskellWeekly.Type.Duration
@@ -16,7 +17,9 @@ import qualified HaskellWeekly.Type.Title
 episode1 :: Either String HaskellWeekly.Type.Episode.Episode
 episode1 =
   HaskellWeekly.Type.Episode.Episode
-    <$> HaskellWeekly.Type.Audio.stringToAudio
+    <$> HaskellWeekly.Type.Articles.stringsToArticles
+          ["https://markkarpov.com/tutorial/exceptions.html"]
+    <*> HaskellWeekly.Type.Audio.stringToAudio
           "https://haskell-weekly-podcast.nyc3.cdn.digitaloceanspaces.com/2019-03-11-episode-1.mp3"
     <*> HaskellWeekly.Type.Date.gregorianToDate 2019 3 11
     <*> HaskellWeekly.Type.Duration.timestampToDuration 9 43

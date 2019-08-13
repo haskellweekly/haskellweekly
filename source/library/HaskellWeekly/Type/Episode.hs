@@ -4,6 +4,7 @@ module HaskellWeekly.Type.Episode
   )
 where
 
+import qualified HaskellWeekly.Type.Articles
 import qualified HaskellWeekly.Type.Audio
 import qualified HaskellWeekly.Type.Date
 import qualified HaskellWeekly.Type.Duration
@@ -15,7 +16,8 @@ import qualified HaskellWeekly.Type.Title
 
 data Episode =
   Episode
-    { episodeAudio :: HaskellWeekly.Type.Audio.Audio
+    { episodeArticles :: HaskellWeekly.Type.Articles.Articles
+    , episodeAudio :: HaskellWeekly.Type.Audio.Audio
     , episodeDate :: HaskellWeekly.Type.Date.Date
     , episodeDuration :: HaskellWeekly.Type.Duration.Duration
     , episodeGuid :: HaskellWeekly.Type.Guid.Guid

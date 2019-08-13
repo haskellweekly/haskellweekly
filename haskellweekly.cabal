@@ -34,6 +34,7 @@ common library
     filepath ^>= 1.4.2,
     http-types ^>= 0.12.3,
     lucid ^>= 2.9.11,
+    network-uri ^>= 2.6.1,
     postgresql-simple ^>= 0.6.2,
     text ^>= 1.2.3,
     time ^>= 1.8.0,
@@ -95,6 +96,8 @@ library
     HaskellWeekly.Template.NewsletterFeed
     HaskellWeekly.Template.Podcast
     HaskellWeekly.Template.PodcastFeed
+    HaskellWeekly.Type.Article
+    HaskellWeekly.Type.Articles
     HaskellWeekly.Type.Audio
     HaskellWeekly.Type.Config
     HaskellWeekly.Type.Content
