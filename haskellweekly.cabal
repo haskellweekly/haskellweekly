@@ -12,6 +12,7 @@ synopsis: Publishes curated news about Haskell.
 
 data-dir: data
 data-files:
+  caption/*.vtt
   favicon.ico
   podcast-logo.png
   tachyons-4-11-2.css
@@ -72,6 +73,7 @@ library
     HaskellWeekly.Episodes.Episode1
     HaskellWeekly.Handler.Advertising
     HaskellWeekly.Handler.Base
+    HaskellWeekly.Handler.Caption
     HaskellWeekly.Handler.Episode
     HaskellWeekly.Handler.Favicon
     HaskellWeekly.Handler.HealthCheck

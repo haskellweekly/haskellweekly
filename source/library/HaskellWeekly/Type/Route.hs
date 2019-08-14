@@ -14,6 +14,7 @@ import qualified System.FilePath
 
 data Route
   = RouteAdvertising
+  | RouteCaption HaskellWeekly.Type.Number.Number
   | RouteEpisode HaskellWeekly.Type.Number.Number
   | RouteFavicon
   | RouteHealthCheck
@@ -31,6 +32,10 @@ data Route
 routeToString :: Route -> String
 routeToString route = case route of
   RouteAdvertising -> "/advertising.html"
+  RouteCaption number ->
+    "/podcast/captions/"
+      <> HaskellWeekly.Type.Number.numberToString number
+      <> ".vtt"
   RouteEpisode number ->
     "/podcast/episodes/"
       <> HaskellWeekly.Type.Number.numberToString number
@@ -63,6 +68,11 @@ stringToRoute path = case path of
     RouteIssue
     file
   ["podcast", ""] -> Just RoutePodcast
+  ["podcast", "captions", file] -> routeContent
+    "vtt"
+    HaskellWeekly.Type.Number.stringToNumber
+    RouteCaption
+    file
   ["podcast", "episodes", file] -> routeContent
     "html"
     HaskellWeekly.Type.Number.stringToNumber

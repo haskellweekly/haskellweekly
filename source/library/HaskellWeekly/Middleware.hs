@@ -6,6 +6,7 @@ module HaskellWeekly.Middleware
 where
 
 import qualified Data.CaseInsensitive
+import qualified Data.List
 import qualified Data.Text
 import qualified Data.Text.Encoding
 import qualified Network.HTTP.Types
@@ -24,13 +25,23 @@ addSecurityHeaders :: Network.Wai.Middleware
 addSecurityHeaders =
   Network.Wai.modifyResponse
     . Network.Wai.mapResponseHeaders
-    $ addHeader
-        "Content-Security-Policy"
-        "default-src 'self'; media-src https://haskell-weekly-podcast.nyc3.cdn.digitaloceanspaces.com:443"
+    $ addHeader "Content-Security-Policy" contentSecurityPolicy
     . addHeader "Referrer-Policy" "no-referrer"
     . addHeader "X-Content-Type-Options" "nosniff"
     . addHeader "X-Frame-Options" "deny"
     . addHeader "X-XSS-Protection" "1; mode=block"
+
+-- | These rules are logically confusing and syntactically annoying, so it made
+-- sense to move them into a separate top-level declaration.
+contentSecurityPolicy :: String
+contentSecurityPolicy = Data.List.intercalate "; " $ fmap
+  unwords
+  [ ["default-src", "'self'"]
+  , [ "media-src"
+    , "https://haskell-weekly-podcast.nyc3.cdn.digitaloceanspaces.com:443"
+    , "'self'"
+    ]
+  ]
 
 -- | Adds a header to a response. This doesn't remove any existing headers with
 -- the same name, so it's possible to end up with duplicates.

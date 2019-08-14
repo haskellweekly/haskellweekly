@@ -38,12 +38,24 @@ episodeTemplate baseUrl episode =
             , H.preload_ "metadata"
             , H.width_ "256"
             ]
-          $ H.source_
-              [ H.src_
-              . HaskellWeekly.Type.Audio.audioToText
-              $ HaskellWeekly.Type.Episode.episodeAudio episode
-              , H.type_ "audio/mpeg"
-              ]
+          $ do
+              H.source_
+                [ H.src_
+                . HaskellWeekly.Type.Audio.audioToText
+                $ HaskellWeekly.Type.Episode.episodeAudio episode
+                , H.type_ "audio/mpeg"
+                ]
+              H.track_
+                [ H.term "default" "default"
+                , H.term "kind" "captions"
+                , H.src_
+                . Data.Text.pack
+                . mappend baseUrl
+                . HaskellWeekly.Type.Route.routeToString
+                . HaskellWeekly.Type.Route.RouteCaption
+                $ HaskellWeekly.Type.Episode.episodeNumber episode
+                , H.term "srclang" "en-US"
+                ]
         H.p_
           . H.toHtml
           . HaskellWeekly.Type.Summary.summaryToText
