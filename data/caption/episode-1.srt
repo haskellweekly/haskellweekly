@@ -1,0 +1,919 @@
+1
+00:00:00,000 --> 00:00:02,145
+[MUSIC]
+
+2
+00:00:02,145 --> 00:00:05,000
+Hello, and
+welcome to the Haskell weekly podcast.
+
+3
+00:00:05,000 --> 00:00:06,585
+I'm your host Taylor Fausak.
+
+4
+00:00:06,585 --> 00:00:08,776
+I'm the lead developer at ITProTV.
+
+5
+00:00:08,776 --> 00:00:12,830
+And with me in the studio
+today is Cody Goodman.
+
+6
+00:00:12,830 --> 00:00:14,300
+Thanks for being with us, Cody.
+
+7
+00:00:14,300 --> 00:00:16,740
+>> Thanks, Taylor, I hear we're
+gonna talk about some exceptions.
+
+8
+00:00:16,740 --> 00:00:19,940
+>> We are, before we get to that,
+just a quick overview.
+
+9
+00:00:19,940 --> 00:00:22,210
+Haskell is a safe,
+
+10
+00:00:22,210 --> 00:00:26,530
+purely functional programming language
+with a fast concurrent runtime.
+
+11
+00:00:26,530 --> 00:00:31,060
+And as Cody mentioned, we're gonna be
+talking about exceptions in Haskell today.
+
+12
+00:00:31,060 --> 00:00:31,900
+In particular,
+
+13
+00:00:31,900 --> 00:00:36,420
+we're looking at this article posted by
+Mark Karpov called exceptions tutorial.
+
+14
+00:00:36,420 --> 00:00:40,510
+It's from the yet
+to be published intermediate Haskell book.
+
+15
+00:00:40,510 --> 00:00:41,595
+Really we're just going to jump right in.
+
+16
+00:00:41,595 --> 00:00:44,800
+So Cody,
+why do we even bother with exceptions?
+
+17
+00:00:44,800 --> 00:00:47,430
+Why not have pure computations everywhere?
+
+18
+00:00:47,430 --> 00:00:50,890
+>> Well,
+we're trying to model the real world.
+
+19
+00:00:50,890 --> 00:00:56,030
+The real world isn't perfect, so we
+have to have some way of capturing that.
+
+20
+00:00:56,030 --> 00:01:02,090
+Exceptions are an imperfect but
+time-tested, proven way of doing that.
+
+21
+00:01:02,090 --> 00:01:05,610
+We know them from other languages
+that we've worked with,
+
+22
+00:01:05,610 --> 00:01:07,500
+other imperative languages.
+
+23
+00:01:07,500 --> 00:01:10,270
+But we get to Haskell,
+we start learning it.
+
+24
+00:01:10,270 --> 00:01:11,750
+We see these different paradigms,
+
+25
+00:01:11,750 --> 00:01:14,760
+these different ways of
+modeling the world around us.
+
+26
+00:01:14,760 --> 00:01:18,010
+Why can't we just stuff
+exceptions into that model, and
+
+27
+00:01:18,010 --> 00:01:19,570
+get all the benefits as well?
+
+28
+00:01:19,570 --> 00:01:24,020
+And it turns out, after you try that,
+you'll see that coming up with
+
+29
+00:01:24,020 --> 00:01:29,346
+the exception hierarchies, making models
+that make sense is really difficult.
+
+30
+00:01:29,346 --> 00:01:32,516
+Whenever you want to add
+another exception, for
+
+31
+00:01:32,516 --> 00:01:37,340
+instance, you have to type that out,
+account for it somewhere else.
+
+32
+00:01:37,340 --> 00:01:40,160
+It becomes quite becomes quite laborious.
+
+33
+00:01:40,160 --> 00:01:42,240
+>> Yeah, and let's back up a minute and
+make this concrete.
+
+34
+00:01:42,240 --> 00:01:45,810
+You mentioned that the real world,
+unfortunately, has imperfections,
+
+35
+00:01:45,810 --> 00:01:48,200
+unlike our pure,
+crystalline world of Haskell.
+
+36
+00:01:48,200 --> 00:01:50,651
+What are some of those things
+that we could talk about,
+
+37
+00:01:50,651 --> 00:01:53,140
+just to have a concrete
+example to play with?
+
+38
+00:01:53,140 --> 00:01:58,085
+>> If you just take integer division, for
+instance, something that could go wrong
+
+39
+00:01:58,085 --> 00:02:02,330
+is a user passing a zero and
+a divide by zero happening.
+
+40
+00:02:02,330 --> 00:02:05,650
+>> Yeah and then the whole app blows up,
+which may be what we want, maybe not.
+
+41
+00:02:05,650 --> 00:02:07,240
+Let's say that somebody divides by zero,
+
+42
+00:02:07,240 --> 00:02:09,580
+one way that we could model
+that is with an exception.
+
+43
+00:02:09,580 --> 00:02:12,070
+I think a lot of languages,
+like Python, do that.
+
+44
+00:02:12,070 --> 00:02:13,320
+Haskell may even do that.
+
+45
+00:02:13,320 --> 00:02:15,360
+But what are some other
+options we have for
+
+46
+00:02:15,360 --> 00:02:17,467
+how to model that other than an exception.
+
+47
+00:02:17,467 --> 00:02:21,367
+>> One other option,
+if you've been learning Haskell or
+
+48
+00:02:21,367 --> 00:02:25,220
+using it much,
+is the maybe or either monad.
+
+49
+00:02:25,220 --> 00:02:28,126
+Now in this case, the either monad
+wouldn't make a lot of sense.
+
+50
+00:02:28,126 --> 00:02:35,070
+Because there's really only that one case
+that could go wrong with integer division.
+
+51
+00:02:35,070 --> 00:02:38,386
+Maybe I'll listen to this later and
+[LAUGH] see I was wrong here.
+
+52
+00:02:38,386 --> 00:02:38,983
+But-
+>> [LAUGH] Yeah,
+
+53
+00:02:38,983 --> 00:02:41,827
+there might be lots of ways that
+an integer division could go wrong.
+
+54
+00:02:41,827 --> 00:02:43,376
+>> [LAUGH]
+>> I'm not a mathematician,
+
+55
+00:02:43,376 --> 00:02:44,490
+I couldn't tell you.
+
+56
+00:02:44,490 --> 00:02:45,300
+>> Indeed.
+
+57
+00:02:45,300 --> 00:02:51,770
+So using a maybe, we could model
+that division by zero as a nothing.
+
+58
+00:02:51,770 --> 00:02:55,675
+Or if we got the result and
+it wasn't a zero, just that value.
+
+59
+00:02:55,675 --> 00:02:59,316
+>> And since we only have one kind
+of exception case to deal with here,
+
+60
+00:02:59,316 --> 00:03:00,954
+it's pretty easy to decide.
+
+61
+00:03:00,954 --> 00:03:03,487
+Yeah, we should probably use
+maybe instead of either.
+
+62
+00:03:03,487 --> 00:03:07,170
+But if we had a lot of cases, wouldn't
+we wanna use either rather than maybe?
+
+63
+00:03:07,170 --> 00:03:09,520
+>> Yeah, typically you'd wanna use either.
+
+64
+00:03:09,520 --> 00:03:14,081
+When you when you first learn about that,
+say from real world Haskell or
+
+65
+00:03:14,081 --> 00:03:18,583
+some more updated materials,
+you'll use either string some value.
+
+66
+00:03:18,583 --> 00:03:24,380
+And you will use that to essentially
+plan out what that string value is.
+
+67
+00:03:24,380 --> 00:03:28,610
+But that's remarkably similar
+to just using exceptions.
+
+68
+00:03:28,610 --> 00:03:31,550
+>> Yeah, the only difference really is
+that we've captured it in the type and
+
+69
+00:03:31,550 --> 00:03:33,310
+we can work with it as a value.
+
+70
+00:03:33,310 --> 00:03:36,672
+Either string something isn't super
+useful cuz the only thing you can do
+
+71
+00:03:36,672 --> 00:03:38,500
+with that string is maybe print it out.
+
+72
+00:03:38,500 --> 00:03:41,112
+Or maybe poke out it if you're
+really wanna try to determine,
+
+73
+00:03:41,112 --> 00:03:43,010
+does it have zero in there somewhere?
+
+74
+00:03:43,010 --> 00:03:44,860
+>> Right.
+>> Which isn't very satisfying.
+
+75
+00:03:44,860 --> 00:03:47,761
+But let's say, we had integer division
+by zero, which returns a maybe.
+
+76
+00:03:47,761 --> 00:03:50,390
+We have some more complicated
+thing that returns a neither.
+
+77
+00:03:50,390 --> 00:03:53,430
+Isn't it kinda difficult to
+smoosh those values together and
+
+78
+00:03:53,430 --> 00:03:55,550
+work with both of them in one context?
+
+79
+00:03:55,550 --> 00:03:56,640
+>> How do you mean exactly?
+
+80
+00:03:56,640 --> 00:04:01,070
+>> So if we have integer division
+that returns a maybe integer.
+
+81
+00:04:01,070 --> 00:04:03,930
+And so, we have to deal with
+just some value or nothing.
+
+82
+00:04:03,930 --> 00:04:06,951
+And then we have some other computation,
+I can't think of one off the top my head.
+
+83
+00:04:06,951 --> 00:04:10,600
+But it returns in either,
+let's say, string integer.
+
+84
+00:04:10,600 --> 00:04:14,686
+And we wanna,
+if the maybe is a just integer, and
+
+85
+00:04:14,686 --> 00:04:17,700
+the either is a right integer,
+add those things together.
+
+86
+00:04:17,700 --> 00:04:19,930
+Don't we have to do a lot of
+pattern matching or something?
+
+87
+00:04:19,930 --> 00:04:22,630
+>> Yeah, we have to do pattern matching.
+
+88
+00:04:22,630 --> 00:04:28,638
+There's no good way to use any F mapping
+or short-circuiting between maybes and
+
+89
+00:04:28,638 --> 00:04:33,270
+eithers, cuz they have
+a different number of parameters.
+
+90
+00:04:33,270 --> 00:04:35,020
+>> Yeah, and they're just different types.
+
+91
+00:04:35,020 --> 00:04:39,030
+Whereas, if everything was a maybe or
+everything was an either, even with
+
+92
+00:04:39,030 --> 00:04:42,540
+the same error type, then we could
+work with those values really easily.
+
+93
+00:04:42,540 --> 00:04:43,330
+>> Right.
+
+94
+00:04:43,330 --> 00:04:47,220
+>> And right, I guess a problem
+there would be that that error type,
+
+95
+00:04:47,220 --> 00:04:50,410
+if we were using either,
+would start to get really big, right?
+
+96
+00:04:50,410 --> 00:04:55,397
+>> Yeah, so let's say you replace that
+string with your own my custom error type.
+
+97
+00:04:55,397 --> 00:04:57,230
+You make it a sum type.
+
+98
+00:04:57,230 --> 00:05:00,120
+You enumerate out all
+the things that could go wrong.
+
+99
+00:05:00,120 --> 00:05:04,710
+Sure, with simple problems
+that would not be too bad, and
+
+100
+00:05:04,710 --> 00:05:08,640
+it may even be the preferred
+option in simple cases.
+
+101
+00:05:08,640 --> 00:05:12,195
+But if you have something relatively
+complex or something that
+
+102
+00:05:12,195 --> 00:05:16,800
+gets very complex on you, even though
+you thought it would be simple.
+
+103
+00:05:16,800 --> 00:05:22,530
+It becomes really laborious and
+the value proposition isn't so
+
+104
+00:05:22,530 --> 00:05:25,300
+much in favor of those huge hierarchies.
+
+105
+00:05:25,300 --> 00:05:27,574
+>> Yeah, and you look at
+the exception hierarchy even for
+
+106
+00:05:27,574 --> 00:05:30,195
+a language like Haskell, but
+first stuff like Rubi or Python,
+
+107
+00:05:30,195 --> 00:05:32,433
+there's a lot of different
+types of errors in there.
+
+108
+00:05:32,433 --> 00:05:36,073
+And stuffing all those into one error
+type, I don't wanna deal with all those
+
+109
+00:05:36,073 --> 00:05:39,781
+exception cases all the time, cuz most
+of the time they're not gonna happen.
+
+110
+00:05:39,781 --> 00:05:44,697
+>> Right, if 90% of your case matches
+that you're doing control flow
+
+111
+00:05:44,697 --> 00:05:49,430
+off of do the exact same thing,
+and they print out the error.
+
+112
+00:05:49,430 --> 00:05:54,710
+What value are you getting specifically
+from not using exceptions and
+
+113
+00:05:54,710 --> 00:05:58,540
+instead using either in
+a custom error hierarchy?
+
+114
+00:05:58,540 --> 00:05:59,850
+>> Yeah, and furthermore,
+
+115
+00:05:59,850 --> 00:06:02,980
+if I had a, let's say I had
+this integer division function.
+
+116
+00:06:02,980 --> 00:06:05,980
+And it returned either some
+big error type integer.
+
+117
+00:06:05,980 --> 00:06:07,540
+If I wanted to handle the result of that,
+
+118
+00:06:07,540 --> 00:06:11,310
+really, I know, based on, let's say
+the documentation or just my gut, that
+
+119
+00:06:11,310 --> 00:06:14,470
+the only exception it's actually going
+to return is the division by zero one.
+
+120
+00:06:14,470 --> 00:06:18,566
+But I also have to handle file does exist
+error and control c and all this other
+
+121
+00:06:18,566 --> 00:06:23,120
+stuff, even though I know in my heart
+of hearts that it's never gonna happen.
+
+122
+00:06:23,120 --> 00:06:26,220
+>> Right and that's something
+that just doesn't make sense.
+
+123
+00:06:26,220 --> 00:06:28,950
+And it's something that your
+definitely not gonna have time for.
+
+124
+00:06:28,950 --> 00:06:33,570
+I think that might be a reason that, for
+instance, programmers who don't know as
+
+125
+00:06:33,570 --> 00:06:39,140
+much about Haskell or the benefits if it,
+will see it as not a real-world language.
+
+126
+00:06:39,140 --> 00:06:40,781
+They don't wanna be caught
+up in all of those concerns.
+
+127
+00:06:40,781 --> 00:06:42,843
+But the good news is,
+they don't have to be.
+
+128
+00:06:42,843 --> 00:06:45,570
+>> Yeah exactly,
+it is a real-word language.
+
+129
+00:06:45,570 --> 00:06:47,760
+And it can be used the same
+way as every other language,
+
+130
+00:06:47,760 --> 00:06:49,460
+because you can just throw an exception.
+
+131
+00:06:49,460 --> 00:06:50,232
+And in a way,
+
+132
+00:06:50,232 --> 00:06:54,879
+during an exception is a lot like you're
+in this either some giant error case.
+
+133
+00:06:54,879 --> 00:06:57,695
+Except that you don't have to explicitly
+handle all these cases that you know
+
+134
+00:06:57,695 --> 00:06:58,570
+aren't gonna happen.
+
+135
+00:06:58,570 --> 00:07:02,206
+You can only catch or deal with the
+exceptions that your documentation says
+
+136
+00:07:02,206 --> 00:07:03,940
+that thing is gonna throw.
+
+137
+00:07:03,940 --> 00:07:06,400
+>> Right, and that's okay.
+
+138
+00:07:06,400 --> 00:07:08,330
+I think we should encourage that.
+
+139
+00:07:08,330 --> 00:07:12,530
+Because it's also an effective
+way of learning Haskell is
+
+140
+00:07:12,530 --> 00:07:15,980
+only handling the cases that you think
+you're gonna have to care about.
+
+141
+00:07:15,980 --> 00:07:19,440
+And then update and
+encode incrementally as you go along.
+
+142
+00:07:19,440 --> 00:07:23,600
+There's, at first, a feeling of,
+I have to learn everything up front.
+
+143
+00:07:23,600 --> 00:07:25,680
+>> Yeah, you don't need to
+learn everything all at once.
+
+144
+00:07:25,680 --> 00:07:26,913
+You can learn stuff as you go.
+
+145
+00:07:26,913 --> 00:07:28,930
+We've been talking about integer division.
+
+146
+00:07:28,930 --> 00:07:30,690
+Obviously, that's a pure operation.
+
+147
+00:07:30,690 --> 00:07:34,390
+It doesn't need to read from a file or
+talk to the network or anything like that.
+
+148
+00:07:34,390 --> 00:07:35,540
+But we're also talking
+about throwing exceptions.
+
+149
+00:07:35,540 --> 00:07:38,780
+Isn't it weird that exceptions
+can be thrown from pure code?
+
+150
+00:07:38,780 --> 00:07:43,260
+>> It does seem weird,
+why does this happen?
+
+151
+00:07:43,260 --> 00:07:46,849
+Why can't we just depend
+on those pure operations?
+
+152
+00:07:48,118 --> 00:07:52,790
+And the reasoning for that is because
+the complications of the real world again.
+
+153
+00:07:52,790 --> 00:07:55,341
+Maybe our computer runs out of memory,
+for instance,
+
+154
+00:07:55,341 --> 00:07:57,180
+while we're trying two add numbers.
+
+155
+00:07:57,180 --> 00:07:58,280
+>> Yeah, and what do we do there?
+
+156
+00:07:58,280 --> 00:07:58,855
+>> Exactly.
+
+157
+00:07:58,855 --> 00:08:03,489
+>> [LAUGH] So exceptions have to be
+able to be thrown from pure code.
+
+158
+00:08:03,489 --> 00:08:06,810
+Because the real world is gonna butt
+in and say, well, I know that's a pure
+
+159
+00:08:06,810 --> 00:08:10,324
+mathematical function you're dealing with,
+but sorry, I ran out of power.
+
+160
+00:08:10,324 --> 00:08:12,097
+[LAUGH]
+>> [LAUGH] Yeah,
+
+161
+00:08:12,097 --> 00:08:13,756
+maybe we got too close to the Sun.
+
+162
+00:08:13,756 --> 00:08:15,850
+>> [LAUGH]
+>> There was a flare or something.
+
+163
+00:08:15,850 --> 00:08:17,750
+>> Yeah, something big got
+flipped on our hard drive.
+
+164
+00:08:17,750 --> 00:08:18,810
+What are we gonna do?
+
+165
+00:08:18,810 --> 00:08:20,652
+But if we can throw
+exceptions from pure code,
+
+166
+00:08:20,652 --> 00:08:23,451
+wouldn't it make sense that we could
+catch them from pure code, too?
+
+167
+00:08:23,451 --> 00:08:28,262
+>> While it would, and
+that's where you get into sort of one of
+
+168
+00:08:28,262 --> 00:08:33,470
+the gotchas in Haskell,
+at least at first, only IO is in order.
+
+169
+00:08:34,740 --> 00:08:38,766
+Pure code doesn't necessarily have
+a guarantee of the order, for instance,
+
+170
+00:08:38,766 --> 00:08:40,160
+addition.
+
+171
+00:08:40,160 --> 00:08:41,666
+>> Yeah so, what do you mean by addition?
+
+172
+00:08:41,666 --> 00:08:45,960
+If I'm adding two and three,
+it seems pretty clear what's gonna happen.
+
+173
+00:08:45,960 --> 00:08:51,610
+>> Right, but if we have two errors
+that are being added together.
+
+174
+00:08:51,610 --> 00:08:55,900
+We have error string of line and
+error string of two.
+
+175
+00:08:55,900 --> 00:08:59,100
+We don't necessarily know which one
+of those will be evaluated first.
+
+176
+00:08:59,100 --> 00:09:00,863
+>> Right, so it could be we'd run that and
+
+177
+00:09:00,863 --> 00:09:03,275
+we'd get one printed out to
+our console as the error.
+
+178
+00:09:03,275 --> 00:09:04,110
+Or we'd get two, and
+
+179
+00:09:04,110 --> 00:09:06,730
+there's just no way to know ahead
+of time which one it's gonna be.
+
+180
+00:09:06,730 --> 00:09:07,510
+>> Exactly.
+
+181
+00:09:07,510 --> 00:09:11,500
+>> So since that's the case, we can
+only catch errors in IO, is that right?
+
+182
+00:09:11,500 --> 00:09:12,400
+>> Correct.
+
+183
+00:09:12,400 --> 00:09:15,234
+>> That means that we can throw
+errors anywhere we want, and
+
+184
+00:09:15,234 --> 00:09:18,438
+then at the top level of our program,
+which has to be IO, right?
+
+185
+00:09:18,438 --> 00:09:19,400
+>> Mm-hm.
+
+186
+00:09:19,400 --> 00:09:20,790
+>> That's where we handle everything and
+
+187
+00:09:20,790 --> 00:09:24,520
+do the typical IO stuff of just
+log it out and crash the program.
+
+188
+00:09:24,520 --> 00:09:25,970
+>> Correct, correct.
+
+189
+00:09:25,970 --> 00:09:27,390
+>> Thanks for being on the show, Cody.
+
+190
+00:09:27,390 --> 00:09:28,410
+>> It's been great to be here.
+
+191
+00:09:28,410 --> 00:09:29,940
+I look forward to talking to you soon.
+
+192
+00:09:29,940 --> 00:09:32,655
+>> To learn more information
+about Haskell, go to our website,
+
+193
+00:09:32,655 --> 00:09:34,860
+haskellweekly.news.
+
+194
+00:09:34,860 --> 00:09:39,639
+From all of us here at Haskell Weekly and
+ITProTV, I'm your host Taylor Fausak.
+
+195
+00:09:39,639 --> 00:09:41,120
+We'll see you next week.
+
+196
+00:09:41,120 --> 00:09:43,097
+[MUSIC]
