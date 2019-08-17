@@ -8,6 +8,7 @@ import qualified Data.Map
 import qualified Data.Ord
 import qualified HaskellWeekly.Handler.Base
 import qualified HaskellWeekly.Template.Index
+import qualified HaskellWeekly.Type.Config
 import qualified HaskellWeekly.Type.Content
 import qualified HaskellWeekly.Type.Date
 import qualified HaskellWeekly.Type.Episode
@@ -23,7 +24,11 @@ indexHandler state =
   in
     pure
     . HaskellWeekly.Handler.Base.htmlResponse Network.HTTP.Types.ok200 []
-    $ HaskellWeekly.Template.Index.indexTemplate contents
+    $ HaskellWeekly.Template.Index.indexTemplate
+        (HaskellWeekly.Type.Config.configBaseUrl
+        $ HaskellWeekly.Type.State.stateConfig state
+        )
+        contents
 
 stateContents
   :: HaskellWeekly.Type.State.State -> [HaskellWeekly.Type.Content.Content]

@@ -11,10 +11,11 @@ import qualified HaskellWeekly.Type.Issue
 import qualified HaskellWeekly.Type.Number
 import qualified Lucid as H
 
-issueTemplate :: HaskellWeekly.Type.Issue.Issue -> H.Html ()
-issueTemplate issue = do
+issueTemplate :: String -> HaskellWeekly.Type.Issue.Issue -> H.Html ()
+issueTemplate baseUrl issue = do
   let number = HaskellWeekly.Type.Issue.issueNumber issue
   HaskellWeekly.Template.Base.baseTemplate
+      baseUrl
       ["Newsletter", title number, date issue]
     $ do
         H.h2_ [H.class_ "f2"] "Newsletter"

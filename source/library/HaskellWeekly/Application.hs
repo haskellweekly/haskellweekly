@@ -62,7 +62,7 @@ handle
   -> IO Network.Wai.Response
 handle state route = case route of
   HaskellWeekly.Type.Route.RouteAdvertising ->
-    HaskellWeekly.Handler.Advertising.advertisingHandler
+    HaskellWeekly.Handler.Advertising.advertisingHandler state
   HaskellWeekly.Type.Route.RouteCaption number ->
     HaskellWeekly.Handler.Caption.captionHandler state number
   HaskellWeekly.Type.Route.RouteEpisode number ->

@@ -12,10 +12,11 @@ import qualified HaskellWeekly.Type.Route
 import qualified HaskellWeekly.Type.Title
 import qualified Lucid as H
 
-podcastTemplate :: [HaskellWeekly.Type.Episode.Episode] -> H.Html ()
-podcastTemplate episodes = HaskellWeekly.Template.Base.baseTemplate [] $ do
-  H.h2_ [H.class_ "f2"] "Podcast"
-  H.ul_ $ mapM_ episodeTemplate episodes
+podcastTemplate :: String -> [HaskellWeekly.Type.Episode.Episode] -> H.Html ()
+podcastTemplate baseUrl episodes =
+  HaskellWeekly.Template.Base.baseTemplate baseUrl [] $ do
+    H.h2_ [H.class_ "f2"] "Podcast"
+    H.ul_ $ mapM_ episodeTemplate episodes
 
 episodeTemplate :: HaskellWeekly.Type.Episode.Episode -> H.Html ()
 episodeTemplate episode =

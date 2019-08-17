@@ -8,9 +8,9 @@ where
 import qualified HaskellWeekly.Template.Base
 import qualified Lucid as H
 
-advertisingTemplate :: H.Html ()
-advertisingTemplate =
-  HaskellWeekly.Template.Base.baseTemplate ["Advertising"] $ do
+advertisingTemplate :: String -> H.Html ()
+advertisingTemplate baseUrl =
+  HaskellWeekly.Template.Base.baseTemplate baseUrl ["Advertising"] $ do
     H.h2_ [H.class_ "f2"] "Advertising"
     H.p_ $ do
       "You can advertise with Haskell Weekly by purchasing a sponsored link. "

@@ -8,6 +8,7 @@ import qualified Data.Map
 import qualified Data.Ord
 import qualified HaskellWeekly.Handler.Base
 import qualified HaskellWeekly.Template.Podcast
+import qualified HaskellWeekly.Type.Config
 import qualified HaskellWeekly.Type.Episode
 import qualified HaskellWeekly.Type.State
 import qualified Network.HTTP.Types
@@ -15,10 +16,13 @@ import qualified Network.Wai
 
 podcastHandler
   :: Applicative f => HaskellWeekly.Type.State.State -> f Network.Wai.Response
-podcastHandler =
+podcastHandler state =
   pure
     . HaskellWeekly.Handler.Base.htmlResponse Network.HTTP.Types.ok200 []
-    . HaskellWeekly.Template.Podcast.podcastTemplate
+    . (HaskellWeekly.Template.Podcast.podcastTemplate
+      . HaskellWeekly.Type.Config.configBaseUrl
+      $ HaskellWeekly.Type.State.stateConfig state
+      )
     . Data.List.sortOn (Data.Ord.Down . HaskellWeekly.Type.Episode.episodeDate)
     . Data.Map.elems
-    . HaskellWeekly.Type.State.stateEpisodes
+    $ HaskellWeekly.Type.State.stateEpisodes state

@@ -25,9 +25,17 @@ episodeTemplate
   -> H.Html ()
 episodeTemplate baseUrl episode maybeCaptions =
   HaskellWeekly.Template.Base.baseTemplate
+      baseUrl
       ["Podcast", number episode, title episode]
     $ do
-        H.h2_ [H.class_ "f2"] "Podcast"
+        H.h2_ [H.class_ "f2"] $ H.a_
+          [ H.href_
+            . Data.Text.pack
+            . mappend baseUrl
+            $ HaskellWeekly.Type.Route.routeToString
+                HaskellWeekly.Type.Route.RoutePodcast
+          ]
+          "Podcast"
         H.h3_ [H.class_ "f3"] $ do
           H.toHtml $ number episode
           ": "

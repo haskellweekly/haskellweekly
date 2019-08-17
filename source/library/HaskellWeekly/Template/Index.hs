@@ -15,9 +15,11 @@ import qualified HaskellWeekly.Type.Number
 import qualified HaskellWeekly.Type.Route
 import qualified Lucid as H
 
-indexTemplate :: [HaskellWeekly.Type.Content.Content] -> H.Html ()
-indexTemplate =
-  HaskellWeekly.Template.Base.baseTemplate [] . H.ul_ . mapM_ contentTemplate
+indexTemplate :: String -> [HaskellWeekly.Type.Content.Content] -> H.Html ()
+indexTemplate baseUrl =
+  HaskellWeekly.Template.Base.baseTemplate baseUrl []
+    . H.ul_
+    . mapM_ contentTemplate
 
 contentTemplate :: HaskellWeekly.Type.Content.Content -> H.Html ()
 contentTemplate content = H.li_ $ case content of

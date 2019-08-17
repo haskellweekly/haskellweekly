@@ -10,8 +10,8 @@ import qualified Data.Text
 import qualified HaskellWeekly.Type.Route
 import qualified Lucid as H
 
-baseTemplate :: [String] -> H.Html () -> H.Html ()
-baseTemplate title body = do
+baseTemplate :: String -> [String] -> H.Html () -> H.Html ()
+baseTemplate baseUrl title body = do
   H.doctype_
   H.html_ [H.class_ "b--purple bt bw2"] $ do
     H.head_ $ do
@@ -32,7 +32,15 @@ baseTemplate title body = do
       . H.div_ [H.class_ "mw7 w-100"]
       $ do
           H.header_ [H.class_ "mv3"]
-            $ H.h1_ [H.class_ "f1 tracked-tight"] "Haskell Weekly"
+            . H.h1_ [H.class_ "f1 tracked-tight"]
+            $ H.a_
+                [ H.href_
+                  . Data.Text.pack
+                  . mappend baseUrl
+                  $ HaskellWeekly.Type.Route.routeToString
+                      HaskellWeekly.Type.Route.RouteIndex
+                ]
+                "Haskell Weekly"
           H.main_ [H.class_ "mv3"] body
           H.footer_ [H.class_ "gray mv3"] . H.p_ $ do
             "The content on this site is licensed under a "

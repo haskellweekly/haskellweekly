@@ -6,6 +6,7 @@ where
 import qualified Data.Map
 import qualified HaskellWeekly.Handler.Base
 import qualified HaskellWeekly.Template.Issue
+import qualified HaskellWeekly.Type.Config
 import qualified HaskellWeekly.Type.Number
 import qualified HaskellWeekly.Type.State
 import qualified Network.HTTP.Types
@@ -24,4 +25,8 @@ issueHandler state number =
         Nothing -> HaskellWeekly.Handler.Base.notFoundResponse
         Just issue ->
           HaskellWeekly.Handler.Base.htmlResponse Network.HTTP.Types.ok200 []
-            $ HaskellWeekly.Template.Issue.issueTemplate issue
+            $ HaskellWeekly.Template.Issue.issueTemplate
+                (HaskellWeekly.Type.Config.configBaseUrl
+                $ HaskellWeekly.Type.State.stateConfig state
+                )
+                issue
