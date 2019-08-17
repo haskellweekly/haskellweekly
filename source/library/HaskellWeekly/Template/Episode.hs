@@ -72,8 +72,8 @@ episodeTemplate baseUrl episode srt =
           H.toHtml $ date episode
           "."
         H.h2_ "Transcript"
-        H.p_ [H.style_ "white-space: pre-line;"]
-          . H.toHtml
+        H.div_
+          . mapM_ (H.p_ . H.toHtml)
           $ HaskellWeekly.Type.SubRipText.renderTranscript srt
 
 number :: HaskellWeekly.Type.Episode.Episode -> String

@@ -157,9 +157,8 @@ renderCueTime field =
 subRipTextToCues :: SubRipText -> [Cue]
 subRipTextToCues (SubRipText cues) = cues
 
-renderTranscript :: SubRipText -> Data.Text.Text
+renderTranscript :: SubRipText -> [Data.Text.Text]
 renderTranscript =
-  Data.Text.intercalate (Data.Text.singleton '\n')
-    . renderCuePayload
+  renderCuePayload
     . concatMap (Data.List.NonEmpty.toList . cuePayload)
     . subRipTextToCues
