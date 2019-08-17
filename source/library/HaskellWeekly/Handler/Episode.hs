@@ -5,6 +5,7 @@ where
 
 import qualified Data.Map
 import qualified HaskellWeekly.Handler.Base
+import qualified HaskellWeekly.Handler.Caption
 import qualified HaskellWeekly.Template.Episode
 import qualified HaskellWeekly.Type.Config
 import qualified HaskellWeekly.Type.Number
@@ -13,20 +14,19 @@ import qualified Network.HTTP.Types
 import qualified Network.Wai
 
 episodeHandler
-  :: Applicative f
-  => HaskellWeekly.Type.State.State
+  :: HaskellWeekly.Type.State.State
   -> HaskellWeekly.Type.Number.Number
-  -> f Network.Wai.Response
+  -> IO Network.Wai.Response
 episodeHandler state number =
-  pure
-    $ case
-        Data.Map.lookup number $ HaskellWeekly.Type.State.stateEpisodes state
-      of
-        Nothing -> HaskellWeekly.Handler.Base.notFoundResponse
-        Just episode ->
-          HaskellWeekly.Handler.Base.htmlResponse Network.HTTP.Types.ok200 []
-            $ HaskellWeekly.Template.Episode.episodeTemplate
-                (HaskellWeekly.Type.Config.configBaseUrl
-                $ HaskellWeekly.Type.State.stateConfig state
-                )
-                episode
+  case Data.Map.lookup number $ HaskellWeekly.Type.State.stateEpisodes state of
+    Nothing -> pure HaskellWeekly.Handler.Base.notFoundResponse
+    Just episode -> do
+      srt <- HaskellWeekly.Handler.Caption.readCaptionFile state number
+      pure
+        . HaskellWeekly.Handler.Base.htmlResponse Network.HTTP.Types.ok200 []
+        $ HaskellWeekly.Template.Episode.episodeTemplate
+            (HaskellWeekly.Type.Config.configBaseUrl
+            $ HaskellWeekly.Type.State.stateConfig state
+            )
+            episode
+            srt

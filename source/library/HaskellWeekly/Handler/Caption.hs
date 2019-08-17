@@ -1,5 +1,8 @@
 module HaskellWeekly.Handler.Caption
   ( captionHandler
+  , keepDoesNotExistError
+  , handleDoesNotExistError
+  , readCaptionFile
   )
 where
 
@@ -38,16 +41,7 @@ serveCaptionFile
   -> HaskellWeekly.Type.Number.Number
   -> IO Network.Wai.Response
 serveCaptionFile state number = do
-  let
-    directory = HaskellWeekly.Type.Config.configDataDirectory
-      $ HaskellWeekly.Type.State.stateConfig state
-    name = "episode-" <> HaskellWeekly.Type.Number.numberToString number
-    file = System.FilePath.addExtension name "srt"
-    path = System.FilePath.joinPath [directory, "caption", file]
-  contents <- readFile path
-  srt <- case HaskellWeekly.Type.SubRipText.parseSubRipText contents of
-    Nothing -> fail $ "failed to parse SRT file: " <> show path
-    Just srt -> pure srt
+  srt <- readCaptionFile state number
   let
     status = Network.HTTP.Types.ok200
     headers =
@@ -60,6 +54,22 @@ serveCaptionFile state number = do
         . Data.Text.Encoding.encodeUtf8
         $ HaskellWeekly.Type.SubRipText.renderWebVideoTextTracks srt
   pure $ HaskellWeekly.Handler.Base.lbsResponse status headers body
+
+readCaptionFile
+  :: HaskellWeekly.Type.State.State
+  -> HaskellWeekly.Type.Number.Number
+  -> IO HaskellWeekly.Type.SubRipText.SubRipText
+readCaptionFile state number = do
+  let
+    directory = HaskellWeekly.Type.Config.configDataDirectory
+      $ HaskellWeekly.Type.State.stateConfig state
+    name = "episode-" <> HaskellWeekly.Type.Number.numberToString number
+    file = System.FilePath.addExtension name "srt"
+    path = System.FilePath.joinPath [directory, "caption", file]
+  contents <- readFile path
+  case HaskellWeekly.Type.SubRipText.parseSubRipText contents of
+    Nothing -> fail $ "failed to parse SRT file: " <> show path
+    Just srt -> pure srt
 
 handleDoesNotExistError :: IOError -> IO Network.Wai.Response
 handleDoesNotExistError exception = do

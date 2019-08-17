@@ -13,12 +13,17 @@ import qualified HaskellWeekly.Type.Date
 import qualified HaskellWeekly.Type.Episode
 import qualified HaskellWeekly.Type.Number
 import qualified HaskellWeekly.Type.Route
+import qualified HaskellWeekly.Type.SubRipText
 import qualified HaskellWeekly.Type.Summary
 import qualified HaskellWeekly.Type.Title
 import qualified Lucid as H
 
-episodeTemplate :: String -> HaskellWeekly.Type.Episode.Episode -> H.Html ()
-episodeTemplate baseUrl episode =
+episodeTemplate
+  :: String
+  -> HaskellWeekly.Type.Episode.Episode
+  -> HaskellWeekly.Type.SubRipText.SubRipText
+  -> H.Html ()
+episodeTemplate baseUrl episode srt =
   HaskellWeekly.Template.Base.baseTemplate
       ["Podcast", number episode, title episode]
     $ do
@@ -66,6 +71,10 @@ episodeTemplate baseUrl episode =
           "This episode was published on "
           H.toHtml $ date episode
           "."
+        H.h2_ "Transcript"
+        H.p_ [H.style_ "white-space: pre-line;"]
+          . H.toHtml
+          $ HaskellWeekly.Type.SubRipText.renderTranscript srt
 
 number :: HaskellWeekly.Type.Episode.Episode -> String
 number =

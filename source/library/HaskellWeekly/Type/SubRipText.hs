@@ -2,6 +2,7 @@
 module HaskellWeekly.Type.SubRipText
   ( SubRipText
   , parseSubRipText
+  , renderTranscript
   , renderWebVideoTextTracks
   )
 where
@@ -117,18 +118,19 @@ naturalP count = do
   either fail pure $ Text.Read.readEither digits
 
 renderWebVideoTextTracks :: SubRipText -> Data.Text.Text
-renderWebVideoTextTracks (SubRipText cues) =
+renderWebVideoTextTracks =
   Data.Text.intercalate (Data.Text.pack "\n\n")
     . (Data.Text.pack "WEBVTT" :)
-    $ fmap renderCue cues
+    . fmap renderCue
+    . subRipTextToCues
 
 renderCue :: Cue -> Data.Text.Text
 renderCue cue =
   Data.Text.intercalate (Data.Text.singleton '\n')
     $ renderCueTimes cue
-    : renderCuePayload cue
+    : (renderCuePayload . Data.List.NonEmpty.toList $ cuePayload cue)
 
-renderCuePayload :: Cue -> [Data.Text.Text]
+renderCuePayload :: [Data.Text.Text] -> [Data.Text.Text]
 renderCuePayload =
   fmap Data.Text.unwords
     . filter (not . null)
@@ -141,8 +143,6 @@ renderCuePayload =
         ([], [])
     . Data.Text.words
     . Data.Text.unwords
-    . Data.List.NonEmpty.toList
-    . cuePayload
 
 renderCueTimes :: Cue -> Data.Text.Text
 renderCueTimes cue = Data.Text.pack
@@ -153,3 +153,13 @@ renderCueTime field =
   Data.Time.formatTime Data.Time.defaultTimeLocale "%H:%M:%S%3Q"
     . Data.Time.timeToTimeOfDay
     . field
+
+subRipTextToCues :: SubRipText -> [Cue]
+subRipTextToCues (SubRipText cues) = cues
+
+renderTranscript :: SubRipText -> Data.Text.Text
+renderTranscript =
+  Data.Text.intercalate (Data.Text.singleton '\n')
+    . renderCuePayload
+    . concatMap (Data.List.NonEmpty.toList . cuePayload)
+    . subRipTextToCues
