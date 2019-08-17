@@ -101,6 +101,7 @@ library
     HaskellWeekly.Type.Article
     HaskellWeekly.Type.Articles
     HaskellWeekly.Type.Audio
+    HaskellWeekly.Type.Caption
     HaskellWeekly.Type.Config
     HaskellWeekly.Type.Content
     HaskellWeekly.Type.Date
@@ -113,7 +114,6 @@ library
     HaskellWeekly.Type.Route
     HaskellWeekly.Type.Size
     HaskellWeekly.Type.State
-    HaskellWeekly.Type.SubRipText
     HaskellWeekly.Type.Summary
     HaskellWeekly.Type.Title
     Paths_haskellweekly

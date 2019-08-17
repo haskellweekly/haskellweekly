@@ -9,11 +9,11 @@ import qualified Data.Text
 import qualified HaskellWeekly.Template.Base
 import qualified HaskellWeekly.Type.Article
 import qualified HaskellWeekly.Type.Audio
+import qualified HaskellWeekly.Type.Caption
 import qualified HaskellWeekly.Type.Date
 import qualified HaskellWeekly.Type.Episode
 import qualified HaskellWeekly.Type.Number
 import qualified HaskellWeekly.Type.Route
-import qualified HaskellWeekly.Type.SubRipText
 import qualified HaskellWeekly.Type.Summary
 import qualified HaskellWeekly.Type.Title
 import qualified Lucid as H
@@ -21,7 +21,7 @@ import qualified Lucid as H
 episodeTemplate
   :: String
   -> HaskellWeekly.Type.Episode.Episode
-  -> HaskellWeekly.Type.SubRipText.SubRipText
+  -> [HaskellWeekly.Type.Caption.Caption]
   -> H.Html ()
 episodeTemplate baseUrl episode srt =
   HaskellWeekly.Template.Base.baseTemplate
@@ -74,7 +74,7 @@ episodeTemplate baseUrl episode srt =
         H.h2_ "Transcript"
         H.div_
           . mapM_ (H.p_ . H.toHtml)
-          $ HaskellWeekly.Type.SubRipText.renderTranscript srt
+          $ HaskellWeekly.Type.Caption.renderTranscript srt
 
 number :: HaskellWeekly.Type.Episode.Episode -> String
 number =

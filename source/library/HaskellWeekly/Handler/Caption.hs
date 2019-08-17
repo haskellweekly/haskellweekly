@@ -11,10 +11,10 @@ import qualified Data.ByteString.Lazy
 import qualified Data.Text
 import qualified Data.Text.Encoding
 import qualified HaskellWeekly.Handler.Base
+import qualified HaskellWeekly.Type.Caption
 import qualified HaskellWeekly.Type.Config
 import qualified HaskellWeekly.Type.Number
 import qualified HaskellWeekly.Type.State
-import qualified HaskellWeekly.Type.SubRipText
 import qualified Network.HTTP.Types
 import qualified Network.Wai
 import qualified System.FilePath
@@ -41,7 +41,7 @@ serveCaptionFile
   -> HaskellWeekly.Type.Number.Number
   -> IO Network.Wai.Response
 serveCaptionFile state number = do
-  srt <- readCaptionFile state number
+  caption <- readCaptionFile state number
   let
     status = Network.HTTP.Types.ok200
     headers =
@@ -52,13 +52,13 @@ serveCaptionFile state number = do
     body =
       Data.ByteString.Lazy.fromStrict
         . Data.Text.Encoding.encodeUtf8
-        $ HaskellWeekly.Type.SubRipText.renderWebVideoTextTracks srt
+        $ HaskellWeekly.Type.Caption.renderVtt caption
   pure $ HaskellWeekly.Handler.Base.lbsResponse status headers body
 
 readCaptionFile
   :: HaskellWeekly.Type.State.State
   -> HaskellWeekly.Type.Number.Number
-  -> IO HaskellWeekly.Type.SubRipText.SubRipText
+  -> IO [HaskellWeekly.Type.Caption.Caption]
 readCaptionFile state number = do
   let
     directory = HaskellWeekly.Type.Config.configDataDirectory
@@ -67,9 +67,9 @@ readCaptionFile state number = do
     file = System.FilePath.addExtension name "srt"
     path = System.FilePath.joinPath [directory, "caption", file]
   contents <- readFile path
-  case HaskellWeekly.Type.SubRipText.parseSubRipText contents of
+  case HaskellWeekly.Type.Caption.parseSrt contents of
     Nothing -> fail $ "failed to parse SRT file: " <> show path
-    Just srt -> pure srt
+    Just caption -> pure caption
 
 handleDoesNotExistError :: IOError -> IO Network.Wai.Response
 handleDoesNotExistError exception = do
