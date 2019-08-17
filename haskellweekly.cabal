@@ -71,6 +71,7 @@ library
     HaskellWeekly.Application
     HaskellWeekly.Episodes
     HaskellWeekly.Episodes.Episode1
+    HaskellWeekly.Episodes.Episode2
     HaskellWeekly.Handler.Advertising
     HaskellWeekly.Handler.Base
     HaskellWeekly.Handler.Caption

@@ -11,6 +11,7 @@ import qualified Data.Map
 import qualified Data.Set
 import qualified Data.Traversable
 import qualified HaskellWeekly.Episodes.Episode1
+import qualified HaskellWeekly.Episodes.Episode2
 import qualified HaskellWeekly.Type.Episode
 import qualified HaskellWeekly.Type.Guid
 import qualified HaskellWeekly.Type.Number
@@ -29,7 +30,9 @@ type Episodes
 episodes :: Either String Episodes
 episodes = do
   validEpisodes <- Data.Traversable.sequenceA
-    [HaskellWeekly.Episodes.Episode1.episode1]
+    [ HaskellWeekly.Episodes.Episode1.episode1
+    , HaskellWeekly.Episodes.Episode2.episode2
+    ]
   checkGuids validEpisodes Data.Set.empty
   checkNumbers validEpisodes 1
   pure $ foldr insertEpisode Data.Map.empty validEpisodes
