@@ -21,9 +21,9 @@ import qualified Lucid as H
 episodeTemplate
   :: String
   -> HaskellWeekly.Type.Episode.Episode
-  -> [HaskellWeekly.Type.Caption.Caption]
+  -> Maybe [HaskellWeekly.Type.Caption.Caption]
   -> H.Html ()
-episodeTemplate baseUrl episode srt =
+episodeTemplate baseUrl episode maybeCaptions =
   HaskellWeekly.Template.Base.baseTemplate
       ["Podcast", number episode, title episode]
     $ do
@@ -71,10 +71,13 @@ episodeTemplate baseUrl episode srt =
           "This episode was published on "
           H.toHtml $ date episode
           "."
-        H.h2_ "Transcript"
-        H.div_
-          . mapM_ (H.p_ . H.toHtml)
-          $ HaskellWeekly.Type.Caption.renderTranscript srt
+        case maybeCaptions of
+          Nothing -> pure ()
+          Just captions -> do
+            H.h2_ "Transcript"
+            H.div_
+              . mapM_ (H.p_ . H.toHtml)
+              $ HaskellWeekly.Type.Caption.renderTranscript captions
 
 number :: HaskellWeekly.Type.Episode.Episode -> String
 number =

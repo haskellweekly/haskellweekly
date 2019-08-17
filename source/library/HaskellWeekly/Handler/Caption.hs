@@ -1,77 +1,62 @@
 module HaskellWeekly.Handler.Caption
   ( captionHandler
-  , keepDoesNotExistError
-  , handleDoesNotExistError
   , readCaptionFile
   )
 where
 
-import qualified Control.Exception
 import qualified Data.ByteString.Lazy
 import qualified Data.Text
 import qualified Data.Text.Encoding
+import qualified Data.Text.Lazy
+import qualified Data.Text.Lazy.Encoding
 import qualified HaskellWeekly.Handler.Base
 import qualified HaskellWeekly.Type.Caption
-import qualified HaskellWeekly.Type.Config
 import qualified HaskellWeekly.Type.Number
 import qualified HaskellWeekly.Type.State
 import qualified Network.HTTP.Types
 import qualified Network.Wai
 import qualified System.FilePath
-import qualified System.IO
-import qualified System.IO.Error
 
 captionHandler
   :: HaskellWeekly.Type.State.State
   -> HaskellWeekly.Type.Number.Number
   -> IO Network.Wai.Response
-captionHandler state number = Control.Exception.catchJust
-  keepDoesNotExistError
-  (serveCaptionFile state number)
-  handleDoesNotExistError
+captionHandler state number = do
+  result <- readCaptionFile state number
+  pure $ case result of
+    Nothing -> HaskellWeekly.Handler.Base.notFoundResponse
+    Just captions ->
+      let
+        status = Network.HTTP.Types.ok200
+        headers =
+          [ ( Network.HTTP.Types.hContentType
+            , Data.Text.Encoding.encodeUtf8 $ Data.Text.pack "text/vtt"
+            )
+          ]
+        body =
+          Data.ByteString.Lazy.fromStrict
+            . Data.Text.Encoding.encodeUtf8
+            $ HaskellWeekly.Type.Caption.renderVtt captions
+      in HaskellWeekly.Handler.Base.lbsResponse status headers body
 
-keepDoesNotExistError :: IOError -> Maybe IOError
-keepDoesNotExistError exception =
-  if System.IO.Error.isDoesNotExistError exception
-    then Just exception
-    else Nothing
-
-serveCaptionFile
-  :: HaskellWeekly.Type.State.State
-  -> HaskellWeekly.Type.Number.Number
-  -> IO Network.Wai.Response
-serveCaptionFile state number = do
-  caption <- readCaptionFile state number
-  let
-    status = Network.HTTP.Types.ok200
-    headers =
-      [ ( Network.HTTP.Types.hContentType
-        , Data.Text.Encoding.encodeUtf8 $ Data.Text.pack "text/vtt"
-        )
-      ]
-    body =
-      Data.ByteString.Lazy.fromStrict
-        . Data.Text.Encoding.encodeUtf8
-        $ HaskellWeekly.Type.Caption.renderVtt caption
-  pure $ HaskellWeekly.Handler.Base.lbsResponse status headers body
-
+-- | Reads a caption file and parses it as SRT. This will return nothing if the
+-- file doesn't exist. If parsing fails, this will raise an exception.
 readCaptionFile
   :: HaskellWeekly.Type.State.State
   -> HaskellWeekly.Type.Number.Number
-  -> IO [HaskellWeekly.Type.Caption.Caption]
+  -> IO (Maybe [HaskellWeekly.Type.Caption.Caption])
 readCaptionFile state number = do
   let
-    directory = HaskellWeekly.Type.Config.configDataDirectory
-      $ HaskellWeekly.Type.State.stateConfig state
     name = "episode-" <> HaskellWeekly.Type.Number.numberToString number
     file = System.FilePath.addExtension name "srt"
-    path = System.FilePath.joinPath [directory, "caption", file]
-  contents <- readFile path
-  case HaskellWeekly.Type.Caption.parseSrt contents of
-    Nothing -> fail $ "failed to parse SRT file: " <> show path
-    Just caption -> pure caption
-
-handleDoesNotExistError :: IOError -> IO Network.Wai.Response
-handleDoesNotExistError exception = do
-  System.IO.hPrint System.IO.stderr exception
-  pure HaskellWeekly.Handler.Base.notFoundResponse
+    path = System.FilePath.combine "caption" file
+  result <- HaskellWeekly.Type.State.readDataFile state path
+  case result of
+    Nothing -> pure Nothing
+    Just byteString -> do
+      string <- case Data.Text.Lazy.Encoding.decodeUtf8' byteString of
+        Left exception -> fail $ show exception
+        Right text -> pure $ Data.Text.Lazy.unpack text
+      case HaskellWeekly.Type.Caption.parseSrt string of
+        Nothing -> fail $ "failed to parse caption file: " <> show path
+        Just captions -> pure $ Just captions

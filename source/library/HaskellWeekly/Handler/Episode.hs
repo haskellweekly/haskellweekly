@@ -21,7 +21,9 @@ episodeHandler state number =
   case Data.Map.lookup number $ HaskellWeekly.Type.State.stateEpisodes state of
     Nothing -> pure HaskellWeekly.Handler.Base.notFoundResponse
     Just episode -> do
-      srt <- HaskellWeekly.Handler.Caption.readCaptionFile state number
+      maybeCaptions <- HaskellWeekly.Handler.Caption.readCaptionFile
+        state
+        number
       pure
         . HaskellWeekly.Handler.Base.htmlResponse Network.HTTP.Types.ok200 []
         $ HaskellWeekly.Template.Episode.episodeTemplate
@@ -29,4 +31,4 @@ episodeHandler state number =
             $ HaskellWeekly.Type.State.stateConfig state
             )
             episode
-            srt
+            maybeCaptions
