@@ -4,9 +4,15 @@ module HaskellWeekly.Handler.Caption
 where
 
 import qualified Control.Exception
+import qualified Data.ByteString.Lazy
+import qualified Data.Text
+import qualified Data.Text.Encoding
 import qualified HaskellWeekly.Handler.Base
+import qualified HaskellWeekly.Type.Config
 import qualified HaskellWeekly.Type.Number
 import qualified HaskellWeekly.Type.State
+import qualified HaskellWeekly.Type.SubRipText
+import qualified Network.HTTP.Types
 import qualified Network.Wai
 import qualified System.FilePath
 import qualified System.IO
@@ -33,10 +39,27 @@ serveCaptionFile
   -> IO Network.Wai.Response
 serveCaptionFile state number = do
   let
+    directory = HaskellWeekly.Type.Config.configDataDirectory
+      $ HaskellWeekly.Type.State.stateConfig state
     name = "episode-" <> HaskellWeekly.Type.Number.numberToString number
-    file = System.FilePath.addExtension name "vtt"
-    path = System.FilePath.combine "caption" file
-  HaskellWeekly.Handler.Base.fileResponse "text/vtt" path state
+    file = System.FilePath.addExtension name "srt"
+    path = System.FilePath.joinPath [directory, "caption", file]
+  contents <- readFile path
+  srt <- case HaskellWeekly.Type.SubRipText.parseSubRipText contents of
+    Nothing -> fail $ "failed to parse SRT file: " <> show path
+    Just srt -> pure srt
+  let
+    status = Network.HTTP.Types.ok200
+    headers =
+      [ ( Network.HTTP.Types.hContentType
+        , Data.Text.Encoding.encodeUtf8 $ Data.Text.pack "text/vtt"
+        )
+      ]
+    body =
+      Data.ByteString.Lazy.fromStrict
+        . Data.Text.Encoding.encodeUtf8
+        $ HaskellWeekly.Type.SubRipText.renderWebVideoTextTracks srt
+  pure $ HaskellWeekly.Handler.Base.lbsResponse status headers body
 
 handleDoesNotExistError :: IOError -> IO Network.Wai.Response
 handleDoesNotExistError exception = do

@@ -12,7 +12,7 @@ synopsis: Publishes curated news about Haskell.
 
 data-dir: data
 data-files:
-  caption/*.vtt
+  caption/*.srt
   favicon.ico
   podcast-logo.png
   tachyons-4-11-2.css

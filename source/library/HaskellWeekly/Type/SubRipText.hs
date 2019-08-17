@@ -2,6 +2,7 @@
 module HaskellWeekly.Type.SubRipText
   ( SubRipText
   , parseSubRipText
+  , renderWebVideoTextTracks
   )
 where
 
@@ -114,3 +115,41 @@ naturalP :: Int -> P.ReadP Numeric.Natural.Natural
 naturalP count = do
   digits <- P.count count $ P.satisfy Data.Char.isDigit
   either fail pure $ Text.Read.readEither digits
+
+renderWebVideoTextTracks :: SubRipText -> Data.Text.Text
+renderWebVideoTextTracks (SubRipText cues) =
+  Data.Text.intercalate (Data.Text.pack "\n\n")
+    . (Data.Text.pack "WEBVTT" :)
+    $ fmap renderCue cues
+
+renderCue :: Cue -> Data.Text.Text
+renderCue cue =
+  Data.Text.intercalate (Data.Text.singleton '\n')
+    $ renderCueTimes cue
+    : renderCuePayload cue
+
+renderCuePayload :: Cue -> [Data.Text.Text]
+renderCuePayload =
+  fmap Data.Text.unwords
+    . filter (not . null)
+    . uncurry (:)
+    . foldr
+        (\text (buffer, list) -> if text == Data.Text.pack ">>"
+          then ([], (text : buffer) : list)
+          else (text : buffer, list)
+        )
+        ([], [])
+    . Data.Text.words
+    . Data.Text.unwords
+    . Data.List.NonEmpty.toList
+    . cuePayload
+
+renderCueTimes :: Cue -> Data.Text.Text
+renderCueTimes cue = Data.Text.pack
+  $ unwords [renderCueTime cueStart cue, "-->", renderCueTime cueEnd cue]
+
+renderCueTime :: (Cue -> Data.Time.DiffTime) -> Cue -> String
+renderCueTime field =
+  Data.Time.formatTime Data.Time.defaultTimeLocale "%H:%M:%S%3Q"
+    . Data.Time.timeToTimeOfDay
+    . field
