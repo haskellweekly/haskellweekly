@@ -18,17 +18,30 @@ episodeHandler
   -> HaskellWeekly.Type.Number.Number
   -> IO Network.Wai.Response
 episodeHandler state number =
-  case Data.Map.lookup number $ HaskellWeekly.Type.State.stateEpisodes state of
-    Nothing -> pure HaskellWeekly.Handler.Base.notFoundResponse
-    Just episode -> do
-      maybeCaptions <- HaskellWeekly.Handler.Caption.readCaptionFile
-        state
-        number
-      pure
-        . HaskellWeekly.Handler.Base.htmlResponse Network.HTTP.Types.ok200 []
-        $ HaskellWeekly.Template.Episode.episodeTemplate
-            (HaskellWeekly.Type.Config.configBaseUrl
-            $ HaskellWeekly.Type.State.stateConfig state
-            )
-            episode
-            maybeCaptions
+  let episodes = HaskellWeekly.Type.State.stateEpisodes state
+  in
+    case Data.Map.lookup number episodes of
+      Nothing -> pure HaskellWeekly.Handler.Base.notFoundResponse
+      Just episode -> do
+        maybeCaptions <- HaskellWeekly.Handler.Caption.readCaptionFile
+          state
+          number
+        let
+          previousEpisode =
+            case HaskellWeekly.Type.Number.decrementNumber number of
+              Nothing -> Nothing
+              Just previousNumber -> Data.Map.lookup previousNumber episodes
+          nextEpisode =
+            case HaskellWeekly.Type.Number.incrementNumber number of
+              Nothing -> Nothing
+              Just nextNumber -> Data.Map.lookup nextNumber episodes
+        pure
+          . HaskellWeekly.Handler.Base.htmlResponse Network.HTTP.Types.ok200 []
+          $ HaskellWeekly.Template.Episode.episodeTemplate
+              (HaskellWeekly.Type.Config.configBaseUrl
+              $ HaskellWeekly.Type.State.stateConfig state
+              )
+              episode
+              maybeCaptions
+              previousEpisode
+              nextEpisode

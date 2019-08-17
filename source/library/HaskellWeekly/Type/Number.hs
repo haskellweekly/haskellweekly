@@ -5,6 +5,8 @@
 -- issue) instead.
 module HaskellWeekly.Type.Number
   ( Number
+  , decrementNumber
+  , incrementNumber
   , naturalToNumber
   , numberToNatural
   , numberToString
@@ -18,6 +20,22 @@ import qualified Text.Read
 newtype Number =
   Number Numeric.Natural.Natural
   deriving (Eq, Ord, Show)
+
+-- | Decrements a number by one. If the number is already at the minimum, this
+-- will return nothing.
+decrementNumber :: Number -> Maybe Number
+decrementNumber number = case numberToNatural number of
+  0 -> Nothing
+  natural -> case naturalToNumber $ natural - 1 of
+    Left _ -> Nothing
+    Right x -> Just x
+
+-- | Increments a number by one. Although the type suggests this might fail, in
+-- practice it never should.
+incrementNumber :: Number -> Maybe Number
+incrementNumber number = case naturalToNumber $ numberToNatural number + 1 of
+  Left _ -> Nothing
+  Right x -> Just x
 
 -- | Converts a natural number into a number. Since numbering starts at one but
 -- the naturals start at zero, there's an opportunity for things to go wrong.

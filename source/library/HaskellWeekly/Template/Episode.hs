@@ -22,9 +22,11 @@ episodeTemplate
   :: String
   -> HaskellWeekly.Type.Episode.Episode
   -> Maybe [HaskellWeekly.Type.Caption.Caption]
+  -> Maybe HaskellWeekly.Type.Episode.Episode
+  -> Maybe HaskellWeekly.Type.Episode.Episode
   -> H.Html ()
-episodeTemplate baseUrl episode maybeCaptions =
-  HaskellWeekly.Template.Base.baseTemplate
+episodeTemplate baseUrl episode maybeCaptions maybePreviousEpisode maybeNextEpisode
+  = HaskellWeekly.Template.Base.baseTemplate
       baseUrl
       ["Podcast", number episode, title episode]
     $ do
@@ -36,10 +38,7 @@ episodeTemplate baseUrl episode maybeCaptions =
                 HaskellWeekly.Type.Route.RoutePodcast
           ]
           "Podcast"
-        H.h3_ [H.class_ "f3"] $ do
-          H.toHtml $ number episode
-          ": "
-          H.toHtml $ title episode
+        H.h3_ [H.class_ "f3"] . H.toHtml $ title episode
         H.video_
             [ H.controls_ "controls"
             , H.height_ "256"
@@ -76,9 +75,36 @@ episodeTemplate baseUrl episode maybeCaptions =
         H.ul_ . mapM_ articleLink $ HaskellWeekly.Type.Episode.episodeArticles
           episode
         H.p_ $ do
-          "This episode was published on "
+          H.toHtml $ number episode
+          " was published on "
           H.toHtml $ date episode
           "."
+        case maybePreviousEpisode of
+          Nothing -> pure ()
+          Just previousEpisode -> H.p_ $ do
+            "Previous episode: "
+            H.a_
+                [ H.href_
+                  . Data.Text.pack
+                  . HaskellWeekly.Type.Route.routeToString
+                  . HaskellWeekly.Type.Route.RouteEpisode
+                  $ HaskellWeekly.Type.Episode.episodeNumber previousEpisode
+                ]
+              . H.toHtml
+              $ title previousEpisode
+        case maybeNextEpisode of
+          Nothing -> pure ()
+          Just nextEpisode -> H.p_ $ do
+            "Next episode: "
+            H.a_
+                [ H.href_
+                  . Data.Text.pack
+                  . HaskellWeekly.Type.Route.routeToString
+                  . HaskellWeekly.Type.Route.RouteEpisode
+                  $ HaskellWeekly.Type.Episode.episodeNumber nextEpisode
+                ]
+              . H.toHtml
+              $ title nextEpisode
         case maybeCaptions of
           Nothing -> pure ()
           Just captions -> do
