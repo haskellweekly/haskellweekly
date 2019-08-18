@@ -11,7 +11,23 @@ import qualified Data.Map
 import qualified Data.Set
 import qualified Data.Traversable
 import qualified HaskellWeekly.Episodes.Episode1
+import qualified HaskellWeekly.Episodes.Episode10
+import qualified HaskellWeekly.Episodes.Episode11
+import qualified HaskellWeekly.Episodes.Episode12
+import qualified HaskellWeekly.Episodes.Episode13
+import qualified HaskellWeekly.Episodes.Episode14
+import qualified HaskellWeekly.Episodes.Episode15
+import qualified HaskellWeekly.Episodes.Episode16
+import qualified HaskellWeekly.Episodes.Episode17
+import qualified HaskellWeekly.Episodes.Episode18
 import qualified HaskellWeekly.Episodes.Episode2
+import qualified HaskellWeekly.Episodes.Episode3
+import qualified HaskellWeekly.Episodes.Episode4
+import qualified HaskellWeekly.Episodes.Episode5
+import qualified HaskellWeekly.Episodes.Episode6
+import qualified HaskellWeekly.Episodes.Episode7
+import qualified HaskellWeekly.Episodes.Episode8
+import qualified HaskellWeekly.Episodes.Episode9
 import qualified HaskellWeekly.Type.Episode
 import qualified HaskellWeekly.Type.Guid
 import qualified HaskellWeekly.Type.Number
@@ -32,6 +48,22 @@ episodes = do
   validEpisodes <- Data.Traversable.sequenceA
     [ HaskellWeekly.Episodes.Episode1.episode1
     , HaskellWeekly.Episodes.Episode2.episode2
+    , HaskellWeekly.Episodes.Episode3.episode3
+    , HaskellWeekly.Episodes.Episode4.episode4
+    , HaskellWeekly.Episodes.Episode5.episode5
+    , HaskellWeekly.Episodes.Episode6.episode6
+    , HaskellWeekly.Episodes.Episode7.episode7
+    , HaskellWeekly.Episodes.Episode8.episode8
+    , HaskellWeekly.Episodes.Episode9.episode9
+    , HaskellWeekly.Episodes.Episode10.episode10
+    , HaskellWeekly.Episodes.Episode11.episode11
+    , HaskellWeekly.Episodes.Episode12.episode12
+    , HaskellWeekly.Episodes.Episode13.episode13
+    , HaskellWeekly.Episodes.Episode14.episode14
+    , HaskellWeekly.Episodes.Episode15.episode15
+    , HaskellWeekly.Episodes.Episode16.episode16
+    , HaskellWeekly.Episodes.Episode17.episode17
+    , HaskellWeekly.Episodes.Episode18.episode18
     ]
   checkGuids validEpisodes Data.Set.empty
   checkNumbers validEpisodes 1

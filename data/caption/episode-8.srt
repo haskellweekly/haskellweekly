@@ -1,0 +1,1099 @@
+1
+00:00:00,000 --> 00:00:05,192
+[MUSIC]
+
+2
+00:00:05,192 --> 00:00:07,220
+Welcome to the Haskell Weekly podcast.
+
+3
+00:00:07,220 --> 00:00:10,420
+This show is about Haskell,
+a purely functional programming language.
+
+4
+00:00:10,420 --> 00:00:14,180
+I'm your guest, Cameron Gera, and
+I'm an engineer here at ITProTV.
+
+5
+00:00:14,180 --> 00:00:18,040
+And with me today is your host,
+Cody Goodman.
+
+6
+00:00:18,040 --> 00:00:21,450
+He's one of our senior
+engineers here at ITProTV.
+
+7
+00:00:21,450 --> 00:00:23,890
+That just means he's really really old,
+right Cody?
+
+8
+00:00:24,920 --> 00:00:27,200
+Yep, I got the gray hairs to prove it.
+
+9
+00:00:27,200 --> 00:00:29,030
+Programming can do that to you though.
+
+10
+00:00:29,030 --> 00:00:30,250
+>> Well, I'm glad to have you on the show.
+
+11
+00:00:31,460 --> 00:00:35,840
+I wanted to take some time today and
+kind of talk about refactoring Haskell.
+
+12
+00:00:35,840 --> 00:00:38,940
+I stumbled upon article in
+Haskell Weekly this week,
+
+13
+00:00:38,940 --> 00:00:42,230
+that was about continuous
+improvement with hlint code smells.
+
+14
+00:00:42,230 --> 00:00:49,801
+So we use hlint here at ITProTV to kind
+of enhance and kind of unify our code.
+
+15
+00:00:49,801 --> 00:00:53,011
+What are some things that you
+have experienced with hlint?
+
+16
+00:00:53,011 --> 00:00:57,515
+And maybe some of the, I think right now,
+we're just gonna talk about hlint and
+
+17
+00:00:57,515 --> 00:01:00,822
+then maybe dive more into
+refactoring a little bit later.
+
+18
+00:01:00,822 --> 00:01:01,902
+How's that sound?
+
+19
+00:01:01,902 --> 00:01:03,679
+>> Yeah, sounds good.
+
+20
+00:01:03,679 --> 00:01:08,928
+So at ITPro, we've been using
+hlint ever since I've been here.
+
+21
+00:01:08,928 --> 00:01:15,732
+Something that is kinda annoying about
+hlint is it'll bug you about things like,
+
+22
+00:01:15,732 --> 00:01:19,685
+use parentheses here
+instead of dollar signs.
+
+23
+00:01:19,685 --> 00:01:22,905
+And that may conflict with
+your personal style or
+
+24
+00:01:22,905 --> 00:01:27,617
+what you think looks more aesthetically
+pleasing, but it also goes and
+
+25
+00:01:27,617 --> 00:01:30,890
+it does more complex recommendations too.
+
+26
+00:01:30,890 --> 00:01:35,470
+Like you can do an eta reduce here,
+you can use point-free here.
+
+27
+00:01:35,470 --> 00:01:40,800
+It doesn't go to the extent
+of using composition,
+
+28
+00:01:40,800 --> 00:01:44,430
+with composition, where you have
+three dots next to each other.
+
+29
+00:01:44,430 --> 00:01:48,270
+But it provides sort of some
+common sense recommendations.
+
+30
+00:01:48,270 --> 00:01:51,910
+It leads you to start refactoring
+code in a uniform way.
+
+31
+00:01:51,910 --> 00:01:55,435
+And that's something really
+valuable across a code base.
+
+32
+00:01:55,435 --> 00:01:56,025
+>> Yeah, I know.
+
+33
+00:01:56,025 --> 00:01:58,155
+I feel like I have really
+enjoyed having hlint.
+
+34
+00:01:58,155 --> 00:01:59,602
+Sometimes it was like, yeah,
+
+35
+00:01:59,602 --> 00:02:03,145
+I was supposed to take away those
+parens that I accidentally left.
+
+36
+00:02:03,145 --> 00:02:08,176
+Those are some of the smaller things it
+can do, but I also know we use map maybe
+
+37
+00:02:08,176 --> 00:02:12,600
+and and it's like there's a cat.
+
+38
+00:02:12,600 --> 00:02:15,730
+Maybe there's a function that does
+the same thing or I don't know.
+
+39
+00:02:15,730 --> 00:02:17,080
+It's a cat maybe.
+
+40
+00:02:17,080 --> 00:02:19,723
+Something like that that does a very
+similar thing so it just says,
+
+41
+00:02:19,723 --> 00:02:21,758
+hey, use this function
+instead of this function.
+
+42
+00:02:21,758 --> 00:02:25,155
+And it kinda cleans up and
+minimizes the code,
+
+43
+00:02:25,155 --> 00:02:31,163
+which is nice to have that going into each
+file, and having some sense of pattern,
+
+44
+00:02:31,163 --> 00:02:35,740
+and kind of just cleanliness
+around the code base, right?
+
+45
+00:02:35,740 --> 00:02:41,370
+>> Yeah, you could have your Haskell
+looking like lists, but you have hlint,
+
+46
+00:02:41,370 --> 00:02:44,170
+then you have some assurance that
+it's gonna be a lot more clear, and
+
+47
+00:02:44,170 --> 00:02:47,150
+you can focus on what the code's doing,
+instead of all that noise.
+
+48
+00:02:47,150 --> 00:02:51,590
+>> Right, and I think it just kind of gets
+
+49
+00:02:51,590 --> 00:02:54,820
+you back to coding efficiently,
+which is really nice.
+
+50
+00:02:54,820 --> 00:02:57,558
+So okay, so we've got hlint, we use hlint.
+
+51
+00:02:57,558 --> 00:03:02,551
+We've kind of experienced hlint,
+and this article kind of talks
+
+52
+00:03:02,551 --> 00:03:08,340
+about four differently code smells
+that hlint has helped them with.
+
+53
+00:03:08,340 --> 00:03:13,180
+One being along functions, another one
+being functions with many arguments.
+
+54
+00:03:13,180 --> 00:03:16,993
+We have long type list and
+then we have lots of imports.
+
+55
+00:03:16,993 --> 00:03:21,969
+So something that, those things
+seem to kind of maybe clean up and
+
+56
+00:03:21,969 --> 00:03:26,230
+minimize this expansive
+language that Haskell can be.
+
+57
+00:03:26,230 --> 00:03:29,568
+Kind of minimizes it a little
+bit to make maybe beginners and
+
+58
+00:03:29,568 --> 00:03:34,610
+intermediate people kind of be able to
+come in and understand what's going on.
+
+59
+00:03:34,610 --> 00:03:36,212
+Have you experienced any of that?
+
+60
+00:03:36,212 --> 00:03:39,362
+I don't think we've really come across
+any of those four in our code base that
+
+61
+00:03:39,362 --> 00:03:40,840
+I've seen.
+
+62
+00:03:40,840 --> 00:03:45,093
+>> So a lot of imports, especially when
+you're just trying to hack something
+
+63
+00:03:45,093 --> 00:03:47,193
+together, you can end up with that.
+
+64
+00:03:47,193 --> 00:03:49,496
+So you leave a debug.trace or something.
+
+65
+00:03:49,496 --> 00:03:52,760
+Hlint's gonna catch that and
+you can remove it.
+
+66
+00:03:52,760 --> 00:03:57,097
+And then, like you said, for newcomers
+who are newer to Haskell, they might,
+
+67
+00:03:57,097 --> 00:04:00,531
+if you're not using qualified imports,
+they'll be saying,
+
+68
+00:04:00,531 --> 00:04:02,630
+where's this function to find that?
+
+69
+00:04:02,630 --> 00:04:05,590
+If you have a ton of imports you're not
+using, it's going to be really hard for
+
+70
+00:04:05,590 --> 00:04:07,070
+them to track it down.
+
+71
+00:04:07,070 --> 00:04:08,120
+>> Yeah, I agree with you, Cody.
+
+72
+00:04:08,120 --> 00:04:12,370
+I think it does help intermediate,
+only being in Haskell myself for
+
+73
+00:04:12,370 --> 00:04:17,650
+a little over a year now,
+hlint really just kind of helped me
+
+74
+00:04:17,650 --> 00:04:21,200
+shape my styles when I'm writing Haskell.
+
+75
+00:04:21,200 --> 00:04:23,040
+I know you've written Haskell
+a lot longer than I have.
+
+76
+00:04:23,040 --> 00:04:26,790
+So you probably have a little more
+frustrations with hlint, because it's
+
+77
+00:04:26,790 --> 00:04:31,080
+like, I want you to do this when you
+really prefer to do it maybe another way.
+
+78
+00:04:31,080 --> 00:04:35,600
+But I think overall, it helps all of us,
+any of the engineers here at ITProTV come
+
+79
+00:04:35,600 --> 00:04:41,350
+into our code base and understand, this
+is what we do, this is the style we have,
+
+80
+00:04:41,350 --> 00:04:45,530
+this is set across all our files and
+we know what's what.
+
+81
+00:04:45,530 --> 00:04:48,740
+And I think that's really,
+really valuable.
+
+82
+00:04:48,740 --> 00:04:53,039
+>> Right, and I think something actually
+useful when you're learning Haskell is to
+
+83
+00:04:53,039 --> 00:05:00,190
+use hlint, follow all the suggestions and
+not only follow them but ask why.
+
+84
+00:05:00,190 --> 00:05:05,319
+Why is it useful to transform this like
+that, because there's a lot of experienced
+
+85
+00:05:05,319 --> 00:05:09,951
+developers or at least one who came up
+with these different rewrite rules.
+
+86
+00:05:09,951 --> 00:05:11,741
+And they were there for a reason and
+
+87
+00:05:11,741 --> 00:05:14,723
+they were born out of
+the experience that developer had.
+
+88
+00:05:14,723 --> 00:05:17,630
+>> Hm, yeah, which I think is really cool.
+
+89
+00:05:17,630 --> 00:05:23,470
+One thing that I kind of wish hlint did,
+which is probably just expecting too much,
+
+90
+00:05:23,470 --> 00:05:29,570
+is kind of being able to take a function
+and kind of maybe analyze the way in
+
+91
+00:05:29,570 --> 00:05:33,720
+which it's being performed, taking, okay
+what are the inputs, what's the output?
+
+92
+00:05:33,720 --> 00:05:36,400
+Okay, let's see how they wrote
+the code to make this work.
+
+93
+00:05:36,400 --> 00:05:40,514
+I wish it would be able to
+maybe look at it and say, hey,
+
+94
+00:05:40,514 --> 00:05:43,198
+you should probably break this up or
+
+95
+00:05:43,198 --> 00:05:48,664
+you should kind of shift things
+around because it's too conglomerate.
+
+96
+00:05:48,664 --> 00:05:50,368
+There's too many-
+>> Too complex.
+
+97
+00:05:50,368 --> 00:05:51,128
+>> Too complex, right.
+
+98
+00:05:51,128 --> 00:05:53,470
+Sorry, conglomerate doesn't
+really make sense there.
+
+99
+00:05:53,470 --> 00:05:55,060
+But yeah, too complex.
+
+100
+00:05:55,060 --> 00:05:56,670
+>> Those functions
+are starting a business.
+
+101
+00:05:57,820 --> 00:06:01,010
+>> Jeez.
+But say we have anonymous functions,
+
+102
+00:06:01,010 --> 00:06:03,320
+instead of anonymous functions like being,
+hey,
+
+103
+00:06:03,320 --> 00:06:06,680
+let's pull this out and
+those kind of things may be nice.
+
+104
+00:06:06,680 --> 00:06:12,090
+Because I know this week, you and I both
+had come across some code in our code
+
+105
+00:06:12,090 --> 00:06:17,670
+base that was, it worked but
+it was very thick.
+
+106
+00:06:17,670 --> 00:06:19,238
+It's hard to fully comprehend.
+
+107
+00:06:19,238 --> 00:06:26,916
+>> Right, and it actually wasn't
+even that it was that large either.
+
+108
+00:06:26,916 --> 00:06:32,293
+It was kind of the, I think the fact that
+in one place we took advantage of partial
+
+109
+00:06:32,293 --> 00:06:37,270
+application, where you have to read
+from right to left to understand it,
+
+110
+00:06:37,270 --> 00:06:41,790
+and then we had a lambda inside
+of there which is left to right.
+
+111
+00:06:41,790 --> 00:06:44,660
+I think that was sort of the thing
+that made it hard to follow.
+
+112
+00:06:44,660 --> 00:06:49,570
+And then when you add or reduce that,
+you get the advantage of
+
+113
+00:06:49,570 --> 00:06:55,140
+it all being right to left typically,
+and that's really valuable.
+
+114
+00:06:55,140 --> 00:06:58,540
+Yeah, so
+if hlint could have maybe identified that,
+
+115
+00:06:58,540 --> 00:07:00,310
+we had conflicting styles, right.
+
+116
+00:07:00,310 --> 00:07:03,980
+And it could have been,
+hey, let's reevaluate this.
+
+117
+00:07:03,980 --> 00:07:07,309
+If you want to stick to point free,
+okay, stick to point free, but
+
+118
+00:07:07,309 --> 00:07:09,522
+don't be jumping all these things in here.
+
+119
+00:07:09,522 --> 00:07:14,513
+Don't mix partial application with
+lambdas, that doesn't make for
+
+120
+00:07:14,513 --> 00:07:16,710
+easy readability.
+
+121
+00:07:16,710 --> 00:07:20,300
+So I think, for us, that would kinda
+be maybe a nice thing to have.
+
+122
+00:07:20,300 --> 00:07:25,640
+But nice thing is Haskell makes
+re-factoring pretty easy.
+
+123
+00:07:25,640 --> 00:07:28,730
+Cuz the problem we had
+was kind of complex.
+
+124
+00:07:28,730 --> 00:07:34,860
+We had a document that had a list of,
+in our case, it was users.
+
+125
+00:07:34,860 --> 00:07:39,989
+And we wanted to kind of
+create a map that had one of
+
+126
+00:07:39,989 --> 00:07:45,610
+those users tied to another
+value on that document.
+
+127
+00:07:45,610 --> 00:07:50,100
+And so, say we had ten users,
+we wanted to have a map with ten entries.
+
+128
+00:07:50,100 --> 00:07:53,974
+And then we were actually doing that
+over a list of those documents.
+
+129
+00:07:53,974 --> 00:07:57,590
+So it was kind of just a lot going on and
+
+130
+00:07:57,590 --> 00:08:02,990
+so we have some helper functions that
+we used to kind of group things,
+
+131
+00:08:02,990 --> 00:08:06,675
+but that didn't really fall into,
+this category wasn't there.
+
+132
+00:08:06,675 --> 00:08:12,491
+And so to begin with, I just was like,
+hey let's, I was working with Jason.
+
+133
+00:08:12,491 --> 00:08:15,430
+We're like, hey, let's just
+figure out how to make this work.
+
+134
+00:08:15,430 --> 00:08:17,420
+We know what the type
+signature looks like.
+
+135
+00:08:17,420 --> 00:08:21,037
+Let's just let the compiler happen,
+but obviously, we put that out for PR.
+
+136
+00:08:21,037 --> 00:08:24,505
+We're kind of like, this seems rough,
+there was code smells, right?
+
+137
+00:08:24,505 --> 00:08:26,305
+There could be something better here.
+
+138
+00:08:26,305 --> 00:08:29,225
+So I wish, I mean,
+that would have been kinda cool,
+
+139
+00:08:29,225 --> 00:08:32,730
+if hlint could have done something like
+that for us, say, hey, reevaluate.
+
+140
+00:08:32,730 --> 00:08:40,055
+>> Yeah, and I think it would definitely
+be possible, although difficult, for
+
+141
+00:08:40,055 --> 00:08:46,440
+hlint to say, your code is from right to
+left because of usage of composition here.
+
+142
+00:08:46,440 --> 00:08:48,950
+Then in this lambda, it is left to right.
+
+143
+00:08:48,950 --> 00:08:51,400
+I think that's something
+that could be added.
+
+144
+00:08:51,400 --> 00:08:54,420
+Then you were kind of
+hinting at complexity.
+
+145
+00:08:54,420 --> 00:08:59,890
+And there is an existing calculation to
+
+146
+00:08:59,890 --> 00:09:03,850
+figure that out,
+which is called cyclomatic complexity.
+
+147
+00:09:03,850 --> 00:09:06,660
+And that's pretty interesting.
+
+148
+00:09:06,660 --> 00:09:08,260
+>> Does hlint have that?
+
+149
+00:09:08,260 --> 00:09:09,480
+>> I don't think so,
+
+150
+00:09:09,480 --> 00:09:13,070
+but it'd be interesting to start an issue
+about that and have a discussion.
+
+151
+00:09:13,070 --> 00:09:15,090
+>> Yeah, it really would.
+
+152
+00:09:15,090 --> 00:09:18,150
+Maybe we'll see if that
+could be put into place.
+
+153
+00:09:18,150 --> 00:09:19,860
+>> Sure.
+>> No, but I think that is really awesome.
+
+154
+00:09:21,220 --> 00:09:22,833
+Don, you were gonna say
+something [CROSSTALK].
+
+155
+00:09:22,833 --> 00:09:27,875
+>> Yeah, yeah,
+I was gonna say that our specific problem,
+
+156
+00:09:27,875 --> 00:09:33,861
+what helped make sense of it to me,
+is that we had that set of users and
+
+157
+00:09:33,861 --> 00:09:38,470
+then we could easily turn that into a map.
+
+158
+00:09:38,470 --> 00:09:43,929
+But from that map,
+we needed to, the map's values
+
+159
+00:09:43,929 --> 00:09:48,340
+had another list of users and
+we needed to basically expand the map out.
+
+160
+00:09:49,350 --> 00:09:51,755
+And that was what kind
+of made it difficult.
+
+161
+00:09:51,755 --> 00:09:55,059
+And you might reach for
+a fold in that situation but
+
+162
+00:09:55,059 --> 00:09:59,228
+something that's often times
+easier is making a lot of maps and
+
+163
+00:09:59,228 --> 00:10:02,784
+unioning them together,
+which is where we ended up.
+
+164
+00:10:02,784 --> 00:10:05,054
+>> Good old union with this.
+
+165
+00:10:05,054 --> 00:10:09,455
+Also the map had,
+the key was a user ID, but
+
+166
+00:10:09,455 --> 00:10:12,886
+the value within that was a list.
+
+167
+00:10:12,886 --> 00:10:16,665
+And so unioning that with
+semi group allowed us to
+
+168
+00:10:16,665 --> 00:10:19,998
+get exactly the result we were expecting.
+
+169
+00:10:19,998 --> 00:10:23,860
+And it cleaned it up because,
+and we felt like when Jason and
+
+170
+00:10:23,860 --> 00:10:27,894
+I wrote it we felt like,
+there could be a better way to do this.
+
+171
+00:10:27,894 --> 00:10:33,630
+We knew that there was some sort of,
+just kind of something wrong.
+
+172
+00:10:33,630 --> 00:10:35,350
+We felt like we could have,
+
+173
+00:10:35,350 --> 00:10:39,540
+we changed things from set to
+a list because we deal with a set.
+
+174
+00:10:39,540 --> 00:10:44,990
+And then we felt like we could have left
+that as a set and done the operation that
+
+175
+00:10:44,990 --> 00:10:48,475
+we needed to, and which was what we ended
+up getting to, which was really wrong.
+
+176
+00:10:48,475 --> 00:10:53,120
+But in this case hlint didn't
+necessarily save the day.
+
+177
+00:10:53,120 --> 00:10:56,930
+But in a lot of other cases it has,
+I'm very thankful for hlint.
+
+178
+00:10:56,930 --> 00:11:02,020
+>> I think you're getting at a sort of
+unique selling proposition of Haskell,
+
+179
+00:11:02,020 --> 00:11:07,620
+which is that you can not only sort of
+write the code that just works quickly.
+
+180
+00:11:07,620 --> 00:11:10,940
+The compiler will help you do it,
+and then once you write it,
+
+181
+00:11:10,940 --> 00:11:12,100
+even if you're not proud of it,
+
+182
+00:11:12,100 --> 00:11:15,690
+you know that when you wanna go refactor
+it, you have a lot of guarantees.
+
+183
+00:11:15,690 --> 00:11:20,510
+It's way easier to actually hack the code,
+get it out there real quick, and
+
+184
+00:11:20,510 --> 00:11:24,140
+then have the confidence you can come
+back later without breaking things and
+
+185
+00:11:24,140 --> 00:11:25,550
+improve upon it.
+
+186
+00:11:25,550 --> 00:11:28,520
+>> No, and
+I really value that aspect of Haskell.
+
+187
+00:11:28,520 --> 00:11:32,980
+I think it's, for
+us coming from a JavaScript background,
+
+188
+00:11:32,980 --> 00:11:37,354
+most of us, we kind of dealt with,
+don't touch that code,
+
+189
+00:11:37,354 --> 00:11:40,773
+you don't know what
+the side effects will be.
+
+190
+00:11:40,773 --> 00:11:43,220
+>> It's a ball of marbles,
+it's a ball of marbles.
+
+191
+00:11:43,220 --> 00:11:48,000
+But being able to say, okay, we're in
+a compiled language that's strongly typed.
+
+192
+00:11:48,000 --> 00:11:52,495
+That value is just tremendous,
+because any time you need to come back and
+
+193
+00:11:52,495 --> 00:11:54,810
+re-factor, you have confidence.
+
+194
+00:11:54,810 --> 00:11:59,280
+I think that's something that everyone
+should get on board with, and join and
+
+195
+00:11:59,280 --> 00:12:03,920
+love Haskell, because it really gives
+you that confidence and that peace.
+
+196
+00:12:03,920 --> 00:12:08,355
+I remember, a year, a year and a half ago,
+when I was writing Java Script, and then
+
+197
+00:12:08,355 --> 00:12:14,300
+I'd go reopen some old controller or model
+or action that I wanted to mess with.
+
+198
+00:12:14,300 --> 00:12:18,380
+And I would just have this sense of
+stress, of I'm touching something.
+
+199
+00:12:18,380 --> 00:12:19,850
+Is this gonna work?
+
+200
+00:12:19,850 --> 00:12:21,840
+Is our test gonna catch this?
+
+201
+00:12:21,840 --> 00:12:25,800
+Cuz that's all you have in Javascript,
+you don't necessarily, in user testing.
+
+202
+00:12:26,860 --> 00:12:28,100
+But that's all you got.
+
+203
+00:12:29,180 --> 00:12:33,500
+Haskell, we have strongly typed languages
+which makes that kind of refactor nice and
+
+204
+00:12:33,500 --> 00:12:36,900
+then we have tooling like hlint and
+Brittany.
+
+205
+00:12:36,900 --> 00:12:42,570
+Things that kind of keep us within lines,
+within guards.
+
+206
+00:12:42,570 --> 00:12:45,687
+Whereas like JavaScript,
+it's the wild, wild West.
+
+207
+00:12:45,687 --> 00:12:50,225
+You have, eslint and
+stuff like that, but I think,
+
+208
+00:12:50,225 --> 00:12:55,190
+hlint is just leaps and
+bounds above eslint or any other.
+
+209
+00:12:55,190 --> 00:12:57,466
+Well, in my opinion, I could be wrong, and
+
+210
+00:12:57,466 --> 00:13:00,980
+I'm sure somebody on the internet
+may want to tell me I'm wrong.
+
+211
+00:13:00,980 --> 00:13:06,875
+And that's okay, but in my opinion,
+hlint, for me in Haskell is great.
+
+212
+00:13:09,744 --> 00:13:14,201
+>> It leads you to, hlint,
+those different rewrites that it does,
+
+213
+00:13:14,201 --> 00:13:18,360
+how you can glean understanding
+of why that does happen.
+
+214
+00:13:18,360 --> 00:13:23,540
+Just the act of refactoring
+something can lead you to
+
+215
+00:13:23,540 --> 00:13:27,350
+understand the nature of the problem
+you're working on as a whole.
+
+216
+00:13:28,530 --> 00:13:33,430
+That's an economic factor of
+deciding to rewrite something that's
+
+217
+00:13:33,430 --> 00:13:36,540
+a code smell that I think a lot of
+people don't take into account.
+
+218
+00:13:38,040 --> 00:13:39,790
+>> Yeah, that's fair.
+
+219
+00:13:39,790 --> 00:13:45,610
+Well, Cody, I think we've had quite
+the show here, quite the talk on
+
+220
+00:13:45,610 --> 00:13:49,400
+hlint and even refactoring a little
+bit in Haskell and others.
+
+221
+00:13:49,400 --> 00:13:50,780
+Could be even more to talk about,
+
+222
+00:13:50,780 --> 00:13:54,950
+but we wanna respect our
+listener's time and sign off.
+
+223
+00:13:54,950 --> 00:13:57,740
+So I'll shoot it over to you.
+
+224
+00:13:57,740 --> 00:13:59,310
+>> All right, thanks, Cameron.
+
+225
+00:13:59,310 --> 00:14:01,900
+Thanks for
+being on the show with me today.
+
+226
+00:14:01,900 --> 00:14:05,180
+Thanks for
+listening to the Haskell Weekly podcast.
+
+227
+00:14:05,180 --> 00:14:07,150
+This has been episode eight.
+
+228
+00:14:07,150 --> 00:14:13,090
+If you like our show, find out more
+at our website, HaskellWeekly.news.
+
+229
+00:14:13,090 --> 00:14:14,480
+Thanks again for listening.
+
+230
+00:14:14,480 --> 00:14:16,703
+I've been your host, Cody Goodman.
+
+231
+00:14:16,703 --> 00:14:17,694
+We'll see you again next week.
+
+232
+00:14:17,694 --> 00:14:20,467
+>> Adios.

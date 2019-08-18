@@ -1,0 +1,1294 @@
+1
+00:00:00,000 --> 00:00:04,130
+[MUSIC]
+
+2
+00:00:04,130 --> 00:00:07,060
+Hi, welcome to the Haskell weekly podcast.
+
+3
+00:00:07,060 --> 00:00:10,130
+This show is about Haskell,
+a purely functional programming language.
+
+4
+00:00:10,130 --> 00:00:14,650
+I'm your host, Cameron Gera, and
+with me today we have our wizard expert
+
+5
+00:00:14,650 --> 00:00:18,690
+here at ITProTV for Haskell,
+Taylor How are you doing Taylor?
+
+6
+00:00:18,690 --> 00:00:19,500
+>> I'm doing well Cam.
+
+7
+00:00:19,500 --> 00:00:20,110
+How are you?
+
+8
+00:00:20,110 --> 00:00:20,730
+I'm doing pretty good.
+
+9
+00:00:20,730 --> 00:00:21,960
+I'm pretty excited about today.
+
+10
+00:00:21,960 --> 00:00:24,430
+>> Me too.
+I would be more excited if I knew,
+
+11
+00:00:24,430 --> 00:00:25,630
+what are we talking about?
+
+12
+00:00:25,630 --> 00:00:28,255
+>> Well,
+I was just gonna let you figure that out.
+
+13
+00:00:28,255 --> 00:00:30,860
+>> [LAUGH]
+>> But I will bring it up because
+
+14
+00:00:30,860 --> 00:00:35,060
+I think a very important subject in
+the Haskell world is stack vs ball.
+
+15
+00:00:35,060 --> 00:00:39,470
+So I just wanna talk about kind
+of stack a little bit more, and
+
+16
+00:00:39,470 --> 00:00:43,490
+maybe some of the build tools and
+how that's helpful for us.
+
+17
+00:00:43,490 --> 00:00:46,290
+I was reading an article about kind of
+
+18
+00:00:46,290 --> 00:00:49,770
+how stack can give you this project
+structure out of the box, and
+
+19
+00:00:49,770 --> 00:00:54,950
+how that's helpful for keeping all
+Haskell projects in the same format.
+
+20
+00:00:54,950 --> 00:00:59,560
+>> We use Stack here at ITProTV
+to manage our Haskell projects.
+
+21
+00:00:59,560 --> 00:01:01,610
+We only have one big project, and
+
+22
+00:01:01,610 --> 00:01:04,510
+it's got a lot of smaller
+projects tucked inside of it.
+
+23
+00:01:04,510 --> 00:01:07,250
+And Stack does a great job of
+keeping those things all in sync,
+
+24
+00:01:07,250 --> 00:01:09,045
+along with all
+the dependencies that we use.
+
+25
+00:01:09,045 --> 00:01:13,390
+Cabal is kind of the other
+contender in this area and
+
+26
+00:01:13,390 --> 00:01:17,190
+we don't have any experience as
+a team here using Cabal directly.
+
+27
+00:01:17,190 --> 00:01:21,450
+But Zach uses Cabal for a lot of things
+behind the scenes and in a lot of ways you
+
+28
+00:01:21,450 --> 00:01:26,770
+could think of it as a smooth veneer on
+top of the foundation that Cabal provides.
+
+29
+00:01:26,770 --> 00:01:28,606
+>> So
+it's like a shiny little outer coating.
+
+30
+00:01:28,606 --> 00:01:29,255
+>> [LAUGH] Exactly.
+
+31
+00:01:30,500 --> 00:01:33,500
+>> Underneath is the real meat of it,
+which is Cabal.
+
+32
+00:01:33,500 --> 00:01:35,840
+>> Yeah, I don't know why you have
+a shiny coating on top of your meat,
+
+33
+00:01:35,840 --> 00:01:37,375
+but whatever floats your boat.
+
+34
+00:01:37,375 --> 00:01:40,000
+>> [LAUGH]
+>> I was gonna go with like a piece of
+
+35
+00:01:40,000 --> 00:01:40,530
+candy.
+
+36
+00:01:40,530 --> 00:01:44,820
+Kinda like the M&M,
+like the shiny green outer and
+
+37
+00:01:44,820 --> 00:01:46,960
+then Cabal is like the chocolate center.
+
+38
+00:01:46,960 --> 00:01:48,260
+>> That's delicious.
+
+39
+00:01:48,260 --> 00:01:50,675
+>> The chocolate center of
+Haskell project development.
+
+40
+00:01:50,675 --> 00:01:54,060
+[LAUGH]
+>> Yeah, well, I've heard a lot of things,
+
+41
+00:01:54,060 --> 00:01:55,490
+being relatively new to Haskell.
+
+42
+00:01:56,580 --> 00:02:01,650
+Stack made it kind of easy to understand,
+this is how I make something new.
+
+43
+00:02:01,650 --> 00:02:06,960
+I've worked with Stack, trying to make
+a Hakyll blog and other stuff like that.
+
+44
+00:02:06,960 --> 00:02:12,120
+And it seems to be fairly useful, when I'm
+trying to figure out what I need to use,
+
+45
+00:02:12,120 --> 00:02:17,630
+what dependencies I have,
+I just kinda tell it hey, install this.
+
+46
+00:02:17,630 --> 00:02:18,150
+Then it's there.
+
+47
+00:02:18,150 --> 00:02:20,780
+There's no jumping through any hoops.
+
+48
+00:02:20,780 --> 00:02:23,160
+And why is that?
+
+49
+00:02:23,160 --> 00:02:24,660
+I know we have this thing called Stackage.
+
+50
+00:02:24,660 --> 00:02:26,394
+Kinda how does that help us?
+
+51
+00:02:26,394 --> 00:02:32,020
+So Stackage is a set of Haskell packages
+that are known to all work together.
+
+52
+00:02:32,020 --> 00:02:33,255
+So you mentioned Hakyll.
+
+53
+00:02:33,255 --> 00:02:37,941
+Hakyll as part of its, one of Hakyll's
+dependencies is Pan Doc which is a thing
+
+54
+00:02:37,941 --> 00:02:41,641
+that lets you convert document
+formats from one to the other.
+
+55
+00:02:41,641 --> 00:02:44,413
+So if you have a markdown file and
+you want to produce HTML,
+
+56
+00:02:44,413 --> 00:02:47,550
+which is extremely common
+when writing a blog.
+
+57
+00:02:47,550 --> 00:02:50,780
+Pan Doc is a tool that will let you do
+that and about a thousand other things.
+
+58
+00:02:51,780 --> 00:02:54,970
+Pan Doc requires a lot of dependencies and
+
+59
+00:02:54,970 --> 00:02:58,850
+it can be hard to find versions of all
+of those things that work well together.
+
+60
+00:02:58,850 --> 00:03:02,710
+So if you want to start a blog and
+you want to use Hakyll to produce it,
+
+61
+00:03:02,710 --> 00:03:05,580
+it can be challenging to find all
+the dependencies you need and
+
+62
+00:03:05,580 --> 00:03:08,284
+all the versions of those
+dependencies that all work togethe.
+
+63
+00:03:08,284 --> 00:03:10,410
+Stackage has done all that work for you.
+
+64
+00:03:10,410 --> 00:03:16,650
+So when you tell stack hey install
+Hakyll stack already knows,
+
+65
+00:03:16,650 --> 00:03:20,510
+yeah, I can install these dependencies
+together and they're just going to work.
+
+66
+00:03:20,510 --> 00:03:25,410
+That's in comparison to something like
+Cabal, at least older versions of Cabal.
+
+67
+00:03:25,410 --> 00:03:27,480
+I don't know how things
+have changed recently.
+
+68
+00:03:27,480 --> 00:03:31,690
+But Cabal works by resolving dependencies.
+
+69
+00:03:31,690 --> 00:03:36,230
+So each dependency has a version
+constraint that says I work with
+
+70
+00:03:36,230 --> 00:03:37,870
+this broad range of packages.
+
+71
+00:03:38,990 --> 00:03:42,810
+And Cabal tries to pick a specific
+version of each one that
+
+72
+00:03:42,810 --> 00:03:44,580
+the package claims it will work with.
+
+73
+00:03:45,670 --> 00:03:47,960
+This is basically working
+on the honor system.
+
+74
+00:03:47,960 --> 00:03:52,160
+So there's no guarantee that package
+A will actually work with package B even
+
+75
+00:03:52,160 --> 00:03:53,104
+though it says it will.
+
+76
+00:03:53,104 --> 00:03:56,580
+With Stackage that work
+is done ahead of time and
+
+77
+00:03:56,580 --> 00:03:59,254
+the maintainers are notified when
+something doesn't actually work.
+
+78
+00:03:59,254 --> 00:04:03,140
+But with Cabal, it's possible to get into
+a situation where you try to install
+
+79
+00:04:03,140 --> 00:04:05,260
+something that says it should work and
+it doesn't.
+
+80
+00:04:05,260 --> 00:04:08,500
+And you're left trying to
+figure out what went wrong.
+
+81
+00:04:08,500 --> 00:04:12,060
+And this is kind of historically,
+in the Haskell community,
+
+82
+00:04:12,060 --> 00:04:16,420
+called Cabal hell and this is
+something that stack helps you avoid.
+
+83
+00:04:16,420 --> 00:04:21,050
+>> I see, yeah, so
+having a background in JavaScript
+
+84
+00:04:21,050 --> 00:04:25,800
+to a little extent,
+we use some forms of NPM.
+
+85
+00:04:25,800 --> 00:04:31,540
+There was kind of this hell of you have
+this one package you're specifying but
+
+86
+00:04:31,540 --> 00:04:33,970
+it's installed a newer version
+of this other package.
+
+87
+00:04:33,970 --> 00:04:37,519
+And you have all this issue they've got
+package lock now on a lot of stuff.
+
+88
+00:04:37,519 --> 00:04:41,910
+And I haven't necessarily spent enough
+time in JavaScript lately to really
+
+89
+00:04:41,910 --> 00:04:46,610
+understand or appreciate that stuff,
+because we've been working in Haskell.
+
+90
+00:04:46,610 --> 00:04:48,919
+In Haskell, I've had stack, so
+
+91
+00:04:48,919 --> 00:04:53,902
+I haven't had to experience Cabal hell,
+but I have heard fun stories.
+
+92
+00:04:53,902 --> 00:04:58,320
+And that's nothing against, well,
+it's just part of how they do things.
+
+93
+00:04:58,320 --> 00:05:03,720
+And I appreciate that stack
+allowed us to kind of not
+
+94
+00:05:03,720 --> 00:05:08,280
+have to worry about that kind of coming
+into Haskell and being a beginner, right.
+
+95
+00:05:08,280 --> 00:05:12,750
+Like stack I feel like makes
+the beginner's life a lot simpler.
+
+96
+00:05:12,750 --> 00:05:14,090
+>> I definitely agree with that.
+
+97
+00:05:14,090 --> 00:05:17,080
+It's one less thing to worry about when
+you're getting started with Haskell.
+
+98
+00:05:17,080 --> 00:05:20,410
+You don't have to wonder will
+these packages build together.
+
+99
+00:05:20,410 --> 00:05:21,610
+You know that they will.
+
+100
+00:05:21,610 --> 00:05:24,950
+It's also nice, you mentioned NPM.
+
+101
+00:05:24,950 --> 00:05:29,640
+One of the things that NPM does that
+Haskell can't really do is that if you
+
+102
+00:05:29,640 --> 00:05:35,760
+have two packages that depend on
+different versions of some sub package,
+
+103
+00:05:35,760 --> 00:05:37,890
+they can just install both
+versions of that sub package.
+
+104
+00:05:37,890 --> 00:05:40,830
+And say sure, whatever,
+package A will get this one version,
+
+105
+00:05:40,830 --> 00:05:42,805
+package B will get this other version.
+
+106
+00:05:42,805 --> 00:05:46,440
+In Haskell you can't do that because
+all of your packages have to
+
+107
+00:05:46,440 --> 00:05:49,520
+agree with each other about every
+dependency that they're using.
+
+108
+00:05:49,520 --> 00:05:54,360
+So you can't say Hackyll gonna use
+version one of text and pan doc is going
+
+109
+00:05:54,360 --> 00:05:57,090
+to use version two and won't work
+because the types won't line up.
+
+110
+00:05:58,460 --> 00:06:01,650
+It's also worth mentioning
+that another thing Stack does,
+
+111
+00:06:01,650 --> 00:06:06,960
+that NPM also does,
+is that it kinda quarantines
+
+112
+00:06:06,960 --> 00:06:12,100
+your local project's dependencies
+from your global installation.
+
+113
+00:06:12,100 --> 00:06:15,470
+So anyone who's worked with
+a JavaScript project is familiar with
+
+114
+00:06:15,470 --> 00:06:16,545
+the node modules folder.
+
+115
+00:06:16,545 --> 00:06:17,620
+>> Ouch.
+
+116
+00:06:17,620 --> 00:06:21,610
+>> Which is a giant folder with
+hundreds of folders in there, one for
+
+117
+00:06:21,610 --> 00:06:22,860
+each dependency.
+
+118
+00:06:22,860 --> 00:06:23,850
+Do we have an ouch noise.
+
+119
+00:06:30,330 --> 00:06:34,550
+So known models is a giant folder with
+hundreds of dependencies in there and
+
+120
+00:06:35,930 --> 00:06:38,560
+it's separate from your kind
+of global installation.
+
+121
+00:06:38,560 --> 00:06:42,600
+And a lot of times, people will
+install things globally like Bower, or
+
+122
+00:06:44,240 --> 00:06:48,140
+ESLint, some kind of tool that's just
+convenient to have on the command line.
+
+123
+00:06:48,140 --> 00:06:53,380
+In the old days with Cabal, it installed
+most of your Haskell packages globally.
+
+124
+00:06:53,380 --> 00:06:56,610
+So if you were working on two projects and
+they needed different versions
+
+125
+00:06:56,610 --> 00:07:01,050
+of a dependency, too bad,
+you can't really do that.
+
+126
+00:07:01,050 --> 00:07:03,680
+Eventually they introduced
+this concept of a sand box,
+
+127
+00:07:03,680 --> 00:07:06,558
+which is a lot like the node
+modules thing, the folder.
+
+128
+00:07:06,558 --> 00:07:11,990
+But the sand box augmented
+your global packages,
+
+129
+00:07:11,990 --> 00:07:13,860
+it was in addition to
+all of the global stuff.
+
+130
+00:07:13,860 --> 00:07:17,260
+So if you accidentally
+installed some global package
+
+131
+00:07:17,260 --> 00:07:20,510
+that wasn't the one you wanted in
+your project, again, you're stuck.
+
+132
+00:07:20,510 --> 00:07:22,560
+You have to go remove
+that global package and
+
+133
+00:07:22,560 --> 00:07:25,830
+install it locally instead
+>> That thing is rough,
+
+134
+00:07:25,830 --> 00:07:30,710
+because then that could cause mismatches
+in people's local environments to
+
+135
+00:07:30,710 --> 00:07:32,570
+what's happening in production, too.
+
+136
+00:07:32,570 --> 00:07:34,470
+I feel like that's super dangerous.
+
+137
+00:07:34,470 --> 00:07:36,160
+>> Very dangerous and annoying.
+
+138
+00:07:36,160 --> 00:07:36,780
+>> Right, and
+
+139
+00:07:36,780 --> 00:07:42,890
+I feel like we've kinda circumvented
+that because we dockerize things.
+
+140
+00:07:42,890 --> 00:07:46,890
+So in our development locally,
+we dockerize everything.
+
+141
+00:07:46,890 --> 00:07:50,120
+So all of our packages,
+if they were installed globally even
+
+142
+00:07:50,120 --> 00:07:53,070
+would be books on our container
+that we're working in.
+
+143
+00:07:53,070 --> 00:07:57,540
+So we hopefully would be able
+to avoid that said issue.
+
+144
+00:07:57,540 --> 00:08:01,150
+>> Exactly, I don't think we would have
+run into this particular problem, even if
+
+145
+00:08:01,150 --> 00:08:04,630
+we were using Cabal instead of Stack,
+because we're inside a Docker container.
+
+146
+00:08:04,630 --> 00:08:09,230
+Like you said, a global package inside
+a Docker container is still kind of local
+
+147
+00:08:09,230 --> 00:08:11,110
+to that Docker container.
+
+148
+00:08:11,110 --> 00:08:14,050
+>> Right.
+>> Newer versions of Cabal have added this
+
+149
+00:08:14,050 --> 00:08:18,430
+new way of building stuff, where it
+completely ignores your global package
+
+150
+00:08:18,430 --> 00:08:22,130
+database, and only uses one
+that's sandboxed for the project.
+
+151
+00:08:22,130 --> 00:08:25,340
+They call this NYX-style local builds.
+
+152
+00:08:25,340 --> 00:08:29,550
+Which is taking a page out of the NYX
+handbook, which does everything for
+
+153
+00:08:29,550 --> 00:08:30,960
+your entire system like this.
+
+154
+00:08:30,960 --> 00:08:33,240
+Cabal focuses just on Haskell packages.
+
+155
+00:08:33,240 --> 00:08:38,410
+>> Interesting, yeah, our co-worker Cody,
+he told me that I should make a Nix joke,
+
+156
+00:08:38,410 --> 00:08:40,500
+so I'm glad you brought
+that into the picture.
+
+157
+00:08:40,500 --> 00:08:41,940
+>> Can we nix that NYX joke?
+
+158
+00:08:41,940 --> 00:08:43,390
+>> No, I can't nix it now.
+
+159
+00:08:43,390 --> 00:08:47,340
+I have to, well,
+let's just move on, anyways.
+
+160
+00:08:47,340 --> 00:08:47,910
+>> [LAUGH]
+>> I tried,
+
+161
+00:08:47,910 --> 00:08:51,820
+I'm not as funny as some of our
+fellow peers here at ITProTV.
+
+162
+00:08:51,820 --> 00:08:56,650
+But I do what I can,
+to try and stay with it.
+
+163
+00:08:56,650 --> 00:09:01,308
+Stack in Cabal kind of heard,
+kind of the underlying side of Cabal,
+
+164
+00:09:01,308 --> 00:09:06,293
+which has been nice to kind of understand
+more of like, what happened and
+
+165
+00:09:06,293 --> 00:09:11,385
+why global dependencies and stuff like
+that were kind of causing issues.
+
+166
+00:09:11,385 --> 00:09:15,017
+If you're going to give advice to
+anyone kinda starting in Haskell,
+
+167
+00:09:15,017 --> 00:09:17,800
+whether they have programming
+experience or not.
+
+168
+00:09:17,800 --> 00:09:23,850
+What would be the best thing about
+Stack for them to look into?
+
+169
+00:09:23,850 --> 00:09:26,980
+I dropped a bomb on you, now-
+>> It's hard for me to pick one thing.
+
+170
+00:09:26,980 --> 00:09:31,880
+I feel like there are at least two and
+the first one is that stack is going to
+
+171
+00:09:31,880 --> 00:09:36,610
+manage your compiler installation
+along with all of your dependencies.
+
+172
+00:09:36,610 --> 00:09:39,560
+So Cabal doesn't install GHC for you.
+
+173
+00:09:39,560 --> 00:09:41,120
+You have to do that yourself and
+
+174
+00:09:41,120 --> 00:09:44,960
+then you can point Cabal at
+the GHC that you want to use.
+
+175
+00:09:44,960 --> 00:09:46,020
+>> What's the nicety?
+
+176
+00:09:47,200 --> 00:09:49,350
+This is really cool that
+Stack did this for me.
+
+177
+00:09:49,350 --> 00:09:53,850
+>> Right, it's something that's gonna be
+invisible in that you're not going to
+
+178
+00:09:53,850 --> 00:09:58,550
+end up in a situation where you're stuck
+because some dependencies don't work out.
+
+179
+00:09:58,550 --> 00:10:05,280
+And that's a hard thing to sell too hard
+on because it's the lack of a problem.
+
+180
+00:10:05,280 --> 00:10:08,260
+But the problem itself is really
+annoying and very difficult for
+
+181
+00:10:08,260 --> 00:10:09,610
+a beginner to solve.
+
+182
+00:10:09,610 --> 00:10:11,330
+Because they don't
+really have the tools or
+
+183
+00:10:11,330 --> 00:10:15,410
+the expertise to figure out what happened,
+and how to fix it.
+
+184
+00:10:15,410 --> 00:10:17,820
+And Stack, for the most part,
+just sidesteps the whole thing.
+
+185
+00:10:18,890 --> 00:10:22,930
+Occasionally, you get into a situation
+where you want a package that isn't on
+
+186
+00:10:22,930 --> 00:10:24,070
+Stackage.
+
+187
+00:10:24,070 --> 00:10:27,270
+And that's when things get complicated,
+from the Stack side.
+
+188
+00:10:27,270 --> 00:10:29,420
+With Cabal, pretty much any package,
+
+189
+00:10:29,420 --> 00:10:32,920
+well really any package is gonna be
+installable with Cabal eventually.
+
+190
+00:10:32,920 --> 00:10:34,890
+Maybe you need to work out
+some dependencies but-
+
+191
+00:10:34,890 --> 00:10:36,400
+>> Anything on hackage pretty much you
+
+192
+00:10:36,400 --> 00:10:37,060
+could find use.
+
+193
+00:10:37,060 --> 00:10:38,620
+>> Exactly, mm hm.
+
+194
+00:10:38,620 --> 00:10:43,410
+And that's also true with Stack,
+but if something isn't on Stackage,
+
+195
+00:10:43,410 --> 00:10:46,630
+then you don't get that nicety of
+it just working automatically.
+
+196
+00:10:46,630 --> 00:10:50,860
+It may work really well without any extra
+work, but it might not work at all.
+
+197
+00:10:50,860 --> 00:10:54,208
+And then you have to figure that out and
+that can be hard for a beginner to do.
+
+198
+00:10:54,208 --> 00:10:58,710
+>> Got you, so we have a little
+bit of that in our code base
+
+199
+00:10:58,710 --> 00:11:02,020
+based on our latest resolver that we have.
+
+200
+00:11:02,020 --> 00:11:06,090
+We don't have some of our dependencies,
+so we had to bring in-
+
+201
+00:11:06,090 --> 00:11:06,830
+>> Yeah, like Happstack.
+
+202
+00:11:06,830 --> 00:11:07,990
+>> Happstack, right.
+
+203
+00:11:07,990 --> 00:11:11,570
+And so that was kind of a,
+
+204
+00:11:11,570 --> 00:11:16,040
+it kinda uses these extra dependencies and
+text kinda thing in the stack.yaml.
+
+205
+00:11:16,040 --> 00:11:20,170
+And for a beginner, what would be
+
+206
+00:11:22,060 --> 00:11:26,370
+just something to be aware of
+when trying to figure out,
+
+207
+00:11:26,370 --> 00:11:29,430
+what do I do with this extra dependency,
+what does that look like?
+
+208
+00:11:29,430 --> 00:11:32,880
+>> I think that Stack's documentation
+does a good job of explaining
+
+209
+00:11:32,880 --> 00:11:36,180
+what these extra dependencies are,
+why you might need them, and
+
+210
+00:11:36,180 --> 00:11:38,830
+how to put them into your stack.yaml file.
+
+211
+00:11:38,830 --> 00:11:43,110
+Also, when you make a new project with
+Stack, it includes a Stack.yaml file that
+
+212
+00:11:43,110 --> 00:11:46,670
+has a bunch of comments in it that say,
+if you need to include an extra depth,
+
+213
+00:11:46,670 --> 00:11:49,830
+this is what it would look like,
+and this is why you might need it.
+
+214
+00:11:49,830 --> 00:11:53,180
+There's also a lot of good
+blog posts on this topic.
+
+215
+00:11:53,180 --> 00:11:56,230
+This is something that a lot of people
+have run into where they're working with
+
+216
+00:11:56,230 --> 00:11:58,900
+Stack and they're enjoying it and then
+they run into a package that they need to
+
+217
+00:11:58,900 --> 00:12:03,010
+install that's not on Stackage and
+they tell you how to do that.
+
+218
+00:12:03,010 --> 00:12:05,610
+So I would say turn to Google.
+
+219
+00:12:05,610 --> 00:12:09,340
+>> Good ol Google, that's an engineer and
+developer's best friend.
+
+220
+00:12:09,340 --> 00:12:10,030
+>> Sure is.
+
+221
+00:12:10,030 --> 00:12:16,620
+>> Stack Overflow,
+any blog posting platform is great.
+
+222
+00:12:16,620 --> 00:12:17,950
+They do a really good job.
+
+223
+00:12:17,950 --> 00:12:20,790
+I know for me that's been something
+that's really really been helpful.
+
+224
+00:12:20,790 --> 00:12:21,780
+It's a big topic.
+
+225
+00:12:21,780 --> 00:12:23,950
+Volver stack in the Haskell world.
+
+226
+00:12:23,950 --> 00:12:26,920
+We want everyone to know we love both.
+
+227
+00:12:26,920 --> 00:12:29,110
+We just use Stack so
+we're more familiar with it.
+
+228
+00:12:29,110 --> 00:12:31,970
+Why do you think necessarily
+this is such a hot topic?
+
+229
+00:12:31,970 --> 00:12:37,540
+>> Me personally I don't feel too
+strongly one way or the other and we've
+
+230
+00:12:37,540 --> 00:12:41,558
+been posing this as a Cabal versus Stack-
+>> Discussion.
+
+231
+00:12:41,558 --> 00:12:43,790
+>> Flame war,
+discussion that we're hinting at here,
+
+232
+00:12:43,790 --> 00:12:47,760
+but really there are other
+entrants in this battle.
+
+233
+00:12:47,760 --> 00:12:51,380
+There's NYX which we've
+mentioned because Cabal kind of
+
+234
+00:12:51,380 --> 00:12:54,080
+borrowed this concept of
+NYX style local builds.
+
+235
+00:12:54,080 --> 00:12:58,470
+But you could use NYX to build Haskell
+packages and a lot of people do.
+
+236
+00:12:58,470 --> 00:13:02,780
+You can also use some more Niche tools,
+I know that there's one called Mafia.
+
+237
+00:13:02,780 --> 00:13:05,750
+You could also use GHC directly,
+which works great.
+
+238
+00:13:05,750 --> 00:13:09,280
+If you don't have a lot
+of dependencies GHC has
+
+239
+00:13:09,280 --> 00:13:13,830
+a -- make flag that makes it behave
+more like a build tool than a compiler.
+
+240
+00:13:14,840 --> 00:13:18,020
+And I'm sure there are many other
+build tools that I'm not aware of,
+
+241
+00:13:18,020 --> 00:13:19,940
+or that I'm failing to mention right now.
+
+242
+00:13:19,940 --> 00:13:23,230
+That being said, Stack and
+Cabal are kinda the big players.
+
+243
+00:13:23,230 --> 00:13:27,210
+And I think Stack has done a great
+job of making Haskell development
+
+244
+00:13:27,210 --> 00:13:31,780
+accessible to a wider audience,
+which was its goal from the get go.
+
+245
+00:13:31,780 --> 00:13:35,870
+In a previous job I was very
+gung ho about using Haskell, but
+
+246
+00:13:35,870 --> 00:13:38,650
+I worked on a team that
+primarily worked with Ruby code.
+
+247
+00:13:38,650 --> 00:13:43,160
+And I didn't feel comfortable
+suggesting to them that we use Cabal
+
+248
+00:13:43,160 --> 00:13:44,000
+as our build tool.
+
+249
+00:13:44,000 --> 00:13:47,400
+Because I ran into so many of its
+sharp edges with failing to install
+
+250
+00:13:47,400 --> 00:13:50,720
+a dependency, or polluting the global
+package database, any of those things.
+
+251
+00:13:51,790 --> 00:13:53,910
+When Stack came out I thought,
+you know what,
+
+252
+00:13:53,910 --> 00:13:56,840
+I would be okay subjecting
+the rest of the team to this tool.
+
+253
+00:13:56,840 --> 00:13:58,530
+>> Right.
+>> Cuz it generally works pretty well.
+
+254
+00:13:58,530 --> 00:14:03,001
+As to why it's such a contentious
+topic in the community,
+
+255
+00:14:03,001 --> 00:14:08,295
+I think that a lot of people have
+invested time into learning Cabal and
+
+256
+00:14:08,295 --> 00:14:10,503
+its quirks and mastering i.
+
+257
+00:14:10,503 --> 00:14:15,227
+And when there's a new tool that doesn't
+require all of that expertise, it can
+
+258
+00:14:15,227 --> 00:14:19,668
+make you feel like you either you've
+wasted some of your time or that people
+
+259
+00:14:19,668 --> 00:14:24,800
+need to learn the same things that you
+learned in order to get onto your level.
+
+260
+00:14:24,800 --> 00:14:29,650
+And so this kind of undercutting their
+expertise However, I'm not a psychologist.
+
+261
+00:14:29,650 --> 00:14:30,630
+I couldn't tell you.
+
+262
+00:14:30,630 --> 00:14:33,020
+I'm sure there are many more reasons why.
+
+263
+00:14:33,020 --> 00:14:34,610
+>> Well, I appreciate your time, too.
+
+264
+00:14:34,610 --> 00:14:38,563
+I appreciate you being able to take the
+time to just talk to us about Atack and
+
+265
+00:14:38,563 --> 00:14:43,200
+about Cabal and hear some of
+the quirks of both even and how we can,
+
+266
+00:14:44,210 --> 00:14:48,560
+use that in our day to day even
+before expert or we are beginning.
+
+267
+00:14:48,560 --> 00:14:53,290
+Because there's some niceties with Stack
+and if you use Cabal that's great and
+
+268
+00:14:53,290 --> 00:14:54,570
+there's nothing no hard feelings.
+
+269
+00:14:54,570 --> 00:14:55,730
+>> Yeah.
+>> All right, thanks for
+
+270
+00:14:55,730 --> 00:14:59,590
+being with us Taylor and thank you all for
+listening to the Haskell weekly podcasts.
+
+271
+00:14:59,590 --> 00:15:03,380
+This has been episode five and
+I've been your host Cameron Gara.
+
+272
+00:15:03,380 --> 00:15:08,710
+If you liked our show find out more
+at our website haskellweekly.news.
+
+273
+00:15:08,710 --> 00:15:13,378
+Thanks again for listening and
+see you next week.
+
+274
+00:15:13,378 --> 00:15:15,485
+[MUSIC]

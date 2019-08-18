@@ -1,0 +1,1514 @@
+1
+00:00:00,662 --> 00:00:04,307
+Hello and welcome to the Haskell Weekly
+Podcast, a podcast about Haskell.
+
+2
+00:00:04,307 --> 00:00:07,961
+Haskell is a functional programming
+language that we use here at ITProTV,
+
+3
+00:00:07,961 --> 00:00:10,459
+and we're just super
+excited about this episode.
+
+4
+00:00:10,459 --> 00:00:14,295
+I'm your host Cameron, and
+with me today we have Taylor Fossack,
+
+5
+00:00:14,295 --> 00:00:16,358
+our lead engineer here at ITProTV.
+
+6
+00:00:16,358 --> 00:00:17,360
+How are you doing Taylor?
+
+7
+00:00:17,360 --> 00:00:18,257
+>> I'm doing well, thanks.
+
+8
+00:00:18,257 --> 00:00:19,437
+How are you Cam?
+
+9
+00:00:19,437 --> 00:00:20,393
+>> Can't complain.
+
+10
+00:00:20,393 --> 00:00:21,927
+It's going well, I would say.
+
+11
+00:00:21,927 --> 00:00:22,619
+>> Full of fries?
+
+12
+00:00:22,619 --> 00:00:24,751
+>> I just ate so many fries, ugh.
+
+13
+00:00:24,751 --> 00:00:26,815
+It was so good.
+
+14
+00:00:26,815 --> 00:00:31,975
+But today, I just wanna kind
+of talk about an architecture
+
+15
+00:00:31,975 --> 00:00:35,674
+that is a good functional architecture.
+
+16
+00:00:35,674 --> 00:00:37,310
+It is Ports-And-Adapters.
+
+17
+00:00:37,310 --> 00:00:39,668
+And what are Ports-And-Adapters?
+
+18
+00:00:39,668 --> 00:00:45,193
+So I'll kind of talk more about Ports
+because that's really what I wanna do.
+
+19
+00:00:45,193 --> 00:00:50,233
+So Ports are kind of responsible for
+interacting with the outside world and
+
+20
+00:00:50,233 --> 00:00:55,353
+that could be a web app, it could be
+the database layer, a way to communicate
+
+21
+00:00:55,353 --> 00:00:59,315
+with the outside world [CROSSTALK]
+>> It's the thing that's making a call to
+
+22
+00:00:59,315 --> 00:01:02,019
+the database or to some external
+service that you're using or
+
+23
+00:01:02,019 --> 00:01:03,331
+even writing to the console.
+
+24
+00:01:03,331 --> 00:01:04,263
+>> Exactly, yeah.
+
+25
+00:01:04,263 --> 00:01:06,592
+And adapters are kind
+of everything inside,
+
+26
+00:01:06,592 --> 00:01:08,745
+kind of handling all the business logic.
+
+27
+00:01:08,745 --> 00:01:09,266
+>> Okay.
+
+28
+00:01:09,266 --> 00:01:11,965
+>> Being able to kind of going hey,
+this is what this is.
+
+29
+00:01:11,965 --> 00:01:16,359
+>> So adapters take their input from the
+the ports and then do some other stuff.
+
+30
+00:01:16,359 --> 00:01:19,625
+And then what talk to another
+port talk to another adapter.
+
+31
+00:01:19,625 --> 00:01:21,694
+>> Just depends on what
+the flow you know of your-
+
+32
+00:01:21,694 --> 00:01:22,572
+>> So it could be either one.
+
+33
+00:01:22,572 --> 00:01:26,372
+>> Right if you have an internal structure
+that needs to talk to another internal
+
+34
+00:01:26,372 --> 00:01:28,249
+structure you'd be using adapters.
+
+35
+00:01:28,249 --> 00:01:31,559
+But if you needed to call out to
+the database, you'd be using a port.
+
+36
+00:01:31,559 --> 00:01:32,797
+>> Okay.
+>> Kind of,
+
+37
+00:01:32,797 --> 00:01:38,300
+it kind of keeps things together,
+not so much, not so jumbled.
+
+38
+00:01:38,300 --> 00:01:43,470
+It kind of keeps it clear,
+the boundaries between pure logic and
+
+39
+00:01:43,470 --> 00:01:46,067
+input-output logic, right?
+
+40
+00:01:46,067 --> 00:01:47,390
+>> Right, and so you mean,
+
+41
+00:01:47,390 --> 00:01:51,058
+the pure logic is what a lot of
+people sometimes call business logic.
+
+42
+00:01:51,058 --> 00:01:54,342
+The interesting stuff that your business
+is doing, or your application is doing.
+
+43
+00:01:54,342 --> 00:01:56,750
+>> Right.
+>> And the ports handle the, maybe not so
+
+44
+00:01:56,750 --> 00:02:01,213
+interesting stuff have actually performing
+an HTTP call, or something like that.
+
+45
+00:02:01,213 --> 00:02:01,864
+>> Exactly.
+
+46
+00:02:01,864 --> 00:02:05,447
+>> Okay, so now that we have kinda
+the vocabulary of this architecture,
+
+47
+00:02:05,447 --> 00:02:09,023
+could you explain in more detail
+what the architecture is?
+
+48
+00:02:09,023 --> 00:02:13,935
+>> Kind of the Ports-And-Adapters
+architecture allows
+
+49
+00:02:13,935 --> 00:02:16,447
+us some niceties around it.
+
+50
+00:02:16,447 --> 00:02:20,794
+So it kind of allows us to separate
+that input-output stream from
+
+51
+00:02:20,794 --> 00:02:22,858
+the internal business logic.
+
+52
+00:02:22,858 --> 00:02:27,353
+And it keeps our the ability to test
+internal business logic easier,
+
+53
+00:02:27,353 --> 00:02:32,314
+cuz you're not always interacting with
+some input-output that could mess
+
+54
+00:02:32,314 --> 00:02:33,491
+with the result.
+
+55
+00:02:33,491 --> 00:02:37,400
+>> Yeah, it's a lot easier to test a pure
+function because if you have to write
+
+56
+00:02:37,400 --> 00:02:40,270
+a test that,
+let's say interacts with the database.
+
+57
+00:02:40,270 --> 00:02:43,609
+Then that means to run your test suite,
+you have to have your database up and
+
+58
+00:02:43,609 --> 00:02:45,623
+running and
+your schema has to be up to date and
+
+59
+00:02:45,623 --> 00:02:47,852
+you may have to have fake
+data populated in there.
+
+60
+00:02:47,852 --> 00:02:49,438
+But if you're testing pure code,
+
+61
+00:02:49,438 --> 00:02:53,007
+you just have to have a bunch of values
+in memory which are a lot easier to make.
+
+62
+00:02:53,007 --> 00:02:56,526
+Also, you can test things in parallel if
+they don't have to talk to a database.
+
+63
+00:02:56,526 --> 00:03:00,778
+Cuz maybe you have two tests for the same
+piece of business logic in your code and
+
+64
+00:03:00,778 --> 00:03:03,756
+they would both be writing
+to the same database table.
+
+65
+00:03:03,756 --> 00:03:07,160
+You're gonna have a bad time unless you
+really do a good job of separating those
+
+66
+00:03:07,160 --> 00:03:07,735
+things out.
+
+67
+00:03:07,735 --> 00:03:11,664
+Whereas in pure code, you can just run
+two things at the same time, no problem.
+
+68
+00:03:11,664 --> 00:03:14,696
+>> Right, and at some point,
+some level, you want to test the ports.
+
+69
+00:03:14,696 --> 00:03:17,755
+You want to make sure that
+given a set of input,
+
+70
+00:03:17,755 --> 00:03:20,819
+you're getting a reliable
+source of output.
+
+71
+00:03:20,819 --> 00:03:24,944
+Because that's what you
+expect from an API.
+
+72
+00:03:24,944 --> 00:03:28,064
+You're saying the same thing
+to an API you would expect,
+
+73
+00:03:28,064 --> 00:03:30,085
+it's returning to the same values.
+
+74
+00:03:30,085 --> 00:03:33,166
+>> At some point you want that
+integration test to prove that your API
+
+75
+00:03:33,166 --> 00:03:34,014
+actually works.
+
+76
+00:03:34,014 --> 00:03:36,160
+>> Right, but it does-
+>> But the unit tests on the inside,
+
+77
+00:03:36,160 --> 00:03:37,630
+those are still really valuable.
+
+78
+00:03:37,630 --> 00:03:41,117
+>> Right and the integrations are still
+a little more boilerplate kinda set up
+
+79
+00:03:41,117 --> 00:03:41,731
+generally.
+
+80
+00:03:41,731 --> 00:03:45,478
+And they're a little more,
+I won't say in bases, but
+
+81
+00:03:45,478 --> 00:03:48,831
+they're definitely a little
+more meaty per se.
+
+82
+00:03:48,831 --> 00:03:51,676
+So it's nice to be able to
+have that separation and
+
+83
+00:03:51,676 --> 00:03:56,352
+have guarantee that the pure functions,
+they're gonna do what they need to do and
+
+84
+00:03:56,352 --> 00:03:59,564
+those individual units
+are gonna perform as intended.
+
+85
+00:03:59,564 --> 00:04:02,539
+But we also can create this test for
+the ports as well.
+
+86
+00:04:02,539 --> 00:04:06,371
+>> Yeah.
+>> To allow that kinda testing.
+
+87
+00:04:06,371 --> 00:04:10,290
+>> So Cam, we're talking about this
+architecture today because of this blog
+
+88
+00:04:10,290 --> 00:04:13,588
+post that Mark Seaman wrote
+called Functional Architecture is
+
+89
+00:04:13,588 --> 00:04:14,972
+Ports-And-Adapters.
+
+90
+00:04:14,972 --> 00:04:17,387
+So pretty straightforward.
+
+91
+00:04:17,387 --> 00:04:22,545
+But he makes a point in there that you can
+do this architecture in other languages.
+
+92
+00:04:22,545 --> 00:04:25,166
+He uses F+ as an example.
+
+93
+00:04:25,166 --> 00:04:28,856
+But in those languages, it can be really
+hard to have the discipline to force
+
+94
+00:04:28,856 --> 00:04:31,176
+yourself into this
+architecture constantly.
+
+95
+00:04:31,176 --> 00:04:36,656
+And if you ever mess up, then suddenly you
+have something that is both a port and
+
+96
+00:04:36,656 --> 00:04:40,490
+an adapter, and
+it becomes hard to tease those apart.
+
+97
+00:04:40,490 --> 00:04:44,998
+What is it about Haskell that helps
+us write programs that are in this
+
+98
+00:04:44,998 --> 00:04:48,254
+architecture and
+get these benefits from them?
+
+99
+00:04:48,254 --> 00:04:53,465
+Yeah, the ability of purity, in types.
+
+100
+00:04:53,465 --> 00:04:58,869
+Types systems enforces a lot
+of need to have type A,
+
+101
+00:04:58,869 --> 00:05:02,649
+cross the boundary is type A still.
+
+102
+00:05:02,649 --> 00:05:05,431
+Like it shouldn't be able to
+change across the boundery.
+
+103
+00:05:05,431 --> 00:05:08,995
+>> Yeah, and we've mentioned purity a
+couple of times, and I just wanna be clear
+
+104
+00:05:08,995 --> 00:05:12,188
+about what we're talking about
+specifically with regards to ASCII.
+
+105
+00:05:12,188 --> 00:05:17,792
+It's a function that doesn't operate in
+I/O for our purposes at least at ITPro.
+
+106
+00:05:17,792 --> 00:05:21,827
+That's typically what we mean by pure or
+not in our like application level handler.
+
+107
+00:05:21,827 --> 00:05:23,449
+>> Right.
+>> Something that you give it a bunch of
+
+108
+00:05:23,449 --> 00:05:24,640
+inputs and it gives you an output.
+
+109
+00:05:24,640 --> 00:05:25,815
+End of story.
+
+110
+00:05:25,815 --> 00:05:30,432
+Whereas impure code is something that
+has to be executed in some context,
+
+111
+00:05:30,432 --> 00:05:34,239
+either with a database connection or
+with I/O or whatever.
+
+112
+00:05:34,239 --> 00:05:36,880
+So when we're talking about pure
+functions, that's what we mean.
+
+113
+00:05:36,880 --> 00:05:38,001
+>> Right, right, right.
+
+114
+00:05:38,001 --> 00:05:41,679
+You know, we read through this
+article I'm a little bit in.
+
+115
+00:05:41,679 --> 00:05:44,888
+It's about Ports-And-Adapters
+in school and stuff like that.
+
+116
+00:05:44,888 --> 00:05:49,900
+But kind of talking about is a lot
+different than implementing it because
+
+117
+00:05:49,900 --> 00:05:54,993
+in reality, Haskell kind of forces out
+hand this like And we don't have to
+
+118
+00:05:54,993 --> 00:06:00,684
+really think about what the architecture
+really is in the grand scheme of things.
+
+119
+00:06:00,684 --> 00:06:03,770
+>> Right, it forces you to do this
+architecture without having to be
+
+120
+00:06:03,770 --> 00:06:07,712
+consciously aware, thinking,
+I'm implementing Ports-And-Adapters here.
+
+121
+00:06:07,712 --> 00:06:09,230
+>> Right.
+>> Instead, you say, ih,
+
+122
+00:06:09,230 --> 00:06:12,538
+this function suddenly needs I/O,
+so I have to put it in the type.
+
+123
+00:06:12,538 --> 00:06:14,134
+And it propagates out everywhere.
+
+124
+00:06:14,134 --> 00:06:18,470
+And then that encourages you to try to
+constrain the places where that's used to
+
+125
+00:06:18,470 --> 00:06:21,327
+say, no let's only I/O
+over here at the boundary.
+
+126
+00:06:21,327 --> 00:06:22,870
+And keep everything else pure.
+
+127
+00:06:22,870 --> 00:06:27,252
+>> Yeah, and on our code base here,
+we're very adamant about that.
+
+128
+00:06:27,252 --> 00:06:32,129
+If we see that, we're passing the monastic
+context through all of these functions,
+
+129
+00:06:32,129 --> 00:06:36,238
+we don't necessarily always need
+the database connection every single one
+
+130
+00:06:36,238 --> 00:06:37,415
+of those functions.
+
+131
+00:06:37,415 --> 00:06:42,644
+We should take a step back and say, why
+don't we just find the data we need and
+
+132
+00:06:42,644 --> 00:06:47,977
+then pass it to a pure function that
+allows us to have a little more certainty?
+
+133
+00:06:47,977 --> 00:06:52,968
+And not have to worry too much
+about passing this working
+
+134
+00:06:52,968 --> 00:06:55,796
+in- [CROSSTALK]
+>> Instead of passing this
+
+135
+00:06:55,796 --> 00:07:00,119
+giant implicit context around them,
+basically the whole real world.
+
+136
+00:07:00,119 --> 00:07:02,474
+You identify the little pieces
+of that that you do need and
+
+137
+00:07:02,474 --> 00:07:04,351
+turn them into regular function arguments.
+
+138
+00:07:04,351 --> 00:07:05,009
+>> Right.
+
+139
+00:07:05,009 --> 00:07:08,853
+>> And in the course of doing that
+refactoring, sometimes your function's
+
+140
+00:07:08,853 --> 00:07:13,013
+signature can look more complicated,
+because it's getting more arguments.
+
+141
+00:07:13,013 --> 00:07:16,192
+Instead of just being an I/O,
+or app, or whatever.
+
+142
+00:07:16,192 --> 00:07:18,696
+But conceptually it becomes
+a lot easier to reason about.
+
+143
+00:07:18,696 --> 00:07:21,822
+Because just looking at that type
+declaration, you know those are the only
+
+144
+00:07:21,822 --> 00:07:24,217
+things that has access to use
+that's all it's gonna do.
+
+145
+00:07:24,217 --> 00:07:24,948
+>> Right.
+
+146
+00:07:24,948 --> 00:07:27,261
+>> This is especially nice for
+a long running,
+
+147
+00:07:27,261 --> 00:07:31,339
+a long lived application where many
+different developers are working on it.
+
+148
+00:07:31,339 --> 00:07:33,715
+And people are maintaining it,
+fixing bugs.
+
+149
+00:07:33,715 --> 00:07:37,659
+And you get that confidence on that
+pure code when you repack or something,
+
+150
+00:07:37,659 --> 00:07:41,979
+you haven't accidentally broken some other
+part of the system that relied on some
+
+151
+00:07:41,979 --> 00:07:44,442
+internal state that that
+thing fiddled with.
+
+152
+00:07:44,442 --> 00:07:45,794
+>> Right, right, right.
+
+153
+00:07:45,794 --> 00:07:49,299
+Yeah, and
+I highly value that with Haskell.
+
+154
+00:07:49,299 --> 00:07:53,946
+It really makes, and there's a few of our
+podcasts we talked refactoring in general.
+
+155
+00:07:53,946 --> 00:07:58,770
+And how easy Haskell makes that.
+
+156
+00:07:58,770 --> 00:08:02,381
+But the the type features just,
+it makes it easy to understand.
+
+157
+00:08:02,381 --> 00:08:05,208
+Okay, we're going to pass
+all of these things in, and
+
+158
+00:08:05,208 --> 00:08:08,531
+we're going to adapt them to
+the type we want them to be, right?
+
+159
+00:08:08,531 --> 00:08:10,982
+Okay, adapter, right?
+
+160
+00:08:10,982 --> 00:08:11,540
+Crazy, guys.
+
+161
+00:08:11,540 --> 00:08:13,853
+>> That's where the name came from.
+
+162
+00:08:13,853 --> 00:08:14,932
+[LAUGH]
+>> Wow, [SOUND].
+
+163
+00:08:14,932 --> 00:08:19,528
+But that that's the nice aspect of
+Haskell is being able to read and
+
+164
+00:08:19,528 --> 00:08:23,549
+know, okay I take these arguments and
+I transform them and
+
+165
+00:08:23,549 --> 00:08:26,525
+I adapt them to be the type I'm returning.
+
+166
+00:08:26,525 --> 00:08:30,362
+Whereas a lot of other languages
+that's not always the case.
+
+167
+00:08:30,362 --> 00:08:34,220
+And it's not easy to understand, wait,
+
+168
+00:08:34,220 --> 00:08:38,715
+why am I trying to keep
+these boundaries separate?
+
+169
+00:08:38,715 --> 00:08:40,626
+There's other languages,
+just not as clear.
+
+170
+00:08:40,626 --> 00:08:44,977
+>> Right, it can be hard to tell looking
+at a function, if it's pure or not.
+
+171
+00:08:44,977 --> 00:08:48,045
+In Haskell,
+it's very clear if that's the case.
+
+172
+00:08:48,045 --> 00:08:53,030
+And it's interesting because this blog
+post by Mark reminded me of an earlier
+
+173
+00:08:53,030 --> 00:08:57,479
+screen cast by Gary Bernhardt
+who did that famous JavaScript
+
+174
+00:08:57,479 --> 00:09:02,329
+talk where he shows up all these kinda
+weird cases of JavaScript behavior.
+
+175
+00:09:02,329 --> 00:09:05,746
+But he has a screencast
+where he talks about this
+
+176
+00:09:05,746 --> 00:09:09,172
+concept of functional
+core imperative shell.
+
+177
+00:09:09,172 --> 00:09:13,218
+Which is very similar where all of
+your business logic on the quote and
+
+178
+00:09:13,218 --> 00:09:15,751
+quote inside of your application is pure.
+
+179
+00:09:15,751 --> 00:09:17,609
+>> Mm-hm.
+>> And then you have a very small layer on
+
+180
+00:09:17,609 --> 00:09:20,918
+the outside that's responsible for
+collecting stuff from the outside world,
+
+181
+00:09:20,918 --> 00:09:23,631
+passing it off to your application and
+then taking that result and
+
+182
+00:09:23,631 --> 00:09:25,233
+sending it back to the outside world.
+
+183
+00:09:25,233 --> 00:09:25,771
+>> Right.
+>> So
+
+184
+00:09:25,771 --> 00:09:30,001
+it's funny how this concept of either
+functional core imperative shell or
+
+185
+00:09:30,001 --> 00:09:34,764
+Ports-And-Adapters keep showing up in a
+guy who works with Ruby full time or Mark,
+
+186
+00:09:34,764 --> 00:09:38,341
+I think he does a lot of F sharp,
+C sharp kind of the .NET world.
+
+187
+00:09:38,341 --> 00:09:41,584
+Or even like you mentioned in computer
+science curriculum, which is often Java or
+
+188
+00:09:41,584 --> 00:09:42,853
+Python or something like that.
+
+189
+00:09:42,853 --> 00:09:44,121
+>> Right, very object oriented.
+
+190
+00:09:44,121 --> 00:09:48,344
+>> All these language ecosystems have
+recognized that this is a powerful,
+
+191
+00:09:48,344 --> 00:09:51,329
+useful architecture to
+set up your applications.
+
+192
+00:09:51,329 --> 00:09:54,933
+But in Haskell It's just
+the way that you do things.
+
+193
+00:09:54,933 --> 00:09:57,784
+There's it's almost harder to
+not follow this architecture.
+
+194
+00:09:57,784 --> 00:09:59,279
+>> Right.
+>> So I see a lot of benefit and
+
+195
+00:09:59,279 --> 00:10:02,132
+using a language that pushes you
+in the right direction like that.
+
+196
+00:10:02,132 --> 00:10:06,168
+>> Yeah, cuz obviously if all
+these people are using it,
+
+197
+00:10:06,168 --> 00:10:09,508
+it's not wrong, like it's-
+>> Probably not a bad idea.
+
+198
+00:10:09,508 --> 00:10:11,296
+>> Right, like there's probably
+other options out there.
+
+199
+00:10:11,296 --> 00:10:15,609
+But the fact that it allows you to
+protect your internal business logic from
+
+200
+00:10:15,609 --> 00:10:18,012
+the outside world, that's important.
+
+201
+00:10:18,012 --> 00:10:20,892
+>> Yeah.
+>> You don't want to be able to just come
+
+202
+00:10:20,892 --> 00:10:26,316
+in and immediately from the outside world
+somehow modify some of the internal
+
+203
+00:10:26,316 --> 00:10:30,834
+business logic and
+Haskell doesn't really allow it to happen.
+
+204
+00:10:30,834 --> 00:10:33,543
+>> Yeah and
+it can be even more benign than leaking
+
+205
+00:10:33,543 --> 00:10:35,699
+details about your business logic.
+
+206
+00:10:35,699 --> 00:10:38,196
+One example I've seen before is, in Ruby,
+
+207
+00:10:38,196 --> 00:10:42,391
+there is a templating language which
+is basically a wrapper around Ruby.
+
+208
+00:10:42,391 --> 00:10:46,619
+And there had been times where you can
+have a template, that inside the template,
+
+209
+00:10:46,619 --> 00:10:48,285
+it makes a call to the database.
+
+210
+00:10:48,285 --> 00:10:51,861
+And if you put that inside in your
+template cuz you're like listing all of
+
+211
+00:10:51,861 --> 00:10:54,981
+your users and you wanna get some
+associated object with them.
+
+212
+00:10:54,981 --> 00:10:58,748
+You could be making a thousand queries
+in your template of all places.
+
+213
+00:10:58,748 --> 00:11:01,261
+And templates feel like they
+should be pure functions.
+
+214
+00:11:01,261 --> 00:11:02,750
+>> Right.
+>> Like don't talk to the database,
+
+215
+00:11:02,750 --> 00:11:04,303
+you should already have
+the information you need.
+
+216
+00:11:04,303 --> 00:11:05,325
+>> Right.
+
+217
+00:11:05,325 --> 00:11:08,760
+>> So, this architecture helps you
+avoid problems like that in addition to
+
+218
+00:11:08,760 --> 00:11:09,674
+a bunch of others.
+
+219
+00:11:09,674 --> 00:11:12,768
+>> Right, and it's not to say that like,
+like you said,
+
+220
+00:11:12,768 --> 00:11:16,491
+it's just harder to make Haskell
+not be Ports-And-Adapters.
+
+221
+00:11:16,491 --> 00:11:21,348
+I can go through code we've written
+when we were first starting Haskell and
+
+222
+00:11:21,348 --> 00:11:24,832
+just, we would pass this
+giant contacts all around.
+
+223
+00:11:24,832 --> 00:11:27,161
+And we're gonna find data here,
+here and here and
+
+224
+00:11:27,161 --> 00:11:29,054
+always be talking to the outside world.
+
+225
+00:11:29,054 --> 00:11:34,157
+And kind of over time you kind of realize,
+this just doesn't feel right.
+
+226
+00:11:34,157 --> 00:11:38,028
+And so Haskell allows you
+to refactor that out too.
+
+227
+00:11:38,028 --> 00:11:41,347
+Like we can make you make this one piece.
+
+228
+00:11:41,347 --> 00:11:44,258
+>> Yeah, and
+that feeling of this isn't quite right.
+
+229
+00:11:44,258 --> 00:11:47,309
+That's Haskell nudging you in
+the quote unquote right direction for
+
+230
+00:11:47,309 --> 00:11:48,309
+this architecture and
+
+231
+00:11:48,309 --> 00:11:51,684
+where a lot of other languages kind of
+push you away from this architecture.
+
+232
+00:11:51,684 --> 00:11:54,159
+Haskell pulls you in, so
+it's, yes, keep doing that.
+
+233
+00:11:54,159 --> 00:11:55,109
+That's the right thing.
+>> You can do it.
+
+234
+00:11:55,109 --> 00:11:59,661
+>> [LAUGH]
+>> Right, I think there's, a nice,
+
+235
+00:11:59,661 --> 00:12:05,032
+Ports-And-Adapters allows you
+to kind of see that outside,
+
+236
+00:12:05,032 --> 00:12:10,505
+you've got various aspects that
+are that are calling your API,
+
+237
+00:12:10,505 --> 00:12:13,674
+your code base whatever that may be.
+
+238
+00:12:13,674 --> 00:12:16,017
+>> Yeah, we talked about API's
+a lot cuz we do web programming.
+
+239
+00:12:16,017 --> 00:12:17,267
+So that's kinda our bread and butter.
+
+240
+00:12:17,267 --> 00:12:18,618
+>> Right.
+>> But this applies to other
+
+241
+00:12:18,618 --> 00:12:19,606
+applications as well.
+
+242
+00:12:19,606 --> 00:12:25,407
+>> Right, and allows you to see okay,
+what has the possibility to talk to.
+
+243
+00:12:25,407 --> 00:12:27,247
+What does it have
+the possibility to talk to?
+
+244
+00:12:27,247 --> 00:12:32,780
+And then inside it allows you to
+kind of keep all of those functions
+
+245
+00:12:32,780 --> 00:12:39,840
+that allow you to be agile and quick and
+reuse and have these validation functions.
+
+246
+00:12:39,840 --> 00:12:42,423
+Or having like auth checks or
+stuff like that,
+
+247
+00:12:42,423 --> 00:12:44,620
+depending on what your object case is.
+
+248
+00:12:44,620 --> 00:12:46,944
+That's calling out and finding a user and
+
+249
+00:12:46,944 --> 00:12:49,676
+understanding what app
+permissions they have.
+
+250
+00:12:49,676 --> 00:12:55,778
+That could probably involve more of a port
+than you're wanting to use in that case.
+
+251
+00:12:55,778 --> 00:13:02,461
+But it just kind of allows you to
+keep all that logic just so separate.
+
+252
+00:13:02,461 --> 00:13:08,005
+And not feel like, I don't know,
+I feel like there's been times,
+
+253
+00:13:08,005 --> 00:13:13,356
+and there's frameworks that do kind
+of force your hand in this and
+
+254
+00:13:13,356 --> 00:13:15,615
+other languages, right.
+
+255
+00:13:15,615 --> 00:13:17,334
+Cuz there's MVC, right.
+
+256
+00:13:17,334 --> 00:13:22,959
+MVC kind of, in my mind can translate
+into Ports-And-Adapters in some regards.
+
+257
+00:13:22,959 --> 00:13:26,721
+>> Yeah, cuz your controller ends up
+usually being a port where it's collecting
+
+258
+00:13:26,721 --> 00:13:28,547
+information from the outside world.
+
+259
+00:13:28,547 --> 00:13:32,819
+And then your view is kind of a port in
+that it's presenting that information
+
+260
+00:13:32,819 --> 00:13:33,431
+back out.
+
+261
+00:13:33,431 --> 00:13:36,619
+And then your model is typically
+an adaptor in that scenario.
+
+262
+00:13:36,619 --> 00:13:42,336
+>> Right, right and we,
+using sales when we're in JavaScript land,
+
+263
+00:13:42,336 --> 00:13:45,662
+that kind of kept that stuff separate.
+
+264
+00:13:45,662 --> 00:13:50,153
+They get hairy at times, like, we can find
+ourselves like in a service pretty much
+
+265
+00:13:50,153 --> 00:13:52,317
+doing all the time controller action.
+
+266
+00:13:52,317 --> 00:13:57,467
+When the idea of a service is really,
+it should be more than an adapter.
+
+267
+00:13:57,467 --> 00:14:00,872
+And say hey take these outputs and
+I give you this output.
+
+268
+00:14:00,872 --> 00:14:01,466
+>> Right.
+
+269
+00:14:01,466 --> 00:14:05,626
+>> Rather than like we're gonna call out
+to this service and that service and
+
+270
+00:14:05,626 --> 00:14:08,109
+we're gonna build this giant thing for
+you.
+
+271
+00:14:08,109 --> 00:14:11,185
+And the controller's just going to say,
+I'll listen here and
+
+272
+00:14:11,185 --> 00:14:12,355
+I accept request here.
+
+273
+00:14:12,355 --> 00:14:14,255
+>> Yeah.
+>> And then I enter to service,
+
+274
+00:14:14,255 --> 00:14:15,419
+that's a big thing.
+
+275
+00:14:15,419 --> 00:14:20,522
+And that's just a super hard to go back
+into and understand like it doesn't
+
+276
+00:14:20,522 --> 00:14:25,952
+like yeah, MVC could be like
+Ports-And-Adapters but it's not, it's not.
+
+277
+00:14:25,952 --> 00:14:27,298
+It's easy to not do that.
+
+278
+00:14:27,298 --> 00:14:29,317
+>> And nothing is pushing
+you in the right direction.
+
+279
+00:14:29,317 --> 00:14:31,192
+>> Right.
+>> You said that shoving all this stuff
+
+280
+00:14:31,192 --> 00:14:34,382
+into the service didn't feel right but
+that was just kind of a gut feeling.
+
+281
+00:14:34,382 --> 00:14:37,493
+There was nothing in the language or
+the framework telling you,
+
+282
+00:14:37,493 --> 00:14:38,595
+maybe don't do that.
+
+283
+00:14:38,595 --> 00:14:39,139
+>> Right.
+
+284
+00:14:39,139 --> 00:14:42,795
+>> Whereas in Haskell, you do get, you
+know, I have to propagate I/O through all
+
+285
+00:14:42,795 --> 00:14:45,278
+these functions or
+I'm passing in a hundred arguments.
+
+286
+00:14:45,278 --> 00:14:47,775
+This is very clearly telling
+me something is wrong.
+
+287
+00:14:47,775 --> 00:14:49,458
+>> Mm-hm, know for sure.
+
+288
+00:14:49,458 --> 00:14:52,838
+>> So I think I've said just about
+everything I know about this functional
+
+289
+00:14:52,838 --> 00:14:55,043
+architecture being Ports-And-Adapters.
+
+290
+00:14:55,043 --> 00:14:56,709
+Do you have anything else to add?
+
+291
+00:14:56,709 --> 00:14:57,537
+>> I don't think so.
+
+292
+00:14:57,537 --> 00:15:00,176
+I'm a little all over the place today.
+
+293
+00:15:00,176 --> 00:15:05,140
+Just kind of coming out of the food
+coma a little bit and yeah.
+
+294
+00:15:05,140 --> 00:15:08,326
+Yeah it's a little warm in here but
+that is what it is.
+
+295
+00:15:08,326 --> 00:15:09,676
+>> It's Florida I mean.
+
+296
+00:15:09,676 --> 00:15:14,360
+>> It's Florida but
+I also have my fair issues of sweating.
+
+297
+00:15:14,360 --> 00:15:15,990
+>> At least we're not recording outside.
+
+298
+00:15:15,990 --> 00:15:17,891
+>> I'm always here for you guys.
+
+299
+00:15:17,891 --> 00:15:19,336
+>> [LAUGH]
+>> Always representing.
+
+300
+00:15:19,336 --> 00:15:24,319
+But anywho we, this was a great article
+it was cool kind of go blast from
+
+301
+00:15:24,319 --> 00:15:27,117
+the past kind of was all over the place.
+
+302
+00:15:27,117 --> 00:15:31,695
+But I think because this
+Haskell has this identity
+
+303
+00:15:31,695 --> 00:15:36,273
+that pushes you towards
+Ports-And-Adapters.
+
+304
+00:15:36,273 --> 00:15:42,015
+It makes it really easy to just keep
+that logic separate from input and
+
+305
+00:15:42,015 --> 00:15:46,973
+outputs and all the internal
+business logic those things.
+
+306
+00:15:46,973 --> 00:15:49,813
+It's very important to
+keep those separately.
+
+307
+00:15:49,813 --> 00:15:54,932
+It allows employees who are coming in or
+when we revisit a code later,
+
+308
+00:15:54,932 --> 00:15:59,008
+like understanding like this
+is just business logic.
+
+309
+00:15:59,008 --> 00:16:03,596
+This is the inputs, the outputs,
+if you need to change something later,
+
+310
+00:16:03,596 --> 00:16:07,306
+like Haskell is functional and
+it's compiler is amazing.
+
+311
+00:16:07,306 --> 00:16:07,913
+>> Sure is.
+
+312
+00:16:07,913 --> 00:16:10,098
+>> And the type system is incredible.
+
+313
+00:16:10,098 --> 00:16:14,214
+So that really just kind of
+all meshes nicely together.
+
+314
+00:16:14,214 --> 00:16:16,540
+>> Yeah, well said.
+
+315
+00:16:16,540 --> 00:16:19,905
+So thanks for chatting with me
+about Ports-And-Adapters, Cameron.
+
+316
+00:16:19,905 --> 00:16:20,999
+>> Of course, thanks for having me.
+
+317
+00:16:20,999 --> 00:16:22,481
+>> It's always great to
+have you on the show.
+
+318
+00:16:22,481 --> 00:16:25,517
+And thank you for
+listening to the Haskell Weekly podcast.
+
+319
+00:16:25,517 --> 00:16:28,746
+If you liked what you heard today,
+and want to know more about us,
+
+320
+00:16:28,746 --> 00:16:31,534
+please check out our website
+at haskellweekly.news.
+
+321
+00:16:31,534 --> 00:16:35,464
+This has been episode ten,
+and we'll see you next time.
+
+322
+00:16:35,464 --> 00:16:36,805
+>> Adios.

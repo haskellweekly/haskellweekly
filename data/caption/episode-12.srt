@@ -1,0 +1,1117 @@
+1
+00:00:02,060 --> 00:00:05,610
+Welcome to the Haskell weekly podcast,
+this show is about Haskell,
+
+2
+00:00:05,610 --> 00:00:07,640
+a purely functional programming language.
+
+3
+00:00:07,640 --> 00:00:12,880
+I'm your guest, Justin Seger,
+I'm an engineer at ITProTV.
+
+4
+00:00:12,880 --> 00:00:15,875
+With me today is your host, Cody Goodman,
+
+5
+00:00:15,875 --> 00:00:21,120
+he is a senior engineer here at ITProTV,
+thanks for joining me today.
+
+6
+00:00:21,120 --> 00:00:24,550
+>> No problem, Justin, I'm glad to
+be here and talk about some Haskell.
+
+7
+00:00:24,550 --> 00:00:28,230
+>> So today I think we
+are going to talk about Ormolu?
+
+8
+00:00:29,320 --> 00:00:35,760
+Looks like a format, Haskell code
+like never before stylizing dealio.
+
+9
+00:00:35,760 --> 00:00:38,220
+At least that's the tagline at the top.
+
+10
+00:00:38,220 --> 00:00:42,940
+>> Right, yeah, I actually Googled that,
+I was like, how do you pronounce that?
+
+11
+00:00:42,940 --> 00:00:46,948
+It's apparently Ormolu.
+
+12
+00:00:46,948 --> 00:00:50,690
+>> Nice.
+>> An 18th century guilding technique for
+
+13
+00:00:50,690 --> 00:00:56,072
+applying finely ground,
+high-carat gold–mercury amalgam.
+
+14
+00:00:56,072 --> 00:00:57,605
+>> Wow, [LAUGH]
+>> That's a mouthful.
+
+15
+00:00:57,605 --> 00:01:00,970
+>> Yep, yeah, I had no idea, so
+
+16
+00:01:00,970 --> 00:01:05,850
+I figured I'd probably butcher the name,
+but thanks for letting me know.
+
+17
+00:01:05,850 --> 00:01:11,220
+Yeah, so the author,
+Mark Karpov, excuse me if I
+
+18
+00:01:11,220 --> 00:01:15,890
+mispronounced the last name, has got
+a pretty good train of thought here.
+
+19
+00:01:17,120 --> 00:01:20,180
+Did you happen to see
+anything interesting, Cody,
+
+20
+00:01:20,180 --> 00:01:22,530
+as you read over this article?
+
+21
+00:01:23,670 --> 00:01:28,583
+>> Yeah, I think kind of
+building on the name Ormolu,
+
+22
+00:01:28,583 --> 00:01:33,615
+they kinda start out talking
+about the principals,
+
+23
+00:01:33,615 --> 00:01:39,582
+which is something you'll find
+common with high schoolers.
+
+24
+00:01:39,582 --> 00:01:44,070
+And I think that's not just because of
+some of the kind of academic roots, but
+
+25
+00:01:44,070 --> 00:01:48,767
+also because Haskell's type system is
+more amenable to allowing you to kind of,
+
+26
+00:01:48,767 --> 00:01:53,050
+at a high-level state with the principles
+of your program should be, and
+
+27
+00:01:53,050 --> 00:01:55,930
+limit the space of what makes sense.
+
+28
+00:01:55,930 --> 00:02:02,047
+>> All right, so any of these
+particular principles that, I guess,
+
+29
+00:02:02,047 --> 00:02:08,820
+Ormolu is laying out for us,
+any of them catch your eye in particular?
+
+30
+00:02:10,700 --> 00:02:16,630
+>> Yeah, I like they how they kinda
+start out by motivating what it's for,
+
+31
+00:02:16,630 --> 00:02:21,580
+what exactly is a code formatter,
+what does it do?
+
+32
+00:02:21,580 --> 00:02:23,840
+Do we want there to be multiple styles?
+
+33
+00:02:23,840 --> 00:02:26,400
+Do we want there to be a single style?
+
+34
+00:02:26,400 --> 00:02:29,180
+I'm very happy they ended
+up on a single style,
+
+35
+00:02:29,180 --> 00:02:33,920
+cuz as a programmer I just want
+a formatting tool to kind of get out
+
+36
+00:02:33,920 --> 00:02:38,910
+of my way
+>> Yes, I can can agree with that.
+
+37
+00:02:38,910 --> 00:02:40,860
+>> Now there are some cases where it,
+
+38
+00:02:40,860 --> 00:02:45,540
+it does something that looks a little
+insane and can affect readability.
+
+39
+00:02:45,540 --> 00:02:49,650
+I see they also address that though,
+with a rule of,
+
+40
+00:02:49,650 --> 00:02:54,810
+if you make a new line,
+it will line based on that new one.
+
+41
+00:02:54,810 --> 00:02:59,270
+Now, that allows for some differences and
+it kinda goes against the uniformity, so
+
+42
+00:02:59,270 --> 00:03:02,440
+I'm a little worried about
+the implementation of that, but
+
+43
+00:03:02,440 --> 00:03:04,065
+I could see it being a positive.
+
+44
+00:03:04,065 --> 00:03:09,945
+>> Yeah,I also see he mentions Hindent and
+Brittany,
+
+45
+00:03:09,945 --> 00:03:14,753
+both of which we have
+used here at ITProTV,
+
+46
+00:03:14,753 --> 00:03:19,042
+Hindent I think the lesser of the two.
+
+47
+00:03:19,042 --> 00:03:23,670
+>> No, I wasn't here when you guys
+were using Hindent, how was that?
+
+48
+00:03:23,670 --> 00:03:28,530
+>> Well, at the time we were using Hindent
+I was just a little Haskell novice,
+
+49
+00:03:28,530 --> 00:03:33,590
+which I'm still not much
+more than that now, but.
+
+50
+00:03:33,590 --> 00:03:39,898
+I would say it was nice coming from
+things like ESLint and stuff like that,
+
+51
+00:03:39,898 --> 00:03:45,770
+it was just nice to have something,
+help us format our code.
+
+52
+00:03:45,770 --> 00:03:49,340
+And we were in dire need of it, especially
+whenever we were just starting out
+
+53
+00:03:49,340 --> 00:03:54,730
+learning Haskell, and
+we didn't really know Ralph the bad,
+
+54
+00:03:54,730 --> 00:03:58,500
+how I should format certain things.
+
+55
+00:03:58,500 --> 00:04:03,766
+So it was a good kinda entry into
+
+56
+00:04:03,766 --> 00:04:09,087
+formatting Haskell
+>> You know, that's a good point.
+
+57
+00:04:09,087 --> 00:04:13,670
+I didn't really think about how that
+could lower the barrier of entry for
+
+58
+00:04:13,670 --> 00:04:17,085
+Haskell, something to
+automatically format code.
+
+59
+00:04:17,085 --> 00:04:21,780
+>> Mm-hm, yeah, but I do see that
+they also mention Brittany as well,
+
+60
+00:04:21,780 --> 00:04:22,870
+which we still use.
+
+61
+00:04:24,540 --> 00:04:27,820
+I'm enjoying Brittany,
+although I'm probably the least
+
+62
+00:04:27,820 --> 00:04:31,155
+opinionated whenever it
+comes to stylizing stuff.
+
+63
+00:04:31,155 --> 00:04:35,910
+[LAUGH] Mainly because I just
+like it to look good, and
+
+64
+00:04:35,910 --> 00:04:38,620
+if it looks decent enough,
+I'm okay with it.
+
+65
+00:04:38,620 --> 00:04:41,670
+But I know that some people are extremely
+
+66
+00:04:42,860 --> 00:04:44,700
+particular whenever it
+comes to formatting.
+
+67
+00:04:46,910 --> 00:04:50,090
+Which of those camps do you fall into?
+
+68
+00:04:50,090 --> 00:04:50,930
+Are you?
+
+69
+00:04:50,930 --> 00:04:55,553
+>> I used to be a little more opinionated,
+
+70
+00:04:55,553 --> 00:05:01,019
+things like align
+everything based on comma,
+
+71
+00:05:01,019 --> 00:05:04,674
+well, I guess I still do that.
+
+72
+00:05:04,674 --> 00:05:07,900
+I think your opinion sums
+it up pretty good for me.
+
+73
+00:05:07,900 --> 00:05:11,505
+Just as long as it looks all right,
+as long as it's not inscrutable,
+
+74
+00:05:11,505 --> 00:05:12,710
+I'm okay with it.
+
+75
+00:05:12,710 --> 00:05:19,019
+Because I used to only use EMAx alone,
+and they had this, God.
+
+76
+00:05:19,019 --> 00:05:22,435
+The Haskell mode for that had
+three different tab cycling modes,
+
+77
+00:05:22,435 --> 00:05:25,740
+one that was intelligent,
+one that just cycled through them.
+
+78
+00:05:27,310 --> 00:05:31,870
+I wasted so much time with that,
+where I could have been writing code.
+
+79
+00:05:31,870 --> 00:05:36,680
+>> And that's actually
+a good a segue into another
+
+80
+00:05:36,680 --> 00:05:41,310
+thing that Mike is talking about
+here with the, how could formatters
+
+81
+00:05:41,310 --> 00:05:44,566
+also good to take away some of the tedium
+of writing code in the first place.
+
+82
+00:05:44,566 --> 00:05:49,300
+And if your formatter's
+getting in the way of that, or
+
+83
+00:05:49,300 --> 00:05:51,170
+actually doing the opposite
+of what you're saying,
+
+84
+00:05:51,170 --> 00:05:55,990
+then yeah, it's probably time to
+either pick up something new or
+
+85
+00:05:57,260 --> 00:06:01,550
+maybe the tool just isn't
+doing its job correctly.
+
+86
+00:06:02,580 --> 00:06:07,560
+>> Yeah, I totally agree with taking away
+the tedium, it's not just because we're
+
+87
+00:06:07,560 --> 00:06:13,230
+lazy, but also because we don't wanna
+get knocked out of that flow state.
+
+88
+00:06:13,230 --> 00:06:15,740
+We wanna just be able to
+focus on the problem at hand.
+
+89
+00:06:15,740 --> 00:06:16,710
+>> Correct.
+>> And
+
+90
+00:06:16,710 --> 00:06:20,990
+have all those things, ideally have
+imports taking care of automatically,
+
+91
+00:06:20,990 --> 00:06:25,600
+specially since we use qualified imports,
+sort them if you wish.
+
+92
+00:06:26,760 --> 00:06:27,900
+That would be great.
+
+93
+00:06:28,980 --> 00:06:37,200
+>> All right, well, looking at
+an example of Ormolu's approach.
+
+94
+00:06:37,200 --> 00:06:41,245
+How do you feel about the formatted
+code that is displayed here?
+
+95
+00:06:41,245 --> 00:06:45,663
+>> Yeah, their example,
+I think is pretty good,
+
+96
+00:06:45,663 --> 00:06:49,198
+it seems like a pretty sane decision,
+
+97
+00:06:49,198 --> 00:06:53,617
+they're not doing
+anything too complicated,
+
+98
+00:06:53,617 --> 00:06:57,829
+just going by line,
+with the looks like and.
+
+99
+00:06:57,829 --> 00:07:02,778
+I am concerned about the possible
+exponential blowups they talk about when
+
+100
+00:07:02,778 --> 00:07:05,537
+formatting deeply nested expressions.
+
+101
+00:07:05,537 --> 00:07:09,657
+On the one hand,
+that shouldn't happen too often, but
+
+102
+00:07:09,657 --> 00:07:14,829
+it would be pretty annoying for
+your formatter to freeze your editor,
+
+103
+00:07:14,829 --> 00:07:19,767
+if you're unlucky enough to have
+a synchronous editor like EMAx.
+
+104
+00:07:19,767 --> 00:07:23,801
+>> [LAUGH]
+Yes.
+
+105
+00:07:23,801 --> 00:07:27,700
+So one of the things I'm noticing is that,
+it does look like, it looks very similar
+
+106
+00:07:27,700 --> 00:07:31,060
+to how our code is formatted right
+now using Brittany, and I like that.
+
+107
+00:07:31,060 --> 00:07:36,749
+I mean, it's nothing too crazy,
+I see that thing later on,
+
+108
+00:07:36,749 --> 00:07:41,561
+or maybe a little bit before,
+I may have missed it.
+
+109
+00:07:41,561 --> 00:07:46,693
+I thought I read that Ormolu is supposed
+
+110
+00:07:46,693 --> 00:07:52,757
+to allow you to have
+a little bit of an opinion,
+
+111
+00:07:52,757 --> 00:08:00,860
+but still retain a consistent
+style throughout everything.
+
+112
+00:08:02,440 --> 00:08:04,810
+Yes, and actually I see that now,
+it's a little bit below
+
+113
+00:08:06,740 --> 00:08:10,176
+the formatted code example here, but.
+
+114
+00:08:10,176 --> 00:08:14,800
+But yes,
+I like how it's nothing too different and
+
+115
+00:08:14,800 --> 00:08:18,030
+too insane from what I'm used to myself.
+
+116
+00:08:18,030 --> 00:08:20,240
+So, I'm kinda biased in that regard,
+
+117
+00:08:20,240 --> 00:08:25,640
+that I already like what I see because
+it's similar to what I use everyday.
+
+118
+00:08:25,640 --> 00:08:27,910
+How do you feel about that?
+
+119
+00:08:27,910 --> 00:08:29,060
+Feel about the same way?
+
+120
+00:08:29,060 --> 00:08:33,028
+>> Yeah, I mean, the first saying
+when I saw this announcement was,
+
+121
+00:08:33,028 --> 00:08:36,560
+why another formatter?
+
+122
+00:08:36,560 --> 00:08:39,192
+Why isn't Brittany good enough?
+
+123
+00:08:39,192 --> 00:08:43,393
+I think that the simplicity of
+
+124
+00:08:43,393 --> 00:08:49,980
+implementation looks like one reason.
+
+125
+00:08:49,980 --> 00:08:54,680
+Maybe they think long term it
+would be easier to use this
+
+126
+00:08:57,030 --> 00:09:05,590
+architecture and maintain it, and then
+also maybe that sort of ease overriding,
+
+127
+00:09:05,590 --> 00:09:10,070
+things by new line instead
+of having config files.
+
+128
+00:09:10,070 --> 00:09:11,703
+>> Yeah.
+
+129
+00:09:11,703 --> 00:09:16,173
+>> And I think it's just trying to get
+closer to something like GOFormat where,
+
+130
+00:09:16,173 --> 00:09:19,539
+not the biggest fan of GO, but
+one great thing from GO, and
+
+131
+00:09:19,539 --> 00:09:22,084
+is never having to worry about formatting,
+
+132
+00:09:22,084 --> 00:09:25,642
+and then always being able to
+read things in the same format.
+
+133
+00:09:25,642 --> 00:09:28,793
+>> Yes, that's definitely very handy.
+
+134
+00:09:28,793 --> 00:09:33,385
+Continuing on, other features he
+says are worth mentioning are,
+
+135
+00:09:33,385 --> 00:09:36,610
+formatting already
+formatted code is a nola.
+
+136
+00:09:36,610 --> 00:09:41,940
+>> Yeah, I think if that wasn't the case,
+then that sort of defeats the whole
+
+137
+00:09:41,940 --> 00:09:49,100
+purpose of having a formatter, it wouldn't
+be consistent, so we gotta have that.
+
+138
+00:09:49,100 --> 00:09:51,969
+>> Says, project aims to implement
+one true formatting style.
+
+139
+00:09:53,750 --> 00:09:56,380
+I think we just touched
+on this a little bit.
+
+140
+00:09:56,380 --> 00:10:00,410
+>> Right, basically, just avoiding
+the need for a configuration,
+
+141
+00:10:00,410 --> 00:10:04,780
+lowering that barrier of entry so
+that everyone can pick it up and use it.
+
+142
+00:10:04,780 --> 00:10:09,634
+>> Yep, everybody is using, this styler
+
+143
+00:10:09,634 --> 00:10:14,320
+will be on the same page,
+which should be very nice.
+
+144
+00:10:14,320 --> 00:10:22,143
+Then it looks like they're aiming
+to reduce the diff sizes, which is.
+
+145
+00:10:22,143 --> 00:10:22,894
+>> Right.
+
+146
+00:10:22,894 --> 00:10:28,589
+>> Which is super awesome to us,
+because we have just single commits
+
+147
+00:10:28,589 --> 00:10:35,008
+just dedicated to running Brittany and
+formatting things accordingly,
+
+148
+00:10:35,008 --> 00:10:40,306
+and then pushing those up and
+then seeing those in Git later.
+
+149
+00:10:40,306 --> 00:10:44,080
+The diffs are just quite large, and
+
+150
+00:10:44,080 --> 00:10:48,530
+they can get a little confusing,
+especially if you're new and
+
+151
+00:10:48,530 --> 00:10:51,980
+you don't know exactly what to look for
+in the beginning.
+
+152
+00:10:51,980 --> 00:10:53,760
+>> Yeah, I agree with that.
+
+153
+00:10:54,830 --> 00:10:57,880
+Maybe we'll have to do a test and
+
+154
+00:10:57,880 --> 00:11:03,910
+take all of our old diffs of Brittany,
+something and compare it to Ormolu.
+
+155
+00:11:03,910 --> 00:11:06,670
+>> I actually like that, yeah,
+I think that'd be pretty cool.
+
+156
+00:11:06,670 --> 00:11:10,380
+>> So they use the THC
+coarser like Brittany does,
+
+157
+00:11:10,380 --> 00:11:15,865
+which means that they don't have
+to worry about incompatibilities.
+
+158
+00:11:19,086 --> 00:11:23,709
+I believe it's type THC
+dev tools that provides
+
+159
+00:11:23,709 --> 00:11:30,230
+the alternative AST that's
+easier to use than the GHTAPI.
+
+160
+00:11:30,230 --> 00:11:34,823
+As nice as that is to use, you've
+gotta worry about supporting all these
+
+161
+00:11:34,823 --> 00:11:40,170
+language extensions, and
+it's more of a headache than it's worth.
+
+162
+00:11:40,170 --> 00:11:44,506
+>> Looks like the code
+of the actual formatter
+
+163
+00:11:44,506 --> 00:11:49,360
+itself is written, so
+it's easy to modify and maintain.
+
+164
+00:11:49,360 --> 00:11:51,340
+>> That'll be really important.
+
+165
+00:11:51,340 --> 00:11:55,958
+They go on to mention that
+only parts of the GHC AST,
+
+166
+00:11:55,958 --> 00:12:00,648
+abstract syntax tree for
+anyone that doesn't know it,
+
+167
+00:12:00,648 --> 00:12:06,270
+is implemented, but there's a lot left.
+
+168
+00:12:06,270 --> 00:12:11,100
+So having something that's easy
+to extend with, when you're
+
+169
+00:12:11,100 --> 00:12:15,418
+trying to have as many different
+behaviors defined as you'll need for
+
+170
+00:12:15,418 --> 00:12:20,040
+the GHC AST is really important.
+
+171
+00:12:20,040 --> 00:12:24,001
+>> Yeah and I see, final thing is,
+they're saying that the codebase is
+
+172
+00:12:24,001 --> 00:12:27,740
+hacking friendly, so
+that's pretty cool too.
+
+173
+00:12:27,740 --> 00:12:32,090
+>> Yeah, if we can get the community
+involved in something,
+
+174
+00:12:33,400 --> 00:12:36,680
+then they're gonna be
+more likely to use it.
+
+175
+00:12:36,680 --> 00:12:40,980
+If everyone can kinda standardize
+on one of these, that'll be great.
+
+176
+00:12:40,980 --> 00:12:44,220
+I'm personally undecided,
+we've been using Brittany, and
+
+177
+00:12:44,220 --> 00:12:46,430
+it's been working out pretty well for us.
+
+178
+00:12:48,310 --> 00:12:49,070
+>> Right.
+
+179
+00:12:49,070 --> 00:12:49,660
+>> Let me see.
+
+180
+00:12:49,660 --> 00:12:54,973
+We had a few things missing,
+I think quasi-quotes aren't formatted,
+
+181
+00:12:54,973 --> 00:13:01,079
+typeclass instances were not formatted,
+I think that got added recently though.
+
+182
+00:13:01,079 --> 00:13:04,750
+>> I believe you're correct,
+if not recently, then sometime, yeah.
+
+183
+00:13:04,750 --> 00:13:10,460
+>> So it'll be interesting to see if
+Ormolu has some sort of challenges
+
+184
+00:13:10,460 --> 00:13:14,980
+implementing those things, or if the
+development will kinda play out the same.
+
+185
+00:13:16,920 --> 00:13:21,603
+>> Looks like they have a testing
+scheme in place, I mean,
+
+186
+00:13:21,603 --> 00:13:25,003
+it's less bugs, which is always good.
+
+187
+00:13:25,003 --> 00:13:28,618
+>> Mm-hm,
+I guess the pressing question for me is,
+
+188
+00:13:28,618 --> 00:13:33,890
+is this going to let us remove our
+Brittany config file for instance?
+
+189
+00:13:33,890 --> 00:13:36,673
+>> Yeah.
+>> That, I guess the greatest,
+
+190
+00:13:36,673 --> 00:13:41,960
+when in complexity,
+is being able to remove that config file,
+
+191
+00:13:41,960 --> 00:13:45,575
+but still be able to
+preserve a same style.
+
+192
+00:13:45,575 --> 00:13:47,898
+Of course as they say,
+right now this is vaporware, so
+
+193
+00:13:47,898 --> 00:13:49,760
+we can't see if that's true yet.
+
+194
+00:13:49,760 --> 00:13:51,040
+>> Yeah, no, I agree, and
+
+195
+00:13:51,040 --> 00:13:55,900
+especially only having seen the config
+file recently for Brittany.
+
+196
+00:13:57,999 --> 00:14:02,239
+You know, if you were trying to use
+this in the workplace that you,
+
+197
+00:14:02,239 --> 00:14:05,344
+let's say you just got hired for
+a Haskell job and
+
+198
+00:14:05,344 --> 00:14:10,255
+they use the Brittany config file, and
+you just happen to be hired as a noob.
+
+199
+00:14:10,255 --> 00:14:16,730
+It'd be pretty nice to not have to worry
+about that down the road, say if you're
+
+200
+00:14:16,730 --> 00:14:22,740
+given some project or something that may
+have required you to tinker with it.
+
+201
+00:14:22,740 --> 00:14:27,050
+Which I think that tinkering is great for
+learning and
+
+202
+00:14:27,050 --> 00:14:30,410
+stuff, but
+maybe not in that point in time.
+
+203
+00:14:32,250 --> 00:14:35,443
+Something's needed,
+right, if it's pressing,
+
+204
+00:14:35,443 --> 00:14:38,278
+there's urgency to the matter or
+something.
+
+205
+00:14:38,278 --> 00:14:41,055
+>> Funnily enough,
+my first job title was actually noob.
+
+206
+00:14:41,055 --> 00:14:43,916
+>> [LAUGH]
+>> Not really,
+
+207
+00:14:43,916 --> 00:14:44,918
+I just really wanted to make that joke.
+
+208
+00:14:44,918 --> 00:14:48,490
+>> [LAUGH] Yeah, and
+
+209
+00:14:48,490 --> 00:14:54,480
+it looks like they're saying that
+the project is open through the fork.
+
+210
+00:14:54,480 --> 00:14:56,760
+Actively maintains, those are all pluses.
+
+211
+00:14:59,460 --> 00:15:03,409
+Twig is maintaining it, yeah.
+
+212
+00:15:03,409 --> 00:15:07,060
+>> And that gives some confidence too,
+
+213
+00:15:07,060 --> 00:15:12,711
+cuz they came out with quite
+a few really good code bases,
+
+214
+00:15:12,711 --> 00:15:17,303
+and Haskell community like in line JS,
+Lori,
+
+215
+00:15:17,303 --> 00:15:21,337
+if anyone's familiar with Nick's OS.
+
+216
+00:15:21,337 --> 00:15:28,090
+And I believe they also have
+Cassandra bondings off somewhere.
+
+217
+00:15:28,090 --> 00:15:31,275
+So some good code basis coming out there.
+
+218
+00:15:31,275 --> 00:15:33,610
+>> Yeah,
+that's actually pretty good to hear.
+
+219
+00:15:33,610 --> 00:15:38,259
+I'm already all for it, but like he said,
+and like this article said,
+
+220
+00:15:38,259 --> 00:15:42,305
+it's vaporware, but
+looks pretty cool and seems exciting.
+
+221
+00:15:42,305 --> 00:15:46,498
+If it delivers on the features and
+principles, and stuff like that,
+
+222
+00:15:46,498 --> 00:15:49,101
+then it could very well
+be a replacement for
+
+223
+00:15:49,101 --> 00:15:54,230
+us here, although we're perfectly
+happy with Brittany at the moment.
+
+224
+00:15:54,230 --> 00:15:56,983
+It's really, you know.
+
+225
+00:15:56,983 --> 00:16:01,373
+>> I guess one of the, every once in a
+while with Brittany we'll think a line is
+
+226
+00:16:01,373 --> 00:16:06,130
+too long or something and, man,
+I wish a format like this with that.
+
+227
+00:16:06,130 --> 00:16:10,265
+So if they can give us the best of both
+worlds, I think we could probably switch,
+
+228
+00:16:10,265 --> 00:16:11,900
+but only time will tell.
+
+229
+00:16:11,900 --> 00:16:15,130
+>> Thanks for being on the show with
+me today, Cody, and thank you for
+
+230
+00:16:15,130 --> 00:16:17,340
+listening to the Haskell weekly podcast.
+
+231
+00:16:17,340 --> 00:16:20,190
+This has been Episode 12.
+
+232
+00:16:20,190 --> 00:16:24,720
+If you liked our show, find out more
+at our website Haskellweekly.news.
+
+233
+00:16:24,720 --> 00:16:26,620
+Thanks again for listening.
+
+234
+00:16:26,620 --> 00:16:28,950
+I've been your guest, Justin Seger.
+
+235
+00:16:28,950 --> 00:16:32,310
+>> I've been your host, Cody Goodman.
+
+236
+00:16:32,310 --> 00:16:33,210
+>> And we'll see you again next week.
+
+237
+00:16:33,210 --> 00:16:35,996
+[MUSIC]

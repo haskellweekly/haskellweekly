@@ -1,0 +1,1637 @@
+1
+00:00:01,710 --> 00:00:04,010
+Hello and
+welcome to the Haskell weekly podcast.
+
+2
+00:00:04,010 --> 00:00:07,890
+This is a podcast about Haskell a purely
+functional programming language.
+
+3
+00:00:07,890 --> 00:00:12,830
+I'm your host Taylor Fausak,
+I'm the lead engineer here at ITProTV.
+
+4
+00:00:12,830 --> 00:00:16,470
+And with me today is Sarah Liechtenstein,
+one of the engineers on my team.
+
+5
+00:00:16,470 --> 00:00:17,860
+Thanks for joining me, Sarah.
+
+6
+00:00:17,860 --> 00:00:19,380
+>> Thanks for having me, Taylor.
+
+7
+00:00:19,380 --> 00:00:20,570
+>> It's good to have you here and
+
+8
+00:00:20,570 --> 00:00:23,970
+today we're gonna be talking
+about profiling in Haskell.
+
+9
+00:00:23,970 --> 00:00:26,940
+And in particular,
+this article by Jake Zimmerman,
+
+10
+00:00:26,940 --> 00:00:30,410
+where he talks about speeding up
+one of his programs by ten times.
+
+11
+00:00:30,410 --> 00:00:32,380
+So pretty pretty significant improvement.
+
+12
+00:00:33,520 --> 00:00:36,760
+>> Yeah definitely, I think anything
+ten times improvement is pretty great.
+
+13
+00:00:36,760 --> 00:00:41,100
+>> Yeah, its hard to argue with that,
+can't beat ten times better.
+
+14
+00:00:41,100 --> 00:00:45,530
+So Jake explains the problem he was
+trying to solve in this article and
+
+15
+00:00:45,530 --> 00:00:47,860
+we will kinda recap for
+our listeners here.
+
+16
+00:00:47,860 --> 00:00:51,800
+He was at a carnival and playing this
+carnival game where he had a six by six
+
+17
+00:00:51,800 --> 00:00:55,960
+grid of shapes or symbols and
+you turned over some pieces and
+
+18
+00:00:55,960 --> 00:00:59,420
+tried to see if you got a bingo like if
+you lined up a whole column or a row or
+
+19
+00:00:59,420 --> 00:01:01,420
+a diagonal or something like that.
+
+20
+00:01:01,420 --> 00:01:04,280
+And he was interested in finding out if or
+
+21
+00:01:04,280 --> 00:01:07,910
+rather what their probability was of
+winning this carnivore of a game.
+
+22
+00:01:07,910 --> 00:01:10,080
+So how good should he feel when he wins?
+
+23
+00:01:10,080 --> 00:01:12,560
+Is it like you win 50% of the time or
+1% of the time?
+
+24
+00:01:14,920 --> 00:01:19,470
+And he figured that he could write some
+type of combinatorics solution to get
+
+25
+00:01:19,470 --> 00:01:24,285
+the exact answer like you're gonna
+win exactly 123 out of 767 times.
+
+26
+00:01:24,285 --> 00:01:27,830
+But he thought it would be more fun to
+write one that just generated these boards
+
+27
+00:01:27,830 --> 00:01:30,830
+and shuffled all the pieces together and
+then solve at one or not.
+
+28
+00:01:31,860 --> 00:01:34,250
+>> If a task takes more than five minutes,
+why not program it?
+
+29
+00:01:34,250 --> 00:01:35,470
+>> Exactly, yeah.
+
+30
+00:01:35,470 --> 00:01:38,420
+Why sit there all day making bingo
+boards if you could write a Haskell
+
+31
+00:01:38,420 --> 00:01:39,490
+program to do that for you.
+
+32
+00:01:40,490 --> 00:01:44,360
+So he wrote this program and
+it seemed to work.
+
+33
+00:01:44,360 --> 00:01:47,720
+He didn't really talk too much about if
+he got the implementation right or not.
+
+34
+00:01:47,720 --> 00:01:50,270
+So we're assuming he got
+the implementation right, but
+
+35
+00:01:50,270 --> 00:01:54,040
+his first time around was way too slow for
+him.
+
+36
+00:01:54,040 --> 00:01:57,080
+And his threshold for too slow is
+apparently very different than mine
+
+37
+00:01:57,080 --> 00:02:00,940
+because his first attempt took
+the order of like one second.
+
+38
+00:02:00,940 --> 00:02:05,870
+And this I think was to generate and
+solve like 100,000 boards.
+
+39
+00:02:05,870 --> 00:02:09,650
+So for me that seems fast enough for
+this problem, but
+
+40
+00:02:09,650 --> 00:02:14,270
+I definitely understand wanting
+to really dig in to something and
+
+41
+00:02:14,270 --> 00:02:18,890
+find out how fast can it be and
+he definitely went on that red hole.
+
+42
+00:02:18,890 --> 00:02:24,974
+So he talks about some of the changes
+he made to his attempts and
+
+43
+00:02:24,974 --> 00:02:32,380
+the first one was to use like a single
+large integer as the whole game board.
+
+44
+00:02:32,380 --> 00:02:37,160
+Because with,
+I think yeah with 36 slots on the board,
+
+45
+00:02:37,160 --> 00:02:41,120
+you could represent that
+in one large integer
+
+46
+00:02:41,120 --> 00:02:44,400
+rather than having some data structure
+with a bunch of different fields in it.
+
+47
+00:02:44,400 --> 00:02:45,060
+>> Right.
+
+48
+00:02:45,060 --> 00:02:50,090
+>> And his assumption was that if you can
+use one integer then it will probably
+
+49
+00:02:50,090 --> 00:02:54,500
+be faster cuz you're not gonna have as
+many things floating around in memory.
+
+50
+00:02:54,500 --> 00:02:58,680
+But it's also I think,
+somewhat of a strange choice.
+
+51
+00:02:58,680 --> 00:03:03,160
+So Sarah for the pro or for the programs
+that we right here at work, we don't do
+
+52
+00:03:03,160 --> 00:03:06,800
+a lot of this really cramming, getting the
+most performance possible out of stuff.
+
+53
+00:03:06,800 --> 00:03:10,800
+So I was wondering, did this look weird
+to you or you're like okay, yeah,
+
+54
+00:03:10,800 --> 00:03:12,860
+I kind of get what's going on here.
+
+55
+00:03:12,860 --> 00:03:16,326
+>> The idea in general
+just using one inter just
+
+56
+00:03:16,326 --> 00:03:17,751
+seems very odd
+>> Yeah
+
+57
+00:03:17,751 --> 00:03:18,806
+>> To represent this whole thing.
+
+58
+00:03:18,806 --> 00:03:24,038
+But he did make a point about how
+simple this was to implement for
+
+59
+00:03:24,038 --> 00:03:30,910
+him.So I guess you know if it's easy
+to implement and it works why not.
+
+60
+00:03:30,910 --> 00:03:31,680
+>> That's a great point.
+
+61
+00:03:31,680 --> 00:03:36,780
+Yeah, why make things more
+complicated just in looking for
+
+62
+00:03:36,780 --> 00:03:38,450
+Purity or something like that.
+
+63
+00:03:38,450 --> 00:03:41,430
+>> Exactly.
+>> But yeah, he said he was able to pretty
+
+64
+00:03:41,430 --> 00:03:48,030
+quickly knock out this Fisher Yates
+Shuffle to generate the random boards and.
+
+65
+00:03:48,030 --> 00:03:52,310
+This used a random number generator, the
+one kind of from the standard library in
+
+66
+00:03:52,310 --> 00:03:55,830
+Haskell for doing this stuff which
+is of course just called random.
+
+67
+00:03:55,830 --> 00:03:58,150
+And so he kind of-
+>> What else was he called?
+
+68
+00:03:58,150 --> 00:04:01,060
+>> Why I come up with a more
+imaginative name, random works fine.
+
+69
+00:04:02,070 --> 00:04:05,440
+But as we'll discover,
+there's kind of a problem with that.
+
+70
+00:04:05,440 --> 00:04:09,360
+And what he did was he passed in
+this random number generator and
+
+71
+00:04:09,360 --> 00:04:13,260
+did one step of the shuffle and gave back
+
+72
+00:04:13,260 --> 00:04:18,200
+the slightly shuffled board and they
+are like next random number generators.
+
+73
+00:04:18,200 --> 00:04:20,740
+So just keeps getting passed
+along to successive calls.
+
+74
+00:04:22,510 --> 00:04:25,620
+Which is of interesting
+the way they do things and
+
+75
+00:04:25,620 --> 00:04:27,510
+makes sense for Haskell because it's pure.
+
+76
+00:04:27,510 --> 00:04:30,660
+So you have to have something that's
+sort of implements that randomness,
+
+77
+00:04:30,660 --> 00:04:34,900
+but it's still kind of strange even
+to me after programming it for
+
+78
+00:04:34,900 --> 00:04:41,110
+a while to see that explicitly
+passed in as an argument.
+
+79
+00:04:41,110 --> 00:04:44,390
+So then he gets into kind of
+the performance characteristics, and
+
+80
+00:04:44,390 --> 00:04:46,810
+this is where he talks
+about how slow it is.
+
+81
+00:04:46,810 --> 00:04:51,270
+And again, it´s crazy to me that's under a
+second, and he's like it's just too slow.
+
+82
+00:04:51,270 --> 00:04:54,669
+>> Yeah, I found that very hilarious,
+because I started reading it and
+
+83
+00:04:54,669 --> 00:04:58,200
+he was like, yeah 738 milliseconds and
+Im like, what in the world?
+
+84
+00:04:58,200 --> 00:04:59,530
+How is that slow, [LAUGH]?
+
+85
+00:04:59,530 --> 00:05:01,320
+>> Yeah, I would think,
+okay we're done here you know?
+
+86
+00:05:01,320 --> 00:05:02,503
+[LAUGH]
+>> Yeah, absolutely.
+
+87
+00:05:02,503 --> 00:05:06,199
+>> Fast enough, but I am guessing based
+on later in this article he talks
+
+88
+00:05:06,199 --> 00:05:09,958
+about porting some C code over to Haskell,
+maybe he is a C programmer or
+
+89
+00:05:09,958 --> 00:05:12,699
+RASP programmer or
+something like where he has kind
+
+90
+00:05:12,699 --> 00:05:17,555
+of different definition of what it
+means to be performant and fast enough.
+
+91
+00:05:17,555 --> 00:05:19,415
+>> That would make sense.
+
+92
+00:05:19,415 --> 00:05:20,815
+>> Yeah, I'm just guessing, I don't know.
+
+93
+00:05:20,815 --> 00:05:25,408
+Hopefully Jake can can tell us or we could
+probably read and find out who knows.
+
+94
+00:05:25,408 --> 00:05:26,685
+>> [LAUGH]
+>> So
+
+95
+00:05:26,685 --> 00:05:29,040
+then it gets into really the meat
+of what we're doing here.
+
+96
+00:05:29,040 --> 00:05:33,590
+And I guess Sarah, do you wanna kinda
+explain the process that he goes through
+
+97
+00:05:33,590 --> 00:05:36,380
+to profile this code and
+figure out what's going on with it.
+
+98
+00:05:36,380 --> 00:05:41,230
+>> So profiling and Haskell is actually
+extremely simple because you can
+
+99
+00:05:41,230 --> 00:05:44,950
+literally just run stack build dash
+dash profile to build it with that and
+
+100
+00:05:44,950 --> 00:05:49,510
+then add a dash p to exec And
+that's it, it prints you
+
+101
+00:05:49,510 --> 00:05:53,250
+you out this like really nice profile,
+tells you everything you need to know.
+
+102
+00:05:53,250 --> 00:05:56,130
+It's got all your time allocations,
+all that good stuff.
+
+103
+00:05:58,230 --> 00:05:59,380
+So it's super useful.
+
+104
+00:06:00,810 --> 00:06:03,660
+It doesn't really take any overhead
+to implement or anything like that.
+
+105
+00:06:03,660 --> 00:06:05,670
+So, definitely great tool.
+
+106
+00:06:05,670 --> 00:06:07,730
+>> Yeah, it is surprisingly easy to use,
+
+107
+00:06:07,730 --> 00:06:11,500
+I don't know what to think there if it's
+stack, doing a bunch of lifting for you.
+
+108
+00:06:11,500 --> 00:06:15,270
+Or somewhere deeper in the stack
+like COBOL or GHC or something else.
+
+109
+00:06:15,270 --> 00:06:19,160
+But yeah, you just throw this dash dash
+profile option onto your build and
+
+110
+00:06:19,160 --> 00:06:22,540
+then pass another option to
+the program when you run it.
+
+111
+00:06:22,540 --> 00:06:27,638
+And boom, you get this output that
+tells you yeah, your program spent,
+
+112
+00:06:27,638 --> 00:06:33,152
+in this guy's case 70, no more than
+that 85% of your time, coming up with
+
+113
+00:06:33,152 --> 00:06:37,692
+random integer values, which is crazy,
+>> Right.
+
+114
+00:06:37,692 --> 00:06:40,934
+>> And it's it's also really useful to
+look at this in terms of percentage time
+
+115
+00:06:40,934 --> 00:06:44,298
+because already I've lost track of
+the fact that we're only taking a second.
+
+116
+00:06:44,298 --> 00:06:47,723
+I see 85% and that's way too high,
+we gotta make that number lower.
+
+117
+00:06:47,723 --> 00:06:51,325
+>> [LAUGH]
+>> [LAUGH] So yeah,
+
+118
+00:06:51,325 --> 00:06:56,895
+I mentioned earlier that the de facto
+standard random number library in
+
+119
+00:06:56,895 --> 00:07:01,220
+Haskel being called random is a bit of a
+problem because it has, it's really slow.
+
+120
+00:07:01,220 --> 00:07:05,090
+Which is what this guy figures out in
+his relatively small program where
+
+121
+00:07:05,090 --> 00:07:07,890
+he's generating all these boards and
+checking to see if they're valid.
+
+122
+00:07:07,890 --> 00:07:11,970
+None of that business logic is the slow
+part, it's the random number generation.
+
+123
+00:07:11,970 --> 00:07:13,780
+>> Right, which seems crazy.
+
+124
+00:07:13,780 --> 00:07:15,614
+>> Yeah.
+>> You always think that the logic would
+
+125
+00:07:15,614 --> 00:07:16,339
+take more time.
+
+126
+00:07:16,339 --> 00:07:16,979
+>> Right.
+>> Which is
+
+127
+00:07:16,979 --> 00:07:20,240
+kind of what he explains is that his like
+assumption is, it's got to be the logic.
+
+128
+00:07:20,240 --> 00:07:24,380
+And then once he starts using profiling,
+he's like, it's not the logic at all.
+
+129
+00:07:24,380 --> 00:07:29,174
+>> Yeah which is one of the huge upsides
+of profiling is you write your program and
+
+130
+00:07:29,174 --> 00:07:31,477
+don't care about what part is fast.
+
+131
+00:07:31,477 --> 00:07:34,342
+And then if it's too slow,
+which isn't even a given,
+
+132
+00:07:34,342 --> 00:07:38,579
+sometimes you can write just atrociously,
+it's really slow looking code, but
+
+133
+00:07:38,579 --> 00:07:42,525
+then it runs fast enough to because
+your inputs not big enough or whatever.
+
+134
+00:07:43,555 --> 00:07:46,925
+And as soon as you run into a performance
+problem throw the profiler out and
+
+135
+00:07:46,925 --> 00:07:49,235
+you might be surprised at what you find.
+
+136
+00:07:49,235 --> 00:07:50,100
+>> Exactly.
+
+137
+00:07:50,100 --> 00:07:54,045
+>> Cuz I wouldn't have guessed at
+the beginning of this article that
+
+138
+00:07:54,045 --> 00:07:55,765
+the random number generation
+would be the slow part.
+
+139
+00:07:55,765 --> 00:07:57,215
+I can flip coins pretty fast,
+
+140
+00:07:57,215 --> 00:07:59,805
+I can roll dice pretty fast,
+that's not gonna be the slow part.
+
+141
+00:07:59,805 --> 00:08:00,705
+>> Yeah, exactly and
+
+142
+00:08:00,705 --> 00:08:05,080
+I think as programmers we might
+be a little predisposed to think,
+
+143
+00:08:05,080 --> 00:08:09,750
+my logic must be wrong, rather than
+the library being the slow thing.
+
+144
+00:08:09,750 --> 00:08:11,250
+>> Right, because so often,
+
+145
+00:08:11,250 --> 00:08:16,380
+especially in the type of code that we do,
+the library is almost never at fault.
+
+146
+00:08:16,380 --> 00:08:17,171
+And the language-
+>> Exactly.
+
+147
+00:08:17,171 --> 00:08:20,162
+>> Is never at fault.
+It's always us, but that's more so for
+
+148
+00:08:20,162 --> 00:08:22,470
+bugs than performance.
+
+149
+00:08:22,470 --> 00:08:25,260
+And we rarely have reason
+to look at performance.
+
+150
+00:08:25,260 --> 00:08:27,570
+Generally, things are fast enough for
+us with Haskell.
+
+151
+00:08:28,700 --> 00:08:32,460
+But when you do,
+it can be surprising to find, because
+
+152
+00:08:32,460 --> 00:08:36,170
+I know as a library author and this
+probably applies to many library authors,
+
+153
+00:08:36,170 --> 00:08:38,270
+I don't run benchmarks
+against my library code.
+
+154
+00:08:38,270 --> 00:08:40,855
+I just kind of assume that it's
+fast enough and if I'm using it for
+
+155
+00:08:40,855 --> 00:08:44,006
+a particular problem, I'll definitely
+make sure it's fast enough for that.
+
+156
+00:08:44,006 --> 00:08:47,330
+But I may not have envisioned usage
+like this if I wrote this library in
+
+157
+00:08:47,330 --> 00:08:48,800
+the first place.
+
+158
+00:08:48,800 --> 00:08:49,410
+>> Right.
+
+159
+00:08:49,410 --> 00:08:51,990
+>> So the fact that it can be used
+in all these different contexts and
+
+160
+00:08:51,990 --> 00:08:57,500
+that authors aren't typically focused on
+that means that yeah library code can be
+
+161
+00:08:57,500 --> 00:09:00,790
+the slow part and profiling is the thing
+to tell you that as fast as possible.
+
+162
+00:09:03,470 --> 00:09:08,430
+So then he gets into talking
+about how he after he identified
+
+163
+00:09:08,430 --> 00:09:12,640
+this random number generation as the slow
+part of his program, how he fixed it.
+
+164
+00:09:12,640 --> 00:09:16,121
+And we don't wanna get too far
+off into the weeds of that, but
+
+165
+00:09:16,121 --> 00:09:20,843
+it's impressive, to me at least, that he
+imported this C program into Haskell.
+
+166
+00:09:20,843 --> 00:09:23,399
+It's been a long time since I've
+had reason to look at C code and
+
+167
+00:09:23,399 --> 00:09:25,270
+I think that's true for
+you too right Sarah?
+
+168
+00:09:25,270 --> 00:09:26,155
+>> Yes, absolutely.
+
+169
+00:09:26,155 --> 00:09:28,940
+Not since I think maybe
+junior year of college.
+
+170
+00:09:28,940 --> 00:09:30,230
+>> Yeah, so it's been a while.
+
+171
+00:09:30,230 --> 00:09:34,250
+I don't think I'd do as well as him,
+[LAUGH]
+
+172
+00:09:34,250 --> 00:09:35,480
+but it looks like it paid off.
+
+173
+00:09:35,480 --> 00:09:38,900
+I mean, he speed his program up
+by like six times by ditching
+
+174
+00:09:38,900 --> 00:09:40,779
+the standard library and using his own.
+
+175
+00:09:41,870 --> 00:09:44,960
+>> Right, which is already
+a very impressive speed up.
+
+176
+00:09:44,960 --> 00:09:47,790
+>> And then he goes on to ask, I think
+
+177
+00:09:47,790 --> 00:09:50,970
+a very important question when you're
+looking at performance improvements.
+
+178
+00:09:50,970 --> 00:09:54,550
+Because well, what he asks is
+what did we have to give up
+
+179
+00:09:54,550 --> 00:09:56,130
+in order to get this
+performance improvement?
+
+180
+00:09:57,230 --> 00:09:59,790
+And I feel like that's
+an important question because
+
+181
+00:09:59,790 --> 00:10:03,350
+sometimes when you're focusing
+on sort of a sub problem,
+
+182
+00:10:03,350 --> 00:10:06,410
+in this case performance,
+you can lose sight of the bigger picture.
+
+183
+00:10:06,410 --> 00:10:09,210
+And so you can make something
+that's really, really fast, but
+
+184
+00:10:09,210 --> 00:10:10,910
+then it's a huge pain in the butt to use.
+
+185
+00:10:12,310 --> 00:10:15,082
+>> Right and that would kinda just
+defeat the purpose of having it at all.
+
+186
+00:10:15,082 --> 00:10:18,050
+If it's not simple to use then why use it?
+
+187
+00:10:18,050 --> 00:10:19,300
+>> Right, yeah, ideally,
+
+188
+00:10:19,300 --> 00:10:23,990
+we could keep the same interface and
+swap out the internals and make it faster.
+
+189
+00:10:23,990 --> 00:10:25,690
+That's the best case scenario.
+
+190
+00:10:27,370 --> 00:10:30,750
+So I don't think he quite
+achieved that here.
+
+191
+00:10:30,750 --> 00:10:34,523
+But it is surprising how
+little he had to change.
+
+192
+00:10:34,523 --> 00:10:38,764
+If you look at the, obviously our
+listeners can't actually look at the code,
+
+193
+00:10:38,764 --> 00:10:41,720
+but the original code that he
+wrote with the slow one and
+
+194
+00:10:41,720 --> 00:10:44,260
+the new code that he
+wrote with the fast one.
+
+195
+00:10:44,260 --> 00:10:47,974
+And they're almost the same,
+like if you squint they look the same.
+
+196
+00:10:47,974 --> 00:10:50,437
+>> [LAUGH] Definitely.
+
+197
+00:10:50,437 --> 00:10:55,099
+>> Which I think is a great metric to have
+in mind when you're profiling code in
+
+198
+00:10:55,099 --> 00:11:00,131
+Haskell or really in any language is keep
+the call site looking almost the same and
+
+199
+00:11:00,131 --> 00:11:03,470
+try to update the internals
+without break in the API.
+
+200
+00:11:04,850 --> 00:11:08,320
+>> Right, if one of our listeners
+wanted to look at this code,
+
+201
+00:11:08,320 --> 00:11:10,430
+is this article found in Haskell Weekly?
+
+202
+00:11:10,430 --> 00:11:12,320
+>> It is, as per usual.
+
+203
+00:11:12,320 --> 00:11:16,720
+It will also be in the show notes for
+this episode, we'll have a link to it.
+
+204
+00:11:16,720 --> 00:11:17,592
+>> Perfect.
+
+205
+00:11:18,901 --> 00:11:23,687
+>> And so moving on, this guy, Jake,
+he again runs into this problem
+
+206
+00:11:23,687 --> 00:11:28,131
+that I would not run into of
+saying that 126 milliseconds,
+
+207
+00:11:28,131 --> 00:11:30,530
+the new run time is just too slow.
+
+208
+00:11:30,530 --> 00:11:36,948
+He can't abide by that,
+>> [LAUGH] 126 how slow?
+
+209
+00:11:36,948 --> 00:11:41,890
+>> [LAUGH] I mean, if it was 126 seconds,
+maybe I'd agree but milliseconds,
+
+210
+00:11:41,890 --> 00:11:42,570
+>> Yeah.
+
+211
+00:11:42,570 --> 00:11:46,460
+>> I'm gonna hit the return key and
+it'll be done almost instantaneously.
+
+212
+00:11:48,740 --> 00:11:52,840
+But yeah, he talks about how he
+went on to improve it and again,
+
+213
+00:11:52,840 --> 00:11:56,580
+the actual mechanics of what he did to
+speed it up aren't super interesting.
+
+214
+00:11:56,580 --> 00:12:01,990
+It's that he continued to use profiling
+to identify the hot spots in his program.
+
+215
+00:12:01,990 --> 00:12:07,460
+So instead of saying, well, I've swapped
+out the random number generator so
+
+216
+00:12:07,460 --> 00:12:09,560
+I can stop worrying about that part and
+
+217
+00:12:09,560 --> 00:12:11,520
+move on to something else
+that I think is the problem.
+
+218
+00:12:11,520 --> 00:12:14,820
+He ran the profiler again and
+discovered, no,
+
+219
+00:12:14,820 --> 00:12:18,132
+the random number generation
+is still the slow part.
+
+220
+00:12:18,132 --> 00:12:22,060
+Even though it's been sped up so much,
+it still takes a big chunk of the time.
+
+221
+00:12:22,060 --> 00:12:25,331
+Which again, is really surprising,
+you mentioned before about
+
+222
+00:12:25,331 --> 00:12:29,445
+how libraries aren't often the problem
+with bugs, but can be with performance.
+
+223
+00:12:29,445 --> 00:12:34,605
+And with bugs,
+when you fix them, they're gone.
+
+224
+00:12:34,605 --> 00:12:36,049
+>> Right.
+>> But with performance,
+
+225
+00:12:36,049 --> 00:12:37,155
+it can't really be fixed.
+
+226
+00:12:37,155 --> 00:12:41,173
+It can just get faster, or I guess it
+could get slower if you did something bad.
+
+227
+00:12:41,173 --> 00:12:44,144
+>> [LAUGH]
+>> But, isn't it interesting that you
+
+228
+00:12:44,144 --> 00:12:48,909
+can spend a bunch of effort, he wrote
+a whole new random number generator and-
+
+229
+00:12:48,909 --> 00:12:49,734
+>> And it's still slow.
+
+230
+00:12:49,734 --> 00:12:53,537
+>> And it's still the slow part, [LAUGH]
+>> Right.
+
+231
+00:12:53,537 --> 00:12:59,081
+>> So yeah, that to me is just the huge
+positive benefit that profiling has versus
+
+232
+00:12:59,081 --> 00:13:05,052
+kind of staring at code and hoping you can
+identify which part will probably be slow.
+
+233
+00:13:05,052 --> 00:13:06,094
+As it will tell you, no,
+
+234
+00:13:06,094 --> 00:13:10,150
+even though you've already put a ton of
+work into that it's still the slow part.
+
+235
+00:13:10,150 --> 00:13:10,960
+>> Yeah, absolutely,
+
+236
+00:13:10,960 --> 00:13:13,695
+I mean, I definitely think it's helpful
+to have that kind of information.
+
+237
+00:13:14,780 --> 00:13:17,500
+Especially if you don't have to
+do a ton of set-up or anything.
+
+238
+00:13:17,500 --> 00:13:18,890
+It's such a useful tool.
+
+239
+00:13:18,890 --> 00:13:22,508
+There's no reason really not to use it,
+but I think it's also good to keep in mind
+
+240
+00:13:22,508 --> 00:13:26,790
+like we had brought up the kinda
+of exchange that goes on
+
+241
+00:13:26,790 --> 00:13:30,220
+with making something more performing
+versus what you're using for the program.
+
+242
+00:13:30,220 --> 00:13:32,800
+>> Right, you don't wanna loose
+track of that bigger picture.
+
+243
+00:13:32,800 --> 00:13:33,610
+>> Exactly.
+
+244
+00:13:33,610 --> 00:13:37,760
+>> Yeah, and you mentioned that it's
+really easy to do this which it is,
+
+245
+00:13:37,760 --> 00:13:41,870
+and it's still interesting
+though cuz even here at work,
+
+246
+00:13:43,510 --> 00:13:45,520
+I don't think we've ever
+profiled our code base.
+
+247
+00:13:45,520 --> 00:13:51,030
+Actually you said we did that once
+actually when I wasn't here, right?
+
+248
+00:13:51,030 --> 00:13:54,342
+>> Right, when the boss is
+away the mice will play but-
+
+249
+00:13:54,342 --> 00:13:55,610
+>> Boss isn't here quick profile
+
+250
+00:13:55,610 --> 00:13:56,798
+of the code.
+
+251
+00:13:56,798 --> 00:14:00,250
+>> [LAUGH] Cody and
+I were working on a problem and
+
+252
+00:14:00,250 --> 00:14:03,220
+the code base is just like
+a bug that we had found.
+
+253
+00:14:03,220 --> 00:14:06,721
+And he suggested using profiling and
+I'd never used that before,
+
+254
+00:14:06,721 --> 00:14:09,799
+I was like what kind of profile
+are you trying to make here.
+
+255
+00:14:09,799 --> 00:14:10,829
+What does that even mean.
+
+256
+00:14:10,829 --> 00:14:14,123
+And so he kind of explained it to me and
+we tried to use it and
+
+257
+00:14:14,123 --> 00:14:18,929
+while we didn't use it for very long, it
+was still a very interesting experience to
+
+258
+00:14:18,929 --> 00:14:21,352
+have something tell us what was going on.
+
+259
+00:14:21,352 --> 00:14:24,744
+>> Yeah, and I think you mentioned that
+you didn't end up using this profiling
+
+260
+00:14:24,744 --> 00:14:26,502
+report to actually solve the problem.
+
+261
+00:14:26,502 --> 00:14:31,603
+So something else popped up, but the
+profiling at the very least told you that
+
+262
+00:14:31,603 --> 00:14:36,641
+there wasn't one thing that's taking
+in this case like 85% of the time.
+
+263
+00:14:36,641 --> 00:14:38,230
+>> Right
+>> It was a bunch of little things.
+
+264
+00:14:39,650 --> 00:14:41,652
+Which can be a lot less satisfying.
+
+265
+00:14:41,652 --> 00:14:43,713
+If you run the profiler and it says, well,
+
+266
+00:14:43,713 --> 00:14:47,490
+you spent at most 5% of your time
+in any given part of your program.
+
+267
+00:14:47,490 --> 00:14:51,490
+You might have to do some harder thinking
+to figure out how to speed that up.
+
+268
+00:14:51,490 --> 00:14:53,520
+>> Right, we were hoping for
+more of a straightforward answer, but
+
+269
+00:14:53,520 --> 00:14:57,230
+I guess it's also good to know that
+nothing we're using is overtly wrong.
+
+270
+00:14:57,230 --> 00:14:59,070
+>> Yeah, that's very encouraging.
+
+271
+00:14:59,070 --> 00:15:00,635
+That's a good way to look at it.
+
+272
+00:15:00,635 --> 00:15:01,135
+>> Yeah.
+
+273
+00:15:02,825 --> 00:15:07,615
+>> So yeah, that kinda covers this
+blog post talking about profiling
+
+274
+00:15:07,615 --> 00:15:12,555
+Haskell programs to speed them up in
+maybe the best case by ten times but
+
+275
+00:15:12,555 --> 00:15:15,197
+in the, typical case,
+probably quite a bit.
+
+276
+00:15:15,197 --> 00:15:19,457
+Is there anything else you wanted to
+mention about profiling in Haskell?
+
+277
+00:15:22,167 --> 00:15:24,837
+>> I think we pretty
+much covered it honestly.
+
+278
+00:15:24,837 --> 00:15:30,208
+>> Yeah, I think the only thing I had to
+add was that I profiled some programs.
+
+279
+00:15:30,208 --> 00:15:31,978
+In my high school career,
+
+280
+00:15:31,978 --> 00:15:34,548
+none of them have been as
+great a success story as this.
+
+281
+00:15:34,548 --> 00:15:37,308
+So it's not like,
+throw profiling at your problem and
+
+282
+00:15:37,308 --> 00:15:39,410
+it'll magically get ten times faster.
+
+283
+00:15:39,410 --> 00:15:43,600
+But right as we discussed,
+it can still be validating to see that
+
+284
+00:15:43,600 --> 00:15:46,530
+there isn't one huge hot spot where
+it's slowing everything else down and
+
+285
+00:15:46,530 --> 00:15:48,102
+you weren't even thinking about it.
+
+286
+00:15:48,102 --> 00:15:49,360
+>> Right?
+
+287
+00:15:49,360 --> 00:15:51,440
+>> And
+I just feel the need to reiterate again,
+
+288
+00:15:51,440 --> 00:15:56,060
+this is such a good way to think
+about performance problems and
+
+289
+00:15:58,150 --> 00:16:04,290
+to me that means don't think about them
+at all until it becomes a problem.
+
+290
+00:16:04,290 --> 00:16:08,200
+And then when they do, throw it to at it
+that tells you exactly where the problem
+
+291
+00:16:08,200 --> 00:16:10,250
+is rather than trying to guess.
+
+292
+00:16:10,250 --> 00:16:14,320
+>> I think that's the best way to honestly
+look at performance problems because you
+
+293
+00:16:14,320 --> 00:16:19,880
+should mostly optimize just making
+the code as the best as it can be, and
+
+294
+00:16:19,880 --> 00:16:22,994
+then after that if it becomes an issue-
+>> Yeah.
+
+295
+00:16:22,994 --> 00:16:24,380
+>> To try and solve it.
+
+296
+00:16:24,380 --> 00:16:26,638
+>> Yeah, and
+we touched on this already, but
+
+297
+00:16:26,638 --> 00:16:30,153
+if you're writing the code without
+an itoid performance, and you
+
+298
+00:16:30,153 --> 00:16:34,377
+were focusing on making a nice expressive
+API or something that's easy to use.
+
+299
+00:16:34,377 --> 00:16:38,151
+Then when you have the need to
+make it more performant, and
+
+300
+00:16:38,151 --> 00:16:41,633
+you maintain that API,
+you're meeting both goals.
+
+301
+00:16:41,633 --> 00:16:46,441
+Versus if you right out of the gate start
+jumping through some hoops just to right
+
+302
+00:16:46,441 --> 00:16:50,959
+code that you think will be faster,
+you might end up with a much worse API for
+
+303
+00:16:50,959 --> 00:16:52,740
+almost no benefit.
+
+304
+00:16:52,740 --> 00:16:53,240
+>> Right?
+
+305
+00:16:54,450 --> 00:16:55,275
+>> So I agree.
+
+306
+00:16:55,275 --> 00:16:56,880
+Write the nice API and
+
+307
+00:16:56,880 --> 00:17:01,640
+then if you needed to be faster,
+just go ahead and make it faster.
+
+308
+00:17:01,640 --> 00:17:05,373
+>> Then maybe not like less
+than a second is too short.
+
+309
+00:17:05,373 --> 00:17:08,680
+>> [LAUGH] Yeah,
+that's still where we disagree.
+
+310
+00:17:08,680 --> 00:17:11,840
+Maybe if this guys was at Google Scale or
+
+311
+00:17:11,840 --> 00:17:15,490
+writing some web service that needed to
+turn these requests around real fast,
+
+312
+00:17:15,490 --> 00:17:19,290
+people really wanted to solve this
+carnival game, I could see it.
+
+313
+00:17:19,290 --> 00:17:22,140
+But it's definitely a good practice and
+
+314
+00:17:22,140 --> 00:17:26,770
+that's something I've noticed in my
+personal programming with Haskell is that,
+
+315
+00:17:26,770 --> 00:17:31,780
+you get the ability to sort of look
+into things that may not be worth
+
+316
+00:17:31,780 --> 00:17:34,580
+your while to do at your day job,
+but are still fun and interesting.
+
+317
+00:17:34,580 --> 00:17:38,280
+And then put another tool in your toolbox,
+that you can use later on.
+
+318
+00:17:38,280 --> 00:17:39,200
+>> Yeah, definitely.
+
+319
+00:17:39,200 --> 00:17:43,030
+>> So I bet, you mentioned Cody doing or
+using profiling for
+
+320
+00:17:43,030 --> 00:17:43,860
+a problem here at work.
+
+321
+00:17:43,860 --> 00:17:45,660
+And I bet that's not
+the first time he used it.
+
+322
+00:17:45,660 --> 00:17:49,670
+So he was hacking away at something at
+home, and found that profiling was a neat
+
+323
+00:17:49,670 --> 00:17:53,270
+tool, and figured out how to use it and
+then boom, applied it at worked.
+
+324
+00:17:53,270 --> 00:17:56,820
+>> Cowboy Cody, I would guess that wasn't
+the first time you used it, [LAUGH]
+
+325
+00:17:56,820 --> 00:17:58,000
+>> Good old Cowboy Cody.
+
+326
+00:17:59,210 --> 00:18:03,990
+Yeah, and I guess the final thing I wanted
+to mention here about profiling in Haskell
+
+327
+00:18:03,990 --> 00:18:09,650
+performance is that it's very possible to
+write Haskell that is really, really fast.
+
+328
+00:18:09,650 --> 00:18:14,330
+This guy ended up with a program that
+simulated 100,000 board states and
+
+329
+00:18:14,330 --> 00:18:19,900
+checked them to see if they were winners
+or losers, and did it in 70 milliseconds?
+
+330
+00:18:19,900 --> 00:18:20,530
+>> Right.
+
+331
+00:18:20,530 --> 00:18:24,560
+>> And when you look at the performance of
+other languages that are as expressive as
+
+332
+00:18:24,560 --> 00:18:29,440
+Haskell, it's hard to find one
+that can get to be that quick.
+
+333
+00:18:29,440 --> 00:18:34,180
+So the fact that Haskell gives us the best
+of both worlds when we need it is awesome,
+
+334
+00:18:34,180 --> 00:18:34,910
+I love that about it.
+
+335
+00:18:36,545 --> 00:18:39,723
+>> Is there anything you don't love
+about Haskell though, [LAUGH]?
+
+336
+00:18:39,723 --> 00:18:44,789
+>> [LAUGH] Good question, no,
+[LAUGH] Haskell is the perfect language.
+
+337
+00:18:44,789 --> 00:18:47,445
+All right, well, thanks for
+
+338
+00:18:47,445 --> 00:18:52,875
+joining me today Sarah to talk
+about profiling and Haskell.
+
+339
+00:18:52,875 --> 00:18:54,785
+It's nice to have you on the show again.
+
+340
+00:18:54,785 --> 00:18:56,710
+>> Absolutely, it was nice to be here.
+
+341
+00:18:56,710 --> 00:18:59,850
+>> And thank you for
+listening to the Haskell Weekly podcast.
+
+342
+00:18:59,850 --> 00:19:02,815
+If you liked what you heard here
+today please go find out more at
+
+343
+00:19:02,815 --> 00:19:05,030
+haskellweekly.news.
+
+344
+00:19:05,030 --> 00:19:09,688
+This has been episode 11, and please
+be sure to join in next week, see you.
+
+345
+00:19:09,688 --> 00:19:12,475
+[MUSIC]

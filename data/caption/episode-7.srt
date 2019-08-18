@@ -1,0 +1,1714 @@
+1
+00:00:00,000 --> 00:00:03,719
+[MUSIC]
+
+2
+00:00:03,719 --> 00:00:05,610
+Welcome to the Haskell Weekly podcast.
+
+3
+00:00:05,610 --> 00:00:09,300
+This show is about Haskell,
+a purely functional programming language.
+
+4
+00:00:09,300 --> 00:00:11,566
+I'm your guest Cameron Gera.
+
+5
+00:00:11,566 --> 00:00:13,575
+I'm an engineer here at ITProTV.
+
+6
+00:00:13,575 --> 00:00:16,184
+And with me today is
+your host Taylor Fausak.
+
+7
+00:00:16,184 --> 00:00:18,138
+He's the lead engineer here at ITPro.
+
+8
+00:00:18,138 --> 00:00:19,520
+Thanks for joining me, Taylor.
+
+9
+00:00:19,520 --> 00:00:20,458
+>> Thanks for having me, Cam.
+
+10
+00:00:20,458 --> 00:00:21,275
+It's good to be back.
+
+11
+00:00:21,275 --> 00:00:22,053
+>> How you doing?
+Yeah, right.
+
+12
+00:00:22,053 --> 00:00:23,460
+I always loved being in here.
+
+13
+00:00:23,460 --> 00:00:24,853
+It's always fun.
+
+14
+00:00:24,853 --> 00:00:28,602
+They have this really scary
+picture behind where Taylor sits.
+
+15
+00:00:28,602 --> 00:00:29,610
+It's quite intimidating.
+
+16
+00:00:29,610 --> 00:00:31,660
+>> Too bad we can't pick it up on audio.
+
+17
+00:00:31,660 --> 00:00:32,810
+Yeah, I can't remember I don't.
+
+18
+00:00:32,810 --> 00:00:33,510
+What's its name again?
+
+19
+00:00:33,510 --> 00:00:35,130
+>> I don't know.
+I thought you would know.
+
+20
+00:00:35,130 --> 00:00:35,890
+>> I don't know.
+Well,
+
+21
+00:00:35,890 --> 00:00:38,905
+any who we're here to talk about Haskell,
+not that guy in the picture.
+
+22
+00:00:38,905 --> 00:00:41,785
+>> [LAUGH]
+>> Which we'll get to that later, maybe.
+
+23
+00:00:41,785 --> 00:00:45,560
+But today I had some questions
+about parsing in Haskell.
+
+24
+00:00:45,560 --> 00:00:47,440
+I know Haskell's really powerful for that.
+
+25
+00:00:47,440 --> 00:00:50,490
+I was reading an article that
+a guy just kinda put out about
+
+26
+00:00:50,490 --> 00:00:51,760
+kind of a regex cheat sheet.
+
+27
+00:00:51,760 --> 00:00:54,574
+So I know regex is pretty popular for
+parsing, and
+
+28
+00:00:54,574 --> 00:00:58,473
+there's a lot of power behind it,
+but it can get confusing and hazy.
+
+29
+00:00:58,473 --> 00:01:01,967
+This guy was nice enough to make a cheat
+sheet for it, which is really cool.
+
+30
+00:01:01,967 --> 00:01:06,488
+But what good is regex compared to maybe
+some of the other stuff in Haskell?
+
+31
+00:01:06,488 --> 00:01:10,133
+I've heard some things like parsing
+combinators and stuff like that.
+
+32
+00:01:10,133 --> 00:01:11,186
+What's the difference?
+
+33
+00:01:11,186 --> 00:01:14,320
+>> So the world for
+parsing in Haskell is vast.
+
+34
+00:01:14,320 --> 00:01:16,790
+We could fill way more than
+15 minutes talking about it.
+
+35
+00:01:16,790 --> 00:01:19,840
+However, you mentioned regular
+expressions and parser combinators,
+
+36
+00:01:19,840 --> 00:01:21,799
+which are two things I
+think we can focus in on.
+
+37
+00:01:21,799 --> 00:01:25,309
+And Haskell has these really
+powerful utilities for parsing and
+
+38
+00:01:25,309 --> 00:01:29,339
+that makes it an excellent language for
+prototyping other languages in.
+
+39
+00:01:29,339 --> 00:01:32,245
+A lot of languages have their first
+implementation written in Haskell or
+
+40
+00:01:32,245 --> 00:01:34,790
+a similar language like OCaml,
+or something like that.
+
+41
+00:01:34,790 --> 00:01:38,110
+Before they transfer over
+to a quote unquote real
+
+42
+00:01:38,110 --> 00:01:41,270
+implementation written in C or
+C++ or Rust.
+
+43
+00:01:41,270 --> 00:01:44,660
+And the reason for that is that there
+are so many tools in Haskell for
+
+44
+00:01:44,660 --> 00:01:47,730
+writing powerful parsers that turn
+
+45
+00:01:47,730 --> 00:01:51,050
+text into something useful that
+you can then do something with.
+
+46
+00:01:51,050 --> 00:01:53,090
+Not everybody implements
+programming languages.
+
+47
+00:01:53,090 --> 00:01:55,200
+In fact, very few people do.
+
+48
+00:01:55,200 --> 00:01:57,680
+So why is parsing so useful?
+
+49
+00:01:57,680 --> 00:01:59,610
+Why is Haskell so good at it?
+
+50
+00:01:59,610 --> 00:02:02,790
+One answer to that is that
+parsing comes up everywhere.
+
+51
+00:02:02,790 --> 00:02:04,638
+We were talking over lunch about parsing.
+
+52
+00:02:04,638 --> 00:02:08,119
+And we started rattling off all the places
+in our application that use it,
+
+53
+00:02:08,119 --> 00:02:10,635
+and it's basically everywhere.
+
+54
+00:02:10,635 --> 00:02:14,780
+An HTTP call uses parsing,
+dealing with JSON uses parsing,
+
+55
+00:02:14,780 --> 00:02:17,160
+talking to the database uses parsing.
+
+56
+00:02:17,160 --> 00:02:21,590
+Parsing some bespoke game replay
+file format, that's parsing too.
+
+57
+00:02:21,590 --> 00:02:23,530
+It's everywhere, you can't escape it.
+
+58
+00:02:23,530 --> 00:02:26,950
+>> Yeah, and we don't even necessarily see
+it, because of kind of the things that
+
+59
+00:02:26,950 --> 00:02:30,300
+Haskell has already built and all these
+packages that are already built that
+
+60
+00:02:30,300 --> 00:02:32,910
+handle all this parsing behind
+the scenes that are just done.
+
+61
+00:02:32,910 --> 00:02:37,240
+But my curiosity is kind of,
+what's under that?
+
+62
+00:02:37,240 --> 00:02:40,170
+Like, obviously they've built
+their parsing with something.
+
+63
+00:02:40,170 --> 00:02:41,347
+What did they build it with?
+
+64
+00:02:41,347 --> 00:02:42,705
+>> That's a good question.
+
+65
+00:02:42,705 --> 00:02:44,305
+Just to back up for one second.
+
+66
+00:02:44,305 --> 00:02:46,334
+Parsing, it is everywhere and
+it is hidden from us.
+
+67
+00:02:46,334 --> 00:02:49,880
+And that's not just in Haskell,
+that's in JavaScript too, in Ruby, C,
+
+68
+00:02:49,880 --> 00:02:52,697
+every language,
+there'll be a parser under the covers and
+
+69
+00:02:52,697 --> 00:02:55,762
+they will expose some interface
+that is a lot nicer to work with.
+
+70
+00:02:55,762 --> 00:02:57,279
+So like with JSON,
+>> Hopefully,
+
+71
+00:02:57,279 --> 00:02:59,162
+it's an appropriate interface,
+just saying.
+
+72
+00:02:59,162 --> 00:03:00,805
+>> [LAUGH] Yeah.
+
+73
+00:03:00,805 --> 00:03:04,033
+>> Under the sheets, you never know what
+could be under there, it could be bad.
+
+74
+00:03:04,033 --> 00:03:05,590
+But we're gonna move on.
+
+75
+00:03:05,590 --> 00:03:07,290
+>> We are, moving right along.
+
+76
+00:03:07,290 --> 00:03:10,780
+For something like JSON, it'd expose an
+interface where you'd deal with objects,
+
+77
+00:03:10,780 --> 00:03:11,840
+and arrays, and numbers, and
+
+78
+00:03:11,840 --> 00:03:17,680
+strings rather than parsed tokens like
+a curly bracket and a comma and a quote.
+
+79
+00:03:17,680 --> 00:03:19,810
+So Haskell's really good at
+providing those things, but
+
+80
+00:03:19,810 --> 00:03:21,570
+it's not the only language
+that can do that.
+
+81
+00:03:21,570 --> 00:03:23,946
+>> Hm, and so-
+>> And I'm sorry, I forgot your question.
+
+82
+00:03:23,946 --> 00:03:26,949
+>> It's okay,
+that was a little more intense than.
+
+83
+00:03:26,949 --> 00:03:28,880
+My question was a little more
+intense than we wanted to go.
+
+84
+00:03:28,880 --> 00:03:33,347
+But I'd like to touch on the JSON,
+or the JavaScript side a little bit,
+
+85
+00:03:33,347 --> 00:03:38,337
+being more background in JavaScript,
+becoming more 50/50 now Haskell or
+
+86
+00:03:38,337 --> 00:03:41,258
+JavaScript as far as
+knowledge is concerned.
+
+87
+00:03:41,258 --> 00:03:45,342
+In JavaScript, we use regex
+a lot to parse, and match, and
+
+88
+00:03:45,342 --> 00:03:48,675
+see if something's what
+we expect it to be.
+
+89
+00:03:48,675 --> 00:03:50,285
+>> Yeah, like on a credit card form.
+
+90
+00:03:50,285 --> 00:03:52,315
+>> Right, and like validation,
+all that kind of stuff.
+
+91
+00:03:52,315 --> 00:03:55,315
+Kind of make sure it's all numbers or
+whatever.
+
+92
+00:03:55,315 --> 00:03:59,620
+And we tend to just use regex,
+cuz the library's pretty easy to use.
+
+93
+00:03:59,620 --> 00:04:02,990
+It's very well resourced, there's
+a lot of stuff out there for regex,
+
+94
+00:04:02,990 --> 00:04:03,490
+they're everywhere.
+
+95
+00:04:03,490 --> 00:04:04,820
+>> It confuses the crap out of me still,
+and
+
+96
+00:04:04,820 --> 00:04:06,100
+I have to reference it from time to time.
+
+97
+00:04:06,100 --> 00:04:10,456
+But it is still, there's a lot
+out there and I know Haskell,
+
+98
+00:04:10,456 --> 00:04:14,742
+we can use regex in Haskell for
+parsing, and it can do that.
+
+99
+00:04:14,742 --> 00:04:19,190
+But it's probably a little bit better
+at just kinda the simple stuff, right.
+
+100
+00:04:19,190 --> 00:04:20,475
+Whereas maybe something like,
+
+101
+00:04:20,475 --> 00:04:23,387
+like a programming language there's
+a little more intensive, right.
+
+102
+00:04:23,387 --> 00:04:29,226
+There's a little more parsing involved and
+a little bit more robustness,
+
+103
+00:04:29,226 --> 00:04:34,530
+I would say that we need to have,
+besides just what regex provides.
+
+104
+00:04:34,530 --> 00:04:37,380
+>> Yeah, when you look at the spectrum
+of things that you can parse,
+
+105
+00:04:37,380 --> 00:04:40,370
+on the one hand you have something really
+simple, like a credit card number,
+
+106
+00:04:40,370 --> 00:04:44,320
+which, let's say for
+the sake of the argument, is 16 digits.
+
+107
+00:04:44,320 --> 00:04:46,070
+That's pretty easy to write
+a regular expression for.
+
+108
+00:04:46,070 --> 00:04:48,590
+Most people would probably
+understand what that means.
+
+109
+00:04:48,590 --> 00:04:51,535
+But if you wanted to write a regular
+expression that parses, say,
+
+110
+00:04:51,535 --> 00:04:53,490
+a Python program, that's not gonna work.
+
+111
+00:04:53,490 --> 00:04:55,250
+You're not gonna be able to do it or
+if you can,
+
+112
+00:04:55,250 --> 00:04:58,100
+it's gonna be some giant monstrosity
+that nobody wants to look at.
+
+113
+00:04:58,100 --> 00:05:00,515
+>> Hey, but regex is strong enough,
+it can do it, okay?
+
+114
+00:05:00,515 --> 00:05:02,410
+>> [LAUGH] If it sets its mind to it,
+it might be able to.
+
+115
+00:05:02,410 --> 00:05:06,250
+You were talking about, maybe,
+more powerful abstractions we could use
+
+116
+00:05:06,250 --> 00:05:09,430
+to parse something that's a little
+richer than a credit card number.
+
+117
+00:05:09,430 --> 00:05:09,940
+>> Right.
+
+118
+00:05:09,940 --> 00:05:14,410
+>> And in Haskell, the thing that
+we reach for is parser combinators.
+
+119
+00:05:14,410 --> 00:05:16,110
+It's not the only thing that'll do this,
+but
+
+120
+00:05:16,110 --> 00:05:18,960
+it's the one that I think we're most
+interested in talking about today.
+
+121
+00:05:18,960 --> 00:05:22,755
+>> That's the one I heard recently and
+I would like to talk more about for sure.
+
+122
+00:05:22,755 --> 00:05:24,070
+Cuz it's definitely pretty interesting.
+
+123
+00:05:24,070 --> 00:05:31,580
+The idea of a combinator in my
+mind sounds like something that we
+
+124
+00:05:31,580 --> 00:05:36,720
+would be combining these little
+functions or something together.
+
+125
+00:05:36,720 --> 00:05:42,362
+>> Exactly that kind of do this action and
+say, hey, I'll take this kind of file or
+
+126
+00:05:42,362 --> 00:05:46,420
+this kind of text, and
+I can give you out this kind of result.
+
+127
+00:05:46,420 --> 00:05:49,450
+>> Mm-hm, that's a great
+explanation of what combinator is.
+
+128
+00:05:49,450 --> 00:05:52,470
+And when you plug it together
+with something like parser and
+
+129
+00:05:52,470 --> 00:05:55,990
+you end up with parser combinator,
+what that means is that you can take
+
+130
+00:05:55,990 --> 00:05:59,270
+small parsers that are all
+pretty simple by themselves.
+
+131
+00:05:59,270 --> 00:06:03,490
+Let's say you have a parser that parses
+a string of numbers and another one that
+
+132
+00:06:03,490 --> 00:06:07,240
+parses a comma and another one that
+parses a bunch of white space.
+
+133
+00:06:07,240 --> 00:06:10,180
+You could combine all of those
+using parser combinators to come up
+
+134
+00:06:10,180 --> 00:06:13,340
+with an expression that
+says something like,
+
+135
+00:06:13,340 --> 00:06:17,380
+parse a number followed by a comma
+followed by another number.
+
+136
+00:06:17,380 --> 00:06:21,087
+Or parse any number of numbers,
+each separated by a comma.
+
+137
+00:06:21,087 --> 00:06:25,263
+Those types of expressions are really
+easy to do with parser combinators, but
+
+138
+00:06:25,263 --> 00:06:28,377
+surprisingly difficult to do
+with regular expressions.
+
+139
+00:06:28,377 --> 00:06:31,552
+>> Mm-hm.
+>> Usually in a language like JavaScript,
+
+140
+00:06:31,552 --> 00:06:36,437
+you will use regular expressions as
+part of otherwise imperative code
+
+141
+00:06:36,437 --> 00:06:38,271
+that parses some stream.
+
+142
+00:06:38,271 --> 00:06:41,670
+So you're like, chew up, you know, a bunch
+of digits and then change your parser
+
+143
+00:06:41,670 --> 00:06:45,143
+state to say, okay, now I'm looking for
+a comma, and then you go look for a comma.
+
+144
+00:06:45,143 --> 00:06:47,510
+And then you switch back into
+the I'm looking for a numbers thing.
+
+145
+00:06:48,620 --> 00:06:51,753
+Whereas in a language like
+Haskell with parser combinators,
+
+146
+00:06:51,753 --> 00:06:55,622
+you can express that more declaratively
+and say, I want a bunch of numbers.
+
+147
+00:06:55,622 --> 00:07:00,090
+And then a comma, and then some more
+numbers and it reads very well.
+
+148
+00:07:00,090 --> 00:07:03,180
+>> That's really neat,
+that's nice that it gives us that ability.
+
+149
+00:07:03,180 --> 00:07:07,640
+So we want to parse some
+big weather data for fun.
+
+150
+00:07:07,640 --> 00:07:11,115
+Let's see what some weather trends are and
+let's write a little app for it.
+
+151
+00:07:11,115 --> 00:07:15,715
+And we would be able to take whatever
+weather format data it is and
+
+152
+00:07:15,715 --> 00:07:19,305
+if we have these simple little
+parsers that parse each little piece,
+
+153
+00:07:19,305 --> 00:07:22,297
+we can kind of combine those all
+together just to make it all work.
+
+154
+00:07:22,297 --> 00:07:24,777
+And there's type safety, right?
+
+155
+00:07:24,777 --> 00:07:29,759
+That's also a big nicety with regex,
+you could mess up a regex expression and
+
+156
+00:07:29,759 --> 00:07:32,147
+never really realize that, right?
+
+157
+00:07:32,147 --> 00:07:34,957
+>> Yeah.
+>> That's something that's dangerous.
+
+158
+00:07:34,957 --> 00:07:37,587
+Because that could end up
+in production easy if you
+
+159
+00:07:37,587 --> 00:07:42,080
+just forget to test this one case,
+and then you have some sort of leak or
+
+160
+00:07:42,080 --> 00:07:44,640
+something that somebody could
+input an invalid credit card.
+
+161
+00:07:44,640 --> 00:07:48,770
+And they're not having access
+to your service, or whatever
+
+162
+00:07:48,770 --> 00:07:50,440
+>> Or they get it for free or something.
+
+163
+00:07:50,440 --> 00:07:54,392
+Yeah, regex are pretty, or
+maybe even surprisingly easy to mess up.
+
+164
+00:07:54,392 --> 00:07:58,291
+You miss one closing parenthesis,
+and your whole regex crashes.
+
+165
+00:07:58,291 --> 00:08:02,730
+Or you put a dot in the wrong place and
+it means something drastically different.
+
+166
+00:08:02,730 --> 00:08:05,910
+You obviously still can screw
+things up with parser combinators.
+
+167
+00:08:05,910 --> 00:08:08,127
+>> Right, but
+you can screw up anything with anything.
+
+168
+00:08:08,127 --> 00:08:09,933
+>> Right, if you try anything
+you can screw anything up.
+
+169
+00:08:09,933 --> 00:08:13,806
+But it's gonna be harder with parser
+combinators because you are still working
+
+170
+00:08:13,806 --> 00:08:17,968
+in the hosts language in Haskell, you're
+just writing Haskell code calling Haskell
+
+171
+00:08:17,968 --> 00:08:20,250
+functions works the same
+as everything else.
+
+172
+00:08:20,250 --> 00:08:22,990
+You can code review it without having
+to look over to your cheat sheet and
+
+173
+00:08:22,990 --> 00:08:25,490
+figure out what the heck that
+new rejects feature is mean.
+
+174
+00:08:25,490 --> 00:08:29,625
+What that means, whereas regex is this own
+very compact little language that sits
+
+175
+00:08:29,625 --> 00:08:32,795
+inside of another language like
+JavaScript or Ruby or what have you.
+
+176
+00:08:32,795 --> 00:08:35,725
+And so that makes it really powerful
+because you can apply all the same tooling
+
+177
+00:08:35,725 --> 00:08:38,365
+that you do for static analysis or
+just your gut feel for
+
+178
+00:08:38,365 --> 00:08:40,695
+that code looks right in that
+code doesn't look right.
+
+179
+00:08:40,695 --> 00:08:44,072
+You can apply that to code written
+with parser combinators versus stuff
+
+180
+00:08:44,072 --> 00:08:46,333
+wouldn't written with regular expressions.
+
+181
+00:08:46,333 --> 00:08:50,840
+>> No, that makes sense and
+I was I don't like this guys cheat cheats.
+
+182
+00:08:50,840 --> 00:08:54,880
+Pretty cool as far as like just
+little bits of Haskell regex,
+
+183
+00:08:54,880 --> 00:08:56,320
+a little shortcuts and things that.
+
+184
+00:08:57,940 --> 00:09:00,700
+But it just doesn't seem
+like it's all that robust.
+
+185
+00:09:00,700 --> 00:09:04,480
+And obviously, it's hard when it's a
+tutorial to really go deep into maybe some
+
+186
+00:09:04,480 --> 00:09:08,650
+of the powerful sides of regex, but
+I just I just see it getting confusing.
+
+187
+00:09:08,650 --> 00:09:11,720
+If we were trying to go any
+further than the simple examples.
+
+188
+00:09:11,720 --> 00:09:13,810
+>> Yeah, it can get confusing really fast.
+
+189
+00:09:13,810 --> 00:09:18,203
+And as someone who's spent a lot of my
+career working with regular expressions.
+
+190
+00:09:18,203 --> 00:09:21,858
+I can say that they feel really good
+to write because you think like, I'm so
+
+191
+00:09:21,858 --> 00:09:25,516
+clever and I got this really complicated
+expression down to this really small
+
+192
+00:09:25,516 --> 00:09:26,750
+expression of it.
+
+193
+00:09:26,750 --> 00:09:29,260
+But then, six months later when
+you come to look at it you think,
+
+194
+00:09:29,260 --> 00:09:31,520
+I don't know what this means anymore.
+
+195
+00:09:31,520 --> 00:09:34,308
+>> I hope it researched and
+figured out which is which is where and
+
+196
+00:09:34,308 --> 00:09:35,930
+there's obviously rejects.
+
+197
+00:09:35,930 --> 00:09:37,800
+>> It's useful, it's got a purpose.
+
+198
+00:09:37,800 --> 00:09:40,690
+There's plenty of people
+out there using it.
+
+199
+00:09:40,690 --> 00:09:42,159
+>> Yeah.
+[INAUDIBLE] is cool.
+
+200
+00:09:42,159 --> 00:09:45,307
+>> And earlier you mentioned something
+about type safety which I wanted to come
+
+201
+00:09:45,307 --> 00:09:48,570
+back to because Haskell is a strongly
+typed language, not every language is.
+
+202
+00:09:48,570 --> 00:09:52,710
+But even aside from that, when you parse
+something with regular expressions,
+
+203
+00:09:52,710 --> 00:09:56,413
+the only thing you can get out of it,
+use strings, you match strings and
+
+204
+00:09:56,413 --> 00:09:58,415
+you get them out as groups of strings.
+
+205
+00:09:58,415 --> 00:10:01,355
+And then you have to do something
+else with that group of strings.
+
+206
+00:10:01,355 --> 00:10:06,830
+So in a language like JavaScript, if you
+wanted to pull a number out of a CSV file,
+
+207
+00:10:06,830 --> 00:10:08,050
+you could do that with the regex.
+
+208
+00:10:08,050 --> 00:10:10,370
+But then, once you have the number,
+it's actually a string, so
+
+209
+00:10:10,370 --> 00:10:12,920
+you have to convert it into
+a number via some other means.
+
+210
+00:10:12,920 --> 00:10:15,160
+In Haskell,
+when you're using parser combinators,
+
+211
+00:10:15,160 --> 00:10:18,970
+you can have a parser combinator that
+produces something other than a string.
+
+212
+00:10:18,970 --> 00:10:21,610
+In fact almost all of them produce
+things other than strings.
+
+213
+00:10:21,610 --> 00:10:24,950
+They'll produce a number directly or
+even a custom data type.
+
+214
+00:10:24,950 --> 00:10:29,680
+So if you have like a user in your system
+and you wanna write it out to some custom,
+
+215
+00:10:29,680 --> 00:10:32,310
+serialized format and then read that back.
+
+216
+00:10:32,310 --> 00:10:34,870
+You can write a parser that will
+read it directly into a user,
+
+217
+00:10:34,870 --> 00:10:36,840
+there's no intermediate step involved.
+
+218
+00:10:36,840 --> 00:10:37,910
+>> Right, which that's nice and
+
+219
+00:10:37,910 --> 00:10:40,930
+that guarantees that you're
+gonna get the tech you expect.
+
+220
+00:10:40,930 --> 00:10:42,023
+>> Exactly, there's no chance-
+>> And
+
+221
+00:10:42,023 --> 00:10:43,451
+the compiler will also tell you that.
+
+222
+00:10:43,451 --> 00:10:45,463
+>> There's no chance in
+between parsing the thing and
+
+223
+00:10:45,463 --> 00:10:47,630
+turning it into the value
+that you actually want.
+
+224
+00:10:47,630 --> 00:10:49,720
+For anything to go wrong cuz
+they happen at the same time.
+
+225
+00:10:49,720 --> 00:10:54,705
+>> Right, that's really neat I
+think that value in itself is
+
+226
+00:10:54,705 --> 00:11:00,310
+obviously a testament to
+the strongly typed Haskell language.
+
+227
+00:11:00,310 --> 00:11:04,962
+And I think that leans more towards this
+parser combinator idea rather than regex,
+
+228
+00:11:04,962 --> 00:11:07,950
+even in Haskell because
+regex deals with strings.
+
+229
+00:11:07,950 --> 00:11:09,420
+That's its nature.
+
+230
+00:11:09,420 --> 00:11:10,430
+Yeah.
+
+231
+00:11:10,430 --> 00:11:12,780
+>> I will say indefensive regexes.
+
+232
+00:11:12,780 --> 00:11:17,110
+One thing they do very well that pressure
+combinators aren't necessarily as good at
+
+233
+00:11:17,110 --> 00:11:20,280
+is substituting something
+in a string of text.
+
+234
+00:11:20,280 --> 00:11:22,120
+So if you have some big run and
+
+235
+00:11:22,120 --> 00:11:26,290
+you want to replace every letter t with
+the letter g, For whatever reason.
+
+236
+00:11:26,290 --> 00:11:28,730
+>> Maybe you're doing DNA sequencing and
+you're doing some weird stuff.
+
+237
+00:11:28,730 --> 00:11:30,260
+I don't know.
+>> Maybe YG.
+
+238
+00:11:30,260 --> 00:11:30,930
+>> Something like that.
+
+239
+00:11:30,930 --> 00:11:31,850
+>> Whatever it is.
+
+240
+00:11:31,850 --> 00:11:34,800
+>> Doing that replacement is super
+easy with regular expressions
+
+241
+00:11:34,800 --> 00:11:39,135
+because you can match on something and
+then take an action based on that match.
+
+242
+00:11:39,135 --> 00:11:42,725
+Granted, this isn't a feature of
+regular expressions themselves,
+
+243
+00:11:42,725 --> 00:11:44,475
+like computer science concept.
+
+244
+00:11:44,475 --> 00:11:47,705
+But in every language that has regular
+expressions, there's a mechanism for
+
+245
+00:11:47,705 --> 00:11:49,645
+doing these substitutions, right?
+
+246
+00:11:49,645 --> 00:11:54,970
+Which is helpful and with JavaScript like
+It's one of the best ways to be able to,
+
+247
+00:11:54,970 --> 00:11:57,390
+somewhat safely, guaranteed substitution.
+
+248
+00:11:57,390 --> 00:12:00,560
+If you're looking through this
+set of data, and you say,
+
+249
+00:12:00,560 --> 00:12:04,650
+hey, every time you see this word I
+want you to replace is with this word,
+
+250
+00:12:04,650 --> 00:12:08,920
+that substitute function is useful for
+that.
+
+251
+00:12:08,920 --> 00:12:10,205
+>> It's so easy to use.
+
+252
+00:12:10,205 --> 00:12:11,820
+>> Right, and
+that's the great thing about regex,
+
+253
+00:12:11,820 --> 00:12:16,790
+and I don't I think it's really good for
+the little stuff but it's just really cool
+
+254
+00:12:16,790 --> 00:12:20,930
+that Haskell offers us the parser
+combinator that allow us to get a little.
+
+255
+00:12:20,930 --> 00:12:24,814
+A little, more intense,
+without losing understanding and
+
+256
+00:12:24,814 --> 00:12:29,690
+also some type safety like that's I
+that is important to writing good robust
+
+257
+00:12:29,690 --> 00:12:32,520
+code that doesn't break every other week.
+
+258
+00:12:32,520 --> 00:12:34,350
+It's only about finding a bug.
+
+259
+00:12:34,350 --> 00:12:37,050
+This forum is validating
+right anymore which
+
+260
+00:12:37,050 --> 00:12:40,440
+I mean I doubt we would use pressure
+commentators on a form validation because.
+
+261
+00:12:40,440 --> 00:12:41,470
+>> But you, right.
+
+262
+00:12:41,470 --> 00:12:43,090
+>> Yeah, there's no reason not to.
+
+263
+00:12:43,090 --> 00:12:45,099
+Yeah, swear.
+So I know we're kind of running out
+
+264
+00:12:45,099 --> 00:12:47,124
+on time maybe but
+I just kind of wanted to.
+
+265
+00:12:48,210 --> 00:12:49,520
+Have more of a curiosity,
+
+266
+00:12:49,520 --> 00:12:53,820
+is there much overhead with
+understanding parser combinators?
+
+267
+00:12:53,820 --> 00:12:57,910
+If you have a good level
+understanding of Haskell,
+
+268
+00:12:57,910 --> 00:13:02,960
+what's the level of difficulty
+of parser combinators?
+
+269
+00:13:02,960 --> 00:13:05,830
+>> Parser combinators
+definitely don't come for free.
+
+270
+00:13:05,830 --> 00:13:08,330
+It's not like if you
+already understand Haskell,
+
+271
+00:13:08,330 --> 00:13:11,850
+you can jump right into a parser and
+work it out just fine.
+
+272
+00:13:11,850 --> 00:13:15,180
+You'll probably be able to stumble around
+and figure stuff out and go look at
+
+273
+00:13:15,180 --> 00:13:21,650
+documentation or read something, but it
+won't necessarily be immediately obvious.
+
+274
+00:13:21,650 --> 00:13:25,140
+That being said, as I said earlier, you
+can still lean on your ASCII knowledge,
+
+275
+00:13:25,140 --> 00:13:27,960
+you can look at something and say that's
+a function call, that's an operator.
+
+276
+00:13:27,960 --> 00:13:29,440
+That's taken this argument or
+that argument,
+
+277
+00:13:29,440 --> 00:13:31,830
+and you can kind of piece it together.
+
+278
+00:13:31,830 --> 00:13:38,190
+Many of the parser libraries for Haskell
+share a lot of common kind of vocabulary.
+
+279
+00:13:38,190 --> 00:13:42,060
+They use the same words for stuff which
+makes it really easy to jump between them.
+
+280
+00:13:42,060 --> 00:13:45,400
+So if you use parser and
+one of your libraries and
+
+281
+00:13:45,400 --> 00:13:51,780
+you use mega parts like in the other or
+there's a bunch cool.
+
+282
+00:13:51,780 --> 00:13:53,810
+You'll be able to jump between
+those without too much trouble.
+
+283
+00:13:53,810 --> 00:13:55,670
+So your knowledge is
+transferable between them.
+
+284
+00:13:56,840 --> 00:13:59,530
+There's still the downside of as you
+mentioned at the top of the show.
+
+285
+00:13:59,530 --> 00:14:03,710
+Regex is are everywhere, every
+language basically has them everybody.
+
+286
+00:14:03,710 --> 00:14:06,460
+Most working programmers
+know what they mean and
+
+287
+00:14:06,460 --> 00:14:08,080
+parser commentators
+are not like that at all.
+
+288
+00:14:08,080 --> 00:14:09,570
+They're their own little thing.
+
+289
+00:14:09,570 --> 00:14:10,070
+>> Right.
+So
+
+290
+00:14:10,070 --> 00:14:12,425
+there's a little bit of
+mental complexity there but.
+
+291
+00:14:12,425 --> 00:14:13,130
+>> Mm-hm.
+
+292
+00:14:13,130 --> 00:14:15,090
+>> The payoff of safety and.
+
+293
+00:14:16,530 --> 00:14:17,520
+>> I think it's worth it.
+
+294
+00:14:17,520 --> 00:14:19,060
+>> Right, it's worth it in the end.
+
+295
+00:14:19,060 --> 00:14:22,740
+I mean that's kind of how a lot
+of things are, I mean ours was.
+
+296
+00:14:22,740 --> 00:14:25,190
+Great, but
+there are some confusing aspects.
+
+297
+00:14:25,190 --> 00:14:27,690
+Conduits and lenses,
+all these different topics,
+
+298
+00:14:27,690 --> 00:14:29,720
+and parser combinators
+are probably in that list.
+
+299
+00:14:29,720 --> 00:14:31,060
+>> Yeah, it's actually, in my mind,
+
+300
+00:14:31,060 --> 00:14:34,160
+very similar to lenses,
+in that it's a very powerful abstraction
+
+301
+00:14:34,160 --> 00:14:37,780
+that gives you something that's
+hard to get In other languages, and
+
+302
+00:14:37,780 --> 00:14:42,300
+it does it in an expressive way that
+looks kind of impenetrable at first..
+
+303
+00:14:42,300 --> 00:14:45,210
+But then as you come to understand it,
+you realize, no, this actually makes a lot
+
+304
+00:14:45,210 --> 00:14:49,130
+of sense, it's just weirder,
+it's just different than what I'm used to.
+
+305
+00:14:49,130 --> 00:14:50,480
+And with lenses and
+
+306
+00:14:50,480 --> 00:14:54,710
+parser combinators both, they have
+ties into other parts of Haskell.
+
+307
+00:14:54,710 --> 00:14:58,880
+So as you understand them better, you sort
+of get a different of deeper understanding
+
+308
+00:14:58,880 --> 00:15:01,740
+of other parts that you've used before,
+that you now see in a different light.
+
+309
+00:15:01,740 --> 00:15:05,770
+So with parser combinators, they
+frequently use this weird operator that's
+
+310
+00:15:05,770 --> 00:15:09,470
+like an asterisk and then a greater
+than sign or the other way around.
+
+311
+00:15:09,470 --> 00:15:13,120
+And you can view this in a parser as,
+do this, but throw away the result and
+
+312
+00:15:13,120 --> 00:15:14,730
+then do this other thing.
+
+313
+00:15:14,730 --> 00:15:17,990
+And it turns out that that's super useful
+and it shows up in lots of other places in
+
+314
+00:15:17,990 --> 00:15:21,630
+Haskell anything like that's the same
+concept that I was using over here for
+
+315
+00:15:21,630 --> 00:15:25,130
+parsers is applicable over here
+where I'm running servers.
+
+316
+00:15:25,130 --> 00:15:28,195
+And it's just kind of strange to see that
+
+317
+00:15:28,195 --> 00:15:31,135
+same thing in these two
+wildly different places.
+
+318
+00:15:31,135 --> 00:15:32,555
+>> That's really cool and
+
+319
+00:15:32,555 --> 00:15:38,295
+I think really that's been a great
+conversation on parsing and Haskell.
+
+320
+00:15:38,295 --> 00:15:41,322
+Some of the differences between,
+the regex and
+
+321
+00:15:41,322 --> 00:15:45,120
+parser combinators and
+some of the more verbosity.
+
+322
+00:15:45,120 --> 00:15:46,340
+I don't know if that's the right word.
+
+323
+00:15:46,340 --> 00:15:47,340
+>> I think verbosity's a word.
+
+324
+00:15:47,340 --> 00:15:49,850
+>> I keep trying to use these fancy
+words and probably just shouldn't.
+
+325
+00:15:49,850 --> 00:15:51,030
+I should just let it be.
+
+326
+00:15:51,030 --> 00:15:53,940
+But bottom line is it's powerful, right?
+
+327
+00:15:53,940 --> 00:15:54,840
+It gives us.
+
+328
+00:15:54,840 --> 00:15:57,970
+>> It is.
+Haskell is great for parsing.
+
+329
+00:15:57,970 --> 00:16:02,000
+It is a language that a lot of people
+use to parse, and that's really cool.
+
+330
+00:16:02,000 --> 00:16:07,180
+>> I've never had just time, hey, let me
+write this parser for this random thing.
+
+331
+00:16:07,180 --> 00:16:10,550
+But I know another one of co-workers here,
+Justin.
+
+332
+00:16:10,550 --> 00:16:12,880
+He was writing a parser in Rust.
+
+333
+00:16:12,880 --> 00:16:15,960
+And he asked me questions cuz he
+doesn't deal with the functional
+
+334
+00:16:15,960 --> 00:16:16,690
+paradigm that much.
+
+335
+00:16:16,690 --> 00:16:19,310
+But he was kinda like,
+what is going on here?
+
+336
+00:16:19,310 --> 00:16:21,720
+And I'm like,
+I can kind of see what's going on.
+
+337
+00:16:21,720 --> 00:16:23,050
+Like obviously just from the knowledge,
+
+338
+00:16:23,050 --> 00:16:24,920
+you're like the functional
+programming paradigm.
+
+339
+00:16:24,920 --> 00:16:25,885
+>> Yeah.
+
+340
+00:16:25,885 --> 00:16:30,224
+>> And so I think that's just cool
+that Haskell is more commonly
+
+341
+00:16:30,224 --> 00:16:35,172
+the one you choose to write partner and
+just a prototype that parser.
+
+342
+00:16:35,172 --> 00:16:38,708
+Just because it's quick and
+it works the way you expect it to work and
+
+343
+00:16:38,708 --> 00:16:39,960
+there's type safety.
+
+344
+00:16:39,960 --> 00:16:42,095
+So it's a great language for you.
+
+345
+00:16:42,095 --> 00:16:43,334
+>> Yeah.
+>> I think it's awesome.
+
+346
+00:16:43,334 --> 00:16:44,042
+>> Yeah, it's awesome.
+>> Thanks for
+
+347
+00:16:44,042 --> 00:16:46,815
+talking to me about pursing
+in Haskell this week Cameron
+
+348
+00:16:46,815 --> 00:16:48,460
+>> No, thank you for having me too.
+
+349
+00:16:48,460 --> 00:16:49,400
+It's been a lot of fun.
+
+350
+00:16:49,400 --> 00:16:52,550
+It was really cool to hear your
+background and your knowledge and
+
+351
+00:16:52,550 --> 00:16:55,150
+understanding of parsing the Haskell
+>> I
+
+352
+00:16:55,150 --> 00:16:57,850
+hope I've helped you understand
+parsing in Haskell a little better and
+
+353
+00:16:57,850 --> 00:17:00,280
+I hope I've helped our listeners
+understand parsing and
+
+354
+00:17:00,280 --> 00:17:03,050
+how it compares with regular expressions
+other languages like JavaScript.
+
+355
+00:17:03,050 --> 00:17:05,840
+>> Yeah, I'm excited about
+topics to come to I think
+
+356
+00:17:05,840 --> 00:17:07,630
+our listeners got some cool stuff coming.
+
+357
+00:17:07,630 --> 00:17:10,150
+>> Thank you for
+listening to the Haskell Weekly podcast.
+
+358
+00:17:10,150 --> 00:17:12,510
+This has been episode seven.
+
+359
+00:17:12,510 --> 00:17:16,873
+If you liked our show, find out more
+at our website, haskellweekly.news.
+
+360
+00:17:16,873 --> 00:17:18,013
+Thanks again for listening.
+
+361
+00:17:18,013 --> 00:17:19,753
+I've been your host Taylor Fausek.
+
+362
+00:17:19,753 --> 00:17:21,393
+See you again next week.
+
+363
+00:17:21,393 --> 00:17:28,736
+Adios.
+[MUSIC]
