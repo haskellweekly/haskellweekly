@@ -3,7 +3,6 @@ module HaskellWeekly.Handler.Redirect
   )
 where
 
-import qualified Data.ByteString.Lazy
 import qualified Data.Text
 import qualified Data.Text.Encoding
 import qualified HaskellWeekly.Handler.Base
@@ -15,12 +14,14 @@ redirectHandler
   :: Applicative f
   => HaskellWeekly.Type.Redirect.Redirect
   -> f Network.Wai.Response
-redirectHandler redirect = pure $ HaskellWeekly.Handler.Base.lbsResponse
-  Network.HTTP.Types.found302
-  [ ( Network.HTTP.Types.hLocation
-    , Data.Text.Encoding.encodeUtf8
-    . Data.Text.pack
+redirectHandler redirect =
+  pure
+    . HaskellWeekly.Handler.Base.textResponse
+        Network.HTTP.Types.found302
+        [ ( Network.HTTP.Types.hLocation
+          , Data.Text.Encoding.encodeUtf8
+          . Data.Text.pack
+          $ HaskellWeekly.Type.Redirect.redirectToString redirect
+          )
+        ]
     $ HaskellWeekly.Type.Redirect.redirectToString redirect
-    )
-  ]
-  Data.ByteString.Lazy.empty

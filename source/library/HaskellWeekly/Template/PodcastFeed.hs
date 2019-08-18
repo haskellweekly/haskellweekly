@@ -68,7 +68,8 @@ channelDescription = Data.Text.unwords
 
 channelImage :: String -> Maybe Text.RSS.Syntax.RSSImage
 channelImage baseUrl = Just $ Text.RSS.Syntax.nullImage
-  (Data.Text.pack . mappend baseUrl $ HaskellWeekly.Type.Route.routeToString
+  (HaskellWeekly.Type.Route.routeToTextWith
+    baseUrl
     HaskellWeekly.Type.Route.RoutePodcastLogo
   )
   "Haskell Weekly"
@@ -78,20 +79,18 @@ channelLanguage :: Maybe Data.Text.Text
 channelLanguage = Just "en-US"
 
 channelLink :: String -> Text.RSS.Syntax.URLString
-channelLink baseUrl =
-  Data.Text.pack . mappend baseUrl $ HaskellWeekly.Type.Route.routeToString
-    HaskellWeekly.Type.Route.RoutePodcast
+channelLink baseUrl = HaskellWeekly.Type.Route.routeToTextWith
+  baseUrl
+  HaskellWeekly.Type.Route.RoutePodcast
 
 channelOther :: String -> [Data.XML.Types.Element]
 channelOther baseUrl =
   [ Data.XML.Types.Element
     "atom:link"
     [ ( "href"
-      , [ Data.XML.Types.ContentText
-          . Data.Text.pack
-          . mappend baseUrl
-          $ HaskellWeekly.Type.Route.routeToString
-              HaskellWeekly.Type.Route.RoutePodcastFeed
+      , [ Data.XML.Types.ContentText $ HaskellWeekly.Type.Route.routeToTextWith
+            baseUrl
+            HaskellWeekly.Type.Route.RoutePodcastFeed
         ]
       )
     , ("rel", [Data.XML.Types.ContentText "self"])
@@ -165,9 +164,7 @@ itemLink
   -> Maybe Text.RSS.Syntax.URLString
 itemLink baseUrl =
   Just
-    . Data.Text.pack
-    . mappend baseUrl
-    . HaskellWeekly.Type.Route.routeToString
+    . HaskellWeekly.Type.Route.routeToTextWith baseUrl
     . HaskellWeekly.Type.Route.RouteEpisode
     . HaskellWeekly.Type.Episode.episodeNumber
 

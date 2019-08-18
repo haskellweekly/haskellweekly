@@ -5,7 +5,6 @@ module HaskellWeekly.Template.Episode
   )
 where
 
-import qualified Data.Text
 import qualified HaskellWeekly.Template.Base
 import qualified HaskellWeekly.Type.Article
 import qualified HaskellWeekly.Type.Audio
@@ -31,22 +30,18 @@ episodeTemplate baseUrl episode maybeCaptions maybePreviousEpisode maybeNextEpis
       ["Podcast", number episode, title episode]
     $ do
         H.h2_ [H.class_ "f2"] $ H.a_
-          [ H.href_
-            . Data.Text.pack
-            . mappend baseUrl
-            $ HaskellWeekly.Type.Route.routeToString
-                HaskellWeekly.Type.Route.RoutePodcast
+          [ H.href_ $ HaskellWeekly.Type.Route.routeToTextWith
+              baseUrl
+              HaskellWeekly.Type.Route.RoutePodcast
           ]
           "Podcast"
         H.h3_ [H.class_ "f3"] . H.toHtml $ title episode
         H.video_
             [ H.controls_ "controls"
             , H.height_ "256"
-            , H.term "poster"
-            . Data.Text.pack
-            . mappend baseUrl
-            $ HaskellWeekly.Type.Route.routeToString
-                HaskellWeekly.Type.Route.RoutePodcastLogo
+            , H.term "poster" $ HaskellWeekly.Type.Route.routeToTextWith
+              baseUrl
+              HaskellWeekly.Type.Route.RoutePodcastLogo
             , H.preload_ "metadata"
             , H.width_ "256"
             ]
@@ -61,9 +56,7 @@ episodeTemplate baseUrl episode maybeCaptions maybePreviousEpisode maybeNextEpis
                 [ H.term "default" "default"
                 , H.term "kind" "captions"
                 , H.src_
-                . Data.Text.pack
-                . mappend baseUrl
-                . HaskellWeekly.Type.Route.routeToString
+                . HaskellWeekly.Type.Route.routeToTextWith baseUrl
                 . HaskellWeekly.Type.Route.RouteCaption
                 $ HaskellWeekly.Type.Episode.episodeNumber episode
                 , H.term "srclang" "en-US"
@@ -85,8 +78,7 @@ episodeTemplate baseUrl episode maybeCaptions maybePreviousEpisode maybeNextEpis
             "Previous episode: "
             H.a_
                 [ H.href_
-                  . Data.Text.pack
-                  . HaskellWeekly.Type.Route.routeToString
+                  . HaskellWeekly.Type.Route.routeToTextWith baseUrl
                   . HaskellWeekly.Type.Route.RouteEpisode
                   $ HaskellWeekly.Type.Episode.episodeNumber previousEpisode
                 ]
@@ -98,8 +90,7 @@ episodeTemplate baseUrl episode maybeCaptions maybePreviousEpisode maybeNextEpis
             "Next episode: "
             H.a_
                 [ H.href_
-                  . Data.Text.pack
-                  . HaskellWeekly.Type.Route.routeToString
+                  . HaskellWeekly.Type.Route.routeToTextWith baseUrl
                   . HaskellWeekly.Type.Route.RouteEpisode
                   $ HaskellWeekly.Type.Episode.episodeNumber nextEpisode
                 ]

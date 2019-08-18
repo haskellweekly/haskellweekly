@@ -31,9 +31,9 @@ newsletterFeedTemplate baseUrl issues =
     }
 
 atomId :: String -> Text.Atom.Feed.URI
-atomId baseUrl =
-  Data.Text.pack . mappend baseUrl $ HaskellWeekly.Type.Route.routeToString
-    HaskellWeekly.Type.Route.RouteNewsletterFeed
+atomId baseUrl = HaskellWeekly.Type.Route.routeToTextWith
+  baseUrl
+  HaskellWeekly.Type.Route.RouteNewsletterFeed
 
 atomUpdated :: [HaskellWeekly.Type.Issue.Issue] -> Text.Atom.Feed.Date
 atomUpdated =
@@ -52,9 +52,7 @@ issueToEntry baseUrl issue = Text.Atom.Feed.nullEntry
 
 entryId :: String -> HaskellWeekly.Type.Issue.Issue -> Text.Atom.Feed.URI
 entryId baseUrl =
-  Data.Text.pack
-    . mappend baseUrl
-    . HaskellWeekly.Type.Route.routeToString
+  HaskellWeekly.Type.Route.routeToTextWith baseUrl
     . HaskellWeekly.Type.Route.RouteIssue
     . HaskellWeekly.Type.Issue.issueNumber
 

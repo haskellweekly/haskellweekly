@@ -6,7 +6,6 @@ module HaskellWeekly.Template.Base
 where
 
 import qualified Data.List
-import qualified Data.Text
 import qualified HaskellWeekly.Type.Route
 import qualified Lucid as H
 
@@ -24,7 +23,8 @@ baseTemplate baseUrl title body = do
         " \x2192 "
         ("Haskell Weekly" : title)
       H.link_
-        [ H.href_ . Data.Text.pack $ HaskellWeekly.Type.Route.routeToString
+        [ H.href_ $ HaskellWeekly.Type.Route.routeToTextWith
+          baseUrl
           HaskellWeekly.Type.Route.RouteTachyons
         , H.rel_ "stylesheet"
         ]
@@ -34,11 +34,9 @@ baseTemplate baseUrl title body = do
           H.header_ [H.class_ "mv3"]
             . H.h1_ [H.class_ "f1 tracked-tight"]
             $ H.a_
-                [ H.href_
-                  . Data.Text.pack
-                  . mappend baseUrl
-                  $ HaskellWeekly.Type.Route.routeToString
-                      HaskellWeekly.Type.Route.RouteIndex
+                [ H.href_ $ HaskellWeekly.Type.Route.routeToTextWith
+                    baseUrl
+                    HaskellWeekly.Type.Route.RouteIndex
                 ]
                 "Haskell Weekly"
           H.main_ [H.class_ "mv3"] body

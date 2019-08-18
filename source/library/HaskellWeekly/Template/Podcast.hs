@@ -5,7 +5,6 @@ module HaskellWeekly.Template.Podcast
   )
 where
 
-import qualified Data.Text
 import qualified HaskellWeekly.Template.Base
 import qualified HaskellWeekly.Type.Episode
 import qualified HaskellWeekly.Type.Route
@@ -16,15 +15,14 @@ podcastTemplate :: String -> [HaskellWeekly.Type.Episode.Episode] -> H.Html ()
 podcastTemplate baseUrl episodes =
   HaskellWeekly.Template.Base.baseTemplate baseUrl [] $ do
     H.h2_ [H.class_ "f2"] "Podcast"
-    H.ul_ $ mapM_ episodeTemplate episodes
+    H.ul_ $ mapM_ (episodeTemplate baseUrl) episodes
 
-episodeTemplate :: HaskellWeekly.Type.Episode.Episode -> H.Html ()
-episodeTemplate episode =
+episodeTemplate :: String -> HaskellWeekly.Type.Episode.Episode -> H.Html ()
+episodeTemplate baseUrl episode =
   H.li_
     . H.a_
         [ H.href_
-          . Data.Text.pack
-          . HaskellWeekly.Type.Route.routeToString
+          . HaskellWeekly.Type.Route.routeToTextWith baseUrl
           . HaskellWeekly.Type.Route.RouteEpisode
           $ HaskellWeekly.Type.Episode.episodeNumber episode
         ]

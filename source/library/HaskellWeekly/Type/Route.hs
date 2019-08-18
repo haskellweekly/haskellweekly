@@ -3,11 +3,12 @@
 -- type safe routing.
 module HaskellWeekly.Type.Route
   ( Route(..)
-  , routeToString
+  , routeToTextWith
   , stringToRoute
   )
 where
 
+import qualified Data.Text
 import qualified HaskellWeekly.Type.Number
 import qualified HaskellWeekly.Type.Redirect
 import qualified System.FilePath
@@ -27,6 +28,12 @@ data Route
   | RouteRedirect HaskellWeekly.Type.Redirect.Redirect
   | RouteTachyons
   deriving (Eq, Show)
+
+-- | Returns true if the route is a redirect, false otherwise.
+isRedirect :: Route -> Bool
+isRedirect route = case route of
+  RouteRedirect _ -> True
+  _ -> False
 
 -- | Renders a route as a string.
 routeToString :: Route -> String
@@ -53,6 +60,17 @@ routeToString route = case route of
     HaskellWeekly.Type.Redirect.redirectToString redirect
   RouteTachyons -> "/tachyons-4-11-2.css"
 
+-- | Renders a route as text. Like 'routeToString' but, you know, textual.
+routeToText :: Route -> Data.Text.Text
+routeToText = Data.Text.pack . routeToString
+
+-- | Renders a route as text with the given base URL. Redirects are not
+-- affected by the base URL, but everything else is.
+routeToTextWith :: String -> Route -> Data.Text.Text
+routeToTextWith baseUrl route = if isRedirect route
+  then routeToText route
+  else Data.Text.pack . mappend baseUrl $ routeToString route
+
 -- | Parses a list of strings as a route. Note that some lists of strings go to
 -- the same place, so this isn't necessarily a one to one mapping.
 stringToRoute :: [String] -> Maybe Route
@@ -62,49 +80,38 @@ stringToRoute path = case path of
   ["favicon.ico"] -> Just RouteFavicon
   ["haskell-weekly.atom"] -> Just RouteNewsletterFeed
   ["health-check.json"] -> Just RouteHealthCheck
-  ["issues", file] -> routeContent
-    "html"
-    HaskellWeekly.Type.Number.stringToNumber
-    RouteIssue
-    file
+  ["issues", file] -> routeContent "html" RouteIssue file
   ["podcast", ""] -> Just RoutePodcast
-  ["podcast", "captions", file] -> routeContent
-    "vtt"
-    HaskellWeekly.Type.Number.stringToNumber
-    RouteCaption
-    file
-  ["podcast", "episodes", file] -> routeContent
-    "html"
-    HaskellWeekly.Type.Number.stringToNumber
-    RouteEpisode
-    file
+  ["podcast", "captions", file] -> routeContent "vtt" RouteCaption file
+  ["podcast", "episodes", file] -> routeContent "html" RouteEpisode file
   ["podcast", "feed.rss"] -> Just RoutePodcastFeed
   ["podcast", "logo.png"] -> Just RoutePodcastLogo
   ["tachyons-4-11-2.css"] -> Just RouteTachyons
-  ["index.html"] -> Just . RouteRedirect $ routeToRedirect RouteIndex
-  ["podcast"] -> Just . RouteRedirect $ routeToRedirect RoutePodcast
-  ["podcast", "index.html"] ->
-    Just . RouteRedirect $ routeToRedirect RoutePodcast
+  ["index.html"] -> Just $ routeToRedirect RouteIndex
+  ["podcast"] -> Just $ routeToRedirect RoutePodcast
+  ["podcast", "index.html"] -> Just $ routeToRedirect RoutePodcast
   _ -> Nothing
 
 -- | Handles routing content by stripping the given extension, parsing what's
 -- left of the path, and wrapping the result in a route.
 routeContent
   :: String
-  -> (String -> Either String a)
-  -> (a -> HaskellWeekly.Type.Route.Route)
+  -> (HaskellWeekly.Type.Number.Number -> HaskellWeekly.Type.Route.Route)
   -> FilePath
   -> Maybe HaskellWeekly.Type.Route.Route
-routeContent extension convert route file =
+routeContent extension route file =
   case System.FilePath.stripExtension extension file of
     Nothing -> Nothing
-    Just string -> case convert string of
+    Just string -> case HaskellWeekly.Type.Number.stringToNumber string of
       Left _ -> Nothing
       Right value -> Just $ route value
 
 -- | Converts a normal route into a redirect. This is handy when redirecting
 -- old routes to their new canonical destinations.
-routeToRedirect :: Route -> HaskellWeekly.Type.Redirect.Redirect
+routeToRedirect :: Route -> Route
 routeToRedirect route = case route of
-  RouteRedirect redirect -> redirect
-  _ -> HaskellWeekly.Type.Redirect.stringToRedirect $ routeToString route
+  RouteRedirect _ -> route
+  _ ->
+    RouteRedirect
+      . HaskellWeekly.Type.Redirect.stringToRedirect
+      $ routeToString route
