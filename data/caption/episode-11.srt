@@ -15,12 +15,12 @@ I'm the lead engineer here at ITProTV.
 
 4
 00:00:12,830 --> 00:00:16,470
-And with me today is Sarah Liechtenstein,
+And with me today is Sara Lichtenstein,
 one of the engineers on my team.
 
 5
 00:00:16,470 --> 00:00:17,860
-Thanks for joining me, Sarah.
+Thanks for joining me, Sara.
 
 6
 00:00:17,860 --> 00:00:19,380
@@ -240,7 +240,7 @@ somewhat of a strange choice.
 
 51
 00:02:58,680 --> 00:03:03,160
-So Sarah for the pro or for the programs
+So Sara for the pro or for the programs
 that we right here at work, we don't do
 
 52
@@ -456,7 +456,7 @@ of what we're doing here.
 
 96
 00:05:29,040 --> 00:05:33,590
-And I guess Sarah, do you wanna kinda
+And I guess Sara, do you wanna kinda
 explain the process that he goes through
 
 97
@@ -798,7 +798,7 @@ had reason to look at C code and
 167
 00:09:23,399 --> 00:09:25,270
 I think that's true for
-you too right Sarah?
+you too right Sara?
 
 168
 00:09:25,270 --> 00:09:26,155
@@ -1602,7 +1602,7 @@ All right, well, thanks for
 
 338
 00:18:47,445 --> 00:18:52,875
-joining me today Sarah to talk
+joining me today Sara to talk
 about profiling and Haskell.
 
 339

@@ -1684,7 +1684,7 @@ at our website haskellweekly.news.
 365
 00:14:53,470 --> 00:14:56,597
 Thanks again for listening,
-I've been your host, Taylor Fausek, and
+I've been your host, Taylor Fausak, and
 
 366
 00:14:56,597 --> 00:14:57,733

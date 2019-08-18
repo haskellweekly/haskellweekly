@@ -1277,7 +1277,7 @@ listening to the Haskell weekly podcasts.
 271
 00:14:59,590 --> 00:15:03,380
 This has been episode five and
-I've been your host Cameron Gara.
+I've been your host Cameron Gera.
 
 272
 00:15:03,380 --> 00:15:08,710

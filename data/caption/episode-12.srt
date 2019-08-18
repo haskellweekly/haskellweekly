@@ -9,7 +9,7 @@ a purely functional programming language.
 
 3
 00:00:07,640 --> 00:00:12,880
-I'm your guest, Justin Seger,
+I'm your guest, Dustin Segers,
 I'm an engineer at ITProTV.
 
 4
@@ -23,7 +23,7 @@ thanks for joining me today.
 
 6
 00:00:21,120 --> 00:00:24,550
->> No problem, Justin, I'm glad to
+>> No problem, Dustin, I'm glad to
 be here and talk about some Haskell.
 
 7
@@ -1102,7 +1102,7 @@ Thanks again for listening.
 
 234
 00:16:26,620 --> 00:16:28,950
-I've been your guest, Justin Seger.
+I've been your guest, Dustin Segers.
 
 235
 00:16:28,950 --> 00:16:32,310

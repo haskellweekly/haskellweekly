@@ -13,7 +13,7 @@ a purely functional programming language.
 
 4
 00:00:09,100 --> 00:00:13,270
-I'm Dustin Sievers,
+I'm Dustin Segers,
 a software engineer here at ITProTV.
 
 5

@@ -326,7 +326,7 @@ we can work with it as a value.
 70
 00:03:33,310 --> 00:03:36,672
 Either string something isn't super
-useful cuz the only thing you can do
+useful cause the only thing you can do
 
 71
 00:03:36,672 --> 00:03:38,500
@@ -334,7 +334,7 @@ with that string is maybe print it out.
 
 72
 00:03:38,500 --> 00:03:41,112
-Or maybe poke out it if you're
+Or maybe poke at it if you
 really wanna try to determine,
 
 73
@@ -354,7 +354,7 @@ by zero, which returns a maybe.
 76
 00:03:47,761 --> 00:03:50,390
 We have some more complicated
-thing that returns a neither.
+thing that returns an either.
 
 77
 00:03:50,390 --> 00:03:53,430
@@ -415,7 +415,7 @@ or short-circuiting between maybes and
 
 89
 00:04:28,638 --> 00:04:33,270
-eithers, cuz they have
+eithers, cause they have
 a different number of parameters.
 
 90
@@ -497,7 +497,7 @@ the exception hierarchy even for
 106
 00:05:27,574 --> 00:05:30,195
 a language like Haskell, but
-first stuff like Rubi or Python,
+for stuff like Ruby or Python,
 
 107
 00:05:30,195 --> 00:05:32,433
@@ -511,7 +511,7 @@ type, I don't wanna deal with all those
 
 109
 00:05:36,073 --> 00:05:39,781
-exception cases all the time, cuz most
+exception cases all the time, cause most
 of the time they're not gonna happen.
 
 110
@@ -622,7 +622,7 @@ And in a way,
 
 132
 00:06:50,232 --> 00:06:54,879
-during an exception is a lot like you're
+throwing an exception is a lot like you're
 in this either some giant error case.
 
 133
@@ -818,7 +818,7 @@ that are being added together.
 
 174
 00:08:51,610 --> 00:08:55,900
-We have error string of line and
+We have error string of one and
 error string of two.
 
 175
