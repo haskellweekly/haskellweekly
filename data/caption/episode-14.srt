@@ -1,0 +1,1391 @@
+1
+00:00:00,000 --> 00:00:04,000
+Oh
+
+2
+00:00:01,420 --> 00:00:06,649
+[Music]
+
+3
+00:00:04,000 --> 00:00:07,370
+hello and welcome to the ask a weekly
+
+4
+00:00:06,649 --> 00:00:09,860
+podcast
+
+5
+00:00:07,370 --> 00:00:12,469
+I'm your host Cody Goodman I'm a senior
+
+6
+00:00:09,860 --> 00:00:15,379
+engineer and IP pro TV with me today
+
+7
+00:00:12,469 --> 00:00:17,480
+it's Andres voice one of the engineers
+
+8
+00:00:15,379 --> 00:00:21,850
+on my team thanks for joining me today
+
+9
+00:00:17,480 --> 00:00:25,370
+address yep thanks for having me Cody
+
+10
+00:00:21,850 --> 00:00:25,880
+decided to talk about some fun stuff
+
+11
+00:00:25,370 --> 00:00:29,420
+with you
+
+12
+00:00:25,880 --> 00:00:31,160
+cool this show is about Haskell a purely
+
+13
+00:00:29,420 --> 00:00:33,070
+functional programming language today
+
+14
+00:00:31,160 --> 00:00:36,680
+we're going to be talking about refined
+
+15
+00:00:33,070 --> 00:00:39,050
+which is a way of moving a lot of
+
+16
+00:00:36,680 --> 00:00:41,360
+runtime errors into the type system
+
+17
+00:00:39,050 --> 00:00:44,720
+there was an interesting blog post
+
+18
+00:00:41,360 --> 00:00:49,270
+recently and Haskell weekly that
+
+19
+00:00:44,720 --> 00:00:53,030
+explored using refine to solve a few
+
+20
+00:00:49,270 --> 00:00:56,360
+common cases of runtime errors such as
+
+21
+00:00:53,030 --> 00:00:58,579
+division by zero or making sure string
+
+22
+00:00:56,360 --> 00:01:00,500
+is uppercase things that you'd usually
+
+23
+00:00:58,579 --> 00:01:01,969
+have to worry about runtime andres what
+
+24
+00:01:00,500 --> 00:01:04,219
+were your thoughts on it the first thing
+
+25
+00:01:01,969 --> 00:01:09,020
+that came to mind was it's very
+
+26
+00:01:04,219 --> 00:01:11,990
+interesting to think of type checking at
+
+27
+00:01:09,020 --> 00:01:14,299
+the runtime level and one of the things
+
+28
+00:01:11,990 --> 00:01:17,659
+that first stood out to me was what is
+
+29
+00:01:14,299 --> 00:01:19,909
+the use high-level seems very useful
+
+30
+00:01:17,659 --> 00:01:22,880
+after diving into of it a little bit
+
+31
+00:01:19,909 --> 00:01:26,299
+seems like maybe some of these features
+
+32
+00:01:22,880 --> 00:01:29,330
+should be implemented more directly into
+
+33
+00:01:26,299 --> 00:01:32,299
+the compiler level or even just as part
+
+34
+00:01:29,330 --> 00:01:33,860
+of the actual Haskell language but we
+
+35
+00:01:32,299 --> 00:01:36,049
+can talk about more about that in a bit
+
+36
+00:01:33,860 --> 00:01:38,119
+great definitely want to talk more about
+
+37
+00:01:36,049 --> 00:01:41,030
+that a bit high school is actually
+
+38
+00:01:38,119 --> 00:01:44,030
+moving towards supporting dependent
+
+39
+00:01:41,030 --> 00:01:46,369
+typing I hear in the next year or so
+
+40
+00:01:44,030 --> 00:01:49,939
+we'll probably have something pretty
+
+41
+00:01:46,369 --> 00:01:51,619
+useful and workable in terms of refined
+
+42
+00:01:49,939 --> 00:01:54,140
+specifically though and things that we
+
+43
+00:01:51,619 --> 00:01:56,210
+can use today what do you think are the
+
+44
+00:01:54,140 --> 00:01:58,310
+the trade-offs and deciding to use
+
+45
+00:01:56,210 --> 00:02:00,560
+something like that is there a lot of
+
+46
+00:01:58,310 --> 00:02:01,430
+ceremony involved with using something
+
+47
+00:02:00,560 --> 00:02:03,710
+like or fun
+
+48
+00:02:01,430 --> 00:02:06,020
+so runtime errors are expensive but is
+
+49
+00:02:03,710 --> 00:02:10,189
+it more expensive to implement something
+
+50
+00:02:06,020 --> 00:02:13,430
+with refine I think the major point that
+
+51
+00:02:10,189 --> 00:02:16,220
+came to me first is how much extra
+
+52
+00:02:13,430 --> 00:02:19,040
+coding work do I need to actually do
+
+53
+00:02:16,220 --> 00:02:21,530
+to be able to use this and I think
+
+54
+00:02:19,040 --> 00:02:24,530
+that's probably the major downside to
+
+55
+00:02:21,530 --> 00:02:27,080
+using something like refine we've gotten
+
+56
+00:02:24,530 --> 00:02:30,020
+to a point where we are trying to fix
+
+57
+00:02:27,080 --> 00:02:32,870
+we're not really fixed but more solve a
+
+58
+00:02:30,020 --> 00:02:36,260
+problem that isn't already solved by
+
+59
+00:02:32,870 --> 00:02:38,930
+using type checking and runtime checking
+
+60
+00:02:36,260 --> 00:02:41,210
+and all of these things and the first
+
+61
+00:02:38,930 --> 00:02:42,680
+thing that sticks out is lots of
+
+62
+00:02:41,210 --> 00:02:44,480
+different conversion functions so
+
+63
+00:02:42,680 --> 00:02:47,720
+there's a lot of extra boilerplate
+
+64
+00:02:44,480 --> 00:02:49,910
+required around using refine and using
+
+65
+00:02:47,720 --> 00:02:53,030
+it in such a way that is helpful to the
+
+66
+00:02:49,910 --> 00:02:54,590
+code and that's my first take away and
+
+67
+00:02:53,030 --> 00:02:57,830
+there's some extra stuff in there as
+
+68
+00:02:54,590 --> 00:02:59,600
+well that is very nice it's just that my
+
+69
+00:02:57,830 --> 00:03:01,220
+first question is how much extra coding
+
+70
+00:02:59,600 --> 00:03:02,750
+do I have to do and it's actually a
+
+71
+00:03:01,220 --> 00:03:06,140
+little bit more than I'm comfortable
+
+72
+00:03:02,750 --> 00:03:08,000
+with okay and like you mentioned part of
+
+73
+00:03:06,140 --> 00:03:09,800
+the reason for that is because it's an
+
+74
+00:03:08,000 --> 00:03:12,770
+external library and not something
+
+75
+00:03:09,800 --> 00:03:15,350
+integrated with a compiler so exciting
+
+76
+00:03:12,770 --> 00:03:18,620
+to see if that helps reduce that
+
+77
+00:03:15,350 --> 00:03:21,709
+ceremony in boilerplate yeah definitely
+
+78
+00:03:18,620 --> 00:03:24,770
+something that I think would be better
+
+79
+00:03:21,709 --> 00:03:27,380
+benefited to be directly inside the
+
+80
+00:03:24,770 --> 00:03:29,840
+language then as a library but it would
+
+81
+00:03:27,380 --> 00:03:34,010
+be nice to know or at least to be able
+
+82
+00:03:29,840 --> 00:03:36,950
+to use it in practice to be able to see
+
+83
+00:03:34,010 --> 00:03:38,720
+if our is it actually a lot of work or
+
+84
+00:03:36,950 --> 00:03:42,500
+if it's just you know just something
+
+85
+00:03:38,720 --> 00:03:44,030
+that I get from the representation of it
+
+86
+00:03:42,500 --> 00:03:46,220
+in the blog post and the documentation
+
+87
+00:03:44,030 --> 00:03:48,500
+right what do you think as a first
+
+88
+00:03:46,220 --> 00:03:51,890
+glance what did you first think that
+
+89
+00:03:48,500 --> 00:03:53,420
+this was gonna do I think that their
+
+90
+00:03:51,890 --> 00:03:55,700
+find is really interesting I know
+
+91
+00:03:53,420 --> 00:03:58,040
+there's a lot of ceremony with setting
+
+92
+00:03:55,700 --> 00:04:00,410
+up things at first I do wonder though if
+
+93
+00:03:58,040 --> 00:04:02,720
+you go from the approach of rect by
+
+94
+00:04:00,410 --> 00:04:05,239
+construction and you eventually build up
+
+95
+00:04:02,720 --> 00:04:07,430
+a lot of these or find helpers if it
+
+96
+00:04:05,239 --> 00:04:10,870
+much gets route to ceremony once you've
+
+97
+00:04:07,430 --> 00:04:12,860
+integrated into your normal workflow of
+
+98
+00:04:10,870 --> 00:04:15,680
+programming you know instead of thinking
+
+99
+00:04:12,860 --> 00:04:18,739
+in terms of runtime errors if you think
+
+100
+00:04:15,680 --> 00:04:22,010
+in terms of using refined does this
+
+101
+00:04:18,739 --> 00:04:24,260
+value refine before I pass it to the
+
+102
+00:04:22,010 --> 00:04:26,900
+next function if you start thinking that
+
+103
+00:04:24,260 --> 00:04:29,470
+way and just implementing those things
+
+104
+00:04:26,900 --> 00:04:31,420
+as the library you can reuse I think
+
+105
+00:04:29,470 --> 00:04:33,190
+it could be a lot more convenient it's
+
+106
+00:04:31,420 --> 00:04:35,260
+harder to make that argument though
+
+107
+00:04:33,190 --> 00:04:38,350
+without having a fleshed out example
+
+108
+00:04:35,260 --> 00:04:40,780
+yeah I agree I think once this is
+
+109
+00:04:38,350 --> 00:04:43,930
+actually in use and we're able to see
+
+110
+00:04:40,780 --> 00:04:46,110
+more of how it is used then we can make
+
+111
+00:04:43,930 --> 00:04:48,640
+that call it's just one of my major
+
+112
+00:04:46,110 --> 00:04:51,940
+downsides that I that I can see just
+
+113
+00:04:48,640 --> 00:04:54,280
+just off the bat is the extra work
+
+114
+00:04:51,940 --> 00:04:58,180
+required to wrapping it and unwrapping
+
+115
+00:04:54,280 --> 00:05:02,620
+it better than just doing that type
+
+116
+00:04:58,180 --> 00:05:05,770
+checking by hand or you know is it
+
+117
+00:05:02,620 --> 00:05:07,780
+actually worth it right and I think that
+
+118
+00:05:05,770 --> 00:05:09,490
+when you look at some of the examples by
+
+119
+00:05:07,780 --> 00:05:10,780
+Nature they're trying to teach something
+
+120
+00:05:09,490 --> 00:05:13,840
+so they're gonna be a little bit
+
+121
+00:05:10,780 --> 00:05:16,900
+contrived you have to simplify things to
+
+122
+00:05:13,840 --> 00:05:18,400
+teach the concept first but it'd be good
+
+123
+00:05:16,900 --> 00:05:20,470
+if we had somewhere to go from there
+
+124
+00:05:18,400 --> 00:05:22,720
+layers on the different things that
+
+125
+00:05:20,470 --> 00:05:25,660
+we've learned you know maybe having
+
+126
+00:05:22,720 --> 00:05:28,270
+refined check at compile time that a
+
+127
+00:05:25,660 --> 00:05:30,820
+string is uppercase isn't valuable but
+
+128
+00:05:28,270 --> 00:05:31,570
+if you're verifying Social Security
+
+129
+00:05:30,820 --> 00:05:35,980
+numbers
+
+130
+00:05:31,570 --> 00:05:37,120
+maybe verifying that they are made
+
+131
+00:05:35,980 --> 00:05:39,580
+interest is it again
+
+132
+00:05:37,120 --> 00:05:42,460
+eight nine digits then that's something
+
+133
+00:05:39,580 --> 00:05:46,000
+that could be useful yeah I agree
+
+134
+00:05:42,460 --> 00:05:48,520
+however I do see verification is usually
+
+135
+00:05:46,000 --> 00:05:50,860
+user input variables and they're not
+
+136
+00:05:48,520 --> 00:05:54,729
+available at Build time so I could see
+
+137
+00:05:50,860 --> 00:05:56,830
+that being a major issue so like let's
+
+138
+00:05:54,729 --> 00:05:59,800
+say that you have a refined type of
+
+139
+00:05:56,830 --> 00:06:01,360
+positive number what how will the
+
+140
+00:05:59,800 --> 00:06:04,450
+compiler know that a user is going to
+
+141
+00:06:01,360 --> 00:06:06,520
+input two minus one if you don't
+
+142
+00:06:04,450 --> 00:06:07,960
+actually go through the entire you know
+
+143
+00:06:06,520 --> 00:06:10,840
+refining it and under finding in the
+
+144
+00:06:07,960 --> 00:06:12,729
+process which when you refine the to
+
+145
+00:06:10,840 --> 00:06:14,979
+minus one it's going to throw an error
+
+146
+00:06:12,729 --> 00:06:17,979
+or however you decide to actually
+
+147
+00:06:14,979 --> 00:06:20,410
+implement it and that is the same as if
+
+148
+00:06:17,979 --> 00:06:23,919
+you just did an if statement for example
+
+149
+00:06:20,410 --> 00:06:26,830
+so I'm it's it's hard to see the
+
+150
+00:06:23,919 --> 00:06:29,680
+difference of actually type checking in
+
+151
+00:06:26,830 --> 00:06:32,320
+code and type checking in the types
+
+152
+00:06:29,680 --> 00:06:35,440
+itself right that's a great point I
+
+153
+00:06:32,320 --> 00:06:37,930
+think the special sauce so to speak lies
+
+154
+00:06:35,440 --> 00:06:41,200
+in that it's not really about verifying
+
+155
+00:06:37,930 --> 00:06:41,910
+that value it is in the exhaustive nough
+
+156
+00:06:41,200 --> 00:06:44,790
+stucking
+
+157
+00:06:41,910 --> 00:06:49,080
+that we get by defining that and how it
+
+158
+00:06:44,790 --> 00:06:50,310
+forces programmers if you are warning or
+
+159
+00:06:49,080 --> 00:06:52,560
+if you are throwing an error on
+
+160
+00:06:50,310 --> 00:06:55,110
+exhaustive those checks it forces the
+
+161
+00:06:52,560 --> 00:06:57,990
+programmers to handle that case upfront
+
+162
+00:06:55,110 --> 00:07:01,230
+whereas you could have missed that case
+
+163
+00:06:57,990 --> 00:07:04,530
+in a dynamic language yeah I agree
+
+164
+00:07:01,230 --> 00:07:07,380
+and that's obviously where we see the
+
+165
+00:07:04,530 --> 00:07:10,740
+benefits of this library the question I
+
+166
+00:07:07,380 --> 00:07:13,340
+had was is it worth it do we want to add
+
+167
+00:07:10,740 --> 00:07:16,140
+all this extra complexity just to be
+
+168
+00:07:13,340 --> 00:07:20,010
+more safe for the developer to write
+
+169
+00:07:16,140 --> 00:07:22,710
+this code and the upsize I think are
+
+170
+00:07:20,010 --> 00:07:24,870
+still not better than the downsides okay
+
+171
+00:07:22,710 --> 00:07:29,160
+what do you think about the possibility
+
+172
+00:07:24,870 --> 00:07:31,350
+of senior engineers using refines to
+
+173
+00:07:29,160 --> 00:07:34,080
+write out the types and stub out
+
+174
+00:07:31,350 --> 00:07:36,390
+implementations and then having the rest
+
+175
+00:07:34,080 --> 00:07:39,510
+of the engineers implementing the
+
+176
+00:07:36,390 --> 00:07:42,440
+functionality for those things if most
+
+177
+00:07:39,510 --> 00:07:46,170
+of these types are going to be used in a
+
+178
+00:07:42,440 --> 00:07:48,660
+compilation manner so you know we are
+
+179
+00:07:46,170 --> 00:07:51,210
+mainly using haskó in a web environment
+
+180
+00:07:48,660 --> 00:07:53,220
+so most of our types that need type
+
+181
+00:07:51,210 --> 00:07:55,110
+checking are going to be user input and
+
+182
+00:07:53,220 --> 00:07:58,380
+I think that's where it falls short if
+
+183
+00:07:55,110 --> 00:08:01,110
+it is going to be used in such a way
+
+184
+00:07:58,380 --> 00:08:04,050
+that this type checking is going to help
+
+185
+00:08:01,110 --> 00:08:06,210
+in the code writing then I think that's
+
+186
+00:08:04,050 --> 00:08:09,270
+a good thing so refine is a great
+
+187
+00:08:06,210 --> 00:08:12,270
+library to make sure that your types
+
+188
+00:08:09,270 --> 00:08:14,910
+that are you know more dynamic than
+
+189
+00:08:12,270 --> 00:08:17,160
+other types such as numbers lists things
+
+190
+00:08:14,910 --> 00:08:20,100
+like that stay inside the range they're
+
+191
+00:08:17,160 --> 00:08:22,350
+supposed to be then refine is a great
+
+192
+00:08:20,100 --> 00:08:24,360
+library for that regardless whether it's
+
+193
+00:08:22,350 --> 00:08:27,150
+a senior engineer doing the structuring
+
+194
+00:08:24,360 --> 00:08:29,340
+or it's a junior one I I don't see a
+
+195
+00:08:27,150 --> 00:08:31,860
+difference in that scenario okay
+
+196
+00:08:29,340 --> 00:08:34,140
+did you see if it was possible in the
+
+197
+00:08:31,860 --> 00:08:36,900
+docs I'm scrolling through them now to
+
+198
+00:08:34,140 --> 00:08:39,240
+add refined values you know to have
+
+199
+00:08:36,900 --> 00:08:42,090
+composite refined values
+
+200
+00:08:39,240 --> 00:08:45,360
+you mean like doing for example one plus
+
+201
+00:08:42,090 --> 00:08:48,720
+one on Iran value sort of I mean like
+
+202
+00:08:45,360 --> 00:08:52,620
+saying that to refine this this value
+
+203
+00:08:48,720 --> 00:08:54,500
+needs to both be uppercase and both be
+
+204
+00:08:52,620 --> 00:08:58,730
+lengths of 10
+
+205
+00:08:54,500 --> 00:09:01,390
+mm-hmm I'm actually not sure exactly how
+
+206
+00:08:58,730 --> 00:09:05,270
+it's used and that's the idea behind me
+
+207
+00:09:01,390 --> 00:09:07,910
+looking into this library was to see
+
+208
+00:09:05,270 --> 00:09:11,240
+what my first thoughts first thoughts
+
+209
+00:09:07,910 --> 00:09:14,180
+are in just as a skimming sort of view
+
+210
+00:09:11,240 --> 00:09:15,650
+so what is it going to is it going to
+
+211
+00:09:14,180 --> 00:09:17,570
+appeal enough for me to actually sit
+
+212
+00:09:15,650 --> 00:09:19,940
+down and start using it I could you know
+
+213
+00:09:17,570 --> 00:09:22,670
+I could go in there and start writing it
+
+214
+00:09:19,940 --> 00:09:26,600
+and see if it feels natural if it just
+
+215
+00:09:22,670 --> 00:09:28,700
+feels very unnatural or just completely
+
+216
+00:09:26,600 --> 00:09:30,800
+different than what we're used to and um
+
+217
+00:09:28,700 --> 00:09:32,600
+I can't actually I can't actually answer
+
+218
+00:09:30,800 --> 00:09:35,450
+the question that you're asking there
+
+219
+00:09:32,600 --> 00:09:37,430
+bright if it were the case that you can
+
+220
+00:09:35,450 --> 00:09:40,820
+do that then that's a that's an extra
+
+221
+00:09:37,430 --> 00:09:43,250
+plus right and actually that that's a
+
+222
+00:09:40,820 --> 00:09:45,350
+little bit of a warning sign to me and
+
+223
+00:09:43,250 --> 00:09:47,270
+and something I see too common in high
+
+224
+00:09:45,350 --> 00:09:49,460
+school libraries is if you can't
+
+225
+00:09:47,270 --> 00:09:52,130
+communicate the really valuable pieces
+
+226
+00:09:49,460 --> 00:09:54,380
+like that so if you can't show how to
+
+227
+00:09:52,130 --> 00:09:57,200
+move past the trivial examples to
+
+228
+00:09:54,380 --> 00:10:00,050
+something more complicated but also more
+
+229
+00:09:57,200 --> 00:10:02,000
+useful that's a marketing problem as
+
+230
+00:10:00,050 --> 00:10:05,150
+well yeah I agree
+
+231
+00:10:02,000 --> 00:10:06,860
+I had the same thought I said I'm
+
+232
+00:10:05,150 --> 00:10:08,600
+probably going to have a different
+
+233
+00:10:06,860 --> 00:10:11,600
+mindset when I actually go in there and
+
+234
+00:10:08,600 --> 00:10:15,140
+and play around with it but I thought it
+
+235
+00:10:11,600 --> 00:10:17,780
+was more valuable to have that viewpoint
+
+236
+00:10:15,140 --> 00:10:20,150
+where I actually haven't used the code
+
+237
+00:10:17,780 --> 00:10:22,160
+I'm just going by what the author has
+
+238
+00:10:20,150 --> 00:10:26,330
+told me about it and so far right I'm
+
+239
+00:10:22,160 --> 00:10:28,510
+not a hundred percent agreed on it and I
+
+240
+00:10:26,330 --> 00:10:32,420
+think you know having a little more
+
+241
+00:10:28,510 --> 00:10:35,240
+examples that could help you understand
+
+242
+00:10:32,420 --> 00:10:38,960
+what the library is meant to fix and how
+
+243
+00:10:35,240 --> 00:10:40,910
+it fixes it would benefit the adoption
+
+244
+00:10:38,960 --> 00:10:44,000
+of it right I think it's really valuable
+
+245
+00:10:40,910 --> 00:10:45,260
+to for you to look at this from you know
+
+246
+00:10:44,000 --> 00:10:47,720
+the mindset of somebody who's just
+
+247
+00:10:45,260 --> 00:10:49,670
+thinking about looking at a school you
+
+248
+00:10:47,720 --> 00:10:51,770
+get by adopting Haskell for some of
+
+249
+00:10:49,670 --> 00:10:54,350
+these benefits they heard about or maybe
+
+250
+00:10:51,770 --> 00:10:55,940
+it's a Haskell user who's thinking about
+
+251
+00:10:54,350 --> 00:10:57,920
+putting more type safety into their code
+
+252
+00:10:55,940 --> 00:11:01,220
+base you know that's pretty similar to
+
+253
+00:10:57,920 --> 00:11:03,080
+the mindset they're going to be in in I
+
+254
+00:11:01,220 --> 00:11:05,150
+think you found a valuable opportunity
+
+255
+00:11:03,080 --> 00:11:08,430
+for anyone who's writing blog post about
+
+256
+00:11:05,150 --> 00:11:11,160
+refined or any documentation
+
+257
+00:11:08,430 --> 00:11:14,580
+and that is to you know give more
+
+258
+00:11:11,160 --> 00:11:16,620
+examples this is true throughout high
+
+259
+00:11:14,580 --> 00:11:19,110
+school documentation in general but
+
+260
+00:11:16,620 --> 00:11:20,790
+especially here you want to motivate not
+
+261
+00:11:19,110 --> 00:11:24,000
+only the simple cases but the
+
+262
+00:11:20,790 --> 00:11:26,670
+intermediate and the advanced yes and I
+
+263
+00:11:24,000 --> 00:11:29,970
+actually have a comment on that one as
+
+264
+00:11:26,670 --> 00:11:32,040
+well the last part of the blog post
+
+265
+00:11:29,970 --> 00:11:36,480
+where they show the examples of using
+
+266
+00:11:32,040 --> 00:11:39,899
+refine inside of a JSON type as a use
+
+267
+00:11:36,480 --> 00:11:43,020
+case to use refine to make sure that
+
+268
+00:11:39,899 --> 00:11:46,560
+your JSON parsing matches what you want
+
+269
+00:11:43,020 --> 00:11:48,690
+it to be that seems like what refined
+
+270
+00:11:46,560 --> 00:11:52,320
+was meant to do at least in my eyesight
+
+271
+00:11:48,690 --> 00:11:55,140
+as a server developer for rascal JSON
+
+272
+00:11:52,320 --> 00:11:57,899
+parsing is pretty much a lot of what we
+
+273
+00:11:55,140 --> 00:12:00,300
+do so we want to make sure that the
+
+274
+00:11:57,899 --> 00:12:04,110
+input that comes in is what we want it
+
+275
+00:12:00,300 --> 00:12:09,600
+to be and I think refine attempted to
+
+276
+00:12:04,110 --> 00:12:12,120
+use JSON or the Ehsan library to help
+
+277
+00:12:09,600 --> 00:12:15,150
+type these JSON values a little better
+
+278
+00:12:12,120 --> 00:12:18,420
+right however that seemed to me like it
+
+279
+00:12:15,150 --> 00:12:21,300
+was a an afterthought it was okay we
+
+280
+00:12:18,420 --> 00:12:23,610
+also did this they never went into what
+
+281
+00:12:21,300 --> 00:12:25,800
+you can do with it or what the code can
+
+282
+00:12:23,610 --> 00:12:28,860
+do when when you're writing it if it can
+
+283
+00:12:25,800 --> 00:12:32,010
+make the parsing less verbose or maybe
+
+284
+00:12:28,860 --> 00:12:33,810
+more concise things like that is what I
+
+285
+00:12:32,010 --> 00:12:38,430
+want to see when I'm reading a blog post
+
+286
+00:12:33,810 --> 00:12:40,650
+it was a fine line though right so what
+
+287
+00:12:38,430 --> 00:12:42,060
+they left is a footnote about JSON there
+
+288
+00:12:40,650 --> 00:12:44,160
+you would have maybe like to see them
+
+289
+00:12:42,060 --> 00:12:47,750
+lead with that and then expound upon
+
+290
+00:12:44,160 --> 00:12:51,060
+that example yeah I mean everyone's
+
+291
+00:12:47,750 --> 00:12:55,050
+thoughts on what refine is good for is
+
+292
+00:12:51,060 --> 00:12:57,329
+obviously different I just wanted to get
+
+293
+00:12:55,050 --> 00:12:59,130
+a little more information up front about
+
+294
+00:12:57,329 --> 00:13:00,180
+all the different ways you can use
+
+295
+00:12:59,130 --> 00:13:03,990
+refine
+
+296
+00:13:00,180 --> 00:13:07,290
+not just simple instance strings and
+
+297
+00:13:03,990 --> 00:13:10,470
+then oh by the way we also do JSON so
+
+298
+00:13:07,290 --> 00:13:11,970
+looking at their example for a second it
+
+299
+00:13:10,470 --> 00:13:15,149
+looks like they find a type called
+
+300
+00:13:11,970 --> 00:13:17,850
+alcohol user who has a name and an age
+
+301
+00:13:15,149 --> 00:13:20,940
+they have a refined type to make sure
+
+302
+00:13:17,850 --> 00:13:22,180
+that there's at least one character in
+
+303
+00:13:20,940 --> 00:13:24,220
+the string
+
+304
+00:13:22,180 --> 00:13:28,270
+would you have usually verified
+
+305
+00:13:24,220 --> 00:13:29,830
+something like that without refine that
+
+306
+00:13:28,270 --> 00:13:32,470
+is a good question
+
+307
+00:13:29,830 --> 00:13:36,760
+that would probably depend on how simple
+
+308
+00:13:32,470 --> 00:13:38,950
+the parsing is most likely I would write
+
+309
+00:13:36,760 --> 00:13:44,830
+it either directly inside the Ehsan
+
+310
+00:13:38,950 --> 00:13:47,860
+instance or as a as a conversion of the
+
+311
+00:13:44,830 --> 00:13:50,410
+type so if I had a type that was an
+
+312
+00:13:47,860 --> 00:13:53,080
+alcohol user name I would have a string
+
+313
+00:13:50,410 --> 00:13:55,149
+to alcohol user name that would type
+
+314
+00:13:53,080 --> 00:13:57,100
+check there and make sure all right you
+
+315
+00:13:55,149 --> 00:13:58,990
+know you can only convert a string to
+
+316
+00:13:57,100 --> 00:14:01,060
+that type if it is at least one
+
+317
+00:13:58,990 --> 00:14:02,830
+character otherwise you fail so this
+
+318
+00:14:01,060 --> 00:14:05,350
+would the difference that would get us
+
+319
+00:14:02,830 --> 00:14:08,200
+is a kind of a more declarative way of
+
+320
+00:14:05,350 --> 00:14:11,589
+listing out how to parse and validate
+
+321
+00:14:08,200 --> 00:14:12,820
+that JSON right and if it would also
+
+322
+00:14:11,589 --> 00:14:16,060
+remove them a little bit of the
+
+323
+00:14:12,820 --> 00:14:19,360
+boilerplate code required to do so right
+
+324
+00:14:16,060 --> 00:14:21,520
+yeah for building like applicative
+
+325
+00:14:19,360 --> 00:14:23,860
+syntax for building the data died stuff
+
+326
+00:14:21,520 --> 00:14:26,380
+like that yeah thanks for being on the
+
+327
+00:14:23,860 --> 00:14:27,220
+show with me today on dress yeah thank
+
+328
+00:14:26,380 --> 00:14:30,700
+you very much
+
+329
+00:14:27,220 --> 00:14:32,230
+it was fun doing this and something that
+
+330
+00:14:30,700 --> 00:14:35,890
+I actually forgot to mention in the
+
+331
+00:14:32,230 --> 00:14:38,890
+beginning I have just started doing
+
+332
+00:14:35,890 --> 00:14:41,430
+Haskell a couple of months ago so most
+
+333
+00:14:38,890 --> 00:14:43,779
+of this stuff is brand new to me and it
+
+334
+00:14:41,430 --> 00:14:45,370
+helps a lot to read about these
+
+335
+00:14:43,779 --> 00:14:49,330
+libraries that people want to implement
+
+336
+00:14:45,370 --> 00:14:51,570
+just to understand what people's
+
+337
+00:14:49,330 --> 00:14:54,520
+thoughts are in terms of has goals
+
+338
+00:14:51,570 --> 00:14:56,740
+strict type system and and where it
+
+339
+00:14:54,520 --> 00:14:59,560
+needs to be improved in thanks for that
+
+340
+00:14:56,740 --> 00:15:01,600
+very valuable input and thank you for
+
+341
+00:14:59,560 --> 00:15:03,850
+listening to the ask a weekly podcast if
+
+342
+00:15:01,600 --> 00:15:06,040
+you liked what you heard find out more
+
+343
+00:15:03,850 --> 00:15:08,650
+at our website haskell weekly dot news
+
+344
+00:15:06,040 --> 00:15:11,290
+also please rate and review us on itunes
+
+345
+00:15:08,650 --> 00:15:11,829
+it helps a lot thanks again for
+
+346
+00:15:11,290 --> 00:15:14,620
+listening
+
+347
+00:15:11,829 --> 00:15:16,680
+we'll see you again next week
+
+348
+00:15:14,620 --> 00:15:16,680
+you

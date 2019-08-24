@@ -1,0 +1,1347 @@
+1
+00:00:02,000 --> 00:00:05,940
+hello and welcome to the Haskell weekly
+
+2
+00:00:04,319 --> 00:00:07,649
+podcast as you might have guessed this
+
+3
+00:00:05,940 --> 00:00:09,179
+show is about Haskell which is a purely
+
+4
+00:00:07,649 --> 00:00:11,130
+functional programming language
+
+5
+00:00:09,179 --> 00:00:13,559
+I'm your host Sarah Lichtenstein I'm an
+
+6
+00:00:11,130 --> 00:00:15,900
+engineer here at IT / TV with me today
+
+7
+00:00:13,559 --> 00:00:17,820
+is Andre Schmoyer the engineers thanks
+
+8
+00:00:15,900 --> 00:00:19,890
+for joining me today Andres thank you
+
+9
+00:00:17,820 --> 00:00:21,900
+for having me Sarah I'm excited to be
+
+10
+00:00:19,890 --> 00:00:24,539
+here I think today we're going to be
+
+11
+00:00:21,900 --> 00:00:27,710
+talking about the hassle face book which
+
+12
+00:00:24,539 --> 00:00:30,060
+is one of the Haskell weekly topics and
+
+13
+00:00:27,710 --> 00:00:31,520
+since I'm just starting out here I
+
+14
+00:00:30,060 --> 00:00:34,739
+thought it would be a pretty good
+
+15
+00:00:31,520 --> 00:00:37,920
+experience to talk about next to you I'm
+
+16
+00:00:34,739 --> 00:00:41,040
+the next newest so we have the two most
+
+17
+00:00:37,920 --> 00:00:43,620
+most junior Haskell learners here yep
+
+18
+00:00:41,040 --> 00:00:47,579
+I'm actually very excited to continue my
+
+19
+00:00:43,620 --> 00:00:50,160
+learning experience as well as maybe
+
+20
+00:00:47,579 --> 00:00:52,110
+even potentially get to a point where I
+
+21
+00:00:50,160 --> 00:00:53,940
+can start teaching things about Haskell
+
+22
+00:00:52,110 --> 00:00:56,160
+since it's very interesting topic for me
+
+23
+00:00:53,940 --> 00:00:57,960
+absolutely and I'm really excited to
+
+24
+00:00:56,160 --> 00:00:59,489
+hear more in depth about your learning
+
+25
+00:00:57,960 --> 00:01:01,230
+experience so why don't you tell me a
+
+26
+00:00:59,489 --> 00:01:03,960
+little bit about what you did to first
+
+27
+00:01:01,230 --> 00:01:07,560
+learn the language the first thing that
+
+28
+00:01:03,960 --> 00:01:09,450
+I started doing was reading a book that
+
+29
+00:01:07,560 --> 00:01:11,790
+would probably everyone has heard of
+
+30
+00:01:09,450 --> 00:01:15,080
+which is learning you learn you Haskell
+
+31
+00:01:11,790 --> 00:01:18,659
+for a greater good it's something that
+
+32
+00:01:15,080 --> 00:01:20,220
+kind of put me a little bit uneasy about
+
+33
+00:01:18,659 --> 00:01:22,920
+the whole learning experience with
+
+34
+00:01:20,220 --> 00:01:25,320
+Haskell because while it's a great
+
+35
+00:01:22,920 --> 00:01:28,229
+learning resource and you know it's free
+
+36
+00:01:25,320 --> 00:01:30,090
+available online and all the great
+
+37
+00:01:28,229 --> 00:01:33,600
+things that come with all that there is
+
+38
+00:01:30,090 --> 00:01:35,549
+one downside to it and it was a little
+
+39
+00:01:33,600 --> 00:01:37,380
+daunting at first and you know that's
+
+40
+00:01:35,549 --> 00:01:40,590
+the same thing with every language out
+
+41
+00:01:37,380 --> 00:01:43,140
+there but one thing that first came to
+
+42
+00:01:40,590 --> 00:01:45,570
+mind was there's a lot of syntax here
+
+43
+00:01:43,140 --> 00:01:47,460
+that I am gonna have to learn which is
+
+44
+00:01:45,570 --> 00:01:49,140
+going to be extremely difficult yeah
+
+45
+00:01:47,460 --> 00:01:51,119
+absolutely I think I had that same
+
+46
+00:01:49,140 --> 00:01:53,520
+experience when I first came into shadow
+
+47
+00:01:51,119 --> 00:01:55,649
+before I started working here when they
+
+48
+00:01:53,520 --> 00:01:57,479
+had Haskell up on the screens and I she
+
+49
+00:01:55,649 --> 00:01:59,850
+was just so unlike anything I'd seen
+
+50
+00:01:57,479 --> 00:02:02,340
+before so it can be really scary at
+
+51
+00:01:59,850 --> 00:02:05,340
+first yeah yeah definitely
+
+52
+00:02:02,340 --> 00:02:08,190
+one thing that was brought up to us this
+
+53
+00:02:05,340 --> 00:02:11,220
+week was into you know Haskell weekly
+
+54
+00:02:08,190 --> 00:02:13,110
+was the Haskell Facebook and it caught
+
+55
+00:02:11,220 --> 00:02:15,510
+my attention because
+
+56
+00:02:13,110 --> 00:02:17,430
+a similar resource to learn you know
+
+57
+00:02:15,510 --> 00:02:21,000
+Haskell for great good but it's a lot
+
+58
+00:02:17,430 --> 00:02:22,500
+more quick and succinct and I do say
+
+59
+00:02:21,000 --> 00:02:24,390
+similar in that they're both beginner
+
+60
+00:02:22,500 --> 00:02:26,240
+pieces not that you know they match
+
+61
+00:02:24,390 --> 00:02:28,410
+one-to-one and what they actually teach
+
+62
+00:02:26,240 --> 00:02:30,180
+right absolutely
+
+63
+00:02:28,410 --> 00:02:32,370
+is there any takeaways from the frieze
+
+64
+00:02:30,180 --> 00:02:35,280
+book that you particularly liked or that
+
+65
+00:02:32,370 --> 00:02:37,320
+you didn't like one thing I really
+
+66
+00:02:35,280 --> 00:02:41,550
+really liked about reading through that
+
+67
+00:02:37,320 --> 00:02:44,220
+was how quick and simple each example
+
+68
+00:02:41,550 --> 00:02:46,590
+was and you know it starts you off slow
+
+69
+00:02:44,220 --> 00:02:52,350
+with the hello world just like every
+
+70
+00:02:46,590 --> 00:02:54,690
+other resource out there and yeah I very
+
+71
+00:02:52,350 --> 00:02:56,520
+much liked that it was quick succinct
+
+72
+00:02:54,690 --> 00:02:58,260
+and from the last three months that I've
+
+73
+00:02:56,520 --> 00:03:00,330
+been doing this high school learning
+
+74
+00:02:58,260 --> 00:03:03,000
+experience most of the topics that were
+
+75
+00:03:00,330 --> 00:03:05,670
+touched upon there I have been needing
+
+76
+00:03:03,000 --> 00:03:07,410
+to use absolutely I really like that
+
+77
+00:03:05,670 --> 00:03:09,030
+they introduced UHC ID almost
+
+78
+00:03:07,410 --> 00:03:10,739
+immediately because I don't think we
+
+79
+00:03:09,030 --> 00:03:12,959
+started using that until a little bit
+
+80
+00:03:10,739 --> 00:03:15,410
+after Taylor got here and it's such a
+
+81
+00:03:12,959 --> 00:03:18,930
+useful tool I mean we use it every day
+
+82
+00:03:15,410 --> 00:03:20,220
+yeah definitely so when talking about
+
+83
+00:03:18,930 --> 00:03:22,320
+the phrase book we can't help but
+
+84
+00:03:20,220 --> 00:03:24,660
+highlight a couple really important
+
+85
+00:03:22,320 --> 00:03:26,010
+sections so one of the ones that I
+
+86
+00:03:24,660 --> 00:03:28,560
+wanted to talk about was continual
+
+87
+00:03:26,010 --> 00:03:30,390
+checking because they use GHC ID almost
+
+88
+00:03:28,560 --> 00:03:32,370
+immediately it's the second section in
+
+89
+00:03:30,390 --> 00:03:34,049
+the phrase book and it's such a useful
+
+90
+00:03:32,370 --> 00:03:37,200
+tool and I don't think we started using
+
+91
+00:03:34,049 --> 00:03:38,850
+it until Taylor our lead engineer got
+
+92
+00:03:37,200 --> 00:03:40,560
+hired here and it's great to see it
+
+93
+00:03:38,850 --> 00:03:41,250
+represented so early because we use this
+
+94
+00:03:40,560 --> 00:03:45,780
+every day
+
+95
+00:03:41,250 --> 00:03:47,940
+yeah definitely ght ID was kind of weird
+
+96
+00:03:45,780 --> 00:03:50,160
+to me at first when I when I got started
+
+97
+00:03:47,940 --> 00:03:52,080
+because that we already had a
+
+98
+00:03:50,160 --> 00:03:55,380
+compilation tool that was already doing
+
+99
+00:03:52,080 --> 00:03:57,750
+everything for us and then my co-workers
+
+100
+00:03:55,380 --> 00:03:59,580
+started saying hey you know we also used
+
+101
+00:03:57,750 --> 00:04:01,890
+GHC ID if we want a much faster
+
+102
+00:03:59,580 --> 00:04:05,730
+experience with the compilation and all
+
+103
+00:04:01,890 --> 00:04:08,310
+these things and I was surprised at
+
+104
+00:04:05,730 --> 00:04:12,060
+first that the compilation side and the
+
+105
+00:04:08,310 --> 00:04:16,109
+gh tid side was so decoupled from each
+
+106
+00:04:12,060 --> 00:04:18,030
+other it was really nice to see all of
+
+107
+00:04:16,109 --> 00:04:19,620
+these errors instantly happen not having
+
+108
+00:04:18,030 --> 00:04:22,919
+to wait for the compiler to pick up the
+
+109
+00:04:19,620 --> 00:04:25,140
+changes and be a little slow about it so
+
+110
+00:04:22,919 --> 00:04:26,940
+I very much liked that GHC ID was
+
+111
+00:04:25,140 --> 00:04:29,070
+instantly brought it
+
+112
+00:04:26,940 --> 00:04:32,210
+yeah the instant feedback loop that it
+
+113
+00:04:29,070 --> 00:04:35,370
+provides is so invaluable it's amazing
+
+114
+00:04:32,210 --> 00:04:37,200
+definitely are there any sections that
+
+115
+00:04:35,370 --> 00:04:39,410
+you particularly thought were
+
+116
+00:04:37,200 --> 00:04:42,030
+interesting or would be useful to
+
+117
+00:04:39,410 --> 00:04:43,470
+somebody trying to switch for to high
+
+118
+00:04:42,030 --> 00:04:46,950
+school from let's say an imperative
+
+119
+00:04:43,470 --> 00:04:49,590
+language the one thing that came to mind
+
+120
+00:04:46,950 --> 00:04:51,960
+when I first read through this phrase
+
+121
+00:04:49,590 --> 00:04:54,720
+book was the fact that at the end of it
+
+122
+00:04:51,960 --> 00:04:57,600
+they brought up mutable variables and
+
+123
+00:04:54,720 --> 00:05:02,390
+threading that's not something that you
+
+124
+00:04:57,600 --> 00:05:06,480
+see often in beginner guidebooks and
+
+125
+00:05:02,390 --> 00:05:09,720
+under like the learning Haskell for
+
+126
+00:05:06,480 --> 00:05:12,750
+great good did not touch upon meaningful
+
+127
+00:05:09,720 --> 00:05:15,180
+variables did not do threading maybe
+
+128
+00:05:12,750 --> 00:05:17,310
+mentioned it I can't really remember out
+
+129
+00:05:15,180 --> 00:05:20,220
+the top of my head but definitely wasn't
+
+130
+00:05:17,310 --> 00:05:22,830
+anything that stuck out with me yeah
+
+131
+00:05:20,220 --> 00:05:24,840
+those are definitely more complex
+
+132
+00:05:22,830 --> 00:05:27,180
+subjects so for it to be in a beginners
+
+133
+00:05:24,840 --> 00:05:30,810
+book is really interesting yeah and I
+
+134
+00:05:27,180 --> 00:05:33,660
+think this is more a beginner Haskell
+
+135
+00:05:30,810 --> 00:05:36,480
+that rather than a beginner programming
+
+136
+00:05:33,660 --> 00:05:40,140
+phrase book now it could be seen either
+
+137
+00:05:36,480 --> 00:05:42,090
+way regardless because you can just pick
+
+138
+00:05:40,140 --> 00:05:44,640
+this up and start coding in hands go and
+
+139
+00:05:42,090 --> 00:05:47,760
+be perfectly fine but one thing that I
+
+140
+00:05:44,640 --> 00:05:49,710
+have from my background of coming from
+
+141
+00:05:47,760 --> 00:05:52,680
+an imperative language my background
+
+142
+00:05:49,710 --> 00:05:55,530
+comes from Java Android on the front end
+
+143
+00:05:52,680 --> 00:05:58,410
+and then had done some pretty extensive
+
+144
+00:05:55,530 --> 00:06:00,690
+node frame working and all of that in
+
+145
+00:05:58,410 --> 00:06:02,460
+the backend so I come mostly from
+
+146
+00:06:00,690 --> 00:06:04,770
+imperative and I've been doing it for
+
+147
+00:06:02,460 --> 00:06:09,210
+quite a while now so seeing all this
+
+148
+00:06:04,770 --> 00:06:10,620
+here is a good thing to see because if I
+
+149
+00:06:09,210 --> 00:06:12,270
+would have started off with this I would
+
+150
+00:06:10,620 --> 00:06:14,010
+have been like okay well I'm thinking
+
+151
+00:06:12,270 --> 00:06:15,810
+and imperative and I'm gonna switch over
+
+152
+00:06:14,010 --> 00:06:17,430
+to Haskell but I'm gonna leave the
+
+153
+00:06:15,810 --> 00:06:19,050
+functional things a little bit behind
+
+154
+00:06:17,430 --> 00:06:21,210
+and to like start getting used to the
+
+155
+00:06:19,050 --> 00:06:23,100
+syntax and although the other weird
+
+156
+00:06:21,210 --> 00:06:24,870
+things that come with it right I
+
+157
+00:06:23,100 --> 00:06:26,010
+definitely could understand that what
+
+158
+00:06:24,870 --> 00:06:27,990
+was the hardest part for you from
+
+159
+00:06:26,010 --> 00:06:30,330
+switching from an imperative language to
+
+160
+00:06:27,990 --> 00:06:32,820
+something so functional like Haskell the
+
+161
+00:06:30,330 --> 00:06:35,600
+hardest part was the syntax weirdly
+
+162
+00:06:32,820 --> 00:06:37,890
+enough I took a very long time to
+
+163
+00:06:35,600 --> 00:06:40,610
+realize some of the different things
+
+164
+00:06:37,890 --> 00:06:43,790
+that Haskell does to the syntax like
+
+165
+00:06:40,610 --> 00:06:46,460
+not needing to say which monitor you're
+
+166
+00:06:43,790 --> 00:06:48,620
+in explicitly so you could just regular
+
+167
+00:06:46,460 --> 00:06:51,170
+just use it as if it was already there a
+
+168
+00:06:48,620 --> 00:06:54,920
+lot of the the small syntax things
+
+169
+00:06:51,170 --> 00:06:58,100
+really took me out of my comfort zone
+
+170
+00:06:54,920 --> 00:07:00,860
+and so once I get through that learning
+
+171
+00:06:58,100 --> 00:07:03,110
+all of the different things Haskell does
+
+172
+00:07:00,860 --> 00:07:05,720
+and functional and all that wasn't as
+
+173
+00:07:03,110 --> 00:07:07,160
+difficult especially because JavaScript
+
+174
+00:07:05,720 --> 00:07:08,930
+and all of those languages could
+
+175
+00:07:07,160 --> 00:07:11,420
+technically be used in a functional
+
+176
+00:07:08,930 --> 00:07:12,860
+manner they're usually not because they
+
+177
+00:07:11,420 --> 00:07:15,320
+have a bunch of state saving and all
+
+178
+00:07:12,860 --> 00:07:20,210
+that that you can do but I very much
+
+179
+00:07:15,320 --> 00:07:22,670
+enjoyed once I get through the syntax I
+
+180
+00:07:20,210 --> 00:07:25,490
+enjoyed being able to just apply all the
+
+181
+00:07:22,670 --> 00:07:27,380
+knowledge I had into this great
+
+182
+00:07:25,490 --> 00:07:29,720
+functional language that doesn't usually
+
+183
+00:07:27,380 --> 00:07:31,430
+allow state saving absolutely that
+
+184
+00:07:29,720 --> 00:07:32,630
+definitely makes sense are there any
+
+185
+00:07:31,430 --> 00:07:34,250
+other parts of the phrase book that
+
+186
+00:07:32,630 --> 00:07:35,540
+you'd like to highlight or talk about
+
+187
+00:07:34,250 --> 00:07:38,180
+here well I
+
+188
+00:07:35,540 --> 00:07:39,530
+you mentioned saying coming from an
+
+189
+00:07:38,180 --> 00:07:43,040
+imperative language what other things
+
+190
+00:07:39,530 --> 00:07:45,080
+stood up to me the if then and for loops
+
+191
+00:07:43,040 --> 00:07:48,170
+from an imperative language they're used
+
+192
+00:07:45,080 --> 00:07:50,060
+pretty extensively a assume you agree as
+
+193
+00:07:48,170 --> 00:07:52,130
+well yes for the experience I had in
+
+194
+00:07:50,060 --> 00:07:53,600
+imperative languages we definitely did a
+
+195
+00:07:52,130 --> 00:07:55,760
+lot of those loops
+
+196
+00:07:53,600 --> 00:07:57,650
+yeah and one thing that I've learned
+
+197
+00:07:55,760 --> 00:08:03,290
+over the past three months working on a
+
+198
+00:07:57,650 --> 00:08:05,450
+Haskell server-side coding is that if
+
+199
+00:08:03,290 --> 00:08:08,840
+statements and for loops have been used
+
+200
+00:08:05,450 --> 00:08:11,120
+very sparingly I think for loops I have
+
+201
+00:08:08,840 --> 00:08:14,210
+not seen one yet which is a crazy thing
+
+202
+00:08:11,120 --> 00:08:17,270
+to think about and if statements we use
+
+203
+00:08:14,210 --> 00:08:19,940
+very rarely because most of our coding
+
+204
+00:08:17,270 --> 00:08:22,880
+is parsing different types and making
+
+205
+00:08:19,940 --> 00:08:25,640
+sure everything is type safe and our
+
+206
+00:08:22,880 --> 00:08:28,250
+responses and if statements don't really
+
+207
+00:08:25,640 --> 00:08:32,090
+come into any of that so it's
+
+208
+00:08:28,250 --> 00:08:33,680
+interesting to see that once coming back
+
+209
+00:08:32,090 --> 00:08:35,810
+after three months and reading through
+
+210
+00:08:33,680 --> 00:08:37,700
+this face book that if statements are a
+
+211
+00:08:35,810 --> 00:08:41,900
+thing in the programming world I mean
+
+212
+00:08:37,700 --> 00:08:43,700
+obviously but it is nice to be able to
+
+213
+00:08:41,900 --> 00:08:46,610
+come from an imperative language and
+
+214
+00:08:43,700 --> 00:08:49,310
+have the same syntax that were used to
+
+215
+00:08:46,610 --> 00:08:50,920
+but then once you start actually working
+
+216
+00:08:49,310 --> 00:08:54,910
+purely in a has
+
+217
+00:08:50,920 --> 00:08:56,620
+Manor you stop using the things that
+
+218
+00:08:54,910 --> 00:08:59,079
+you're used to from imperative languages
+
+219
+00:08:56,620 --> 00:09:01,000
+yeah definitely hilariously enough up
+
+220
+00:08:59,079 --> 00:09:04,389
+until I read this Facebook I didn't even
+
+221
+00:09:01,000 --> 00:09:07,240
+know that Haskell had four loops yeah
+
+222
+00:09:04,389 --> 00:09:09,220
+that's actually a pretty good point I
+
+223
+00:09:07,240 --> 00:09:12,790
+mean you've been doing this for a year
+
+224
+00:09:09,220 --> 00:09:15,279
+and a half how was your first three
+
+225
+00:09:12,790 --> 00:09:17,829
+months of your learning experience my
+
+226
+00:09:15,279 --> 00:09:20,079
+beginning learning experience I like to
+
+227
+00:09:17,829 --> 00:09:22,690
+call my brain melt because every day I
+
+228
+00:09:20,079 --> 00:09:24,310
+would come to work and I would pair with
+
+229
+00:09:22,690 --> 00:09:26,170
+the other engineers and I would feel
+
+230
+00:09:24,310 --> 00:09:29,050
+like my brain was melting out of my ears
+
+231
+00:09:26,170 --> 00:09:31,000
+because it was just so much new
+
+232
+00:09:29,050 --> 00:09:32,949
+information and it was just so vastly
+
+233
+00:09:31,000 --> 00:09:33,730
+different from anything else that I had
+
+234
+00:09:32,949 --> 00:09:36,190
+ever learned
+
+235
+00:09:33,730 --> 00:09:38,500
+but as affectionately as I called it the
+
+236
+00:09:36,190 --> 00:09:40,959
+brain melt I like to say that are also
+
+237
+00:09:38,500 --> 00:09:43,959
+reformed into a bigger better brain so
+
+238
+00:09:40,959 --> 00:09:47,019
+yeah it was definitely a challenge for
+
+239
+00:09:43,959 --> 00:09:49,750
+me I agree completely there I I'm going
+
+240
+00:09:47,019 --> 00:09:52,019
+through that brain melt now and you know
+
+241
+00:09:49,750 --> 00:09:55,000
+going through the first few weeks was
+
+242
+00:09:52,019 --> 00:09:57,010
+difficult to say the least it it wasn't
+
+243
+00:09:55,000 --> 00:09:59,500
+more that I couldn't understand what was
+
+244
+00:09:57,010 --> 00:10:02,500
+happening it was more that trying to get
+
+245
+00:09:59,500 --> 00:10:06,010
+your thoughts into a functional manner
+
+246
+00:10:02,500 --> 00:10:08,260
+became a lot more difficult when at the
+
+247
+00:10:06,010 --> 00:10:10,870
+same time I had to learn the syntax for
+
+248
+00:10:08,260 --> 00:10:13,690
+Haskell so I could totally see that
+
+249
+00:10:10,870 --> 00:10:15,850
+brain melt being a thing for Haskell
+
+250
+00:10:13,690 --> 00:10:17,470
+learning because you're learning so many
+
+251
+00:10:15,850 --> 00:10:20,290
+things at once
+
+252
+00:10:17,470 --> 00:10:23,890
+not unlike learning programming for the
+
+253
+00:10:20,290 --> 00:10:25,899
+first time so maybe yeah maybe it was
+
+254
+00:10:23,890 --> 00:10:28,060
+like that when I first started I did
+
+255
+00:10:25,899 --> 00:10:30,519
+start at a slightly young age so I had a
+
+256
+00:10:28,060 --> 00:10:33,519
+lot more time available in my handset it
+
+257
+00:10:30,519 --> 00:10:38,920
+could be that a slower pace into Haskell
+
+258
+00:10:33,519 --> 00:10:42,220
+is much less demanding but you and me we
+
+259
+00:10:38,920 --> 00:10:44,199
+both sort of jumped in there and I had
+
+260
+00:10:42,220 --> 00:10:47,560
+to learn it as quick as possible and I
+
+261
+00:10:44,199 --> 00:10:50,319
+think it's a pretty cool skill to have
+
+262
+00:10:47,560 --> 00:10:53,470
+to be able to just jump in and brain
+
+263
+00:10:50,319 --> 00:10:57,190
+brain melt for a week or two and just
+
+264
+00:10:53,470 --> 00:10:59,440
+keep on learning so yeah hopefully one
+
+265
+00:10:57,190 --> 00:11:02,260
+day in that what year-and-a-half I'll
+
+266
+00:10:59,440 --> 00:11:04,760
+I'll look back and think the same thing
+
+267
+00:11:02,260 --> 00:11:06,949
+that you're saying absolutely
+
+268
+00:11:04,760 --> 00:11:09,250
+what really I think kind of helps me
+
+269
+00:11:06,949 --> 00:11:11,839
+solidify my knowledge is being able to
+
+270
+00:11:09,250 --> 00:11:14,209
+like work with our co-workers and some
+
+271
+00:11:11,839 --> 00:11:16,370
+of our new newer co-workers like I've
+
+272
+00:11:14,209 --> 00:11:18,500
+distinctly remember pairing with you on
+
+273
+00:11:16,370 --> 00:11:20,029
+one of your first days and explaining
+
+274
+00:11:18,500 --> 00:11:23,089
+some concept and being like wow I know
+
+275
+00:11:20,029 --> 00:11:24,620
+stuff now so I'm sure you're gonna have
+
+276
+00:11:23,089 --> 00:11:26,810
+a similar experience with our new intern
+
+277
+00:11:24,620 --> 00:11:28,120
+which will be fun for you yep yep
+
+278
+00:11:26,810 --> 00:11:32,029
+definitely I've already started seeing
+
+279
+00:11:28,120 --> 00:11:35,240
+that happen and I it's a good feeling to
+
+280
+00:11:32,029 --> 00:11:38,420
+be able to explain something after you
+
+281
+00:11:35,240 --> 00:11:40,430
+very recently just learned it totally
+
+282
+00:11:38,420 --> 00:11:42,050
+agree there okay well is there anything
+
+283
+00:11:40,430 --> 00:11:44,810
+else maybe about the freeze book or
+
+284
+00:11:42,050 --> 00:11:48,260
+about learning Haskell any tips or
+
+285
+00:11:44,810 --> 00:11:51,079
+tricks well one thing that I thought of
+
+286
+00:11:48,260 --> 00:11:53,750
+when I first started learning Haskell
+
+287
+00:11:51,079 --> 00:11:56,540
+was learning a Haskell for great good is
+
+288
+00:11:53,750 --> 00:11:59,570
+a great resource and when I first
+
+289
+00:11:56,540 --> 00:12:02,779
+started reading it I it was a daunting
+
+290
+00:11:59,570 --> 00:12:06,410
+thing it was too much at once and I
+
+291
+00:12:02,779 --> 00:12:07,850
+think it kind of gave me a false sense
+
+292
+00:12:06,410 --> 00:12:10,699
+of this is going to be extremely
+
+293
+00:12:07,850 --> 00:12:13,579
+difficult and possibly not possible so
+
+294
+00:12:10,699 --> 00:12:16,420
+well it's a great resource I think it
+
+295
+00:12:13,579 --> 00:12:18,920
+shouldn't be the first thing you read I
+
+296
+00:12:16,420 --> 00:12:21,019
+think the first thing you read could be
+
+297
+00:12:18,920 --> 00:12:23,510
+this phrase book I mean it's kind of
+
+298
+00:12:21,019 --> 00:12:25,490
+hard to say at the moment but just
+
+299
+00:12:23,510 --> 00:12:27,550
+thinking back after these three months I
+
+300
+00:12:25,490 --> 00:12:31,250
+think the phrase book is a lot more
+
+301
+00:12:27,550 --> 00:12:32,959
+easier thing to start with then learning
+
+302
+00:12:31,250 --> 00:12:34,970
+a great high school for a great good now
+
+303
+00:12:32,959 --> 00:12:36,589
+that's not to say that learning has go
+
+304
+00:12:34,970 --> 00:12:38,899
+for a great good is not something you
+
+305
+00:12:36,589 --> 00:12:40,910
+shouldn't read I think it's a great read
+
+306
+00:12:38,899 --> 00:12:42,139
+and I think it will solidify a lot of
+
+307
+00:12:40,910 --> 00:12:44,990
+the things that you've been slowly
+
+308
+00:12:42,139 --> 00:12:47,690
+learning while doing test programs and
+
+309
+00:12:44,990 --> 00:12:50,180
+things like that so I enjoyed reading
+
+310
+00:12:47,690 --> 00:12:52,699
+both and I will probably read them again
+
+311
+00:12:50,180 --> 00:12:55,430
+after a month or so after you know
+
+312
+00:12:52,699 --> 00:12:57,190
+getting a little more stable with my
+
+313
+00:12:55,430 --> 00:12:59,779
+high school writing and reading and
+
+314
+00:12:57,190 --> 00:13:01,100
+certain things like that absolutely I
+
+315
+00:12:59,779 --> 00:13:03,160
+definitely think that this phrase book
+
+316
+00:13:01,100 --> 00:13:06,019
+would be a good first introduction
+
+317
+00:13:03,160 --> 00:13:09,199
+before the learn you a Haskell book just
+
+318
+00:13:06,019 --> 00:13:11,029
+because it's so succinct and so clear
+
+319
+00:13:09,199 --> 00:13:13,399
+and it does make a lot of good bridges
+
+320
+00:13:11,029 --> 00:13:15,170
+from imperative to functional angry
+
+321
+00:13:13,399 --> 00:13:16,480
+thanks for being on the show with me
+
+322
+00:13:15,170 --> 00:13:17,740
+today Andres
+
+323
+00:13:16,480 --> 00:13:20,260
+thank you for having me I enjoyed
+
+324
+00:13:17,740 --> 00:13:23,199
+talking about my first experience as a
+
+325
+00:13:20,260 --> 00:13:24,490
+pastor absolutely me too and thank you
+
+326
+00:13:23,199 --> 00:13:26,649
+for listening to the Haskell weekly
+
+327
+00:13:24,490 --> 00:13:28,779
+podcast if you like what you heard find
+
+328
+00:13:26,649 --> 00:13:31,329
+out more at our website haskell weekly
+
+329
+00:13:28,779 --> 00:13:34,060
+news also please rate and review us on
+
+330
+00:13:31,329 --> 00:13:36,100
+iTunes it helps a lot half the weekly is
+
+331
+00:13:34,060 --> 00:13:37,720
+brought to you by IT Pro TV the tech
+
+332
+00:13:36,100 --> 00:13:40,660
+skills development platform for IT
+
+333
+00:13:37,720 --> 00:13:42,790
+professionals Nelson our employer yes
+
+334
+00:13:40,660 --> 00:13:47,440
+that too then anyone who needs their IT
+
+335
+00:13:42,790 --> 00:13:49,120
+needs to WWI T Pro TV for all of their
+
+336
+00:13:47,440 --> 00:13:52,260
+learning needs thanks again for
+
+337
+00:13:49,120 --> 00:13:52,260
+listening we'll see you next week
