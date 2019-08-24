@@ -29,6 +29,5 @@ episode10 =
     <*> HaskellWeekly.Type.Number.naturalToNumber 10
     <*> HaskellWeekly.Type.Size.naturalToSize 23942886
     <*> HaskellWeekly.Type.Summary.stringToSummary
-          "Cameron Gera and Taylor Fausak talk about how Haskell encourages \
-    \you to use the ports and adapters architecture."
+          "Cameron Gera and Taylor Fausak talk about how Haskell encourages you to use the ports and adapters architecture."
     <*> HaskellWeekly.Type.Title.stringToTitle "Functional Architecture"

@@ -28,6 +28,5 @@ episode6 =
     <*> HaskellWeekly.Type.Number.naturalToNumber 6
     <*> HaskellWeekly.Type.Size.naturalToSize 26845627
     <*> HaskellWeekly.Type.Summary.stringToSummary
-          "Jason Fry and Taylor Fausak talk about getting fast feedback when \
-    \developing Haskell by using ghcid."
+          "Jason Fry and Taylor Fausak talk about getting fast feedback when developing Haskell by using ghcid."
     <*> HaskellWeekly.Type.Title.stringToTitle "Fast Feedback"

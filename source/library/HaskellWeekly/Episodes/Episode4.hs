@@ -29,6 +29,5 @@ episode4 =
     <*> HaskellWeekly.Type.Number.naturalToNumber 4
     <*> HaskellWeekly.Type.Size.naturalToSize 23002958
     <*> HaskellWeekly.Type.Summary.stringToSummary
-          "Dustin Segers and Taylor Fausak talk about avoiding boolean \
-    \blindness by using custom types."
+          "Dustin Segers and Taylor Fausak talk about avoiding boolean blindness by using custom types."
     <*> HaskellWeekly.Type.Title.stringToTitle "Boolean Blindness"

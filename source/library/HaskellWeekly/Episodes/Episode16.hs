@@ -46,6 +46,5 @@ episode16 =
     <*> HaskellWeekly.Type.Number.naturalToNumber 16
     <*> HaskellWeekly.Type.Size.naturalToSize 18561769
     <*> HaskellWeekly.Type.Summary.stringToSummary
-          "Dustin Segers and Cody Goodman talk about developing video games \
-    \using Haskell."
+          "Dustin Segers and Cody Goodman talk about developing video games using Haskell."
     <*> HaskellWeekly.Type.Title.stringToTitle "Game Development"

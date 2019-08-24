@@ -29,6 +29,5 @@ episode7 =
     <*> HaskellWeekly.Type.Number.naturalToNumber 7
     <*> HaskellWeekly.Type.Size.naturalToSize 25296111
     <*> HaskellWeekly.Type.Summary.stringToSummary
-          "Cameron Gera and Taylor Fausak talk about how regular expressions \
-    \compare to parser combinators in Haskell."
+          "Cameron Gera and Taylor Fausak talk about how regular expressions compare to parser combinators in Haskell."
     <*> HaskellWeekly.Type.Title.stringToTitle "Parser Combinators"

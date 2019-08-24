@@ -29,6 +29,5 @@ episode13 =
     <*> HaskellWeekly.Type.Number.naturalToNumber 13
     <*> HaskellWeekly.Type.Size.naturalToSize 26111814
     <*> HaskellWeekly.Type.Summary.stringToSummary
-          "Cameron Gera and Taylor Fausak talk about why the Semantic team \
-    \at GitHub decided to use Haskell."
+          "Cameron Gera and Taylor Fausak talk about why the Semantic team at GitHub decided to use Haskell."
     <*> HaskellWeekly.Type.Title.stringToTitle "Why Haskell?"

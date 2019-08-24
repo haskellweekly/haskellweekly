@@ -28,6 +28,5 @@ episode2 =
     <*> HaskellWeekly.Type.Number.naturalToNumber 2
     <*> HaskellWeekly.Type.Size.naturalToSize 21580339
     <*> HaskellWeekly.Type.Summary.stringToSummary
-          "Sara Lichtenstein and Taylor Fausak talk about the good and bad \
-          \of upgrading from Elm 0.18 to 0.19."
+          "Sara Lichtenstein and Taylor Fausak talk about the good and bad of upgrading from Elm 0.18 to 0.19."
     <*> HaskellWeekly.Type.Title.stringToTitle "Upgrading Elm"

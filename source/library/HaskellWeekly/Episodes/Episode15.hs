@@ -28,6 +28,5 @@ episode15 =
     <*> HaskellWeekly.Type.Number.naturalToNumber 15
     <*> HaskellWeekly.Type.Size.naturalToSize 26208359
     <*> HaskellWeekly.Type.Summary.stringToSummary
-          "Cameron Gera and Taylor Fausak talk about how function calls are \
-    \evaluated in Haskell with regards to non-strictness."
+          "Cameron Gera and Taylor Fausak talk about how function calls are evaluated in Haskell with regards to non-strictness."
     <*> HaskellWeekly.Type.Title.stringToTitle "Lazy Sharing"

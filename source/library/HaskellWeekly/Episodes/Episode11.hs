@@ -28,6 +28,5 @@ episode11 =
     <*> HaskellWeekly.Type.Number.naturalToNumber 11
     <*> HaskellWeekly.Type.Size.naturalToSize 27690623
     <*> HaskellWeekly.Type.Summary.stringToSummary
-          "Sara Lichtenstein and Taylor Fausak talk about improving the \
-    \performance of Haskell programs by profiling them."
+          "Sara Lichtenstein and Taylor Fausak talk about improving the performance of Haskell programs by profiling them."
     <*> HaskellWeekly.Type.Title.stringToTitle "Profiling Performance"

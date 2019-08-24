@@ -28,6 +28,5 @@ episode17 =
     <*> HaskellWeekly.Type.Number.naturalToNumber 17
     <*> HaskellWeekly.Type.Size.naturalToSize 20120892
     <*> HaskellWeekly.Type.Summary.stringToSummary
-          "Sara Lichtenstein and Andres Schmois discuss quickly learning \
-    \Haskell by studying annotated examples."
+          "Sara Lichtenstein and Andres Schmois discuss quickly learning Haskell by studying annotated examples."
     <*> HaskellWeekly.Type.Title.stringToTitle "Haskell Phrasebook"

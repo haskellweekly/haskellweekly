@@ -28,6 +28,5 @@ episode3 =
     <*> HaskellWeekly.Type.Number.naturalToNumber 3
     <*> HaskellWeekly.Type.Size.naturalToSize 34265398
     <*> HaskellWeekly.Type.Summary.stringToSummary
-          "Jason Fry and Taylor Fausak compare frontend and backend \
-    \languages, including PureScript and Elm."
+          "Jason Fry and Taylor Fausak compare frontend and backend languages, including PureScript and Elm."
     <*> HaskellWeekly.Type.Title.stringToTitle "Frontend Languages"

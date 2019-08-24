@@ -28,6 +28,5 @@ episode18 =
     <*> HaskellWeekly.Type.Number.naturalToNumber 18
     <*> HaskellWeekly.Type.Size.naturalToSize 24062492
     <*> HaskellWeekly.Type.Summary.stringToSummary
-          "Cody Goodman and Taylor Fausak walk through inventing monads from \
-    \scratch in JavaScript."
+          "Cody Goodman and Taylor Fausak walk through inventing monads from scratch in JavaScript."
     <*> HaskellWeekly.Type.Title.stringToTitle "Inventing Monads"

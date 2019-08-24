@@ -29,6 +29,5 @@ episode8 =
     <*> HaskellWeekly.Type.Number.naturalToNumber 8
     <*> HaskellWeekly.Type.Size.naturalToSize 20714874
     <*> HaskellWeekly.Type.Summary.stringToSummary
-          "Cameron Gera and Cody Goodman talk about enforcing best practices \
-    \with HLint and refactoring."
+          "Cameron Gera and Cody Goodman talk about enforcing best practices with HLint and refactoring."
     <*> HaskellWeekly.Type.Title.stringToTitle "Best Practices"

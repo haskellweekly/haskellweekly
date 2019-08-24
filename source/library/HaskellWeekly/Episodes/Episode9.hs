@@ -29,6 +29,5 @@ episode9 =
     <*> HaskellWeekly.Type.Number.naturalToNumber 9
     <*> HaskellWeekly.Type.Size.naturalToSize 31507647
     <*> HaskellWeekly.Type.Summary.stringToSummary
-          "Jason Fry and Cameron Gera talk about four small ways to improve \
-    \Haskell as a language."
+          "Jason Fry and Cameron Gera talk about four small ways to improve Haskell as a language."
     <*> HaskellWeekly.Type.Title.stringToTitle "Improving Haskell"

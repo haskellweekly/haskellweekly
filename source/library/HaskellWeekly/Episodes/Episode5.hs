@@ -28,6 +28,5 @@ episode5 =
     <*> HaskellWeekly.Type.Number.naturalToNumber 5
     <*> HaskellWeekly.Type.Size.naturalToSize 21977225
     <*> HaskellWeekly.Type.Summary.stringToSummary
-          "Cameron Gera and Taylor Fausak talk about build tools in Haskell, \
-    \including Stack and Cabal."
+          "Cameron Gera and Taylor Fausak talk about build tools in Haskell, including Stack and Cabal."
     <*> HaskellWeekly.Type.Title.stringToTitle "Build Tools"

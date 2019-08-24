@@ -28,6 +28,5 @@ episode12 =
     <*> HaskellWeekly.Type.Number.naturalToNumber 12
     <*> HaskellWeekly.Type.Size.naturalToSize 23912963
     <*> HaskellWeekly.Type.Summary.stringToSummary
-          "Dustin Segers and Cody Goodman talk about formatting Haskell \
-    \source code with automated tools like Ormolu."
+          "Dustin Segers and Cody Goodman talk about formatting Haskell source code with automated tools like Ormolu."
     <*> HaskellWeekly.Type.Title.stringToTitle "Formatting Code"

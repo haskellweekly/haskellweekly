@@ -29,6 +29,5 @@ episode14 =
     <*> HaskellWeekly.Type.Number.naturalToNumber 14
     <*> HaskellWeekly.Type.Size.naturalToSize 22040576
     <*> HaskellWeekly.Type.Summary.stringToSummary
-          "Andres Schmois and Cody Goodman talk about using the Refined \
-    \library to turn runtime checks into types."
+          "Andres Schmois and Cody Goodman talk about using the Refined library to turn runtime checks into types."
     <*> HaskellWeekly.Type.Title.stringToTitle "Refinement Types"

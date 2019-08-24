@@ -28,6 +28,5 @@ episode1 =
     <*> HaskellWeekly.Type.Number.naturalToNumber 1
     <*> HaskellWeekly.Type.Size.naturalToSize 13999481
     <*> HaskellWeekly.Type.Summary.stringToSummary
-          "Cody Goodman and Taylor Fausak talk about handling errors in \
-          \Haskell by using exceptions."
+          "Cody Goodman and Taylor Fausak talk about handling errors in Haskell by using exceptions."
     <*> HaskellWeekly.Type.Title.stringToTitle "Handling Exceptions"
