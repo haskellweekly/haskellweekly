@@ -20,6 +20,7 @@ import qualified HaskellWeekly.Episodes.Episode15
 import qualified HaskellWeekly.Episodes.Episode16
 import qualified HaskellWeekly.Episodes.Episode17
 import qualified HaskellWeekly.Episodes.Episode18
+import qualified HaskellWeekly.Episodes.Episode19
 import qualified HaskellWeekly.Episodes.Episode2
 import qualified HaskellWeekly.Episodes.Episode3
 import qualified HaskellWeekly.Episodes.Episode4
@@ -64,6 +65,7 @@ episodes = do
     , HaskellWeekly.Episodes.Episode16.episode16
     , HaskellWeekly.Episodes.Episode17.episode17
     , HaskellWeekly.Episodes.Episode18.episode18
+    , HaskellWeekly.Episodes.Episode19.episode19
     ]
   checkGuids validEpisodes Data.Set.empty
   checkNumbers validEpisodes 1
