@@ -49,7 +49,7 @@ readCaptionFile state number = do
   let
     name = "episode-" <> HaskellWeekly.Type.Number.numberToString number
     file = System.FilePath.addExtension name "srt"
-    path = System.FilePath.combine "caption" file
+    path = System.FilePath.combine "podcast" file
   result <- HaskellWeekly.Type.State.readDataFile state path
   case result of
     Nothing -> pure Nothing
