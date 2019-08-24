@@ -5,6 +5,7 @@ module HaskellWeekly.Template.NewsletterFeed
   )
 where
 
+import qualified CMark
 import qualified Data.List
 import qualified Data.Maybe
 import qualified Data.Ord
@@ -18,13 +19,15 @@ import qualified Text.Feed.Constructor
 import qualified Text.Feed.Types
 
 newsletterFeedTemplate
-  :: String -> [HaskellWeekly.Type.Issue.Issue] -> Text.Feed.Types.Feed
+  :: String
+  -> [(HaskellWeekly.Type.Issue.Issue, CMark.Node)]
+  -> Text.Feed.Types.Feed
 newsletterFeedTemplate baseUrl issues =
   let
     atom = Text.Atom.Feed.nullFeed
       (atomId baseUrl)
       (Text.Atom.Feed.TextString "Haskell Weekly")
-      (atomUpdated issues)
+      (atomUpdated $ fmap fst issues)
     entries = fmap (issueToEntry baseUrl) issues
   in Text.Feed.Constructor.feedFromAtom atom
     { Text.Atom.Feed.feedEntries = entries
@@ -44,11 +47,22 @@ atomUpdated =
     . fmap HaskellWeekly.Type.Issue.issueDate
 
 issueToEntry
-  :: String -> HaskellWeekly.Type.Issue.Issue -> Text.Atom.Feed.Entry
-issueToEntry baseUrl issue = Text.Atom.Feed.nullEntry
-  (entryId baseUrl issue)
-  (entryTitle issue)
-  (entryUpdated issue)
+  :: String
+  -> (HaskellWeekly.Type.Issue.Issue, CMark.Node)
+  -> Text.Atom.Feed.Entry
+issueToEntry baseUrl (issue, node) =
+  let
+    entry = Text.Atom.Feed.nullEntry
+      (entryId baseUrl issue)
+      (entryTitle issue)
+      (entryUpdated issue)
+  in entry { Text.Atom.Feed.entryContent = Just $ nodeToEntryContent node }
+
+-- TODO: This needs to convert the CMark.Node into a Data.XML.Types.Element,
+-- but that's tedious. It might be worth using CMark.nodeToXml and then parsing
+-- that, as gross as that sounds.
+nodeToEntryContent :: CMark.Node -> Text.Atom.Feed.EntryContent
+nodeToEntryContent = Text.Atom.Feed.TextContent . CMark.nodeToHtml []
 
 entryId :: String -> HaskellWeekly.Type.Issue.Issue -> Text.Atom.Feed.URI
 entryId baseUrl =

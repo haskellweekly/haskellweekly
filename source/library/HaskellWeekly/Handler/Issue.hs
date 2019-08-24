@@ -25,22 +25,20 @@ issueHandler state number =
   case Data.Map.lookup number $ HaskellWeekly.Type.State.stateIssues state of
     Nothing -> pure HaskellWeekly.Handler.Base.notFoundResponse
     Just issue -> do
-      result <- readIssueFile state number
-      pure $ case result of
-        Nothing -> HaskellWeekly.Handler.Base.notFoundResponse
-        Just node ->
-          HaskellWeekly.Handler.Base.htmlResponse Network.HTTP.Types.ok200 []
-            $ HaskellWeekly.Template.Issue.issueTemplate
-                (HaskellWeekly.Type.Config.configBaseUrl
-                $ HaskellWeekly.Type.State.stateConfig state
-                )
-                issue
-                node
+      node <- readIssueFile state number
+      pure
+        . HaskellWeekly.Handler.Base.htmlResponse Network.HTTP.Types.ok200 []
+        $ HaskellWeekly.Template.Issue.issueTemplate
+            (HaskellWeekly.Type.Config.configBaseUrl
+            $ HaskellWeekly.Type.State.stateConfig state
+            )
+            issue
+            node
 
 readIssueFile
   :: HaskellWeekly.Type.State.State
   -> HaskellWeekly.Type.Number.Number
-  -> IO (Maybe CMark.Node)
+  -> IO CMark.Node
 readIssueFile state number = do
   let
     name = "issue-" <> HaskellWeekly.Type.Number.numberToString number
@@ -48,8 +46,8 @@ readIssueFile state number = do
     path = System.FilePath.combine "newsletter" file
   result <- HaskellWeekly.Type.State.readDataFile state path
   case result of
-    Nothing -> pure Nothing
+    Nothing -> fail $ "missing Markdown for newsletter issue " <> show number
     Just byteString -> case Data.Text.Lazy.Encoding.decodeUtf8' byteString of
       Left exception -> fail $ show exception
       Right text ->
-        pure . Just . CMark.commonmarkToNode [] $ Data.Text.Lazy.toStrict text
+        pure . CMark.commonmarkToNode [] $ Data.Text.Lazy.toStrict text
