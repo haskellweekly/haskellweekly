@@ -13,9 +13,9 @@ synopsis: Publishes curated news about Haskell.
 data-dir: data
 data-files:
   favicon.ico
-  newsletter/issue-*.markdown
+  newsletter/*.markdown
   podcast-logo.png
-  podcast/episode-*.srt
+  podcast/*.srt
   tachyons-4-11-2.css
 extra-source-files: README.markdown
 license-file: LICENSE.markdown
