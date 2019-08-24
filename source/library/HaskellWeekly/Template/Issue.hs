@@ -5,14 +5,16 @@ module HaskellWeekly.Template.Issue
   )
 where
 
+import qualified Data.Text
 import qualified HaskellWeekly.Template.Base
 import qualified HaskellWeekly.Type.Date
 import qualified HaskellWeekly.Type.Issue
 import qualified HaskellWeekly.Type.Number
 import qualified Lucid as H
 
-issueTemplate :: String -> HaskellWeekly.Type.Issue.Issue -> H.Html ()
-issueTemplate baseUrl issue = do
+issueTemplate
+  :: String -> HaskellWeekly.Type.Issue.Issue -> Data.Text.Text -> H.Html ()
+issueTemplate baseUrl issue body = do
   let number = HaskellWeekly.Type.Issue.issueNumber issue
   HaskellWeekly.Template.Base.baseTemplate
       baseUrl
@@ -27,6 +29,7 @@ issueTemplate baseUrl issue = do
           "This issue was published on "
           H.toHtml $ date issue
           "."
+        H.toHtmlRaw body
 
 title :: HaskellWeekly.Type.Number.Number -> String
 title number = "Issue " <> HaskellWeekly.Type.Number.numberToString number
