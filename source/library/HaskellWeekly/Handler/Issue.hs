@@ -1,5 +1,6 @@
 module HaskellWeekly.Handler.Issue
   ( issueHandler
+  , readIssueFile
   )
 where
 
@@ -24,23 +25,31 @@ issueHandler state number =
   case Data.Map.lookup number $ HaskellWeekly.Type.State.stateIssues state of
     Nothing -> pure HaskellWeekly.Handler.Base.notFoundResponse
     Just issue -> do
-      let
-        name = "issue-" <> HaskellWeekly.Type.Number.numberToString number
-        file = System.FilePath.addExtension name "markdown"
-        path = System.FilePath.combine "newsletter" file
-      result <- HaskellWeekly.Type.State.readDataFile state path
-      case result of
-        Nothing -> pure HaskellWeekly.Handler.Base.notFoundResponse
-        Just byteString -> do
-          commonmark <- case Data.Text.Lazy.Encoding.decodeUtf8' byteString of
-            Left exception -> fail $ show exception
-            Right text -> pure $ Data.Text.Lazy.toStrict text
-          let
-            baseUrl = HaskellWeekly.Type.Config.configBaseUrl
-              $ HaskellWeekly.Type.State.stateConfig state
-            html = CMark.commonmarkToHtml [] commonmark
-          pure
-            . HaskellWeekly.Handler.Base.htmlResponse
-                Network.HTTP.Types.ok200
-                []
-            $ HaskellWeekly.Template.Issue.issueTemplate baseUrl issue html
+      result <- readIssueFile state number
+      pure $ case result of
+        Nothing -> HaskellWeekly.Handler.Base.notFoundResponse
+        Just node ->
+          HaskellWeekly.Handler.Base.htmlResponse Network.HTTP.Types.ok200 []
+            $ HaskellWeekly.Template.Issue.issueTemplate
+                (HaskellWeekly.Type.Config.configBaseUrl
+                $ HaskellWeekly.Type.State.stateConfig state
+                )
+                issue
+                node
+
+readIssueFile
+  :: HaskellWeekly.Type.State.State
+  -> HaskellWeekly.Type.Number.Number
+  -> IO (Maybe CMark.Node)
+readIssueFile state number = do
+  let
+    name = "issue-" <> HaskellWeekly.Type.Number.numberToString number
+    file = System.FilePath.addExtension name "markdown"
+    path = System.FilePath.combine "newsletter" file
+  result <- HaskellWeekly.Type.State.readDataFile state path
+  case result of
+    Nothing -> pure Nothing
+    Just byteString -> case Data.Text.Lazy.Encoding.decodeUtf8' byteString of
+      Left exception -> fail $ show exception
+      Right text ->
+        pure . Just . CMark.commonmarkToNode [] $ Data.Text.Lazy.toStrict text
