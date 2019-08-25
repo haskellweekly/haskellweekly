@@ -21,19 +21,30 @@ issueHandler
   :: HaskellWeekly.Type.State.State
   -> HaskellWeekly.Type.Number.Number
   -> IO Network.Wai.Response
-issueHandler state number =
-  case Data.Map.lookup number $ HaskellWeekly.Type.State.stateIssues state of
+issueHandler state number = do
+  let issues = HaskellWeekly.Type.State.stateIssues state
+  case Data.Map.lookup number issues of
     Nothing -> pure HaskellWeekly.Handler.Base.notFoundResponse
     Just issue -> do
       node <- readIssueFile state number
+      let
+        baseUrl = HaskellWeekly.Type.Config.configBaseUrl
+          $ HaskellWeekly.Type.State.stateConfig state
+        previousIssue =
+          case HaskellWeekly.Type.Number.decrementNumber number of
+            Nothing -> Nothing
+            Just previousNumber -> Data.Map.lookup previousNumber issues
+        nextIssue = case HaskellWeekly.Type.Number.incrementNumber number of
+          Nothing -> Nothing
+          Just nextNumber -> Data.Map.lookup nextNumber issues
       pure
         . HaskellWeekly.Handler.Base.htmlResponse Network.HTTP.Types.ok200 []
         $ HaskellWeekly.Template.Issue.issueTemplate
-            (HaskellWeekly.Type.Config.configBaseUrl
-            $ HaskellWeekly.Type.State.stateConfig state
-            )
+            baseUrl
             issue
             node
+            previousIssue
+            nextIssue
 
 readIssueFile
   :: HaskellWeekly.Type.State.State
