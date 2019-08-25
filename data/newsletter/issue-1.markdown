@@ -1,5 +1,3 @@
-<!-- 2016-05-05 -->
-
 -   [GHC 8.0.1 RC4 released ](https://mail.haskell.org/pipermail/ghc-devs/2016-April/011955.html)
 
     > If no major issues pop up we expect that this will be the last release candidate before the final release, which we hope to push out in the coming weeks.

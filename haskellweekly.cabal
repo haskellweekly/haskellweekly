@@ -109,6 +109,7 @@ library
     HaskellWeekly.Handler.Tachyons
     HaskellWeekly.Issues
     HaskellWeekly.Issues.Issue1
+    HaskellWeekly.Issues.Issue2
     HaskellWeekly.Main
     HaskellWeekly.Middleware
     HaskellWeekly.Server

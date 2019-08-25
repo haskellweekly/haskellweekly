@@ -11,6 +11,7 @@ import qualified Data.Bool
 import qualified Data.Map
 import qualified Data.Traversable
 import qualified HaskellWeekly.Issues.Issue1
+import qualified HaskellWeekly.Issues.Issue2
 import qualified HaskellWeekly.Type.Issue
 import qualified HaskellWeekly.Type.Number
 
@@ -27,7 +28,7 @@ type Issues
 issues :: Either String Issues
 issues = do
   validIssues <- Data.Traversable.sequenceA
-    [HaskellWeekly.Issues.Issue1.issue1]
+    [HaskellWeekly.Issues.Issue1.issue1, HaskellWeekly.Issues.Issue2.issue2]
   checkNumbers validIssues
   pure $ foldr insertIssue Data.Map.empty validIssues
 
