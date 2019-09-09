@@ -10,6 +10,6 @@ services:
     ports:
       - 8080
   postgres:
-    image: postgres:11.4-alpine
+    image: postgres:11.5-alpine
     ports:
       - 5432
