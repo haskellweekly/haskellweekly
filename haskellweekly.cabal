@@ -282,6 +282,9 @@ library
     HaskellWeekly.Issues.Issue171
     HaskellWeekly.Issues.Issue172
     HaskellWeekly.Issues.Issue173
+    HaskellWeekly.Issues.Issue174
+    HaskellWeekly.Issues.Issue175
+    HaskellWeekly.Issues.Issue176
     HaskellWeekly.Main
     HaskellWeekly.Middleware
     HaskellWeekly.Server
