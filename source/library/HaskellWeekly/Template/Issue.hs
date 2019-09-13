@@ -25,12 +25,12 @@ issueTemplate baseUrl issue node maybePreviousIssue maybeNextIssue =
       baseUrl
       ["Newsletter", title issue, date issue]
     $ do
-        H.h2_ [H.class_ "f2"] "Newsletter"
-        H.h3_ [H.class_ "f3"] . H.toHtml $ date issue
-        H.p_ $ do
-          "This issue was published on "
-          H.toHtml $ date issue
-          "."
+        H.h2_ [H.class_ "f2 mv3 purple tracked-tight"] "Newsletter"
+        H.h3_ [H.class_ "f3 mv3 purple tracked-tight"]
+          . H.toHtml
+          $ title issue
+          <> ": "
+          <> date issue
         H.toHtmlRaw $ CMark.nodeToHtml [] node
         case maybePreviousIssue of
           Nothing -> pure ()

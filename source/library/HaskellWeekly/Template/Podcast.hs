@@ -14,7 +14,7 @@ import qualified Lucid as H
 podcastTemplate :: String -> [HaskellWeekly.Type.Episode.Episode] -> H.Html ()
 podcastTemplate baseUrl episodes =
   HaskellWeekly.Template.Base.baseTemplate baseUrl [] $ do
-    H.h2_ [H.class_ "f2"] "Podcast"
+    H.h2_ [H.class_ "f2 mv3 purple"] "Podcast"
     H.ul_ $ mapM_ (episodeTemplate baseUrl) episodes
 
 episodeTemplate :: String -> HaskellWeekly.Type.Episode.Episode -> H.Html ()

@@ -12,7 +12,7 @@ import qualified Lucid as H
 baseTemplate :: String -> [String] -> H.Html () -> H.Html ()
 baseTemplate baseUrl title body = do
   H.doctype_
-  H.html_ [H.class_ "b--purple bt bw2"] $ do
+  H.html_ [H.class_ "b--purple bt bw3"] $ do
     H.head_ $ do
       H.meta_ [H.charset_ "utf-8"]
       H.meta_
@@ -28,15 +28,16 @@ baseTemplate baseUrl title body = do
           HaskellWeekly.Type.Route.RouteTachyons
         , H.rel_ "stylesheet"
         ]
-    H.body_ [H.class_ "bg-white black flex justify-center ma3 sans-serif"]
+    H.body_ [H.class_ "bg-white black flex justify-center mh3 sans-serif"]
       . H.div_ [H.class_ "mw7 w-100"]
       $ do
           H.header_ [H.class_ "mv3"]
-            . H.h1_ [H.class_ "f1 tracked-tight"]
+            . H.h1_ [H.class_ "f1 mv3 tracked-tight"]
             $ H.a_
-                [ H.href_ $ HaskellWeekly.Type.Route.routeToTextWith
-                    baseUrl
-                    HaskellWeekly.Type.Route.RouteIndex
+                [ H.class_ "no-underline purple"
+                , H.href_ $ HaskellWeekly.Type.Route.routeToTextWith
+                  baseUrl
+                  HaskellWeekly.Type.Route.RouteIndex
                 ]
                 "Haskell Weekly"
           H.main_ [H.class_ "mv3"] body

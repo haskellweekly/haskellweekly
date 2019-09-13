@@ -29,13 +29,18 @@ episodeTemplate baseUrl episode maybeCaptions maybePreviousEpisode maybeNextEpis
       baseUrl
       ["Podcast", number episode, title episode]
     $ do
-        H.h2_ [H.class_ "f2"] $ H.a_
-          [ H.href_ $ HaskellWeekly.Type.Route.routeToTextWith
-              baseUrl
-              HaskellWeekly.Type.Route.RoutePodcast
+        H.h2_ [H.class_ "f2 mv3 tracked-tight"] $ H.a_
+          [ H.class_ "no-underline purple"
+          , H.href_ $ HaskellWeekly.Type.Route.routeToTextWith
+            baseUrl
+            HaskellWeekly.Type.Route.RoutePodcast
           ]
           "Podcast"
-        H.h3_ [H.class_ "f3"] . H.toHtml $ title episode
+        H.h3_ [H.class_ "f3 mv3 purple tracked-tight"]
+          . H.toHtml
+          $ number episode
+          <> ": "
+          <> title episode
         H.video_
             [ H.controls_ "controls"
             , H.height_ "256"
