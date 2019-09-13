@@ -1,6 +1,9 @@
 -- | This modules defines a type for dealing with file sizes. Similar to audio
 -- durations, this is useful for letting clients know how big media files are
 -- before they attempt to stream them.
+--
+-- In Windows this is given by the \"Size\" property, not the "Size on disk".
+-- In Linux it's reported by @ls -l@.
 module HaskellWeekly.Type.Size
   ( Size
   , naturalToSize
