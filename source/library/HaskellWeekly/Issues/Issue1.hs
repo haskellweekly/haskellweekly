@@ -10,5 +10,5 @@ import qualified HaskellWeekly.Type.Number
 issue1 :: Either String HaskellWeekly.Type.Issue.Issue
 issue1 =
   HaskellWeekly.Type.Issue.Issue
-    <$> HaskellWeekly.Type.Date.gregorianToDate 2016 05 05
+    <$> HaskellWeekly.Type.Date.gregorianToDate 2016 5 5
     <*> HaskellWeekly.Type.Number.naturalToNumber 1
