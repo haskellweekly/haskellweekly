@@ -1,1831 +1,1357 @@
 1
-00:00:01,389 --> 00:00:05,480
-hello and welcome to the Haskell weekly
+00:00:01,820 --> 00:00:04,261
+Hello and
+welcome to the Haskell Weekly Podcast.
 
 2
-00:00:03,590 --> 00:00:07,100
-podcast as you might have guessed this
+00:00:04,261 --> 00:00:06,445
+As you might have guessed
+this show is about Haskell,
 
 3
-00:00:05,480 --> 00:00:08,540
-show is about Haskell which is a purely
+00:00:06,445 --> 00:00:08,639
+which is a purely functional
+programming language.
 
 4
-00:00:07,100 --> 00:00:10,820
-functional programming language
+00:00:08,639 --> 00:00:12,412
+I'm your host Cameron Gera and
+I'm an engineer here at itproTV.
 
 5
-00:00:08,540 --> 00:00:13,220
-I'm your host Cameron Guerra and I'm an
+00:00:12,412 --> 00:00:14,095
+>> And I'm Andres Schmois.
 
 6
-00:00:10,820 --> 00:00:15,769
-engineer here at IT Pro TV and I'm
+00:00:14,095 --> 00:00:18,783
+I'm also an engineering in ItPro TV too,
+excited to have you on the show today man.
 
 7
-00:00:13,220 --> 00:00:17,720
-Andres Royce I'm also an engineering an
+00:00:18,783 --> 00:00:19,705
+How you doing?
 
 8
-00:00:15,769 --> 00:00:19,429
-IT for a TV it's really excited to have
+00:00:19,705 --> 00:00:20,251
+>> Doing good.
 
 9
-00:00:17,720 --> 00:00:22,220
-you on the show today man how you doing
+00:00:20,251 --> 00:00:23,975
+I've been here a few times now and
+it's pretty good to be here.
 
 10
-00:00:19,429 --> 00:00:24,529
-think it I've been here 2/10 now and
+00:00:23,975 --> 00:00:25,281
+Yes, it's pretty fun.
 
 11
-00:00:22,220 --> 00:00:26,630
-it's pretty good to be here yeah it's
+00:00:25,281 --> 00:00:28,165
+Get to hang out talk
+about Haskel be nerds.
 
 12
-00:00:24,529 --> 00:00:28,789
-pretty fun huh get to hang out talk
+00:00:28,165 --> 00:00:29,298
+It's always a good time.
 
 13
-00:00:26,630 --> 00:00:31,789
-about high school be nerds it's always a
+00:00:29,298 --> 00:00:30,396
+>> Yeah.
 
 14
-00:00:28,789 --> 00:00:33,230
-good time yeah well guys today we're
+00:00:30,396 --> 00:00:34,612
+>> Well guys today we're actually going
+to be talking about a article called
 
 15
-00:00:31,789 --> 00:00:35,540
-actually gonna be talking about a
+00:00:34,612 --> 00:00:37,876
+practical Profunctor lenses and
+Optics in pure script.
 
 16
-00:00:33,230 --> 00:00:38,450
-article called practical Pro functor
+00:00:37,876 --> 00:00:42,613
+And yes, we know this is pure script,
+but we just thought the topic was good.
 
 17
-00:00:35,540 --> 00:00:40,700
-lenses and optics in pure script and yes
+00:00:42,613 --> 00:00:45,802
+And this article is also
+written by Thomas Honeyman and
 
 18
-00:00:38,450 --> 00:00:43,070
-we know this is pure script but we just
+00:00:45,802 --> 00:00:48,723
+it can be found in Issue
+172 of Haskell weekly.
 
 19
-00:00:40,700 --> 00:00:44,660
-thought the the topic was good and this
+00:00:48,723 --> 00:00:52,576
+So if you want go check that out
+cuz it's a pretty good article.
 
 20
-00:00:43,070 --> 00:00:46,580
-article is also written by Thomas
+00:00:52,576 --> 00:00:56,069
+All right, I'm just well,
+we're talking about lenses and optics.
 
 21
-00:00:44,660 --> 00:00:50,450
-Honeyman and it can be found an issue
+00:00:56,069 --> 00:00:59,244
+In your experience, what is that?
 
 22
-00:00:46,580 --> 00:00:51,980
-172 of Haskell weekly so if you want go
+00:00:59,244 --> 00:01:04,063
+So, been here for about three months
+now and that's pretty much how long
 
 23
-00:00:50,450 --> 00:00:52,700
-check that out because it's a pretty
+00:01:04,063 --> 00:01:09,203
+I've been doing Haskell and my question
+is exactly what do we use lenses for?
 
 24
-00:00:51,980 --> 00:00:53,930
-good article
+00:01:09,203 --> 00:01:10,925
+And why do we need them?
 
 25
-00:00:52,700 --> 00:00:56,570
-all right on just well we're talking
+00:01:10,925 --> 00:01:13,695
+>> Yeah, so
+that's a that's a great question and
 
 26
-00:00:53,930 --> 00:01:00,620
-about you know lenses and optics in your
+00:01:13,695 --> 00:01:17,169
+my personal experience which
+isn't much more than yours.
 
 27
-00:00:56,570 --> 00:01:02,150
-experience what is that so I've been
+00:01:17,169 --> 00:01:18,844
+Maybe, one of the year.
 
 28
-00:01:00,620 --> 00:01:03,860
-here for about three months now and
+00:01:18,844 --> 00:01:24,779
+So the experience I've had with it
+is getting into nested objects and
 
 29
-00:01:02,150 --> 00:01:06,979
-that's pretty much how long I've been
+00:01:24,779 --> 00:01:29,895
+seeing really what nested data
+structures have in store and
 
 30
-00:01:03,860 --> 00:01:10,189
-doing Haskell and my question is exactly
+00:01:29,895 --> 00:01:34,600
+then actually being able to
+mutate them which in my most
 
 31
-00:01:06,979 --> 00:01:12,770
-what do we use lenses for and why do we
+00:01:34,600 --> 00:01:37,692
+experienced being in JavaScript.
 
 32
-00:01:10,189 --> 00:01:13,789
-need them yeah so that's like that's a
+00:01:37,692 --> 00:01:41,277
+I have this fear of mutation is evil but
 
 33
-00:01:12,770 --> 00:01:15,859
-great question
+00:01:41,277 --> 00:01:47,774
+Haskell has lenses which allow
+mutation in the other Optics as well,
 
 34
-00:01:13,789 --> 00:01:18,079
-and in my professional experience which
+00:01:47,774 --> 00:01:54,511
+which is prisms traversals and isos,
+which they're all kind of cool.
 
 35
-00:01:15,859 --> 00:01:21,889
-isn't much more than yours maybe you
+00:01:54,511 --> 00:01:58,953
+And I definitely think this article
+through talks a lot about all of them, but
 
 36
-00:01:18,079 --> 00:01:24,079
-know another year so the the experience
+00:01:58,953 --> 00:02:01,360
+I definitely I want us to stick to lenses.
 
 37
-00:01:21,889 --> 00:01:27,200
-I've had with it is you know getting
+00:02:01,360 --> 00:02:07,907
+So we've used lenses a lot
+here at itPro for XML mostly.
 
 38
-00:01:24,079 --> 00:01:29,869
-into two nested objects and seeing
+00:02:07,907 --> 00:02:12,382
+[LAUGH] There's another library use that
+helps us with our AWS integration called
 
 39
-00:01:27,200 --> 00:01:31,969
-really what nested data structures have
+00:02:12,382 --> 00:02:14,433
+Amazon could that also uses lenses?
 
 40
-00:01:29,869 --> 00:01:36,380
-in store and then actually being able to
+00:02:14,433 --> 00:02:19,097
+But yeah, we use that because
+the data structures can be pretty
 
 41
-00:01:31,969 --> 00:01:38,329
-mutate them which and my most experience
+00:02:19,097 --> 00:02:24,031
+hairy things are pretty hard to get
+into the nested objects of XML.
 
 42
-00:01:36,380 --> 00:01:41,539
-being in JavaScript you know I have this
+00:02:24,031 --> 00:02:28,135
+So what's your experience with
+dealing with XML and other languages?
 
 43
-00:01:38,329 --> 00:01:44,090
-like fear of mutation is evil but
+00:02:28,135 --> 00:02:33,435
+>> So coming from an imperative
+background in JavaScript and Java and
 
 44
-00:01:41,539 --> 00:01:46,880
-Haskell has lenses which allow mutation
+00:02:33,435 --> 00:02:39,208
+specifically Android XML is something
+that is it's a red herring things
 
 45
-00:01:44,090 --> 00:01:49,999
-within you know and the other optics as
+00:02:39,208 --> 00:02:45,735
+that every single programming language is
+have tried to solve and it seems like for
 
 46
-00:01:46,880 --> 00:01:53,929
-well which is prisms Trevor traversals
+00:02:45,735 --> 00:02:52,667
+every single implementation that I've seen
+of parsing does it is super complicated.
 
 47
-00:01:49,999 --> 00:01:56,719
-and ISOs which they're all kind of cool
+00:02:52,667 --> 00:02:57,465
+Especially so on languages like
+Android Wear when I first started
 
 48
-00:01:53,929 --> 00:01:59,299
-and I definitely think you know this
+00:02:57,465 --> 00:03:02,085
+didn't have it at all and
+the the internal implementations for
 
 49
-00:01:56,719 --> 00:02:01,340
-article talks a lot about all of them
+00:03:02,085 --> 00:03:06,112
+XML were not allowed to be
+used in the Android Library.
 
 50
-00:01:59,299 --> 00:02:05,209
-but I definitely want us to stick to
+00:03:06,112 --> 00:03:11,639
+So it became this thing that
+would be really difficult to use.
 
 51
-00:02:01,340 --> 00:02:08,899
-lenses so we've useless is a lot here at
-
-52
-00:02:05,209 --> 00:02:11,000
-IG Pro for XML mostly huh there's
-
-53
-00:02:08,899 --> 00:02:12,800
-another library we use that helps us
-
-54
-00:02:11,000 --> 00:02:14,660
-with our AWS integration coding
-
-55
-00:02:12,800 --> 00:02:16,700
-amazonica that also uses lenses
-
-56
-00:02:14,660 --> 00:02:19,040
-but yeah we use that because the data
-
-57
-00:02:16,700 --> 00:02:21,500
-structures can be pretty hairy things
-
-58
-00:02:19,040 --> 00:02:24,830
-are pretty hard to get into the nested
-
-59
-00:02:21,500 --> 00:02:26,750
-objects of XML you know so what what's
-
-60
-00:02:24,830 --> 00:02:30,140
-your experience with dealing with XML
-
-61
-00:02:26,750 --> 00:02:32,540
-and other languages so coming from an
-
-62
-00:02:30,140 --> 00:02:36,140
-imperative background and JavaScript and
-
-63
-00:02:32,540 --> 00:02:39,770
-Java and specifically Android XML is
-
-64
-00:02:36,140 --> 00:02:42,380
-something that is it's a red herring
-
-65
-00:02:39,770 --> 00:02:46,370
-things that every single programming
-
-66
-00:02:42,380 --> 00:02:47,960
-languages have tried to solve and it
-
-67
-00:02:46,370 --> 00:02:49,580
-seems like for every single
-
-68
-00:02:47,960 --> 00:02:52,970
-implementation that I've seen a parsing
-
-69
-00:02:49,580 --> 00:02:56,210
-does it is super complicated especially
-
-70
-00:02:52,970 --> 00:02:59,360
-so on languages like Android where when
-
-71
-00:02:56,210 --> 00:03:02,780
-I first started didn't have it at all
-
-72
-00:02:59,360 --> 00:03:05,630
-and the the internal implementations for
-
-73
-00:03:02,780 --> 00:03:08,020
-XML were not allowed to be used in the
-
-74
-00:03:05,630 --> 00:03:12,020
-Android library so it became this thing
-
-75
-00:03:08,020 --> 00:03:13,910
-that would be really difficult to use so
-
-76
-00:03:12,020 --> 00:03:16,250
-it was very interesting to come to
-
-77
-00:03:13,910 --> 00:03:18,620
+00:03:11,639 --> 00:03:16,414
+So it was very interesting to come to
 Haskell and start to see how we handled
 
-78
-00:03:16,250 --> 00:03:21,650
-XML especially as a you know back-end
+52
+00:03:16,414 --> 00:03:20,663
+XML especially as a back-end
+server side language for Haskell.
 
-79
-00:03:18,620 --> 00:03:24,980
-server side language for Haskell and it
+53
+00:03:20,663 --> 00:03:26,170
+And it seems like it's complicated but
+it's also seems like it's doable.
 
-80
-00:03:21,650 --> 00:03:27,440
-seems like it's complicated but it also
+54
+00:03:26,170 --> 00:03:30,844
+It's not a thing that is almost impossible
+or you'll have to write your own parsing
 
-81
-00:03:24,980 --> 00:03:30,260
-seems like it's doable it's not a thing
+55
+00:03:30,844 --> 00:03:34,132
+and have to deal with everything
+that comes with parsing.
 
-82
-00:03:27,440 --> 00:03:31,970
-that is almost impossible or you'll have
+56
+00:03:34,132 --> 00:03:38,236
+So with to me lenses have
+been interesting because it's
 
-83
-00:03:30,260 --> 00:03:33,440
-to write your own parsing and you know
+57
+00:03:38,236 --> 00:03:42,004
+a complicated solution to
+a complicated problem.
 
-84
-00:03:31,970 --> 00:03:35,810
-have to deal with everything that comes
+58
+00:03:42,004 --> 00:03:47,184
+>> Yeah, and it does add another level of
+mental complexity to learning Haskell,
 
-85
-00:03:33,440 --> 00:03:38,950
-with parsing so with to me lenses have
+59
+00:03:47,184 --> 00:03:48,665
+it's not the syntax.
 
-86
-00:03:35,810 --> 00:03:41,090
-been interesting because it's a
+60
+00:03:48,665 --> 00:03:53,883
+It's not it's another level of
+this is a possibility Haskell.
 
-87
-00:03:38,950 --> 00:03:42,650
-complicated solution to a complicated
+61
+00:03:53,883 --> 00:03:56,872
+The other thing is it is
+possible to parse XML and
 
-88
-00:03:41,090 --> 00:03:44,840
-problem yeah
+62
+00:03:56,872 --> 00:04:01,152
+things like that without lenses and
+we've done it here in ItPro TV.
 
-89
-00:03:42,650 --> 00:03:47,060
-and it does add you know another level
+63
+00:04:01,152 --> 00:04:06,631
+It's needless to say rough, trying to
+filter out exactly what you need out of
 
-90
-00:03:44,840 --> 00:03:48,680
-of mental complexity to learning high
+64
+00:04:06,631 --> 00:04:11,874
+every element and all the nodes and
+children elements the kind of things.
 
-91
-00:03:47,060 --> 00:03:51,290
-school right it's just not the syntax
+65
+00:04:11,874 --> 00:04:17,287
+Whereas XML or sorry, excuse me,
+using lenses in parse the XML
 
-92
-00:03:48,680 --> 00:03:53,720
-it's not you know it's another level of
+66
+00:04:17,287 --> 00:04:22,293
+allows us to get out specific
+values without having to know
 
-93
-00:03:51,290 --> 00:03:55,790
-you know oh this is a possibility high
+67
+00:04:22,293 --> 00:04:27,300
+what else is in the XML which
+is helpful because we will have
 
-94
-00:03:53,720 --> 00:03:58,160
-school the other thing is it is possible
-
-95
-00:03:55,790 --> 00:04:00,860
-to parse XML and things like that with
-
-96
-00:03:58,160 --> 00:04:05,020
-out lenses and we've done it here at IG
-
-97
-00:04:00,860 --> 00:04:07,430
-pro TV and it's needless to say rough
-
-98
-00:04:05,020 --> 00:04:09,050
-you know trying to filter out exactly
-
-99
-00:04:07,430 --> 00:04:11,270
-what you need out of every element and
-
-100
-00:04:09,050 --> 00:04:15,320
-all the nodes and children elements that
-
-101
-00:04:11,270 --> 00:04:18,830
-kind of things whereas XML or sorry
-
-102
-00:04:15,320 --> 00:04:20,570
-excuse me using lenses in you know to
-
-103
-00:04:18,830 --> 00:04:24,070
-parse the XML allows us to get out
-
-104
-00:04:20,570 --> 00:04:27,100
-specific values without having to know
-
-105
-00:04:24,070 --> 00:04:28,960
-what else is in the XML
-
-106
-00:04:27,100 --> 00:04:30,510
-which is helpful because we don't have
-
-107
-00:04:28,960 --> 00:04:33,460
+68
+00:04:27,300 --> 00:04:32,741
 to filter out things we don't need or
+filter things we do need.
 
-108
-00:04:30,510 --> 00:04:35,800
-filter things we do need so Linds has
+69
+00:04:32,741 --> 00:04:39,725
+So lenses has allowed us to get,
+the deeper nested objects, which is great.
 
-109
-00:04:33,460 --> 00:04:38,590
-allowed us to get you know the deeper
-
-110
-00:04:35,800 --> 00:04:42,100
-nested objects which is great you know
-
-111
-00:04:38,590 --> 00:04:43,630
-and without all the boilerplate have you
-
-112
-00:04:42,100 --> 00:04:45,040
+70
+00:04:39,725 --> 00:04:43,488
+Without all the boilerplate have you
 kind of experience anywhere where you're
 
+71
+00:04:43,488 --> 00:04:47,421
+dealing with nested objects that you felt
+when's this could have maybe helped with
+
+72
+00:04:47,421 --> 00:04:48,669
+producing boilerplate?
+
+73
+00:04:48,669 --> 00:04:54,462
+>> So that's actually the point
+that we were discussing way before
+
+74
+00:04:54,462 --> 00:05:00,159
+we even came into this article,
+which was why even use lenses.
+
+75
+00:05:00,159 --> 00:05:04,040
+We all of these solutions
+available to us why use lenses?
+
+76
+00:05:04,040 --> 00:05:09,808
+So coming back to the the parsing of
+JSON one thing that came to mind was
+
+77
+00:05:09,808 --> 00:05:16,482
+we use the JSON library to parse JSON just
+because that's what I was told to use.
+
+78
+00:05:16,482 --> 00:05:23,139
+And it seems it was it is
+a very good way to parse JSON.
+
+79
+00:05:23,139 --> 00:05:26,737
+There is one and only one downside
+that I've seen so far and
+
+80
+00:05:26,737 --> 00:05:31,144
+it's been sort of nagging at me and
+that is the fact that it's got a lot of
+
+81
+00:05:31,144 --> 00:05:36,088
+boilerplate to be able to parse all of
+this JSON that is coming into your server.
+
+82
+00:05:36,088 --> 00:05:41,670
+And one of the worst offenders
+of it are very nested objects.
+
+83
+00:05:41,670 --> 00:05:46,510
+To be able to use JSON in a manner that
+isn't required to do any kind of fancy
+
+84
+00:05:46,510 --> 00:05:51,038
+parsing, you'll need to set up a data
+structure with an instance for
+
+85
+00:05:51,038 --> 00:05:53,714
+every single level of your JSON object.
+
+86
+00:05:53,714 --> 00:05:58,108
+Not a 100%t sure, but
+I think with lenses if you didn't care for
+
+87
+00:05:58,108 --> 00:06:00,743
+this structure that was already there.
+
+88
+00:06:00,743 --> 00:06:03,626
+So let's say that you're hitting
+a third-party library and
+
+89
+00:06:03,626 --> 00:06:06,352
+you just cared about one thing and
+inside a nested object.
+
+90
+00:06:06,352 --> 00:06:11,698
+I could see lenses being useful in
+removing a lot of that boilerplate code.
+
+91
+00:06:11,698 --> 00:06:14,701
+My question is is it worth it?
+
+92
+00:06:14,701 --> 00:06:20,528
+Is the complexity trade-off versus
+the boilerplate trade-off worth it?
+
+93
+00:06:20,528 --> 00:06:26,131
+And with Haskell from what I've seen so
+far Haskell is very concise.
+
+94
+00:06:26,131 --> 00:06:30,323
+It's the language that allows you to
+write things in a very concise manner,
+
+95
+00:06:30,323 --> 00:06:33,020
+lenses is just another
+extension of this right.
+
+96
+00:06:33,020 --> 00:06:36,435
+All right, so
+a little little more complex, but
+
+97
+00:06:36,435 --> 00:06:42,101
+it's yes definitely the question of when
+to use lenses first with not to first for
+
+98
+00:06:42,101 --> 00:06:43,873
+the complexity aspect.
+
+99
+00:06:43,873 --> 00:06:47,896
+And I think something we talked
+about earlier was like you said,
+
+100
+00:06:47,896 --> 00:06:50,811
+we don't use lenses for
+JSON but we do for XML.
+
+101
+00:06:50,811 --> 00:06:55,127
+And I think with JSON there's there's
+a little more types there, right?
+
+102
+00:06:55,127 --> 00:06:59,759
+There's a little inherently it's a little
+easier to understand you could take a JSON
+
+103
+00:06:59,759 --> 00:07:02,345
+file and look at it and
+understand what is what.
+
+104
+00:07:02,345 --> 00:07:05,051
+Where you do sometimes we
+pull out an XML file and
+
+105
+00:07:05,051 --> 00:07:07,630
+you're wait a second what's going on here?
+
+106
+00:07:07,630 --> 00:07:11,538
+And so I think the reason
+that complexity lives for
+
+107
+00:07:11,538 --> 00:07:15,924
+XML is because it is a confusing
+data structure as it is.
+
+108
+00:07:15,924 --> 00:07:16,437
+It's great.
+
+109
+00:07:16,437 --> 00:07:21,441
+It's effective, but
+it's confusing and hard to read from
+
+110
+00:07:21,441 --> 00:07:27,060
+a visual perspective and
+the kind of reflects in the code, right?
+
+111
+00:07:27,060 --> 00:07:28,064
+That's kind of crazy?
+
+112
+00:07:28,064 --> 00:07:33,157
+>> Definitely and if you think about
+it XML specifically doesn't have
+
 113
-00:04:43,630 --> 00:04:47,050
-dealing with nested objects that you
+00:07:33,157 --> 00:07:38,782
+any kind of data structure things that
+people are normally used to seeing in
 
 114
-00:04:45,040 --> 00:04:48,970
-felt like when's this could have maybe
+00:07:38,782 --> 00:07:44,428
+code because of the fact that it in it and
+of itself is a sort of dom language.
 
 115
-00:04:47,050 --> 00:04:52,420
-helped with producing boilerplate so
+00:07:44,428 --> 00:07:48,678
+So it's got a document and it's got
+a whole bunch of different tags and
 
 116
-00:04:48,970 --> 00:04:54,810
-that's actually the point that we were
+00:07:48,678 --> 00:07:52,296
+values and they don't necessarily
+need to mean anything.
 
 117
-00:04:52,420 --> 00:04:59,170
-discussing way before we even came into
+00:07:52,296 --> 00:07:56,523
+They just there and HTML is XML.
 
 118
-00:04:54,810 --> 00:05:01,500
-this article which was why even use
+00:07:56,523 --> 00:07:57,321
+It's just a different.
 
 119
-00:04:59,170 --> 00:05:05,410
-lenses we have all of these solutions
+00:07:57,321 --> 00:07:59,083
+It's a different subset of it.
 
 120
-00:05:01,500 --> 00:05:09,550
-available to us why use lenses so coming
+00:07:59,083 --> 00:08:03,781
+So if you into XML,
+XML isn't a data structure
 
 121
-00:05:05,410 --> 00:05:12,130
-back to the the parsing of JSON one
+00:08:03,781 --> 00:08:07,646
+that is easily possible by anything.
 
 122
-00:05:09,550 --> 00:05:14,980
-thing that came to mind was we use the
+00:08:07,646 --> 00:08:15,048
+With JSON from what I've
+discovered it is a replacement for
 
 123
-00:05:12,130 --> 00:05:16,900
-Ehsan library to parse JSON just because
+00:08:15,048 --> 00:08:22,461
+XML to be more towards
+transferring information simpler.
 
 124
-00:05:14,980 --> 00:05:21,370
-that's what I was told to use and it
+00:08:22,461 --> 00:08:26,703
+And I think that's why going back
+to the whole complexity issue,
 
 125
-00:05:16,900 --> 00:05:25,120
-seems like it was it is a very good way
+00:08:26,703 --> 00:08:30,955
+we have a complicated problem,
+very complicated, I'm sorry.
 
 126
-00:05:21,370 --> 00:05:26,890
-to parse JSON there is one and only one
+00:08:30,955 --> 00:08:33,977
+We have a complicated solution for
+a complicated problem.
 
 127
-00:05:25,120 --> 00:05:28,960
-downside that I've seen so far and it's
+00:08:33,977 --> 00:08:38,556
+And that is my experience with this.
 
 128
-00:05:26,890 --> 00:05:30,940
-been sort of nagging at me and that is
+00:08:38,556 --> 00:08:39,557
+>> Right, and and
 
 129
-00:05:28,960 --> 00:05:33,670
-the fact that it's got a lot of
+00:08:39,557 --> 00:08:44,797
+we were talking to more about some of
+the fundamental aspects of lenses, right?
 
 130
-00:05:30,940 --> 00:05:35,590
-boilerplate to be able to parse all of
+00:08:44,797 --> 00:08:47,620
+And we touched on it a lot
+earlier about the mutability.
 
 131
-00:05:33,670 --> 00:05:38,920
-this JSON that is coming into your
+00:08:47,620 --> 00:08:50,873
+And with XML, we wanna be able
+to reach into an object and
 
 132
-00:05:35,590 --> 00:05:42,550
-server and one of the worst offenders of
+00:08:50,873 --> 00:08:55,304
+if we're gonna change, it not have to
+parse everything else around it, but
 
 133
-00:05:38,920 --> 00:05:46,960
-it are very nested objects to be able to
+00:08:55,304 --> 00:08:59,618
+just change that one aspect, right,
+because it could get complicated.
 
 134
-00:05:42,550 --> 00:05:49,270
-use JSON in a manner that isn't required
+00:08:59,618 --> 00:09:04,725
+With Jave, JSON, sorry,
+we're gonna be wanting to we could just
 
 135
-00:05:46,960 --> 00:05:51,100
-to do any kind of fancy parsing you'll
+00:09:04,725 --> 00:09:10,582
+make a whole new object and deal with it
+cuz it's easy to kind of just create.
 
 136
-00:05:49,270 --> 00:05:52,930
-need to set up a data structure with an
+00:09:10,582 --> 00:09:15,164
+And I think Haskell, I think most
+programming languages are much more
 
 137
-00:05:51,100 --> 00:05:55,150
-instance for every single level of your
+00:09:15,164 --> 00:09:18,281
+friendly to JSON than they
+ever would be in XML.
 
 138
-00:05:52,930 --> 00:05:57,610
-JSON object not a hundred percent sure
+00:09:18,281 --> 00:09:20,452
+So doggone complicated problem.
 
 139
-00:05:55,150 --> 00:06:00,580
-but I think with lenses if you didn't
+00:09:20,452 --> 00:09:23,326
+Luckily, we have the complicated solution.
 
 140
-00:05:57,610 --> 00:06:02,020
-care for this structure that was already
+00:09:23,326 --> 00:09:28,321
+But I wanted to kinda talk
+a little bit about lenses and
 
 141
-00:06:00,580 --> 00:06:03,850
-there so let's say that you're hitting a
+00:09:28,321 --> 00:09:32,872
+get back more to the focus
+not the JSON vs XML thing
 
 142
-00:06:02,020 --> 00:06:05,860
-third-party library and you just cared
+00:09:32,872 --> 00:09:38,091
+because this is kind of our
+context in which we view it and
 
 143
-00:06:03,850 --> 00:06:08,350
-about one thing and inside a nested
+00:09:38,091 --> 00:09:42,755
+we understand lenses can
+be using many aspects and
 
 144
-00:06:05,860 --> 00:06:11,080
-object I could see lenses being useful
+00:09:42,755 --> 00:09:48,448
+we're just kinda speaking from
+personal experience here.
 
 145
-00:06:08,350 --> 00:06:14,520
-in removing a lot of that boilerplate
+00:09:48,448 --> 00:09:53,072
+There's three functions that
+are pretty critical to lenses and
 
 146
-00:06:11,080 --> 00:06:18,060
-code my question is is it worth it is
+00:09:53,072 --> 00:09:57,536
+are really the only ones that can
+be used our view set and over.
 
 147
-00:06:14,520 --> 00:06:21,430
-the complexity trade-off versus the
+00:09:57,536 --> 00:10:00,685
+So view is a get function right?
 
 148
-00:06:18,060 --> 00:06:23,440
-boilerplate trade-off worth it and with
+00:10:00,685 --> 00:10:04,906
+Let's get it, set is the the function
+that's able to mutate it which is setting
 
 149
-00:06:21,430 --> 00:06:27,220
-Haskell from what I've seen so far high
+00:10:04,906 --> 00:10:07,942
+the value and we also have over
+which is kind of like a map.
 
 150
-00:06:23,440 --> 00:06:29,170
-school is very concise it's the language
+00:10:07,942 --> 00:10:14,219
+So it's saying, we're gonna modify this
+value and this lens with a function and
 
 151
-00:06:27,220 --> 00:06:31,720
-that allows you to write things in a
+00:10:14,219 --> 00:10:19,114
+here's the function that takes
+you'll get takes that value,
 
 152
-00:06:29,170 --> 00:06:34,540
-very concise manner lenses is just
+00:10:19,114 --> 00:10:25,207
+it gives you back the same value modified
+which is helpful that lenses as I built
 
 153
-00:06:31,720 --> 00:06:37,180
-another extension of this right that's a
+00:10:25,207 --> 00:10:31,330
+in which you would think it definitely
+should consider we're in Haskell one.
 
 154
-00:06:34,540 --> 00:06:39,130
-little a little more complex but you
+00:10:31,330 --> 00:10:35,150
+And so that was something that
+was interesting for me to see and
 
 155
-00:06:37,180 --> 00:06:40,820
-know it's yes definitely the question of
+00:10:35,150 --> 00:10:39,571
+understand get a comprehension on
+is what are the accessor functions?
 
 156
-00:06:39,130 --> 00:06:44,270
-when do use lenses first
+00:10:39,571 --> 00:10:40,871
+What do I do with lenses?
 
 157
-00:06:40,820 --> 00:06:45,860
-- first for the complexity aspect and I
+00:10:40,871 --> 00:10:45,204
+How do I make a lens that
+even the constructors?
 
 158
-00:06:44,270 --> 00:06:48,500
-think something we talked about earlier
+00:10:45,204 --> 00:10:49,992
+I don't super haven't spent a ton
+of time dealing with because
 
 159
-00:06:45,860 --> 00:06:52,160
-was you said we don't use lenses for
+00:10:49,992 --> 00:10:55,520
+the libraries we have have easy ways
+to construct a new lens or whatever.
 
 160
-00:06:48,500 --> 00:06:54,890
-JSON but we do for XML and I think with
+00:10:55,520 --> 00:10:59,682
+And so yeah I just thought that
+these functions at the core or
 
 161
-00:06:52,160 --> 00:06:56,390
-JSON there's there's a little more types
+00:10:59,682 --> 00:11:01,688
+pretty easy to understand.
 
 162
-00:06:54,890 --> 00:06:58,430
-there right there's a little you know
+00:11:01,688 --> 00:11:06,626
+But I think people can also get a little
+bit confused about how they're operating
 
 163
-00:06:56,390 --> 00:07:00,050
-inherently it's a little easier to
+00:11:06,626 --> 00:11:11,272
+right because we're operating within
+this optic this lens which I think for
 
 164
-00:06:58,430 --> 00:07:01,760
-understand you could take a JSON file
+00:11:11,272 --> 00:11:13,974
+some people a little more confusing right?
 
 165
-00:07:00,050 --> 00:07:04,550
-and look at it and understand what is
+00:11:13,974 --> 00:11:15,928
+JavaScript, you're just yeah hey,
 
 166
-00:07:01,760 --> 00:07:06,410
-what where do you pull out an XML file
+00:11:15,928 --> 00:11:18,929
+here's this value,
+I found it I have access to it, okay?
 
 167
-00:07:04,550 --> 00:07:09,380
-and you're like wait a second what's
+00:11:18,929 --> 00:11:22,200
+Just change it to this Haskell
+still kind of says, hey, hold on,
 
 168
-00:07:06,410 --> 00:07:12,440
-going on here and I'm sorry I think the
+00:11:22,200 --> 00:11:24,879
+we're gonna make it a little
+more difficult for you.
 
 169
-00:07:09,380 --> 00:07:15,320
-reason that complexity lives for XML is
+00:11:24,879 --> 00:11:30,029
+You taste something but here's what you
+can do, which I think is, it's nice
 
 170
-00:07:12,440 --> 00:07:17,270
-because it is a confusing data structure
+00:11:30,029 --> 00:11:35,594
+because Haskell says, okay and obviously
+this article reading is in pure script.
 
 171
-00:07:15,320 --> 00:07:19,460
-as it is it's great it does
+00:11:35,594 --> 00:11:38,733
+So I'm just pulling it over to Haskell
+because we're talking mule this
 
 172
-00:07:17,270 --> 00:07:21,650
-you know it's effective but it's a it's
+00:11:38,733 --> 00:11:39,583
+Haskell podcast.
 
 173
-00:07:19,460 --> 00:07:24,800
-confusing and hard to read from a visual
+00:11:39,583 --> 00:11:44,213
+So like I think it's very
+much it's a yeah it is.
 
 174
-00:07:21,650 --> 00:07:26,900
-you know a visual perspective and you
+00:11:44,213 --> 00:11:51,034
+It's just a necessary means to solve
+this really deep nested object issue.
 
 175
-00:07:24,800 --> 00:07:28,220
-know the it kind of reflects in the code
+00:11:51,034 --> 00:11:55,756
+>> I totally agree with the whole
+lens aspect of these things.
 
 176
-00:07:26,900 --> 00:07:30,730
-right that's kind of crazy huh
+00:11:55,756 --> 00:12:00,095
+This is just an optic,
+this is not a mutation.
 
 177
-00:07:28,220 --> 00:07:33,860
-definitely and if you think about it XML
+00:12:00,095 --> 00:12:07,799
+Now, what I mean by that Haskell entire
+paradigm is please don't mutate my things.
 
 178
-00:07:30,730 --> 00:07:36,830
-specifically it doesn't have any kind of
+00:12:07,799 --> 00:12:11,414
+So lenses give you an option
+to go in there and
 
 179
-00:07:33,860 --> 00:07:38,930
-data structure e things that people are
+00:12:11,414 --> 00:12:15,626
+mutate it in such a way that
+makes sense to Haskell.
 
 180
-00:07:36,830 --> 00:07:41,270
-normally used to seeing in code because
+00:12:15,626 --> 00:12:20,584
+Which when you start thinking about what
+a mutation as it makes sense that really
 
 181
-00:07:38,930 --> 00:07:45,170
-of the fact that in and of itself is a
+00:12:20,584 --> 00:12:25,706
+Haskell is mutating and it's probably
+mutating a lot of stuff in the background.
 
 182
-00:07:41,270 --> 00:07:48,230
-sort of you know Dom language so it's a
+00:12:25,706 --> 00:12:30,251
+I don't know much like I said just
+started three months ago, but
 
 183
-00:07:45,170 --> 00:07:49,730
-it's got a document and it's got about a
+00:12:30,251 --> 00:12:35,219
+I'm assuming that Haskell's functional
+paradigm is a frontside but
 
 184
-00:07:48,230 --> 00:07:51,710
-whole bunch of different tags and values
+00:12:35,219 --> 00:12:40,101
+it obviously will have to have some
+kind of state in the background and
 
 185
-00:07:49,730 --> 00:07:54,290
-and they don't necessarily need to mean
+00:12:40,101 --> 00:12:43,568
+lenses will give you a view
+into this mutations.
 
 186
-00:07:51,710 --> 00:07:57,560
-anything they are just there and you
+00:12:43,568 --> 00:12:46,836
+I'm not entirely sure that's
+where the name comes from,
 
 187
-00:07:54,290 --> 00:08:00,190
-know hTML is XML it's just a different
+00:12:46,836 --> 00:12:48,977
+probably not but that's how I see it.
 
 188
-00:07:57,560 --> 00:08:04,700
-it's a different subset of it so if you
+00:12:48,977 --> 00:12:54,604
+And leading into this I have the question
+that has been a little nagging and
 
 189
-00:08:00,190 --> 00:08:07,910
-look into XML XML isn't a data structure
+00:12:54,604 --> 00:12:59,506
+lenses aren't just for
+these types of data structures that come
 
 190
-00:08:04,700 --> 00:08:10,760
-that is easily possible by anything with
+00:12:59,506 --> 00:13:03,248
+from like JSON or XML or
+any kind of server thing.
 
 191
-00:08:07,910 --> 00:08:14,810
-JSON from what I've you know discovered
+00:13:03,248 --> 00:13:05,501
+Lenses are used for a raise for list for
 
 192
-00:08:10,760 --> 00:08:19,280
-it was meant to be a or it is a
+00:13:05,501 --> 00:13:10,160
+maps any kind of data structure that you
+can think of can be used through a lens.
 
 193
-00:08:14,810 --> 00:08:21,650
-replacement for XML to be more towards
+00:13:10,160 --> 00:13:16,524
+In my question to you is would
+you use lenses in that scenario?
 
 194
-00:08:19,280 --> 00:08:24,890
-transferring of information simpler
+00:13:16,524 --> 00:13:18,316
+>> Yeah, that's a great question.
 
 195
-00:08:21,650 --> 00:08:27,470
-mm-hm and I think that's why going back
+00:13:18,316 --> 00:13:23,409
+And I think it would boil down to
+do I wanna, if I'm gonna modify
 
 196
-00:08:24,890 --> 00:08:29,630
-to the whole complexity issue we have a
+00:13:23,409 --> 00:13:29,384
+something is it worth it to make a new
+one or just modify that single value.
 
 197
-00:08:27,470 --> 00:08:31,970
-complicated problem very complicated
+00:13:29,384 --> 00:13:34,204
+And most the time,
+we choose make a new one, right?
 
 198
-00:08:29,630 --> 00:08:33,440
-step I'm sorry we have a complicated
+00:13:34,204 --> 00:13:34,828
+Brand-new.
 
 199
-00:08:31,970 --> 00:08:37,640
-solution for a complicated problem
+00:13:34,828 --> 00:13:38,023
+Yeah, the old one good,
+Bye, see you later.
 
 200
-00:08:33,440 --> 00:08:40,970
-mm-hm and that is my experience with
+00:13:38,023 --> 00:13:42,456
+But if we have a huge data structure that
+we don't wanna continually load into
 
 201
-00:08:37,640 --> 00:08:42,740
-this right and and we were talking to
+00:13:42,456 --> 00:13:45,539
+memory or be passing around
+maybe it is easier to say.
 
 202
-00:08:40,970 --> 00:08:44,840
-more about you know some of the
+00:13:45,539 --> 00:13:49,685
+Hey, let's just use a lens and
+modify those values along the way and
 
 203
-00:08:42,740 --> 00:08:46,880
-fundamental aspects of lenses right and
+00:13:49,685 --> 00:13:51,012
+keep the same thing.
 
 204
-00:08:44,840 --> 00:08:49,940
-we touched on it a lot earlier about the
+00:13:51,012 --> 00:13:55,307
+So I definitely say
+the community of Haskell, also,
 
 205
-00:08:46,880 --> 00:08:51,380
-mutability and with xml you know we want
+00:13:55,307 --> 00:14:00,663
+we lean a lot more towards make a new
+one rather than modify a value.
 
 206
-00:08:49,940 --> 00:08:53,600
-to be able to reach into an object and
+00:14:00,663 --> 00:14:02,835
+But yet lenses give you that option.
 
 207
-00:08:51,380 --> 00:08:54,710
-if we're gonna change it you not have to
+00:14:02,835 --> 00:14:06,435
+>> And I think that goes online
+to what my thought process was,
 
 208
-00:08:53,600 --> 00:08:56,860
-parse everything else around
+00:14:06,435 --> 00:14:11,331
+which is if you don't think you need it or
+even if you think you might need it don't
 
 209
-00:08:54,710 --> 00:08:59,510
-but just change that one aspect right
+00:14:11,331 --> 00:14:15,747
+use lenses until you're sure that
+lens has become a necessity, right?
 
 210
-00:08:56,860 --> 00:09:02,240
-because it could get complicated
+00:14:15,747 --> 00:14:17,524
+>> Like I would definitely
+not lean towards.
 
 211
-00:08:59,510 --> 00:09:04,610
-where's Java you know JSON sorry we're
+00:14:17,524 --> 00:14:19,892
+Yeah, if you want to go go ahead and
 
 212
-00:09:02,240 --> 00:09:06,830
-gonna be wanting to we could just make a
+00:14:19,892 --> 00:14:24,307
+make your whole architecture using
+lenses cuz, it will work and
 
 213
-00:09:04,610 --> 00:09:09,100
-whole new object and deal with it you
+00:14:24,307 --> 00:14:29,072
+it would be fine but it's just gonna
+add a lot of complexity in areas.
 
 214
-00:09:06,830 --> 00:09:11,630
-know because it's it's easy to kind of
+00:14:29,072 --> 00:14:31,220
+You may not always need that complexity.
 
 215
-00:09:09,100 --> 00:09:13,940
-just create and I think Haskell
+00:14:31,220 --> 00:14:32,200
+>> I agree.
 
 216
-00:09:11,630 --> 00:09:15,920
-definitely no I think most programming
+00:14:32,200 --> 00:14:36,940
+>> Yeah, and one thing to note here
+just a little side note as I was
 
 217
-00:09:13,940 --> 00:09:19,040
-languages are much more friendly to JSON
+00:14:36,940 --> 00:14:41,784
+just looking at this one little
+thing we had highlighted here.
 
 218
-00:09:15,920 --> 00:09:21,470
-than they ever will be to XML so daggone
+00:14:41,784 --> 00:14:47,015
+A key difference with
+the lens specific optic is
 
 219
-00:09:19,040 --> 00:09:24,200
-complicated problem luckily we have the
+00:14:47,015 --> 00:14:52,373
+the value has to be known to exist,
+I should say,
 
 220
-00:09:21,470 --> 00:09:26,930
-complicated solution but I wanted to
+00:14:52,373 --> 00:14:58,544
+whereas prisms or traversals or
+isos that's not true.
 
 221
-00:09:24,200 --> 00:09:28,730
-kind of talk a little bit about lenses
+00:14:58,544 --> 00:15:04,166
+Prisms are can kind of can think of it
+as maybe your the either monads and
 
 222
-00:09:26,930 --> 00:09:30,080
-and get back more to the focus not the
+00:15:04,166 --> 00:15:07,597
+dealing with the may be
+in either monads and
 
 223
-00:09:28,730 --> 00:09:32,240
-JSON for his XML thing because that's
+00:15:07,597 --> 00:15:13,632
+traversals thinking more like lists and
+arrays and maps things like that.
 
 224
-00:09:30,080 --> 00:09:33,410
-you know this is kind of our context in
+00:15:13,632 --> 00:15:19,100
+And so that's something to be to note you
+wanna make sure you're gonna use a lens.
 
 225
-00:09:32,240 --> 00:09:35,510
-which we view it and we understand
+00:15:19,100 --> 00:15:22,817
+These are values you wanna
+make sure they're if not,
 
 226
-00:09:33,410 --> 00:09:37,730
-lenses can be you know using many
+00:15:22,817 --> 00:15:27,523
+you probably want to look more into
+a prism and say hey does this thing
 
 227
-00:09:35,510 --> 00:09:41,180
-aspects and we're just kind of speaking
+00:15:27,523 --> 00:15:32,479
+exist before I try to go get it and
+that would prisms allow have something
 
 228
-00:09:37,730 --> 00:09:43,640
-for a personal experience here but yeah
+00:15:32,479 --> 00:15:37,453
+called preview which is hey go see
+if this is there if not, let's bail.
 
 229
-00:09:41,180 --> 00:09:46,220
-like the ability you know lenses
+00:15:37,453 --> 00:15:42,284
+So that that's another thing to
+think about if you're using lenses,,
 
 230
-00:09:43,640 --> 00:09:49,520
-specifically have to you know they can
+00:15:42,284 --> 00:15:44,657
+the value has to be there and exist or
 
 231
-00:09:46,220 --> 00:09:51,550
-view something though there's like three
+00:15:44,657 --> 00:15:48,792
+else you could probably get them
+some gnarly runtime errors.
 
 232
-00:09:49,520 --> 00:09:54,020
-functions that are pretty critical to
+00:15:48,792 --> 00:15:54,397
+>> Yep, and I think might take away from
+this talk is lenses are complicated.
 
 233
-00:09:51,550 --> 00:09:57,170
-you know lenses and are really the only
+00:15:54,397 --> 00:15:57,245
+I will probably only reach for them for
 
 234
-00:09:54,020 --> 00:10:00,500
-ones that can be used our view set and
+00:15:57,245 --> 00:16:01,525
+problems that are complicated not for
+simple problems.
 
 235
-00:09:57,170 --> 00:10:03,260
-over so view is a get function right
+00:16:01,525 --> 00:16:05,329
+And that is something that
+in the last three months,
 
 236
-00:10:00,500 --> 00:10:04,310
-let's get it out set is the function
+00:16:05,329 --> 00:16:10,084
+that's exactly what I've seen so
+far is the only time we've ever
 
 237
-00:10:03,260 --> 00:10:06,620
-that's able to mutate it which is
+00:16:10,084 --> 00:16:14,752
+used lenses in our environment is
+to solve a complicated problem
 
 238
-00:10:04,310 --> 00:10:08,810
-setting the value and we also have over
+00:16:14,752 --> 00:16:19,433
+more specifically toward XML and
+that is my take away from this.
 
 239
-00:10:06,620 --> 00:10:11,810
-which is kind of like a map so it's
+00:16:19,433 --> 00:16:24,441
+I am open to finding out that lenses
+are a lot more powerful and a lot
 
 240
-00:10:08,810 --> 00:10:15,740
-saying you know we're gonna modify this
+00:16:24,441 --> 00:16:30,832
+more structured way of doing something,
+it's just I haven't come across it yet.
 
 241
-00:10:11,810 --> 00:10:17,660
-value in this lens with a function and
+00:16:30,832 --> 00:16:35,272
+>> Yeah, and that's totally fair and,
+if you're beginning Haskell,
 
 242
-00:10:15,740 --> 00:10:19,580
-here's the function that takes you know
+00:16:35,272 --> 00:16:39,800
+I would definitely up there over
+the head say, hey slow down on lenses.
 
 243
-00:10:17,660 --> 00:10:24,050
-takes that value gives you back the same
+00:16:39,800 --> 00:16:43,306
+They're not a core component necessarily,
 
 244
-00:10:19,580 --> 00:10:26,750
-value modified which is you know helpful
+00:16:43,306 --> 00:16:48,013
+you'll run into libraries you
+use that may have lenses, for
 
 245
-00:10:24,050 --> 00:10:28,700
-that lenses has that built in which yeah
+00:16:48,013 --> 00:16:51,610
+us we have Amazon Co which
+is our AWS library and
 
 246
-00:10:26,750 --> 00:10:31,820
-you would think it definitely should
+00:16:51,610 --> 00:16:55,589
+then we have text.XML.enses
+is also a big thing.
 
 247
-00:10:28,700 --> 00:10:33,410
-considering we're in Haskell one and so
+00:16:55,589 --> 00:16:59,161
+So core components do have lenses and
+you can use and
 
 248
-00:10:31,820 --> 00:10:36,080
-that was something that was you know
+00:16:59,161 --> 00:17:04,076
+solve problems with lenses, but
+I would definitely say that's not.
 
 249
-00:10:33,410 --> 00:10:37,970
-interesting for me to see and understand
+00:17:04,076 --> 00:17:08,526
+Just because that added complexity could
+just kind of demotivate you hum from
 
 250
-00:10:36,080 --> 00:10:39,920
-and get a comprehension on is you know
+00:17:08,526 --> 00:17:13,385
+solving the problem because Haskel, that's
+what one thing I love about Haskell's
 
 251
-00:10:37,970 --> 00:10:43,130
-what are the access to functions what do
+00:17:13,385 --> 00:17:15,796
+there's a ton of ways to solve a problem.
 
 252
-00:10:39,920 --> 00:10:45,709
-I do with lenses how do I make a lens
+00:17:15,796 --> 00:17:17,639
+Yet the more complicated problems.
 
 253
-00:10:43,130 --> 00:10:47,690
-that that even the Constructors I don't
+00:17:17,639 --> 00:17:21,080
+There's less options for
+beginners out there.
 
 254
-00:10:45,709 --> 00:10:49,370
-super haven't spent a ton of time
+00:17:21,080 --> 00:17:26,169
+Don't be don't be afraid of lenses,
+but I wouldn't go chasing them.
 
 255
-00:10:47,690 --> 00:10:51,170
-dealing with because you know the
+00:17:26,169 --> 00:17:29,757
+Don't go chasing waterfalls stick to
+the rivers and lakes that you're used to.
 
 256
-00:10:49,370 --> 00:10:53,450
-libraries we have have easy ways to
+00:17:29,757 --> 00:17:32,096
+Yeah, we've got record syntax.
 
 257
-00:10:51,170 --> 00:10:56,570
-construct the new lens or you know
+00:17:32,096 --> 00:17:33,556
+We've got instances.
 
 258
-00:10:53,450 --> 00:10:59,750
-whatever and so yeah I just thought that
+00:17:33,556 --> 00:17:37,888
+We have type classes things like that
+can kind of bypass the whole need for
 
 259
-00:10:56,570 --> 00:11:02,650
-you know these functions at the core are
+00:17:37,888 --> 00:17:38,537
+a lenses.
 
 260
-00:10:59,750 --> 00:11:04,940
-pretty easy to understand but I think
+00:17:38,537 --> 00:17:41,759
+So definitely feel better about that.
 
 261
-00:11:02,650 --> 00:11:07,940
-people can also get a little bit
+00:17:41,759 --> 00:17:45,517
+So on just you have anything else you
+wanna kind of touch on in regards to
 
 262
-00:11:04,940 --> 00:11:08,130
-confused about how they're operating
+00:17:45,517 --> 00:17:46,800
+specifically lenses?
 
 263
-00:11:07,940 --> 00:11:09,480
-right
+00:17:46,800 --> 00:17:52,036
+>> No, I think you've covered everything,
+I enjoyed our little talk about lenses.
 
 264
-00:11:08,130 --> 00:11:12,180
-because we're operating within this
+00:17:52,036 --> 00:17:53,721
+>> Yeah, I think it was good.
 
 265
-00:11:09,480 --> 00:11:13,770
-optic this lens which I think for some
+00:17:53,721 --> 00:17:56,154
+And I think there's
+definitely more out there.
 
 266
-00:11:12,180 --> 00:11:15,750
-people is a little more confusing where
+00:17:56,154 --> 00:18:01,578
+So definitely check out the article
+because of it was pretty informative cuz I
 
 267
-00:11:13,770 --> 00:11:18,000
-JavaScript you're just like yeah hey
+00:18:01,578 --> 00:18:07,434
+hadn't really spent time looking at lenses
+in depth or prisms or traversals isos.
 
 268
-00:11:15,750 --> 00:11:18,720
-here's this value I found it I have
+00:18:07,434 --> 00:18:10,334
+So it's definitely pretty
+informative to me.
 
 269
-00:11:18,000 --> 00:11:20,820
-access to it
+00:18:10,334 --> 00:18:13,991
+I definitely encourage our readers
+to go out there and check it out.
 
 270
-00:11:18,720 --> 00:11:23,220
-okay just change it to this Haskell
+00:18:13,991 --> 00:18:16,878
+But thanks for
+being on the show with me today Andres.
 
 271
-00:11:20,820 --> 00:11:24,870
-still kinda says hey hold on we're gonna
+00:18:16,878 --> 00:18:17,959
+>> Thank you for having me Cam.
 
 272
-00:11:23,220 --> 00:11:27,090
-make it a little more difficult for you
+00:18:17,959 --> 00:18:20,577
+And thank you for
+listening the Haskell Weekly Podcast.
 
 273
-00:11:24,870 --> 00:11:27,510
-to mute a something but here's what you
+00:18:20,577 --> 00:18:24,490
+If you like what you heard find out
+more on our website haskellweekly.news.
 
 274
-00:11:27,090 --> 00:11:29,760
-can do
+00:18:24,490 --> 00:18:29,009
+Also, please rate us and
+review us on iTunes it helps a lot.
 
 275
-00:11:27,510 --> 00:11:32,850
-uh-huh which i think is you know it's
+00:18:29,009 --> 00:18:31,318
+Haskell weekly is brought
+to you by itproTV,
 
 276
-00:11:29,760 --> 00:11:34,440
-it's nice because Haskell says okay you
+00:18:31,318 --> 00:18:34,496
+the tech skills development platform for
+IT professionals.
 
 277
-00:11:32,850 --> 00:11:36,810
-know obviously this article we're
+00:18:34,496 --> 00:18:36,249
+>> And also our employers.
 
 278
-00:11:34,440 --> 00:11:38,130
-reading it's in pure skip so I'm just
+00:18:36,249 --> 00:18:39,147
+>> Yeah that too us you address and
 
 279
-00:11:36,810 --> 00:11:40,730
-pulling it over to Haskell because we're
+00:18:39,147 --> 00:18:44,955
+network admins www.itpro.tv for
+all your training needs.
 
 280
-00:11:38,130 --> 00:11:43,470
-talking about it's a hassle podcast so
+00:18:44,955 --> 00:18:47,530
+>> And then they can tell you what they
+think of the people who develop it.
 
 281
-00:11:40,730 --> 00:11:45,990
-like I think it's very much it's like a
+00:18:47,530 --> 00:18:49,811
+>> Yeah thanks again for
+being on the show.
 
 282
-00:11:43,470 --> 00:11:50,430
-yeah because it's just a necessary means
+00:18:49,811 --> 00:18:51,528
+We'll see you again next week.
 
 283
-00:11:45,990 --> 00:11:53,460
-to solve this really deep nested object
+00:18:51,528 --> 00:18:52,556
+See you.
 
 284
-00:11:50,430 --> 00:11:56,370
-issue I totally agree with the whole
-
-285
-00:11:53,460 --> 00:12:01,230
-lens aspect of these things this is just
-
-286
-00:11:56,370 --> 00:12:03,920
-an optic this is not a mutation now what
-
-287
-00:12:01,230 --> 00:12:07,080
-I mean by that is a school's entire
-
-288
-00:12:03,920 --> 00:12:10,100
-paradigm is please don't mutate my
-
-289
-00:12:07,080 --> 00:12:13,710
-things so lenses give you an option to
-
-290
-00:12:10,100 --> 00:12:16,410
-go in there and mutate it in such a way
-
-291
-00:12:13,710 --> 00:12:17,850
-that makes sense to Haskell which you
-
-292
-00:12:16,410 --> 00:12:20,970
-know when you start thinking about what
-
-293
-00:12:17,850 --> 00:12:23,700
-a mutation is it makes sense that really
-
-294
-00:12:20,970 --> 00:12:25,380
-you Haskell is mutating and it's
-
-295
-00:12:23,700 --> 00:12:25,860
-probably mutating a lot of stuff in the
-
-296
-00:12:25,380 --> 00:12:27,450
-background
-
-297
-00:12:25,860 --> 00:12:29,910
-I don't know much like I said just
-
-298
-00:12:27,450 --> 00:12:32,130
-started three months ago but I'm
-
-299
-00:12:29,910 --> 00:12:35,250
-assuming that Haskell's functional
-
-300
-00:12:32,130 --> 00:12:37,230
-paradigm is on the front side but it
-
-301
-00:12:35,250 --> 00:12:39,330
-obviously will have to have some kind of
-
-302
-00:12:37,230 --> 00:12:43,740
-state in the background and lenses will
-
-303
-00:12:39,330 --> 00:12:45,150
-give you a view into this mutations I'm
-
-304
-00:12:43,740 --> 00:12:48,090
-not entirely sure that's where the name
-
-305
-00:12:45,150 --> 00:12:51,420
-comes from probably not but that's how I
-
-306
-00:12:48,090 --> 00:12:53,850
-see it and leading into this I have the
-
-307
-00:12:51,420 --> 00:12:57,720
-question that has been a little nagging
-
-308
-00:12:53,850 --> 00:12:59,880
-and lenses aren't just for these types
-
-309
-00:12:57,720 --> 00:13:03,090
-of data structures that come from like
-
-310
-00:12:59,880 --> 00:13:05,580
-JSON or XML or any kind of server thing
-
-311
-00:13:03,090 --> 00:13:06,990
-the lenses are used for a raise for
-
-312
-00:13:05,580 --> 00:13:08,670
-lists for maps any kind of data
-
-313
-00:13:06,990 --> 00:13:11,460
-structure that you can think of can be
-
-314
-00:13:08,670 --> 00:13:14,760
-used through a lens and my question to
-
-315
-00:13:11,460 --> 00:13:17,850
-you is would you use lenses in that
-
-316
-00:13:14,760 --> 00:13:21,390
-scenario yeah that's a great question
-
-317
-00:13:17,850 --> 00:13:22,140
-and I think it would boil down to you
-
-318
-00:13:21,390 --> 00:13:24,150
-know do
-
-319
-00:13:22,140 --> 00:13:26,070
-I wanna like if I'm gonna modify
-
-320
-00:13:24,150 --> 00:13:28,620
-something is it worth it to make a new
-
-321
-00:13:26,070 --> 00:13:31,680
-one or just modify that single their
-
-322
-00:13:28,620 --> 00:13:34,740
-value in most the time you know we
-
-323
-00:13:31,680 --> 00:13:35,520
-choose make a new one right brand new
-
-324
-00:13:34,740 --> 00:13:38,310
-yeah
-
-325
-00:13:35,520 --> 00:13:39,810
-the old one goodbye see you later but if
-
-326
-00:13:38,310 --> 00:13:41,970
-we have a huge data structure that we
-
-327
-00:13:39,810 --> 00:13:45,000
-don't want to continually load into
-
-328
-00:13:41,970 --> 00:13:47,340
-memory or be passing around maybe it is
-
-329
-00:13:45,000 --> 00:13:49,470
-easier to say hey let's just use a lens
-
-330
-00:13:47,340 --> 00:13:52,950
-and modify those values along the way
-
-331
-00:13:49,470 --> 00:13:54,690
-and keep the same thing so I definitely
-
-332
-00:13:52,950 --> 00:13:57,210
-say high school the community of high
-
-333
-00:13:54,690 --> 00:13:59,460
-school also we lean a lot more towards
-
-334
-00:13:57,210 --> 00:14:02,160
-make a new one rather than modify a
-
-335
-00:13:59,460 --> 00:14:04,830
-value but yet lenses give you that
-
-336
-00:14:02,160 --> 00:14:07,050
-option and I think that goes in line to
-
-337
-00:14:04,830 --> 00:14:09,540
-what my thought process was which is if
-
-338
-00:14:07,050 --> 00:14:11,280
-you don't think you need it or even if
-
-339
-00:14:09,540 --> 00:14:13,770
-you think you might need it don't use
-
-340
-00:14:11,280 --> 00:14:16,560
-lenses until you're sure that lens has
-
-341
-00:14:13,770 --> 00:14:18,360
-become a necessity right like I would
-
-342
-00:14:16,560 --> 00:14:20,070
-definitely not lean towards yeah if you
-
-343
-00:14:18,360 --> 00:14:21,390
-want to go go ahead and make your whole
-
-344
-00:14:20,070 --> 00:14:24,270
-architecture if you're using lenses
-
-345
-00:14:21,390 --> 00:14:25,740
-because you know it will work and it
-
-346
-00:14:24,270 --> 00:14:27,300
-would be fine
-
-347
-00:14:25,740 --> 00:14:29,820
-but it's just gonna add a lot of
-
-348
-00:14:27,300 --> 00:14:33,260
-complexity in areas you may not always
-
-349
-00:14:29,820 --> 00:14:36,480
-need that complexity and angry yeah and
-
-350
-00:14:33,260 --> 00:14:38,550
-one thing to note here just a little
-
-351
-00:14:36,480 --> 00:14:41,640
-side note I was just looking at this one
-
-352
-00:14:38,550 --> 00:14:44,270
-little thing we had highlighted here you
-
-353
-00:14:41,640 --> 00:14:48,870
-know a key difference with the lens
-
-354
-00:14:44,270 --> 00:14:51,360
-specific optic is the value has to be
-
-355
-00:14:48,870 --> 00:14:54,180
-known or like has to be known to exist I
-
-356
-00:14:51,360 --> 00:14:58,200
-should say whereas you know prisms or
-
-357
-00:14:54,180 --> 00:15:00,870
-traversals or ISOs that's not true
-
-358
-00:14:58,200 --> 00:15:02,610
-you know prisms are you know you kind of
-
-359
-00:15:00,870 --> 00:15:04,980
-can't think of it as maybe or the either
-
-360
-00:15:02,610 --> 00:15:07,080
-monads and you know dealing with the
-
-361
-00:15:04,980 --> 00:15:09,570
-maybe neither monads and you know
-
-362
-00:15:07,080 --> 00:15:11,820
-traversals thinking more like lists and
-
-363
-00:15:09,570 --> 00:15:15,030
-arrays and you know maps things like
-
-364
-00:15:11,820 --> 00:15:16,950
-that and so that's something to be to
-
-365
-00:15:15,030 --> 00:15:19,320
-note is you know you want to make sure
-
-366
-00:15:16,950 --> 00:15:20,700
-if you're gonna use a lens you know
-
-367
-00:15:19,320 --> 00:15:23,400
-these are values you want to make sure
-
-368
-00:15:20,700 --> 00:15:25,260
-they're if not you probably want to look
-
-369
-00:15:23,400 --> 00:15:27,090
-more into like a prism and say hey does
-
-370
-00:15:25,260 --> 00:15:31,020
-this thing exist before I try to go get
-
-371
-00:15:27,090 --> 00:15:32,430
-it in you know that would like you know
-
-372
-00:15:31,020 --> 00:15:34,410
-prisms allow have something called
-
-373
-00:15:32,430 --> 00:15:35,250
-preview which is okay go see if this is
-
-374
-00:15:34,410 --> 00:15:38,430
-there if not
-
-375
-00:15:35,250 --> 00:15:40,110
-let's let's bail um so that you know
-
-376
-00:15:38,430 --> 00:15:42,389
-that's another thing to think about if
-
-377
-00:15:40,110 --> 00:15:45,360
-you're using lenses is you know the
-
-378
-00:15:42,389 --> 00:15:47,370
-value has to be there and exist or else
-
-379
-00:15:45,360 --> 00:15:50,339
-you could probably get some some gnarly
-
-380
-00:15:47,370 --> 00:15:53,610
-runtime errors yeah and I think my
-
-381
-00:15:50,339 --> 00:15:56,250
-takeaway from this talk is lenses are
-
-382
-00:15:53,610 --> 00:15:58,290
-complicated I will probably only reach
-
-383
-00:15:56,250 --> 00:16:00,540
-for them for problems that are
-
-384
-00:15:58,290 --> 00:16:04,439
-complicated not for simple problems
-
-385
-00:16:00,540 --> 00:16:06,029
-mm-hmm and that is something that in the
-
-386
-00:16:04,439 --> 00:16:08,459
-last three months it's exactly what I've
-
-387
-00:16:06,029 --> 00:16:11,699
-seen so far is the only time we've ever
-
-388
-00:16:08,459 --> 00:16:14,490
-used lenses in our environment is just
-
-389
-00:16:11,699 --> 00:16:18,300
-solve a complicated problem much more
-
-390
-00:16:14,490 --> 00:16:22,139
-specifically to us XML and I that is my
-
-391
-00:16:18,300 --> 00:16:23,939
-takeaway from this I am open to finding
-
-392
-00:16:22,139 --> 00:16:26,459
-out that lenses are a lot more powerful
-
-393
-00:16:23,939 --> 00:16:28,740
-and a lot more structured way of doing
-
-394
-00:16:26,459 --> 00:16:31,529
-something it's just I haven't come
-
-395
-00:16:28,740 --> 00:16:34,350
-across it yet mm-hmm yeah and that's
-
-396
-00:16:31,529 --> 00:16:35,639
-totally fair and you know if you're you
-
-397
-00:16:34,350 --> 00:16:37,620
-know beginning high school I would
-
-398
-00:16:35,639 --> 00:16:39,779
-definitely out there over-the-head say
-
-399
-00:16:37,620 --> 00:16:42,269
-hey slow down on lenses like they
-
-400
-00:16:39,779 --> 00:16:44,040
-they're not a core component necessarily
-
-401
-00:16:42,269 --> 00:16:47,519
-you know you'll run into libraries you
-
-402
-00:16:44,040 --> 00:16:52,110
-use that may have lenses you know for us
-
-403
-00:16:47,519 --> 00:16:54,959
-we have Amazon which is our AWS library
-
-404
-00:16:52,110 --> 00:16:57,449
-and then we have text XML dot lenses is
-
-405
-00:16:54,959 --> 00:16:59,939
-also a big thing so core components do
-
-406
-00:16:57,449 --> 00:17:01,769
-have lenses and you can use and solve
-
-407
-00:16:59,939 --> 00:17:04,439
-problems with lenses but I would
-
-408
-00:17:01,769 --> 00:17:06,839
-definitely say that's not you know just
-
-409
-00:17:04,439 --> 00:17:08,939
-because that added complexity could you
-
-410
-00:17:06,839 --> 00:17:11,189
-know just kind of demotivate you home
-
-411
-00:17:08,939 --> 00:17:13,199
-from solving the problem because high
-
-412
-00:17:11,189 --> 00:17:14,490
-school you know that's one thing I love
-
-413
-00:17:13,199 --> 00:17:16,559
-about high school is there's a ton of
-
-414
-00:17:14,490 --> 00:17:18,059
-ways to solve a problem you know yeah
-
-415
-00:17:16,559 --> 00:17:20,789
-the more complicated problems there's
-
-416
-00:17:18,059 --> 00:17:23,250
-less options for beginners out there
-
-417
-00:17:20,789 --> 00:17:26,490
-don't be don't be afraid of lenses but I
-
-418
-00:17:23,250 --> 00:17:28,110
-wouldn't go chasing them you know don't
-
-419
-00:17:26,490 --> 00:17:29,789
-go chasing waterfalls stick to the
-
-420
-00:17:28,110 --> 00:17:32,460
-rivers and lakes that you're used to you
-
-421
-00:17:29,789 --> 00:17:34,650
-know we've got record syntax with that
-
-422
-00:17:32,460 --> 00:17:36,929
-you know instances we have type classes
-
-423
-00:17:34,650 --> 00:17:39,630
-things like that they can kind of bypass
-
-424
-00:17:36,929 --> 00:17:42,480
-the old need for lenses so definitely
-
-425
-00:17:39,630 --> 00:17:43,710
-feel better about that so are just you
-
-426
-00:17:42,480 --> 00:17:46,140
-have anything else you want to kind of
-
-427
-00:17:43,710 --> 00:17:48,630
-touch on in regards to specific lenses
-
-428
-00:17:46,140 --> 00:17:51,690
-no I think we've covered everything I
-
-429
-00:17:48,630 --> 00:17:54,480
-enjoyed our little talk about lenses
-
-430
-00:17:51,690 --> 00:17:56,130
-yeah I think it was good and you know I
-
-431
-00:17:54,480 --> 00:17:57,600
-think there's definitely more out there
-
-432
-00:17:56,130 --> 00:17:59,880
-so definitely check out the article
-
-433
-00:17:57,600 --> 00:18:02,039
-because it's super you know it was
-
-434
-00:17:59,880 --> 00:18:03,360
-pretty informative because I hadn't
-
-435
-00:18:02,039 --> 00:18:07,169
-really spent time looking at lenses
-
-436
-00:18:03,360 --> 00:18:08,880
-lenses in depth or prisms or traversals
-
-437
-00:18:07,169 --> 00:18:11,610
-or Isis so it's definitely pretty
-
-438
-00:18:08,880 --> 00:18:13,620
-informative to me I definitely encourage
-
-439
-00:18:11,610 --> 00:18:15,270
-our readers to go out there and check it
-
-440
-00:18:13,620 --> 00:18:17,400
-out but thanks for being on the show
-
-441
-00:18:15,270 --> 00:18:18,990
-with me today Andris thank you for
-
-442
-00:18:17,400 --> 00:18:20,880
-having me cam and thank you for
-
-443
-00:18:18,990 --> 00:18:22,470
-listening the haskell weekly podcast be
-
-444
-00:18:20,880 --> 00:18:24,809
-like what you heard find out more on our
-
-445
-00:18:22,470 --> 00:18:27,299
-website haskell weekly dot news also
-
-446
-00:18:24,809 --> 00:18:30,000
-please rate us and review us on iTunes
-
-447
-00:18:27,299 --> 00:18:32,039
-it helps a lot haskell weekly is brought
-
-448
-00:18:30,000 --> 00:18:33,450
-to you by IT Pro TV the tech skills
-
-449
-00:18:32,039 --> 00:18:35,659
-development platform for IT
-
-450
-00:18:33,450 --> 00:18:38,789
-professionals and also our employers
-
-451
-00:18:35,659 --> 00:18:43,409
-yeah that to send ursus admins and
-
-452
-00:18:38,789 --> 00:18:45,720
-network admins WWI T Pro TV for all your
-
-453
-00:18:43,409 --> 00:18:46,919
-training needs and then they can tell
-
-454
-00:18:45,720 --> 00:18:48,630
-you what they think of the people who
-
-455
-00:18:46,919 --> 00:18:50,730
-develop it yeah thanks again for being
-
-456
-00:18:48,630 --> 00:18:54,049
-on the show we'll see you again next
-
-457
-00:18:50,730 --> 00:18:54,049
-week see ya
-
-458
-00:18:55,299 --> 00:18:57,360
-you
+00:18:52,556 --> 00:18:53,337
+Bye.

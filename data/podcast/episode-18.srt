@@ -1,1659 +1,1398 @@
 1
-00:00:01,669 --> 00:00:05,790
-hello and welcome to the Haskell weekly
+00:00:02,195 --> 00:00:04,592
+Hello and
+welcome to the Haskell weekly podcast.
 
 2
-00:00:04,020 --> 00:00:08,309
-podcast as you might have guessed this
+00:00:04,592 --> 00:00:07,214
+As you might have guessed
+this show is about Haskell,
 
 3
-00:00:05,790 --> 00:00:09,660
-show is about Haskell which is a purely
+00:00:07,214 --> 00:00:09,848
+which is a purely functional
+programming language.
 
 4
-00:00:08,309 --> 00:00:12,120
-functional programming language
+00:00:09,848 --> 00:00:11,497
+I'm your host Taylor Fausak.
 
 5
-00:00:09,660 --> 00:00:18,510
-I'm your host Taylor Foss ak I'm the
+00:00:11,497 --> 00:00:14,344
+I'm the lead engineer at ITPro.TV.
 
 6
-00:00:12,120 --> 00:00:20,279
-lead engineer at IT Pro TV thanks for
+00:00:14,344 --> 00:00:15,196
+>> I'm Cody Goodman.
 
 7
-00:00:18,510 --> 00:00:22,170
-joining me today Cody what are we gonna
+00:00:15,196 --> 00:00:17,932
+I'm a senior engineer at ITProTV.
 
 8
-00:00:20,279 --> 00:00:25,199
-be talking about we are going to be
+00:00:17,932 --> 00:00:19,709
+>> Thanks for joining me today, Cody.
 
 9
-00:00:22,170 --> 00:00:29,250
-following a blog post called inventing
+00:00:19,709 --> 00:00:20,896
+What are we going to be talking about?
 
 10
-00:00:25,199 --> 00:00:30,630
-mana it's talking through it cool I feel
+00:00:20,896 --> 00:00:26,410
+>> We are going to be following a blog
+post called inventing monad and
 
 11
-00:00:29,250 --> 00:00:32,669
-like I've been programming high school
+00:00:26,410 --> 00:00:28,626
+talking through it cool.
 
 12
-00:00:30,630 --> 00:00:34,500
-for a while so I'm familiar with my nads
+00:00:28,626 --> 00:00:30,832
+>> I feel like I've been
+programming Haskell for a while.
 
 13
-00:00:32,669 --> 00:00:37,530
-but this is more of a beginner's
+00:00:30,832 --> 00:00:35,767
+So I'm familiar with monads, but this is
+more of a beginner's perspective, right?
 
 14
-00:00:34,500 --> 00:00:40,440
-perspective right right he tries to
+00:00:35,767 --> 00:00:39,607
+>> Right, it tries to actually
+go through and start using or
 
 15
-00:00:37,530 --> 00:00:42,329
-actually go through and start using or
+00:00:39,607 --> 00:00:43,607
+uses JavaScript throughout all
+of those examples to make it
 
 16
-00:00:40,440 --> 00:00:44,760
-he uses JavaScript throughout all of his
+00:00:43,607 --> 00:00:48,260
+a little more approachable since
+that's kind of the lingua Franca.
 
 17
-00:00:42,329 --> 00:00:46,530
-examples to make it a little more
+00:00:48,260 --> 00:00:49,302
+>> Yeah, for sure.
 
 18
-00:00:44,760 --> 00:00:49,980
-approachable since that's kind of the
+00:00:49,302 --> 00:00:53,610
+JavaScript use just a little bit
+more than Haskell in industry, and
 
 19
-00:00:46,530 --> 00:00:51,989
-lingua franca yeah for sure
+00:00:53,610 --> 00:00:58,761
+it's nice to see that the concept of my
+monads can be applied in other languages.
 
 20
-00:00:49,980 --> 00:00:54,539
-javascript you know use just a little
+00:00:58,761 --> 00:01:01,075
+It's not something that
+is specific to Haskell.
 
 21
-00:00:51,989 --> 00:00:56,820
-bit more than Haskell in industry and
+00:01:01,075 --> 00:01:02,810
+>> Right.
 
 22
-00:00:54,539 --> 00:00:58,800
-it's nice to see that the concept of
+00:01:02,810 --> 00:01:05,445
+>> So you mentioned that
+he does this in JavaScript.
 
 23
-00:00:56,820 --> 00:01:00,660
-mods can be applied in other languages
+00:01:05,445 --> 00:01:07,862
+So how does he start off,
+because I know that Haskell and
 
 24
-00:00:58,800 --> 00:01:04,439
-it's not something that is specific to a
+00:01:07,862 --> 00:01:10,029
+JavaScript represent
+things a lot differently.
 
 25
-00:01:00,660 --> 00:01:06,150
-school right so you mentioned that he he
+00:01:10,029 --> 00:01:12,137
+So it's kind of weird to see
+that as a starting point.
 
 26
-00:01:04,439 --> 00:01:08,100
-does this in JavaScript so how does he
+00:01:12,137 --> 00:01:16,991
+>> Right, he just starts with
+a normal kind of JavaScript block of
 
 27
-00:01:06,150 --> 00:01:09,630
-start off because I know that Haskell
+00:01:16,991 --> 00:01:20,486
+a function of how you
+would get a middle name.
 
 28
-00:01:08,100 --> 00:01:11,100
-and JavaScript represent things a lot
+00:01:20,486 --> 00:01:23,458
+You have a function and
+two constants in it.
 
 29
-00:01:09,630 --> 00:01:13,380
-differently so it's kind of weird to see
+00:01:23,458 --> 00:01:26,200
+A function call and two constants in it.
 
 30
-00:01:11,100 --> 00:01:16,500
-that as a starting point right he just
+00:01:26,200 --> 00:01:29,944
+Then he does this sort
+of pointless looking
 
 31
-00:01:13,380 --> 00:01:19,170
-starts with a normal kind of JavaScript
+00:01:29,944 --> 00:01:35,041
+transformation where he
+introduces an apply function and
 
 32
-00:01:16,500 --> 00:01:21,990
-block of a function of how you would get
+00:01:35,041 --> 00:01:39,825
+he uses that apply function
+to get the middle name, and
 
 33
-00:01:19,170 --> 00:01:24,360
-a middle name you have a function and
+00:01:39,825 --> 00:01:43,985
+then he calls the get user
+function on that, and
 
 34
-00:01:21,990 --> 00:01:26,040
-two constants in it a function call and
+00:01:43,985 --> 00:01:47,018
+then the apply above that as well.
 
 35
-00:01:24,360 --> 00:01:29,180
-two constants in it mm-hmm
+00:01:47,018 --> 00:01:51,327
+And finally, calling get ID
+with all of those things and
 
 36
-00:01:26,040 --> 00:01:32,310
-then he does a sort of pointless looking
+00:01:51,327 --> 00:01:53,536
+the subsequent plies on it.
 
 37
-00:01:29,180 --> 00:01:35,520
-transformation where he introduces an
+00:01:53,536 --> 00:01:58,759
+>> Got you, so he has this kind of
+straightforward JavaScript function and
 
 38
-00:01:32,310 --> 00:01:39,210
-apply function and he uses that apply
+00:01:58,759 --> 00:02:00,137
+he transforms it.
 
 39
-00:01:35,520 --> 00:01:42,600
-function to get the middle name and then
+00:02:00,137 --> 00:02:03,543
+Throwing a seemingly unnecessary
+amount of abstraction in there, but
 
 40
-00:01:39,210 --> 00:01:46,220
-he calls the get user function on that
+00:02:03,543 --> 00:02:05,655
+I have to assume it'll
+come in handy later.
 
 41
-00:01:42,600 --> 00:01:50,250
-and then the apply above that as well
+00:02:05,655 --> 00:02:07,987
+>> [LAUGH]
+>> Right,
 
 42
-00:01:46,220 --> 00:01:52,979
-then finally calling get ID with all of
+00:02:07,987 --> 00:02:09,959
+he calls it a dense representation.
 
 43
-00:01:50,250 --> 00:01:54,240
-those things and the except supplies on
+00:02:09,959 --> 00:02:13,631
+It totally looks pointless and
+it's like God, why would you do this?
 
 44
-00:01:52,979 --> 00:01:55,950
-it gotcha
+00:02:13,631 --> 00:02:16,877
+[LAUGH] Yeah, well,
+hopefully he'll tell us.
 
 45
-00:01:54,240 --> 00:01:59,880
-so he has this kind of straightforward
+00:02:16,877 --> 00:02:19,295
+And it's interesting
+here that JavaScript and
 
 46
-00:01:55,950 --> 00:02:02,549
-JavaScript function and he transforms it
+00:02:19,295 --> 00:02:22,740
+Haskell again are such different
+languages, but he manages to make
 
 47
-00:01:59,880 --> 00:02:04,860
-throwing a seemingly unnecessary amount
+00:02:22,740 --> 00:02:26,376
+a function called syntax that ends
+up looking pretty close to Haskell.
 
 48
-00:02:02,549 --> 00:02:07,979
-of abstraction in there but I have to
+00:02:26,376 --> 00:02:28,296
+So if you kind of squint
+your eyes a little bit,
 
 49
-00:02:04,860 --> 00:02:10,410
-assume it'll come in handy later right
+00:02:28,296 --> 00:02:31,460
+you could imagine this JavaScript is
+actually Haskell which is nice for me.
 
 50
-00:02:07,979 --> 00:02:12,450
-he calls it a dense representation it
+00:02:31,460 --> 00:02:32,818
+>> Yeah, great.
 
 51
-00:02:10,410 --> 00:02:14,040
-totally looks pointless and it's like oh
+00:02:32,818 --> 00:02:34,973
+>> So now that we've thrown
+all this extra syntax and
 
 52
-00:02:12,450 --> 00:02:16,980
-god why would you do this
+00:02:34,973 --> 00:02:38,011
+boilerplate in front of ourselves,
+what do we actually get out of it?
 
 53
-00:02:14,040 --> 00:02:19,930
-yeah well hopefully he'll tell us and
+00:02:38,011 --> 00:02:40,270
+What's the first thing that
+he does with this stuff?
 
 54
-00:02:16,980 --> 00:02:21,490
-it's interesting here that JavaScript
+00:02:40,270 --> 00:02:43,717
+Well, the first thing is
+he poses the question.
 
 55
-00:02:19,930 --> 00:02:23,050
-and Haskell again are such different
+00:02:43,717 --> 00:02:49,303
+What if I ID, middle name,
+user if any of those things could be null?
 
 56
-00:02:21,490 --> 00:02:24,970
-languages but he manages to make a
+00:02:49,303 --> 00:02:51,091
+>> Which is super common, right?
 
 57
-00:02:23,050 --> 00:02:26,800
-function call syntax that ends up
+00:02:51,091 --> 00:02:56,945
+>> Right, right, anything fails, you'll
+get a null, especially in JavaScript.
 
 58
-00:02:24,970 --> 00:02:28,030
-looking pretty close to Haskell so if
+00:02:56,945 --> 00:03:00,854
+He gives a code snippet
+where the get ID and
 
 59
-00:02:26,800 --> 00:02:30,010
-you kind of squint your eyes a little
+00:03:00,854 --> 00:03:07,683
+get user functions are now checking for
+null, same for get middle name.
 
 60
-00:02:28,030 --> 00:02:31,569
-bit you could imagine this javascript is
+00:03:07,683 --> 00:03:11,096
+>> Right, so I showing you kind of the
+more typical JavaScript way of approaching
 
 61
-00:02:30,010 --> 00:02:33,970
-actually Haskell which is nice for me
+00:03:11,096 --> 00:03:12,141
+this problem, right?
 
 62
-00:02:31,569 --> 00:02:35,980
-yeah great so now that we've thrown all
+00:03:12,141 --> 00:03:16,765
+>> Correct and showing how all of them
+have to handle the null values and
 
 63
-00:02:33,970 --> 00:02:37,569
-this extra syntax and boilerplate in
+00:03:16,765 --> 00:03:19,131
+the possibility of returning it.
 
 64
-00:02:35,980 --> 00:02:38,800
-front of ourselves what do we actually
+00:03:19,131 --> 00:03:21,227
+>> Right, every single place.
 
 65
-00:02:37,569 --> 00:02:40,780
-get out of it what's the first thing
+00:03:21,227 --> 00:03:25,276
+>> And then he pivots and says,
+what if we check for it automatically?
 
 66
-00:02:38,800 --> 00:02:43,840
-that he does with this stuff well the
+00:03:25,276 --> 00:03:29,498
+>> Right and how do we how
+can we do that automatically?
 
 67
-00:02:40,780 --> 00:02:45,280
-first thing is he poses the question you
+00:03:29,498 --> 00:03:32,083
+Does it use that apply
+function we had earlier.
 
 68
-00:02:43,840 --> 00:02:48,430
-know what if ID
+00:03:32,083 --> 00:03:37,985
+>> Right, so the secret to all of this is
+in that you change how these functions
 
 69
-00:02:45,280 --> 00:02:50,920
-middle name user if any of those things
+00:03:37,985 --> 00:03:43,340
+are interpreted instead of changing
+those functions themselves.
 
 70
-00:02:48,430 --> 00:02:53,680
-could be null which super coming right
+00:03:43,340 --> 00:03:44,233
+>> That's pretty cool.
 
 71
-00:02:50,920 --> 00:02:55,570
-right right you know anything fails
+00:03:44,233 --> 00:03:48,323
+So earlier, you said that apply,
+it takes an argument in a function and
 
 72
-00:02:53,680 --> 00:02:56,890
-you'll you'll get a null is especially
+00:03:48,323 --> 00:03:52,825
+then it applies that function to that
+argument exactly like you might expect,
 
 73
-00:02:55,570 --> 00:03:01,510
-in JavaScript mm-hm
+00:03:52,825 --> 00:03:56,115
+but what does it do now that
+null has entered the picture?
 
 74
-00:02:56,890 --> 00:03:03,580
-he gives a code snippet where the get ID
+00:03:56,115 --> 00:04:01,851
+>> That's actually where he
+gets to updating the applied
 
 75
-00:03:01,510 --> 00:03:07,330
-and get user functions are now checking
+00:04:01,851 --> 00:04:07,718
+function where if x is equal to null,
+so given apply xf.
 
 76
-00:03:03,580 --> 00:03:09,519
-for null same forget middle name right
+00:04:07,718 --> 00:04:10,607
+If x is equal to null,
+you just return null.
 
 77
-00:03:07,330 --> 00:03:11,290
-so I'm showing you kind of the more
+00:04:10,607 --> 00:04:13,395
+Otherwise, you apply f2x.
 
 78
-00:03:09,519 --> 00:03:13,330
-typical JavaScript way of approaching
+00:04:13,395 --> 00:04:14,366
+>> That's pretty cool.
 
 79
-00:03:11,290 --> 00:03:16,360
-this problem right correct and showing
+00:04:14,366 --> 00:04:18,777
+I like to think of that as short
+circuiting where once you encounter
 
 80
-00:03:13,330 --> 00:03:19,269
-how all of them have to handle the null
+00:04:18,777 --> 00:04:24,001
+a null, everything stops happening and
+you just get null from that point out.
 
 81
-00:03:16,360 --> 00:03:22,209
-values and their possibility returning
+00:04:24,001 --> 00:04:27,597
+And I see that happening a lot in
+JavaScript functions where you say,
 
 82
-00:03:19,269 --> 00:03:24,430
-it right every single place and then e
+00:04:27,597 --> 00:04:31,193
+right at the top of some handler,
+you say, if some condition is met,
 
 83
-00:03:22,209 --> 00:03:26,500
-pivots and says what if we check for it
+00:04:31,193 --> 00:04:34,368
+then return null or error or
+whatever it is and then carry on.
 
 84
-00:03:24,430 --> 00:03:30,010
-automatically right and and how do we
+00:04:34,368 --> 00:04:36,267
+So this is pretty similar
+to that in my mind.
 
 85
-00:03:26,500 --> 00:03:31,840
-how can we do that automatically does it
+00:04:36,267 --> 00:04:41,733
+>> Yeah, there's just a lot of times we're
+within a function, you'd have to do a lot
 
 86
-00:03:30,010 --> 00:03:35,860
-use that apply function we had earlier
+00:04:41,733 --> 00:04:46,829
+of nested if checks or something where
+you could have used short circuiting.
 
 87
-00:03:31,840 --> 00:03:39,340
-right so the secret to all of this is in
+00:04:46,829 --> 00:04:49,768
+>> Yeah, it cleans things up a lot,
+I think.
 
 88
-00:03:35,860 --> 00:03:41,739
-that you change how these functions are
+00:04:49,768 --> 00:04:54,194
+So now that he's got this new apply
+implementation that supports null
 
 89
-00:03:39,340 --> 00:03:44,260
-interpreted instead of changing those
+00:04:54,194 --> 00:04:56,453
+checking, what does he do with it?
 
 90
-00:03:41,739 --> 00:03:47,260
-functions themselves that's pretty cool
+00:04:56,453 --> 00:05:02,020
+>> He uses it to show how he can
+get the middle name function
 
 91
-00:03:44,260 --> 00:03:49,750
-so earlier you said that apply you know
+00:05:02,020 --> 00:05:07,961
+exactly the same way as he did
+in the previous iterations.
 
 92
-00:03:47,260 --> 00:03:50,739
-it takes to re-take so an argument in a
+00:05:07,961 --> 00:05:12,393
+>> And that's pretty cool, right,
+that the same code can behave differently,
 
 93
-00:03:49,750 --> 00:03:52,480
-function and then it applies that
+00:05:12,393 --> 00:05:15,090
+depending on if you need
+to handle nulls or not.
 
 94
-00:03:50,739 --> 00:03:54,220
-function to that argument exactly like
+00:05:15,090 --> 00:05:16,017
+>> Right.
 
 95
-00:03:52,480 --> 00:03:55,930
-you might expect but what is it doing
+00:05:16,017 --> 00:05:19,671
+>> It's starting to look a little bit
+like something, but I don't know.
 
 96
-00:03:54,220 --> 00:03:57,640
-now that null has entered the picture
+00:05:19,671 --> 00:05:20,666
+We don't wanna give it a name yet.
 
 97
-00:03:55,930 --> 00:04:01,480
-that's actually where it gets to
+00:05:20,666 --> 00:05:21,728
+I don't wanna scare anybody off.
 
 98
-00:03:57,640 --> 00:04:07,840
-updating the apply function where if X
+00:05:21,728 --> 00:05:26,769
+>> [LAUGH]
+>> So after he shows this example
 
 99
-00:04:01,480 --> 00:04:10,120
-is equal to null so give an apply X F if
+00:05:26,769 --> 00:05:31,209
+of dealing with null, he kind of pivots
+and walks back to the original example and
 
 100
-00:04:07,840 --> 00:04:13,690
-X is equal to note you just search on
+00:05:31,209 --> 00:05:34,824
+then adds another, I'll call it an effect,
+but another thing.
 
 101
-00:04:10,120 --> 00:04:15,660
-null otherwise you apply F to X that's
+00:05:34,824 --> 00:05:36,764
+So instead of checking for null,
 
 102
-00:04:13,690 --> 00:04:19,269
-pretty cool I like to think of that as
+00:05:36,764 --> 00:05:41,354
+he does something else which is kind of
+logging things as they happen, right?
 
 103
-00:04:15,660 --> 00:04:21,070
-short-circuiting where once you
+00:05:41,354 --> 00:05:44,567
+So that if you were needing
+to debug this function,
 
 104
-00:04:19,269 --> 00:04:22,720
-encounter a null everything stops
+00:05:44,567 --> 00:05:47,856
+cuz you unexpectedly got
+a middle name of popcorn and
 
 105
-00:04:21,070 --> 00:04:23,900
-happening and you just get null from
+00:05:47,856 --> 00:05:52,135
+that doesn't make sense and
+you wanna figure out how you got there.
 
 106
-00:04:22,720 --> 00:04:26,240
-that point out
+00:05:52,135 --> 00:05:54,661
+So these this logging would help
+you figure that out, right?
 
 107
-00:04:23,900 --> 00:04:28,669
-and I see that a lot in JavaScript
+00:05:54,661 --> 00:05:58,953
+>> Right, not being able to log and
+functions like this if
 
 108
-00:04:26,240 --> 00:04:30,350
-functions where you say right at the top
+00:05:58,953 --> 00:06:03,726
+we tell people coming to Haskell
+like yeah, you can't log.
 
 109
-00:04:28,669 --> 00:04:32,630
-of some handler you say if some
+00:06:03,726 --> 00:06:06,253
+That's not going to work
+right kind of eased.
 
 110
-00:04:30,350 --> 00:04:34,280
-condition is met then return null or
+00:06:06,253 --> 00:06:08,963
+>> You you need to be practical,
+you got to debug stuff.
 
 111
-00:04:32,630 --> 00:04:36,050
-error or whatever it is and that carry
+00:06:08,963 --> 00:06:12,956
+And so how do they approach logging, given
+that they're trying to implement these
 
 112
-00:04:34,280 --> 00:04:38,060
-on so this is pretty similar to that in
+00:06:12,956 --> 00:06:15,190
+things as quote, unquote, pure functions?
 
 113
-00:04:36,050 --> 00:04:41,540
-my mind yeah there's just a lot of times
+00:06:15,190 --> 00:06:19,868
+>> So the first thing you do is in
+functional languages avoid global
 
 114
-00:04:38,060 --> 00:04:43,790
-where within a function you'd have to do
+00:06:19,868 --> 00:06:23,347
+variables to keep track
+of all those messages.
 
 115
-00:04:41,540 --> 00:04:44,630
-a lot of nested-if checks or something
+00:06:23,347 --> 00:06:30,402
+So the first pass that, that is modifying
+utility functions to handle arrays.
 
 116
-00:04:43,790 --> 00:04:48,260
-where you could have used
+00:06:30,402 --> 00:06:31,484
+>> And when you say arrays,
+what do you mean?
 
 117
-00:04:44,630 --> 00:04:51,169
-short-circuiting mm-hmm yeah it cleans
+00:06:31,484 --> 00:06:32,922
+What's in those arrays?
 
 118
-00:04:48,260 --> 00:04:53,870
-things up a lot I think so now that he's
+00:06:32,922 --> 00:06:37,658
+>> The result, as well as the log message.
 
 119
-00:04:51,169 --> 00:04:55,729
-got this new apply implementation that
+00:06:37,658 --> 00:06:41,670
+>> Right, so you get back an array where
+the first thing in it is the answer and
 
 120
-00:04:53,870 --> 00:04:58,729
-supports null checking what does he do
+00:06:41,670 --> 00:06:45,686
+everything else is kind of stuff that
+happened along the way that you might
 
 121
-00:04:55,729 --> 00:05:02,990
-with it he uses it to show how he can
+00:06:45,686 --> 00:06:48,056
+be interested in and you might throw away.
 
 122
-00:04:58,729 --> 00:05:07,100
-write the middle name function exactly
+00:06:48,056 --> 00:06:48,589
+>> Right,
 
 123
-00:05:02,990 --> 00:05:08,960
-the same way as he did in the previous
+00:06:48,589 --> 00:06:53,398
+the the trouble is that then your
+functions have to know how to handle that.
 
 124
-00:05:07,100 --> 00:05:11,810
-iteration and that's pretty cool right
+00:06:53,398 --> 00:06:57,354
+>> Yeah, every single function you
+call would need to like d structure or
 
 125
-00:05:08,960 --> 00:05:14,120
-that the same code can behave
+00:06:57,354 --> 00:06:58,572
+lookup or whatever.
 
 126
-00:05:11,810 --> 00:05:16,820
-differently depending on if you need to
+00:06:58,572 --> 00:07:03,027
+But fortunately, we have functions that
+we've thrown in our own way here, right,
 
 127
-00:05:14,120 --> 00:05:18,889
-handle nulls or not right it's starting
+00:07:03,027 --> 00:07:05,743
+that we can change yet
+again to do what we need here.
 
 128
-00:05:16,820 --> 00:05:20,449
-to look a little bit like something but
+00:07:05,743 --> 00:07:10,565
+>> Right, that pointless seeming function
+from it first apply which made things
 
 129
-00:05:18,889 --> 00:05:21,500
-I don't know we don't want to give it a
+00:07:10,565 --> 00:07:11,818
+look all horrible.
 
 130
-00:05:20,449 --> 00:05:26,990
-name yet I don't want to scare anybody
+00:07:11,818 --> 00:07:16,490
+>> [LAUGH]
+>> Now it's like we can just go back and
 
 131
-00:05:21,500 --> 00:05:28,099
-off so after he shows this example of
+00:07:16,490 --> 00:07:22,593
+modify this now to distructure that and
+show us what the logs, the results of.
 
 132
-00:05:26,990 --> 00:05:31,130
-dealing with null
+00:07:22,593 --> 00:07:26,544
+>> Yeah, previously, we were using
+the supply function to check for null.
 
 133
-00:05:28,099 --> 00:05:32,630
-he kind of pivots and walks back to the
+00:07:26,544 --> 00:07:30,156
+But now we're saying,
+grab that first thing out of it and
 
 134
-00:05:31,130 --> 00:05:34,820
-original example and then adds another
+00:07:30,156 --> 00:07:33,251
+append all can cat together
+all the other stuff.
 
 135
-00:05:32,630 --> 00:05:36,919
-I'll call it an effect but another thing
+00:07:33,251 --> 00:07:36,061
+So we're accumulating these log
+messages as we go through, but
 
 136
-00:05:34,820 --> 00:05:39,110
-so instead of checking for null he does
+00:07:36,061 --> 00:07:38,778
+still producing the result that
+we wanted in the first place.
 
 137
-00:05:36,919 --> 00:05:42,050
-something else which is kind of logging
+00:07:38,778 --> 00:07:41,751
+>> Yeah and that's that's
+really cool to be able to just
 
 138
-00:05:39,110 --> 00:05:43,789
-things as they happen right so that if
+00:07:41,751 --> 00:07:44,469
+modify that apply again
+to handle all our needs.
 
 139
-00:05:42,050 --> 00:05:46,700
-you were needing to debug this function
+00:07:44,469 --> 00:07:45,974
+>> Exactly, pretty nice.
 
 140
-00:05:43,789 --> 00:05:50,539
-because you unexpectedly got a middle
+00:07:45,974 --> 00:07:49,184
+Again, you end up with the same
+shape at the top level.
 
 141
-00:05:46,700 --> 00:05:51,530
-name of you know popcorn and that's that
+00:07:49,184 --> 00:07:51,156
+It still looks exactly the same.
 
 142
-00:05:50,539 --> 00:05:53,270
-doesn't make sense then you want to
+00:07:51,156 --> 00:07:53,844
+But underneath the covers,
+the implement, excuse me,
 
 143
-00:05:51,530 --> 00:05:54,560
-figure out how you got there so these
+00:07:53,844 --> 00:07:57,377
+the implementation details are kind
+of switched out from underneath you.
 
 144
-00:05:53,270 --> 00:05:57,110
-this logging would help you figure that
+00:07:57,377 --> 00:08:00,332
+So instead of handling nulls,
+now we're doing logging.
 
 145
-00:05:54,560 --> 00:06:00,190
-out right right not being able to log in
+00:08:00,332 --> 00:08:04,993
+>> And that's why this blog
+post does a really good job of
 
 146
-00:05:57,110 --> 00:06:03,169
-functions like this if we told people
+00:08:04,993 --> 00:08:09,358
+motivating why word we're
+not saying is useful.
 
 147
-00:06:00,190 --> 00:06:05,590
-coming to Haskell like yeah you can't
+00:08:09,358 --> 00:08:13,357
+>> [LAUGH] Maybe at this point we can
+start talking about it is in the title
 
 148
-00:06:03,169 --> 00:06:08,240
-log that's not gonna work
+00:08:13,357 --> 00:08:13,859
+after.
 
 149
-00:06:05,590 --> 00:06:10,280
-you you need to be practical you got a
+00:08:13,859 --> 00:08:16,134
+So-
+>> Yeah.
 
 150
-00:06:08,240 --> 00:06:12,440
-debug stuff and so how do they approach
+00:08:16,134 --> 00:08:20,118
+So far, these have been two examples of
+monads and this is showing you that yeah,
 
 151
-00:06:10,280 --> 00:06:13,940
-logging given that they're trying to
+00:08:20,118 --> 00:08:21,056
+they are useful for
 
 152
-00:06:12,440 --> 00:06:17,090
-implement these things as quote unquote
+00:08:21,056 --> 00:08:25,179
+real life situations that you're gonna
+come across as you're writing programs.
 
 153
-00:06:13,940 --> 00:06:19,880
-pure functions so the first thing you do
+00:08:25,179 --> 00:08:28,338
+It's not just advanced
+math Ivory Tower stuff.
 
 154
-00:06:17,090 --> 00:06:22,010
-is functional languages avoid global
+00:08:28,338 --> 00:08:33,117
+>> For sure, there's a lot of it a lot
+of real world advantages that you get
 
 155
-00:06:19,880 --> 00:06:24,710
-variables to keep track of all those
+00:08:33,117 --> 00:08:36,636
+from monads and
+he's worse good examples already.
 
 156
-00:06:22,010 --> 00:06:28,750
-messages mmm so the first pass that that
+00:08:36,636 --> 00:08:40,084
+>> And they're going to give a few more,
+so let's kind of get through those.
 
 157
-00:06:24,710 --> 00:06:31,940
-is modifying utility functions to handle
+00:08:40,084 --> 00:08:43,892
+They talk about global environment which
+when I read that makes me shudder a little
 
 158
-00:06:28,750 --> 00:06:33,680
-erase and when you say arrays what do
+00:08:43,892 --> 00:08:46,272
+bit, because I don't
+like global environments.
 
 159
-00:06:31,940 --> 00:06:37,639
-you mean what's in those arrays the
+00:08:46,272 --> 00:08:50,180
+I like things to be as local as possible,
+but I think they don't really mean global.
 
 160
-00:06:33,680 --> 00:06:39,919
-result as well as the blog message
+00:08:50,180 --> 00:08:52,074
+They mean something else, don't they?
 
 161
-00:06:37,639 --> 00:06:42,229
-right so you get back an array where the
+00:08:52,074 --> 00:08:57,236
+It's kind of like scoped to
+the function or something like that.
 
 162
-00:06:39,919 --> 00:06:44,780
-first thing in is the answer and
+00:08:57,236 --> 00:08:59,997
+>> Right, they mean for a given function,
 
 163
-00:06:42,229 --> 00:06:46,310
-everything else is kind of stuff that
+00:08:59,997 --> 00:09:04,884
+you can provide an environment that
+can be modified within that scope.
 
 164
-00:06:44,780 --> 00:06:48,680
-happened along the way that you might be
+00:09:04,884 --> 00:09:08,582
+>> Right, so the way that I
+like to think about this and
 
 165
-00:06:46,310 --> 00:06:51,439
-interested in you might throw away right
+00:09:08,582 --> 00:09:13,312
+I think this actually came up in
+our code base recently here at work
 
 166
-00:06:48,680 --> 00:06:53,780
-the trouble is that then your functions
+00:09:13,312 --> 00:09:17,956
+where we had a series of functions
+that all needed some config and
 
 167
-00:06:51,439 --> 00:06:55,669
-have to know how to handle that yeah
+00:09:17,956 --> 00:09:23,211
+we were passing that config from
+function A to function B, B2 C, C to D.
 
 168
-00:06:53,780 --> 00:06:58,009
-every single function you call would
+00:09:23,211 --> 00:09:27,696
+And that's a lot of boilerplate, cuz you
+have to thread that thing all the way
 
 169
-00:06:55,669 --> 00:07:00,650
-need to like D structure or lookup or
+00:09:27,696 --> 00:09:31,772
+through and I think we came out of
+that not having to thread it through.
 
 170
-00:06:58,009 --> 00:07:02,090
-whatever but fortunately we have a
+00:09:31,772 --> 00:09:33,042
+Can you tell us how we got there?
 
 171
-00:07:00,650 --> 00:07:03,710
-function that we've thrown in our own
+00:09:33,042 --> 00:09:38,470
+>> Right, so
+we started using a monad transformer which
 
 172
-00:07:02,090 --> 00:07:06,530
-way here right that we can change yet
+00:09:38,470 --> 00:09:44,029
+the important thing is that
+it had a reader monad in it.
 
 173
-00:07:03,710 --> 00:07:08,689
-again to do what need here right that
+00:09:44,029 --> 00:09:47,758
+>> And that reader monad is what?
 
 174
-00:07:06,530 --> 00:07:12,080
-that pointless seeming function from at
+00:09:47,758 --> 00:09:52,144
+>> That just means that you can
+simply use a function called ask and
 
 175
-00:07:08,689 --> 00:07:15,860
-first apply which made things look all
+00:09:52,144 --> 00:09:58,022
+whatever you initiated that reader on Ed
+with whatever value it was initiated with,
 
 176
-00:07:12,080 --> 00:07:18,469
-horrible now like oh we can just go back
+00:09:58,022 --> 00:09:59,709
+you'll get that back.
 
 177
-00:07:15,860 --> 00:07:21,439
-and modify this now 2d structure that
+00:09:59,709 --> 00:10:01,382
+In our case, it was convicted.
 
 178
-00:07:18,469 --> 00:07:22,250
-and and show us what the logs the
+00:10:01,382 --> 00:10:07,226
+Got you, so we had all these functions
+that were operating in this monad.
 
 179
-00:07:21,439 --> 00:07:25,039
-results up
+00:10:07,226 --> 00:10:11,584
+And instead of passing an argument
+through to everything in the single place
 
 180
-00:07:22,250 --> 00:07:27,259
-yeah previously we were using the supply
+00:10:11,584 --> 00:10:16,160
+where we needed it, all we had to do was
+ask for it and it was suddenly available.
 
 181
-00:07:25,039 --> 00:07:29,779
-function to check for null but now we're
+00:10:16,160 --> 00:10:20,061
+>> Right and actually at one point,
+we had both the new monad and
 
 182
-00:07:27,259 --> 00:07:32,419
-saying grab that first thing out of it
+00:10:20,061 --> 00:10:21,984
+we were still passing in fig.
 
 183
-00:07:29,779 --> 00:07:33,770
-and append all you know can cat together
+00:10:21,984 --> 00:10:24,458
+>> [LAUGH]
+>> It headed twice just to make sure get
 
 184
-00:07:32,419 --> 00:07:35,629
-all the other stuff so we're
+00:10:24,458 --> 00:10:25,902
+it from one place,
+get it from the other and
 
 185
-00:07:33,770 --> 00:07:37,340
-accumulating these log messages as we go
+00:10:25,902 --> 00:10:27,441
+make sure they're the same and
+then move on.
 
 186
-00:07:35,629 --> 00:07:39,169
-through but still producing the result
+00:10:27,441 --> 00:10:31,679
+>> [LAUGH]
+>> Right.
 
 187
-00:07:37,340 --> 00:07:40,939
-that we wanted in the first place yeah
+00:10:31,679 --> 00:10:36,823
+>> So in this blog posts, he shows
+this global environment example and
 
 188
-00:07:39,169 --> 00:07:43,039
-and that's that's really cool to be able
+00:10:36,823 --> 00:10:42,508
+kind of walked you through the reader
+monad is what it would be in Haskell and
 
 189
-00:07:40,939 --> 00:07:44,180
-to just modify that apply again to
+00:10:42,508 --> 00:10:47,132
+provides motivation for
+this example that we just ran into.
 
 190
-00:07:43,039 --> 00:07:46,789
-handle all our needs
+00:10:47,132 --> 00:10:48,363
+Passing all these arguments is annoying.
 
 191
-00:07:44,180 --> 00:07:49,370
-exactly pretty nice again you end up
+00:10:48,363 --> 00:10:51,810
+And if you can put it in your context and
+then ask for it when you need it,
 
 192
-00:07:46,789 --> 00:07:51,379
-with the same shape at the top level it
+00:10:51,810 --> 00:10:52,811
+it's pretty nice.
 
 193
-00:07:49,370 --> 00:07:53,960
-still looks exactly the same but
+00:10:52,811 --> 00:10:56,799
+And once again, as you might be
+able to guess, you change apply and
 
 194
-00:07:51,379 --> 00:07:56,150
-underneath the covers the implementing
-
-195
-00:07:53,960 --> 00:07:57,650
-the implementation details are kind of
-
-196
-00:07:56,150 --> 00:07:59,089
-switched out from underneath you so
-
-197
-00:07:57,650 --> 00:08:01,460
-instead of handling Knolls now we're
-
-198
-00:07:59,089 --> 00:08:04,190
-doing logging and that's that does
-
-199
-00:08:01,460 --> 00:08:07,909
-that's why this blog post does a really
-
-200
-00:08:04,190 --> 00:08:11,659
-good job of motivating why the word
-
-201
-00:08:07,909 --> 00:08:12,919
-we're not saying as useful maybe at this
-
-202
-00:08:11,659 --> 00:08:16,129
-point we can start talking about it is
-
-203
-00:08:12,919 --> 00:08:17,509
-in the title after all so oh yeah so far
-
-204
-00:08:16,129 --> 00:08:20,000
-these have been two examples of
-
-205
-00:08:17,509 --> 00:08:22,189
-Manette's and this is showing you that
-
-206
-00:08:20,000 --> 00:08:23,810
-yeah they are useful for real-life
-
-207
-00:08:22,189 --> 00:08:26,060
-situations that you're gonna come across
-
-208
-00:08:23,810 --> 00:08:28,310
-as you're writing programs it's not just
-
-209
-00:08:26,060 --> 00:08:31,009
-you know advanced math ivory tower stuff
-
-210
-00:08:28,310 --> 00:08:33,229
-for sure there's a lot of it a lot of
-
-211
-00:08:31,009 --> 00:08:35,180
-real-world advantages that you get from
-
-212
-00:08:33,229 --> 00:08:37,669
-on ads and these were good examples
-
-213
-00:08:35,180 --> 00:08:39,560
-already mm-hm and they go on to give a
-
-214
-00:08:37,669 --> 00:08:42,469
-few more so so let's kind of get through
-
-215
-00:08:39,560 --> 00:08:43,940
-those they talk about global environment
-
-216
-00:08:42,469 --> 00:08:45,920
-which when I read that makes me shudder
-
-217
-00:08:43,940 --> 00:08:47,149
-a little bit because I don't like global
-
-218
-00:08:45,920 --> 00:08:49,040
-environments I like things to be as
-
-219
-00:08:47,149 --> 00:08:51,290
-local as possible but I think they don't
-
-220
-00:08:49,040 --> 00:08:54,230
-really mean global they mean some
-
-221
-00:08:51,290 --> 00:08:56,889
-else don't they it's kind of like scoped
-
-222
-00:08:54,230 --> 00:09:01,100
-to the function or something like that
-
-223
-00:08:56,889 --> 00:09:03,019
-right they mean for a given function you
-
-224
-00:09:01,100 --> 00:09:06,980
-can provide an environment that can be
-
-225
-00:09:03,019 --> 00:09:08,480
-modified within that scope right so the
-
-226
-00:09:06,980 --> 00:09:10,339
-way that I like to think about this and
-
-227
-00:09:08,480 --> 00:09:13,540
-I think this actually came up in our
-
-228
-00:09:10,339 --> 00:09:16,040
-code base recently here at work where we
-
-229
-00:09:13,540 --> 00:09:19,790
-had a series of functions that all
-
-230
-00:09:16,040 --> 00:09:21,620
-needed some config and we were passing
-
-231
-00:09:19,790 --> 00:09:25,009
-that config from functionary to function
-
-232
-00:09:21,620 --> 00:09:26,329
-B B to C C to D and that's a lot of
-
-233
-00:09:25,009 --> 00:09:29,029
-boilerplate because you have to thread
-
-234
-00:09:26,329 --> 00:09:31,370
-that thing all the way through and I
-
-235
-00:09:29,029 --> 00:09:32,420
-think we we came out of that not having
-
-236
-00:09:31,370 --> 00:09:37,420
-to thread it through can you tell us how
-
-237
-00:09:32,420 --> 00:09:40,880
-we got there right so we started using a
-
-238
-00:09:37,420 --> 00:09:43,639
-mana transformer which the important
-
-239
-00:09:40,880 --> 00:09:44,500
-thing is that it had a reader mana in it
-
-240
-00:09:43,639 --> 00:09:49,670
-mm-hmm
-
-241
-00:09:44,500 --> 00:09:54,019
-Damona is what that just means that you
-
-242
-00:09:49,670 --> 00:09:56,029
-can simply use a function called ask and
-
-243
-00:09:54,019 --> 00:09:57,649
-whatever you initiated that reader
-
-244
-00:09:56,029 --> 00:09:59,959
-bonad with whatever value it was
-
-245
-00:09:57,649 --> 00:10:04,250
-initiated with you'll get that back in
-
-246
-00:09:59,959 --> 00:10:05,240
-our case it was convicted yeah so our we
-
-247
-00:10:04,250 --> 00:10:08,209
-had all these functions that were
-
-248
-00:10:05,240 --> 00:10:09,529
-operating in this maaan ad and instead
-
-249
-00:10:08,209 --> 00:10:12,050
-of passing an argument through to
-
-250
-00:10:09,529 --> 00:10:14,060
-everything in the single place where we
-
-251
-00:10:12,050 --> 00:10:16,550
-needed it all we had to do was ask for
-
-252
-00:10:14,060 --> 00:10:19,610
-it and it was suddenly available right
-
-253
-00:10:16,550 --> 00:10:22,040
-actually at one point we we had both the
-
-254
-00:10:19,610 --> 00:10:25,220
-new mana and we were still passing it
-
-255
-00:10:22,040 --> 00:10:26,779
-thick-headed twice you know just to make
-
-256
-00:10:25,220 --> 00:10:28,069
-sure get it from one place get her from
-
-257
-00:10:26,779 --> 00:10:34,550
-the other make sure they're the same and
-
-258
-00:10:28,069 --> 00:10:37,220
-then move on right so in in this blog
-
-259
-00:10:34,550 --> 00:10:38,540
-post he shows this global environment
-
-260
-00:10:37,220 --> 00:10:40,850
-example and kind of walks you through
-
-261
-00:10:38,540 --> 00:10:43,850
-the the reader mine ad is what it would
-
-262
-00:10:40,850 --> 00:10:45,769
-be an asshole and you know does it
-
-263
-00:10:43,850 --> 00:10:47,480
-provides motivation for this example
-
-264
-00:10:45,769 --> 00:10:50,240
-that we just ran into passing all these
-
-265
-00:10:47,480 --> 00:10:51,740
-arguments is annoying and if you can put
-
-266
-00:10:50,240 --> 00:10:52,220
-it in your context and then escort when
-
-267
-00:10:51,740 --> 00:10:54,380
-you need it
-
-268
-00:10:52,220 --> 00:10:56,990
-it's pretty nice and once again as you
-
-269
-00:10:54,380 --> 00:10:59,779
-might be able to guess you change apply
-
-270
-00:10:56,990 --> 00:11:01,069
-and your actual business logic ends up
-
-271
-00:10:59,779 --> 00:11:02,480
+00:10:56,799 --> 00:11:00,861
+your actual business logic ends up
 looking the same and all the stuff
 
-272
-00:11:01,069 --> 00:11:04,130
-underneath the covers kind of changes
+195
+00:11:00,861 --> 00:11:05,850
+underneath the covers kind of changes out
+from underneath which sounds scary, but
 
-273
-00:11:02,480 --> 00:11:06,110
-out from underneath you which sounds
+196
+00:11:05,850 --> 00:11:09,297
+promise isn't as long as you
+follow a few rules exactly.
 
-274
-00:11:04,130 --> 00:11:08,160
-scary but promise
+197
+00:11:09,297 --> 00:11:12,578
+They're important rules
+as we call them laws, but
 
-275
-00:11:06,110 --> 00:11:10,949
-as long as you follow a few rules
+198
+00:11:12,578 --> 00:11:16,330
+I don't think you get arrested
+if you don't follow them.
 
-276
-00:11:08,160 --> 00:11:15,149
-exactly so they're important rules say
+199
+00:11:16,330 --> 00:11:18,123
+It's just very, very frowned upon.
 
-277
-00:11:10,949 --> 00:11:16,290
-that we call them laws but I don't think
-
-278
-00:11:15,149 --> 00:11:18,649
-you get arrested if you don't follow
-
-279
-00:11:16,290 --> 00:11:21,779
-them it's just very a very frowned upon
-
-280
-00:11:18,649 --> 00:11:25,050
-so now that we've gone through dealing
-
-281
-00:11:21,779 --> 00:11:26,850
+200
+00:11:18,123 --> 00:11:23,122
+So now that we've gone through dealing
 with nulls accumulating a bunch of state
 
+201
+00:11:23,122 --> 00:11:25,732
+in this case logs as we
+go through stuff and
+
+202
+00:11:25,732 --> 00:11:30,676
+having a kind of read-only environment
+that's available to our functions.
+
+203
+00:11:30,676 --> 00:11:35,665
+We land on the final example which is
+state which is something that gets passed
+
+204
+00:11:35,665 --> 00:11:39,440
+to every function, but
+also can be updated along the way.
+
+205
+00:11:39,440 --> 00:11:41,793
+Can you tell us a little
+more about this example and
+
+206
+00:11:41,793 --> 00:11:43,989
+kind of how it differs
+from the previous ones?
+
+207
+00:11:43,989 --> 00:11:50,171
+>> It's really similar like you're saying,
+I think to the reader mpnad.
+
+208
+00:11:50,171 --> 00:11:53,834
+The only difference is that that
+initial state that was passed in.
+
+209
+00:11:53,834 --> 00:12:00,957
+You can update it and you can you can get
+it again do whatever you want with it.
+
+210
+00:12:00,957 --> 00:12:03,866
+>> And I think the example they use as
+kind of innovation has to deal with
+
+211
+00:12:03,866 --> 00:12:04,642
+random numbers.
+
+212
+00:12:04,642 --> 00:12:08,930
+Because if you wanna generate a bunch of
+random numbers in a pure fashion without
+
+213
+00:12:08,930 --> 00:12:12,133
+reading from like slash dev random or
+something like that.
+
+214
+00:12:12,133 --> 00:12:16,171
+Typically, you're gonna need a random
+number seed and those are deterministic.
+
+215
+00:12:16,171 --> 00:12:18,662
+So if you give something the same seed,
+
+216
+00:12:18,662 --> 00:12:23,728
+you get back the same answer which works
+fine if you only need one random number.
+
+217
+00:12:23,728 --> 00:12:26,377
+You could throw that in your reader
+context and pull out the seed,
+
+218
+00:12:26,377 --> 00:12:27,642
+and generate a random number.
+
+219
+00:12:27,642 --> 00:12:31,266
+But if you wanna generate to, you would
+generate the same number both times,
+
+220
+00:12:31,266 --> 00:12:33,733
+because you couldn't change
+that reader context.
+
+221
+00:12:33,733 --> 00:12:38,009
+So you need something like the state
+where you can ask for to get it and
+
+222
+00:12:38,009 --> 00:12:40,936
+then do whatever operation you want with,
+and
+
+223
+00:12:40,936 --> 00:12:44,106
+then put something back
+into the state change it.
+
+224
+00:12:44,106 --> 00:12:49,067
+I actually remember I remember having
+a bug with random numbers before where I
+
+225
+00:12:49,067 --> 00:12:54,041
+might have been using a reader monads
+just threading that same seed through.
+
+226
+00:12:54,041 --> 00:12:58,850
+And after I figured it out,
+it just reminded me of the xkcd comic,
+
+227
+00:12:58,850 --> 00:13:00,519
+it's like turn 42.
+
+228
+00:13:00,519 --> 00:13:02,000
+>> Yeah, guaranteed random.
+
+229
+00:13:02,000 --> 00:13:05,234
+We rolled some dice and
+figured out this is a very random number.
+
+230
+00:13:05,234 --> 00:13:07,564
+We're just gonna keep giving it to you.
+
+231
+00:13:07,564 --> 00:13:10,264
+[LAUGH] Yeah, so
+we don't want to implement
+
+232
+00:13:10,264 --> 00:13:14,021
+random number generators like that and
+you don't have to.
+
+233
+00:13:14,021 --> 00:13:18,607
+The monad abstraction is powerful enough
+to give you this ability to consistently
+
+234
+00:13:18,607 --> 00:13:22,594
+take something in into your environment
+and use it, and modify it, and
+
+235
+00:13:22,594 --> 00:13:25,400
+then return that back out
+along with your answer.
+
+236
+00:13:27,800 --> 00:13:32,016
+So once again, we end up with
+changing the apply function and
+
+237
+00:13:32,016 --> 00:13:36,159
+using the same business logic over and
+over and over again.
+
+238
+00:13:36,159 --> 00:13:40,264
+So that gets us through all of the
+motivating examples that this guy gave for
+
+239
+00:13:40,264 --> 00:13:44,694
+monads and he managed to make it through
+this post without using monads we didn't
+
+240
+00:13:44,694 --> 00:13:46,930
+quite think we made it halfway through.
+
+241
+00:13:46,930 --> 00:13:51,755
+>> [LAUGH]
+>> But this is something that happens
+
+242
+00:13:51,755 --> 00:13:57,911
+a lot in the Haskell community, right,
+beginners kind of finally grokking monads.
+
+243
+00:13:57,911 --> 00:13:59,356
+Have you seen this come up before?
+
+244
+00:13:59,356 --> 00:14:00,765
+>> Yeah a ton.
+
+245
+00:14:00,765 --> 00:14:05,145
+I personally started writing
+Haskell just by making
+
+246
+00:14:05,145 --> 00:14:09,037
+functions of the five
+ten fifteen arguments.
+
+247
+00:14:09,037 --> 00:14:14,409
+Yeah, to pass the state through and
+then I finally got annoyed and I was like
+
+248
+00:14:14,409 --> 00:14:20,140
+I'm going to learn what monads are about
+and I came across a billion tutorials.
+
+249
+00:14:20,140 --> 00:14:23,203
+>> [LAUGH]
+>> Monads are burritos.
+
+250
+00:14:23,203 --> 00:14:24,447
+What else are they?
+
+251
+00:14:24,447 --> 00:14:25,867
+>> They're all kinds of things.
+
+252
+00:14:25,867 --> 00:14:29,325
+I keep thinking the straws, but
+I think that's lenses are straws.
+
+253
+00:14:29,325 --> 00:14:30,385
+Monads are burritos.
+
+254
+00:14:30,385 --> 00:14:33,148
+Their boxes, their containers.
+
+255
+00:14:33,148 --> 00:14:36,268
+I don't know, any number of things.
+
+256
+00:14:36,268 --> 00:14:41,096
+>> That's why I really like tutorials like
+this which focus on some real examples,
+
+257
+00:14:41,096 --> 00:14:45,995
+because you're not gonna get very far with
+metaphors as much as you will with using
+
+258
+00:14:45,995 --> 00:14:50,202
+these things and seeing why those
+laws that are seemingly pointless.
+
+259
+00:14:50,202 --> 00:14:54,830
+Why there is applied functions
+through seemingly pointless help you.
+
+260
+00:14:54,830 --> 00:14:56,080
+>> Yeah, I agree.
+
+261
+00:14:56,080 --> 00:15:01,200
+I much prefer seeing a motivating example
+rather than here's the type signature and
+
+262
+00:15:01,200 --> 00:15:04,385
+here's the laws and
+it's important and good luck.
+
+263
+00:15:04,385 --> 00:15:07,968
+>> [LAUGH]
+>> Walking through stuff like this really
+
+264
+00:15:07,968 --> 00:15:08,553
+helps me or
+
+265
+00:15:08,553 --> 00:15:12,721
+would have helped me when I was learning
+Haskell see why do I care about this?
+
+266
+00:15:12,721 --> 00:15:14,268
+What do I get out of it?
+
+267
+00:15:14,268 --> 00:15:15,635
+>> Exactly.
+
+268
+00:15:15,635 --> 00:15:18,735
+>> And like you, I've seen so many of
+these tutorials through the years that
+
+269
+00:15:18,735 --> 00:15:21,539
+it's feels a little bit like a rite
+of passage for new Haskellers.
+
+270
+00:15:21,539 --> 00:15:24,018
+Like yeah,
+you got to learn what mountains are and
+
+271
+00:15:24,018 --> 00:15:26,978
+then you got to write blog posts
+that says you what they are.
+
+272
+00:15:26,978 --> 00:15:28,894
+>> And that's exactly what's happened.
+
+273
+00:15:28,894 --> 00:15:33,684
+Yeah, [LAUGH] somehow I think neither you,
+nor I have written this blog post,
+
+274
+00:15:33,684 --> 00:15:37,900
+but maybe that just means we haven't
+truly understood monads yet.
+
+275
+00:15:37,900 --> 00:15:40,679
+>> [LAUGH]
+>> Well, I hope we do.
+
+276
+00:15:40,679 --> 00:15:42,947
+We're making a podcast about them.
+
+277
+00:15:42,947 --> 00:15:47,257
+>> Yeah, it does this count
+as a blog post probably.
+
+278
+00:15:47,257 --> 00:15:49,785
+Anyway, I think that about wraps it up for
+us today.
+
+279
+00:15:49,785 --> 00:15:51,955
+Thanks for
+being with me on the show today, Cody.
+
+280
+00:15:51,955 --> 00:15:53,259
+>> Thanks for having me, Taylor.
+
+281
+00:15:53,259 --> 00:15:54,393
+It was a lot of fun.
+
 282
-00:11:25,050 --> 00:11:28,759
-in this case logs as we go through stuff
+00:15:54,393 --> 00:15:55,788
+>> It was a lot of fun.
 
 283
-00:11:26,850 --> 00:11:30,420
-and having a kind of read-only
+00:15:55,788 --> 00:15:58,756
+It's always good and
+good having you on here, and thank you for
 
 284
-00:11:28,759 --> 00:11:32,100
-environment that's available to our
+00:15:58,756 --> 00:16:00,778
+listening to the Haskell weekly podcast.
 
 285
-00:11:30,420 --> 00:11:34,759
-functions we land on the final example
+00:16:00,778 --> 00:16:02,470
+If you like what you heard,
 
 286
-00:11:32,100 --> 00:11:37,350
-which is state which is something that
+00:16:02,470 --> 00:16:06,305
+please find out more at our website,
+haskellweekly.news.
 
 287
-00:11:34,759 --> 00:11:40,139
-gets passed to every function but also
+00:16:06,305 --> 00:16:10,778
+And if you did like our show, again,
+please go rate and review us on iTunes.
 
 288
-00:11:37,350 --> 00:11:41,699
-can be updated along the way can you
+00:16:10,778 --> 00:16:11,848
+It helps a lot.
 
 289
-00:11:40,139 --> 00:11:43,350
-tell us a little more about this example
+00:16:11,848 --> 00:16:16,417
+Haskell weekly is brought to you every
+week by ITPro.TV, the tech skills
 
 290
-00:11:41,699 --> 00:11:46,050
-and kind of how it differs from the
+00:16:16,417 --> 00:16:21,443
+development platform for IT professionals
+who also happens to be our employer.
 
 291
-00:11:43,350 --> 00:11:49,490
-previous ones it's really similar like
+00:16:21,443 --> 00:16:23,719
+So please send your sysadmins and
 
 292
-00:11:46,050 --> 00:11:52,170
-you're saying I think to the reader mana
+00:16:23,719 --> 00:16:28,027
+network admins to www.itpro.tv for
+other learning needs and
 
 293
-00:11:49,490 --> 00:11:54,779
-the only difference is that that initial
+00:16:28,027 --> 00:16:33,241
+they can let you know what they think of
+the people who develop it which is us.
 
 294
-00:11:52,170 --> 00:11:59,370
-state that was passed in you can update
+00:16:33,241 --> 00:16:36,336
+So thanks again, Cody and
+we'll see you all next week.
 
 295
-00:11:54,779 --> 00:12:00,300
-it then you can you can get it again do
-
-296
-00:11:59,370 --> 00:12:02,550
-whatever you want with it
-
-297
-00:12:00,300 --> 00:12:03,959
-mm-hm and I think the example they use
-
-298
-00:12:02,550 --> 00:12:06,420
-as kind of motivation has to deal with
-
-299
-00:12:03,959 --> 00:12:08,310
-random numbers because if you want to
-
-300
-00:12:06,420 --> 00:12:10,230
-generate a bunch of random numbers in a
-
-301
-00:12:08,310 --> 00:12:11,899
-pure fashion without reading from like
-
-302
-00:12:10,230 --> 00:12:13,709
-/dev view random or something like that
-
-303
-00:12:11,899 --> 00:12:16,529
-typically you're going to need a random
-
-304
-00:12:13,709 --> 00:12:17,850
-number of seed and those are
-
-305
-00:12:16,529 --> 00:12:19,199
-deterministic so if you give something
-
-306
-00:12:17,850 --> 00:12:22,709
-the same seed you get back the same
-
-307
-00:12:19,199 --> 00:12:24,449
-answer which works fine if you only need
-
-308
-00:12:22,709 --> 00:12:26,309
-one random number you could throw that
-
-309
-00:12:24,449 --> 00:12:28,110
-in your reader context and pull out the
-
-310
-00:12:26,309 --> 00:12:30,059
-seed and generate your random number but
-
-311
-00:12:28,110 --> 00:12:31,470
-if you want to generate two you would
-
-312
-00:12:30,059 --> 00:12:33,209
-generate the same number both times
-
-313
-00:12:31,470 --> 00:12:35,459
-because you couldn't change that reader
-
-314
-00:12:33,209 --> 00:12:38,910
-context so you need something like the
-
-315
-00:12:35,459 --> 00:12:41,339
-state where you can ask for it or get it
-
-316
-00:12:38,910 --> 00:12:43,199
-and then do whatever operation you want
-
-317
-00:12:41,339 --> 00:12:44,160
-with and then put something back into
-
-318
-00:12:43,199 --> 00:12:47,490
-the state change it
-
-319
-00:12:44,160 --> 00:12:49,379
-I actually remember I remember having a
-
-320
-00:12:47,490 --> 00:12:51,259
-bug with random numbers before where I
-
-321
-00:12:49,379 --> 00:12:53,939
-might have been using a reader monitor
-
-322
-00:12:51,259 --> 00:12:56,430
-just threading that same seed through
-
-323
-00:12:53,939 --> 00:12:59,370
-and after I figured it out it just
-
-324
-00:12:56,430 --> 00:13:01,620
-reminded me at the xkcd comic it's like
-
-325
-00:12:59,370 --> 00:13:03,689
-turn 42 yeah
-
-326
-00:13:01,620 --> 00:13:05,100
-guaranteed random number we rolled some
-
-327
-00:13:03,689 --> 00:13:07,079
-dice and figured out this is a very
-
-328
-00:13:05,100 --> 00:13:11,129
-random number we're just gonna keep
-
-329
-00:13:07,079 --> 00:13:12,660
-giving it to you yeah so we don't want
-
-330
-00:13:11,129 --> 00:13:14,930
-to implement random number generators
-
-331
-00:13:12,660 --> 00:13:17,150
-like that and you don't have to
-
-332
-00:13:14,930 --> 00:13:19,690
-the Mount add abstraction is powerful
-
-333
-00:13:17,150 --> 00:13:22,040
-enough to give you this ability to
-
-334
-00:13:19,690 --> 00:13:24,260
-consistently take something in into your
-
-335
-00:13:22,040 --> 00:13:25,790
-environment and use it and modify it and
-
-336
-00:13:24,260 --> 00:13:30,100
-then return that back out along with
-
-337
-00:13:25,790 --> 00:13:33,230
-your answer so once again we end up with
-
-338
-00:13:30,100 --> 00:13:34,850
-changing the apply function and using
-
-339
-00:13:33,230 --> 00:13:37,970
-the same business logic over and over
-
-340
-00:13:34,850 --> 00:13:40,640
-and over again so that gets us through
-
-341
-00:13:37,970 --> 00:13:43,370
-all of the motivating examples that this
-
-342
-00:13:40,640 --> 00:13:44,870
-guy gave for Mon ads and he managed to
-
-343
-00:13:43,370 --> 00:13:46,250
-make it through this post without using
-
-344
-00:13:44,870 --> 00:13:50,720
-my nads we didn't quite you know I think
-
-345
-00:13:46,250 --> 00:13:52,730
-we made it halfway through but this is
-
-346
-00:13:50,720 --> 00:13:53,810
-something that happens a lot in the
-
-347
-00:13:52,730 --> 00:13:56,900
-Haskell community right
-
-348
-00:13:53,810 --> 00:13:59,060
-beginners kind of finally grokking Mon
-
-349
-00:13:56,900 --> 00:14:03,200
-ads have you seen this come up before
-
-350
-00:13:59,060 --> 00:14:06,200
-oh yeah a ton I personally spread right
-
-351
-00:14:03,200 --> 00:14:11,960
-maskel just by making functions with you
-
-352
-00:14:06,200 --> 00:14:14,420
-know five ten arguments yeah to pass the
-
-353
-00:14:11,960 --> 00:14:15,860
-state through and then I finally got I
-
-354
-00:14:14,420 --> 00:14:17,930
-know I didn't up I was like I'm gonna
-
-355
-00:14:15,860 --> 00:14:21,830
-learn what bonnets are about I came
-
-356
-00:14:17,930 --> 00:14:25,130
-across a billion tutorials monitor
-
-357
-00:14:21,830 --> 00:14:25,850
-burritos what else are they oh there are
-
-358
-00:14:25,130 --> 00:14:28,310
-all kinds of things
-
-359
-00:14:25,850 --> 00:14:29,900
-I see singing there straws but I think
-
-360
-00:14:28,310 --> 00:14:33,140
-that's lenses are straws monitor
-
-361
-00:14:29,900 --> 00:14:37,580
-burritos they're boxes they're thinners
-
-362
-00:14:33,140 --> 00:14:39,290
-I don't know any number of things that's
-
-363
-00:14:37,580 --> 00:14:41,089
-why I really like tutorials like this
-
-364
-00:14:39,290 --> 00:14:43,520
-which focus on some real examples
-
-365
-00:14:41,089 --> 00:14:45,560
-because you're not gonna you're not
-
-366
-00:14:43,520 --> 00:14:47,209
-gonna get very far with metaphors as
-
-367
-00:14:45,560 --> 00:14:49,279
-much as you will with using these things
-
-368
-00:14:47,209 --> 00:14:51,020
-and seeing why those laws that are
-
-369
-00:14:49,279 --> 00:14:54,380
-seemingly pointless why the supply of
-
-370
-00:14:51,020 --> 00:14:57,770
-functions there seemed pointless help
-
-371
-00:14:54,380 --> 00:15:00,860
-you yeah I agree I much prefer seeing a
-
-372
-00:14:57,770 --> 00:15:02,150
-motivating example rather than here's
-
-373
-00:15:00,860 --> 00:15:06,350
-the type signature and here's the laws
-
-374
-00:15:02,150 --> 00:15:07,730
-and it's important and good luck walking
-
-375
-00:15:06,350 --> 00:15:09,230
-through stuff like this really helps me
-
-376
-00:15:07,730 --> 00:15:12,110
-or would have helped me when I was
-
-377
-00:15:09,230 --> 00:15:14,000
-learning Haskell see why do I care about
-
-378
-00:15:12,110 --> 00:15:16,670
-this what do I get out of it you know
-
-379
-00:15:14,000 --> 00:15:17,930
-exactly and like you I've seen so many
-
-380
-00:15:16,670 --> 00:15:19,940
-of these tutorials through the years
-
-381
-00:15:17,930 --> 00:15:21,830
-that it feels a little bit like a rite
-
-382
-00:15:19,940 --> 00:15:23,570
-of passage for new Haskell there's like
-
-383
-00:15:21,830 --> 00:15:24,860
-yeah you got to learn what my nads are
-
-384
-00:15:23,570 --> 00:15:26,290
-and then you got to write the blog post
-
-385
-00:15:24,860 --> 00:15:28,689
-that says you look
-
-386
-00:15:26,290 --> 00:15:32,109
-they are and that's exactly what's
-
-387
-00:15:28,689 --> 00:15:34,239
-happened yeah somehow I think neither
-
-388
-00:15:32,109 --> 00:15:36,220
-you nor I have written this blog post
-
-389
-00:15:34,239 --> 00:15:39,850
-but maybe that just means we haven't
-
-390
-00:15:36,220 --> 00:15:44,489
-truly understood my Nancy yet well I
-
-391
-00:15:39,850 --> 00:15:46,989
-hope we're making a podcast about yeah
-
-392
-00:15:44,489 --> 00:15:48,910
-does this count as a blog post probably
-
-393
-00:15:46,989 --> 00:15:51,069
-anyway I think that about wraps it up
-
-394
-00:15:48,910 --> 00:15:53,609
-for us today thanks for being with me on
-
-395
-00:15:51,069 --> 00:15:55,809
-the show today Cody
-
-396
-00:15:53,609 --> 00:15:57,449
-it was a lot of fun it's always good and
-
-397
-00:15:55,809 --> 00:16:00,039
-you have good having you on here and
-
-398
-00:15:57,449 --> 00:16:01,749
-thank you for listening to the haskell
-
-399
-00:16:00,039 --> 00:16:03,399
-weekly podcast if you liked what you
-
-400
-00:16:01,749 --> 00:16:07,059
-heard please find out more at our
-
-401
-00:16:03,399 --> 00:16:09,189
-website haskell weekly dot news and if
-
-402
-00:16:07,059 --> 00:16:10,839
-you did like our show again please go
-
-403
-00:16:09,189 --> 00:16:11,829
-rate and review us on iTunes it helps a
-
-404
-00:16:10,839 --> 00:16:13,569
-lot
-
-405
-00:16:11,829 --> 00:16:16,119
-Haskell weekly is brought to you every
-
-406
-00:16:13,569 --> 00:16:17,679
-week by IT pro TV the tech skills
-
-407
-00:16:16,119 --> 00:16:20,589
-development platform for IT
-
-408
-00:16:17,679 --> 00:16:23,109
-professionals who also happens to be our
-
-409
-00:16:20,589 --> 00:16:27,189
-employer so please send your sis admins
-
-410
-00:16:23,109 --> 00:16:29,439
-and network admins 2ww IT pro TV for all
-
-411
-00:16:27,189 --> 00:16:31,029
-their learning needs and they can let
-
-412
-00:16:29,439 --> 00:16:33,789
-you know what they think of the people
-
-413
-00:16:31,029 --> 00:16:38,100
-who develop it which is us so thanks
-
-414
-00:16:33,789 --> 00:16:38,100
-again Cody and we'll see y'all next week
-
-415
-00:16:39,100 --> 00:16:41,160
-you
+00:16:36,336 --> 00:16:36,836
+[MUSIC]

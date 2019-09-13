@@ -1,1151 +1,997 @@
 1
-00:00:00,949 --> 00:00:05,670
-hello and welcome to the Haskell weekly
-
-2
-00:00:03,360 --> 00:00:07,560
+00:00:01,600 --> 00:00:05,600
+>> Hello and welcome to the Haskell weekly
 podcast as you might have guessed this
 
+2
+00:00:05,600 --> 00:00:09,400
+show is about Haskell, which is a purely
+functional programming language.
+
 3
-00:00:05,670 --> 00:00:09,120
-show is about Haskell which is a purely
+00:00:09,400 --> 00:00:13,900
+I'm your host Dustin Segers and
+I'm an engineer here at IT Pro TV.
 
 4
-00:00:07,560 --> 00:00:11,880
-functional programming language
+00:00:13,900 --> 00:00:15,200
+>> Hi, I'm Cody Goodman.
 
 5
-00:00:09,120 --> 00:00:14,700
-I'm your host Dustin seekers and I'm an
+00:00:15,200 --> 00:00:18,400
+I'm a senior engineer here at IT Pro TV.
 
 6
-00:00:11,880 --> 00:00:16,980
-engineer here at IT Pro TV hi I'm Cody
+00:00:18,400 --> 00:00:20,400
+What are we talking about today Dustin?
 
 7
-00:00:14,700 --> 00:00:19,590
-Goodman I'm a senior engineer here at
+00:00:20,400 --> 00:00:23,400
+>> We're talking about game
+development and Haskell.
 
 8
-00:00:16,980 --> 00:00:21,869
-IPTV where were you talking about today
+00:00:23,400 --> 00:00:24,800
+I thought it would be cool to
 
 9
-00:00:19,590 --> 00:00:23,820
-desam we're talking about game
+00:00:25,800 --> 00:00:29,100
+kind of bring together my
+love of game development and
 
 10
-00:00:21,869 --> 00:00:26,519
-development in Haskell I thought it
+00:00:29,100 --> 00:00:34,100
+video games in general and Haskell, which
+is what I use daily here at IT Pro TV.
 
 11
-00:00:23,820 --> 00:00:29,039
-would be cool to kind of bring together
+00:00:34,100 --> 00:00:36,400
+I actually have a few questions for
+you and
 
 12
-00:00:26,519 --> 00:00:31,679
-my love of game development in games
+00:00:36,400 --> 00:00:41,300
+I figured it would be cool to kind of
+just look into the Haskell Game Dev
 
 13
-00:00:29,039 --> 00:00:33,570
-video games in general and Haskell which
+00:00:41,300 --> 00:00:44,300
+community and space and
+see what all was out there.
 
 14
-00:00:31,679 --> 00:00:35,370
-is what I use daily here at Ida Pro TV I
+00:00:44,300 --> 00:00:45,300
+>> Yeah.
 
 15
-00:00:33,570 --> 00:00:37,350
-was gonna actually have a few questions
+00:00:45,300 --> 00:00:48,400
+I think a lot of people are in
+your position, you know,
 
 16
-00:00:35,370 --> 00:00:40,410
-for you and I figured it would be cool
+00:00:48,400 --> 00:00:52,500
+if you browse the Haskell subreddit,
+you'll see occasionally questions about
 
 17
-00:00:37,350 --> 00:00:43,200
-to kind of just look into the Haskell
+00:00:52,500 --> 00:00:56,800
+people want to make games and
+people frustrated trying to make games.
 
 18
-00:00:40,410 --> 00:00:45,989
-game dev community in space and see what
+00:00:56,800 --> 00:00:59,900
+So if you don't take the right path,
+it can be pretty frustrating.
 
 19
-00:00:43,200 --> 00:00:48,629
-all was out there yeah I think a lot of
+00:01:01,600 --> 00:01:04,376
+One recommendation I've
+seen over the years and
 
 20
-00:00:45,989 --> 00:00:50,340
-people are in your position you know if
+00:01:04,376 --> 00:01:08,673
+tried a little myself is to start
+out with a 2D library called gloss.
 
 21
-00:00:48,629 --> 00:00:52,920
-you browse the Haskell subreddit you'll
+00:01:08,673 --> 00:01:09,336
+>> Gotcha.
 
 22
-00:00:50,340 --> 00:00:54,390
-see occasionally questions about people
+00:01:09,336 --> 00:01:10,459
+Have you ever heard of it?
 
 23
-00:00:52,920 --> 00:00:57,660
-wanting to make games and people
+00:01:10,459 --> 00:01:13,200
+>> Yeah actually are our lead engineer.
 
 24
-00:00:54,390 --> 00:00:59,039
-frustrated trying to make games so if if
+00:01:13,200 --> 00:01:17,600
+I think he did a few just
+very basic games using gloss.
 
 25
-00:00:57,660 --> 00:01:01,020
-you don't take the right path that can
+00:01:17,600 --> 00:01:24,400
+I heard it was super intuitive and
+quick to get something up on the screen.
 
 26
-00:00:59,039 --> 00:01:03,930
-be pretty frustrating
+00:01:24,400 --> 00:01:25,400
+>> Right, right.
 
 27
-00:01:01,020 --> 00:01:05,820
-one recommendation I've seen over the
+00:01:25,400 --> 00:01:26,500
+Yeah.
+That's that's one of
 
 28
-00:01:03,930 --> 00:01:08,369
-years and tried a little myself is to
+00:01:26,500 --> 00:01:31,000
+the reasons I recommend it and I think
+a lot of other people recommend it is
 
 29
-00:01:05,820 --> 00:01:11,010
-start out with a 2d library called gloss
+00:01:31,000 --> 00:01:34,800
+you can you can draw window and
+draw a circle and a single line and
 
 30
-00:01:08,369 --> 00:01:13,770
-Ketchum have you ever heard of it yeah
+00:01:34,800 --> 00:01:39,500
+it's all and you know plain English words
+that you might be able to guess yourself.
 
 31
-00:01:11,010 --> 00:01:16,830
-actually our lead engineer I think he
+00:01:39,500 --> 00:01:40,600
+>> Nice.
 
 32
-00:01:13,770 --> 00:01:20,180
-did a few just very basic games using
+00:01:40,600 --> 00:01:43,100
+>> You know gloss is really
+aimed at simplicity.
 
 33
-00:01:16,830 --> 00:01:24,090
-gloss I heard it was super intuitive and
+00:01:43,100 --> 00:01:48,000
+There's a ton of tutorials available,
+not just like basic tutorials,
 
 34
-00:01:20,180 --> 00:01:26,610
-quick to get something up on the screen
+00:01:48,000 --> 00:01:51,400
+but tutorials of you know,
+how do you make pong?
 
 35
-00:01:24,090 --> 00:01:28,829
-right right yeah that's that's one of
+00:01:51,400 --> 00:01:52,000
+>> Yeah.
 
 36
-00:01:26,610 --> 00:01:31,320
-the reasons I recommend it and I think a
+00:01:52,000 --> 00:01:52,600
+>> Right.
 
 37
-00:01:28,829 --> 00:01:33,090
-lot of other people recommend it is you
+00:01:52,600 --> 00:01:58,100
+It's more of an end to end thing which has
+Haskells sorely lacking in other areas,
 
 38
-00:01:31,320 --> 00:01:35,280
-can you can draw a window and draw a
+00:01:58,100 --> 00:02:02,300
+but when you're just getting started,
+it's a new paradigm, a new language.
 
 39
-00:01:33,090 --> 00:01:37,470
-circle and a single line and it's all
+00:02:02,300 --> 00:02:04,800
+You you need you know
+a little bit of hand-holding.
 
 40
-00:01:35,280 --> 00:01:39,930
-and you know plain English words that
+00:02:04,800 --> 00:02:09,199
+You just get all the way from point A to
+point B at least exactly least once.
 
 41
-00:01:37,470 --> 00:01:42,600
-you might be able to guess yourself nice
+00:02:10,800 --> 00:02:11,300
+>> That's it.
 
 42
-00:01:39,930 --> 00:01:44,520
-you know glosses really aimed at
+00:02:11,300 --> 00:02:14,600
+So gloss seems really
+attractive to me in that aspect
 
 43
-00:01:42,600 --> 00:01:48,060
-simplicity there's a ton of tutorials
+00:02:14,600 --> 00:02:18,800
+mainly because I'm not super
+proficient at Haskell.
 
 44
-00:01:44,520 --> 00:01:50,399
-available not just like basic tutorials
+00:02:18,800 --> 00:02:24,200
+I've only been doing it for
+a little while, but I do enjoy it and
 
 45
-00:01:48,060 --> 00:01:52,649
-but tutorials of you know how do you
+00:02:24,200 --> 00:02:28,700
+I think I have more experience in
+game development mainly as a hobby
 
 46
-00:01:50,399 --> 00:01:54,899
-make pong oh yeah right
+00:02:30,200 --> 00:02:33,000
+right versus you know
+programming in Haskell.
 
 47
-00:01:52,649 --> 00:01:56,939
-it's more of an end-to-end thing which
+00:02:33,000 --> 00:02:36,200
+So I would like to merge both of them and
 
 48
-00:01:54,899 --> 00:01:59,040
-has schools sorely lacking in other
+00:02:36,200 --> 00:02:39,300
+gloss seems like a pretty good
+pretty good way to do that.
 
 49
-00:01:56,939 --> 00:02:01,259
-areas but when you're just getting
+00:02:39,300 --> 00:02:45,500
+>> Yeah, and for people trying to merge
+their game development experience or
 
 50
-00:01:59,040 --> 00:02:04,200
-started and it's a new paradigm a new
+00:02:45,500 --> 00:02:50,500
+interest in their love Haskell,
+you'll probably run into a functional
 
 51
-00:02:01,259 --> 00:02:06,149
-language you you need you know a little
+00:02:50,500 --> 00:02:54,600
+reactive programming which you have few
+are really in proficient in a school.
 
 52
-00:02:04,200 --> 00:02:08,520
-bit hand-holding to just get all the way
+00:02:54,600 --> 00:02:59,100
+It can be a bit of a mind Bender
+wrap your head around that.
 
 53
-00:02:06,149 --> 00:02:11,520
-from point A to point B at least exactly
+00:02:59,100 --> 00:03:02,000
+>> Gotcha, yeah.
+I actually just doing a little bit
 
 54
-00:02:08,520 --> 00:02:13,200
-at least once mm-hmm so that's it
+00:03:02,000 --> 00:03:03,200
+of research before this podcast.
 
 55
-00:02:11,520 --> 00:02:13,900
-so gloss seems really attractive to me
+00:03:03,200 --> 00:03:08,100
+We stumbled upon FRP functional
+reactive programming and
 
 56
-00:02:13,200 --> 00:02:17,489
-in that as
+00:03:08,100 --> 00:03:13,100
+then also just your classic mean
+Iterating over your main game Loop.
 
 57
-00:02:13,900 --> 00:02:19,450
-fact mainly because I'm not super
+00:03:14,400 --> 00:03:19,200
+And do you have any like,
+I guess a concise way,
 
 58
-00:02:17,489 --> 00:02:20,890
-proficient in Haskell I've only been
+00:03:19,200 --> 00:03:25,000
+if you could explain functional reactive
+programming to those who don't know?
 
 59
-00:02:19,450 --> 00:02:24,970
-doing it for a little while
+00:03:25,000 --> 00:03:31,100
+>> I didn't come up with the best
+answer myself, but I looked around and
 
 60
-00:02:20,890 --> 00:02:27,640
-but I do enjoy it and I think I have
+00:03:31,100 --> 00:03:36,800
+hope I'd say the name right here T
+cange Elvis as they talk on answering
 
 61
-00:02:24,970 --> 00:02:31,840
-more experience in game development
+00:03:36,800 --> 00:03:40,900
+that that question, you know, you have
+to have a whole talk to answer it yet.
 
 62
-00:02:27,640 --> 00:02:34,030
-mainly as a hobby right versus you know
+00:03:40,900 --> 00:03:46,000
+He says if I had to summarize it
+in one sentence, I would say that
 
 63
-00:02:31,840 --> 00:02:36,909
-programming in Haskell so I would like
+00:03:46,000 --> 00:03:50,600
+functional reactive programming is
+programming with time varying values.
 
 64
-00:02:34,030 --> 00:02:39,010
-to merge both of them and Glaus seems
+00:03:51,700 --> 00:03:55,400
+Now, that's not the most satisfying
+answer person one who might already be
 
 65
-00:02:36,909 --> 00:02:39,370
-like a pretty good pretty good way to do
+00:03:55,400 --> 00:03:56,200
+overwhelmed.
 
 66
-00:02:39,010 --> 00:02:43,030
-that
+00:03:56,200 --> 00:03:56,900
+>> Yeah.
 
 67
-00:02:39,370 --> 00:02:46,209
-yes and for people trying to merge their
+00:03:56,900 --> 00:04:01,900
+Yeah, but basically that's for
 
 68
-00:02:43,030 --> 00:02:49,000
-game development experience or interest
+00:04:01,900 --> 00:04:05,300
+lack of anything better
+to use at this moment.
 
 69
-00:02:46,209 --> 00:02:51,220
-in their love Haskell he'll probably run
+00:04:05,300 --> 00:04:08,200
+It's state right like so
+I represent State.
 
 70
-00:02:49,000 --> 00:02:53,200
-into a functional reactive programming
+00:04:08,200 --> 00:04:08,700
+>> Yeah.
 
 71
-00:02:51,220 --> 00:02:55,299
-which you know if you are really in
+00:04:08,700 --> 00:04:10,700
+It's a lot like state.
 
 72
-00:02:53,200 --> 00:02:57,609
-proficient in high school it can be a
-
-73
-00:02:55,299 --> 00:03:00,780
-bit of a mind bender to wrap your head
-
-74
-00:02:57,609 --> 00:03:02,590
-around that can't you yeah I actually
-
-75
-00:03:00,780 --> 00:03:06,670
-just doing a little bit of research
-
-76
-00:03:02,590 --> 00:03:08,409
-before this podcast we stumbled upon FRP
-
-77
-00:03:06,670 --> 00:03:11,889
-functional reactive programming and then
-
-78
-00:03:08,409 --> 00:03:15,579
-also just your classic main iterating
-
-79
-00:03:11,889 --> 00:03:19,780
-over your main game loop and do you have
-
-80
-00:03:15,579 --> 00:03:22,840
-any like I guess a concise way if you
-
-81
-00:03:19,780 --> 00:03:26,699
-could explain functional reactive
-
-82
-00:03:22,840 --> 00:03:28,569
-programming to those who don't know I
-
-83
-00:03:26,699 --> 00:03:31,720
-didn't come up with the best answer
-
-84
-00:03:28,569 --> 00:03:34,690
-myself but I I looked around and hope I
-
-85
-00:03:31,720 --> 00:03:37,780
-see the name right here T cons Elvis as
-
-86
-00:03:34,690 --> 00:03:39,190
-they a talk on answering that that
-
-87
-00:03:37,780 --> 00:03:42,069
-question you know you have to have a
-
-88
-00:03:39,190 --> 00:03:43,959
-whole talk to answer it yeah he says if
-
-89
-00:03:42,069 --> 00:03:46,959
-I had to summarize it in one sentence I
-
-90
-00:03:43,959 --> 00:03:49,479
-would say that functional reactive
-
-91
-00:03:46,959 --> 00:03:53,229
-programming is programming with time
-
-92
-00:03:49,479 --> 00:03:54,940
-varying values now that's not the most
-
-93
-00:03:53,229 --> 00:03:58,269
-satisfying answer for someone who might
-
-94
-00:03:54,940 --> 00:04:03,760
-already be overwhelmed yeah yeah but
-
-95
-00:03:58,269 --> 00:04:06,489
-basically that's for lack of anything
-
-96
-00:04:03,760 --> 00:04:09,909
-better to use at this moment it's state
-
-97
-00:04:06,489 --> 00:04:12,909
-right like represent state yeah it's a
-
-98
-00:04:09,909 --> 00:04:14,819
-lot like state the so it still encodes
-
-99
-00:04:12,909 --> 00:04:19,090
+00:04:10,700 --> 00:04:15,300
+The so it's still encodes
 the information that state would encode
 
-100
-00:04:14,819 --> 00:04:20,919
+73
+00:04:15,300 --> 00:04:20,500
 the difference would be that the way
+that these things composed together or
+
+74
+00:04:20,500 --> 00:04:23,300
+different we won't get too deep into that.
+
+75
+00:04:23,300 --> 00:04:26,700
+And that's why the reasons we
+recommend gloss to start out with.
+
+76
+00:04:26,700 --> 00:04:31,500
+Yeah, so you can just you
+know gloss over FRP I guess.
+
+77
+00:04:31,500 --> 00:04:33,000
+>> Yeah, see what you did there.
+
+78
+00:04:34,200 --> 00:04:35,400
+Okay, cool.
+
+79
+00:04:35,400 --> 00:04:40,300
+So do we have any like games
+that may have used FRP and
+
+80
+00:04:40,300 --> 00:04:43,312
+examples of that or up top your head?
+
+81
+00:04:43,312 --> 00:04:47,200
+Or any packages that might implement or
+use this?
+
+82
+00:04:47,200 --> 00:04:53,200
+>> Yeah recent a recent really cool
+game with an interesting premise that
+
+83
+00:04:53,200 --> 00:04:58,400
+we might recognize
+the roots of is people mon.
+
+84
+00:04:58,400 --> 00:04:59,000
+>> Yes.
+
+85
+00:05:00,300 --> 00:05:04,500
+I did see that believe is by
+Alex Stewart like wrecked.
+
+86
+00:05:04,500 --> 00:05:06,000
+>> Right, right.
+
+87
+00:05:06,000 --> 00:05:11,200
+And so the premise is that
+you you catch people and
+
+88
+00:05:11,200 --> 00:05:15,000
+battle with them and style of Pokémon.
+
+89
+00:05:15,000 --> 00:05:15,600
+>> I got you.
+
+90
+00:05:15,600 --> 00:05:16,400
+That's pretty funny.
+
+91
+00:05:16,400 --> 00:05:17,600
+Yeah, I did.
+
+92
+00:05:17,600 --> 00:05:21,800
+I got a chance to at least watch
+the little trailer for it and
+
+93
+00:05:21,800 --> 00:05:26,900
+go to the site but I have not yet
+played it I plan to play it here.
+
+94
+00:05:26,900 --> 00:05:31,000
+It's pretty short, but looks pretty
+entertaining at the very least.
+
+95
+00:05:31,000 --> 00:05:34,800
+>> And I recommend at least check out
+their homepage is some pretty hilarious
+
+96
+00:05:34,800 --> 00:05:36,200
+images on got you.
+
+97
+00:05:39,500 --> 00:05:40,200
+Let's see.
+
+98
+00:05:40,200 --> 00:05:42,100
+So people mine.
+
+99
+00:05:42,100 --> 00:05:49,000
+Was it based on it was yamp,
+I think okay, which is an FRP Library,
+
+100
+00:05:49,000 --> 00:05:54,600
+you'll notice that the more complex
+examples of Haskell games use FRP.
 
 101
-00:04:19,090 --> 00:04:23,110
-that these things compose together are
+00:05:54,600 --> 00:05:58,300
+I think we had an exception
+which used a classic game Loop,
 
 102
-00:04:20,919 --> 00:04:24,909
-different we won't get too deep into
+00:05:58,300 --> 00:06:02,600
+which we'll talk about in a second, but
 
 103
-00:04:23,110 --> 00:04:26,860
-that and that's one of the reasons we
+00:06:02,600 --> 00:06:10,800
+just to answer why these libraries might
+prefer FRP as as complexity skills up.
 
 104
-00:04:24,909 --> 00:04:29,919
-recommend gloss to start
+00:06:10,800 --> 00:06:15,800
+FRP seems to have some
+advantages over the classic game
 
 105
-00:04:26,860 --> 00:04:30,310
-with yeah so you can just you know gloss
+00:06:15,800 --> 00:06:21,200
+Loop much in the way that Haskell has
+advantages over imperative languages.
 
 106
-00:04:29,919 --> 00:04:33,900
-over
+00:06:21,200 --> 00:06:23,300
+>> Yeah, that actually reminds me Cody.
 
 107
-00:04:30,310 --> 00:04:38,590
-FRP yeah let's see what you did there
+00:06:23,300 --> 00:06:29,000
+We will be linking the package
+Yabba as well as people Mon and
 
 108
-00:04:33,900 --> 00:04:41,379
-okay cool so do we have any like games
+00:06:29,000 --> 00:06:33,200
+other things mentioned in this podcast
+on our Haskell weekly podcast page.
 
 109
-00:04:38,590 --> 00:04:44,139
-that may have used FRP and examples of
+00:06:33,200 --> 00:06:37,900
+So if you're, you know interested in,
 
 110
-00:04:41,379 --> 00:04:47,020
-that or up top your head yeah any
+00:06:37,900 --> 00:06:42,600
+you know finding these not really having
+to Google them even though you totally can
 
 111
-00:04:44,139 --> 00:04:49,810
-packages that might implement or use
+00:06:42,600 --> 00:06:45,900
+we'll have those links available
+at the Haskell weekly podcast page
 
 112
-00:04:47,020 --> 00:04:52,919
-this yeah a recent recent really cool
+00:06:45,900 --> 00:06:50,600
+what the mention of people Mon and then
+also Pokemon, which is a mainstream game.
 
 113
-00:04:49,810 --> 00:04:57,310
-game with a an interesting premise that
+00:06:50,600 --> 00:06:55,900
+I found out just a little while ago
 
 114
-00:04:52,919 --> 00:05:02,169
-we might recognize the roots of is
+00:06:55,900 --> 00:07:00,200
+that there was actually a Haskell game
+that was greenlit on Steam now, they've
 
 115
-00:04:57,310 --> 00:05:05,650
-people Mon yes I did see that I believe
+00:07:00,200 --> 00:07:04,800
+retired the whole green light thing on
+Steam, but so this is a little bit older,
 
 116
-00:05:02,169 --> 00:05:10,569
-is by Alex Stewart correct right right
+00:07:05,800 --> 00:07:10,500
+but it was still pretty cool to see
+that I think it was even back in 2012.
 
 117
-00:05:05,650 --> 00:05:14,139
-and so the premise is that you you catch
+00:07:10,500 --> 00:07:15,100
+Right people were using Haskell to create
+games and they actually, you know,
 
 118
-00:05:10,569 --> 00:05:16,449
-people and in battle with them and style
+00:07:15,100 --> 00:07:16,900
+we're getting somewhere with it.
 
 119
-00:05:14,139 --> 00:05:19,240
-of Pokemon and I got you that's pretty
+00:07:16,900 --> 00:07:18,600
+>> Trail Blazers for sure.
 
 120
-00:05:16,449 --> 00:05:21,849
-funny yeah I did I got a chance to at
+00:07:19,600 --> 00:07:22,000
+That was Nikki in the robots.
 
 121
-00:05:19,240 --> 00:05:24,189
-least watch the little trailer for it
+00:07:22,000 --> 00:07:27,800
+And I remember watching on excitedly
+in their development blog and
 
 122
-00:05:21,849 --> 00:05:26,860
-and go to the site but I have not yet
+00:07:27,800 --> 00:07:32,800
+tracking their progress trying to get
+everything building myself is exciting and
 
 123
-00:05:24,189 --> 00:05:28,629
-played it I planned to play it mmm-hmm
+00:07:32,800 --> 00:07:34,800
+then to see that they
+got on Steam Greenlight.
 
 124
-00:05:26,860 --> 00:05:30,969
-here it's it's pretty short but looks
+00:07:34,800 --> 00:07:35,900
+It was like wow.
 
 125
-00:05:28,629 --> 00:05:33,400
-pretty entertaining at the very least oh
+00:07:35,900 --> 00:07:41,000
+So in 2012, it's possible to write
+a Haskell game if you put in enough effort
 
 126
-00:05:30,969 --> 00:05:36,009
-and I recommend at least check out their
+00:07:41,000 --> 00:07:43,900
+and get it greenlit on Steam.
 
 127
-00:05:33,400 --> 00:05:42,940
-homepage pretty hilarious images on the
+00:07:43,900 --> 00:07:45,000
+>> It's actually really cool.
 
 128
-00:05:36,009 --> 00:05:46,599
-gadget let's see so people Mon what was
+00:07:45,000 --> 00:07:48,400
+Yeah and
+notice that I went to their page and
 
 129
-00:05:42,940 --> 00:05:50,110
-it based on it was Yampa I think okay
+00:07:48,400 --> 00:07:53,200
+I did a little a little snooping
+around and I saw their Tech stack
 
 130
-00:05:46,599 --> 00:05:52,210
-which is an FRP library you'll notice
+00:07:53,200 --> 00:07:58,100
+consisted of hipmunk,
+which is the physics engine, right?
 
 131
-00:05:50,110 --> 00:05:55,870
-that the more complex examples of high
+00:07:58,100 --> 00:07:58,800
+Yeah.
 
 132
-00:05:52,210 --> 00:05:57,729
-school games use FRP I think we had an
+00:07:58,800 --> 00:08:01,600
+It's a Haskell take on chipmunk.
 
 133
-00:05:55,870 --> 00:06:01,740
-exception which used your classic game
+00:08:01,600 --> 00:08:03,800
+Hmm, which is pretty cool.
 
 134
-00:05:57,729 --> 00:06:06,460
-loop which we'll talk about in a second
+00:08:03,800 --> 00:08:06,100
+It looks like the package
+is now deprecated.
 
 135
-00:06:01,740 --> 00:06:10,060
-but just to answer why these libraries
+00:08:06,100 --> 00:08:09,900
+So it might be a little old, but
+it was still nice and cool to see that,
 
 136
-00:06:06,460 --> 00:06:12,870
-might prefer FRP as as complexity scales
+00:08:09,900 --> 00:08:13,800
+you know the community is out there and
+they're doing things with it.
 
 137
-00:06:10,060 --> 00:06:15,580
-up FRP
+00:08:13,800 --> 00:08:16,300
+>> You know, I rewatch that Nikki and
 
 138
-00:06:12,870 --> 00:06:17,620
-seems to have some advantages over the
+00:08:16,300 --> 00:08:22,300
+the robots video after after looking
+around for some examples and
 
 139
-00:06:15,580 --> 00:06:20,740
-classic game loop much in the way that
+00:08:22,300 --> 00:08:26,600
+it just made me think you know, what would
+it take to revive Nikki in the robots and
 
 140
-00:06:17,620 --> 00:06:22,689
-Haskell has advantages over imperative
+00:08:26,600 --> 00:08:30,400
+make it something compiling something
+that people for instance in this
 
 141
-00:06:20,740 --> 00:06:25,930
-languages oh yeah that actually reminds
+00:08:30,400 --> 00:08:34,700
+podcast you heard about this could go and
+download the source code and try it out.
 
 142
-00:06:22,689 --> 00:06:29,740
-me Cody we will be linking the package
+00:08:34,700 --> 00:08:40,700
+How much work is it to update that there
+was an older FPS game made in Haskell.
 
 143
-00:06:25,930 --> 00:06:32,199
-Yampa as well as people maan and other
+00:08:40,700 --> 00:08:42,400
+I can't recall the name of it.
 
 144
-00:06:29,740 --> 00:06:35,130
-things mentioned in this podcast on our
+00:08:42,400 --> 00:08:46,200
+But somebody did the work
+to like bring it current.
 
 145
-00:06:32,199 --> 00:06:39,190
-Haskell weekly podcast page so if you're
+00:08:46,200 --> 00:08:47,400
+Well, it's really cool.
 
 146
-00:06:35,130 --> 00:06:40,840
-you know interested in you know finding
+00:08:47,400 --> 00:08:48,400
+>> Nice.
 
 147
-00:06:39,190 --> 00:06:43,510
-these not really having to Google
+00:08:48,400 --> 00:08:51,000
+>> Maybe somebody maybe Me Maybe you or
 
 148
-00:06:40,840 --> 00:06:45,160
-even though you totally can we'll have
+00:08:51,000 --> 00:08:54,500
+someone hearing this can try
+to revive Nikki in the robot.
 
 149
-00:06:43,510 --> 00:06:47,139
-those links available at the Haskell
+00:08:54,500 --> 00:08:55,400
+>> Right?
 
 150
-00:06:45,160 --> 00:06:49,000
-weekly podcast page but the mention of
+00:08:55,400 --> 00:08:59,300
+And it's also just it would
+be good to I guess have
 
 151
-00:06:47,139 --> 00:06:52,780
-people Mon and then also Pokemon which
+00:09:00,600 --> 00:09:04,900
+something else to do to merge
+these I guess these hobbies and
 
 152
-00:06:49,000 --> 00:06:57,190
-is a mainstream game I will found out
+00:09:04,900 --> 00:09:09,700
+this love of Haskell together and
+which would help progress.
 
 153
-00:06:52,780 --> 00:06:58,690
-just a little while ago that there was
+00:09:09,700 --> 00:09:11,600
+You know, my Gillan has school as well.
 
 154
-00:06:57,190 --> 00:07:01,180
-actually a Haskell game that was
+00:09:12,900 --> 00:09:18,194
+So I guess that's like another right other
+bonus and doing this on the topic of that.
 
 155
-00:06:58,690 --> 00:07:03,669
-greenlit on Steam now they've retired
+00:09:18,194 --> 00:09:20,942
+>> On the topic of that,
+there's also Dino Rush,
 
 156
-00:07:01,180 --> 00:07:06,820
-the whole greenlight thing on Steam but
+00:09:20,942 --> 00:09:25,894
+you know if you're wanting to merge your
+hobbies with Haskell and game development,
 
 157
-00:07:03,669 --> 00:07:09,460
-so this is a little bit older but it was
+00:09:25,894 --> 00:09:30,086
+but you're kind of new, you might want
+to use like a classic game Loop and
 
 158
-00:07:06,820 --> 00:07:11,919
-still pretty cool to see that I think it
+00:09:30,086 --> 00:09:34,100
+Dino Rush actually went that route and
+they used a classic game Loop.
 
 159
-00:07:09,460 --> 00:07:14,050
-was even back in 2012 right people were
+00:09:34,100 --> 00:09:39,100
+So highly recommend anyone who
+wants to do that to check out
 
 160
-00:07:11,919 --> 00:07:16,419
-using Haskell to create games and yeah
+00:09:39,100 --> 00:09:43,700
+their blog posts that I think you're
+probably going to put the resources to yes
 
 161
-00:07:14,050 --> 00:07:17,410
-they actually you know we're we're
+00:09:44,800 --> 00:09:49,000
+download the source code get it
+building poke around in there.
 
 162
-00:07:16,419 --> 00:07:21,370
-getting somewhere with it
+00:09:49,000 --> 00:09:49,700
+>> Nice.
 
 163
-00:07:17,410 --> 00:07:24,730
-trailblazers for sure that was Nikki in
+00:09:49,700 --> 00:09:54,400
+Yeah, I'm definitely going to do that
+actually went to the page earlier and
 
 164
-00:07:21,370 --> 00:07:27,990
-the robots and I remember watching on
+00:09:54,400 --> 00:09:56,700
+checked it out and it's pretty cool.
 
 165
-00:07:24,730 --> 00:07:30,850
-excitedly in their development blog and
+00:09:56,700 --> 00:09:59,800
+I like the pixel art for the game.
 
 166
-00:07:27,990 --> 00:07:32,830
-tracking their progress trying to get
+00:09:59,800 --> 00:10:00,500
+It looks pretty.
 
 167
-00:07:30,850 --> 00:07:34,330
-everything building myself it was
+00:10:00,500 --> 00:10:05,500
+>> Right and in for context their
+game Diner Rush, it's you know,
 
 168
-00:07:32,830 --> 00:07:36,760
-exciting and then to see that they got
+00:10:05,500 --> 00:10:09,000
+when you lose internet
+connection on Google Chrome.
 
 169
-00:07:34,330 --> 00:07:39,460
-on Steam greenlight it was like wow so
+00:10:09,000 --> 00:10:10,400
+Yes, there's a little diner.
 
 170
-00:07:36,760 --> 00:07:41,110
-in 2012 it's possible to write a high
+00:10:10,400 --> 00:10:11,700
+Jumping over stuff.
 
 171
-00:07:39,460 --> 00:07:44,830
-school game if you put in enough effort
+00:10:11,700 --> 00:10:14,700
+>> I think we have a high score board
+somewhere around in the office.
 
 172
-00:07:41,110 --> 00:07:46,930
-and get it greenlit on Steam it's
+00:10:14,700 --> 00:10:16,100
+Yep.
 
 173
-00:07:44,830 --> 00:07:49,270
-actually really cool yeah I noticed that
+00:10:16,100 --> 00:10:16,600
+>> Yep.
 
 174
-00:07:46,930 --> 00:07:52,419
-um I went to their page and I did a
+00:10:16,600 --> 00:10:17,700
+I remember that day.
 
 175
-00:07:49,270 --> 00:07:54,610
-little a little snooping around and I
+00:10:19,800 --> 00:10:23,000
+>> Those examples are pretty
+inspiring Cody, but
 
 176
-00:07:52,419 --> 00:07:58,419
-saw their tech stack consisted of
+00:10:23,000 --> 00:10:26,400
+if I get lost, how could I get support?
 
 177
-00:07:54,610 --> 00:08:01,330
-Hipmunk which is the physics engine
+00:10:26,400 --> 00:10:29,200
+>> Right, you know, we're talking
+about Nikki in the robots and their
 
 178
-00:07:58,419 --> 00:08:04,479
-right yeah it's a Haskell take on
+00:10:29,200 --> 00:10:33,500
+Trail Blazers there wasn't there weren't
+really a lot of people trying to do have
 
 179
-00:08:01,330 --> 00:08:05,650
-chipmunk mm-hmm which is pretty cool
+00:10:33,500 --> 00:10:37,700
+school Game Dev back then so they had to
+figure out all these things yourself, but
 
 180
-00:08:04,479 --> 00:08:07,660
-it looks like the package is now
+00:10:37,700 --> 00:10:42,508
+then at some point past that they started
+a for someone started a subreddit
 
 181
-00:08:05,650 --> 00:08:09,760
-deprecated so it might be a little old
+00:10:42,508 --> 00:10:48,000
+called are / Haskell Game Dev and
 
 182
-00:08:07,660 --> 00:08:12,280
-but it was still nice and cool to see
+00:10:48,000 --> 00:10:51,300
+they made a Wiki of how to get started.
 
 183
-00:08:09,760 --> 00:08:14,350
-that you know the community is out there
+00:10:51,300 --> 00:10:56,700
+Now they're getting started I think
+is more fitted to complex games and
 
 184
-00:08:12,280 --> 00:08:17,200
-and they're doing things with it
-
-185
-00:08:14,350 --> 00:08:20,350
-yeah you know I rewatched Nicki in the
-
-186
-00:08:17,200 --> 00:08:23,650
-robots video after after looking around
-
-187
-00:08:20,350 --> 00:08:25,240
-for some examples and it just made me
-
-188
-00:08:23,650 --> 00:08:27,640
-think you know what would it take to
-
-189
-00:08:25,240 --> 00:08:29,229
-revive Nicki and the robots and make it
-
-190
-00:08:27,640 --> 00:08:31,810
-something compiling something that
-
-191
-00:08:29,229 --> 00:08:33,610
-people for instance in this podcast you
-
-192
-00:08:31,810 --> 00:08:35,169
-heard about this could go and download
-
-193
-00:08:33,610 --> 00:08:37,719
-the source code and try it out
-
-194
-00:08:35,169 --> 00:08:40,870
-you know much work is it to update that
-
-195
-00:08:37,719 --> 00:08:42,729
-there was an older FPS game made in
-
-196
-00:08:40,870 --> 00:08:45,760
-highschool I can't recall the name of it
-
-197
-00:08:42,729 --> 00:08:47,830
-but somebody did the work to like bring
-
-198
-00:08:45,760 --> 00:08:48,610
-it current oh well is it really cool
-
-199
-00:08:47,830 --> 00:08:51,820
-nice
-
-200
-00:08:48,610 --> 00:08:53,950
-maybe somebody maybe me maybe you or
-
-201
-00:08:51,820 --> 00:08:54,380
-someone hearing this can try to revive
-
-202
-00:08:53,950 --> 00:08:58,160
-Nick
-
-203
-00:08:54,380 --> 00:09:01,760
-the robot right and it's also just it
-
-204
-00:08:58,160 --> 00:09:04,520
-would be good to I guess have something
-
-205
-00:09:01,760 --> 00:09:07,730
-else to do to emergencies I guess these
-
-206
-00:09:04,520 --> 00:09:10,190
-hobbies and this love of a Haskell
-
-207
-00:09:07,730 --> 00:09:13,850
-together and which would help progress
-
-208
-00:09:10,190 --> 00:09:15,920
-you know my skill in Haskell as well so
-
-209
-00:09:13,850 --> 00:09:19,130
-I guess that's like another right
-
-210
-00:09:15,920 --> 00:09:22,730
-another bonus doing this on the topic of
-
-211
-00:09:19,130 --> 00:09:23,750
-that there is also Dino rush which you
-
-212
-00:09:22,730 --> 00:09:26,720
-know if you're wanting to merge your
-
-213
-00:09:23,750 --> 00:09:28,550
-hobbies of high school and game
-
-214
-00:09:26,720 --> 00:09:30,080
-development but you're kind of new you
-
-215
-00:09:28,550 --> 00:09:32,810
-might want to use like a classic game
-
-216
-00:09:30,080 --> 00:09:34,820
-loop and Dino rush actually went that
-
-217
-00:09:32,810 --> 00:09:37,940
-route and they used a class a game loop
-
-218
-00:09:34,820 --> 00:09:38,660
-so highly recommend anyone who wants to
-
-219
-00:09:37,940 --> 00:09:41,540
-do that
-
-220
-00:09:38,660 --> 00:09:43,130
-to check out their blog post that I
-
-221
-00:09:41,540 --> 00:09:46,580
-think you're probably going to put the
-
-222
-00:09:43,130 --> 00:09:48,950
-resources to yes download the source
-
-223
-00:09:46,580 --> 00:09:52,100
-code get it building poke around in
-
-224
-00:09:48,950 --> 00:09:54,800
-there nice yeah I'm definitely gonna do
-
-225
-00:09:52,100 --> 00:09:57,080
-that actually went to the page earlier
-
-226
-00:09:54,800 --> 00:10:00,620
-and checked it out and it's it's pretty
-
-227
-00:09:57,080 --> 00:10:02,840
-cool I like the the pixel art for the
-
-228
-00:10:00,620 --> 00:10:06,350
-game it looks pretty right and in for
-
-229
-00:10:02,840 --> 00:10:07,940
-context the game diner rush it's you
-
-230
-00:10:06,350 --> 00:10:12,620
-know when you lose internet connection
-
-231
-00:10:07,940 --> 00:10:13,970
-on Google Chrome yes jump over stuff I
-
-232
-00:10:12,620 --> 00:10:20,900
-think we have a high scoreboard
-
-233
-00:10:13,970 --> 00:10:23,960
-something around in the office those
-
-234
-00:10:20,900 --> 00:10:26,720
-examples are pretty inspiring Cody but
-
-235
-00:10:23,960 --> 00:10:28,730
-if I get lost how could I get support
-
-236
-00:10:26,720 --> 00:10:30,200
-right you know we were talking about
-
-237
-00:10:28,730 --> 00:10:32,780
-Nikki and the robots and their
-
-238
-00:10:30,200 --> 00:10:34,430
-trailblazers there wasn't there weren't
-
-239
-00:10:32,780 --> 00:10:36,410
-really a lot of people trying to do high
-
-240
-00:10:34,430 --> 00:10:38,660
-school game dev back then so they had to
-
-241
-00:10:36,410 --> 00:10:40,430
-figure out all those things herself but
-
-242
-00:10:38,660 --> 00:10:43,220
-then at some point past that they
-
-243
-00:10:40,430 --> 00:10:48,220
-started a or someone started a subreddit
-
-244
-00:10:43,220 --> 00:10:51,710
-called our slash Haskell game dev and
-
-245
-00:10:48,220 --> 00:10:54,050
-they made a wiki of how to get started
-
-246
-00:10:51,710 --> 00:10:57,890
-now they're getting started I think is
-
-247
-00:10:54,050 --> 00:10:59,540
-more fitted to complex games and I would
-
-248
-00:10:57,890 --> 00:11:02,450
-still recommend using gloss to get
-
-249
-00:10:59,540 --> 00:11:05,600
+00:10:56,700 --> 00:11:01,500
+I would still recommend using gloss to get
 started since it'll won't get you up and
 
-250
-00:11:02,450 --> 00:11:08,360
-running the fastest but some really good
+185
+00:11:01,500 --> 00:11:06,400
+running the fastest but
+some really good resources there.
 
-251
-00:11:05,600 --> 00:11:11,870
-resources there they also have
+186
+00:11:06,400 --> 00:11:12,100
+They also have a Haskell Game Dev Channel
+on freenode if you're familiar with
 
-252
-00:11:08,360 --> 00:11:15,260
-a Haskell game dev channel on freenode
+187
+00:11:12,100 --> 00:11:18,300
+IRC chat and you can usually get pretty
+quick help in the Haskell chat room.
 
-253
-00:11:11,870 --> 00:11:17,720
-if you're familiar with IRC chat and you
+188
+00:11:18,300 --> 00:11:20,800
+I'm guessing
+the Haskell Game Dev is similar,
 
-254
-00:11:15,260 --> 00:11:19,970
-can usually get pretty quick help in the
+189
+00:11:22,100 --> 00:11:24,100
+then there's always stack Overflow.
 
-255
-00:11:17,720 --> 00:11:23,570
-Haskell chat room I'm guessing the
+190
+00:11:24,100 --> 00:11:27,100
+I've noticed quite a few
+Game Dev questions and
 
-256
-00:11:19,970 --> 00:11:25,820
-Haskell game dev is similar then there's
+191
+00:11:27,100 --> 00:11:30,100
+ask will get answered on stack Overflow.
 
-257
-00:11:23,570 --> 00:11:28,250
-always Stack Overflow I've noticed quite
+192
+00:11:30,100 --> 00:11:30,600
+>> Gotcha.
 
-258
-00:11:25,820 --> 00:11:30,490
-a few game to have questions and asked
+193
+00:11:30,600 --> 00:11:31,900
+Nice.
 
-259
-00:11:28,250 --> 00:11:33,529
-will get answered on Stack Overflow
+194
+00:11:31,900 --> 00:11:38,000
+Yeah, I'll definitely give those a shot
+it just to clarify somebody coming from
 
-260
-00:11:30,490 --> 00:11:36,850
-gotcha nice yeah I'll definitely give
+195
+00:11:38,000 --> 00:11:43,600
+let's say unity3d developing their
+there's nothing like that currently for
 
-261
-00:11:33,529 --> 00:11:40,220
-those a shot and just to clarify
+196
+00:11:43,600 --> 00:11:48,100
+the high school Community right
+like is basically C sharp for
 
-262
-00:11:36,850 --> 00:11:43,190
-somebody coming from let's say unity3d
+197
+00:11:48,100 --> 00:11:51,200
+the most part in right Unity, right?
 
-263
-00:11:40,220 --> 00:11:45,500
-developing there there's nothing like
+198
+00:11:51,200 --> 00:11:54,100
+>> Yeah.
+Nothing is complete is Unity.
 
-264
-00:11:43,190 --> 00:11:49,190
-that currently for the Haskell community
+199
+00:11:54,100 --> 00:11:59,200
+There is a game engine that I think
+attempted to be something like Unity
 
-265
-00:11:45,500 --> 00:11:52,490
-right like it's basically c-sharp for
+200
+00:11:59,200 --> 00:12:04,600
+called Helm that you might want to take a
+look at I think it's still compiles latest
 
-266
-00:11:49,190 --> 00:11:55,720
-the most part in Wright unity right yeah
+201
+00:12:04,600 --> 00:12:11,700
+GHC and is is working couldn't find any
+good game examples of Though got you.
 
-267
-00:11:52,490 --> 00:11:59,120
-nothing is complete as unity there is a
+202
+00:12:11,700 --> 00:12:12,500
+>> Okay, cool.
 
-268
-00:11:55,720 --> 00:12:01,279
-game engine that I think attempted to be
+203
+00:12:12,500 --> 00:12:14,398
+Thanks for
+being on the show with me today Cody.
 
-269
-00:11:59,120 --> 00:12:04,040
-something like unity called helm that
+204
+00:12:14,398 --> 00:12:15,148
+>> No problem.
 
-270
-00:12:01,279 --> 00:12:06,890
-you might want to take a look at I think
+205
+00:12:15,148 --> 00:12:16,930
+It's been a lot of fun and thank you for
+listening to the Haskell weekly podcast.
 
-271
-00:12:04,040 --> 00:12:10,490
-it still compiles the latest GHC and is
+206
+00:12:16,930 --> 00:12:19,661
+>> And thank you for
+listening to the Haskell Weekly Podcast.
 
-272
-00:12:06,890 --> 00:12:13,310
-is working couldn't find any good game
+207
+00:12:19,661 --> 00:12:24,476
+If you liked what you heard find out
+more at our website Haskell Weekly News.
 
-273
-00:12:10,490 --> 00:12:14,839
-examples of it though gotcha okay cool
+208
+00:12:24,476 --> 00:12:27,600
+Also, please rate and review us on iTunes.
 
-274
-00:12:13,310 --> 00:12:17,329
-thanks for being on the show with me
+209
+00:12:27,600 --> 00:12:28,700
+It helps a lot.
 
-275
-00:12:14,839 --> 00:12:19,279
-today Cody no problem that's been a lot
+210
+00:12:28,700 --> 00:12:32,900
+Ask a weekly is brought to you by it pro
+TV the tech skills development platform
 
-276
-00:12:17,329 --> 00:12:21,290
-of fun and thank you for listening to
+211
+00:12:32,900 --> 00:12:36,300
+for it professionals and
+also our employer.
 
-277
-00:12:19,279 --> 00:12:23,180
-the Haskell weekly podcast if you liked
+212
+00:12:36,300 --> 00:12:37,200
+Yeah that too.
 
-278
-00:12:21,290 --> 00:12:26,480
-what you heard find out more at our
+213
+00:12:37,200 --> 00:12:44,700
+It's a senior sis admins and network
+admins to www.1800fairoffer.com needs.
 
-279
-00:12:23,180 --> 00:12:28,790
-website haskell weekly dot news also
+214
+00:12:44,700 --> 00:12:45,900
+Thanks again for listening.
 
-280
-00:12:26,480 --> 00:12:30,800
-please rate and review us on itunes it
-
-281
-00:12:28,790 --> 00:12:32,899
-helps a lot a school weekly is brought
-
-282
-00:12:30,800 --> 00:12:34,339
-to you by IT pro TV the tech skills
-
-283
-00:12:32,899 --> 00:12:37,550
-development platform for IT
-
-284
-00:12:34,339 --> 00:12:39,649
-professionals and also our employer yeah
-
-285
-00:12:37,550 --> 00:12:44,600
-that's you so send your sis ID mins and
-
-286
-00:12:39,649 --> 00:12:46,399
-network admins 2ww IT pro TV for all of
-
-287
-00:12:44,600 --> 00:12:49,990
-their learning needs thanks again for
-
-288
-00:12:46,399 --> 00:12:49,990
-listening we'll see you again next week
+215
+00:12:45,900 --> 00:12:47,200
+We'll see you again next week.
