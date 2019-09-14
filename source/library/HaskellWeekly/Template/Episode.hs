@@ -42,7 +42,8 @@ episodeTemplate baseUrl episode maybeCaptions maybePreviousEpisode maybeNextEpis
           <> ": "
           <> title episode
         H.video_
-            [ H.controls_ "controls"
+            [ H.class_ "h-auto w-100"
+            , H.controls_ "controls"
             , H.height_ "256"
             , H.term "poster" $ HaskellWeekly.Type.Route.routeToTextWith
               baseUrl
@@ -73,22 +74,9 @@ episodeTemplate baseUrl episode maybeCaptions maybePreviousEpisode maybeNextEpis
         H.ul_ . mapM_ articleLink $ HaskellWeekly.Type.Episode.episodeArticles
           episode
         H.p_ $ do
-          H.toHtml $ number episode
-          " was published on "
+          "This episode was published on "
           H.toHtml $ date episode
           "."
-        case maybePreviousEpisode of
-          Nothing -> pure ()
-          Just previousEpisode -> H.p_ $ do
-            "Previous episode: "
-            H.a_
-                [ H.href_
-                  . HaskellWeekly.Type.Route.routeToTextWith baseUrl
-                  . HaskellWeekly.Type.Route.RouteEpisode
-                  $ HaskellWeekly.Type.Episode.episodeNumber previousEpisode
-                ]
-              . H.toHtml
-              $ title previousEpisode
         case maybeNextEpisode of
           Nothing -> pure ()
           Just nextEpisode -> H.p_ $ do
@@ -101,6 +89,18 @@ episodeTemplate baseUrl episode maybeCaptions maybePreviousEpisode maybeNextEpis
                 ]
               . H.toHtml
               $ title nextEpisode
+        case maybePreviousEpisode of
+          Nothing -> pure ()
+          Just previousEpisode -> H.p_ $ do
+            "Previous episode: "
+            H.a_
+                [ H.href_
+                  . HaskellWeekly.Type.Route.routeToTextWith baseUrl
+                  . HaskellWeekly.Type.Route.RouteEpisode
+                  $ HaskellWeekly.Type.Episode.episodeNumber previousEpisode
+                ]
+              . H.toHtml
+              $ title previousEpisode
         case maybeCaptions of
           Nothing -> pure ()
           Just captions -> do
