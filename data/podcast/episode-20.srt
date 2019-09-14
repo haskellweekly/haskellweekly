@@ -1,30 +1,31 @@
 1
 00:00:02,780 --> 00:00:06,330
-hey welcome back to the Haskell weekly
+>> Hey! Welcome back to the Haskell Weekly
 
 2
 00:00:05,549 --> 00:00:08,250
-podcast
+podcast.
 
 3
 00:00:06,330 --> 00:00:11,429
-I'm your host Taylor fossick I'm the
+I'm your host Taylor Fausak. I'm the
 
 4
 00:00:08,250 --> 00:00:13,290
-lead engineer here at IT Pro TV and with
+lead engineer here at ITProTV and with
 
 5
 00:00:11,429 --> 00:00:15,150
-me today is Sarah Lichtenstein one of
+me today is Sara Lichtenstein, one of
 
 6
 00:00:13,290 --> 00:00:18,690
-the engineers on my team welcome Sarah
+the engineers on my team. Welcome Sara!
 
 7
 00:00:15,150 --> 00:00:20,490
-thank you we have been off for the past
+>> Thank you!
+>> We have been off for the past
 
 8
 00:00:18,690 --> 00:00:21,960
@@ -32,7 +33,7 @@ three weeks while our studios have been
 
 9
 00:00:20,490 --> 00:00:24,840
-renovated but it's good to be back thank
+renovated but it's good to be back. Thank
 
 10
 00:00:21,960 --> 00:00:26,550
@@ -40,15 +41,15 @@ you for your patience and thanks for
 
 11
 00:00:24,840 --> 00:00:28,800
-listening today we're going to be
+listening. Today we're going to be
 
 12
 00:00:26,550 --> 00:00:30,869
-talking about an article by type classes
+talking about an article by Type Classes
 
 13
 00:00:28,800 --> 00:00:33,600
-called rounding it was published way
+called "Rounding". It was published way
 
 14
 00:00:30,869 --> 00:00:37,890
@@ -56,11 +57,11 @@ back on August 14th and we put it in
 
 15
 00:00:33,600 --> 00:00:39,540
-issue 172 of Haskell weekly but it was
+issue 172 of Haskell Weekly. But it was
 
 16
 00:00:37,890 --> 00:00:40,620
-an interesting article and Sarah could
+an interesting article and Sara could
 
 17
 00:00:39,540 --> 00:00:44,610
@@ -68,7 +69,8 @@ you tell us a little about why you chose
 
 18
 00:00:40,620 --> 00:00:45,960
-to talk about it today so I'm sure
+to talk about it today?
+>> Sure! So I'm sure
 
 19
 00:00:44,610 --> 00:00:47,670
@@ -76,15 +78,15 @@ everyone has experienced this who's
 
 20
 00:00:45,960 --> 00:00:49,950
-worked in Haskell before when you go on
+worked in Haskell before where you go on
 
 21
 00:00:47,670 --> 00:00:52,860
-to stockage or Google and are trying to
+to Stackage or Hoogle and are trying to
 
 22
 00:00:49,950 --> 00:00:54,360
-look up function to use and there's like
+look up a function to use and there's like
 
 23
 00:00:52,860 --> 00:00:55,620
@@ -92,11 +94,11 @@ four or five different functions with
 
 24
 00:00:54,360 --> 00:00:57,989
-the same type signature and you're like
+the same type signature and you're like,
 
 25
 00:00:55,620 --> 00:00:59,160
-what do I do now because they all do
+"What do I do now?" because they all do
 
 26
 00:00:57,989 --> 00:01:01,219
@@ -104,11 +106,11 @@ completely different things and this
 
 27
 00:00:59,160 --> 00:01:04,409
-article covers four of those functions
+article covers four of those functions.
 
 28
 00:01:01,219 --> 00:01:07,049
-exactly and although all four of those
+>> Exactly. And although all four of those
 
 29
 00:01:04,409 --> 00:01:11,189
@@ -116,51 +118,52 @@ functions come from the wonderfully
 
 30
 00:01:07,049 --> 00:01:13,020
-named real frack type class which as you
+named RealFrac type class which as you
 
 31
 00:01:11,189 --> 00:01:15,750
-might guess from the name is four types
+might guess from the name is for types
 
 32
 00:01:13,020 --> 00:01:17,640
-that are both real and fractional but
+that are both real and fractional. But
 
 33
 00:01:15,750 --> 00:01:19,170
-what does real mean it's not like not
+what does real mean? It's not like not
 
 34
 00:01:17,640 --> 00:01:19,979
-imaginary I guess is there a better way
+imaginary I guess. Is there a better way
 
 35
 00:01:19,170 --> 00:01:22,310
-to put it than that
+to put it than that?
 
 36
 00:01:19,979 --> 00:01:25,020
-I think that is the best way to put it
+>> I think that is the best way to put it.
 
 37
 00:01:22,310 --> 00:01:27,060
-real like for math class yeah
+Real like from math class.
 
 38
 00:01:25,020 --> 00:01:28,950
-real numbers I think we all learned
+Real numbers.
+>> Yeah! I think we all learned
 
 39
 00:01:27,060 --> 00:01:31,380
-about this in math maybe high school I
+about this in math, maybe high school? I
 
 40
 00:01:28,950 --> 00:01:33,450
-don't remember it's been a long time and
+don't remember. It's been a long time. And
 
 41
 00:01:31,380 --> 00:01:34,829
-then fractional it means that it
+then fractional, it means that it
 
 42
 00:01:33,450 --> 00:01:37,409
@@ -172,15 +175,16 @@ necessarily rational numbers so a lot of
 
 44
 00:01:37,409 --> 00:01:43,680
-the real frac type classes can represent
+the RealFrac type classes can represent
 
 45
 00:01:39,270 --> 00:01:49,320
-things like pi which is not rational yes
+things like pi which is not rational.
 
 46
 00:01:43,680 --> 00:01:50,549
-it is real and it is frac so yeah that's
+>> But it is real.
+>> It is real, and it is frac. So yeah that's
 
 47
 00:01:49,320 --> 00:01:52,049
@@ -192,11 +196,11 @@ talking about in general today but the
 
 49
 00:01:52,049 --> 00:01:58,590
-four functions in particular are ceiling
+four functions in particular are: ceiling,
 
 50
 00:01:55,439 --> 00:01:59,820
-floor truncate and unsurprisingly round
+floor, truncate, and unsurprisingly round,
 
 51
 00:01:58,590 --> 00:02:01,860
@@ -204,11 +208,12 @@ since the whole article is called
 
 52
 00:01:59,820 --> 00:02:04,350
-rounding but Sarah could you walk us
+rounding. But Sara could you walk us
 
 53
 00:02:01,860 --> 00:02:06,540
-through ceiling what is it you're so
+through ceiling. What is it?
+>> Sure! So
 
 54
 00:02:04,350 --> 00:02:09,479
@@ -216,7 +221,7 @@ ceiling is a function that takes one
 
 55
 00:02:06,540 --> 00:02:12,599
-integer and goes up to the next one so
+integer and goes up to the next one. So
 
 56
 00:02:09,479 --> 00:02:13,750
@@ -228,39 +233,42 @@ ceiling on it
 
 58
 00:02:13,750 --> 00:02:20,110
-get free mm-hmm and what happens if the
+get 3.
+>> Mm-hmm. And what happens if the
 
 59
 00:02:16,750 --> 00:02:22,420
-number is negative back to the same next
+number is negative?
+>> Back to the same next
 
 60
 00:02:20,110 --> 00:02:24,280
-integer so negative numbers are a little
+integer. So negative numbers are a little
 
 61
 00:02:22,420 --> 00:02:26,680
-opposites so it always looks weird when
+opposite so it always looks weird when
 
 62
 00:02:24,280 --> 00:02:27,910
-you see that so for that extreme example
+you see that. So for that same example
 
 63
 00:02:26,680 --> 00:02:29,860
-if you have a negative two point one it
+if you have a -2.1 it
 
 64
 00:02:27,910 --> 00:02:32,290
-goes to two right because who is the
+goes to -2, because -2 is the
 
 65
 00:02:29,860 --> 00:02:33,570
-next number up yeah and this usually
+next number up.
+>> Yeah and this usually
 
 66
 00:02:32,290 --> 00:02:35,950
-tripped me up when I look at it because
+trips me up when I look at it because
 
 67
 00:02:33,570 --> 00:02:37,810
@@ -272,19 +280,21 @@ to the next biggest number and I think
 
 69
 00:02:37,810 --> 00:02:41,680
-Oh negative to the next biggest number
+"Oh -2 the next biggest number
 
 70
 00:02:39,610 --> 00:02:44,410
-is obviously negative three but really
+is obviously -3", but really
 
 71
 00:02:41,680 --> 00:02:48,160
-it's the next one like in a positive
+it's the next one like up.
+>> In a positive
 
 72
 00:02:44,410 --> 00:02:50,020
-trend yeah going positive and then you
+trend, yeah.
+>> Going positive. And then you
 
 73
 00:02:48,160 --> 00:02:51,430
@@ -292,7 +302,7 @@ mentioned at the top that a lot of these
 
 74
 00:02:50,020 --> 00:02:53,739
-functions have the same text type
+functions have the same type
 
 75
 00:02:51,430 --> 00:02:55,060
@@ -304,11 +314,12 @@ type signature but it does something
 
 77
 00:02:55,060 --> 00:02:59,500
-kind of the opposite right what does it
+kind of the opposite, right? What does it
 
 78
 00:02:56,830 --> 00:03:02,620
-do it's basically the exact opposite so
+do
+>> It's basically the exact opposite so
 
 79
 00:02:59,500 --> 00:03:04,150
@@ -316,19 +327,20 @@ it goes down to the next integer so in
 
 80
 00:03:02,620 --> 00:03:06,670
-that same example if we have two point
+that same example if we have 2.1
 
 81
 00:03:04,150 --> 00:03:08,110
-one we get back to but if we have
+we get back 2 but if we have
 
 82
 00:03:06,670 --> 00:03:10,510
-negative two point one that's where we
+-2.1 one that's where we
 
 83
 00:03:08,110 --> 00:03:12,400
-get negative three right so exact
+get -3.
+>> Right, so exact
 
 84
 00:03:10,510 --> 00:03:13,959
@@ -336,23 +348,25 @@ opposite but the type signature is
 
 85
 00:03:12,400 --> 00:03:16,540
-exactly the same so that's a very
+exactly the same so that's a little
 
 86
 00:03:13,959 --> 00:03:18,160
-strange mm-hmm there's a couple actually
+strange.
+>> Mm-hmm. We have to actually
 
 87
 00:03:16,540 --> 00:03:21,510
-do our reading yeah
+do our reading.
+>> Yeah!
 
 88
 00:03:18,160 --> 00:03:23,950
-cathode worst part reading documentation
+Gah! The worst part, reading documentation.
 
 89
 00:03:21,510 --> 00:03:25,360
-and there's a couple more functions with
+And there's a couple more functions with
 
 90
 00:03:23,950 --> 00:03:28,150
@@ -360,7 +374,8 @@ the same type signature so there's
 
 91
 00:03:25,360 --> 00:03:30,010
-truncate what does that one do so
+truncate. What does that one do?
+>> So
 
 92
 00:03:28,150 --> 00:03:32,950
@@ -368,15 +383,15 @@ truncate just cuts off the fractional
 
 93
 00:03:30,010 --> 00:03:34,840
-part so in our 2.1 example we get two
+part so in our 2.1 example we get 2
 
 94
 00:03:32,950 --> 00:03:36,670
-and a negative two point one we get
+and in -2.1 we get
 
 95
 00:03:34,840 --> 00:03:38,620
-negative two so we can visualize this
+-2 so we can visualize this
 
 96
 00:03:36,670 --> 00:03:41,350
@@ -384,7 +399,8 @@ kind of like a chain saw just slicing
 
 97
 00:03:38,620 --> 00:03:42,579
-off that number at the decimal yeah I
+off that number at the decimal.
+>> Yeah I
 
 98
 00:03:41,350 --> 00:03:44,019
@@ -396,11 +412,13 @@ chain saws at the same time they go
 
 100
 00:03:44,019 --> 00:03:48,250
-together so well exactly
+together so well.
+>> Exactly
 
 101
 00:03:45,730 --> 00:03:50,890
-it really makes math interesting very
+it really makes math interesting.
+>> Very
 
 102
 00:03:48,250 --> 00:03:52,390
@@ -424,7 +442,9 @@ do floor but if it's negative you're
 
 107
 00:03:59,110 --> 00:04:03,040
-gonna do ceiling exactly I don't know
+gonna do ceiling.
+>> Exactly
+>> I don't know
 
 108
 00:04:01,510 --> 00:04:05,019
@@ -444,7 +464,7 @@ different way to to think about this one
 
 112
 00:04:08,019 --> 00:04:10,510
-mm-hmm
+>> Mm-hmm
 
 113
 00:04:09,100 --> 00:04:12,010
@@ -456,7 +476,7 @@ ceiling in floor than you know truncate
 
 115
 00:04:12,010 --> 00:04:16,419
-there you go
+>> There you go
 
 116
 00:04:13,000 --> 00:04:17,739
@@ -488,7 +508,7 @@ it is that it does
 
 123
 00:04:27,070 --> 00:04:33,190
-right so round as context clues would
+>> Right so round as context clues would
 
 124
 00:04:30,280 --> 00:04:36,010
@@ -496,11 +516,11 @@ assume goes to the nearest integer so in
 
 125
 00:04:33,190 --> 00:04:38,790
-our 2.1 example for positive 2.1 we get
+our 2.1 example for +2.1 we get
 
 126
 00:04:36,010 --> 00:04:42,850
-2 & 4 negative 2.1 we get negative 2
+2 and for -2.1 we get -2
 
 127
 00:04:38,790 --> 00:04:45,870
@@ -512,7 +532,9 @@ you get to the point 5s that has the
 
 129
 00:04:45,870 --> 00:04:50,710
-statisticians rounding mm-hmm if you
+statisticians rounding.
+>> Mm-hmm
+>> If you
 
 130
 00:04:48,640 --> 00:04:53,200
@@ -524,7 +546,8 @@ just to the next even number so from 2.5
 
 132
 00:04:53,200 --> 00:04:58,450
-you won't get 3 you'll get 2 right but
+you won't get 3 you'll get 2.
+>> Right but
 
 133
 00:04:56,380 --> 00:05:00,160
@@ -532,19 +555,23 @@ then with like 3.5 what happens you go
 
 134
 00:04:58,450 --> 00:05:03,310
-there you go to 4 okay
+to 3?
+>> You get 4.
+>> You go to 4, okay.
 
 135
 00:05:00,160 --> 00:05:05,560
-he's not even so only the even numbers
+>> 3's not even
+>> So only the even numbers
 
 136
 00:05:03,310 --> 00:05:08,020
-get rounded to on the point 5s correct
+get rounded to on the point 5s
+>> Correct
 
 137
 00:05:05,560 --> 00:05:09,280
-yeah you mentioned this is statisticians
+>> yeah you mentioned this is statisticians
 
 138
 00:05:08,020 --> 00:05:10,780
@@ -572,11 +599,12 @@ rounding up but now they round to the
 
 144
 00:05:19,270 --> 00:05:23,530
-even numbers am i right sure yeah I mean
+even numbers alright sure why not
+>> Yeah I mean
 
 145
 00:05:21,340 --> 00:05:25,180
-in like elementary school baths they'd
+in like elementary school math they'd
 
 146
 00:05:23,530 --> 00:05:27,130
@@ -588,11 +616,12 @@ point 5 or above you go up so now it's
 
 148
 00:05:27,130 --> 00:05:33,570
-like okay gotta relearn math yeah thanks
+like okay gotta relearn math
+>> Yeah thanks
 
 149
 00:05:29,770 --> 00:05:33,570
-elementary school for Hylian to us
+elementary school for lying to us
 
 150
 00:05:34,000 --> 00:05:38,620
@@ -612,7 +641,7 @@ about it day to day is it takes some
 
 154
 00:05:43,480 --> 00:05:50,620
-kind of fractional real number real frac
+kind of fractional real number RealFrac
 
 155
 00:05:47,140 --> 00:05:53,860
@@ -660,7 +689,7 @@ integers and there's a function for that
 
 166
 00:06:13,900 --> 00:06:17,890
-one called from integral where you give
+one called fromIntegral where you give
 
 167
 00:06:15,820 --> 00:06:19,990
@@ -672,11 +701,11 @@ natural or whatever and it converts it
 
 169
 00:06:19,990 --> 00:06:24,130
-into some numeric type so not even real
+into some numeric type so not even RealFrac
 
 170
 00:06:22,210 --> 00:06:25,660
-frac just any number basically it could
+just any number basically it could
 
 171
 00:06:24,130 --> 00:06:27,460
@@ -684,7 +713,7 @@ be a complex number could be an
 
 172
 00:06:25,660 --> 00:06:28,810
-imaginary number but yeah it's a it's a
+imaginary number but yeah it's a
 
 173
 00:06:27,460 --> 00:06:31,330
@@ -696,39 +725,41 @@ function because it goes from so many
 
 175
 00:06:31,330 --> 00:06:36,730
-types to so many other types it's such a
+types to so many other types
+>> It's such a
 
 176
 00:06:34,480 --> 00:06:39,940
-perfect descriptor for that function you
+perfect descriptor for that function because you
 
 177
 00:06:36,730 --> 00:06:40,540
-can really new use it for basically any
+really do use it for basically any
 
 178
 00:06:39,940 --> 00:06:42,580
-conversion
+conversions
 
 179
 00:06:40,540 --> 00:06:43,990
-and math at least here mm-hmm yeah we
+in math at least here
+>> Mm-hmm yeah we
 
 180
 00:06:42,580 --> 00:06:45,820
-have this this was army knife when we
+have this this Swiss Army knife when we
 
 181
 00:06:43,990 --> 00:06:47,710
-pull out the blade that goes double the
+pull out the blade that goes double to
 
 182
 00:06:45,820 --> 00:06:49,660
-int or sorry the other way around into
+int or sorry the other way around int to
 
 183
 00:06:47,710 --> 00:06:50,890
-double I love the way that goes natural
+double we pull out the blade that goes natural
 
 184
 00:06:49,660 --> 00:06:52,570
@@ -740,11 +771,13 @@ that conversion in particular but anyway
 
 186
 00:06:52,570 --> 00:06:56,410
-we don't recommend that we use it all
+>> we don't recommend that
+>> We use it all
 
 187
 00:06:54,910 --> 00:06:58,150
-the time but we'll get back to that in
+the time
+>> But we'll get back to that in
 
 188
 00:06:56,410 --> 00:06:59,710
@@ -772,7 +805,8 @@ the documentation and you had a great
 
 194
 00:07:07,300 --> 00:07:12,160
-term for this what did you call it so
+term for this what did you call it
+>> So
 
 195
 00:07:09,700 --> 00:07:15,550
@@ -780,7 +814,7 @@ this kind of reminded me of homophones
 
 196
 00:07:12,160 --> 00:07:18,100
-from English so homophones four words
+from English so homophones for words
 
 197
 00:07:15,550 --> 00:07:21,280
@@ -788,15 +822,20 @@ are words that sound the same but mean
 
 198
 00:07:18,100 --> 00:07:26,350
-different things exactly so this is kind
+different things
+>> Exactly
+>> So this is kind
 
 199
 00:07:21,280 --> 00:07:28,870
-of like these are our coding homophones
+of like
+>> The progamming version of the same thing
+>> These are our coding homophones
 
 200
 00:07:26,350 --> 00:07:30,280
-okay we have some other good examples in
+>> Exactly
+>> We have some other good examples in
 
 201
 00:07:28,870 --> 00:07:32,560
@@ -804,7 +843,8 @@ the prelude as well if you want to talk
 
 202
 00:07:30,280 --> 00:07:34,180
-about some of those sure there's one
+about some of those
+>> Sure there's one
 
 203
 00:07:32,560 --> 00:07:36,010
@@ -876,7 +916,8 @@ might be able to tell from the names
 
 220
 00:08:04,240 --> 00:08:09,940
-what they do right we have to read the
+what they do
+>> Right it's always funny to me when we have to read the
 
 221
 00:08:08,620 --> 00:08:11,890
@@ -888,7 +929,8 @@ Haskell is so lazy but then we can't be
 
 223
 00:08:11,890 --> 00:08:17,560
-that lazy yep yep and you know that's
+that lazy
+>> Yep yep and you know that's
 
 224
 00:08:16,120 --> 00:08:18,820
@@ -908,11 +950,13 @@ caught up on something like rounding and
 
 228
 00:08:21,910 --> 00:08:26,650
-think you know how it works and and then
+think you know how it works and
+>> And then
 
 229
 00:08:23,950 --> 00:08:28,360
-you don't you don't but there are some
+you don't
+>> And then you don't but there are some
 
 230
 00:08:26,650 --> 00:08:29,950
@@ -928,11 +972,12 @@ with numbers could you talk about some
 
 233
 00:08:31,210 --> 00:08:35,440
-of those yeah so there are two other
+of those
+>> Yeah so there are two other
 
 234
 00:08:32,740 --> 00:08:38,530
-great math examples so Max and min that
+great math examples so max and min that
 
 235
 00:08:35,440 --> 00:08:41,830
@@ -940,7 +985,7 @@ are in the prelude max obviously gets
 
 236
 00:08:38,530 --> 00:08:44,050
-the maximum and minimum and luckily
+the maximum and min obviously gets the minimum and luckily
 
 237
 00:08:41,830 --> 00:08:45,760
@@ -948,7 +993,7 @@ those two have descriptive enough names
 
 238
 00:08:44,050 --> 00:08:47,890
-or at least for me I'm not going to need
+where at least for me I'm not going to need
 
 239
 00:08:45,760 --> 00:08:50,530
@@ -956,7 +1001,8 @@ to go and look at documentation I can
 
 240
 00:08:47,890 --> 00:08:51,790
-kind of infer what those do mmm-hmm even
+kind of infer what those do
+>> Mmm-hmm even
 
 241
 00:08:50,530 --> 00:08:53,020
@@ -968,23 +1014,24 @@ unless the person that wrote them is
 
 243
 00:08:53,020 --> 00:08:56,760
-trying to trick us we can
+trying to trick us we can probably
 
 244
 00:08:54,510 --> 00:08:59,340
-guess what they're doing which hopefully
+guess what they're doing
+>> Which hopefully
 
 245
 00:08:56,760 --> 00:09:01,740
-no one who writes things is trying to do
+no one who writes things is trying to trick us
 
 246
 00:08:59,340 --> 00:09:05,040
-yeah a lot of things start to fall apart
+>> yeah a lot of things start to fall apart
 
 247
 00:09:01,740 --> 00:09:07,590
-as that happens so we've been talking
+if that happens so we've been talking
 
 248
 00:09:05,040 --> 00:09:09,300
@@ -1024,7 +1071,8 @@ is it just kind of that cost of doing
 
 257
 00:09:21,660 --> 00:09:25,440
-business we have to deal with these well
+business we have to deal with these
+>> Well
 
 258
 00:09:23,460 --> 00:09:26,730
@@ -1036,7 +1084,7 @@ example when we're doing something like
 
 260
 00:09:26,730 --> 00:09:30,750
-from integral I know that we like to
+fromIntegral I know that we like to
 
 261
 00:09:28,590 --> 00:09:33,300
@@ -1060,7 +1108,8 @@ sometimes it's just as easy to use these
 
 266
 00:09:40,470 --> 00:09:45,270
-polymorphic functions mm-hmm yeah and
+polymorphic functions
+>> Mm-hmm yeah and
 
 267
 00:09:42,990 --> 00:09:47,430
@@ -1068,7 +1117,7 @@ you mentioned that we sometimes use kind
 
 268
 00:09:45,270 --> 00:09:49,380
-of monomorphic versions of from integral
+of monomorphic versions of fromIntegral
 
 269
 00:09:47,430 --> 00:09:51,600
@@ -1076,23 +1125,25 @@ and I'm sure our code base is littered
 
 270
 00:09:49,380 --> 00:09:55,170
-with things like int to double equals
+with things like intToDouble equals
 
 271
 00:09:51,600 --> 00:09:57,180
-from integral or natural to float equals
+fromIntegral or naturalToFloat equals
 
 272
 00:09:55,170 --> 00:09:58,980
-from integral and it can seem just
+from integral
+>> I think just
 
 273
 00:09:57,180 --> 00:10:00,180
-yesterday I did double the natural which
+yesterday I did doubleToNatural which
 
 274
 00:09:58,980 --> 00:10:02,070
-was from integral yeah
+was fromIntegral
+>> yeah
 
 275
 00:10:00,180 --> 00:10:03,540
@@ -1172,7 +1223,8 @@ little clunky
 
 294
 00:10:36,690 --> 00:10:41,280
-at the EU's site absolutely and it
+at the use site
+>> Absolutely and it
 
 295
 00:10:39,450 --> 00:10:43,710
@@ -1200,7 +1252,7 @@ difficult but if there's a function
 
 301
 00:10:49,950 --> 00:10:53,970
-that's just double the natural I know
+that's just doubleToNatural I know
 
 302
 00:10:52,080 --> 00:10:55,950
@@ -1240,7 +1292,8 @@ going out on the right it's very
 
 311
 00:11:08,320 --> 00:11:12,130
-from the name what's going on yeah
+from the name what's going on
+>> Yeah
 
 312
 00:11:10,420 --> 00:11:13,240
@@ -1248,7 +1301,8 @@ sometimes that explicitness is really
 
 313
 00:11:12,130 --> 00:11:15,460
-helpful mm-hmm
+helpful
+>> Mm-hmm
 
 314
 00:11:13,240 --> 00:11:18,280
@@ -1272,11 +1326,11 @@ library where well I won't get into time
 
 319
 00:11:25,690 --> 00:11:31,300
-but even for like hey even for something
+but even for like even for something
 
 320
 00:11:28,450 --> 00:11:33,190
-like double to int I've seen that pop up
+like doubleToInt I've seen that pop up
 
 321
 00:11:31,300 --> 00:11:35,500
@@ -1292,7 +1346,7 @@ type to that type because if you search
 
 324
 00:11:36,940 --> 00:11:41,320
-in Google which is an amazing thing and
+in Hoogle which is an amazing thing and
 
 325
 00:11:39,370 --> 00:11:42,880
@@ -1308,7 +1362,7 @@ actually done the search to see but if
 
 328
 00:11:44,560 --> 00:11:48,250
-you search for double to nth there
+you search for doubleToInt there
 
 329
 00:11:46,450 --> 00:11:51,400
@@ -1320,7 +1374,7 @@ that exact type signature but if you
 
 331
 00:11:51,400 --> 00:11:55,330
-know about rounded ceiling or truncate
+know about round ceiling or truncate
 
 332
 00:11:53,440 --> 00:11:57,100
@@ -1344,7 +1398,7 @@ something to hang documentation on and
 
 337
 00:12:03,100 --> 00:12:06,790
-say hey this goes from double to nth and
+say hey this goes from double to int and
 
 338
 00:12:04,630 --> 00:12:08,170
@@ -1356,7 +1410,8 @@ even rounding that you may not be
 
 340
 00:12:08,170 --> 00:12:13,720
-familiar with I think it really shows
+familiar with
+>> I think it really shows
 
 341
 00:12:11,100 --> 00:12:16,480
@@ -1376,7 +1431,8 @@ because you can turn anything into
 
 345
 00:12:19,870 --> 00:12:25,150
-anything pretty much mm-hmm yeah it's
+anything pretty much
+>> Mm-hmm yeah it's
 
 346
 00:12:22,330 --> 00:12:26,410
@@ -1396,7 +1452,7 @@ of those monomorphic functions like
 
 350
 00:12:30,880 --> 00:12:34,860
-double to nth and then go look at the
+double to int and then go look at the
 
 351
 00:12:33,040 --> 00:12:38,890
@@ -1404,7 +1460,7 @@ definition of it and see that it's
 
 352
 00:12:34,860 --> 00:12:41,170
-double to int equals round oh wow I
+doubleToInt equals round oh wow I
 
 353
 00:12:38,890 --> 00:12:42,970
@@ -1424,7 +1480,8 @@ which win/win as far as I'm concerned
 
 357
 00:12:46,170 --> 00:12:50,610
-exactly so we've mentioned that we use
+>> exactly
+>> so we've mentioned that we use
 
 358
 00:12:48,670 --> 00:12:53,050
@@ -1448,7 +1505,7 @@ warnings so we compile everything with
 
 363
 00:12:58,270 --> 00:13:01,990
-the dash W everything flag which is a
+the -Weverything flag which is a
 
 364
 00:13:00,430 --> 00:13:04,150
@@ -1504,7 +1561,7 @@ explicitly
 
 377
 00:13:21,910 --> 00:13:28,960
-and the best part about that is that GHC
+>> and the best part about that is that GHC
 
 378
 00:13:23,710 --> 00:13:31,540
@@ -1512,7 +1569,7 @@ does warn you so compilers real nice the
 
 379
 00:13:28,960 --> 00:13:33,400
-good friend of ours that GHD and just to
+>> good friend of ours that GHC and just to
 
 380
 00:13:31,540 --> 00:13:35,110
@@ -1532,7 +1589,7 @@ been talking about in our code base and
 
 384
 00:13:38,230 --> 00:13:44,440
-from least popular two most popular they
+from least popular to most popular they
 
 385
 00:13:41,650 --> 00:13:47,830
@@ -1572,7 +1629,7 @@ count here doesn't include those other
 
 394
 00:14:02,890 --> 00:14:06,940
-functions like double dance is just
+functions like doubleToInt it's just
 
 395
 00:14:04,450 --> 00:14:08,860
@@ -1580,7 +1637,7 @@ round and then going in the other
 
 396
 00:14:06,940 --> 00:14:11,620
-direction we use from integral even more
+direction we use fromIntegral even more
 
 397
 00:14:08,860 --> 00:14:13,720
@@ -1588,7 +1645,7 @@ direction we use from integral even more
 
 398
 00:14:11,620 --> 00:14:15,910
-of helper functions with REM integral so
+of helper functions with FromIntegral so
 
 399
 00:14:13,720 --> 00:14:17,830
@@ -1620,7 +1677,8 @@ them with all these code homophones
 
 406
 00:14:27,630 --> 00:14:31,990
-absolutely thankfully we've been able to
+>> absolutely
+>> thankfully we've been able to
 
 407
 00:14:30,070 --> 00:14:33,730
@@ -1640,7 +1698,7 @@ heard about type classes it is run by
 
 411
 00:14:37,510 --> 00:14:41,680
-Chris Martin and Julie Marunouchi and
+Chris Martin and Julie Moronuki and
 
 412
 00:14:39,610 --> 00:14:43,420
@@ -1676,7 +1734,7 @@ service you should go to check them out
 
 420
 00:14:54,640 --> 00:14:58,120
-at type classes comm they offer
+at typeclasses.com they offer
 
 421
 00:14:56,380 --> 00:14:59,140
@@ -1692,7 +1750,7 @@ similarly we work for a company called
 
 424
 00:15:01,360 --> 00:15:07,390
-IT pro TV who also provides training
+ITProTV who also provides training
 
 425
 00:15:04,480 --> 00:15:09,760
@@ -1704,7 +1762,7 @@ do video based training so you should
 
 427
 00:15:09,760 --> 00:15:15,520
-check us out as well go to IT Pro TV as
+check us out as well go to itpro.tv as
 
 428
 00:15:13,150 --> 00:15:17,110
@@ -1716,7 +1774,7 @@ back end so that's why we're here doing
 
 430
 00:15:17,110 --> 00:15:20,950
-podcast about it
+a podcast about it
 
 431
 00:15:19,180 --> 00:15:23,080
@@ -1724,7 +1782,8 @@ yeah I think that about wraps it up
 
 432
 00:15:20,950 --> 00:15:24,490
-Sarah any closing thoughts I would
+Sara any closing thoughts
+>> I would
 
 433
 00:15:23,080 --> 00:15:26,200
@@ -1752,11 +1811,11 @@ so if you're interested in learning
 
 439
 00:15:33,720 --> 00:15:38,709
-you're all too learns
+here are all the learns
 
 440
 00:15:35,800 --> 00:15:40,660
-for sure all right well thank you for
+>> for sure all right well thank you for
 
 441
 00:15:38,709 --> 00:15:42,699
@@ -1768,8 +1827,4 @@ and we'll see you again next week
 
 443
 00:15:42,699 --> 00:15:45,449
-hey guys
-
-444
-00:15:46,280 --> 00:15:50,750
-[Music]
+see you guys
