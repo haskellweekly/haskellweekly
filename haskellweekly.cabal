@@ -103,6 +103,7 @@ library
     HaskellWeekly.Handler.HealthCheck
     HaskellWeekly.Handler.Index
     HaskellWeekly.Handler.Issue
+    HaskellWeekly.Handler.Newsletter
     HaskellWeekly.Handler.NewsletterFeed
     HaskellWeekly.Handler.Podcast
     HaskellWeekly.Handler.PodcastFeed
@@ -294,6 +295,7 @@ library
     HaskellWeekly.Template.Episode
     HaskellWeekly.Template.Index
     HaskellWeekly.Template.Issue
+    HaskellWeekly.Template.Newsletter
     HaskellWeekly.Template.NewsletterFeed
     HaskellWeekly.Template.Podcast
     HaskellWeekly.Template.PodcastFeed
