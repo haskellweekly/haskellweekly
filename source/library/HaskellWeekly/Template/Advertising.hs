@@ -12,6 +12,7 @@ advertisingTemplate :: String -> H.Html ()
 advertisingTemplate baseUrl =
   HaskellWeekly.Template.Base.baseTemplate baseUrl ["Advertising"] $ do
     H.h2_ [H.class_ "f2 mv3 tracked-tight"] "Advertising"
+    H.h3_ [H.class_ "f3 mv3 tracked-tight"] "Newsletter"
     H.p_ $ do
       "You can advertise with Haskell Weekly by purchasing a sponsored link. "
       "Sponsored links are similar to featured links except that they say '(ad)' after the title. "
@@ -39,7 +40,10 @@ advertisingTemplate baseUrl =
       "Sponsored links must be submitted 24 hours before publication."
     H.p_ $ do
       "Sponsored links cost US$60 per issue. "
+      "A 25% bulk discount is available if you buy 4 or more links. "
       "Payment is accepted through Square. "
       "If you are interesting in advertising with Haskell Weekly, please reach out to "
       H.a_ [H.href_ "mailto:info@haskellweekly.news"] "info@haskellweekly.news"
       "."
+    H.h3_ [H.class_ "f3 mv3 tracked-tight"] "Podcast"
+    H.p_ "We are not currently accepting advertising for the podcast."
