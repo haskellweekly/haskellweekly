@@ -11,7 +11,7 @@ import qualified Lucid as H
 advertisingTemplate :: String -> H.Html ()
 advertisingTemplate baseUrl =
   HaskellWeekly.Template.Base.baseTemplate baseUrl ["Advertising"] $ do
-    H.h2_ [H.class_ "f2"] "Advertising"
+    H.h2_ [H.class_ "f2 mv3 tracked-tight"] "Advertising"
     H.p_ $ do
       "You can advertise with Haskell Weekly by purchasing a sponsored link. "
       "Sponsored links are similar to featured links except that they say '(ad)' after the title. "

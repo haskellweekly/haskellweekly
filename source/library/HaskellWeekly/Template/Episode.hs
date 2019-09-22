@@ -30,13 +30,13 @@ episodeTemplate baseUrl episode maybeCaptions maybePreviousEpisode maybeNextEpis
       ["Podcast", number episode, title episode]
     $ do
         H.h2_ [H.class_ "f2 mv3 tracked-tight"] $ H.a_
-          [ H.class_ "no-underline purple"
+          [ H.class_ "color-inherit no-underline"
           , H.href_ $ HaskellWeekly.Type.Route.routeToTextWith
             baseUrl
             HaskellWeekly.Type.Route.RoutePodcast
           ]
           "Podcast"
-        H.h3_ [H.class_ "f3 mv3 purple tracked-tight"]
+        H.h3_ [H.class_ "f3 mv3 tracked-tight"]
           . H.toHtml
           $ number episode
           <> ": "
@@ -104,7 +104,7 @@ episodeTemplate baseUrl episode maybeCaptions maybePreviousEpisode maybeNextEpis
         case maybeCaptions of
           Nothing -> pure ()
           Just captions -> do
-            H.h2_ "Transcript"
+            H.h2_ [H.class_ "mv3 tracked-tight"] "Transcript"
             H.div_
               . mapM_ (H.p_ . H.toHtml)
               $ HaskellWeekly.Type.Caption.renderTranscript captions

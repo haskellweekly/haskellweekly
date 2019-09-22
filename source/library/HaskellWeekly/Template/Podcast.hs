@@ -18,7 +18,7 @@ import qualified Lucid as H
 podcastTemplate :: String -> [HaskellWeekly.Type.Episode.Episode] -> H.Html ()
 podcastTemplate baseUrl episodes =
   HaskellWeekly.Template.Base.baseTemplate baseUrl [] $ do
-    H.h2_ [H.class_ "f2 mv3 purple tracked-tight"] "Podcast"
+    H.h2_ [H.class_ "f2 mv3 tracked-tight"] "Podcast"
     H.p_ $ do
       "The Haskell Weekly Podcast covers the Haskell programming langauge. "
       "Listen to professional software developers discuss using functional programming to solve real-world business problems. "
