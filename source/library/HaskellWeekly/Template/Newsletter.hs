@@ -29,9 +29,9 @@ newsletterTemplate baseUrl issues =
         "Mailchimp"
       " or subscribe to the "
       H.a_
-        [ H.href_
-          . HaskellWeekly.Type.Route.routeToTextWith baseUrl
-          $ HaskellWeekly.Type.Route.RouteNewsletterFeed
+        [ H.href_ $ HaskellWeekly.Type.Route.routeToTextWith
+            baseUrl
+            HaskellWeekly.Type.Route.RouteNewsletterFeed
         ]
         "RSS feed"
       "."
@@ -46,16 +46,19 @@ issueTemplate baseUrl issue =
         $ HaskellWeekly.Type.Issue.issueNumber issue
       ]
     $ do
-          H.a_
-              [ H.href_
-                . HaskellWeekly.Type.Route.routeToTextWith baseUrl
-                . HaskellWeekly.Type.Route.RouteIssue
+        H.a_
+            [ H.href_
+              . HaskellWeekly.Type.Route.routeToTextWith baseUrl
+              . HaskellWeekly.Type.Route.RouteIssue
+              $ HaskellWeekly.Type.Issue.issueNumber issue
+            ]
+          $ do
+              "Issue "
+              H.toHtml
+                . HaskellWeekly.Type.Number.numberToString
                 $ HaskellWeekly.Type.Issue.issueNumber issue
-              ] $ do
-                "Issue "
-                H.toHtml . HaskellWeekly.Type.Number.numberToString $ HaskellWeekly.Type.Issue.issueNumber issue
-          " "
-          H.span_ [H.class_ "gray"]
-            . H.toHtml
-            . HaskellWeekly.Type.Date.dateToShortString
-            $ HaskellWeekly.Type.Issue.issueDate issue
+        " "
+        H.span_ [H.class_ "gray"]
+          . H.toHtml
+          . HaskellWeekly.Type.Date.dateToShortString
+          $ HaskellWeekly.Type.Issue.issueDate issue

@@ -20,7 +20,7 @@ import qualified Network.Wai
 indexHandler
   :: Applicative f => HaskellWeekly.Type.State.State -> f Network.Wai.Response
 indexHandler state =
-  let contents = sortContents $ stateContents state
+  let contents = take 10 . sortContents $ stateContents state
   in
     pure
     . HaskellWeekly.Handler.Base.htmlResponse Network.HTTP.Types.ok200 []

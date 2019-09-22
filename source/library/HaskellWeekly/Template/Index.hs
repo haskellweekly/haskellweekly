@@ -15,9 +15,38 @@ import qualified HaskellWeekly.Type.Route
 import qualified Lucid as H
 
 indexTemplate :: String -> [HaskellWeekly.Type.Content.Content] -> H.Html ()
-indexTemplate baseUrl =
-  HaskellWeekly.Template.Base.baseTemplate baseUrl [] . H.ul_ . mapM_
-    (contentTemplate baseUrl)
+indexTemplate baseUrl contents =
+  HaskellWeekly.Template.Base.baseTemplate baseUrl [] $ do
+    H.p_ $ do
+      "Haskell Weekly is both a "
+      H.a_
+        [ H.href_ $ HaskellWeekly.Type.Route.routeToTextWith
+            baseUrl
+            HaskellWeekly.Type.Route.RouteNewsletter
+        ]
+        "newsletter"
+      " and a "
+      H.a_
+        [ H.href_ $ HaskellWeekly.Type.Route.routeToTextWith
+            baseUrl
+            HaskellWeekly.Type.Route.RoutePodcast
+        ]
+        "podcast"
+      "."
+    H.ul_ $ mapM_ (contentTemplate baseUrl) contents
+    H.p_ $ do
+      "If you would like to contribute content to Haskell Weekly, please send an email to "
+      H.a_ [H.href_ "mailto:info@haskellweekly.news"] "info@haskellweekly.news"
+      "."
+    H.p_ $ do
+      "If you would like to advertise with Haskell Weekly, please consult our "
+      H.a_
+        [ H.href_ $ HaskellWeekly.Type.Route.routeToTextWith
+            baseUrl
+            HaskellWeekly.Type.Route.RouteAdvertising
+        ]
+        "advertising page"
+      "."
 
 contentTemplate :: String -> HaskellWeekly.Type.Content.Content -> H.Html ()
 contentTemplate baseUrl content = H.li_ $ case content of
@@ -26,12 +55,9 @@ contentTemplate baseUrl content = H.li_ $ case content of
   HaskellWeekly.Type.Content.ContentIssue issue -> issueTemplate baseUrl issue
 
 episodeTemplate :: String -> HaskellWeekly.Type.Episode.Episode -> H.Html ()
-episodeTemplate baseUrl episode = H.p_ $ do
+episodeTemplate baseUrl episode = do
   let number = HaskellWeekly.Type.Episode.episodeNumber episode
-  H.toHtml
-    . HaskellWeekly.Type.Date.dateToShortString
-    $ HaskellWeekly.Type.Episode.episodeDate episode
-  ": "
+  "Podcast "
   H.a_
       [ H.href_
         . HaskellWeekly.Type.Route.routeToTextWith baseUrl
@@ -40,14 +66,16 @@ episodeTemplate baseUrl episode = H.p_ $ do
     $ do
         "Episode "
         H.toHtml $ HaskellWeekly.Type.Number.numberToString number
+  " "
+  H.span_ [H.class_ "gray"]
+    . H.toHtml
+    . HaskellWeekly.Type.Date.dateToShortString
+    $ HaskellWeekly.Type.Episode.episodeDate episode
 
 issueTemplate :: String -> HaskellWeekly.Type.Issue.Issue -> H.Html ()
-issueTemplate baseUrl issue = H.p_ $ do
+issueTemplate baseUrl issue = do
   let number = HaskellWeekly.Type.Issue.issueNumber issue
-  H.toHtml
-    . HaskellWeekly.Type.Date.dateToShortString
-    $ HaskellWeekly.Type.Issue.issueDate issue
-  ": "
+  "Newsletter "
   H.a_
       [ H.href_
         . HaskellWeekly.Type.Route.routeToTextWith baseUrl
@@ -56,3 +84,8 @@ issueTemplate baseUrl issue = H.p_ $ do
     $ do
         "Issue "
         H.toHtml $ HaskellWeekly.Type.Number.numberToString number
+  " "
+  H.span_ [H.class_ "gray"]
+    . H.toHtml
+    . HaskellWeekly.Type.Date.dateToShortString
+    $ HaskellWeekly.Type.Issue.issueDate issue
