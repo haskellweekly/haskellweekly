@@ -2,6 +2,7 @@
 
 module HaskellWeekly.Template.Podcast
   ( podcastTemplate
+  , podcastActionTemplate
   )
 where
 

@@ -26,15 +26,6 @@ episodeHandler state number =
         maybeCaptions <- HaskellWeekly.Handler.Caption.readCaptionFile
           state
           number
-        let
-          previousEpisode =
-            case HaskellWeekly.Type.Number.decrementNumber number of
-              Nothing -> Nothing
-              Just previousNumber -> Data.Map.lookup previousNumber episodes
-          nextEpisode =
-            case HaskellWeekly.Type.Number.incrementNumber number of
-              Nothing -> Nothing
-              Just nextNumber -> Data.Map.lookup nextNumber episodes
         pure
           . HaskellWeekly.Handler.Base.htmlResponse Network.HTTP.Types.ok200 []
           $ HaskellWeekly.Template.Episode.episodeTemplate
@@ -43,5 +34,3 @@ episodeHandler state number =
               )
               episode
               maybeCaptions
-              previousEpisode
-              nextEpisode
