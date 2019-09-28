@@ -5,7 +5,6 @@ module HaskellWeekly.Template.Newsletter
   )
 where
 
-import qualified Data.Text
 import qualified HaskellWeekly.Template.Base
 import qualified HaskellWeekly.Type.Date
 import qualified HaskellWeekly.Type.Issue
@@ -35,30 +34,23 @@ newsletterTemplate baseUrl issues =
         ]
         "RSS feed"
       "."
-    H.ol_ $ mapM_ (issueTemplate baseUrl) issues
+    H.ul_ [H.class_ "lh-copy"] $ mapM_ (issueTemplate baseUrl) issues
 
 issueTemplate :: String -> HaskellWeekly.Type.Issue.Issue -> H.Html ()
-issueTemplate baseUrl issue =
-  H.li_
-      [ H.value_
-        . Data.Text.pack
-        . HaskellWeekly.Type.Number.numberToString
+issueTemplate baseUrl issue = H.li_ $ do
+  H.a_
+      [ H.href_
+        . HaskellWeekly.Type.Route.routeToTextWith baseUrl
+        . HaskellWeekly.Type.Route.RouteIssue
         $ HaskellWeekly.Type.Issue.issueNumber issue
       ]
     $ do
-        H.a_
-            [ H.href_
-              . HaskellWeekly.Type.Route.routeToTextWith baseUrl
-              . HaskellWeekly.Type.Route.RouteIssue
-              $ HaskellWeekly.Type.Issue.issueNumber issue
-            ]
-          $ do
-              "Issue "
-              H.toHtml
-                . HaskellWeekly.Type.Number.numberToString
-                $ HaskellWeekly.Type.Issue.issueNumber issue
-        " "
-        H.span_ [H.class_ "gray"]
-          . H.toHtml
-          . HaskellWeekly.Type.Date.dateToShortString
-          $ HaskellWeekly.Type.Issue.issueDate issue
+        "Issue "
+        H.toHtml
+          . HaskellWeekly.Type.Number.numberToString
+          $ HaskellWeekly.Type.Issue.issueNumber issue
+  " "
+  H.span_ [H.class_ "gray"]
+    . H.toHtml
+    . HaskellWeekly.Type.Date.dateToShortString
+    $ HaskellWeekly.Type.Issue.issueDate issue
