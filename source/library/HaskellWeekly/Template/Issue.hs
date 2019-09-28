@@ -7,6 +7,7 @@ where
 
 import qualified CMark
 import qualified HaskellWeekly.Template.Base
+import qualified HaskellWeekly.Template.Newsletter
 import qualified HaskellWeekly.Type.Date
 import qualified HaskellWeekly.Type.Issue
 import qualified HaskellWeekly.Type.Number
@@ -31,6 +32,7 @@ issueTemplate baseUrl issue node =
           H.toHtml $ title issue
           " "
           H.span_ [H.class_ "gray"] . H.toHtml $ date issue
+        HaskellWeekly.Template.Newsletter.subscriptionForm baseUrl
         H.div_ [H.class_ "lh-copy"] . H.toHtmlRaw $ CMark.nodeToHtml [] node
 
 title :: HaskellWeekly.Type.Issue.Issue -> String
