@@ -2,7 +2,7 @@
 
 module HaskellWeekly.Template.Newsletter
   ( newsletterTemplate
-  , subscriptionForm
+  , newsletterActionTemplate
   )
 where
 
@@ -21,11 +21,11 @@ newsletterTemplate baseUrl issues =
     H.p_ [H.class_ "lh-copy"] $ do
       "The Haskell Weekly Newsletter covers the Haskell programming langauge. "
       "Each issue features several hand-picked links to interesting content about Haskell from around the web."
-    subscriptionForm baseUrl
+    newsletterActionTemplate baseUrl
     H.ul_ [H.class_ "lh-copy"] $ mapM_ (issueTemplate baseUrl) issues
 
-subscriptionForm :: String -> H.Html ()
-subscriptionForm baseUrl =
+newsletterActionTemplate :: String -> H.Html ()
+newsletterActionTemplate baseUrl =
   H.div_ [H.class_ "ba b--yellow bg-washed-yellow center mw6 pa3"] $ do
     H.p_ [H.class_ "lh-copy mt0"] $ do
       "Subscribe now! "

@@ -32,7 +32,7 @@ issueTemplate baseUrl issue node =
           H.toHtml $ title issue
           " "
           H.span_ [H.class_ "gray"] . H.toHtml $ date issue
-        HaskellWeekly.Template.Newsletter.subscriptionForm baseUrl
+        HaskellWeekly.Template.Newsletter.newsletterActionTemplate baseUrl
         H.div_ [H.class_ "lh-copy"] . H.toHtmlRaw $ CMark.nodeToHtml [] node
 
 title :: HaskellWeekly.Type.Issue.Issue -> String
