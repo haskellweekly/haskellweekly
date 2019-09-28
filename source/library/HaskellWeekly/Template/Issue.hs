@@ -32,36 +32,39 @@ issueTemplate baseUrl issue node maybePreviousIssue maybeNextIssue =
             HaskellWeekly.Type.Route.RouteNewsletter
           ]
           "Newsletter"
-        H.h3_ [H.class_ "f3 mv3 tracked-tight"]
-          . H.toHtml
-          $ title issue
-          <> ": "
-          <> date issue
-        H.toHtmlRaw $ CMark.nodeToHtml [] node
-        case maybePreviousIssue of
-          Nothing -> pure ()
-          Just previousIssue -> H.p_ $ do
-            "Previous issue: "
-            H.a_
-                [ H.href_
-                  . HaskellWeekly.Type.Route.routeToTextWith baseUrl
-                  . HaskellWeekly.Type.Route.RouteIssue
-                  $ HaskellWeekly.Type.Issue.issueNumber previousIssue
-                ]
-              . H.toHtml
-              $ title previousIssue
-        case maybeNextIssue of
-          Nothing -> pure ()
-          Just nextIssue -> H.p_ $ do
-            "Next issue: "
-            H.a_
-                [ H.href_
-                  . HaskellWeekly.Type.Route.routeToTextWith baseUrl
-                  . HaskellWeekly.Type.Route.RouteIssue
-                  $ HaskellWeekly.Type.Issue.issueNumber nextIssue
-                ]
-              . H.toHtml
-              $ title nextIssue
+        H.h3_ [H.class_ "f3 mv3 tracked-tight"] $ do
+          H.toHtml $ title issue
+          " "
+          H.span_ [H.class_ "gray"] . H.toHtml $ date issue
+        pagination baseUrl maybePreviousIssue maybeNextIssue
+        H.div_ [H.class_ "lh-copy"] . H.toHtmlRaw $ CMark.nodeToHtml [] node
+        pagination baseUrl maybePreviousIssue maybeNextIssue
+
+pagination
+  :: String
+  -> Maybe HaskellWeekly.Type.Issue.Issue
+  -> Maybe HaskellWeekly.Type.Issue.Issue
+  -> H.Html ()
+pagination baseUrl maybePreviousIssue maybeNextIssue =
+  H.div_ [H.class_ "flex justify-between"] $ do
+    H.div_ $ case maybePreviousIssue of
+      Nothing -> H.span_ [H.class_ "gray"] "\x2190 Previous"
+      Just previousIssue -> H.a_
+        [ H.href_
+          . HaskellWeekly.Type.Route.routeToTextWith baseUrl
+          . HaskellWeekly.Type.Route.RouteIssue
+          $ HaskellWeekly.Type.Issue.issueNumber previousIssue
+        ]
+        "\x2190 Previous"
+    H.div_ $ case maybeNextIssue of
+      Nothing -> H.span_ [H.class_ "gray"] "Next \x2192"
+      Just nextIssue -> H.a_
+        [ H.href_
+          . HaskellWeekly.Type.Route.routeToTextWith baseUrl
+          . HaskellWeekly.Type.Route.RouteIssue
+          $ HaskellWeekly.Type.Issue.issueNumber nextIssue
+        ]
+        "Next \x2192"
 
 title :: HaskellWeekly.Type.Issue.Issue -> String
 title =
