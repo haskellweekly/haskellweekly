@@ -36,11 +36,10 @@ episodeTemplate baseUrl episode maybeCaptions maybePreviousEpisode maybeNextEpis
             HaskellWeekly.Type.Route.RoutePodcast
           ]
           "Podcast"
-        H.h3_ [H.class_ "f3 mv3 tracked-tight"]
-          . H.toHtml
-          $ number episode
-          <> ": "
-          <> title episode
+        H.h3_ [H.class_ "f3 mv3 tracked-tight"] $ do
+          H.toHtml $ number episode
+          " "
+          H.span_ [H.class_ "gray"] . H.toHtml $ title episode
         H.video_
             [ H.class_ "h-auto w-100"
             , H.controls_ "controls"
