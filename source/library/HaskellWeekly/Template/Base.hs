@@ -34,7 +34,7 @@ baseTemplate baseUrl title body = do
           H.header_ [H.class_ "mv3"]
             . H.h1_ [H.class_ "f1 mv3 tracked-tight"]
             $ H.a_
-                [ H.class_ "color-inherit no-underline"
+                [ H.class_ "no-underline purple"
                 , H.href_ $ HaskellWeekly.Type.Route.routeToTextWith
                   baseUrl
                   HaskellWeekly.Type.Route.RouteIndex

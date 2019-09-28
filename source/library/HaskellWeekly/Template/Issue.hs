@@ -21,7 +21,7 @@ issueTemplate baseUrl issue node =
       ["Newsletter", title issue, date issue]
     $ do
         H.h2_ [H.class_ "f2 mv3 tracked-tight"] $ H.a_
-          [ H.class_ "color-inherit no-underline"
+          [ H.class_ "no-underline purple"
           , H.href_ $ HaskellWeekly.Type.Route.routeToTextWith
             baseUrl
             HaskellWeekly.Type.Route.RouteNewsletter
