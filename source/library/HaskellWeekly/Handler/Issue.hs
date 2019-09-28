@@ -30,21 +30,9 @@ issueHandler state number = do
       let
         baseUrl = HaskellWeekly.Type.Config.configBaseUrl
           $ HaskellWeekly.Type.State.stateConfig state
-        previousIssue =
-          case HaskellWeekly.Type.Number.decrementNumber number of
-            Nothing -> Nothing
-            Just previousNumber -> Data.Map.lookup previousNumber issues
-        nextIssue = case HaskellWeekly.Type.Number.incrementNumber number of
-          Nothing -> Nothing
-          Just nextNumber -> Data.Map.lookup nextNumber issues
       pure
         . HaskellWeekly.Handler.Base.htmlResponse Network.HTTP.Types.ok200 []
-        $ HaskellWeekly.Template.Issue.issueTemplate
-            baseUrl
-            issue
-            node
-            previousIssue
-            nextIssue
+        $ HaskellWeekly.Template.Issue.issueTemplate baseUrl issue node
 
 readIssueFile
   :: HaskellWeekly.Type.State.State
