@@ -15,7 +15,6 @@ import qualified System.FilePath
 
 data Route
   = RouteAdvertising
-  | RouteCaption HaskellWeekly.Type.Number.Number
   | RouteEpisode HaskellWeekly.Type.Number.Number
   | RouteFavicon
   | RouteHealthCheck
@@ -40,10 +39,6 @@ isRedirect route = case route of
 routeToString :: Route -> String
 routeToString route = case route of
   RouteAdvertising -> "/advertising.html"
-  RouteCaption number ->
-    "/podcast/caption/"
-      <> HaskellWeekly.Type.Number.numberToString number
-      <> ".vtt"
   RouteEpisode number ->
     "/podcast/episode/"
       <> HaskellWeekly.Type.Number.numberToString number
@@ -87,7 +82,6 @@ stringToRoute path = case path of
   ["newsletter", "feed.atom"] -> Just RouteNewsletterFeed
   ["newsletter.html"] -> Just RouteNewsletter
   ["newsletter", "issue", file] -> routeContent "html" RouteIssue file
-  ["podcast", "caption", file] -> routeContent "vtt" RouteCaption file
   ["podcast", "episode", file] -> routeContent "html" RouteEpisode file
   ["podcast", "feed.rss"] -> Just RoutePodcastFeed
   ["podcast.html"] -> Just RoutePodcast

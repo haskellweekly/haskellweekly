@@ -7,7 +7,6 @@ module HaskellWeekly.Type.Caption
   ( Caption
   , parseSrt
   , renderTranscript
-  , renderVtt
   )
 where
 
@@ -48,15 +47,6 @@ parseSrt =
 renderTranscript :: [Caption] -> [Data.Text.Text]
 renderTranscript =
   renderCaptionPayload . concatMap (Data.List.NonEmpty.toList . captionPayload)
-
--- | Renders a bunch of captions as a Web Video Text Tracks (WebVTT) file. This
--- is useful for generating @<track>@ payloads in HTML documents.
--- <https://en.wikipedia.org/wiki/WebVTT>
-renderVtt :: [Caption] -> Data.Text.Text
-renderVtt =
-  Data.Text.intercalate (Data.Text.pack "\n\n")
-    . (Data.Text.pack "WEBVTT" :)
-    . fmap renderCaption
 
 -- | This type alias is just provided for convenience. Typing out the whole
 -- qualified name every time is no fun. Note that a @Parser SomeType@ is
@@ -183,36 +173,6 @@ secondsToMilliseconds seconds = seconds * 1000
 -- | Converts milliseconds into picoseconds.
 millisecondsToPicoseconds :: Numeric.Natural.Natural -> Numeric.Natural.Natural
 millisecondsToPicoseconds milliseconds = milliseconds * 1000000000
-
--- | Renders a single WebVTT caption. Note that even though WebVTT allows
--- identifiers, this will not have one.
---
--- > 00:00:00.000 --> 01:02:03.004
--- > Hello, world!
-renderCaption :: Caption -> Data.Text.Text
-renderCaption caption =
-  Data.Text.intercalate (Data.Text.singleton '\n')
-    $ renderCaptionTimes caption
-    : (renderCaptionPayload . Data.List.NonEmpty.toList $ captionPayload
-        caption
-      )
-
--- | Renders both time parts (start and end) of a WebVTT caption. This uses the
--- format:
---
--- > HH:MM:SS.TTT --> HH:MM:SS.TTT
-renderCaptionTimes :: Caption -> Data.Text.Text
-renderCaptionTimes caption = Data.Text.pack $ unwords
-  [ renderCaptionTime $ captionStart caption
-  , "-->"
-  , renderCaptionTime $ captionEnd caption
-  ]
-
--- | Renders a time part of a WebVTT caption. These use the format
--- @HH:MM:SS.TTT@.
-renderCaptionTime :: Data.Time.TimeOfDay -> String
-renderCaptionTime =
-  Data.Time.formatTime Data.Time.defaultTimeLocale "%H:%M:%S%3Q"
 
 -- | Renders the payload (text) part of a caption. This is a little trickier
 -- than you might think at first because the original input has arbitrary

@@ -97,7 +97,6 @@ library
     HaskellWeekly.Episodes.Episode20
     HaskellWeekly.Handler.Advertising
     HaskellWeekly.Handler.Base
-    HaskellWeekly.Handler.Caption
     HaskellWeekly.Handler.Episode
     HaskellWeekly.Handler.Favicon
     HaskellWeekly.Handler.HealthCheck
