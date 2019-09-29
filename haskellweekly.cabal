@@ -14,6 +14,7 @@ data-dir: data
 data-files:
   apple-badge.svg
   favicon.ico
+  google-badge.svg
   newsletter/*.markdown
   podcast-logo.png
   podcast/*.srt
@@ -97,9 +98,11 @@ library
     HaskellWeekly.Episodes.Episode19
     HaskellWeekly.Episodes.Episode20
     HaskellWeekly.Handler.Advertising
+    HaskellWeekly.Handler.AppleBadge
     HaskellWeekly.Handler.Base
     HaskellWeekly.Handler.Episode
     HaskellWeekly.Handler.Favicon
+    HaskellWeekly.Handler.GoogleBadge
     HaskellWeekly.Handler.HealthCheck
     HaskellWeekly.Handler.Index
     HaskellWeekly.Handler.Issue

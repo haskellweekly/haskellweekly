@@ -40,11 +40,17 @@ podcastActionTemplate baseUrl =
           $ HaskellWeekly.Type.Route.RouteAppleBadge
           ]
     H.a_
-      [ H.href_
-          "https://podcasts.google.com/?feed=aHR0cHM6Ly9oYXNrZWxsd2Vla2x5Lm5ld3MvcG9kY2FzdC9mZWVkLnJzcw=="
-      ]
-      "Google Podcasts"
-    ", or subscribe to the "
+        [ H.href_
+            "https://podcasts.google.com/?feed=aHR0cHM6Ly9oYXNrZWxsd2Vla2x5Lm5ld3MvcG9kY2FzdC9mZWVkLnJzcw=="
+        ]
+      $ H.img_
+          [ H.alt_ "Listen on Google Podcasts"
+          , H.class_ "db"
+          , H.src_
+          . HaskellWeekly.Type.Route.routeToTextWith baseUrl
+          $ HaskellWeekly.Type.Route.RouteGoogleBadge
+          ]
+    "Or subscribe to the "
     H.a_
       [ H.href_
         . HaskellWeekly.Type.Route.routeToTextWith baseUrl

@@ -18,6 +18,7 @@ data Route
   | RouteAppleBadge
   | RouteEpisode HaskellWeekly.Type.Number.Number
   | RouteFavicon
+  | RouteGoogleBadge
   | RouteHealthCheck
   | RouteIndex
   | RouteIssue HaskellWeekly.Type.Number.Number
@@ -46,6 +47,7 @@ routeToString route = case route of
       <> HaskellWeekly.Type.Number.numberToString number
       <> ".html"
   RouteFavicon -> "/favicon.ico"
+  RouteGoogleBadge -> "/google-badge.svg"
   RouteHealthCheck -> "/health-check.json"
   RouteIndex -> "/"
   RouteIssue number ->
@@ -80,6 +82,7 @@ stringToRoute path = case path of
   ["advertising.html"] -> Just RouteAdvertising
   ["apple-badge.svg"] -> Just RouteAppleBadge
   ["favicon.ico"] -> Just RouteFavicon
+  ["google-badge.svg"] -> Just RouteGoogleBadge
   ["health-check.json"] -> Just RouteHealthCheck
   ["index.html"] -> Just $ routeToRedirect RouteIndex
   ["newsletter", "feed.atom"] -> Just RouteNewsletterFeed

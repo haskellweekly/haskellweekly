@@ -13,6 +13,7 @@ import qualified HaskellWeekly.Handler.AppleBadge
 import qualified HaskellWeekly.Handler.Base
 import qualified HaskellWeekly.Handler.Episode
 import qualified HaskellWeekly.Handler.Favicon
+import qualified HaskellWeekly.Handler.GoogleBadge
 import qualified HaskellWeekly.Handler.HealthCheck
 import qualified HaskellWeekly.Handler.Index
 import qualified HaskellWeekly.Handler.Issue
@@ -70,20 +71,22 @@ handle state route = case route of
     HaskellWeekly.Handler.Episode.episodeHandler state number
   HaskellWeekly.Type.Route.RouteFavicon ->
     HaskellWeekly.Handler.Favicon.faviconHandler state
+  HaskellWeekly.Type.Route.RouteGoogleBadge ->
+    HaskellWeekly.Handler.GoogleBadge.googleBadgeHandler state
   HaskellWeekly.Type.Route.RouteHealthCheck ->
     HaskellWeekly.Handler.HealthCheck.healthCheckHandler state
   HaskellWeekly.Type.Route.RouteIndex ->
     HaskellWeekly.Handler.Index.indexHandler state
   HaskellWeekly.Type.Route.RouteIssue number ->
     HaskellWeekly.Handler.Issue.issueHandler state number
-  HaskellWeekly.Type.Route.RouteNewsletter ->
-    HaskellWeekly.Handler.Newsletter.newsletterHandler state
   HaskellWeekly.Type.Route.RouteNewsletterFeed ->
     HaskellWeekly.Handler.NewsletterFeed.newsletterFeedHandler state
-  HaskellWeekly.Type.Route.RoutePodcast ->
-    HaskellWeekly.Handler.Podcast.podcastHandler state
+  HaskellWeekly.Type.Route.RouteNewsletter ->
+    HaskellWeekly.Handler.Newsletter.newsletterHandler state
   HaskellWeekly.Type.Route.RoutePodcastFeed ->
     HaskellWeekly.Handler.PodcastFeed.podcastFeedHandler state
+  HaskellWeekly.Type.Route.RoutePodcast ->
+    HaskellWeekly.Handler.Podcast.podcastHandler state
   HaskellWeekly.Type.Route.RoutePodcastLogo ->
     HaskellWeekly.Handler.PodcastLogo.podcastLogoHandler state
   HaskellWeekly.Type.Route.RouteRedirect redirect ->
