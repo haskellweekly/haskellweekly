@@ -2,9 +2,9 @@
 FROM alpine:3.10.2
 
   WORKDIR /opt/haskellweekly
-  RUN apk add --no-cache cabal ghc libpq musl-dev postgresql-dev wget zlib-dev
+  RUN apk add --no-cache cabal ghc git libpq musl-dev postgresql-dev wget zlib-dev
 
-  COPY haskellweekly.cabal .
+  COPY cabal.project haskellweekly.cabal ./
   RUN cabal v2-update
   RUN cabal v2-build --only-dependencies
 

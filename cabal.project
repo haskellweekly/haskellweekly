@@ -1,0 +1,8 @@
+-- https://www.haskell.org/cabal/users-guide/nix-local-build.html
+packages: .
+
+-- https://github.com/bergmark/feed/pull/39
+source-repository-package
+  location: https://github.com/tfausak/feed
+  tag: 97048e2cfdb155c349d6520b157913218131fccb
+  type: git

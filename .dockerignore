@@ -1,6 +1,7 @@
 # https://docs.docker.com/engine/reference/builder/#dockerignore-file
 *
 
+!/cabal.project
 !/data/
 !/haskellweekly.cabal
 !/LICENSE.markdown
