@@ -27,14 +27,14 @@ podcastTemplate baseUrl episodes =
 
 podcastActionTemplate :: String -> H.Html ()
 podcastActionTemplate baseUrl =
-  H.div_ [H.class_ "ba b--yellow bg-washed-yellow center mw6 pa3"] $ do
+  H.div_ [H.class_ "ba b--yellow bg-washed-yellow center mw6 pa3 tc"] $ do
     H.a_
         [ H.href_
             "https://itunes.apple.com/us/podcast/haskell-weekly/id1456545040?mt=2&app=podcast"
         ]
       $ H.img_
           [ H.alt_ "Listen on Apple Podcasts"
-          , H.class_ "db"
+          , H.class_ "dib w-50-ns"
           , H.src_
           . HaskellWeekly.Type.Route.routeToTextWith baseUrl
           $ HaskellWeekly.Type.Route.RouteAppleBadge
@@ -45,19 +45,22 @@ podcastActionTemplate baseUrl =
         ]
       $ H.img_
           [ H.alt_ "Listen on Google Podcasts"
-          , H.class_ "db"
+          , H.class_ "dib w-50-ns"
           , H.src_
           . HaskellWeekly.Type.Route.routeToTextWith baseUrl
           $ HaskellWeekly.Type.Route.RouteGoogleBadge
           ]
-    "Or subscribe to the "
-    H.a_
-      [ H.href_
-        . HaskellWeekly.Type.Route.routeToTextWith baseUrl
-        $ HaskellWeekly.Type.Route.RoutePodcastFeed
-      ]
-      "RSS feed"
-    "."
+    H.p_ [H.class_ "mb0"] $ do
+      "You can also follow us "
+      H.a_ [H.href_ "https://twitter.com/haskellweekly"] "on Twitter"
+      " or with "
+      H.a_
+        [ H.href_
+          . HaskellWeekly.Type.Route.routeToTextWith baseUrl
+          $ HaskellWeekly.Type.Route.RoutePodcastFeed
+        ]
+        "our feed"
+      "."
 
 episodeTemplate :: String -> HaskellWeekly.Type.Episode.Episode -> H.Html ()
 episodeTemplate baseUrl episode = H.li_ . H.p_ $ do
