@@ -28,13 +28,17 @@ podcastTemplate baseUrl episodes =
 podcastActionTemplate :: String -> H.Html ()
 podcastActionTemplate baseUrl =
   H.div_ [H.class_ "ba b--yellow bg-washed-yellow center mw6 pa3"] $ do
-    "Listen now on "
     H.a_
-      [ H.href_
-          "https://itunes.apple.com/us/podcast/haskell-weekly/id1456545040?mt=2&app=podcast"
-      ]
-      "Apple Podcasts"
-    ", "
+        [ H.href_
+            "https://itunes.apple.com/us/podcast/haskell-weekly/id1456545040?mt=2&app=podcast"
+        ]
+      $ H.img_
+          [ H.alt_ "Listen on Apple Podcasts"
+          , H.class_ "db"
+          , H.src_
+          . HaskellWeekly.Type.Route.routeToTextWith baseUrl
+          $ HaskellWeekly.Type.Route.RouteAppleBadge
+          ]
     H.a_
       [ H.href_
           "https://podcasts.google.com/?feed=aHR0cHM6Ly9oYXNrZWxsd2Vla2x5Lm5ld3MvcG9kY2FzdC9mZWVkLnJzcw=="

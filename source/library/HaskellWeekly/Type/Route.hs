@@ -15,6 +15,7 @@ import qualified System.FilePath
 
 data Route
   = RouteAdvertising
+  | RouteAppleBadge
   | RouteEpisode HaskellWeekly.Type.Number.Number
   | RouteFavicon
   | RouteHealthCheck
@@ -39,6 +40,7 @@ isRedirect route = case route of
 routeToString :: Route -> String
 routeToString route = case route of
   RouteAdvertising -> "/advertising.html"
+  RouteAppleBadge -> "/apple-badge.svg"
   RouteEpisode number ->
     "/podcast/episode/"
       <> HaskellWeekly.Type.Number.numberToString number
@@ -76,6 +78,7 @@ stringToRoute :: [String] -> Maybe Route
 stringToRoute path = case path of
   [] -> Just RouteIndex
   ["advertising.html"] -> Just RouteAdvertising
+  ["apple-badge.svg"] -> Just RouteAppleBadge
   ["favicon.ico"] -> Just RouteFavicon
   ["health-check.json"] -> Just RouteHealthCheck
   ["index.html"] -> Just $ routeToRedirect RouteIndex

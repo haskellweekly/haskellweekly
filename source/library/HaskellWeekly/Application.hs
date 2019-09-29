@@ -9,6 +9,7 @@ import qualified Data.Text
 import qualified Data.Text.Encoding
 import qualified Data.Text.Encoding.Error
 import qualified HaskellWeekly.Handler.Advertising
+import qualified HaskellWeekly.Handler.AppleBadge
 import qualified HaskellWeekly.Handler.Base
 import qualified HaskellWeekly.Handler.Episode
 import qualified HaskellWeekly.Handler.Favicon
@@ -63,6 +64,8 @@ handle
 handle state route = case route of
   HaskellWeekly.Type.Route.RouteAdvertising ->
     HaskellWeekly.Handler.Advertising.advertisingHandler state
+  HaskellWeekly.Type.Route.RouteAppleBadge ->
+    HaskellWeekly.Handler.AppleBadge.appleBadgeHandler state
   HaskellWeekly.Type.Route.RouteEpisode number ->
     HaskellWeekly.Handler.Episode.episodeHandler state number
   HaskellWeekly.Type.Route.RouteFavicon ->

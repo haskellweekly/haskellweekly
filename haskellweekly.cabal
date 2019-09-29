@@ -12,6 +12,7 @@ synopsis: Publishes curated news about Haskell.
 
 data-dir: data
 data-files:
+  apple-badge.svg
   favicon.ico
   newsletter/*.markdown
   podcast-logo.png
