@@ -290,6 +290,7 @@ library
     HaskellWeekly.Issues.Issue175
     HaskellWeekly.Issues.Issue176
     HaskellWeekly.Issues.Issue177
+    HaskellWeekly.Issues.Issue178
     HaskellWeekly.Main
     HaskellWeekly.Middleware
     HaskellWeekly.Server
