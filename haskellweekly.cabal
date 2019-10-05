@@ -76,27 +76,6 @@ library
   other-modules:
     HaskellWeekly.Application
     HaskellWeekly.Episodes
-    HaskellWeekly.Episodes.Episode1
-    HaskellWeekly.Episodes.Episode2
-    HaskellWeekly.Episodes.Episode3
-    HaskellWeekly.Episodes.Episode4
-    HaskellWeekly.Episodes.Episode5
-    HaskellWeekly.Episodes.Episode6
-    HaskellWeekly.Episodes.Episode7
-    HaskellWeekly.Episodes.Episode8
-    HaskellWeekly.Episodes.Episode9
-    HaskellWeekly.Episodes.Episode10
-    HaskellWeekly.Episodes.Episode11
-    HaskellWeekly.Episodes.Episode12
-    HaskellWeekly.Episodes.Episode13
-    HaskellWeekly.Episodes.Episode14
-    HaskellWeekly.Episodes.Episode15
-    HaskellWeekly.Episodes.Episode16
-    HaskellWeekly.Episodes.Episode17
-    HaskellWeekly.Episodes.Episode18
-    HaskellWeekly.Episodes.Episode19
-    HaskellWeekly.Episodes.Episode20
-    HaskellWeekly.Episodes.Episode21
     HaskellWeekly.Handler.Advertising
     HaskellWeekly.Handler.Base
     HaskellWeekly.Handler.Episode
