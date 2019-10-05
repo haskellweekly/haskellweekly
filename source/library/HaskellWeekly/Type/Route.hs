@@ -43,7 +43,7 @@ routeToString route = case route of
   RouteAdvertising -> "/advertising.html"
   RouteAppleBadge -> "/apple-badge.svg"
   RouteEpisode number ->
-    "/podcast/episode/"
+    "/podcast/episodes/"
       <> HaskellWeekly.Type.Number.numberToString number
       <> ".html"
   RouteFavicon -> "/favicon.ico"
@@ -51,10 +51,8 @@ routeToString route = case route of
   RouteHealthCheck -> "/health-check.json"
   RouteIndex -> "/"
   RouteIssue number ->
-    "/newsletter/issue/"
-      <> HaskellWeekly.Type.Number.numberToString number
-      <> ".html"
-  RouteNewsletterFeed -> "/newsletter/feed.atom"
+    "/issues/" <> HaskellWeekly.Type.Number.numberToString number <> ".html"
+  RouteNewsletterFeed -> "/haskell-weekly.atom"
   RouteNewsletter -> "/newsletter.html"
   RoutePodcastFeed -> "/podcast/feed.rss"
   RoutePodcastLogo -> "/podcast/logo.png"
@@ -85,12 +83,14 @@ stringToRoute path = case path of
   ["google-badge.svg"] -> Just RouteGoogleBadge
   ["health-check.json"] -> Just RouteHealthCheck
   ["index.html"] -> Just $ routeToRedirect RouteIndex
-  ["newsletter", "feed.atom"] -> Just RouteNewsletterFeed
+  ["haskell-weekly.atom"] -> Just RouteNewsletterFeed
   ["newsletter.html"] -> Just RouteNewsletter
-  ["newsletter", "issue", file] -> routeContent "html" RouteIssue file
-  ["podcast", "episode", file] -> routeContent "html" RouteEpisode file
+  ["issues", file] -> routeContent "html" RouteIssue file
+  ["podcast", "episodes", file] -> routeContent "html" RouteEpisode file
   ["podcast", "feed.rss"] -> Just RoutePodcastFeed
   ["podcast.html"] -> Just RoutePodcast
+  ["podcast"] -> Just $ routeToRedirect RoutePodcast
+  ["podcast", ""] -> Just $ routeToRedirect RoutePodcast
   ["podcast", "logo.png"] -> Just RoutePodcastLogo
   ["tachyons.css"] -> Just RouteTachyons
   _ -> Nothing
