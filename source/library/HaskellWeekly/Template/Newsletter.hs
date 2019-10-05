@@ -42,23 +42,29 @@ newsletterHead baseUrl maybeIssue = do
   case maybeIssue of
     Nothing -> pure ()
     Just issue -> do
-      openGraph "og:image" $ HaskellWeekly.Type.Route.routeToTextWith
+      openGraph "image" $ HaskellWeekly.Type.Route.routeToTextWith
         baseUrl
         HaskellWeekly.Type.Route.RoutePodcastLogo
       openGraph "op:site_name" "Haskell Weekly"
-      openGraph "og:title"
+      openGraph "title"
         . mappend "Issue "
         . HaskellWeekly.Type.Number.numberToText
         $ HaskellWeekly.Type.Issue.issueNumber issue
-      openGraph "og:type" "website"
-      openGraph "og:url"
+      openGraph "type" "website"
+      openGraph "url"
         . HaskellWeekly.Type.Route.routeToTextWith baseUrl
         . HaskellWeekly.Type.Route.RouteIssue
         $ HaskellWeekly.Type.Issue.issueNumber issue
+      twitter "card" "summary"
+      twitter "site" "@haskellweekly"
 
 openGraph :: Data.Text.Text -> Data.Text.Text -> H.Html ()
 openGraph property content =
-  H.meta_ [H.content_ content, H.makeAttribute "property" property]
+  H.meta_ [H.content_ content, H.makeAttribute "property" $ "og:" <> property]
+
+twitter :: Data.Text.Text -> Data.Text.Text -> H.Html ()
+twitter name content =
+  H.meta_ [H.content_ content, H.name_ $ "twitter:" <> name]
 
 newsletterActionTemplate :: String -> H.Html ()
 newsletterActionTemplate baseUrl =

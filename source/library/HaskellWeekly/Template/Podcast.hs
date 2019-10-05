@@ -44,25 +44,31 @@ podcastHead baseUrl maybeEpisode = do
   case maybeEpisode of
     Nothing -> pure ()
     Just episode -> do
-      openGraph "og:description"
+      openGraph "description"
         . HaskellWeekly.Type.Summary.summaryToText
         $ HaskellWeekly.Type.Episode.episodeSummary episode
-      openGraph "og:image" $ HaskellWeekly.Type.Route.routeToTextWith
+      openGraph "image" $ HaskellWeekly.Type.Route.routeToTextWith
         baseUrl
         HaskellWeekly.Type.Route.RoutePodcastLogo
       openGraph "op:site_name" "Haskell Weekly"
-      openGraph "og:title"
+      openGraph "title"
         . HaskellWeekly.Type.Title.titleToText
         $ HaskellWeekly.Type.Episode.episodeTitle episode
-      openGraph "og:type" "website"
-      openGraph "og:url"
+      openGraph "type" "website"
+      openGraph "url"
         . HaskellWeekly.Type.Route.routeToTextWith baseUrl
         . HaskellWeekly.Type.Route.RouteEpisode
         $ HaskellWeekly.Type.Episode.episodeNumber episode
+      twitter "card" "summary"
+      twitter "site" "@haskellweekly"
 
 openGraph :: Data.Text.Text -> Data.Text.Text -> H.Html ()
 openGraph property content =
-  H.meta_ [H.content_ content, H.makeAttribute "property" property]
+  H.meta_ [H.content_ content, H.makeAttribute "property" $ "og:" <> property]
+
+twitter :: Data.Text.Text -> Data.Text.Text -> H.Html ()
+twitter name content =
+  H.meta_ [H.content_ content, H.name_ $ "twitter:" <> name]
 
 podcastActionTemplate :: String -> H.Html ()
 podcastActionTemplate baseUrl =
