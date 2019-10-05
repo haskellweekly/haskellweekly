@@ -3,9 +3,11 @@
 module HaskellWeekly.Template.Newsletter
   ( newsletterTemplate
   , newsletterActionTemplate
+  , newsletterHead
   )
 where
 
+import qualified Data.Text
 import qualified HaskellWeekly.Template.Base
 import qualified HaskellWeekly.Type.Date
 import qualified HaskellWeekly.Type.Issue
@@ -16,13 +18,47 @@ import qualified Lucid.Base as H
 
 newsletterTemplate :: String -> [HaskellWeekly.Type.Issue.Issue] -> H.Html ()
 newsletterTemplate baseUrl issues =
-  HaskellWeekly.Template.Base.baseTemplate baseUrl [] mempty $ do
-    H.h2_ [H.class_ "f2 mv3 tracked-tight"] "Newsletter"
-    H.p_ [H.class_ "lh-copy"] $ do
-      "The Haskell Weekly Newsletter covers the Haskell programming langauge. "
-      "Each issue features several hand-picked links to interesting content about Haskell from around the web."
-    newsletterActionTemplate baseUrl
-    H.ul_ [H.class_ "lh-copy"] $ mapM_ (issueTemplate baseUrl) issues
+  HaskellWeekly.Template.Base.baseTemplate
+      baseUrl
+      []
+      (newsletterHead baseUrl Nothing)
+    $ do
+        H.h2_ [H.class_ "f2 mv3 tracked-tight"] "Newsletter"
+        H.p_ [H.class_ "lh-copy"] $ do
+          "The Haskell Weekly Newsletter covers the Haskell programming langauge. "
+          "Each issue features several hand-picked links to interesting content about Haskell from around the web."
+        newsletterActionTemplate baseUrl
+        H.ul_ [H.class_ "lh-copy"] $ mapM_ (issueTemplate baseUrl) issues
+
+newsletterHead :: String -> Maybe HaskellWeekly.Type.Issue.Issue -> H.Html ()
+newsletterHead baseUrl maybeIssue = do
+  H.link_
+    [ H.href_ $ HaskellWeekly.Type.Route.routeToTextWith
+      baseUrl
+      HaskellWeekly.Type.Route.RouteNewsletterFeed
+    , H.rel_ "alternate"
+    , H.type_ "application/atom+xml"
+    ]
+  case maybeIssue of
+    Nothing -> pure ()
+    Just issue -> do
+      openGraph "og:image" $ HaskellWeekly.Type.Route.routeToTextWith
+        baseUrl
+        HaskellWeekly.Type.Route.RoutePodcastLogo
+      openGraph "op:site_name" "Haskell Weekly"
+      openGraph "og:title"
+        . mappend "Issue "
+        . HaskellWeekly.Type.Number.numberToText
+        $ HaskellWeekly.Type.Issue.issueNumber issue
+      openGraph "og:type" "website"
+      openGraph "og:url"
+        . HaskellWeekly.Type.Route.routeToTextWith baseUrl
+        . HaskellWeekly.Type.Route.RouteIssue
+        $ HaskellWeekly.Type.Issue.issueNumber issue
+
+openGraph :: Data.Text.Text -> Data.Text.Text -> H.Html ()
+openGraph property content =
+  H.meta_ [H.content_ content, H.makeAttribute "property" property]
 
 newsletterActionTemplate :: String -> H.Html ()
 newsletterActionTemplate baseUrl =

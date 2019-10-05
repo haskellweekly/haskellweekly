@@ -20,7 +20,7 @@ issueTemplate baseUrl issue node =
   HaskellWeekly.Template.Base.baseTemplate
       baseUrl
       ["Newsletter", title issue, date issue]
-      mempty
+      (HaskellWeekly.Template.Newsletter.newsletterHead baseUrl $ Just issue)
     $ do
         H.h2_ [H.class_ "f2 mv3 tracked-tight"] $ H.a_
           [ H.class_ "no-underline purple"

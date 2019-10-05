@@ -8,10 +8,12 @@ module HaskellWeekly.Type.Number
   , naturalToNumber
   , numberToNatural
   , numberToString
+  , numberToText
   , stringToNumber
   )
 where
 
+import qualified Data.Text
 import qualified Numeric.Natural
 import qualified Text.Read
 
@@ -35,6 +37,10 @@ numberToNatural (Number natural) = natural
 -- output is just the number without any constructors or anything.
 numberToString :: Number -> String
 numberToString = show . numberToNatural
+
+-- | Like 'numberToString' but textual.
+numberToText :: Number -> Data.Text.Text
+numberToText = Data.Text.pack . numberToString
 
 -- | Parses a string into a number. This first parses the string as a natural
 -- number and then hands things off to 'numberToNatural'.
