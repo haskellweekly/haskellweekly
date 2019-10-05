@@ -10,185 +10,7 @@ where
 import qualified Data.Bool
 import qualified Data.Map
 import qualified Data.Traversable
-import qualified HaskellWeekly.Issues.Issue1
-import qualified HaskellWeekly.Issues.Issue10
-import qualified HaskellWeekly.Issues.Issue100
-import qualified HaskellWeekly.Issues.Issue101
-import qualified HaskellWeekly.Issues.Issue102
-import qualified HaskellWeekly.Issues.Issue103
-import qualified HaskellWeekly.Issues.Issue104
-import qualified HaskellWeekly.Issues.Issue105
-import qualified HaskellWeekly.Issues.Issue106
-import qualified HaskellWeekly.Issues.Issue107
-import qualified HaskellWeekly.Issues.Issue108
-import qualified HaskellWeekly.Issues.Issue109
-import qualified HaskellWeekly.Issues.Issue11
-import qualified HaskellWeekly.Issues.Issue110
-import qualified HaskellWeekly.Issues.Issue111
-import qualified HaskellWeekly.Issues.Issue112
-import qualified HaskellWeekly.Issues.Issue113
-import qualified HaskellWeekly.Issues.Issue114
-import qualified HaskellWeekly.Issues.Issue115
-import qualified HaskellWeekly.Issues.Issue116
-import qualified HaskellWeekly.Issues.Issue117
-import qualified HaskellWeekly.Issues.Issue118
-import qualified HaskellWeekly.Issues.Issue119
-import qualified HaskellWeekly.Issues.Issue12
-import qualified HaskellWeekly.Issues.Issue120
-import qualified HaskellWeekly.Issues.Issue121
-import qualified HaskellWeekly.Issues.Issue122
-import qualified HaskellWeekly.Issues.Issue123
-import qualified HaskellWeekly.Issues.Issue124
-import qualified HaskellWeekly.Issues.Issue125
-import qualified HaskellWeekly.Issues.Issue126
-import qualified HaskellWeekly.Issues.Issue127
-import qualified HaskellWeekly.Issues.Issue128
-import qualified HaskellWeekly.Issues.Issue129
-import qualified HaskellWeekly.Issues.Issue13
-import qualified HaskellWeekly.Issues.Issue130
-import qualified HaskellWeekly.Issues.Issue131
-import qualified HaskellWeekly.Issues.Issue132
-import qualified HaskellWeekly.Issues.Issue133
-import qualified HaskellWeekly.Issues.Issue134
-import qualified HaskellWeekly.Issues.Issue135
-import qualified HaskellWeekly.Issues.Issue136
-import qualified HaskellWeekly.Issues.Issue137
-import qualified HaskellWeekly.Issues.Issue138
-import qualified HaskellWeekly.Issues.Issue139
-import qualified HaskellWeekly.Issues.Issue14
-import qualified HaskellWeekly.Issues.Issue140
-import qualified HaskellWeekly.Issues.Issue141
-import qualified HaskellWeekly.Issues.Issue142
-import qualified HaskellWeekly.Issues.Issue143
-import qualified HaskellWeekly.Issues.Issue144
-import qualified HaskellWeekly.Issues.Issue145
-import qualified HaskellWeekly.Issues.Issue146
-import qualified HaskellWeekly.Issues.Issue147
-import qualified HaskellWeekly.Issues.Issue148
-import qualified HaskellWeekly.Issues.Issue149
-import qualified HaskellWeekly.Issues.Issue15
-import qualified HaskellWeekly.Issues.Issue150
-import qualified HaskellWeekly.Issues.Issue151
-import qualified HaskellWeekly.Issues.Issue152
-import qualified HaskellWeekly.Issues.Issue153
-import qualified HaskellWeekly.Issues.Issue154
-import qualified HaskellWeekly.Issues.Issue155
-import qualified HaskellWeekly.Issues.Issue156
-import qualified HaskellWeekly.Issues.Issue157
-import qualified HaskellWeekly.Issues.Issue158
-import qualified HaskellWeekly.Issues.Issue159
-import qualified HaskellWeekly.Issues.Issue16
-import qualified HaskellWeekly.Issues.Issue160
-import qualified HaskellWeekly.Issues.Issue161
-import qualified HaskellWeekly.Issues.Issue162
-import qualified HaskellWeekly.Issues.Issue163
-import qualified HaskellWeekly.Issues.Issue164
-import qualified HaskellWeekly.Issues.Issue165
-import qualified HaskellWeekly.Issues.Issue166
-import qualified HaskellWeekly.Issues.Issue167
-import qualified HaskellWeekly.Issues.Issue168
-import qualified HaskellWeekly.Issues.Issue169
-import qualified HaskellWeekly.Issues.Issue17
-import qualified HaskellWeekly.Issues.Issue170
-import qualified HaskellWeekly.Issues.Issue171
-import qualified HaskellWeekly.Issues.Issue172
-import qualified HaskellWeekly.Issues.Issue173
-import qualified HaskellWeekly.Issues.Issue174
-import qualified HaskellWeekly.Issues.Issue175
-import qualified HaskellWeekly.Issues.Issue176
-import qualified HaskellWeekly.Issues.Issue177
-import qualified HaskellWeekly.Issues.Issue178
-import qualified HaskellWeekly.Issues.Issue179
-import qualified HaskellWeekly.Issues.Issue18
-import qualified HaskellWeekly.Issues.Issue19
-import qualified HaskellWeekly.Issues.Issue2
-import qualified HaskellWeekly.Issues.Issue20
-import qualified HaskellWeekly.Issues.Issue21
-import qualified HaskellWeekly.Issues.Issue22
-import qualified HaskellWeekly.Issues.Issue23
-import qualified HaskellWeekly.Issues.Issue24
-import qualified HaskellWeekly.Issues.Issue25
-import qualified HaskellWeekly.Issues.Issue26
-import qualified HaskellWeekly.Issues.Issue27
-import qualified HaskellWeekly.Issues.Issue28
-import qualified HaskellWeekly.Issues.Issue29
-import qualified HaskellWeekly.Issues.Issue3
-import qualified HaskellWeekly.Issues.Issue30
-import qualified HaskellWeekly.Issues.Issue31
-import qualified HaskellWeekly.Issues.Issue32
-import qualified HaskellWeekly.Issues.Issue33
-import qualified HaskellWeekly.Issues.Issue34
-import qualified HaskellWeekly.Issues.Issue35
-import qualified HaskellWeekly.Issues.Issue36
-import qualified HaskellWeekly.Issues.Issue37
-import qualified HaskellWeekly.Issues.Issue38
-import qualified HaskellWeekly.Issues.Issue39
-import qualified HaskellWeekly.Issues.Issue4
-import qualified HaskellWeekly.Issues.Issue40
-import qualified HaskellWeekly.Issues.Issue41
-import qualified HaskellWeekly.Issues.Issue42
-import qualified HaskellWeekly.Issues.Issue43
-import qualified HaskellWeekly.Issues.Issue44
-import qualified HaskellWeekly.Issues.Issue45
-import qualified HaskellWeekly.Issues.Issue46
-import qualified HaskellWeekly.Issues.Issue47
-import qualified HaskellWeekly.Issues.Issue48
-import qualified HaskellWeekly.Issues.Issue49
-import qualified HaskellWeekly.Issues.Issue5
-import qualified HaskellWeekly.Issues.Issue50
-import qualified HaskellWeekly.Issues.Issue51
-import qualified HaskellWeekly.Issues.Issue52
-import qualified HaskellWeekly.Issues.Issue53
-import qualified HaskellWeekly.Issues.Issue54
-import qualified HaskellWeekly.Issues.Issue55
-import qualified HaskellWeekly.Issues.Issue56
-import qualified HaskellWeekly.Issues.Issue57
-import qualified HaskellWeekly.Issues.Issue58
-import qualified HaskellWeekly.Issues.Issue59
-import qualified HaskellWeekly.Issues.Issue6
-import qualified HaskellWeekly.Issues.Issue60
-import qualified HaskellWeekly.Issues.Issue61
-import qualified HaskellWeekly.Issues.Issue62
-import qualified HaskellWeekly.Issues.Issue63
-import qualified HaskellWeekly.Issues.Issue64
-import qualified HaskellWeekly.Issues.Issue65
-import qualified HaskellWeekly.Issues.Issue66
-import qualified HaskellWeekly.Issues.Issue67
-import qualified HaskellWeekly.Issues.Issue68
-import qualified HaskellWeekly.Issues.Issue69
-import qualified HaskellWeekly.Issues.Issue7
-import qualified HaskellWeekly.Issues.Issue70
-import qualified HaskellWeekly.Issues.Issue71
-import qualified HaskellWeekly.Issues.Issue72
-import qualified HaskellWeekly.Issues.Issue73
-import qualified HaskellWeekly.Issues.Issue74
-import qualified HaskellWeekly.Issues.Issue75
-import qualified HaskellWeekly.Issues.Issue76
-import qualified HaskellWeekly.Issues.Issue77
-import qualified HaskellWeekly.Issues.Issue78
-import qualified HaskellWeekly.Issues.Issue79
-import qualified HaskellWeekly.Issues.Issue8
-import qualified HaskellWeekly.Issues.Issue80
-import qualified HaskellWeekly.Issues.Issue81
-import qualified HaskellWeekly.Issues.Issue82
-import qualified HaskellWeekly.Issues.Issue83
-import qualified HaskellWeekly.Issues.Issue84
-import qualified HaskellWeekly.Issues.Issue85
-import qualified HaskellWeekly.Issues.Issue86
-import qualified HaskellWeekly.Issues.Issue87
-import qualified HaskellWeekly.Issues.Issue88
-import qualified HaskellWeekly.Issues.Issue89
-import qualified HaskellWeekly.Issues.Issue9
-import qualified HaskellWeekly.Issues.Issue90
-import qualified HaskellWeekly.Issues.Issue91
-import qualified HaskellWeekly.Issues.Issue92
-import qualified HaskellWeekly.Issues.Issue93
-import qualified HaskellWeekly.Issues.Issue94
-import qualified HaskellWeekly.Issues.Issue95
-import qualified HaskellWeekly.Issues.Issue96
-import qualified HaskellWeekly.Issues.Issue97
-import qualified HaskellWeekly.Issues.Issue98
-import qualified HaskellWeekly.Issues.Issue99
+import qualified HaskellWeekly.Type.Date
 import qualified HaskellWeekly.Type.Issue
 import qualified HaskellWeekly.Type.Number
 
@@ -205,185 +27,185 @@ type Issues
 issues :: Either String Issues
 issues = do
   validIssues <- Data.Traversable.sequenceA
-    [ HaskellWeekly.Issues.Issue1.issue1
-    , HaskellWeekly.Issues.Issue2.issue2
-    , HaskellWeekly.Issues.Issue3.issue3
-    , HaskellWeekly.Issues.Issue4.issue4
-    , HaskellWeekly.Issues.Issue5.issue5
-    , HaskellWeekly.Issues.Issue6.issue6
-    , HaskellWeekly.Issues.Issue7.issue7
-    , HaskellWeekly.Issues.Issue8.issue8
-    , HaskellWeekly.Issues.Issue9.issue9
-    , HaskellWeekly.Issues.Issue10.issue10
-    , HaskellWeekly.Issues.Issue11.issue11
-    , HaskellWeekly.Issues.Issue12.issue12
-    , HaskellWeekly.Issues.Issue13.issue13
-    , HaskellWeekly.Issues.Issue14.issue14
-    , HaskellWeekly.Issues.Issue15.issue15
-    , HaskellWeekly.Issues.Issue16.issue16
-    , HaskellWeekly.Issues.Issue17.issue17
-    , HaskellWeekly.Issues.Issue18.issue18
-    , HaskellWeekly.Issues.Issue19.issue19
-    , HaskellWeekly.Issues.Issue20.issue20
-    , HaskellWeekly.Issues.Issue21.issue21
-    , HaskellWeekly.Issues.Issue22.issue22
-    , HaskellWeekly.Issues.Issue23.issue23
-    , HaskellWeekly.Issues.Issue24.issue24
-    , HaskellWeekly.Issues.Issue25.issue25
-    , HaskellWeekly.Issues.Issue26.issue26
-    , HaskellWeekly.Issues.Issue27.issue27
-    , HaskellWeekly.Issues.Issue28.issue28
-    , HaskellWeekly.Issues.Issue29.issue29
-    , HaskellWeekly.Issues.Issue30.issue30
-    , HaskellWeekly.Issues.Issue31.issue31
-    , HaskellWeekly.Issues.Issue32.issue32
-    , HaskellWeekly.Issues.Issue33.issue33
-    , HaskellWeekly.Issues.Issue34.issue34
-    , HaskellWeekly.Issues.Issue35.issue35
-    , HaskellWeekly.Issues.Issue36.issue36
-    , HaskellWeekly.Issues.Issue37.issue37
-    , HaskellWeekly.Issues.Issue38.issue38
-    , HaskellWeekly.Issues.Issue39.issue39
-    , HaskellWeekly.Issues.Issue40.issue40
-    , HaskellWeekly.Issues.Issue41.issue41
-    , HaskellWeekly.Issues.Issue42.issue42
-    , HaskellWeekly.Issues.Issue43.issue43
-    , HaskellWeekly.Issues.Issue44.issue44
-    , HaskellWeekly.Issues.Issue45.issue45
-    , HaskellWeekly.Issues.Issue46.issue46
-    , HaskellWeekly.Issues.Issue47.issue47
-    , HaskellWeekly.Issues.Issue48.issue48
-    , HaskellWeekly.Issues.Issue49.issue49
-    , HaskellWeekly.Issues.Issue50.issue50
-    , HaskellWeekly.Issues.Issue51.issue51
-    , HaskellWeekly.Issues.Issue52.issue52
-    , HaskellWeekly.Issues.Issue53.issue53
-    , HaskellWeekly.Issues.Issue54.issue54
-    , HaskellWeekly.Issues.Issue55.issue55
-    , HaskellWeekly.Issues.Issue56.issue56
-    , HaskellWeekly.Issues.Issue57.issue57
-    , HaskellWeekly.Issues.Issue58.issue58
-    , HaskellWeekly.Issues.Issue59.issue59
-    , HaskellWeekly.Issues.Issue60.issue60
-    , HaskellWeekly.Issues.Issue61.issue61
-    , HaskellWeekly.Issues.Issue62.issue62
-    , HaskellWeekly.Issues.Issue63.issue63
-    , HaskellWeekly.Issues.Issue64.issue64
-    , HaskellWeekly.Issues.Issue65.issue65
-    , HaskellWeekly.Issues.Issue66.issue66
-    , HaskellWeekly.Issues.Issue67.issue67
-    , HaskellWeekly.Issues.Issue68.issue68
-    , HaskellWeekly.Issues.Issue69.issue69
-    , HaskellWeekly.Issues.Issue70.issue70
-    , HaskellWeekly.Issues.Issue71.issue71
-    , HaskellWeekly.Issues.Issue72.issue72
-    , HaskellWeekly.Issues.Issue73.issue73
-    , HaskellWeekly.Issues.Issue74.issue74
-    , HaskellWeekly.Issues.Issue75.issue75
-    , HaskellWeekly.Issues.Issue76.issue76
-    , HaskellWeekly.Issues.Issue77.issue77
-    , HaskellWeekly.Issues.Issue78.issue78
-    , HaskellWeekly.Issues.Issue79.issue79
-    , HaskellWeekly.Issues.Issue80.issue80
-    , HaskellWeekly.Issues.Issue81.issue81
-    , HaskellWeekly.Issues.Issue82.issue82
-    , HaskellWeekly.Issues.Issue83.issue83
-    , HaskellWeekly.Issues.Issue84.issue84
-    , HaskellWeekly.Issues.Issue85.issue85
-    , HaskellWeekly.Issues.Issue86.issue86
-    , HaskellWeekly.Issues.Issue87.issue87
-    , HaskellWeekly.Issues.Issue88.issue88
-    , HaskellWeekly.Issues.Issue89.issue89
-    , HaskellWeekly.Issues.Issue90.issue90
-    , HaskellWeekly.Issues.Issue91.issue91
-    , HaskellWeekly.Issues.Issue92.issue92
-    , HaskellWeekly.Issues.Issue93.issue93
-    , HaskellWeekly.Issues.Issue94.issue94
-    , HaskellWeekly.Issues.Issue95.issue95
-    , HaskellWeekly.Issues.Issue96.issue96
-    , HaskellWeekly.Issues.Issue97.issue97
-    , HaskellWeekly.Issues.Issue98.issue98
-    , HaskellWeekly.Issues.Issue99.issue99
-    , HaskellWeekly.Issues.Issue100.issue100
-    , HaskellWeekly.Issues.Issue101.issue101
-    , HaskellWeekly.Issues.Issue102.issue102
-    , HaskellWeekly.Issues.Issue103.issue103
-    , HaskellWeekly.Issues.Issue104.issue104
-    , HaskellWeekly.Issues.Issue105.issue105
-    , HaskellWeekly.Issues.Issue106.issue106
-    , HaskellWeekly.Issues.Issue107.issue107
-    , HaskellWeekly.Issues.Issue108.issue108
-    , HaskellWeekly.Issues.Issue109.issue109
-    , HaskellWeekly.Issues.Issue110.issue110
-    , HaskellWeekly.Issues.Issue111.issue111
-    , HaskellWeekly.Issues.Issue112.issue112
-    , HaskellWeekly.Issues.Issue113.issue113
-    , HaskellWeekly.Issues.Issue114.issue114
-    , HaskellWeekly.Issues.Issue115.issue115
-    , HaskellWeekly.Issues.Issue116.issue116
-    , HaskellWeekly.Issues.Issue117.issue117
-    , HaskellWeekly.Issues.Issue118.issue118
-    , HaskellWeekly.Issues.Issue119.issue119
-    , HaskellWeekly.Issues.Issue120.issue120
-    , HaskellWeekly.Issues.Issue121.issue121
-    , HaskellWeekly.Issues.Issue122.issue122
-    , HaskellWeekly.Issues.Issue123.issue123
-    , HaskellWeekly.Issues.Issue124.issue124
-    , HaskellWeekly.Issues.Issue125.issue125
-    , HaskellWeekly.Issues.Issue126.issue126
-    , HaskellWeekly.Issues.Issue127.issue127
-    , HaskellWeekly.Issues.Issue128.issue128
-    , HaskellWeekly.Issues.Issue129.issue129
-    , HaskellWeekly.Issues.Issue130.issue130
-    , HaskellWeekly.Issues.Issue131.issue131
-    , HaskellWeekly.Issues.Issue132.issue132
-    , HaskellWeekly.Issues.Issue133.issue133
-    , HaskellWeekly.Issues.Issue134.issue134
-    , HaskellWeekly.Issues.Issue135.issue135
-    , HaskellWeekly.Issues.Issue136.issue136
-    , HaskellWeekly.Issues.Issue137.issue137
-    , HaskellWeekly.Issues.Issue138.issue138
-    , HaskellWeekly.Issues.Issue139.issue139
-    , HaskellWeekly.Issues.Issue140.issue140
-    , HaskellWeekly.Issues.Issue141.issue141
-    , HaskellWeekly.Issues.Issue142.issue142
-    , HaskellWeekly.Issues.Issue143.issue143
-    , HaskellWeekly.Issues.Issue144.issue144
-    , HaskellWeekly.Issues.Issue145.issue145
-    , HaskellWeekly.Issues.Issue146.issue146
-    , HaskellWeekly.Issues.Issue147.issue147
-    , HaskellWeekly.Issues.Issue148.issue148
-    , HaskellWeekly.Issues.Issue149.issue149
-    , HaskellWeekly.Issues.Issue150.issue150
-    , HaskellWeekly.Issues.Issue151.issue151
-    , HaskellWeekly.Issues.Issue152.issue152
-    , HaskellWeekly.Issues.Issue153.issue153
-    , HaskellWeekly.Issues.Issue154.issue154
-    , HaskellWeekly.Issues.Issue155.issue155
-    , HaskellWeekly.Issues.Issue156.issue156
-    , HaskellWeekly.Issues.Issue157.issue157
-    , HaskellWeekly.Issues.Issue158.issue158
-    , HaskellWeekly.Issues.Issue159.issue159
-    , HaskellWeekly.Issues.Issue160.issue160
-    , HaskellWeekly.Issues.Issue161.issue161
-    , HaskellWeekly.Issues.Issue162.issue162
-    , HaskellWeekly.Issues.Issue163.issue163
-    , HaskellWeekly.Issues.Issue164.issue164
-    , HaskellWeekly.Issues.Issue165.issue165
-    , HaskellWeekly.Issues.Issue166.issue166
-    , HaskellWeekly.Issues.Issue167.issue167
-    , HaskellWeekly.Issues.Issue168.issue168
-    , HaskellWeekly.Issues.Issue169.issue169
-    , HaskellWeekly.Issues.Issue170.issue170
-    , HaskellWeekly.Issues.Issue171.issue171
-    , HaskellWeekly.Issues.Issue172.issue172
-    , HaskellWeekly.Issues.Issue173.issue173
-    , HaskellWeekly.Issues.Issue174.issue174
-    , HaskellWeekly.Issues.Issue175.issue175
-    , HaskellWeekly.Issues.Issue176.issue176
-    , HaskellWeekly.Issues.Issue177.issue177
-    , HaskellWeekly.Issues.Issue178.issue178
-    , HaskellWeekly.Issues.Issue179.issue179
+    [ issue1
+    , issue2
+    , issue3
+    , issue4
+    , issue5
+    , issue6
+    , issue7
+    , issue8
+    , issue9
+    , issue10
+    , issue11
+    , issue12
+    , issue13
+    , issue14
+    , issue15
+    , issue16
+    , issue17
+    , issue18
+    , issue19
+    , issue20
+    , issue21
+    , issue22
+    , issue23
+    , issue24
+    , issue25
+    , issue26
+    , issue27
+    , issue28
+    , issue29
+    , issue30
+    , issue31
+    , issue32
+    , issue33
+    , issue34
+    , issue35
+    , issue36
+    , issue37
+    , issue38
+    , issue39
+    , issue40
+    , issue41
+    , issue42
+    , issue43
+    , issue44
+    , issue45
+    , issue46
+    , issue47
+    , issue48
+    , issue49
+    , issue50
+    , issue51
+    , issue52
+    , issue53
+    , issue54
+    , issue55
+    , issue56
+    , issue57
+    , issue58
+    , issue59
+    , issue60
+    , issue61
+    , issue62
+    , issue63
+    , issue64
+    , issue65
+    , issue66
+    , issue67
+    , issue68
+    , issue69
+    , issue70
+    , issue71
+    , issue72
+    , issue73
+    , issue74
+    , issue75
+    , issue76
+    , issue77
+    , issue78
+    , issue79
+    , issue80
+    , issue81
+    , issue82
+    , issue83
+    , issue84
+    , issue85
+    , issue86
+    , issue87
+    , issue88
+    , issue89
+    , issue90
+    , issue91
+    , issue92
+    , issue93
+    , issue94
+    , issue95
+    , issue96
+    , issue97
+    , issue98
+    , issue99
+    , issue100
+    , issue101
+    , issue102
+    , issue103
+    , issue104
+    , issue105
+    , issue106
+    , issue107
+    , issue108
+    , issue109
+    , issue110
+    , issue111
+    , issue112
+    , issue113
+    , issue114
+    , issue115
+    , issue116
+    , issue117
+    , issue118
+    , issue119
+    , issue120
+    , issue121
+    , issue122
+    , issue123
+    , issue124
+    , issue125
+    , issue126
+    , issue127
+    , issue128
+    , issue129
+    , issue130
+    , issue131
+    , issue132
+    , issue133
+    , issue134
+    , issue135
+    , issue136
+    , issue137
+    , issue138
+    , issue139
+    , issue140
+    , issue141
+    , issue142
+    , issue143
+    , issue144
+    , issue145
+    , issue146
+    , issue147
+    , issue148
+    , issue149
+    , issue150
+    , issue151
+    , issue152
+    , issue153
+    , issue154
+    , issue155
+    , issue156
+    , issue157
+    , issue158
+    , issue159
+    , issue160
+    , issue161
+    , issue162
+    , issue163
+    , issue164
+    , issue165
+    , issue166
+    , issue167
+    , issue168
+    , issue169
+    , issue170
+    , issue171
+    , issue172
+    , issue173
+    , issue174
+    , issue175
+    , issue176
+    , issue177
+    , issue178
+    , issue179
     ]
   checkNumbers validIssues
   pure $ foldr insertIssue Data.Map.empty validIssues
@@ -406,3 +228,1077 @@ checkNumbers =
 insertIssue :: HaskellWeekly.Type.Issue.Issue -> Issues -> Issues
 insertIssue issue =
   Data.Map.insert (HaskellWeekly.Type.Issue.issueNumber issue) issue
+
+issue1 :: Either String HaskellWeekly.Type.Issue.Issue
+issue1 =
+  HaskellWeekly.Type.Issue.Issue
+    <$> HaskellWeekly.Type.Date.gregorianToDate 2016 5 5
+    <*> HaskellWeekly.Type.Number.naturalToNumber 1
+
+issue2 :: Either String HaskellWeekly.Type.Issue.Issue
+issue2 =
+  HaskellWeekly.Type.Issue.Issue
+    <$> HaskellWeekly.Type.Date.gregorianToDate 2016 5 12
+    <*> HaskellWeekly.Type.Number.naturalToNumber 2
+
+issue3 :: Either String HaskellWeekly.Type.Issue.Issue
+issue3 =
+  HaskellWeekly.Type.Issue.Issue
+    <$> HaskellWeekly.Type.Date.gregorianToDate 2016 5 19
+    <*> HaskellWeekly.Type.Number.naturalToNumber 3
+
+issue4 :: Either String HaskellWeekly.Type.Issue.Issue
+issue4 =
+  HaskellWeekly.Type.Issue.Issue
+    <$> HaskellWeekly.Type.Date.gregorianToDate 2016 5 26
+    <*> HaskellWeekly.Type.Number.naturalToNumber 4
+
+issue5 :: Either String HaskellWeekly.Type.Issue.Issue
+issue5 =
+  HaskellWeekly.Type.Issue.Issue
+    <$> HaskellWeekly.Type.Date.gregorianToDate 2016 6 2
+    <*> HaskellWeekly.Type.Number.naturalToNumber 5
+
+issue6 :: Either String HaskellWeekly.Type.Issue.Issue
+issue6 =
+  HaskellWeekly.Type.Issue.Issue
+    <$> HaskellWeekly.Type.Date.gregorianToDate 2016 6 9
+    <*> HaskellWeekly.Type.Number.naturalToNumber 6
+
+issue7 :: Either String HaskellWeekly.Type.Issue.Issue
+issue7 =
+  HaskellWeekly.Type.Issue.Issue
+    <$> HaskellWeekly.Type.Date.gregorianToDate 2016 6 16
+    <*> HaskellWeekly.Type.Number.naturalToNumber 7
+
+issue8 :: Either String HaskellWeekly.Type.Issue.Issue
+issue8 =
+  HaskellWeekly.Type.Issue.Issue
+    <$> HaskellWeekly.Type.Date.gregorianToDate 2016 6 23
+    <*> HaskellWeekly.Type.Number.naturalToNumber 8
+
+issue9 :: Either String HaskellWeekly.Type.Issue.Issue
+issue9 =
+  HaskellWeekly.Type.Issue.Issue
+    <$> HaskellWeekly.Type.Date.gregorianToDate 2016 6 30
+    <*> HaskellWeekly.Type.Number.naturalToNumber 9
+
+issue10 :: Either String HaskellWeekly.Type.Issue.Issue
+issue10 =
+  HaskellWeekly.Type.Issue.Issue
+    <$> HaskellWeekly.Type.Date.gregorianToDate 2016 7 7
+    <*> HaskellWeekly.Type.Number.naturalToNumber 10
+
+issue11 :: Either String HaskellWeekly.Type.Issue.Issue
+issue11 =
+  HaskellWeekly.Type.Issue.Issue
+    <$> HaskellWeekly.Type.Date.gregorianToDate 2016 7 14
+    <*> HaskellWeekly.Type.Number.naturalToNumber 11
+
+issue12 :: Either String HaskellWeekly.Type.Issue.Issue
+issue12 =
+  HaskellWeekly.Type.Issue.Issue
+    <$> HaskellWeekly.Type.Date.gregorianToDate 2016 7 21
+    <*> HaskellWeekly.Type.Number.naturalToNumber 12
+
+issue13 :: Either String HaskellWeekly.Type.Issue.Issue
+issue13 =
+  HaskellWeekly.Type.Issue.Issue
+    <$> HaskellWeekly.Type.Date.gregorianToDate 2016 7 28
+    <*> HaskellWeekly.Type.Number.naturalToNumber 13
+
+issue14 :: Either String HaskellWeekly.Type.Issue.Issue
+issue14 =
+  HaskellWeekly.Type.Issue.Issue
+    <$> HaskellWeekly.Type.Date.gregorianToDate 2016 8 4
+    <*> HaskellWeekly.Type.Number.naturalToNumber 14
+
+issue15 :: Either String HaskellWeekly.Type.Issue.Issue
+issue15 =
+  HaskellWeekly.Type.Issue.Issue
+    <$> HaskellWeekly.Type.Date.gregorianToDate 2016 8 11
+    <*> HaskellWeekly.Type.Number.naturalToNumber 15
+
+issue16 :: Either String HaskellWeekly.Type.Issue.Issue
+issue16 =
+  HaskellWeekly.Type.Issue.Issue
+    <$> HaskellWeekly.Type.Date.gregorianToDate 2016 8 18
+    <*> HaskellWeekly.Type.Number.naturalToNumber 16
+
+issue17 :: Either String HaskellWeekly.Type.Issue.Issue
+issue17 =
+  HaskellWeekly.Type.Issue.Issue
+    <$> HaskellWeekly.Type.Date.gregorianToDate 2016 8 25
+    <*> HaskellWeekly.Type.Number.naturalToNumber 17
+
+issue18 :: Either String HaskellWeekly.Type.Issue.Issue
+issue18 =
+  HaskellWeekly.Type.Issue.Issue
+    <$> HaskellWeekly.Type.Date.gregorianToDate 2016 9 1
+    <*> HaskellWeekly.Type.Number.naturalToNumber 18
+
+issue19 :: Either String HaskellWeekly.Type.Issue.Issue
+issue19 =
+  HaskellWeekly.Type.Issue.Issue
+    <$> HaskellWeekly.Type.Date.gregorianToDate 2016 9 8
+    <*> HaskellWeekly.Type.Number.naturalToNumber 19
+
+issue20 :: Either String HaskellWeekly.Type.Issue.Issue
+issue20 =
+  HaskellWeekly.Type.Issue.Issue
+    <$> HaskellWeekly.Type.Date.gregorianToDate 2016 9 15
+    <*> HaskellWeekly.Type.Number.naturalToNumber 20
+
+issue21 :: Either String HaskellWeekly.Type.Issue.Issue
+issue21 =
+  HaskellWeekly.Type.Issue.Issue
+    <$> HaskellWeekly.Type.Date.gregorianToDate 2016 9 22
+    <*> HaskellWeekly.Type.Number.naturalToNumber 21
+
+issue22 :: Either String HaskellWeekly.Type.Issue.Issue
+issue22 =
+  HaskellWeekly.Type.Issue.Issue
+    <$> HaskellWeekly.Type.Date.gregorianToDate 2016 9 29
+    <*> HaskellWeekly.Type.Number.naturalToNumber 22
+
+issue23 :: Either String HaskellWeekly.Type.Issue.Issue
+issue23 =
+  HaskellWeekly.Type.Issue.Issue
+    <$> HaskellWeekly.Type.Date.gregorianToDate 2016 10 6
+    <*> HaskellWeekly.Type.Number.naturalToNumber 23
+
+issue24 :: Either String HaskellWeekly.Type.Issue.Issue
+issue24 =
+  HaskellWeekly.Type.Issue.Issue
+    <$> HaskellWeekly.Type.Date.gregorianToDate 2016 10 13
+    <*> HaskellWeekly.Type.Number.naturalToNumber 24
+
+issue25 :: Either String HaskellWeekly.Type.Issue.Issue
+issue25 =
+  HaskellWeekly.Type.Issue.Issue
+    <$> HaskellWeekly.Type.Date.gregorianToDate 2016 10 20
+    <*> HaskellWeekly.Type.Number.naturalToNumber 25
+
+issue26 :: Either String HaskellWeekly.Type.Issue.Issue
+issue26 =
+  HaskellWeekly.Type.Issue.Issue
+    <$> HaskellWeekly.Type.Date.gregorianToDate 2016 10 27
+    <*> HaskellWeekly.Type.Number.naturalToNumber 26
+
+issue27 :: Either String HaskellWeekly.Type.Issue.Issue
+issue27 =
+  HaskellWeekly.Type.Issue.Issue
+    <$> HaskellWeekly.Type.Date.gregorianToDate 2016 11 3
+    <*> HaskellWeekly.Type.Number.naturalToNumber 27
+
+issue28 :: Either String HaskellWeekly.Type.Issue.Issue
+issue28 =
+  HaskellWeekly.Type.Issue.Issue
+    <$> HaskellWeekly.Type.Date.gregorianToDate 2016 11 10
+    <*> HaskellWeekly.Type.Number.naturalToNumber 28
+
+issue29 :: Either String HaskellWeekly.Type.Issue.Issue
+issue29 =
+  HaskellWeekly.Type.Issue.Issue
+    <$> HaskellWeekly.Type.Date.gregorianToDate 2016 11 17
+    <*> HaskellWeekly.Type.Number.naturalToNumber 29
+
+issue30 :: Either String HaskellWeekly.Type.Issue.Issue
+issue30 =
+  HaskellWeekly.Type.Issue.Issue
+    <$> HaskellWeekly.Type.Date.gregorianToDate 2016 11 24
+    <*> HaskellWeekly.Type.Number.naturalToNumber 30
+
+issue31 :: Either String HaskellWeekly.Type.Issue.Issue
+issue31 =
+  HaskellWeekly.Type.Issue.Issue
+    <$> HaskellWeekly.Type.Date.gregorianToDate 2016 12 1
+    <*> HaskellWeekly.Type.Number.naturalToNumber 31
+
+issue32 :: Either String HaskellWeekly.Type.Issue.Issue
+issue32 =
+  HaskellWeekly.Type.Issue.Issue
+    <$> HaskellWeekly.Type.Date.gregorianToDate 2016 12 8
+    <*> HaskellWeekly.Type.Number.naturalToNumber 32
+
+issue33 :: Either String HaskellWeekly.Type.Issue.Issue
+issue33 =
+  HaskellWeekly.Type.Issue.Issue
+    <$> HaskellWeekly.Type.Date.gregorianToDate 2016 12 15
+    <*> HaskellWeekly.Type.Number.naturalToNumber 33
+
+issue34 :: Either String HaskellWeekly.Type.Issue.Issue
+issue34 =
+  HaskellWeekly.Type.Issue.Issue
+    <$> HaskellWeekly.Type.Date.gregorianToDate 2016 12 22
+    <*> HaskellWeekly.Type.Number.naturalToNumber 34
+
+issue35 :: Either String HaskellWeekly.Type.Issue.Issue
+issue35 =
+  HaskellWeekly.Type.Issue.Issue
+    <$> HaskellWeekly.Type.Date.gregorianToDate 2016 12 29
+    <*> HaskellWeekly.Type.Number.naturalToNumber 35
+
+issue36 :: Either String HaskellWeekly.Type.Issue.Issue
+issue36 =
+  HaskellWeekly.Type.Issue.Issue
+    <$> HaskellWeekly.Type.Date.gregorianToDate 2017 1 5
+    <*> HaskellWeekly.Type.Number.naturalToNumber 36
+
+issue37 :: Either String HaskellWeekly.Type.Issue.Issue
+issue37 =
+  HaskellWeekly.Type.Issue.Issue
+    <$> HaskellWeekly.Type.Date.gregorianToDate 2017 1 12
+    <*> HaskellWeekly.Type.Number.naturalToNumber 37
+
+issue38 :: Either String HaskellWeekly.Type.Issue.Issue
+issue38 =
+  HaskellWeekly.Type.Issue.Issue
+    <$> HaskellWeekly.Type.Date.gregorianToDate 2017 1 19
+    <*> HaskellWeekly.Type.Number.naturalToNumber 38
+
+issue39 :: Either String HaskellWeekly.Type.Issue.Issue
+issue39 =
+  HaskellWeekly.Type.Issue.Issue
+    <$> HaskellWeekly.Type.Date.gregorianToDate 2017 1 26
+    <*> HaskellWeekly.Type.Number.naturalToNumber 39
+
+issue40 :: Either String HaskellWeekly.Type.Issue.Issue
+issue40 =
+  HaskellWeekly.Type.Issue.Issue
+    <$> HaskellWeekly.Type.Date.gregorianToDate 2017 2 2
+    <*> HaskellWeekly.Type.Number.naturalToNumber 40
+
+issue41 :: Either String HaskellWeekly.Type.Issue.Issue
+issue41 =
+  HaskellWeekly.Type.Issue.Issue
+    <$> HaskellWeekly.Type.Date.gregorianToDate 2017 2 9
+    <*> HaskellWeekly.Type.Number.naturalToNumber 41
+
+issue42 :: Either String HaskellWeekly.Type.Issue.Issue
+issue42 =
+  HaskellWeekly.Type.Issue.Issue
+    <$> HaskellWeekly.Type.Date.gregorianToDate 2017 2 16
+    <*> HaskellWeekly.Type.Number.naturalToNumber 42
+
+issue43 :: Either String HaskellWeekly.Type.Issue.Issue
+issue43 =
+  HaskellWeekly.Type.Issue.Issue
+    <$> HaskellWeekly.Type.Date.gregorianToDate 2017 2 23
+    <*> HaskellWeekly.Type.Number.naturalToNumber 43
+
+issue44 :: Either String HaskellWeekly.Type.Issue.Issue
+issue44 =
+  HaskellWeekly.Type.Issue.Issue
+    <$> HaskellWeekly.Type.Date.gregorianToDate 2017 3 2
+    <*> HaskellWeekly.Type.Number.naturalToNumber 44
+
+issue45 :: Either String HaskellWeekly.Type.Issue.Issue
+issue45 =
+  HaskellWeekly.Type.Issue.Issue
+    <$> HaskellWeekly.Type.Date.gregorianToDate 2017 3 9
+    <*> HaskellWeekly.Type.Number.naturalToNumber 45
+
+issue46 :: Either String HaskellWeekly.Type.Issue.Issue
+issue46 =
+  HaskellWeekly.Type.Issue.Issue
+    <$> HaskellWeekly.Type.Date.gregorianToDate 2017 3 16
+    <*> HaskellWeekly.Type.Number.naturalToNumber 46
+
+issue47 :: Either String HaskellWeekly.Type.Issue.Issue
+issue47 =
+  HaskellWeekly.Type.Issue.Issue
+    <$> HaskellWeekly.Type.Date.gregorianToDate 2017 3 23
+    <*> HaskellWeekly.Type.Number.naturalToNumber 47
+
+issue48 :: Either String HaskellWeekly.Type.Issue.Issue
+issue48 =
+  HaskellWeekly.Type.Issue.Issue
+    <$> HaskellWeekly.Type.Date.gregorianToDate 2017 3 30
+    <*> HaskellWeekly.Type.Number.naturalToNumber 48
+
+issue49 :: Either String HaskellWeekly.Type.Issue.Issue
+issue49 =
+  HaskellWeekly.Type.Issue.Issue
+    <$> HaskellWeekly.Type.Date.gregorianToDate 2017 4 6
+    <*> HaskellWeekly.Type.Number.naturalToNumber 49
+
+issue50 :: Either String HaskellWeekly.Type.Issue.Issue
+issue50 =
+  HaskellWeekly.Type.Issue.Issue
+    <$> HaskellWeekly.Type.Date.gregorianToDate 2017 4 13
+    <*> HaskellWeekly.Type.Number.naturalToNumber 50
+
+issue51 :: Either String HaskellWeekly.Type.Issue.Issue
+issue51 =
+  HaskellWeekly.Type.Issue.Issue
+    <$> HaskellWeekly.Type.Date.gregorianToDate 2017 4 20
+    <*> HaskellWeekly.Type.Number.naturalToNumber 51
+
+issue52 :: Either String HaskellWeekly.Type.Issue.Issue
+issue52 =
+  HaskellWeekly.Type.Issue.Issue
+    <$> HaskellWeekly.Type.Date.gregorianToDate 2017 4 27
+    <*> HaskellWeekly.Type.Number.naturalToNumber 52
+
+issue53 :: Either String HaskellWeekly.Type.Issue.Issue
+issue53 =
+  HaskellWeekly.Type.Issue.Issue
+    <$> HaskellWeekly.Type.Date.gregorianToDate 2017 5 4
+    <*> HaskellWeekly.Type.Number.naturalToNumber 53
+
+issue54 :: Either String HaskellWeekly.Type.Issue.Issue
+issue54 =
+  HaskellWeekly.Type.Issue.Issue
+    <$> HaskellWeekly.Type.Date.gregorianToDate 2017 5 11
+    <*> HaskellWeekly.Type.Number.naturalToNumber 54
+
+issue55 :: Either String HaskellWeekly.Type.Issue.Issue
+issue55 =
+  HaskellWeekly.Type.Issue.Issue
+    <$> HaskellWeekly.Type.Date.gregorianToDate 2017 5 18
+    <*> HaskellWeekly.Type.Number.naturalToNumber 55
+
+issue56 :: Either String HaskellWeekly.Type.Issue.Issue
+issue56 =
+  HaskellWeekly.Type.Issue.Issue
+    <$> HaskellWeekly.Type.Date.gregorianToDate 2017 5 25
+    <*> HaskellWeekly.Type.Number.naturalToNumber 56
+
+issue57 :: Either String HaskellWeekly.Type.Issue.Issue
+issue57 =
+  HaskellWeekly.Type.Issue.Issue
+    <$> HaskellWeekly.Type.Date.gregorianToDate 2017 6 1
+    <*> HaskellWeekly.Type.Number.naturalToNumber 57
+
+issue58 :: Either String HaskellWeekly.Type.Issue.Issue
+issue58 =
+  HaskellWeekly.Type.Issue.Issue
+    <$> HaskellWeekly.Type.Date.gregorianToDate 2017 6 8
+    <*> HaskellWeekly.Type.Number.naturalToNumber 58
+
+issue59 :: Either String HaskellWeekly.Type.Issue.Issue
+issue59 =
+  HaskellWeekly.Type.Issue.Issue
+    <$> HaskellWeekly.Type.Date.gregorianToDate 2017 6 15
+    <*> HaskellWeekly.Type.Number.naturalToNumber 59
+
+issue60 :: Either String HaskellWeekly.Type.Issue.Issue
+issue60 =
+  HaskellWeekly.Type.Issue.Issue
+    <$> HaskellWeekly.Type.Date.gregorianToDate 2017 6 22
+    <*> HaskellWeekly.Type.Number.naturalToNumber 60
+
+issue61 :: Either String HaskellWeekly.Type.Issue.Issue
+issue61 =
+  HaskellWeekly.Type.Issue.Issue
+    <$> HaskellWeekly.Type.Date.gregorianToDate 2017 6 29
+    <*> HaskellWeekly.Type.Number.naturalToNumber 61
+
+issue62 :: Either String HaskellWeekly.Type.Issue.Issue
+issue62 =
+  HaskellWeekly.Type.Issue.Issue
+    <$> HaskellWeekly.Type.Date.gregorianToDate 2017 7 6
+    <*> HaskellWeekly.Type.Number.naturalToNumber 62
+
+issue63 :: Either String HaskellWeekly.Type.Issue.Issue
+issue63 =
+  HaskellWeekly.Type.Issue.Issue
+    <$> HaskellWeekly.Type.Date.gregorianToDate 2017 7 13
+    <*> HaskellWeekly.Type.Number.naturalToNumber 63
+
+issue64 :: Either String HaskellWeekly.Type.Issue.Issue
+issue64 =
+  HaskellWeekly.Type.Issue.Issue
+    <$> HaskellWeekly.Type.Date.gregorianToDate 2017 7 20
+    <*> HaskellWeekly.Type.Number.naturalToNumber 64
+
+issue65 :: Either String HaskellWeekly.Type.Issue.Issue
+issue65 =
+  HaskellWeekly.Type.Issue.Issue
+    <$> HaskellWeekly.Type.Date.gregorianToDate 2017 7 27
+    <*> HaskellWeekly.Type.Number.naturalToNumber 65
+
+issue66 :: Either String HaskellWeekly.Type.Issue.Issue
+issue66 =
+  HaskellWeekly.Type.Issue.Issue
+    <$> HaskellWeekly.Type.Date.gregorianToDate 2017 8 3
+    <*> HaskellWeekly.Type.Number.naturalToNumber 66
+
+issue67 :: Either String HaskellWeekly.Type.Issue.Issue
+issue67 =
+  HaskellWeekly.Type.Issue.Issue
+    <$> HaskellWeekly.Type.Date.gregorianToDate 2017 8 10
+    <*> HaskellWeekly.Type.Number.naturalToNumber 67
+
+issue68 :: Either String HaskellWeekly.Type.Issue.Issue
+issue68 =
+  HaskellWeekly.Type.Issue.Issue
+    <$> HaskellWeekly.Type.Date.gregorianToDate 2017 8 17
+    <*> HaskellWeekly.Type.Number.naturalToNumber 68
+
+issue69 :: Either String HaskellWeekly.Type.Issue.Issue
+issue69 =
+  HaskellWeekly.Type.Issue.Issue
+    <$> HaskellWeekly.Type.Date.gregorianToDate 2017 8 24
+    <*> HaskellWeekly.Type.Number.naturalToNumber 69
+
+issue70 :: Either String HaskellWeekly.Type.Issue.Issue
+issue70 =
+  HaskellWeekly.Type.Issue.Issue
+    <$> HaskellWeekly.Type.Date.gregorianToDate 2017 8 31
+    <*> HaskellWeekly.Type.Number.naturalToNumber 70
+
+issue71 :: Either String HaskellWeekly.Type.Issue.Issue
+issue71 =
+  HaskellWeekly.Type.Issue.Issue
+    <$> HaskellWeekly.Type.Date.gregorianToDate 2017 9 7
+    <*> HaskellWeekly.Type.Number.naturalToNumber 71
+
+issue72 :: Either String HaskellWeekly.Type.Issue.Issue
+issue72 =
+  HaskellWeekly.Type.Issue.Issue
+    <$> HaskellWeekly.Type.Date.gregorianToDate 2017 9 14
+    <*> HaskellWeekly.Type.Number.naturalToNumber 72
+
+issue73 :: Either String HaskellWeekly.Type.Issue.Issue
+issue73 =
+  HaskellWeekly.Type.Issue.Issue
+    <$> HaskellWeekly.Type.Date.gregorianToDate 2017 9 21
+    <*> HaskellWeekly.Type.Number.naturalToNumber 73
+
+issue74 :: Either String HaskellWeekly.Type.Issue.Issue
+issue74 =
+  HaskellWeekly.Type.Issue.Issue
+    <$> HaskellWeekly.Type.Date.gregorianToDate 2017 9 28
+    <*> HaskellWeekly.Type.Number.naturalToNumber 74
+
+issue75 :: Either String HaskellWeekly.Type.Issue.Issue
+issue75 =
+  HaskellWeekly.Type.Issue.Issue
+    <$> HaskellWeekly.Type.Date.gregorianToDate 2017 10 5
+    <*> HaskellWeekly.Type.Number.naturalToNumber 75
+
+issue76 :: Either String HaskellWeekly.Type.Issue.Issue
+issue76 =
+  HaskellWeekly.Type.Issue.Issue
+    <$> HaskellWeekly.Type.Date.gregorianToDate 2017 10 12
+    <*> HaskellWeekly.Type.Number.naturalToNumber 76
+
+issue77 :: Either String HaskellWeekly.Type.Issue.Issue
+issue77 =
+  HaskellWeekly.Type.Issue.Issue
+    <$> HaskellWeekly.Type.Date.gregorianToDate 2017 10 19
+    <*> HaskellWeekly.Type.Number.naturalToNumber 77
+
+issue78 :: Either String HaskellWeekly.Type.Issue.Issue
+issue78 =
+  HaskellWeekly.Type.Issue.Issue
+    <$> HaskellWeekly.Type.Date.gregorianToDate 2017 10 26
+    <*> HaskellWeekly.Type.Number.naturalToNumber 78
+
+issue79 :: Either String HaskellWeekly.Type.Issue.Issue
+issue79 =
+  HaskellWeekly.Type.Issue.Issue
+    <$> HaskellWeekly.Type.Date.gregorianToDate 2017 11 2
+    <*> HaskellWeekly.Type.Number.naturalToNumber 79
+
+issue80 :: Either String HaskellWeekly.Type.Issue.Issue
+issue80 =
+  HaskellWeekly.Type.Issue.Issue
+    <$> HaskellWeekly.Type.Date.gregorianToDate 2017 11 9
+    <*> HaskellWeekly.Type.Number.naturalToNumber 80
+
+issue81 :: Either String HaskellWeekly.Type.Issue.Issue
+issue81 =
+  HaskellWeekly.Type.Issue.Issue
+    <$> HaskellWeekly.Type.Date.gregorianToDate 2017 11 16
+    <*> HaskellWeekly.Type.Number.naturalToNumber 81
+
+issue82 :: Either String HaskellWeekly.Type.Issue.Issue
+issue82 =
+  HaskellWeekly.Type.Issue.Issue
+    <$> HaskellWeekly.Type.Date.gregorianToDate 2017 11 23
+    <*> HaskellWeekly.Type.Number.naturalToNumber 82
+
+issue83 :: Either String HaskellWeekly.Type.Issue.Issue
+issue83 =
+  HaskellWeekly.Type.Issue.Issue
+    <$> HaskellWeekly.Type.Date.gregorianToDate 2017 11 30
+    <*> HaskellWeekly.Type.Number.naturalToNumber 83
+
+issue84 :: Either String HaskellWeekly.Type.Issue.Issue
+issue84 =
+  HaskellWeekly.Type.Issue.Issue
+    <$> HaskellWeekly.Type.Date.gregorianToDate 2017 12 7
+    <*> HaskellWeekly.Type.Number.naturalToNumber 84
+
+issue85 :: Either String HaskellWeekly.Type.Issue.Issue
+issue85 =
+  HaskellWeekly.Type.Issue.Issue
+    <$> HaskellWeekly.Type.Date.gregorianToDate 2017 12 14
+    <*> HaskellWeekly.Type.Number.naturalToNumber 85
+
+issue86 :: Either String HaskellWeekly.Type.Issue.Issue
+issue86 =
+  HaskellWeekly.Type.Issue.Issue
+    <$> HaskellWeekly.Type.Date.gregorianToDate 2017 12 21
+    <*> HaskellWeekly.Type.Number.naturalToNumber 86
+
+issue87 :: Either String HaskellWeekly.Type.Issue.Issue
+issue87 =
+  HaskellWeekly.Type.Issue.Issue
+    <$> HaskellWeekly.Type.Date.gregorianToDate 2017 12 28
+    <*> HaskellWeekly.Type.Number.naturalToNumber 87
+
+issue88 :: Either String HaskellWeekly.Type.Issue.Issue
+issue88 =
+  HaskellWeekly.Type.Issue.Issue
+    <$> HaskellWeekly.Type.Date.gregorianToDate 2018 1 4
+    <*> HaskellWeekly.Type.Number.naturalToNumber 88
+
+issue89 :: Either String HaskellWeekly.Type.Issue.Issue
+issue89 =
+  HaskellWeekly.Type.Issue.Issue
+    <$> HaskellWeekly.Type.Date.gregorianToDate 2018 1 11
+    <*> HaskellWeekly.Type.Number.naturalToNumber 89
+
+issue90 :: Either String HaskellWeekly.Type.Issue.Issue
+issue90 =
+  HaskellWeekly.Type.Issue.Issue
+    <$> HaskellWeekly.Type.Date.gregorianToDate 2018 1 18
+    <*> HaskellWeekly.Type.Number.naturalToNumber 90
+
+issue91 :: Either String HaskellWeekly.Type.Issue.Issue
+issue91 =
+  HaskellWeekly.Type.Issue.Issue
+    <$> HaskellWeekly.Type.Date.gregorianToDate 2018 1 25
+    <*> HaskellWeekly.Type.Number.naturalToNumber 91
+
+issue92 :: Either String HaskellWeekly.Type.Issue.Issue
+issue92 =
+  HaskellWeekly.Type.Issue.Issue
+    <$> HaskellWeekly.Type.Date.gregorianToDate 2018 2 1
+    <*> HaskellWeekly.Type.Number.naturalToNumber 92
+
+issue93 :: Either String HaskellWeekly.Type.Issue.Issue
+issue93 =
+  HaskellWeekly.Type.Issue.Issue
+    <$> HaskellWeekly.Type.Date.gregorianToDate 2018 2 8
+    <*> HaskellWeekly.Type.Number.naturalToNumber 93
+
+issue94 :: Either String HaskellWeekly.Type.Issue.Issue
+issue94 =
+  HaskellWeekly.Type.Issue.Issue
+    <$> HaskellWeekly.Type.Date.gregorianToDate 2018 2 15
+    <*> HaskellWeekly.Type.Number.naturalToNumber 94
+
+issue95 :: Either String HaskellWeekly.Type.Issue.Issue
+issue95 =
+  HaskellWeekly.Type.Issue.Issue
+    <$> HaskellWeekly.Type.Date.gregorianToDate 2018 2 22
+    <*> HaskellWeekly.Type.Number.naturalToNumber 95
+
+issue96 :: Either String HaskellWeekly.Type.Issue.Issue
+issue96 =
+  HaskellWeekly.Type.Issue.Issue
+    <$> HaskellWeekly.Type.Date.gregorianToDate 2018 3 1
+    <*> HaskellWeekly.Type.Number.naturalToNumber 96
+
+issue97 :: Either String HaskellWeekly.Type.Issue.Issue
+issue97 =
+  HaskellWeekly.Type.Issue.Issue
+    <$> HaskellWeekly.Type.Date.gregorianToDate 2018 3 8
+    <*> HaskellWeekly.Type.Number.naturalToNumber 97
+
+issue98 :: Either String HaskellWeekly.Type.Issue.Issue
+issue98 =
+  HaskellWeekly.Type.Issue.Issue
+    <$> HaskellWeekly.Type.Date.gregorianToDate 2018 3 15
+    <*> HaskellWeekly.Type.Number.naturalToNumber 98
+
+issue99 :: Either String HaskellWeekly.Type.Issue.Issue
+issue99 =
+  HaskellWeekly.Type.Issue.Issue
+    <$> HaskellWeekly.Type.Date.gregorianToDate 2018 3 22
+    <*> HaskellWeekly.Type.Number.naturalToNumber 99
+
+issue100 :: Either String HaskellWeekly.Type.Issue.Issue
+issue100 =
+  HaskellWeekly.Type.Issue.Issue
+    <$> HaskellWeekly.Type.Date.gregorianToDate 2018 3 29
+    <*> HaskellWeekly.Type.Number.naturalToNumber 100
+
+issue101 :: Either String HaskellWeekly.Type.Issue.Issue
+issue101 =
+  HaskellWeekly.Type.Issue.Issue
+    <$> HaskellWeekly.Type.Date.gregorianToDate 2018 4 5
+    <*> HaskellWeekly.Type.Number.naturalToNumber 101
+
+issue102 :: Either String HaskellWeekly.Type.Issue.Issue
+issue102 =
+  HaskellWeekly.Type.Issue.Issue
+    <$> HaskellWeekly.Type.Date.gregorianToDate 2018 4 12
+    <*> HaskellWeekly.Type.Number.naturalToNumber 102
+
+issue103 :: Either String HaskellWeekly.Type.Issue.Issue
+issue103 =
+  HaskellWeekly.Type.Issue.Issue
+    <$> HaskellWeekly.Type.Date.gregorianToDate 2018 4 19
+    <*> HaskellWeekly.Type.Number.naturalToNumber 103
+
+issue104 :: Either String HaskellWeekly.Type.Issue.Issue
+issue104 =
+  HaskellWeekly.Type.Issue.Issue
+    <$> HaskellWeekly.Type.Date.gregorianToDate 2018 4 26
+    <*> HaskellWeekly.Type.Number.naturalToNumber 104
+
+issue105 :: Either String HaskellWeekly.Type.Issue.Issue
+issue105 =
+  HaskellWeekly.Type.Issue.Issue
+    <$> HaskellWeekly.Type.Date.gregorianToDate 2018 5 3
+    <*> HaskellWeekly.Type.Number.naturalToNumber 105
+
+issue106 :: Either String HaskellWeekly.Type.Issue.Issue
+issue106 =
+  HaskellWeekly.Type.Issue.Issue
+    <$> HaskellWeekly.Type.Date.gregorianToDate 2018 5 10
+    <*> HaskellWeekly.Type.Number.naturalToNumber 106
+
+issue107 :: Either String HaskellWeekly.Type.Issue.Issue
+issue107 =
+  HaskellWeekly.Type.Issue.Issue
+    <$> HaskellWeekly.Type.Date.gregorianToDate 2018 5 17
+    <*> HaskellWeekly.Type.Number.naturalToNumber 107
+
+issue108 :: Either String HaskellWeekly.Type.Issue.Issue
+issue108 =
+  HaskellWeekly.Type.Issue.Issue
+    <$> HaskellWeekly.Type.Date.gregorianToDate 2018 5 24
+    <*> HaskellWeekly.Type.Number.naturalToNumber 108
+
+issue109 :: Either String HaskellWeekly.Type.Issue.Issue
+issue109 =
+  HaskellWeekly.Type.Issue.Issue
+    <$> HaskellWeekly.Type.Date.gregorianToDate 2018 5 31
+    <*> HaskellWeekly.Type.Number.naturalToNumber 109
+
+issue110 :: Either String HaskellWeekly.Type.Issue.Issue
+issue110 =
+  HaskellWeekly.Type.Issue.Issue
+    <$> HaskellWeekly.Type.Date.gregorianToDate 2018 6 7
+    <*> HaskellWeekly.Type.Number.naturalToNumber 110
+
+issue111 :: Either String HaskellWeekly.Type.Issue.Issue
+issue111 =
+  HaskellWeekly.Type.Issue.Issue
+    <$> HaskellWeekly.Type.Date.gregorianToDate 2018 6 14
+    <*> HaskellWeekly.Type.Number.naturalToNumber 111
+
+issue112 :: Either String HaskellWeekly.Type.Issue.Issue
+issue112 =
+  HaskellWeekly.Type.Issue.Issue
+    <$> HaskellWeekly.Type.Date.gregorianToDate 2018 6 21
+    <*> HaskellWeekly.Type.Number.naturalToNumber 112
+
+issue113 :: Either String HaskellWeekly.Type.Issue.Issue
+issue113 =
+  HaskellWeekly.Type.Issue.Issue
+    <$> HaskellWeekly.Type.Date.gregorianToDate 2018 6 28
+    <*> HaskellWeekly.Type.Number.naturalToNumber 113
+
+issue114 :: Either String HaskellWeekly.Type.Issue.Issue
+issue114 =
+  HaskellWeekly.Type.Issue.Issue
+    <$> HaskellWeekly.Type.Date.gregorianToDate 2018 7 5
+    <*> HaskellWeekly.Type.Number.naturalToNumber 114
+
+issue115 :: Either String HaskellWeekly.Type.Issue.Issue
+issue115 =
+  HaskellWeekly.Type.Issue.Issue
+    <$> HaskellWeekly.Type.Date.gregorianToDate 2018 7 12
+    <*> HaskellWeekly.Type.Number.naturalToNumber 115
+
+issue116 :: Either String HaskellWeekly.Type.Issue.Issue
+issue116 =
+  HaskellWeekly.Type.Issue.Issue
+    <$> HaskellWeekly.Type.Date.gregorianToDate 2018 7 19
+    <*> HaskellWeekly.Type.Number.naturalToNumber 116
+
+issue117 :: Either String HaskellWeekly.Type.Issue.Issue
+issue117 =
+  HaskellWeekly.Type.Issue.Issue
+    <$> HaskellWeekly.Type.Date.gregorianToDate 2018 7 26
+    <*> HaskellWeekly.Type.Number.naturalToNumber 117
+
+issue118 :: Either String HaskellWeekly.Type.Issue.Issue
+issue118 =
+  HaskellWeekly.Type.Issue.Issue
+    <$> HaskellWeekly.Type.Date.gregorianToDate 2018 8 2
+    <*> HaskellWeekly.Type.Number.naturalToNumber 118
+
+issue119 :: Either String HaskellWeekly.Type.Issue.Issue
+issue119 =
+  HaskellWeekly.Type.Issue.Issue
+    <$> HaskellWeekly.Type.Date.gregorianToDate 2018 8 9
+    <*> HaskellWeekly.Type.Number.naturalToNumber 119
+
+issue120 :: Either String HaskellWeekly.Type.Issue.Issue
+issue120 =
+  HaskellWeekly.Type.Issue.Issue
+    <$> HaskellWeekly.Type.Date.gregorianToDate 2018 8 16
+    <*> HaskellWeekly.Type.Number.naturalToNumber 120
+
+issue121 :: Either String HaskellWeekly.Type.Issue.Issue
+issue121 =
+  HaskellWeekly.Type.Issue.Issue
+    <$> HaskellWeekly.Type.Date.gregorianToDate 2018 8 23
+    <*> HaskellWeekly.Type.Number.naturalToNumber 121
+
+issue122 :: Either String HaskellWeekly.Type.Issue.Issue
+issue122 =
+  HaskellWeekly.Type.Issue.Issue
+    <$> HaskellWeekly.Type.Date.gregorianToDate 2018 8 30
+    <*> HaskellWeekly.Type.Number.naturalToNumber 122
+
+issue123 :: Either String HaskellWeekly.Type.Issue.Issue
+issue123 =
+  HaskellWeekly.Type.Issue.Issue
+    <$> HaskellWeekly.Type.Date.gregorianToDate 2018 9 6
+    <*> HaskellWeekly.Type.Number.naturalToNumber 123
+
+issue124 :: Either String HaskellWeekly.Type.Issue.Issue
+issue124 =
+  HaskellWeekly.Type.Issue.Issue
+    <$> HaskellWeekly.Type.Date.gregorianToDate 2018 9 13
+    <*> HaskellWeekly.Type.Number.naturalToNumber 124
+
+issue125 :: Either String HaskellWeekly.Type.Issue.Issue
+issue125 =
+  HaskellWeekly.Type.Issue.Issue
+    <$> HaskellWeekly.Type.Date.gregorianToDate 2018 9 20
+    <*> HaskellWeekly.Type.Number.naturalToNumber 125
+
+issue126 :: Either String HaskellWeekly.Type.Issue.Issue
+issue126 =
+  HaskellWeekly.Type.Issue.Issue
+    <$> HaskellWeekly.Type.Date.gregorianToDate 2018 9 27
+    <*> HaskellWeekly.Type.Number.naturalToNumber 126
+
+issue127 :: Either String HaskellWeekly.Type.Issue.Issue
+issue127 =
+  HaskellWeekly.Type.Issue.Issue
+    <$> HaskellWeekly.Type.Date.gregorianToDate 2018 10 4
+    <*> HaskellWeekly.Type.Number.naturalToNumber 127
+
+issue128 :: Either String HaskellWeekly.Type.Issue.Issue
+issue128 =
+  HaskellWeekly.Type.Issue.Issue
+    <$> HaskellWeekly.Type.Date.gregorianToDate 2018 10 11
+    <*> HaskellWeekly.Type.Number.naturalToNumber 128
+
+issue129 :: Either String HaskellWeekly.Type.Issue.Issue
+issue129 =
+  HaskellWeekly.Type.Issue.Issue
+    <$> HaskellWeekly.Type.Date.gregorianToDate 2018 10 18
+    <*> HaskellWeekly.Type.Number.naturalToNumber 129
+
+issue130 :: Either String HaskellWeekly.Type.Issue.Issue
+issue130 =
+  HaskellWeekly.Type.Issue.Issue
+    <$> HaskellWeekly.Type.Date.gregorianToDate 2018 10 25
+    <*> HaskellWeekly.Type.Number.naturalToNumber 130
+
+issue131 :: Either String HaskellWeekly.Type.Issue.Issue
+issue131 =
+  HaskellWeekly.Type.Issue.Issue
+    <$> HaskellWeekly.Type.Date.gregorianToDate 2018 11 1
+    <*> HaskellWeekly.Type.Number.naturalToNumber 131
+
+issue132 :: Either String HaskellWeekly.Type.Issue.Issue
+issue132 =
+  HaskellWeekly.Type.Issue.Issue
+    <$> HaskellWeekly.Type.Date.gregorianToDate 2018 11 8
+    <*> HaskellWeekly.Type.Number.naturalToNumber 132
+
+issue133 :: Either String HaskellWeekly.Type.Issue.Issue
+issue133 =
+  HaskellWeekly.Type.Issue.Issue
+    <$> HaskellWeekly.Type.Date.gregorianToDate 2018 11 15
+    <*> HaskellWeekly.Type.Number.naturalToNumber 133
+
+issue134 :: Either String HaskellWeekly.Type.Issue.Issue
+issue134 =
+  HaskellWeekly.Type.Issue.Issue
+    <$> HaskellWeekly.Type.Date.gregorianToDate 2018 11 22
+    <*> HaskellWeekly.Type.Number.naturalToNumber 134
+
+issue135 :: Either String HaskellWeekly.Type.Issue.Issue
+issue135 =
+  HaskellWeekly.Type.Issue.Issue
+    <$> HaskellWeekly.Type.Date.gregorianToDate 2018 11 29
+    <*> HaskellWeekly.Type.Number.naturalToNumber 135
+
+issue136 :: Either String HaskellWeekly.Type.Issue.Issue
+issue136 =
+  HaskellWeekly.Type.Issue.Issue
+    <$> HaskellWeekly.Type.Date.gregorianToDate 2018 12 6
+    <*> HaskellWeekly.Type.Number.naturalToNumber 136
+
+issue137 :: Either String HaskellWeekly.Type.Issue.Issue
+issue137 =
+  HaskellWeekly.Type.Issue.Issue
+    <$> HaskellWeekly.Type.Date.gregorianToDate 2018 12 13
+    <*> HaskellWeekly.Type.Number.naturalToNumber 137
+
+issue138 :: Either String HaskellWeekly.Type.Issue.Issue
+issue138 =
+  HaskellWeekly.Type.Issue.Issue
+    <$> HaskellWeekly.Type.Date.gregorianToDate 2018 12 20
+    <*> HaskellWeekly.Type.Number.naturalToNumber 138
+
+issue139 :: Either String HaskellWeekly.Type.Issue.Issue
+issue139 =
+  HaskellWeekly.Type.Issue.Issue
+    <$> HaskellWeekly.Type.Date.gregorianToDate 2018 12 27
+    <*> HaskellWeekly.Type.Number.naturalToNumber 139
+
+issue140 :: Either String HaskellWeekly.Type.Issue.Issue
+issue140 =
+  HaskellWeekly.Type.Issue.Issue
+    <$> HaskellWeekly.Type.Date.gregorianToDate 2019 1 3
+    <*> HaskellWeekly.Type.Number.naturalToNumber 140
+
+issue141 :: Either String HaskellWeekly.Type.Issue.Issue
+issue141 =
+  HaskellWeekly.Type.Issue.Issue
+    <$> HaskellWeekly.Type.Date.gregorianToDate 2019 1 10
+    <*> HaskellWeekly.Type.Number.naturalToNumber 141
+
+issue142 :: Either String HaskellWeekly.Type.Issue.Issue
+issue142 =
+  HaskellWeekly.Type.Issue.Issue
+    <$> HaskellWeekly.Type.Date.gregorianToDate 2019 1 17
+    <*> HaskellWeekly.Type.Number.naturalToNumber 142
+
+issue143 :: Either String HaskellWeekly.Type.Issue.Issue
+issue143 =
+  HaskellWeekly.Type.Issue.Issue
+    <$> HaskellWeekly.Type.Date.gregorianToDate 2019 1 24
+    <*> HaskellWeekly.Type.Number.naturalToNumber 143
+
+issue144 :: Either String HaskellWeekly.Type.Issue.Issue
+issue144 =
+  HaskellWeekly.Type.Issue.Issue
+    <$> HaskellWeekly.Type.Date.gregorianToDate 2019 1 31
+    <*> HaskellWeekly.Type.Number.naturalToNumber 144
+
+issue145 :: Either String HaskellWeekly.Type.Issue.Issue
+issue145 =
+  HaskellWeekly.Type.Issue.Issue
+    <$> HaskellWeekly.Type.Date.gregorianToDate 2019 2 7
+    <*> HaskellWeekly.Type.Number.naturalToNumber 145
+
+issue146 :: Either String HaskellWeekly.Type.Issue.Issue
+issue146 =
+  HaskellWeekly.Type.Issue.Issue
+    <$> HaskellWeekly.Type.Date.gregorianToDate 2019 2 14
+    <*> HaskellWeekly.Type.Number.naturalToNumber 146
+
+issue147 :: Either String HaskellWeekly.Type.Issue.Issue
+issue147 =
+  HaskellWeekly.Type.Issue.Issue
+    <$> HaskellWeekly.Type.Date.gregorianToDate 2019 2 21
+    <*> HaskellWeekly.Type.Number.naturalToNumber 147
+
+issue148 :: Either String HaskellWeekly.Type.Issue.Issue
+issue148 =
+  HaskellWeekly.Type.Issue.Issue
+    <$> HaskellWeekly.Type.Date.gregorianToDate 2019 2 28
+    <*> HaskellWeekly.Type.Number.naturalToNumber 148
+
+issue149 :: Either String HaskellWeekly.Type.Issue.Issue
+issue149 =
+  HaskellWeekly.Type.Issue.Issue
+    <$> HaskellWeekly.Type.Date.gregorianToDate 2019 3 7
+    <*> HaskellWeekly.Type.Number.naturalToNumber 149
+
+issue150 :: Either String HaskellWeekly.Type.Issue.Issue
+issue150 =
+  HaskellWeekly.Type.Issue.Issue
+    <$> HaskellWeekly.Type.Date.gregorianToDate 2019 3 14
+    <*> HaskellWeekly.Type.Number.naturalToNumber 150
+
+issue151 :: Either String HaskellWeekly.Type.Issue.Issue
+issue151 =
+  HaskellWeekly.Type.Issue.Issue
+    <$> HaskellWeekly.Type.Date.gregorianToDate 2019 3 21
+    <*> HaskellWeekly.Type.Number.naturalToNumber 151
+
+issue152 :: Either String HaskellWeekly.Type.Issue.Issue
+issue152 =
+  HaskellWeekly.Type.Issue.Issue
+    <$> HaskellWeekly.Type.Date.gregorianToDate 2019 3 28
+    <*> HaskellWeekly.Type.Number.naturalToNumber 152
+
+issue153 :: Either String HaskellWeekly.Type.Issue.Issue
+issue153 =
+  HaskellWeekly.Type.Issue.Issue
+    <$> HaskellWeekly.Type.Date.gregorianToDate 2019 4 4
+    <*> HaskellWeekly.Type.Number.naturalToNumber 153
+
+issue154 :: Either String HaskellWeekly.Type.Issue.Issue
+issue154 =
+  HaskellWeekly.Type.Issue.Issue
+    <$> HaskellWeekly.Type.Date.gregorianToDate 2019 4 11
+    <*> HaskellWeekly.Type.Number.naturalToNumber 154
+
+issue155 :: Either String HaskellWeekly.Type.Issue.Issue
+issue155 =
+  HaskellWeekly.Type.Issue.Issue
+    <$> HaskellWeekly.Type.Date.gregorianToDate 2019 4 18
+    <*> HaskellWeekly.Type.Number.naturalToNumber 155
+
+issue156 :: Either String HaskellWeekly.Type.Issue.Issue
+issue156 =
+  HaskellWeekly.Type.Issue.Issue
+    <$> HaskellWeekly.Type.Date.gregorianToDate 2019 4 25
+    <*> HaskellWeekly.Type.Number.naturalToNumber 156
+
+issue157 :: Either String HaskellWeekly.Type.Issue.Issue
+issue157 =
+  HaskellWeekly.Type.Issue.Issue
+    <$> HaskellWeekly.Type.Date.gregorianToDate 2019 5 2
+    <*> HaskellWeekly.Type.Number.naturalToNumber 157
+
+issue158 :: Either String HaskellWeekly.Type.Issue.Issue
+issue158 =
+  HaskellWeekly.Type.Issue.Issue
+    <$> HaskellWeekly.Type.Date.gregorianToDate 2019 5 9
+    <*> HaskellWeekly.Type.Number.naturalToNumber 158
+
+issue159 :: Either String HaskellWeekly.Type.Issue.Issue
+issue159 =
+  HaskellWeekly.Type.Issue.Issue
+    <$> HaskellWeekly.Type.Date.gregorianToDate 2019 5 16
+    <*> HaskellWeekly.Type.Number.naturalToNumber 159
+
+issue160 :: Either String HaskellWeekly.Type.Issue.Issue
+issue160 =
+  HaskellWeekly.Type.Issue.Issue
+    <$> HaskellWeekly.Type.Date.gregorianToDate 2019 5 23
+    <*> HaskellWeekly.Type.Number.naturalToNumber 160
+
+issue161 :: Either String HaskellWeekly.Type.Issue.Issue
+issue161 =
+  HaskellWeekly.Type.Issue.Issue
+    <$> HaskellWeekly.Type.Date.gregorianToDate 2019 5 30
+    <*> HaskellWeekly.Type.Number.naturalToNumber 161
+
+issue162 :: Either String HaskellWeekly.Type.Issue.Issue
+issue162 =
+  HaskellWeekly.Type.Issue.Issue
+    <$> HaskellWeekly.Type.Date.gregorianToDate 2019 6 6
+    <*> HaskellWeekly.Type.Number.naturalToNumber 162
+
+issue163 :: Either String HaskellWeekly.Type.Issue.Issue
+issue163 =
+  HaskellWeekly.Type.Issue.Issue
+    <$> HaskellWeekly.Type.Date.gregorianToDate 2019 6 13
+    <*> HaskellWeekly.Type.Number.naturalToNumber 163
+
+issue164 :: Either String HaskellWeekly.Type.Issue.Issue
+issue164 =
+  HaskellWeekly.Type.Issue.Issue
+    <$> HaskellWeekly.Type.Date.gregorianToDate 2019 6 20
+    <*> HaskellWeekly.Type.Number.naturalToNumber 164
+
+issue165 :: Either String HaskellWeekly.Type.Issue.Issue
+issue165 =
+  HaskellWeekly.Type.Issue.Issue
+    <$> HaskellWeekly.Type.Date.gregorianToDate 2019 6 27
+    <*> HaskellWeekly.Type.Number.naturalToNumber 165
+
+issue166 :: Either String HaskellWeekly.Type.Issue.Issue
+issue166 =
+  HaskellWeekly.Type.Issue.Issue
+    <$> HaskellWeekly.Type.Date.gregorianToDate 2019 7 4
+    <*> HaskellWeekly.Type.Number.naturalToNumber 166
+
+issue167 :: Either String HaskellWeekly.Type.Issue.Issue
+issue167 =
+  HaskellWeekly.Type.Issue.Issue
+    <$> HaskellWeekly.Type.Date.gregorianToDate 2019 7 11
+    <*> HaskellWeekly.Type.Number.naturalToNumber 167
+
+issue168 :: Either String HaskellWeekly.Type.Issue.Issue
+issue168 =
+  HaskellWeekly.Type.Issue.Issue
+    <$> HaskellWeekly.Type.Date.gregorianToDate 2019 7 18
+    <*> HaskellWeekly.Type.Number.naturalToNumber 168
+
+issue169 :: Either String HaskellWeekly.Type.Issue.Issue
+issue169 =
+  HaskellWeekly.Type.Issue.Issue
+    <$> HaskellWeekly.Type.Date.gregorianToDate 2019 7 25
+    <*> HaskellWeekly.Type.Number.naturalToNumber 169
+
+issue170 :: Either String HaskellWeekly.Type.Issue.Issue
+issue170 =
+  HaskellWeekly.Type.Issue.Issue
+    <$> HaskellWeekly.Type.Date.gregorianToDate 2019 8 1
+    <*> HaskellWeekly.Type.Number.naturalToNumber 170
+
+issue171 :: Either String HaskellWeekly.Type.Issue.Issue
+issue171 =
+  HaskellWeekly.Type.Issue.Issue
+    <$> HaskellWeekly.Type.Date.gregorianToDate 2019 8 8
+    <*> HaskellWeekly.Type.Number.naturalToNumber 171
+
+issue172 :: Either String HaskellWeekly.Type.Issue.Issue
+issue172 =
+  HaskellWeekly.Type.Issue.Issue
+    <$> HaskellWeekly.Type.Date.gregorianToDate 2019 8 15
+    <*> HaskellWeekly.Type.Number.naturalToNumber 172
+
+issue173 :: Either String HaskellWeekly.Type.Issue.Issue
+issue173 =
+  HaskellWeekly.Type.Issue.Issue
+    <$> HaskellWeekly.Type.Date.gregorianToDate 2019 8 22
+    <*> HaskellWeekly.Type.Number.naturalToNumber 173
+
+issue174 :: Either String HaskellWeekly.Type.Issue.Issue
+issue174 =
+  HaskellWeekly.Type.Issue.Issue
+    <$> HaskellWeekly.Type.Date.gregorianToDate 2019 8 29
+    <*> HaskellWeekly.Type.Number.naturalToNumber 174
+
+issue175 :: Either String HaskellWeekly.Type.Issue.Issue
+issue175 =
+  HaskellWeekly.Type.Issue.Issue
+    <$> HaskellWeekly.Type.Date.gregorianToDate 2019 9 5
+    <*> HaskellWeekly.Type.Number.naturalToNumber 175
+
+issue176 :: Either String HaskellWeekly.Type.Issue.Issue
+issue176 =
+  HaskellWeekly.Type.Issue.Issue
+    <$> HaskellWeekly.Type.Date.gregorianToDate 2019 9 12
+    <*> HaskellWeekly.Type.Number.naturalToNumber 176
+
+issue177 :: Either String HaskellWeekly.Type.Issue.Issue
+issue177 =
+  HaskellWeekly.Type.Issue.Issue
+    <$> HaskellWeekly.Type.Date.gregorianToDate 2019 9 19
+    <*> HaskellWeekly.Type.Number.naturalToNumber 177
+
+issue178 :: Either String HaskellWeekly.Type.Issue.Issue
+issue178 =
+  HaskellWeekly.Type.Issue.Issue
+    <$> HaskellWeekly.Type.Date.gregorianToDate 2019 9 26
+    <*> HaskellWeekly.Type.Number.naturalToNumber 178
+
+issue179 :: Either String HaskellWeekly.Type.Issue.Issue
+issue179 =
+  HaskellWeekly.Type.Issue.Issue
+    <$> HaskellWeekly.Type.Date.gregorianToDate 2019 10 3
+    <*> HaskellWeekly.Type.Number.naturalToNumber 179
