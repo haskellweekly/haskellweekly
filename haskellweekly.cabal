@@ -98,20 +98,16 @@ library
     HaskellWeekly.Episodes.Episode20
     HaskellWeekly.Episodes.Episode21
     HaskellWeekly.Handler.Advertising
-    HaskellWeekly.Handler.AppleBadge
     HaskellWeekly.Handler.Base
     HaskellWeekly.Handler.Episode
-    HaskellWeekly.Handler.Favicon
-    HaskellWeekly.Handler.GoogleBadge
     HaskellWeekly.Handler.Index
     HaskellWeekly.Handler.Issue
     HaskellWeekly.Handler.Newsletter
     HaskellWeekly.Handler.NewsletterFeed
     HaskellWeekly.Handler.Podcast
     HaskellWeekly.Handler.PodcastFeed
-    HaskellWeekly.Handler.PodcastLogo
     HaskellWeekly.Handler.Redirect
-    HaskellWeekly.Handler.Tachyons
+    HaskellWeekly.Handler.Static
     HaskellWeekly.Issues
     HaskellWeekly.Issues.Issue1
     HaskellWeekly.Issues.Issue2

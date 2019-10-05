@@ -9,20 +9,16 @@ import qualified Data.Text
 import qualified Data.Text.Encoding
 import qualified Data.Text.Encoding.Error
 import qualified HaskellWeekly.Handler.Advertising
-import qualified HaskellWeekly.Handler.AppleBadge
 import qualified HaskellWeekly.Handler.Base
 import qualified HaskellWeekly.Handler.Episode
-import qualified HaskellWeekly.Handler.Favicon
-import qualified HaskellWeekly.Handler.GoogleBadge
 import qualified HaskellWeekly.Handler.Index
 import qualified HaskellWeekly.Handler.Issue
 import qualified HaskellWeekly.Handler.Newsletter
 import qualified HaskellWeekly.Handler.NewsletterFeed
 import qualified HaskellWeekly.Handler.Podcast
 import qualified HaskellWeekly.Handler.PodcastFeed
-import qualified HaskellWeekly.Handler.PodcastLogo
 import qualified HaskellWeekly.Handler.Redirect
-import qualified HaskellWeekly.Handler.Tachyons
+import qualified HaskellWeekly.Handler.Static
 import qualified HaskellWeekly.Type.Route
 import qualified HaskellWeekly.Type.State
 import qualified Network.Wai
@@ -65,13 +61,22 @@ handle state route = case route of
   HaskellWeekly.Type.Route.RouteAdvertising ->
     HaskellWeekly.Handler.Advertising.advertisingHandler state
   HaskellWeekly.Type.Route.RouteAppleBadge ->
-    HaskellWeekly.Handler.AppleBadge.appleBadgeHandler state
+    HaskellWeekly.Handler.Static.staticHandler
+      state
+      "image/svg+xml"
+      "apple-badge.svg"
   HaskellWeekly.Type.Route.RouteEpisode number ->
     HaskellWeekly.Handler.Episode.episodeHandler state number
   HaskellWeekly.Type.Route.RouteFavicon ->
-    HaskellWeekly.Handler.Favicon.faviconHandler state
+    HaskellWeekly.Handler.Static.staticHandler
+      state
+      "image/x-icon"
+      "favicon.ico"
   HaskellWeekly.Type.Route.RouteGoogleBadge ->
-    HaskellWeekly.Handler.GoogleBadge.googleBadgeHandler state
+    HaskellWeekly.Handler.Static.staticHandler
+      state
+      "image/svg+xml"
+      "google-badge.svg"
   HaskellWeekly.Type.Route.RouteIndex ->
     HaskellWeekly.Handler.Index.indexHandler state
   HaskellWeekly.Type.Route.RouteIssue number ->
@@ -85,8 +90,14 @@ handle state route = case route of
   HaskellWeekly.Type.Route.RoutePodcast ->
     HaskellWeekly.Handler.Podcast.podcastHandler state
   HaskellWeekly.Type.Route.RoutePodcastLogo ->
-    HaskellWeekly.Handler.PodcastLogo.podcastLogoHandler state
+    HaskellWeekly.Handler.Static.staticHandler
+      state
+      "image/png"
+      "podcast-logo.png"
   HaskellWeekly.Type.Route.RouteRedirect redirect ->
     HaskellWeekly.Handler.Redirect.redirectHandler redirect
   HaskellWeekly.Type.Route.RouteTachyons ->
-    HaskellWeekly.Handler.Tachyons.tachyonsHandler state
+    HaskellWeekly.Handler.Static.staticHandler
+      state
+      "text/css; charset=utf-8"
+      "tachyons-4-11-2.css"
