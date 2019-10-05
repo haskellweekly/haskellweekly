@@ -1,7 +1,2 @@
 -- https://www.haskell.org/cabal/users-guide/nix-local-build.html
 packages: .
-
-source-repository-package
-  location: https://github.com/bergmark/feed
-  tag: 5e5c6f77596322bdf8da64f2aca3fbaf5a14400e
-  type: git
