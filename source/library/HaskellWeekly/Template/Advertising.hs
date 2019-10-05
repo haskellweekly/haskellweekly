@@ -10,7 +10,7 @@ import qualified Lucid as H
 
 advertisingTemplate :: String -> H.Html ()
 advertisingTemplate baseUrl =
-  HaskellWeekly.Template.Base.baseTemplate baseUrl ["Advertising"] $ do
+  HaskellWeekly.Template.Base.baseTemplate baseUrl ["Advertising"] mempty $ do
     H.h2_ [H.class_ "f2 mv3 tracked-tight"] "Advertising"
     H.h3_ [H.class_ "f3 mv3 tracked-tight"] "Newsletter"
     H.p_ $ do

@@ -16,7 +16,7 @@ import qualified Lucid.Base as H
 
 newsletterTemplate :: String -> [HaskellWeekly.Type.Issue.Issue] -> H.Html ()
 newsletterTemplate baseUrl issues =
-  HaskellWeekly.Template.Base.baseTemplate baseUrl [] $ do
+  HaskellWeekly.Template.Base.baseTemplate baseUrl [] mempty $ do
     H.h2_ [H.class_ "f2 mv3 tracked-tight"] "Newsletter"
     H.p_ [H.class_ "lh-copy"] $ do
       "The Haskell Weekly Newsletter covers the Haskell programming langauge. "

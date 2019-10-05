@@ -27,6 +27,7 @@ episodeTemplate baseUrl episode maybeCaptions =
   HaskellWeekly.Template.Base.baseTemplate
       baseUrl
       ["Podcast", number episode, title episode]
+      mempty
     $ do
         H.h2_ [H.class_ "f2 mv3 tracked-tight"] $ H.a_
           [ H.class_ "no-underline purple"

@@ -9,8 +9,8 @@ import qualified Data.List
 import qualified HaskellWeekly.Type.Route
 import qualified Lucid as H
 
-baseTemplate :: String -> [String] -> H.Html () -> H.Html ()
-baseTemplate baseUrl title body = do
+baseTemplate :: String -> [String] -> H.Html () -> H.Html () -> H.Html ()
+baseTemplate baseUrl title head_ body = do
   H.doctype_
   H.html_ [H.class_ "b--purple bt bw3"] $ do
     H.head_ $ do
@@ -28,6 +28,7 @@ baseTemplate baseUrl title body = do
           HaskellWeekly.Type.Route.RouteTachyons
         , H.rel_ "stylesheet"
         ]
+      head_
     H.body_ [H.class_ "bg-white black flex justify-center mh3 sans-serif"]
       . H.div_ [H.class_ "mw7 w-100"]
       $ do

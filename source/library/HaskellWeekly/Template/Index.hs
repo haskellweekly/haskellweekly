@@ -16,7 +16,7 @@ import qualified Lucid as H
 
 indexTemplate :: String -> [HaskellWeekly.Type.Content.Content] -> H.Html ()
 indexTemplate baseUrl contents =
-  HaskellWeekly.Template.Base.baseTemplate baseUrl [] $ do
+  HaskellWeekly.Template.Base.baseTemplate baseUrl [] mempty $ do
     H.p_ $ do
       "Haskell Weekly is both a "
       H.a_
