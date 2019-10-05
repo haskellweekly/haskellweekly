@@ -6,9 +6,10 @@ FROM alpine:3.10.2
 
   COPY cabal.project haskellweekly.cabal ./
   RUN cabal v2-update
-  RUN cabal v2-build --only-dependencies
+  RUN cabal v2-build --enable-tests --only-dependencies
 
   COPY . .
+  RUN cabal v2-test
   RUN cabal v2-install .
   RUN cp ~/.cabal/bin/haskellweekly /usr/local/bin/
 
