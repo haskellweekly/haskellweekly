@@ -98,6 +98,7 @@ import qualified HaskellWeekly.Issues.Issue175
 import qualified HaskellWeekly.Issues.Issue176
 import qualified HaskellWeekly.Issues.Issue177
 import qualified HaskellWeekly.Issues.Issue178
+import qualified HaskellWeekly.Issues.Issue179
 import qualified HaskellWeekly.Issues.Issue18
 import qualified HaskellWeekly.Issues.Issue19
 import qualified HaskellWeekly.Issues.Issue2
@@ -382,6 +383,7 @@ issues = do
     , HaskellWeekly.Issues.Issue176.issue176
     , HaskellWeekly.Issues.Issue177.issue177
     , HaskellWeekly.Issues.Issue178.issue178
+    , HaskellWeekly.Issues.Issue179.issue179
     ]
   checkNumbers validIssues
   pure $ foldr insertIssue Data.Map.empty validIssues
