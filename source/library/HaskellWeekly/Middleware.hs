@@ -11,6 +11,7 @@ import qualified Data.ByteString.Base64
 import qualified Data.ByteString.Builder
 import qualified Data.ByteString.Lazy
 import qualified Data.CaseInsensitive
+import qualified Data.List
 import qualified Data.Text
 import qualified Data.Text.Encoding
 import qualified Network.HTTP.Types
@@ -67,10 +68,30 @@ addSecurityHeaders :: Network.Wai.Middleware
 addSecurityHeaders =
   Network.Wai.modifyResponse
     . Network.Wai.mapResponseHeaders
-    $ addHeader "Referrer-Policy" "no-referrer"
+    $ addHeader "Feature-Policy" featurePolicy
+    . addHeader "Referrer-Policy" "no-referrer"
     . addHeader "X-Content-Type-Options" "nosniff"
     . addHeader "X-Frame-Options" "deny"
     . addHeader "X-XSS-Protection" "1; mode=block"
+
+-- | The value of the @Feature-Policy@ header.
+-- <https://scotthelme.co.uk/a-new-security-header-feature-policy/>
+featurePolicy :: String
+featurePolicy = Data.List.intercalate "; " $ fmap (<> " 'none'")
+      [ "camera"
+      , "fullscreen"
+      , "geolocation"
+      , "gyroscope"
+      , "magnetometer"
+      , "microphone"
+      , "midi"
+      , "notifications"
+      , "payment"
+      , "push"
+      , "speaker"
+      , "sync-xhr"
+      , "vibrate"
+      ]
 
 -- | Adds a header to a response. This doesn't remove any existing headers with
 -- the same name, so it's possible to end up with duplicates.
