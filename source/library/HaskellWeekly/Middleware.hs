@@ -90,7 +90,7 @@ contentSecurityPolicy :: String
 contentSecurityPolicy = Data.List.intercalate "; " $ fmap
   unwords
   [ ["default-src", "'self'"]
-  , ["img-src", "'self'", "data"]
+  , ["img-src", "'self'", "data:"]
   , [ "media-src"
     , "https://haskell-weekly-podcast.nyc3.cdn.digitaloceanspaces.com:443"
     , "'self'"
