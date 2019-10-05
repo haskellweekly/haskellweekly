@@ -68,30 +68,46 @@ addSecurityHeaders :: Network.Wai.Middleware
 addSecurityHeaders =
   Network.Wai.modifyResponse
     . Network.Wai.mapResponseHeaders
-    $ addHeader "Feature-Policy" featurePolicy
+    $ addHeader "Content-Security-Policy" contentSecurityPolicy
+    . addHeader "Feature-Policy" featurePolicy
     . addHeader "Referrer-Policy" "no-referrer"
     . addHeader "X-Content-Type-Options" "nosniff"
     . addHeader "X-Frame-Options" "deny"
     . addHeader "X-XSS-Protection" "1; mode=block"
 
+-- | The value of the @Content-Security-Policy@ header.
+-- <https://scotthelme.co.uk/content-security-policy-an-introduction/>
+-- <https://www.ctrl.blog/entry/safari-csp-media-controls.html>
+contentSecurityPolicy :: String
+contentSecurityPolicy = Data.List.intercalate "; " $ fmap
+  unwords
+  [ ["default-src", "'self'"]
+  , ["img-src", "'self'", "data"]
+  , [ "media-src"
+    , "https://haskell-weekly-podcast.nyc3.cdn.digitaloceanspaces.com:443"
+    , "'self'"
+    ]
+  ]
+
 -- | The value of the @Feature-Policy@ header.
 -- <https://scotthelme.co.uk/a-new-security-header-feature-policy/>
 featurePolicy :: String
-featurePolicy = Data.List.intercalate "; " $ fmap (<> " 'none'")
-      [ "camera"
-      , "fullscreen"
-      , "geolocation"
-      , "gyroscope"
-      , "magnetometer"
-      , "microphone"
-      , "midi"
-      , "notifications"
-      , "payment"
-      , "push"
-      , "speaker"
-      , "sync-xhr"
-      , "vibrate"
-      ]
+featurePolicy = Data.List.intercalate "; " $ fmap
+  (<> " 'none'")
+  [ "camera"
+  , "fullscreen"
+  , "geolocation"
+  , "gyroscope"
+  , "magnetometer"
+  , "microphone"
+  , "midi"
+  , "notifications"
+  , "payment"
+  , "push"
+  , "speaker"
+  , "sync-xhr"
+  , "vibrate"
+  ]
 
 -- | Adds a header to a response. This doesn't remove any existing headers with
 -- the same name, so it's possible to end up with duplicates.
