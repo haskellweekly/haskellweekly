@@ -41,7 +41,7 @@ getConfig = do
     }
 
 -- | Gets the base URL that the server will be available at. This is necessary
--- because the server could be behind a reverse proxy or in a conatiner or
+-- because the server could be behind a reverse proxy or in a container or
 -- something.
 getBaseUrl :: Network.Wai.Handler.Warp.Port -> IO String
 getBaseUrl port = do
