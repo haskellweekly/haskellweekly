@@ -28,7 +28,7 @@ middleware :: HaskellWeekly.Type.Config.Config -> Network.Wai.Middleware
 middleware config =
   Network.Wai.Middleware.Gzip.gzip Network.Wai.Middleware.Gzip.def
     . addEntityTagHeader
-    . addSecurityHeaders
+    . addSecurityHeaders config
     . enforceHttps config
 
 -- | Add the @ETag@ header to responses and check for the @If-None-Match@
@@ -67,13 +67,18 @@ makeEntityTag response = case response of
   _ -> Nothing
 
 -- | Adds security headers as recommended by <https://securityheaders.com>.
-addSecurityHeaders :: Network.Wai.Middleware
-addSecurityHeaders =
+addSecurityHeaders
+  :: HaskellWeekly.Type.Config.Config -> Network.Wai.Middleware
+addSecurityHeaders config =
   Network.Wai.modifyResponse
     . Network.Wai.mapResponseHeaders
     $ addHeader "Content-Security-Policy" contentSecurityPolicy
     . addHeader "Feature-Policy" featurePolicy
     . addHeader "Referrer-Policy" "no-referrer"
+    . (if isSecure config
+        then addHeader "Strict-Transport-Security" strictTransportSecurity
+        else id
+      )
     . addHeader "X-Content-Type-Options" "nosniff"
     . addHeader "X-Frame-Options" "deny"
     . addHeader "X-XSS-Protection" "1; mode=block"
@@ -112,6 +117,11 @@ featurePolicy = Data.List.intercalate "; " $ fmap
   , "vibrate"
   ]
 
+-- | The value of the @Strict-Transport-Security@ header.
+-- <https://scotthelme.co.uk/hsts-cheat-sheet/>
+strictTransportSecurity :: String
+strictTransportSecurity = "max-age=600"
+
 -- | Adds a header to a response. This doesn't remove any existing headers with
 -- the same name, so it's possible to end up with duplicates.
 addHeader
@@ -132,7 +142,8 @@ makeHeader name value =
 
 enforceHttps :: HaskellWeekly.Type.Config.Config -> Network.Wai.Middleware
 enforceHttps config =
-  if Data.List.isPrefixOf "https:"
-      $ HaskellWeekly.Type.Config.configBaseUrl config
-    then Network.Wai.Middleware.ForceSSL.forceSSL
-    else id
+  if isSecure config then Network.Wai.Middleware.ForceSSL.forceSSL else id
+
+isSecure :: HaskellWeekly.Type.Config.Config -> Bool
+isSecure =
+  Data.List.isPrefixOf "https:" . HaskellWeekly.Type.Config.configBaseUrl
