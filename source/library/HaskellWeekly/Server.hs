@@ -22,10 +22,10 @@ import qualified Text.Printf
 
 -- | Starts up the server. This function never returns.
 runServer :: HaskellWeekly.Type.State.State -> IO ()
-runServer state =
-  Network.Wai.Handler.Warp.runSettings
-      (configToSettings $ HaskellWeekly.Type.State.stateConfig state)
-    . HaskellWeekly.Middleware.middleware
+runServer state = do
+  let config = HaskellWeekly.Type.State.stateConfig state
+  Network.Wai.Handler.Warp.runSettings (configToSettings config)
+    . HaskellWeekly.Middleware.middleware config
     $ HaskellWeekly.Application.application state
 
 -- | Converts a Haskell Weekly config into Warp server settings.

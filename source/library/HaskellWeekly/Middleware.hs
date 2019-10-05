@@ -14,19 +14,22 @@ import qualified Data.CaseInsensitive
 import qualified Data.List
 import qualified Data.Text
 import qualified Data.Text.Encoding
+import qualified HaskellWeekly.Type.Config
 import qualified Network.HTTP.Types
 import qualified Network.HTTP.Types.Header
 import qualified Network.Wai
 import qualified Network.Wai.Internal
+import qualified Network.Wai.Middleware.ForceSSL
 import qualified Network.Wai.Middleware.Gzip
 
 -- | All of the middlewares are wrapped up in this single one so that you only
 -- have to apply one.
-middleware :: Network.Wai.Middleware
-middleware =
+middleware :: HaskellWeekly.Type.Config.Config -> Network.Wai.Middleware
+middleware config =
   Network.Wai.Middleware.Gzip.gzip Network.Wai.Middleware.Gzip.def
     . addEntityTagHeader
     . addSecurityHeaders
+    . enforceHttps config
 
 -- | Add the @ETag@ header to responses and check for the @If-None-Match@
 -- header on requests. Note that this does not perform caching. It merely
@@ -126,3 +129,10 @@ makeHeader name value =
     name
   , Data.Text.Encoding.encodeUtf8 $ Data.Text.pack value
   )
+
+enforceHttps :: HaskellWeekly.Type.Config.Config -> Network.Wai.Middleware
+enforceHttps config =
+  if Data.List.isPrefixOf "https:"
+      $ HaskellWeekly.Type.Config.configBaseUrl config
+    then Network.Wai.Middleware.ForceSSL.forceSSL
+    else id
