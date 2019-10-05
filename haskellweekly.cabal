@@ -103,7 +103,6 @@ library
     HaskellWeekly.Handler.Episode
     HaskellWeekly.Handler.Favicon
     HaskellWeekly.Handler.GoogleBadge
-    HaskellWeekly.Handler.HealthCheck
     HaskellWeekly.Handler.Index
     HaskellWeekly.Handler.Issue
     HaskellWeekly.Handler.Newsletter

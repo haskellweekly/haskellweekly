@@ -14,7 +14,6 @@ import qualified HaskellWeekly.Handler.Base
 import qualified HaskellWeekly.Handler.Episode
 import qualified HaskellWeekly.Handler.Favicon
 import qualified HaskellWeekly.Handler.GoogleBadge
-import qualified HaskellWeekly.Handler.HealthCheck
 import qualified HaskellWeekly.Handler.Index
 import qualified HaskellWeekly.Handler.Issue
 import qualified HaskellWeekly.Handler.Newsletter
@@ -73,8 +72,6 @@ handle state route = case route of
     HaskellWeekly.Handler.Favicon.faviconHandler state
   HaskellWeekly.Type.Route.RouteGoogleBadge ->
     HaskellWeekly.Handler.GoogleBadge.googleBadgeHandler state
-  HaskellWeekly.Type.Route.RouteHealthCheck ->
-    HaskellWeekly.Handler.HealthCheck.healthCheckHandler state
   HaskellWeekly.Type.Route.RouteIndex ->
     HaskellWeekly.Handler.Index.indexHandler state
   HaskellWeekly.Type.Route.RouteIssue number ->
