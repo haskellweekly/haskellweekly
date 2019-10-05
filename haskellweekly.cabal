@@ -96,6 +96,7 @@ library
     HaskellWeekly.Episodes.Episode18
     HaskellWeekly.Episodes.Episode19
     HaskellWeekly.Episodes.Episode20
+    HaskellWeekly.Episodes.Episode21
     HaskellWeekly.Handler.Advertising
     HaskellWeekly.Handler.AppleBadge
     HaskellWeekly.Handler.Base
