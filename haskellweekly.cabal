@@ -29,7 +29,7 @@ source-repository head
 common library
   build-depends:
     aeson ^>= 1.4.5,
-    base ^>= 4.11.1,
+    base >= 4.11.1 && < 4.14,
     base64-bytestring ^>= 1.0.0,
     bytestring ^>= 0.10.10,
     case-insensitive ^>= 1.2.1,
@@ -58,6 +58,7 @@ common library
     -Wno-all-missed-specialisations
     -Wno-implicit-prelude
     -Wno-missed-specialisations
+    -Wno-missing-deriving-strategies
     -Wno-missing-exported-signatures
     -Wno-safe
     -Wno-unsafe
