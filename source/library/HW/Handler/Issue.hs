@@ -7,8 +7,7 @@ where
 import qualified CMark
 import qualified Data.Map
 import qualified Data.Text
-import qualified Data.Text.Lazy
-import qualified Data.Text.Lazy.Encoding
+import qualified Data.Text.Encoding
 import qualified HW.Handler.Base
 import qualified HW.Template.Issue
 import qualified HW.Type.Config
@@ -42,7 +41,6 @@ readIssueFile state number = do
   result <- HW.Type.State.readDataFile state path
   case result of
     Nothing -> fail $ "missing Markdown for newsletter issue " <> show number
-    Just byteString -> case Data.Text.Lazy.Encoding.decodeUtf8' byteString of
+    Just byteString -> case Data.Text.Encoding.decodeUtf8' byteString of
       Left exception -> fail $ show exception
-      Right text ->
-        pure . CMark.commonmarkToNode [] $ Data.Text.Lazy.toStrict text
+      Right text -> pure $ CMark.commonmarkToNode [] text

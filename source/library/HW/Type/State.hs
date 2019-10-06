@@ -8,7 +8,7 @@ module HW.Type.State
 where
 
 import qualified Control.Exception
-import qualified Data.ByteString.Lazy
+import qualified Data.ByteString
 import qualified Database.PostgreSQL.Simple
 import qualified HW.Episodes
 import qualified HW.Issues
@@ -43,14 +43,14 @@ configToState config = do
 -- | Reads a data file by using the data directory in the state's config. This
 -- returns nothing if the file doesn't exist and raises an exception for all
 -- other failure modes.
-readDataFile :: State -> FilePath -> IO (Maybe Data.ByteString.Lazy.ByteString)
+readDataFile :: State -> FilePath -> IO (Maybe Data.ByteString.ByteString)
 readDataFile state file =
   let
     directory = HW.Type.Config.configDataDirectory $ stateConfig state
     path = System.FilePath.combine directory file
   in Control.Exception.catchJust
     keepDoesNotExistError
-    (Just <$> Data.ByteString.Lazy.readFile path)
+    (Just <$> Data.ByteString.readFile path)
     handleDoesNotExistError
 
 -- | Given an exception, returns just that exception if it's a "does not exist"

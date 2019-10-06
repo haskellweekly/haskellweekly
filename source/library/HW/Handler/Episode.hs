@@ -5,8 +5,7 @@ where
 
 import qualified Data.Map
 import qualified Data.Text
-import qualified Data.Text.Lazy
-import qualified Data.Text.Lazy.Encoding
+import qualified Data.Text.Encoding
 import qualified HW.Handler.Base
 import qualified HW.Template.Episode
 import qualified HW.Type.Caption
@@ -48,9 +47,9 @@ readCaptionFile state number = do
   case result of
     Nothing -> pure Nothing
     Just byteString -> do
-      text <- case Data.Text.Lazy.Encoding.decodeUtf8' byteString of
+      text <- case Data.Text.Encoding.decodeUtf8' byteString of
         Left exception -> fail $ show exception
-        Right text -> pure $ Data.Text.Lazy.toStrict text
+        Right text -> pure text
       case HW.Type.Caption.parseSrt text of
         Nothing -> fail $ "failed to parse caption file: " <> show path
         Just captions -> pure $ Just captions
