@@ -33,10 +33,7 @@ feedResponse
   -> Network.Wai.Response
 feedResponse status extraHeaders feed =
   let
-    mime = case feed of
-      Text.Feed.Types.AtomFeed _ -> "application/atom+xml; charset=utf-8"
-      _ -> "application/rss+xml; charset=utf-8"
-    headers = withContentType mime extraHeaders
+    headers = withContentType (feedMime feed) extraHeaders
     prologue = Data.XML.Types.Prologue [] Nothing []
     element = Text.Feed.Export.xmlFeed feed
     document = Data.XML.Types.Document prologue element []
@@ -45,6 +42,11 @@ feedResponse status extraHeaders feed =
         $ Text.XML.Unresolved.renderBuilder Text.XML.Unresolved.def document
         Conduit..| Conduit.sinkLazyBuilder
   in lbsResponse status headers body
+
+feedMime :: Text.Feed.Types.Feed -> String
+feedMime feed = case feed of
+  Text.Feed.Types.AtomFeed _ -> "application/atom+xml; charset=utf-8"
+  _ -> "application/rss+xml; charset=utf-8"
 
 fileResponse
   :: String
