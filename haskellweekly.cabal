@@ -51,6 +51,7 @@ common library
     warp ^>= 3.3.2,
     xml-conduit ^>= 1.8.0,
     xml-types ^>= 0.3.6,
+  default-extensions: OverloadedStrings
   default-language: Haskell2010
   ghc-options:
     -Weverything

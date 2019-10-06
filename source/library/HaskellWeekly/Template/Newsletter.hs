@@ -1,5 +1,3 @@
-{-# LANGUAGE OverloadedStrings #-}
-
 module HaskellWeekly.Template.Newsletter
   ( newsletterTemplate
   , newsletterActionTemplate

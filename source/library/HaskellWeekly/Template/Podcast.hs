@@ -1,5 +1,3 @@
-{-# LANGUAGE OverloadedStrings #-}
-
 module HaskellWeekly.Template.Podcast
   ( podcastTemplate
   , podcastActionTemplate
