@@ -18,6 +18,7 @@ import qualified HW.Handler.NewsletterFeed
 import qualified HW.Handler.Podcast
 import qualified HW.Handler.PodcastFeed
 import qualified HW.Handler.Redirect
+import qualified HW.Handler.Robots
 import qualified HW.Type.Route
 import qualified HW.Type.State
 import qualified Network.Wai
@@ -74,6 +75,7 @@ handle state route = case route of
     HW.Handler.Base.fileResponse "image/png" "podcast-logo.png" state
   HW.Type.Route.RouteRedirect redirect ->
     HW.Handler.Redirect.redirectHandler redirect
+  HW.Type.Route.RouteRobots -> HW.Handler.Robots.robotsHandler state
   HW.Type.Route.RouteTachyons -> HW.Handler.Base.fileResponse
     "text/css; charset=utf-8"
     "tachyons-4-11-2.css"

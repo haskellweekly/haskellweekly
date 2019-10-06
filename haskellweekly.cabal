@@ -92,6 +92,7 @@ library
     HW.Handler.Podcast
     HW.Handler.PodcastFeed
     HW.Handler.Redirect
+    HW.Handler.Robots
     HW.Issues
     HW.Main
     HW.Middleware

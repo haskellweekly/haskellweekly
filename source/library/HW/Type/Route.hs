@@ -27,6 +27,7 @@ data Route
   | RoutePodcastFeed
   | RoutePodcastLogo
   | RouteRedirect HW.Type.Redirect.Redirect
+  | RouteRobots
   | RouteTachyons
   deriving (Eq, Show)
 
@@ -54,6 +55,7 @@ routeToText route = case route of
   RoutePodcastLogo -> "/podcast/logo.png"
   RoutePodcast -> "/podcast.html"
   RouteRedirect redirect -> HW.Type.Redirect.redirectToText redirect
+  RouteRobots -> "/robots.txt"
   RouteTachyons -> "/tachyons.css"
 
 -- | Renders a route as text with the given base URL. Redirects are not
@@ -82,6 +84,7 @@ textToRoute path = case path of
   ["podcast"] -> Just $ routeToRedirect RoutePodcast
   ["podcast", ""] -> Just $ routeToRedirect RoutePodcast
   ["podcast", "logo.png"] -> Just RoutePodcastLogo
+  ["robots.txt"] -> Just RouteRobots
   ["tachyons.css"] -> Just RouteTachyons
   _ -> Nothing
 
