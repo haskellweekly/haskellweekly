@@ -5,9 +5,12 @@ module HaskellWeekly
   ( HW.Episodes.episodes
   , HW.Issues.issues
   , HW.Main.main
+  , HW.Type.Caption.parseSrt
+  , HW.Type.Caption.renderTranscript
   )
 where
 
 import qualified HW.Episodes
 import qualified HW.Issues
 import qualified HW.Main
+import qualified HW.Type.Caption

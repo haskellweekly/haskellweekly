@@ -132,6 +132,9 @@ executable haskellweekly
 test-suite test
   import: executable
 
+  autogen-modules: Paths_haskellweekly
+  build-depends: directory ^>= 1.3.3
   hs-source-dirs: source/test-suite
   main-is: Main.hs
+  other-modules: Paths_haskellweekly
   type: exitcode-stdio-1.0
