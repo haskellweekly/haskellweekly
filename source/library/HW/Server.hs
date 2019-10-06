@@ -1,6 +1,6 @@
 -- | This module defines the main Haskell Weekly web server.
 module HW.Server
-  ( runServer
+  ( server
   )
 where
 
@@ -21,8 +21,8 @@ import qualified Paths_haskellweekly
 import qualified Text.Printf
 
 -- | Starts up the server. This function never returns.
-runServer :: HW.Type.State.State -> IO ()
-runServer state = do
+server :: HW.Type.State.State -> IO ()
+server state = do
   let config = HW.Type.State.stateConfig state
   Network.Wai.Handler.Warp.runSettings (configToSettings config)
     . HW.Middleware.middleware config

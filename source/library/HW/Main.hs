@@ -25,4 +25,4 @@ defaultMain = do
     <> " ..."
   config <- HW.Type.Config.getConfig
   state <- HW.Type.State.configToState config
-  HW.Server.runServer state
+  HW.Server.server state
