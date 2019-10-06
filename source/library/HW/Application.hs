@@ -18,7 +18,6 @@ import qualified HW.Handler.NewsletterFeed
 import qualified HW.Handler.Podcast
 import qualified HW.Handler.PodcastFeed
 import qualified HW.Handler.Redirect
-import qualified HW.Handler.Static
 import qualified HW.Type.Route
 import qualified HW.Type.State
 import qualified Network.Wai
@@ -54,13 +53,13 @@ handle state route = case route of
   HW.Type.Route.RouteAdvertising ->
     HW.Handler.Advertising.advertisingHandler state
   HW.Type.Route.RouteAppleBadge ->
-    HW.Handler.Static.staticHandler state "image/svg+xml" "apple-badge.svg"
+    HW.Handler.Base.fileResponse "image/svg+xml" "apple-badge.svg" state
   HW.Type.Route.RouteEpisode number ->
     HW.Handler.Episode.episodeHandler state number
   HW.Type.Route.RouteFavicon ->
-    HW.Handler.Static.staticHandler state "image/x-icon" "favicon.ico"
+    HW.Handler.Base.fileResponse "image/x-icon" "favicon.ico" state
   HW.Type.Route.RouteGoogleBadge ->
-    HW.Handler.Static.staticHandler state "image/svg+xml" "google-badge.svg"
+    HW.Handler.Base.fileResponse "image/svg+xml" "google-badge.svg" state
   HW.Type.Route.RouteIndex -> HW.Handler.Index.indexHandler state
   HW.Type.Route.RouteIssue number ->
     HW.Handler.Issue.issueHandler state number
@@ -72,10 +71,10 @@ handle state route = case route of
     HW.Handler.PodcastFeed.podcastFeedHandler state
   HW.Type.Route.RoutePodcast -> HW.Handler.Podcast.podcastHandler state
   HW.Type.Route.RoutePodcastLogo ->
-    HW.Handler.Static.staticHandler state "image/png" "podcast-logo.png"
+    HW.Handler.Base.fileResponse "image/png" "podcast-logo.png" state
   HW.Type.Route.RouteRedirect redirect ->
     HW.Handler.Redirect.redirectHandler redirect
-  HW.Type.Route.RouteTachyons -> HW.Handler.Static.staticHandler
-    state
+  HW.Type.Route.RouteTachyons -> HW.Handler.Base.fileResponse
     "text/css; charset=utf-8"
     "tachyons-4-11-2.css"
+    state
