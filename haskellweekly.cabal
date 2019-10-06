@@ -108,7 +108,6 @@ library
     HW.Type.BaseUrl
     HW.Type.Caption
     HW.Type.Config
-    HW.Type.Content
     HW.Type.Date
     HW.Type.Duration
     HW.Type.Episode

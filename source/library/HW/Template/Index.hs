@@ -5,7 +5,6 @@ where
 
 import qualified HW.Template.Base
 import qualified HW.Type.BaseUrl
-import qualified HW.Type.Content
 import qualified HW.Type.Date
 import qualified HW.Type.Episode
 import qualified HW.Type.Issue
@@ -14,8 +13,11 @@ import qualified HW.Type.Route
 import qualified Lucid as H
 
 indexTemplate
-  :: HW.Type.BaseUrl.BaseUrl -> [HW.Type.Content.Content] -> H.Html ()
-indexTemplate baseUrl contents =
+  :: HW.Type.BaseUrl.BaseUrl
+  -> Maybe HW.Type.Issue.Issue
+  -> Maybe HW.Type.Episode.Episode
+  -> H.Html ()
+indexTemplate baseUrl maybeIssue maybeEpisode =
   HW.Template.Base.baseTemplate baseUrl [] mempty $ do
     H.p_ $ do
       "Haskell Weekly is both a "
@@ -32,7 +34,13 @@ indexTemplate baseUrl contents =
         ]
         "podcast"
       "."
-    H.ul_ $ mapM_ (contentTemplate baseUrl) contents
+    -- H.ul_ $ mapM_ (contentTemplate baseUrl) contents
+    case maybeIssue of
+      Nothing -> pure ()
+      Just issue -> issueTemplate baseUrl issue
+    case maybeEpisode of
+      Nothing -> pure ()
+      Just episode -> episodeTemplate baseUrl episode
     H.p_ $ do
       "If you would like to contribute content to Haskell Weekly, please send an email to "
       H.a_ [H.href_ "mailto:info@haskellweekly.news"] "info@haskellweekly.news"
@@ -46,12 +54,6 @@ indexTemplate baseUrl contents =
         ]
         "advertising page"
       "."
-
-contentTemplate
-  :: HW.Type.BaseUrl.BaseUrl -> HW.Type.Content.Content -> H.Html ()
-contentTemplate baseUrl content = H.li_ $ case content of
-  HW.Type.Content.ContentEpisode episode -> episodeTemplate baseUrl episode
-  HW.Type.Content.ContentIssue issue -> issueTemplate baseUrl issue
 
 episodeTemplate
   :: HW.Type.BaseUrl.BaseUrl -> HW.Type.Episode.Episode -> H.Html ()
