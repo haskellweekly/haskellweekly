@@ -8,7 +8,7 @@
 module HaskellWeekly.Type.Audio
   ( Audio
   , audioToText
-  , stringToAudio
+  , textToAudio
   )
 where
 
@@ -25,7 +25,7 @@ audioToText (Audio text) = text
 
 -- | Converts a string into an audio URL. If the string is all blank spaces,
 -- this will fail.
-stringToAudio :: String -> Either String Audio
-stringToAudio string = if all Data.Char.isSpace string
-  then Left $ "invalid Audio: " <> show string
-  else Right . Audio $ Data.Text.pack string
+textToAudio :: Data.Text.Text -> Either String Audio
+textToAudio text = if Data.Text.all Data.Char.isSpace text
+  then Left $ "invalid Audio: " <> show text
+  else Right $ Audio text

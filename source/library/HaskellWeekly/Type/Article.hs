@@ -4,7 +4,7 @@
 module HaskellWeekly.Type.Article
   ( Article
   , articleToText
-  , stringToArticle
+  , textToArticle
   )
 where
 
@@ -17,7 +17,7 @@ newtype Article =
 
 -- | Converts an article URL into text.
 articleToText :: Article -> Data.Text.Text
-articleToText = Data.Text.pack . uriToString . articleToUri
+articleToText = uriToText . articleToUri
 
 -- | Unwraps an article into a URL.
 articleToUri :: Article -> Network.URI.URI
@@ -25,12 +25,12 @@ articleToUri (Article uri) = uri
 
 -- | Parses a string as an article. The string must be an absolute URL. In the
 -- future this may check for HTTP as well.
-stringToArticle :: String -> Either String Article
-stringToArticle string = case Network.URI.parseURI string of
-  Nothing -> Left $ "invalid Article: " <> show string
+textToArticle :: Data.Text.Text -> Either String Article
+textToArticle text = case Network.URI.parseURI $ Data.Text.unpack text of
+  Nothing -> Left $ "invalid Article: " <> show text
   Just uri -> Right $ Article uri
 
--- | Converts a URL into a string. This is only necessary because the regular
+-- | Converts a URL into text. This is only necessary because the regular
 -- way of doing this is annoyingly complicated.
-uriToString :: Network.URI.URI -> String
-uriToString uri = Network.URI.uriToString id uri ""
+uriToText :: Network.URI.URI -> Data.Text.Text
+uriToText uri = Data.Text.pack $ Network.URI.uriToString id uri ""

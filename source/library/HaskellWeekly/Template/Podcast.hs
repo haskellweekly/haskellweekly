@@ -110,7 +110,7 @@ episodeTemplate baseUrl episode = H.li_ . H.p_ $ do
   H.span_ [H.class_ "gray"] $ do
     "Episode "
     H.toHtml
-      . HaskellWeekly.Type.Number.numberToString
+      . HaskellWeekly.Type.Number.numberToText
       $ HaskellWeekly.Type.Episode.episodeNumber episode
   " "
   H.a_
@@ -120,7 +120,7 @@ episodeTemplate baseUrl episode = H.li_ . H.p_ $ do
         $ HaskellWeekly.Type.Episode.episodeNumber episode
       ]
     . H.toHtml
-    . HaskellWeekly.Type.Title.titleToString
+    . HaskellWeekly.Type.Title.titleToText
     $ HaskellWeekly.Type.Episode.episodeTitle episode
   ": "
   H.toHtml

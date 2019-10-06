@@ -3,7 +3,7 @@
 -- with metadata, like a podcast feed or a link on Twitter.
 module HaskellWeekly.Type.Summary
   ( Summary
-  , stringToSummary
+  , textToSummary
   , summaryToText
   )
 where
@@ -15,13 +15,13 @@ newtype Summary =
   Summary Data.Text.Text
   deriving (Eq, Show)
 
--- | Converts a string into a summary. Currently this makes sure that the
+-- | Converts text into a summary. Currently this makes sure that the
 -- string isn't completely blank. In the future it might put some limits on the
 -- length of the summary too.
-stringToSummary :: String -> Either String Summary
-stringToSummary string = if all Data.Char.isSpace string
-  then Left $ "invalid Summary: " <> show string
-  else Right . Summary $ Data.Text.pack string
+textToSummary :: Data.Text.Text -> Either String Summary
+textToSummary text = if Data.Text.all Data.Char.isSpace text
+  then Left $ "invalid Summary: " <> show text
+  else Right $ Summary text
 
 -- | Unwraps a summary and returns the text inside.
 summaryToText :: Summary -> Data.Text.Text

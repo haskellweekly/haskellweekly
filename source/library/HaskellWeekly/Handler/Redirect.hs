@@ -3,7 +3,6 @@ module HaskellWeekly.Handler.Redirect
   )
 where
 
-import qualified Data.Text
 import qualified Data.Text.Encoding
 import qualified HaskellWeekly.Handler.Base
 import qualified HaskellWeekly.Type.Redirect
@@ -20,8 +19,7 @@ redirectHandler redirect =
         Network.HTTP.Types.found302
         [ ( Network.HTTP.Types.hLocation
           , Data.Text.Encoding.encodeUtf8
-          . Data.Text.pack
-          $ HaskellWeekly.Type.Redirect.redirectToString redirect
+          $ HaskellWeekly.Type.Redirect.redirectToText redirect
           )
         ]
-    $ HaskellWeekly.Type.Redirect.redirectToString redirect
+    $ HaskellWeekly.Type.Redirect.redirectToText redirect

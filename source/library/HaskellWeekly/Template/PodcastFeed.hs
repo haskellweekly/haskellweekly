@@ -185,8 +185,7 @@ itemOther episode =
     []
     [ Data.XML.Types.NodeContent
       . Data.XML.Types.ContentText
-      . Data.Text.pack
-      . HaskellWeekly.Type.Number.numberToString
+      . HaskellWeekly.Type.Number.numberToText
       $ HaskellWeekly.Type.Episode.episodeNumber episode
     ]
   ]
@@ -195,7 +194,6 @@ itemPubDate
   :: HaskellWeekly.Type.Episode.Episode -> Maybe Text.RSS.Syntax.DateString
 itemPubDate =
   Just
-    . Data.Text.pack
     . HaskellWeekly.Type.Date.dateToRfc2822
     . HaskellWeekly.Type.Episode.episodeDate
 

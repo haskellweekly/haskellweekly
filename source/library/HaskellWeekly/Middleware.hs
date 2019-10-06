@@ -86,25 +86,21 @@ addSecurityHeaders config =
 -- | The value of the @Content-Security-Policy@ header.
 -- <https://scotthelme.co.uk/content-security-policy-an-introduction/>
 -- <https://www.ctrl.blog/entry/safari-csp-media-controls.html>
-contentSecurityPolicy :: String
-contentSecurityPolicy = Data.List.intercalate "; " $ fmap
-  unwords
-  [ ["base-uri", "'none'"]
-  , ["default-src", "'none'"]
-  , ["form-action", "'none'"]
-  , ["frame-ancestors", "'none'"]
-  , ["img-src", "'self'", "data:"]
-  , [ "media-src"
-    , "https://haskell-weekly-podcast.nyc3.cdn.digitaloceanspaces.com:443"
-    , "'self'"
-    ]
-  , ["style-src", "'self'"]
+contentSecurityPolicy :: Data.Text.Text
+contentSecurityPolicy = Data.Text.intercalate "; "
+  [ "base-uri 'none'"
+  , "default-src 'none'"
+  , "form-action 'none'"
+  , "frame-ancestors 'none'"
+  , "img-src 'self'", "data:"
+  , "media-src https://haskell-weekly-podcast.nyc3.cdn.digitaloceanspaces.com:443 'self'"
+  , "style-src 'self'"
   ]
 
 -- | The value of the @Feature-Policy@ header.
 -- <https://scotthelme.co.uk/a-new-security-header-feature-policy/>
-featurePolicy :: String
-featurePolicy = Data.List.intercalate
+featurePolicy :: Data.Text.Text
+featurePolicy = Data.Text.intercalate
   "; "
   [ "camera 'none'"
   , "fullscreen 'none'"
@@ -123,25 +119,25 @@ featurePolicy = Data.List.intercalate
 
 -- | The value of the @Strict-Transport-Security@ header.
 -- <https://scotthelme.co.uk/hsts-cheat-sheet/>
-strictTransportSecurity :: String
+strictTransportSecurity :: Data.Text.Text
 strictTransportSecurity = "max-age=600"
 
 -- | Adds a header to a response. This doesn't remove any existing headers with
 -- the same name, so it's possible to end up with duplicates.
 addHeader
-  :: String
-  -> String
+  :: Data.Text.Text
+  -> Data.Text.Text
   -> Network.HTTP.Types.ResponseHeaders
   -> Network.HTTP.Types.ResponseHeaders
 addHeader name value headers = makeHeader name value : headers
 
 -- | Makes a single header value. This function is mostly for convenience
 -- because turning strings into the proper name/value types is annoying.
-makeHeader :: String -> String -> Network.HTTP.Types.Header
+makeHeader :: Data.Text.Text -> Data.Text.Text -> Network.HTTP.Types.Header
 makeHeader name value =
-  ( Data.CaseInsensitive.mk . Data.Text.Encoding.encodeUtf8 $ Data.Text.pack
+  ( Data.CaseInsensitive.mk $ Data.Text.Encoding.encodeUtf8
     name
-  , Data.Text.Encoding.encodeUtf8 $ Data.Text.pack value
+  , Data.Text.Encoding.encodeUtf8 value
   )
 
 enforceHttps :: HaskellWeekly.Type.Config.Config -> Network.Wai.Middleware

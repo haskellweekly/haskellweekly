@@ -3,6 +3,7 @@ module HaskellWeekly.Template.Episode
   )
 where
 
+import qualified Data.Text
 import qualified HaskellWeekly.Template.Base
 import qualified HaskellWeekly.Template.Podcast
 import qualified HaskellWeekly.Type.Article
@@ -67,20 +68,20 @@ episodeTemplate baseUrl episode maybeCaptions =
               . mapM_ (H.p_ . H.toHtml)
               $ HaskellWeekly.Type.Caption.renderTranscript captions
 
-number :: HaskellWeekly.Type.Episode.Episode -> String
+number :: HaskellWeekly.Type.Episode.Episode -> Data.Text.Text
 number =
   mappend "Episode "
-    . HaskellWeekly.Type.Number.numberToString
+    . HaskellWeekly.Type.Number.numberToText
     . HaskellWeekly.Type.Episode.episodeNumber
 
-title :: HaskellWeekly.Type.Episode.Episode -> String
+title :: HaskellWeekly.Type.Episode.Episode -> Data.Text.Text
 title =
-  HaskellWeekly.Type.Title.titleToString
+  HaskellWeekly.Type.Title.titleToText
     . HaskellWeekly.Type.Episode.episodeTitle
 
-date :: HaskellWeekly.Type.Episode.Episode -> String
+date :: HaskellWeekly.Type.Episode.Episode -> Data.Text.Text
 date =
-  HaskellWeekly.Type.Date.dateToShortString
+  HaskellWeekly.Type.Date.dateToShortText
     . HaskellWeekly.Type.Episode.episodeDate
 
 articleLink :: HaskellWeekly.Type.Article.Article -> H.Html ()

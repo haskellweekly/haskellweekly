@@ -4,6 +4,7 @@ module HaskellWeekly.Template.Issue
 where
 
 import qualified CMark
+import qualified Data.Text
 import qualified HaskellWeekly.Template.Base
 import qualified HaskellWeekly.Template.Newsletter
 import qualified HaskellWeekly.Type.Date
@@ -34,13 +35,13 @@ issueTemplate baseUrl issue node =
         HaskellWeekly.Template.Newsletter.newsletterActionTemplate baseUrl
         H.div_ [H.class_ "lh-copy"] . H.toHtmlRaw $ CMark.nodeToHtml [] node
 
-title :: HaskellWeekly.Type.Issue.Issue -> String
+title :: HaskellWeekly.Type.Issue.Issue -> Data.Text.Text
 title =
   mappend "Issue "
-    . HaskellWeekly.Type.Number.numberToString
+    . HaskellWeekly.Type.Number.numberToText
     . HaskellWeekly.Type.Issue.issueNumber
 
-date :: HaskellWeekly.Type.Issue.Issue -> String
+date :: HaskellWeekly.Type.Issue.Issue -> Data.Text.Text
 date =
-  HaskellWeekly.Type.Date.dateToShortString
+  HaskellWeekly.Type.Date.dateToShortText
     . HaskellWeekly.Type.Issue.issueDate

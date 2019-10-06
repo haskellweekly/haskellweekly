@@ -4,6 +4,7 @@ module HaskellWeekly.Handler.Episode
 where
 
 import qualified Data.Map
+import qualified Data.Text
 import qualified Data.Text.Lazy
 import qualified Data.Text.Lazy.Encoding
 import qualified HaskellWeekly.Handler.Base
@@ -44,16 +45,16 @@ readCaptionFile
   -> IO (Maybe [HaskellWeekly.Type.Caption.Caption])
 readCaptionFile state number = do
   let
-    name = "episode-" <> HaskellWeekly.Type.Number.numberToString number
-    file = System.FilePath.addExtension name "srt"
+    name = "episode-" <> HaskellWeekly.Type.Number.numberToText number
+    file = System.FilePath.addExtension (Data.Text.unpack name) "srt"
     path = System.FilePath.combine "podcast" file
   result <- HaskellWeekly.Type.State.readDataFile state path
   case result of
     Nothing -> pure Nothing
     Just byteString -> do
-      string <- case Data.Text.Lazy.Encoding.decodeUtf8' byteString of
+      text <- case Data.Text.Lazy.Encoding.decodeUtf8' byteString of
         Left exception -> fail $ show exception
-        Right text -> pure $ Data.Text.Lazy.unpack text
-      case HaskellWeekly.Type.Caption.parseSrt string of
+        Right text -> pure $ Data.Text.Lazy.toStrict text
+      case HaskellWeekly.Type.Caption.parseSrt text of
         Nothing -> fail $ "failed to parse caption file: " <> show path
         Just captions -> pure $ Just captions

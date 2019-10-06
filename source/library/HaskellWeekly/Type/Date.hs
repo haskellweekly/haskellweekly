@@ -4,13 +4,14 @@
 -- "July 6th, 2019" without adding the unnecessarily precise "at 7:54 AM ET".
 module HaskellWeekly.Type.Date
   ( Date
-  , dateToLongString
+  , dateToLongText
   , dateToRfc2822
-  , dateToShortString
+  , dateToShortText
   , gregorianToDate
   )
 where
 
+import qualified Data.Text
 import qualified Data.Time
 
 newtype Date =
@@ -24,24 +25,24 @@ dateToDay (Date day) = day
 -- | Formats a date along with a time. The time is arbitrarily chosen to be
 -- noon UTC, which may not reflect reality. However it has a good chance of
 -- landing on the correct date regardless of time zone.
-dateToLongString :: Date -> String
-dateToLongString = formatDate "%Y-%m-%dT12:00:00Z"
+dateToLongText :: Date -> Data.Text.Text
+dateToLongText = formatDate "%Y-%m-%dT12:00:00Z"
 
 -- | Formats a date along with a time in the RFC 2822 format. Aside from the
--- format this works just like 'dateToLongString'.
-dateToRfc2822 :: Date -> String
+-- format this works just like 'dateToLongText'.
+dateToRfc2822 :: Date -> Data.Text.Text
 dateToRfc2822 = formatDate "%a, %d %b %Y 12:00:00 GMT"
 
 -- | Formats a date using /the/ correct way to write numeric dates, according
 -- to xkcd: <https://xkcd.com/1179/>. Fortunately ISO 8601 agrees with xkcd by
 -- recommending @YYYY-mm-dd@, like @2001-02-03@ for February 3rd, 2001.
-dateToShortString :: Date -> String
-dateToShortString = formatDate "%Y-%m-%d"
+dateToShortText :: Date -> Data.Text.Text
+dateToShortText = dateToShortText
 
 -- | Renders a date using the given format.
-formatDate :: String -> Date -> String
+formatDate :: Data.Text.Text -> Date -> Data.Text.Text
 formatDate format =
-  Data.Time.formatTime Data.Time.defaultTimeLocale format . dateToDay
+  Data.Text.pack . Data.Time.formatTime Data.Time.defaultTimeLocale (Data.Text.unpack format) . dateToDay
 
 -- | Converts a typical Gregorian year-month-day into a date. Note that this
 -- validates the date rather than clamping or overflowing. So you can't produce

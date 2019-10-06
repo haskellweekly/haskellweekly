@@ -34,12 +34,13 @@ data Caption =
 -- message, but the underlying parsing library doesn't easily support that. And
 -- since we're dealing with a small set of files added one at a time, it should
 -- be easy to identify the problem.
-parseSrt :: String -> Maybe [Caption]
+parseSrt :: Data.Text.Text -> Maybe [Caption]
 parseSrt =
   Data.Maybe.listToMaybe
     . fmap fst
     . filter (null . snd)
     . Text.ParserCombinators.ReadP.readP_to_S srtP
+    . Data.Text.unpack
 
 -- | Renders a bunch of captions as a transcript. This throws away all of the
 -- information that isn't text. Each element of the result list is a line from
@@ -138,8 +139,8 @@ nonEmptyP p =
   (Data.List.NonEmpty.:|) <$> p <*> Text.ParserCombinators.ReadP.many p
 
 -- | Parses a string and throws it away.
-stringP :: String -> Parser ()
-stringP = Control.Monad.void . Text.ParserCombinators.ReadP.string
+stringP :: Data.Text.Text -> Parser ()
+stringP = Control.Monad.void . Text.ParserCombinators.ReadP.string . Data.Text.unpack
 
 -- | Converts a timestamp (hours, minutes, seconds, milliseconds) into an
 -- integral number of picoseconds. This is mainly useful for conversion into

@@ -6,6 +6,7 @@ where
 
 import qualified CMark
 import qualified Data.Map
+import qualified Data.Text
 import qualified Data.Text.Lazy
 import qualified Data.Text.Lazy.Encoding
 import qualified HaskellWeekly.Handler.Base
@@ -40,8 +41,8 @@ readIssueFile
   -> IO CMark.Node
 readIssueFile state number = do
   let
-    name = "issue-" <> HaskellWeekly.Type.Number.numberToString number
-    file = System.FilePath.addExtension name "markdown"
+    name = "issue-" <> HaskellWeekly.Type.Number.numberToText number
+    file = System.FilePath.addExtension (Data.Text.unpack name) "markdown"
     path = System.FilePath.combine "newsletter" file
   result <- HaskellWeekly.Type.State.readDataFile state path
   case result of

@@ -5,7 +5,7 @@
 module HaskellWeekly.Type.Guid
   ( Guid
   , guidToText
-  , stringToGuid
+  , textToGuid
   )
 where
 
@@ -16,8 +16,7 @@ newtype Guid =
   Guid Data.UUID.UUID
   deriving (Eq, Ord, Show)
 
--- | Converts a GUID into text. This is roughly the opposite of 'stringToGuid'
--- except that it gives you text rather than a string.
+-- | Converts a GUID into text. This is the opposite of 'textToGuid'.
 guidToText :: Guid -> Data.Text.Text
 guidToText = Data.UUID.toText . guidToUuid
 
@@ -25,10 +24,10 @@ guidToText = Data.UUID.toText . guidToUuid
 guidToUuid :: Guid -> Data.UUID.UUID
 guidToUuid (Guid uuid) = uuid
 
--- | Converts a string into a GUID. This expects the string to be formatted in
+-- | Converts text into a GUID. This expects the string to be formatted in
 -- the typical dashed hexadecimal string, like
 -- @"12345678-1234-1234-1234-123456789012"@.
-stringToGuid :: String -> Either String Guid
-stringToGuid string = case Data.UUID.fromString string of
-  Nothing -> Left $ "invalid Guid: " <> show string
+textToGuid :: Data.Text.Text -> Either String Guid
+textToGuid text = case Data.UUID.fromText text of
+  Nothing -> Left $ "invalid Guid: " <> show text
   Just uuid -> Right $ Guid uuid

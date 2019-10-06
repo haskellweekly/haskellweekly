@@ -37,18 +37,16 @@ application state request respond =
 -- | Gets the request method as a string. This is convenient because request
 -- methods are technically byte strings, but almost always they can be thought
 -- of as plain ASCII strings.
-requestMethod :: Network.Wai.Request -> String
+requestMethod :: Network.Wai.Request -> Data.Text.Text
 requestMethod =
-  Data.Text.unpack
-    . Data.Text.Encoding.decodeUtf8With Data.Text.Encoding.Error.lenientDecode
+  Data.Text.Encoding.decodeUtf8With Data.Text.Encoding.Error.lenientDecode
     . Network.Wai.requestMethod
 
 -- | Gets the route out of the request. If the request's path doesn't match
 -- any known routes, returns 'Nothing'.
 requestRoute :: Network.Wai.Request -> Maybe HaskellWeekly.Type.Route.Route
 requestRoute =
-  HaskellWeekly.Type.Route.stringToRoute
-    . fmap Data.Text.unpack
+  HaskellWeekly.Type.Route.textToRoute
     . Network.Wai.pathInfo
 
 -- | Handles a particular route by calling the appropriate handler and

@@ -1,21 +1,23 @@
 -- | This module defines a type for handling HTTP redirects.
 module HaskellWeekly.Type.Redirect
   ( Redirect
-  , redirectToString
-  , stringToRedirect
+  , redirectToText
+  , textToRedirect
   )
 where
 
+import qualified Data.Text
+
 newtype Redirect =
-  Redirect String
+  Redirect Data.Text.Text
   deriving (Eq, Show)
 
--- | Converts a redirect into a string so that it can be used somewhere like an
+-- | Converts a redirect into text so that it can be used somewhere like an
 -- HTTP header.
-redirectToString :: Redirect -> String
-redirectToString (Redirect string) = string
+redirectToText :: Redirect -> Data.Text.Text
+redirectToText (Redirect text) = text
 
--- | Converts a string into a redirect. This is intentionally permissive so
+-- | Converts text into a redirect. This is intentionally permissive so
 -- that you can redirect to paths like @/re@ as well as URLs like @http://...@.
-stringToRedirect :: String -> Redirect
-stringToRedirect = Redirect
+textToRedirect :: Data.Text.Text -> Redirect
+textToRedirect = Redirect

@@ -8,11 +8,10 @@ module HaskellWeekly.Handler.Base
 where
 
 import qualified Conduit
+import qualified Data.ByteString
 import qualified Data.ByteString.Lazy
 import qualified Data.Text
 import qualified Data.Text.Encoding
-import qualified Data.Text.Lazy
-import qualified Data.Text.Lazy.Encoding
 import qualified Data.XML.Types
 import qualified HaskellWeekly.Type.Config
 import qualified HaskellWeekly.Type.State
@@ -23,6 +22,22 @@ import qualified System.FilePath
 import qualified Text.Feed.Export
 import qualified Text.Feed.Types
 import qualified Text.XML.Unresolved
+
+bsResponse
+  :: Network.HTTP.Types.Status
+  -> Network.HTTP.Types.ResponseHeaders
+  -> Data.ByteString.ByteString
+  -> Network.Wai.Response
+bsResponse status extraHeaders body =
+  let
+    contentLength =
+      Data.Text.Encoding.encodeUtf8
+        . Data.Text.pack
+        . show
+        $ Data.ByteString.length body
+    headers =
+      (Network.HTTP.Types.hContentLength, contentLength) : extraHeaders
+  in Network.Wai.responseLBS status headers $ Data.ByteString.Lazy.fromStrict body
 
 feedResponse
   :: Network.HTTP.Types.Status
@@ -41,13 +56,13 @@ feedResponse status extraHeaders feed =
         Conduit..| Conduit.sinkLazyBuilder
   in lbsResponse status headers body
 
-feedMime :: Text.Feed.Types.Feed -> String
+feedMime :: Text.Feed.Types.Feed -> Data.Text.Text
 feedMime feed = case feed of
   Text.Feed.Types.AtomFeed _ -> "application/atom+xml; charset=utf-8"
   _ -> "application/rss+xml; charset=utf-8"
 
 fileResponse
-  :: String
+  :: Data.Text.Text
   -> FilePath
   -> HaskellWeekly.Type.State.State
   -> IO Network.Wai.Response
@@ -58,8 +73,8 @@ fileResponse mime file state = do
     directory = HaskellWeekly.Type.Config.configDataDirectory
       $ HaskellWeekly.Type.State.stateConfig state
     path = System.FilePath.combine directory file
-  body <- Data.ByteString.Lazy.readFile path
-  pure $ lbsResponse status headers body
+  body <- Data.ByteString.readFile path
+  pure $ bsResponse status headers body
 
 htmlResponse
   :: Network.HTTP.Types.Status
@@ -77,16 +92,8 @@ lbsResponse
   -> Network.HTTP.Types.ResponseHeaders
   -> Data.ByteString.Lazy.ByteString
   -> Network.Wai.Response
-lbsResponse status extraHeaders body =
-  let
-    contentLength =
-      Data.Text.Encoding.encodeUtf8
-        . Data.Text.pack
-        . show
-        $ Data.ByteString.Lazy.length body
-    headers =
-      (Network.HTTP.Types.hContentLength, contentLength) : extraHeaders
-  in Network.Wai.responseLBS status headers body
+lbsResponse status extraHeaders =
+  bsResponse status extraHeaders . Data.ByteString.Lazy.toStrict
 
 notFoundResponse :: Network.Wai.Response
 notFoundResponse =
@@ -95,20 +102,20 @@ notFoundResponse =
 textResponse
   :: Network.HTTP.Types.Status
   -> Network.HTTP.Types.ResponseHeaders
-  -> String
+  -> Data.Text.Text
   -> Network.Wai.Response
 textResponse status extraHeaders text =
   let
-    body = Data.Text.Lazy.Encoding.encodeUtf8 $ Data.Text.Lazy.pack text
+    body = Data.Text.Encoding.encodeUtf8 text
     headers = withContentType "text/plain; charset=utf-8" extraHeaders
-  in lbsResponse status headers body
+  in bsResponse status headers body
 
 withContentType
-  :: String
+  :: Data.Text.Text
   -> Network.HTTP.Types.ResponseHeaders
   -> Network.HTTP.Types.ResponseHeaders
 withContentType mime headers =
   ( Network.HTTP.Types.hContentType
-    , Data.Text.Encoding.encodeUtf8 $ Data.Text.pack mime
+    , Data.Text.Encoding.encodeUtf8 mime
     )
     : headers

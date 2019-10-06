@@ -122,10 +122,10 @@ issueTemplate baseUrl issue = H.li_ $ do
     $ do
         "Issue "
         H.toHtml
-          . HaskellWeekly.Type.Number.numberToString
+          . HaskellWeekly.Type.Number.numberToText
           $ HaskellWeekly.Type.Issue.issueNumber issue
   " "
   H.span_ [H.class_ "gray"]
     . H.toHtml
-    . HaskellWeekly.Type.Date.dateToShortString
+    . HaskellWeekly.Type.Date.dateToShortText
     $ HaskellWeekly.Type.Issue.issueDate issue

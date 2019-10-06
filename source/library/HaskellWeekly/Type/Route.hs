@@ -4,14 +4,13 @@
 module HaskellWeekly.Type.Route
   ( Route(..)
   , routeToTextWith
-  , stringToRoute
+  , textToRoute
   )
 where
 
 import qualified Data.Text
 import qualified HaskellWeekly.Type.Number
 import qualified HaskellWeekly.Type.Redirect
-import qualified System.FilePath
 
 data Route
   = RouteAdvertising
@@ -36,44 +35,40 @@ isRedirect route = case route of
   RouteRedirect _ -> True
   _ -> False
 
--- | Renders a route as a string.
-routeToString :: Route -> String
-routeToString route = case route of
+-- | Renders a route as text.
+routeToText :: Route -> Data.Text.Text
+routeToText route = case route of
   RouteAdvertising -> "/advertising.html"
   RouteAppleBadge -> "/apple-badge.svg"
   RouteEpisode number ->
     "/podcast/episodes/"
-      <> HaskellWeekly.Type.Number.numberToString number
+      <> HaskellWeekly.Type.Number.numberToText number
       <> ".html"
   RouteFavicon -> "/favicon.ico"
   RouteGoogleBadge -> "/google-badge.svg"
   RouteIndex -> "/"
   RouteIssue number ->
-    "/issues/" <> HaskellWeekly.Type.Number.numberToString number <> ".html"
+    "/issues/" <> HaskellWeekly.Type.Number.numberToText number <> ".html"
   RouteNewsletterFeed -> "/haskell-weekly.atom"
   RouteNewsletter -> "/newsletter.html"
   RoutePodcastFeed -> "/podcast/feed.rss"
   RoutePodcastLogo -> "/podcast/logo.png"
   RoutePodcast -> "/podcast.html"
   RouteRedirect redirect ->
-    HaskellWeekly.Type.Redirect.redirectToString redirect
+    HaskellWeekly.Type.Redirect.redirectToText redirect
   RouteTachyons -> "/tachyons.css"
-
--- | Renders a route as text. Like 'routeToString' but, you know, textual.
-routeToText :: Route -> Data.Text.Text
-routeToText = Data.Text.pack . routeToString
 
 -- | Renders a route as text with the given base URL. Redirects are not
 -- affected by the base URL, but everything else is.
 routeToTextWith :: String -> Route -> Data.Text.Text
 routeToTextWith baseUrl route = if isRedirect route
   then routeToText route
-  else Data.Text.pack . mappend baseUrl $ routeToString route
+  else mappend (Data.Text.pack baseUrl) $ routeToText route
 
 -- | Parses a list of strings as a route. Note that some lists of strings go to
 -- the same place, so this isn't necessarily a one to one mapping.
-stringToRoute :: [String] -> Maybe Route
-stringToRoute path = case path of
+textToRoute :: [Data.Text.Text] -> Maybe Route
+textToRoute path = case path of
   [] -> Just RouteIndex
   ["advertising.html"] -> Just RouteAdvertising
   ["apple-badge.svg"] -> Just RouteAppleBadge
@@ -95,14 +90,14 @@ stringToRoute path = case path of
 -- | Handles routing content by stripping the given extension, parsing what's
 -- left of the path, and wrapping the result in a route.
 routeContent
-  :: String
+  :: Data.Text.Text
   -> (HaskellWeekly.Type.Number.Number -> HaskellWeekly.Type.Route.Route)
-  -> FilePath
+  -> Data.Text.Text
   -> Maybe HaskellWeekly.Type.Route.Route
 routeContent extension route file =
-  case System.FilePath.stripExtension extension file of
+  case Data.Text.stripSuffix ("." <> extension) file of
     Nothing -> Nothing
-    Just string -> case HaskellWeekly.Type.Number.stringToNumber string of
+    Just text -> case HaskellWeekly.Type.Number.textToNumber text of
       Left _ -> Nothing
       Right value -> Just $ route value
 
@@ -113,5 +108,5 @@ routeToRedirect route = case route of
   RouteRedirect _ -> route
   _ ->
     RouteRedirect
-      . HaskellWeekly.Type.Redirect.stringToRedirect
-      $ routeToString route
+      . HaskellWeekly.Type.Redirect.textToRedirect
+      $ routeToText route

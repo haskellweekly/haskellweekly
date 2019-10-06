@@ -3,6 +3,7 @@ module HaskellWeekly.Handler.Static
   )
 where
 
+import qualified Data.Text
 import qualified HaskellWeekly.Handler.Base
 import qualified HaskellWeekly.Type.State
 import qualified Network.Wai
@@ -11,7 +12,7 @@ import qualified Network.Wai
 -- figure out where to read the file from.
 staticHandler
   :: HaskellWeekly.Type.State.State
-  -> String
+  -> Data.Text.Text
   -> FilePath
   -> IO Network.Wai.Response
 staticHandler state mime file =

@@ -7,9 +7,8 @@ module HaskellWeekly.Type.Number
   ( Number
   , naturalToNumber
   , numberToNatural
-  , numberToString
   , numberToText
-  , stringToNumber
+  , textToNumber
   )
 where
 
@@ -33,18 +32,14 @@ naturalToNumber natural = if natural < 1
 numberToNatural :: Number -> Numeric.Natural.Natural
 numberToNatural (Number natural) = natural
 
--- | Converts a number into a string. This is a lot like 'show' except that the
+-- | Converts a number into text. This is a lot like 'show' except that the
 -- output is just the number without any constructors or anything.
-numberToString :: Number -> String
-numberToString = show . numberToNatural
-
--- | Like 'numberToString' but textual.
 numberToText :: Number -> Data.Text.Text
-numberToText = Data.Text.pack . numberToString
+numberToText = Data.Text.pack . show . numberToNatural
 
--- | Parses a string into a number. This first parses the string as a natural
+-- | Parses text into a number. This first parses the string as a natural
 -- number and then hands things off to 'numberToNatural'.
-stringToNumber :: String -> Either String Number
-stringToNumber string = case Text.Read.readMaybe string of
-  Nothing -> Left $ "invalid Number: " <> show string
+textToNumber :: Data.Text.Text -> Either String Number
+textToNumber text = case Text.Read.readMaybe (Data.Text.unpack text) of
+  Nothing -> Left $ "invalid Number: " <> show text
   Just natural -> naturalToNumber natural

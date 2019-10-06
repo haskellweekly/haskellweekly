@@ -63,11 +63,11 @@ episodeTemplate baseUrl episode = do
       ]
     $ do
         "Episode "
-        H.toHtml $ HaskellWeekly.Type.Number.numberToString number
+        H.toHtml $ HaskellWeekly.Type.Number.numberToText number
   " "
   H.span_ [H.class_ "gray"]
     . H.toHtml
-    . HaskellWeekly.Type.Date.dateToShortString
+    . HaskellWeekly.Type.Date.dateToShortText
     $ HaskellWeekly.Type.Episode.episodeDate episode
 
 issueTemplate :: String -> HaskellWeekly.Type.Issue.Issue -> H.Html ()
@@ -81,9 +81,9 @@ issueTemplate baseUrl issue = do
       ]
     $ do
         "Issue "
-        H.toHtml $ HaskellWeekly.Type.Number.numberToString number
+        H.toHtml $ HaskellWeekly.Type.Number.numberToText number
   " "
   H.span_ [H.class_ "gray"]
     . H.toHtml
-    . HaskellWeekly.Type.Date.dateToShortString
+    . HaskellWeekly.Type.Date.dateToShortText
     $ HaskellWeekly.Type.Issue.issueDate issue

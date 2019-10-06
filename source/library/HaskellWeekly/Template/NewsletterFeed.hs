@@ -7,7 +7,6 @@ import qualified CMark
 import qualified Data.List
 import qualified Data.Maybe
 import qualified Data.Ord
-import qualified Data.Text
 import qualified HaskellWeekly.Type.Date
 import qualified HaskellWeekly.Type.Issue
 import qualified HaskellWeekly.Type.Number
@@ -38,8 +37,7 @@ atomId baseUrl = HaskellWeekly.Type.Route.routeToTextWith
 
 atomUpdated :: [HaskellWeekly.Type.Issue.Issue] -> Text.Atom.Feed.Date
 atomUpdated =
-  Data.Text.pack
-    . maybe "2001-01-01T12:00:00Z" HaskellWeekly.Type.Date.dateToLongString
+  maybe "2001-01-01T12:00:00Z" HaskellWeekly.Type.Date.dateToLongText
     . Data.Maybe.listToMaybe
     . Data.List.sortOn Data.Ord.Down
     . fmap HaskellWeekly.Type.Issue.issueDate
@@ -71,13 +69,11 @@ entryId baseUrl =
 entryTitle :: HaskellWeekly.Type.Issue.Issue -> Text.Atom.Feed.TextContent
 entryTitle =
   Text.Atom.Feed.TextString
-    . Data.Text.pack
     . mappend "Issue "
-    . HaskellWeekly.Type.Number.numberToString
+    . HaskellWeekly.Type.Number.numberToText
     . HaskellWeekly.Type.Issue.issueNumber
 
 entryUpdated :: HaskellWeekly.Type.Issue.Issue -> Text.Atom.Feed.Date
 entryUpdated =
-  Data.Text.pack
-    . HaskellWeekly.Type.Date.dateToLongString
+  HaskellWeekly.Type.Date.dateToLongText
     . HaskellWeekly.Type.Issue.issueDate

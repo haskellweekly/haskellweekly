@@ -3,11 +3,11 @@ module HaskellWeekly.Template.Base
   )
 where
 
-import qualified Data.List
+import qualified Data.Text
 import qualified HaskellWeekly.Type.Route
 import qualified Lucid as H
 
-baseTemplate :: String -> [String] -> H.Html () -> H.Html () -> H.Html ()
+baseTemplate :: String -> [Data.Text.Text] -> H.Html () -> H.Html () -> H.Html ()
 baseTemplate baseUrl title head_ body = do
   H.doctype_
   H.html_ [H.class_ "b--purple bt bw3"] $ do
@@ -17,7 +17,7 @@ baseTemplate baseUrl title head_ body = do
         [ H.name_ "viewport"
         , H.content_ "initial-scale = 1, width = device-width"
         ]
-      H.title_ . H.toHtml $ Data.List.intercalate
+      H.title_ . H.toHtml $ Data.Text.intercalate
         " \x2192 "
         ("Haskell Weekly" : title)
       H.link_
