@@ -45,38 +45,23 @@ requestMethod =
 -- | Gets the route out of the request. If the request's path doesn't match
 -- any known routes, returns 'Nothing'.
 requestRoute :: Network.Wai.Request -> Maybe HW.Type.Route.Route
-requestRoute =
-  HW.Type.Route.textToRoute
-    . Network.Wai.pathInfo
+requestRoute = HW.Type.Route.textToRoute . Network.Wai.pathInfo
 
 -- | Handles a particular route by calling the appropriate handler and
 -- returning the response.
-handle
-  :: HW.Type.State.State
-  -> HW.Type.Route.Route
-  -> IO Network.Wai.Response
+handle :: HW.Type.State.State -> HW.Type.Route.Route -> IO Network.Wai.Response
 handle state route = case route of
   HW.Type.Route.RouteAdvertising ->
     HW.Handler.Advertising.advertisingHandler state
   HW.Type.Route.RouteAppleBadge ->
-    HW.Handler.Static.staticHandler
-      state
-      "image/svg+xml"
-      "apple-badge.svg"
+    HW.Handler.Static.staticHandler state "image/svg+xml" "apple-badge.svg"
   HW.Type.Route.RouteEpisode number ->
     HW.Handler.Episode.episodeHandler state number
   HW.Type.Route.RouteFavicon ->
-    HW.Handler.Static.staticHandler
-      state
-      "image/x-icon"
-      "favicon.ico"
+    HW.Handler.Static.staticHandler state "image/x-icon" "favicon.ico"
   HW.Type.Route.RouteGoogleBadge ->
-    HW.Handler.Static.staticHandler
-      state
-      "image/svg+xml"
-      "google-badge.svg"
-  HW.Type.Route.RouteIndex ->
-    HW.Handler.Index.indexHandler state
+    HW.Handler.Static.staticHandler state "image/svg+xml" "google-badge.svg"
+  HW.Type.Route.RouteIndex -> HW.Handler.Index.indexHandler state
   HW.Type.Route.RouteIssue number ->
     HW.Handler.Issue.issueHandler state number
   HW.Type.Route.RouteNewsletterFeed ->
@@ -85,17 +70,12 @@ handle state route = case route of
     HW.Handler.Newsletter.newsletterHandler state
   HW.Type.Route.RoutePodcastFeed ->
     HW.Handler.PodcastFeed.podcastFeedHandler state
-  HW.Type.Route.RoutePodcast ->
-    HW.Handler.Podcast.podcastHandler state
+  HW.Type.Route.RoutePodcast -> HW.Handler.Podcast.podcastHandler state
   HW.Type.Route.RoutePodcastLogo ->
-    HW.Handler.Static.staticHandler
-      state
-      "image/png"
-      "podcast-logo.png"
+    HW.Handler.Static.staticHandler state "image/png" "podcast-logo.png"
   HW.Type.Route.RouteRedirect redirect ->
     HW.Handler.Redirect.redirectHandler redirect
-  HW.Type.Route.RouteTachyons ->
-    HW.Handler.Static.staticHandler
-      state
-      "text/css; charset=utf-8"
-      "tachyons-4-11-2.css"
+  HW.Type.Route.RouteTachyons -> HW.Handler.Static.staticHandler
+    state
+    "text/css; charset=utf-8"
+    "tachyons-4-11-2.css"

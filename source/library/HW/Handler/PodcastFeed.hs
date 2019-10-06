@@ -15,8 +15,7 @@ podcastFeedHandler
   :: Applicative f => HW.Type.State.State -> f Network.Wai.Response
 podcastFeedHandler state =
   let
-    baseUrl = HW.Type.Config.configBaseUrl
-      $ HW.Type.State.stateConfig state
+    baseUrl = HW.Type.Config.configBaseUrl $ HW.Type.State.stateConfig state
     episodes = Data.Map.elems $ HW.Type.State.stateEpisodes state
   in
     pure

@@ -46,8 +46,7 @@ configToState config = do
 readDataFile :: State -> FilePath -> IO (Maybe Data.ByteString.Lazy.ByteString)
 readDataFile state file =
   let
-    directory =
-      HW.Type.Config.configDataDirectory $ stateConfig state
+    directory = HW.Type.Config.configDataDirectory $ stateConfig state
     path = System.FilePath.combine directory file
   in Control.Exception.catchJust
     keepDoesNotExistError

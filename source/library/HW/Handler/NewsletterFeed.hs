@@ -13,12 +13,9 @@ import qualified HW.Type.State
 import qualified Network.HTTP.Types
 import qualified Network.Wai
 
-newsletterFeedHandler
-  :: HW.Type.State.State -> IO Network.Wai.Response
+newsletterFeedHandler :: HW.Type.State.State -> IO Network.Wai.Response
 newsletterFeedHandler state = do
-  let
-    baseUrl = HW.Type.Config.configBaseUrl
-      $ HW.Type.State.stateConfig state
+  let baseUrl = HW.Type.Config.configBaseUrl $ HW.Type.State.stateConfig state
   issues <-
     mapM
       (\issue -> do
@@ -30,6 +27,4 @@ newsletterFeedHandler state = do
     $ HW.Type.State.stateIssues state
   pure
     . HW.Handler.Base.feedResponse Network.HTTP.Types.ok200 []
-    $ HW.Template.NewsletterFeed.newsletterFeedTemplate
-        baseUrl
-        issues
+    $ HW.Template.NewsletterFeed.newsletterFeedTemplate baseUrl issues

@@ -47,10 +47,9 @@ getConfig = do
 getBaseUrl :: Network.Wai.Handler.Warp.Port -> IO HW.Type.BaseUrl.BaseUrl
 getBaseUrl port = do
   maybeString <- System.Environment.lookupEnv "BASE_URL"
-  pure
-    . HW.Type.BaseUrl.textToBaseUrl
-    . Data.Text.pack
-    $ Data.Maybe.fromMaybe ("http://localhost:" <> show port) maybeString
+  pure . HW.Type.BaseUrl.textToBaseUrl . Data.Text.pack $ Data.Maybe.fromMaybe
+    ("http://localhost:" <> show port)
+    maybeString
 
 -- | Gets the database connection information. Although this says "URL" it
 -- could also be a PostgreSQL connection string. That means both

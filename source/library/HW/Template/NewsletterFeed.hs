@@ -32,9 +32,8 @@ newsletterFeedTemplate baseUrl issues =
     }
 
 atomId :: HW.Type.BaseUrl.BaseUrl -> Text.Atom.Feed.URI
-atomId baseUrl = HW.Type.Route.routeToTextWith
-  baseUrl
-  HW.Type.Route.RouteNewsletterFeed
+atomId baseUrl =
+  HW.Type.Route.routeToTextWith baseUrl HW.Type.Route.RouteNewsletterFeed
 
 atomUpdated :: [HW.Type.Issue.Issue] -> Text.Atom.Feed.Date
 atomUpdated =
@@ -75,6 +74,4 @@ entryTitle =
     . HW.Type.Issue.issueNumber
 
 entryUpdated :: HW.Type.Issue.Issue -> Text.Atom.Feed.Date
-entryUpdated =
-  HW.Type.Date.dateToLongText
-    . HW.Type.Issue.issueDate
+entryUpdated = HW.Type.Date.dateToLongText . HW.Type.Issue.issueDate

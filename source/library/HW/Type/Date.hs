@@ -42,7 +42,11 @@ dateToShortText = dateToShortText
 -- | Renders a date using the given format.
 formatDate :: Data.Text.Text -> Date -> Data.Text.Text
 formatDate format =
-  Data.Text.pack . Data.Time.formatTime Data.Time.defaultTimeLocale (Data.Text.unpack format) . dateToDay
+  Data.Text.pack
+    . Data.Time.formatTime
+        Data.Time.defaultTimeLocale
+        (Data.Text.unpack format)
+    . dateToDay
 
 -- | Converts a typical Gregorian year-month-day into a date. Note that this
 -- validates the date rather than clamping or overflowing. So you can't produce

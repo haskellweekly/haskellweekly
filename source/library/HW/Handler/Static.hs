@@ -15,5 +15,4 @@ staticHandler
   -> Data.Text.Text
   -> FilePath
   -> IO Network.Wai.Response
-staticHandler state mime file =
-  HW.Handler.Base.fileResponse mime file state
+staticHandler state mime file = HW.Handler.Base.fileResponse mime file state

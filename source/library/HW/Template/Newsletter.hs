@@ -15,12 +15,10 @@ import qualified HW.Type.Route
 import qualified Lucid as H
 import qualified Lucid.Base as H
 
-newsletterTemplate :: HW.Type.BaseUrl.BaseUrl -> [HW.Type.Issue.Issue] -> H.Html ()
+newsletterTemplate
+  :: HW.Type.BaseUrl.BaseUrl -> [HW.Type.Issue.Issue] -> H.Html ()
 newsletterTemplate baseUrl issues =
-  HW.Template.Base.baseTemplate
-      baseUrl
-      []
-      (newsletterHead baseUrl Nothing)
+  HW.Template.Base.baseTemplate baseUrl [] (newsletterHead baseUrl Nothing)
     $ do
         H.h2_ [H.class_ "f2 mv3 tracked-tight"] "Newsletter"
         H.p_ [H.class_ "lh-copy"] $ do
@@ -29,12 +27,12 @@ newsletterTemplate baseUrl issues =
         newsletterActionTemplate baseUrl
         H.ul_ [H.class_ "lh-copy"] $ mapM_ (issueTemplate baseUrl) issues
 
-newsletterHead :: HW.Type.BaseUrl.BaseUrl -> Maybe HW.Type.Issue.Issue -> H.Html ()
+newsletterHead
+  :: HW.Type.BaseUrl.BaseUrl -> Maybe HW.Type.Issue.Issue -> H.Html ()
 newsletterHead baseUrl maybeIssue = do
   H.link_
-    [ H.href_ $ HW.Type.Route.routeToTextWith
-      baseUrl
-      HW.Type.Route.RouteNewsletterFeed
+    [ H.href_
+      $ HW.Type.Route.routeToTextWith baseUrl HW.Type.Route.RouteNewsletterFeed
     , H.rel_ "alternate"
     , H.type_ "application/atom+xml"
     ]
@@ -122,9 +120,8 @@ issueTemplate baseUrl issue = H.li_ $ do
       ]
     $ do
         "Issue "
-        H.toHtml
-          . HW.Type.Number.numberToText
-          $ HW.Type.Issue.issueNumber issue
+        H.toHtml . HW.Type.Number.numberToText $ HW.Type.Issue.issueNumber
+          issue
   " "
   H.span_ [H.class_ "gray"]
     . H.toHtml

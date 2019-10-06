@@ -15,10 +15,7 @@ import qualified HW.Type.Issue
 import qualified HW.Type.Number
 
 -- | Convenient type alias for a map of issues by number.
-type Issues
-  = Data.Map.Map
-      HW.Type.Number.Number
-      HW.Type.Issue.Issue
+type Issues = Data.Map.Map HW.Type.Number.Number HW.Type.Issue.Issue
 
 -- | All of the published issues. Note that this is wrapper in 'Either' to
 -- handle any of the issues being invalid or the entire collection being
@@ -217,17 +214,13 @@ checkNumbers =
   Data.Bool.bool (Left "invalid issue numbers") (Right ())
     . all (uncurry (==))
     . zip [1 ..]
-    . fmap
-        (HW.Type.Number.numberToNatural
-        . HW.Type.Issue.issueNumber
-        )
+    . fmap (HW.Type.Number.numberToNatural . HW.Type.Issue.issueNumber)
 
 -- | Inserts a single issue into the map of issues. If for some reason an issue
 -- already exists with this issue's number, the existing issue will be
 -- overwritten with the new one.
 insertIssue :: HW.Type.Issue.Issue -> Issues -> Issues
-insertIssue issue =
-  Data.Map.insert (HW.Type.Issue.issueNumber issue) issue
+insertIssue issue = Data.Map.insert (HW.Type.Issue.issueNumber issue) issue
 
 issue1 :: Either String HW.Type.Issue.Issue
 issue1 =

@@ -16,27 +16,24 @@ import qualified HW.Type.Title
 import qualified Lucid as H
 import qualified Lucid.Base as H
 
-podcastTemplate :: HW.Type.BaseUrl.BaseUrl -> [HW.Type.Episode.Episode] -> H.Html ()
+podcastTemplate
+  :: HW.Type.BaseUrl.BaseUrl -> [HW.Type.Episode.Episode] -> H.Html ()
 podcastTemplate baseUrl episodes =
-  HW.Template.Base.baseTemplate
-      baseUrl
-      []
-      (podcastHead baseUrl Nothing)
-    $ do
-        H.h2_ [H.class_ "f2 mv3 tracked-tight"] "Podcast"
-        H.p_ [H.class_ "lh-copy"] $ do
-          "The Haskell Weekly Podcast covers the Haskell programming langauge. "
-          "Listen to professional software developers discuss using functional programming to solve real-world business problems. "
-          "Each episode uses a conversational two-host format and runs for about 15 minutes."
-        podcastActionTemplate baseUrl
-        H.ul_ [H.class_ "lh-copy"] $ mapM_ (episodeTemplate baseUrl) episodes
+  HW.Template.Base.baseTemplate baseUrl [] (podcastHead baseUrl Nothing) $ do
+    H.h2_ [H.class_ "f2 mv3 tracked-tight"] "Podcast"
+    H.p_ [H.class_ "lh-copy"] $ do
+      "The Haskell Weekly Podcast covers the Haskell programming langauge. "
+      "Listen to professional software developers discuss using functional programming to solve real-world business problems. "
+      "Each episode uses a conversational two-host format and runs for about 15 minutes."
+    podcastActionTemplate baseUrl
+    H.ul_ [H.class_ "lh-copy"] $ mapM_ (episodeTemplate baseUrl) episodes
 
-podcastHead :: HW.Type.BaseUrl.BaseUrl -> Maybe HW.Type.Episode.Episode -> H.Html ()
+podcastHead
+  :: HW.Type.BaseUrl.BaseUrl -> Maybe HW.Type.Episode.Episode -> H.Html ()
 podcastHead baseUrl maybeEpisode = do
   H.link_
-    [ H.href_ $ HW.Type.Route.routeToTextWith
-      baseUrl
-      HW.Type.Route.RoutePodcastFeed
+    [ H.href_
+      $ HW.Type.Route.routeToTextWith baseUrl HW.Type.Route.RoutePodcastFeed
     , H.rel_ "alternate"
     , H.type_ "application/rss+xml"
     ]
@@ -106,13 +103,13 @@ podcastActionTemplate baseUrl =
         "our feed"
       "."
 
-episodeTemplate :: HW.Type.BaseUrl.BaseUrl -> HW.Type.Episode.Episode -> H.Html ()
+episodeTemplate
+  :: HW.Type.BaseUrl.BaseUrl -> HW.Type.Episode.Episode -> H.Html ()
 episodeTemplate baseUrl episode = H.li_ . H.p_ $ do
   H.span_ [H.class_ "gray"] $ do
     "Episode "
-    H.toHtml
-      . HW.Type.Number.numberToText
-      $ HW.Type.Episode.episodeNumber episode
+    H.toHtml . HW.Type.Number.numberToText $ HW.Type.Episode.episodeNumber
+      episode
   " "
   H.a_
       [ H.href_
@@ -124,6 +121,5 @@ episodeTemplate baseUrl episode = H.li_ . H.p_ $ do
     . HW.Type.Title.titleToText
     $ HW.Type.Episode.episodeTitle episode
   ": "
-  H.toHtml
-    . HW.Type.Summary.summaryToText
-    $ HW.Type.Episode.episodeSummary episode
+  H.toHtml . HW.Type.Summary.summaryToText $ HW.Type.Episode.episodeSummary
+    episode

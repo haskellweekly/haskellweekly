@@ -38,11 +38,7 @@ issueTemplate baseUrl issue node =
 
 title :: HW.Type.Issue.Issue -> Data.Text.Text
 title =
-  mappend "Issue "
-    . HW.Type.Number.numberToText
-    . HW.Type.Issue.issueNumber
+  mappend "Issue " . HW.Type.Number.numberToText . HW.Type.Issue.issueNumber
 
 date :: HW.Type.Issue.Issue -> Data.Text.Text
-date =
-  HW.Type.Date.dateToShortText
-    . HW.Type.Issue.issueDate
+date = HW.Type.Date.dateToShortText . HW.Type.Issue.issueDate

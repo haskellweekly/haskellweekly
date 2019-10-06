@@ -67,8 +67,7 @@ makeEntityTag response = case response of
   _ -> Nothing
 
 -- | Adds security headers as recommended by <https://securityheaders.com>.
-addSecurityHeaders
-  :: HW.Type.Config.Config -> Network.Wai.Middleware
+addSecurityHeaders :: HW.Type.Config.Config -> Network.Wai.Middleware
 addSecurityHeaders config =
   Network.Wai.modifyResponse
     . Network.Wai.mapResponseHeaders
@@ -87,12 +86,14 @@ addSecurityHeaders config =
 -- <https://scotthelme.co.uk/content-security-policy-an-introduction/>
 -- <https://www.ctrl.blog/entry/safari-csp-media-controls.html>
 contentSecurityPolicy :: Data.Text.Text
-contentSecurityPolicy = Data.Text.intercalate "; "
+contentSecurityPolicy = Data.Text.intercalate
+  "; "
   [ "base-uri 'none'"
   , "default-src 'none'"
   , "form-action 'none'"
   , "frame-ancestors 'none'"
-  , "img-src 'self'", "data:"
+  , "img-src 'self'"
+  , "data:"
   , "media-src https://haskell-weekly-podcast.nyc3.cdn.digitaloceanspaces.com:443 'self'"
   , "style-src 'self'"
   ]
@@ -135,8 +136,7 @@ addHeader name value headers = makeHeader name value : headers
 -- because turning strings into the proper name/value types is annoying.
 makeHeader :: Data.Text.Text -> Data.Text.Text -> Network.HTTP.Types.Header
 makeHeader name value =
-  ( Data.CaseInsensitive.mk $ Data.Text.Encoding.encodeUtf8
-    name
+  ( Data.CaseInsensitive.mk $ Data.Text.Encoding.encodeUtf8 name
   , Data.Text.Encoding.encodeUtf8 value
   )
 

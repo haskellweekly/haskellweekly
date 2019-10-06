@@ -17,5 +17,4 @@ type Articles = Data.List.NonEmpty.NonEmpty HW.Type.Article.Article
 textsToArticles :: [Data.Text.Text] -> Either String Articles
 textsToArticles list = case Data.List.NonEmpty.nonEmpty list of
   Nothing -> Left $ "invalid Articles: " <> show list
-  Just nonEmpty ->
-    traverse HW.Type.Article.textToArticle nonEmpty
+  Just nonEmpty -> traverse HW.Type.Article.textToArticle nonEmpty

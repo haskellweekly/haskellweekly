@@ -31,9 +31,8 @@ episodeTemplate baseUrl episode maybeCaptions =
     $ do
         H.h2_ [H.class_ "f2 mv3 tracked-tight"] $ H.a_
           [ H.class_ "no-underline purple"
-          , H.href_ $ HW.Type.Route.routeToTextWith
-            baseUrl
-            HW.Type.Route.RoutePodcast
+          , H.href_
+            $ HW.Type.Route.routeToTextWith baseUrl HW.Type.Route.RoutePodcast
           ]
           "Podcast"
         H.h3_ [H.class_ "f3 mv3 tracked-tight"] $ do
@@ -76,14 +75,10 @@ number =
     . HW.Type.Episode.episodeNumber
 
 title :: HW.Type.Episode.Episode -> Data.Text.Text
-title =
-  HW.Type.Title.titleToText
-    . HW.Type.Episode.episodeTitle
+title = HW.Type.Title.titleToText . HW.Type.Episode.episodeTitle
 
 date :: HW.Type.Episode.Episode -> Data.Text.Text
-date =
-  HW.Type.Date.dateToShortText
-    . HW.Type.Episode.episodeDate
+date = HW.Type.Date.dateToShortText . HW.Type.Episode.episodeDate
 
 articleLink :: HW.Type.Article.Article -> H.Html ()
 articleLink article =

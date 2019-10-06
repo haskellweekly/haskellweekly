@@ -29,15 +29,13 @@ runServer state = do
     $ HW.Application.application state
 
 -- | Converts a Haskell Weekly config into Warp server settings.
-configToSettings
-  :: HW.Type.Config.Config -> Network.Wai.Handler.Warp.Settings
+configToSettings :: HW.Type.Config.Config -> Network.Wai.Handler.Warp.Settings
 configToSettings config =
   Network.Wai.Handler.Warp.setBeforeMainLoop
       (beforeMainLoop $ HW.Type.Config.configPort config)
     . Network.Wai.Handler.Warp.setOnExceptionResponse onExceptionResponse
     . Network.Wai.Handler.Warp.setLogger logger
-    . Network.Wai.Handler.Warp.setPort
-        (HW.Type.Config.configPort config)
+    . Network.Wai.Handler.Warp.setPort (HW.Type.Config.configPort config)
     . Network.Wai.Handler.Warp.setServerName serverName
     $ Network.Wai.Handler.Warp.defaultSettings
 

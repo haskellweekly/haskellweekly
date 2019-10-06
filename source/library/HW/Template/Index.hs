@@ -13,7 +13,8 @@ import qualified HW.Type.Number
 import qualified HW.Type.Route
 import qualified Lucid as H
 
-indexTemplate :: HW.Type.BaseUrl.BaseUrl -> [HW.Type.Content.Content] -> H.Html ()
+indexTemplate
+  :: HW.Type.BaseUrl.BaseUrl -> [HW.Type.Content.Content] -> H.Html ()
 indexTemplate baseUrl contents =
   HW.Template.Base.baseTemplate baseUrl [] mempty $ do
     H.p_ $ do
@@ -26,9 +27,8 @@ indexTemplate baseUrl contents =
         "newsletter"
       " and a "
       H.a_
-        [ H.href_ $ HW.Type.Route.routeToTextWith
-            baseUrl
-            HW.Type.Route.RoutePodcast
+        [ H.href_
+            $ HW.Type.Route.routeToTextWith baseUrl HW.Type.Route.RoutePodcast
         ]
         "podcast"
       "."
@@ -47,13 +47,14 @@ indexTemplate baseUrl contents =
         "advertising page"
       "."
 
-contentTemplate :: HW.Type.BaseUrl.BaseUrl -> HW.Type.Content.Content -> H.Html ()
+contentTemplate
+  :: HW.Type.BaseUrl.BaseUrl -> HW.Type.Content.Content -> H.Html ()
 contentTemplate baseUrl content = H.li_ $ case content of
-  HW.Type.Content.ContentEpisode episode ->
-    episodeTemplate baseUrl episode
+  HW.Type.Content.ContentEpisode episode -> episodeTemplate baseUrl episode
   HW.Type.Content.ContentIssue issue -> issueTemplate baseUrl issue
 
-episodeTemplate :: HW.Type.BaseUrl.BaseUrl -> HW.Type.Episode.Episode -> H.Html ()
+episodeTemplate
+  :: HW.Type.BaseUrl.BaseUrl -> HW.Type.Episode.Episode -> H.Html ()
 episodeTemplate baseUrl episode = do
   let number = HW.Type.Episode.episodeNumber episode
   "Podcast "

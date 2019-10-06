@@ -140,7 +140,8 @@ nonEmptyP p =
 
 -- | Parses a string and throws it away.
 stringP :: Data.Text.Text -> Parser ()
-stringP = Control.Monad.void . Text.ParserCombinators.ReadP.string . Data.Text.unpack
+stringP =
+  Control.Monad.void . Text.ParserCombinators.ReadP.string . Data.Text.unpack
 
 -- | Converts a timestamp (hours, minutes, seconds, milliseconds) into an
 -- integral number of picoseconds. This is mainly useful for conversion into

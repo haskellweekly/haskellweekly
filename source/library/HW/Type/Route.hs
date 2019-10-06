@@ -42,9 +42,7 @@ routeToText route = case route of
   RouteAdvertising -> "/advertising.html"
   RouteAppleBadge -> "/apple-badge.svg"
   RouteEpisode number ->
-    "/podcast/episodes/"
-      <> HW.Type.Number.numberToText number
-      <> ".html"
+    "/podcast/episodes/" <> HW.Type.Number.numberToText number <> ".html"
   RouteFavicon -> "/favicon.ico"
   RouteGoogleBadge -> "/google-badge.svg"
   RouteIndex -> "/"
@@ -55,8 +53,7 @@ routeToText route = case route of
   RoutePodcastFeed -> "/podcast/feed.rss"
   RoutePodcastLogo -> "/podcast/logo.png"
   RoutePodcast -> "/podcast.html"
-  RouteRedirect redirect ->
-    HW.Type.Redirect.redirectToText redirect
+  RouteRedirect redirect -> HW.Type.Redirect.redirectToText redirect
   RouteTachyons -> "/tachyons.css"
 
 -- | Renders a route as text with the given base URL. Redirects are not
@@ -107,7 +104,4 @@ routeContent extension route file =
 routeToRedirect :: Route -> Route
 routeToRedirect route = case route of
   RouteRedirect _ -> route
-  _ ->
-    RouteRedirect
-      . HW.Type.Redirect.textToRedirect
-      $ routeToText route
+  _ -> RouteRedirect . HW.Type.Redirect.textToRedirect $ routeToText route

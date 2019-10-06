@@ -18,9 +18,7 @@ import qualified Network.Wai
 import qualified System.FilePath
 
 episodeHandler
-  :: HW.Type.State.State
-  -> HW.Type.Number.Number
-  -> IO Network.Wai.Response
+  :: HW.Type.State.State -> HW.Type.Number.Number -> IO Network.Wai.Response
 episodeHandler state number =
   let episodes = HW.Type.State.stateEpisodes state
   in
@@ -31,9 +29,7 @@ episodeHandler state number =
         pure
           . HW.Handler.Base.htmlResponse Network.HTTP.Types.ok200 []
           $ HW.Template.Episode.episodeTemplate
-              (HW.Type.Config.configBaseUrl
-              $ HW.Type.State.stateConfig state
-              )
+              (HW.Type.Config.configBaseUrl $ HW.Type.State.stateConfig state)
               episode
               maybeCaptions
 

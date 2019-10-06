@@ -37,7 +37,8 @@ bsResponse status extraHeaders body =
         $ Data.ByteString.length body
     headers =
       (Network.HTTP.Types.hContentLength, contentLength) : extraHeaders
-  in Network.Wai.responseLBS status headers $ Data.ByteString.Lazy.fromStrict body
+  in Network.Wai.responseLBS status headers
+    $ Data.ByteString.Lazy.fromStrict body
 
 feedResponse
   :: Network.HTTP.Types.Status
@@ -70,8 +71,8 @@ fileResponse mime file state = do
   let
     status = Network.HTTP.Types.ok200
     headers = withContentType mime []
-    directory = HW.Type.Config.configDataDirectory
-      $ HW.Type.State.stateConfig state
+    directory =
+      HW.Type.Config.configDataDirectory $ HW.Type.State.stateConfig state
     path = System.FilePath.combine directory file
   body <- Data.ByteString.readFile path
   pure $ bsResponse status headers body
@@ -115,7 +116,5 @@ withContentType
   -> Network.HTTP.Types.ResponseHeaders
   -> Network.HTTP.Types.ResponseHeaders
 withContentType mime headers =
-  ( Network.HTTP.Types.hContentType
-    , Data.Text.Encoding.encodeUtf8 mime
-    )
+  (Network.HTTP.Types.hContentType, Data.Text.Encoding.encodeUtf8 mime)
     : headers

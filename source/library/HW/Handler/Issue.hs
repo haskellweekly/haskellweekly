@@ -19,9 +19,7 @@ import qualified Network.Wai
 import qualified System.FilePath
 
 issueHandler
-  :: HW.Type.State.State
-  -> HW.Type.Number.Number
-  -> IO Network.Wai.Response
+  :: HW.Type.State.State -> HW.Type.Number.Number -> IO Network.Wai.Response
 issueHandler state number = do
   let issues = HW.Type.State.stateIssues state
   case Data.Map.lookup number issues of
@@ -29,16 +27,13 @@ issueHandler state number = do
     Just issue -> do
       node <- readIssueFile state number
       let
-        baseUrl = HW.Type.Config.configBaseUrl
-          $ HW.Type.State.stateConfig state
+        baseUrl =
+          HW.Type.Config.configBaseUrl $ HW.Type.State.stateConfig state
       pure
         . HW.Handler.Base.htmlResponse Network.HTTP.Types.ok200 []
         $ HW.Template.Issue.issueTemplate baseUrl issue node
 
-readIssueFile
-  :: HW.Type.State.State
-  -> HW.Type.Number.Number
-  -> IO CMark.Node
+readIssueFile :: HW.Type.State.State -> HW.Type.Number.Number -> IO CMark.Node
 readIssueFile state number = do
   let
     name = "issue-" <> HW.Type.Number.numberToText number

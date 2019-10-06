@@ -23,10 +23,7 @@ import qualified HW.Type.Title
 import qualified Numeric.Natural
 
 -- | Convenient type alias for a map of episodes by number.
-type Episodes
-  = Data.Map.Map
-      HW.Type.Number.Number
-      HW.Type.Episode.Episode
+type Episodes = Data.Map.Map HW.Type.Number.Number HW.Type.Episode.Episode
 
 -- | All of the published episodes. Note that this is wrapper in 'Either' to
 -- handle any of the episodes being invalid or the entire collection being
@@ -79,9 +76,7 @@ checkGuids es guids = case es of
 -- | Checks to make sure that all of the episode numbers are increasing without
 -- gaps starting from one.
 checkNumbers
-  :: [HW.Type.Episode.Episode]
-  -> Numeric.Natural.Natural
-  -> Either String ()
+  :: [HW.Type.Episode.Episode] -> Numeric.Natural.Natural -> Either String ()
 checkNumbers es current = case es of
   [] -> Right ()
   episode : rest ->
@@ -107,8 +102,7 @@ episode1 =
           "https://haskell-weekly-podcast.nyc3.cdn.digitaloceanspaces.com/2019-03-11-episode-1.mp3"
     <*> HW.Type.Date.gregorianToDate 2019 3 11
     <*> HW.Type.Duration.timestampToDuration 9 43
-    <*> HW.Type.Guid.textToGuid
-          "6fe12dba-e0c3-4af5-b9fc-844bc2396ae7"
+    <*> HW.Type.Guid.textToGuid "6fe12dba-e0c3-4af5-b9fc-844bc2396ae7"
     <*> HW.Type.Number.naturalToNumber 1
     <*> HW.Type.Size.naturalToSize 13999481
     <*> HW.Type.Summary.textToSummary
@@ -124,8 +118,7 @@ episode2 =
           "https://haskell-weekly-podcast.nyc3.cdn.digitaloceanspaces.com/2019-03-18-episode-2.mp3"
     <*> HW.Type.Date.gregorianToDate 2019 3 18
     <*> HW.Type.Duration.timestampToDuration 14 59
-    <*> HW.Type.Guid.textToGuid
-          "00900298-5aa6-4301-a207-619d38cdc81a"
+    <*> HW.Type.Guid.textToGuid "00900298-5aa6-4301-a207-619d38cdc81a"
     <*> HW.Type.Number.naturalToNumber 2
     <*> HW.Type.Size.naturalToSize 21580339
     <*> HW.Type.Summary.textToSummary
@@ -141,8 +134,7 @@ episode3 =
           "https://haskell-weekly-podcast.nyc3.cdn.digitaloceanspaces.com/2019-03-25-episode-3.mp3"
     <*> HW.Type.Date.gregorianToDate 2019 3 25
     <*> HW.Type.Duration.timestampToDuration 23 47
-    <*> HW.Type.Guid.textToGuid
-          "069964f7-2457-479f-8bab-9cb4f3abec9c"
+    <*> HW.Type.Guid.textToGuid "069964f7-2457-479f-8bab-9cb4f3abec9c"
     <*> HW.Type.Number.naturalToNumber 3
     <*> HW.Type.Size.naturalToSize 34265398
     <*> HW.Type.Summary.textToSummary
@@ -159,8 +151,7 @@ episode4 =
           "https://haskell-weekly-podcast.nyc3.cdn.digitaloceanspaces.com/2019-04-01-episode-4.mp3"
     <*> HW.Type.Date.gregorianToDate 2019 4 1
     <*> HW.Type.Duration.timestampToDuration 15 57
-    <*> HW.Type.Guid.textToGuid
-          "aea8101c-b126-4cb5-be14-00200d3f6c27"
+    <*> HW.Type.Guid.textToGuid "aea8101c-b126-4cb5-be14-00200d3f6c27"
     <*> HW.Type.Number.naturalToNumber 4
     <*> HW.Type.Size.naturalToSize 23002958
     <*> HW.Type.Summary.textToSummary
@@ -176,8 +167,7 @@ episode5 =
           "https://haskell-weekly-podcast.nyc3.cdn.digitaloceanspaces.com/2019-04-08-episode-5.mp3"
     <*> HW.Type.Date.gregorianToDate 2019 4 8
     <*> HW.Type.Duration.timestampToDuration 15 15
-    <*> HW.Type.Guid.textToGuid
-          "25b43cdb-e278-42da-97dc-3c6d353ec8c8"
+    <*> HW.Type.Guid.textToGuid "25b43cdb-e278-42da-97dc-3c6d353ec8c8"
     <*> HW.Type.Number.naturalToNumber 5
     <*> HW.Type.Size.naturalToSize 21977225
     <*> HW.Type.Summary.textToSummary
@@ -193,8 +183,7 @@ episode6 =
           "https://haskell-weekly-podcast.nyc3.cdn.digitaloceanspaces.com/2019-04-15-episode-6.mp3"
     <*> HW.Type.Date.gregorianToDate 2019 4 15
     <*> HW.Type.Duration.timestampToDuration 18 38
-    <*> HW.Type.Guid.textToGuid
-          "7ed15199-bcd3-461e-af62-d504ae8a4a01"
+    <*> HW.Type.Guid.textToGuid "7ed15199-bcd3-461e-af62-d504ae8a4a01"
     <*> HW.Type.Number.naturalToNumber 6
     <*> HW.Type.Size.naturalToSize 26845627
     <*> HW.Type.Summary.textToSummary
@@ -211,8 +200,7 @@ episode7 =
           "https://haskell-weekly-podcast.nyc3.cdn.digitaloceanspaces.com/2019-04-22-episode-7.mp3"
     <*> HW.Type.Date.gregorianToDate 2019 4 22
     <*> HW.Type.Duration.timestampToDuration 17 29
-    <*> HW.Type.Guid.textToGuid
-          "287a197e-e9fd-47b6-9506-2f39be002af7"
+    <*> HW.Type.Guid.textToGuid "287a197e-e9fd-47b6-9506-2f39be002af7"
     <*> HW.Type.Number.naturalToNumber 7
     <*> HW.Type.Size.naturalToSize 25296111
     <*> HW.Type.Summary.textToSummary
@@ -229,8 +217,7 @@ episode8 =
           "https://haskell-weekly-podcast.nyc3.cdn.digitaloceanspaces.com/2019-04-29-episode-8.mp3"
     <*> HW.Type.Date.gregorianToDate 2019 4 29
     <*> HW.Type.Duration.timestampToDuration 14 20
-    <*> HW.Type.Guid.textToGuid
-          "53bbcaeb-6e6f-4e1f-9806-f24032ac7a9f"
+    <*> HW.Type.Guid.textToGuid "53bbcaeb-6e6f-4e1f-9806-f24032ac7a9f"
     <*> HW.Type.Number.naturalToNumber 8
     <*> HW.Type.Size.naturalToSize 20714874
     <*> HW.Type.Summary.textToSummary
@@ -247,8 +234,7 @@ episode9 =
           "https://haskell-weekly-podcast.nyc3.cdn.digitaloceanspaces.com/2019-05-06-episode-9.mp3"
     <*> HW.Type.Date.gregorianToDate 2019 5 6
     <*> HW.Type.Duration.timestampToDuration 21 52
-    <*> HW.Type.Guid.textToGuid
-          "de704aad-e6a1-41a6-976f-bd3f2ef34ad2"
+    <*> HW.Type.Guid.textToGuid "de704aad-e6a1-41a6-976f-bd3f2ef34ad2"
     <*> HW.Type.Number.naturalToNumber 9
     <*> HW.Type.Size.naturalToSize 31507647
     <*> HW.Type.Summary.textToSummary
@@ -265,8 +251,7 @@ episode10 =
           "https://haskell-weekly-podcast.nyc3.cdn.digitaloceanspaces.com/2019-05-20-episode-10.mp3"
     <*> HW.Type.Date.gregorianToDate 2019 5 20
     <*> HW.Type.Duration.timestampToDuration 16 37
-    <*> HW.Type.Guid.textToGuid
-          "32fd3459-b349-4c99-9150-5073fedab6bf"
+    <*> HW.Type.Guid.textToGuid "32fd3459-b349-4c99-9150-5073fedab6bf"
     <*> HW.Type.Number.naturalToNumber 10
     <*> HW.Type.Size.naturalToSize 23942886
     <*> HW.Type.Summary.textToSummary
@@ -282,8 +267,7 @@ episode11 =
           "https://haskell-weekly-podcast.nyc3.cdn.digitaloceanspaces.com/2019-05-27-episode-11.mp3"
     <*> HW.Type.Date.gregorianToDate 2019 5 27
     <*> HW.Type.Duration.timestampToDuration 19 12
-    <*> HW.Type.Guid.textToGuid
-          "3ec1dc79-7a9c-46c3-b919-61471e876708"
+    <*> HW.Type.Guid.textToGuid "3ec1dc79-7a9c-46c3-b919-61471e876708"
     <*> HW.Type.Number.naturalToNumber 11
     <*> HW.Type.Size.naturalToSize 27690623
     <*> HW.Type.Summary.textToSummary
@@ -299,8 +283,7 @@ episode12 =
           "https://haskell-weekly-podcast.nyc3.cdn.digitaloceanspaces.com/2019-06-03-episode-12.mp3"
     <*> HW.Type.Date.gregorianToDate 2019 6 3
     <*> HW.Type.Duration.timestampToDuration 16 37
-    <*> HW.Type.Guid.textToGuid
-          "f166f89f-1a16-49f1-915a-d54505c301a0"
+    <*> HW.Type.Guid.textToGuid "f166f89f-1a16-49f1-915a-d54505c301a0"
     <*> HW.Type.Number.naturalToNumber 12
     <*> HW.Type.Size.naturalToSize 23912963
     <*> HW.Type.Summary.textToSummary
@@ -317,8 +300,7 @@ episode13 =
           "https://haskell-weekly-podcast.nyc3.cdn.digitaloceanspaces.com/2019-06-10-episode-13.mp3"
     <*> HW.Type.Date.gregorianToDate 2019 6 10
     <*> HW.Type.Duration.timestampToDuration 25 8
-    <*> HW.Type.Guid.textToGuid
-          "fb192c3c-02a5-4413-ab53-1346677940ec"
+    <*> HW.Type.Guid.textToGuid "fb192c3c-02a5-4413-ab53-1346677940ec"
     <*> HW.Type.Number.naturalToNumber 13
     <*> HW.Type.Size.naturalToSize 26111814
     <*> HW.Type.Summary.textToSummary
@@ -335,8 +317,7 @@ episode14 =
           "https://haskell-weekly-podcast.nyc3.cdn.digitaloceanspaces.com/2019-07-16-episode-14.mp3"
     <*> HW.Type.Date.gregorianToDate 2019 7 16
     <*> HW.Type.Duration.timestampToDuration 15 18
-    <*> HW.Type.Guid.textToGuid
-          "5ec19b21-9399-474b-be54-beadd37894f9"
+    <*> HW.Type.Guid.textToGuid "5ec19b21-9399-474b-be54-beadd37894f9"
     <*> HW.Type.Number.naturalToNumber 14
     <*> HW.Type.Size.naturalToSize 22040576
     <*> HW.Type.Summary.textToSummary
@@ -352,8 +333,7 @@ episode15 =
           "https://haskell-weekly-podcast.nyc3.cdn.digitaloceanspaces.com/2019-07-23-episode-15.mp3"
     <*> HW.Type.Date.gregorianToDate 2019 7 23
     <*> HW.Type.Duration.timestampToDuration 18 13
-    <*> HW.Type.Guid.textToGuid
-          "a76ba20a-49f7-4a5f-a40d-bffb34417b2d"
+    <*> HW.Type.Guid.textToGuid "a76ba20a-49f7-4a5f-a40d-bffb34417b2d"
     <*> HW.Type.Number.naturalToNumber 15
     <*> HW.Type.Size.naturalToSize 26208359
     <*> HW.Type.Summary.textToSummary
@@ -387,8 +367,7 @@ episode16 =
           "https://haskell-weekly-podcast.nyc3.cdn.digitaloceanspaces.com/2019-07-30-episode-16.mp3"
     <*> HW.Type.Date.gregorianToDate 2019 7 30
     <*> HW.Type.Duration.timestampToDuration 12 54
-    <*> HW.Type.Guid.textToGuid
-          "0bbb483d-d256-4311-b2bc-2a98a0c0eaad"
+    <*> HW.Type.Guid.textToGuid "0bbb483d-d256-4311-b2bc-2a98a0c0eaad"
     <*> HW.Type.Number.naturalToNumber 16
     <*> HW.Type.Size.naturalToSize 18561769
     <*> HW.Type.Summary.textToSummary
@@ -404,8 +383,7 @@ episode17 =
           "https://haskell-weekly-podcast.nyc3.cdn.digitaloceanspaces.com/2019-08-06-episode-17.mp3"
     <*> HW.Type.Date.gregorianToDate 2019 8 6
     <*> HW.Type.Duration.timestampToDuration 13 56
-    <*> HW.Type.Guid.textToGuid
-          "df526ec2-5d4e-4c1a-b4b5-eca8b6918731"
+    <*> HW.Type.Guid.textToGuid "df526ec2-5d4e-4c1a-b4b5-eca8b6918731"
     <*> HW.Type.Number.naturalToNumber 17
     <*> HW.Type.Size.naturalToSize 20120892
     <*> HW.Type.Summary.textToSummary
@@ -421,8 +399,7 @@ episode18 =
           "https://haskell-weekly-podcast.nyc3.cdn.digitaloceanspaces.com/2019-08-13-episode-18.mp3"
     <*> HW.Type.Date.gregorianToDate 2019 8 13
     <*> HW.Type.Duration.timestampToDuration 16 41
-    <*> HW.Type.Guid.textToGuid
-          "153162fd-b6f5-40f7-8b05-fe20b91b702b"
+    <*> HW.Type.Guid.textToGuid "153162fd-b6f5-40f7-8b05-fe20b91b702b"
     <*> HW.Type.Number.naturalToNumber 18
     <*> HW.Type.Size.naturalToSize 24062492
     <*> HW.Type.Summary.textToSummary
@@ -439,8 +416,7 @@ episode19 =
           "https://haskell-weekly-podcast.nyc3.cdn.digitaloceanspaces.com/2019-08-20-episode-19.mp3"
     <*> HW.Type.Date.gregorianToDate 2019 8 20
     <*> HW.Type.Duration.timestampToDuration 18 56
-    <*> HW.Type.Guid.textToGuid
-          "bbd19a71-7d79-4514-8acb-a5729cdd26c6"
+    <*> HW.Type.Guid.textToGuid "bbd19a71-7d79-4514-8acb-a5729cdd26c6"
     <*> HW.Type.Number.naturalToNumber 19
     <*> HW.Type.Size.naturalToSize 27317566
     <*> HW.Type.Summary.textToSummary
@@ -456,8 +432,7 @@ episode20 =
           "https://haskell-weekly-podcast.nyc3.cdn.digitaloceanspaces.com/2019-09-13-episode-20.mp3"
     <*> HW.Type.Date.gregorianToDate 2019 9 13
     <*> HW.Type.Duration.timestampToDuration 15 49
-    <*> HW.Type.Guid.textToGuid
-          "d916811b-886b-4da7-a104-ff65bda7124c"
+    <*> HW.Type.Guid.textToGuid "d916811b-886b-4da7-a104-ff65bda7124c"
     <*> HW.Type.Number.naturalToNumber 20
     <*> HW.Type.Size.naturalToSize 22811159
     <*> HW.Type.Summary.textToSummary
@@ -473,8 +448,7 @@ episode21 =
           "https://haskell-weekly-podcast.nyc3.cdn.digitaloceanspaces.com/2019-10-07-episode-21.mp3"
     <*> HW.Type.Date.gregorianToDate 2019 10 7
     <*> HW.Type.Duration.timestampToDuration 14 46
-    <*> HW.Type.Guid.textToGuid
-          "dc731681-016f-4380-8acc-18877ba41abe"
+    <*> HW.Type.Guid.textToGuid "dc731681-016f-4380-8acc-18877ba41abe"
     <*> HW.Type.Number.naturalToNumber 21
     <*> HW.Type.Size.naturalToSize 21299200
     <*> HW.Type.Summary.textToSummary

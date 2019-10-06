@@ -8,7 +8,12 @@ import qualified HW.Type.BaseUrl
 import qualified HW.Type.Route
 import qualified Lucid as H
 
-baseTemplate :: HW.Type.BaseUrl.BaseUrl -> [Data.Text.Text] -> H.Html () -> H.Html () -> H.Html ()
+baseTemplate
+  :: HW.Type.BaseUrl.BaseUrl
+  -> [Data.Text.Text]
+  -> H.Html ()
+  -> H.Html ()
+  -> H.Html ()
 baseTemplate baseUrl title head_ body = do
   H.doctype_
   H.html_ [H.class_ "b--purple bt bw3"] $ do
@@ -22,9 +27,8 @@ baseTemplate baseUrl title head_ body = do
         " \x2192 "
         ("Haskell Weekly" : title)
       H.link_
-        [ H.href_ $ HW.Type.Route.routeToTextWith
-          baseUrl
-          HW.Type.Route.RouteTachyons
+        [ H.href_
+          $ HW.Type.Route.routeToTextWith baseUrl HW.Type.Route.RouteTachyons
         , H.rel_ "stylesheet"
         ]
       head_

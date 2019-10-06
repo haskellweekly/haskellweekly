@@ -18,8 +18,7 @@ newsletterHandler
   :: Applicative m => HW.Type.State.State -> m Network.Wai.Response
 newsletterHandler state = do
   let
-    baseUrl = HW.Type.Config.configBaseUrl
-      $ HW.Type.State.stateConfig state
+    baseUrl = HW.Type.Config.configBaseUrl $ HW.Type.State.stateConfig state
     issues =
       Data.List.sortOn (Data.Ord.Down . HW.Type.Issue.issueNumber)
         . Data.Map.elems
