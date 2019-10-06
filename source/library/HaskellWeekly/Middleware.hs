@@ -100,21 +100,21 @@ contentSecurityPolicy = Data.List.intercalate "; " $ fmap
 -- | The value of the @Feature-Policy@ header.
 -- <https://scotthelme.co.uk/a-new-security-header-feature-policy/>
 featurePolicy :: String
-featurePolicy = Data.List.intercalate "; " $ fmap
-  (<> " 'none'")
-  [ "camera"
-  , "fullscreen"
-  , "geolocation"
-  , "gyroscope"
-  , "magnetometer"
-  , "microphone"
-  , "midi"
-  , "notifications"
-  , "payment"
-  , "push"
-  , "speaker"
-  , "sync-xhr"
-  , "vibrate"
+featurePolicy = Data.List.intercalate
+  "; "
+  [ "camera 'none'"
+  , "fullscreen 'none'"
+  , "geolocation 'none'"
+  , "gyroscope 'none'"
+  , "magnetometer 'none'"
+  , "microphone 'none'"
+  , "midi 'none'"
+  , "notifications 'none'"
+  , "payment 'none'"
+  , "push 'none'"
+  , "speaker 'self'"
+  , "sync-xhr 'none'"
+  , "vibrate 'none'"
   ]
 
 -- | The value of the @Strict-Transport-Security@ header.
