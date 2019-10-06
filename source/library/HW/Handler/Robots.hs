@@ -21,5 +21,5 @@ robotsHandler state =
         , "Sitemap: "
           <> HW.Type.Route.routeToTextWith
                (HW.Type.Config.configBaseUrl $ HW.Type.State.stateConfig state)
-               HW.Type.Route.RouteRobots
+               HW.Type.Route.RouteSitemap
         ]

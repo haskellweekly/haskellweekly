@@ -93,6 +93,7 @@ library
     HW.Handler.PodcastFeed
     HW.Handler.Redirect
     HW.Handler.Robots
+    HW.Handler.Sitemap
     HW.Issues
     HW.Main
     HW.Middleware
