@@ -45,7 +45,7 @@ newsletterHead baseUrl maybeIssue = do
       openGraph "image" $ HaskellWeekly.Type.Route.routeToTextWith
         baseUrl
         HaskellWeekly.Type.Route.RoutePodcastLogo
-      openGraph "op:site_name" "Haskell Weekly"
+      openGraph "site_name" "Haskell Weekly"
       openGraph "title"
         . mappend "Issue "
         . HaskellWeekly.Type.Number.numberToText
