@@ -4,7 +4,7 @@
 module HaskellWeekly
   ( HW.Episodes.episodes
   , HW.Issues.issues
-  , HW.Main.defaultMain
+  , HW.Main.main
   )
 where
 
