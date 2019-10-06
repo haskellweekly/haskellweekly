@@ -19,12 +19,7 @@ data-files:
   podcast-logo.png
   podcast/*.srt
   tachyons-4-11-2.css
-extra-source-files:
-  .hindent.yaml
-  .hlint.yaml
-  .stylish-haskell.yaml
-  brittany.yaml
-  README.markdown
+extra-source-files: README.markdown
 license-file: LICENSE.markdown
 
 source-repository head
