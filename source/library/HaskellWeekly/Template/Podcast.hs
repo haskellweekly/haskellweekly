@@ -7,6 +7,7 @@ where
 
 import qualified Data.Text
 import qualified HaskellWeekly.Template.Base
+import qualified HaskellWeekly.Type.BaseUrl
 import qualified HaskellWeekly.Type.Episode
 import qualified HaskellWeekly.Type.Number
 import qualified HaskellWeekly.Type.Route
@@ -15,7 +16,7 @@ import qualified HaskellWeekly.Type.Title
 import qualified Lucid as H
 import qualified Lucid.Base as H
 
-podcastTemplate :: String -> [HaskellWeekly.Type.Episode.Episode] -> H.Html ()
+podcastTemplate :: HaskellWeekly.Type.BaseUrl.BaseUrl -> [HaskellWeekly.Type.Episode.Episode] -> H.Html ()
 podcastTemplate baseUrl episodes =
   HaskellWeekly.Template.Base.baseTemplate
       baseUrl
@@ -30,7 +31,7 @@ podcastTemplate baseUrl episodes =
         podcastActionTemplate baseUrl
         H.ul_ [H.class_ "lh-copy"] $ mapM_ (episodeTemplate baseUrl) episodes
 
-podcastHead :: String -> Maybe HaskellWeekly.Type.Episode.Episode -> H.Html ()
+podcastHead :: HaskellWeekly.Type.BaseUrl.BaseUrl -> Maybe HaskellWeekly.Type.Episode.Episode -> H.Html ()
 podcastHead baseUrl maybeEpisode = do
   H.link_
     [ H.href_ $ HaskellWeekly.Type.Route.routeToTextWith
@@ -68,7 +69,7 @@ twitter :: Data.Text.Text -> Data.Text.Text -> H.Html ()
 twitter name content =
   H.meta_ [H.content_ content, H.name_ $ "twitter:" <> name]
 
-podcastActionTemplate :: String -> H.Html ()
+podcastActionTemplate :: HaskellWeekly.Type.BaseUrl.BaseUrl -> H.Html ()
 podcastActionTemplate baseUrl =
   H.div_ [H.class_ "ba b--yellow bg-washed-yellow center mw6 pa3 tc"] $ do
     H.a_
@@ -105,7 +106,7 @@ podcastActionTemplate baseUrl =
         "our feed"
       "."
 
-episodeTemplate :: String -> HaskellWeekly.Type.Episode.Episode -> H.Html ()
+episodeTemplate :: HaskellWeekly.Type.BaseUrl.BaseUrl -> HaskellWeekly.Type.Episode.Episode -> H.Html ()
 episodeTemplate baseUrl episode = H.li_ . H.p_ $ do
   H.span_ [H.class_ "gray"] $ do
     "Episode "

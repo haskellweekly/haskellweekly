@@ -109,6 +109,7 @@ library
     HaskellWeekly.Type.Article
     HaskellWeekly.Type.Articles
     HaskellWeekly.Type.Audio
+    HaskellWeekly.Type.BaseUrl
     HaskellWeekly.Type.Caption
     HaskellWeekly.Type.Config
     HaskellWeekly.Type.Content

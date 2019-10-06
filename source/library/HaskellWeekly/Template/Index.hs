@@ -4,6 +4,7 @@ module HaskellWeekly.Template.Index
 where
 
 import qualified HaskellWeekly.Template.Base
+import qualified HaskellWeekly.Type.BaseUrl
 import qualified HaskellWeekly.Type.Content
 import qualified HaskellWeekly.Type.Date
 import qualified HaskellWeekly.Type.Episode
@@ -12,7 +13,7 @@ import qualified HaskellWeekly.Type.Number
 import qualified HaskellWeekly.Type.Route
 import qualified Lucid as H
 
-indexTemplate :: String -> [HaskellWeekly.Type.Content.Content] -> H.Html ()
+indexTemplate :: HaskellWeekly.Type.BaseUrl.BaseUrl -> [HaskellWeekly.Type.Content.Content] -> H.Html ()
 indexTemplate baseUrl contents =
   HaskellWeekly.Template.Base.baseTemplate baseUrl [] mempty $ do
     H.p_ $ do
@@ -46,13 +47,13 @@ indexTemplate baseUrl contents =
         "advertising page"
       "."
 
-contentTemplate :: String -> HaskellWeekly.Type.Content.Content -> H.Html ()
+contentTemplate :: HaskellWeekly.Type.BaseUrl.BaseUrl -> HaskellWeekly.Type.Content.Content -> H.Html ()
 contentTemplate baseUrl content = H.li_ $ case content of
   HaskellWeekly.Type.Content.ContentEpisode episode ->
     episodeTemplate baseUrl episode
   HaskellWeekly.Type.Content.ContentIssue issue -> issueTemplate baseUrl issue
 
-episodeTemplate :: String -> HaskellWeekly.Type.Episode.Episode -> H.Html ()
+episodeTemplate :: HaskellWeekly.Type.BaseUrl.BaseUrl -> HaskellWeekly.Type.Episode.Episode -> H.Html ()
 episodeTemplate baseUrl episode = do
   let number = HaskellWeekly.Type.Episode.episodeNumber episode
   "Podcast "
@@ -70,7 +71,7 @@ episodeTemplate baseUrl episode = do
     . HaskellWeekly.Type.Date.dateToShortText
     $ HaskellWeekly.Type.Episode.episodeDate episode
 
-issueTemplate :: String -> HaskellWeekly.Type.Issue.Issue -> H.Html ()
+issueTemplate :: HaskellWeekly.Type.BaseUrl.BaseUrl -> HaskellWeekly.Type.Issue.Issue -> H.Html ()
 issueTemplate baseUrl issue = do
   let number = HaskellWeekly.Type.Issue.issueNumber issue
   "Newsletter "

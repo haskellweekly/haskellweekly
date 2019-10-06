@@ -4,10 +4,11 @@ module HaskellWeekly.Template.Base
 where
 
 import qualified Data.Text
+import qualified HaskellWeekly.Type.BaseUrl
 import qualified HaskellWeekly.Type.Route
 import qualified Lucid as H
 
-baseTemplate :: String -> [Data.Text.Text] -> H.Html () -> H.Html () -> H.Html ()
+baseTemplate :: HaskellWeekly.Type.BaseUrl.BaseUrl -> [Data.Text.Text] -> H.Html () -> H.Html () -> H.Html ()
 baseTemplate baseUrl title head_ body = do
   H.doctype_
   H.html_ [H.class_ "b--purple bt bw3"] $ do

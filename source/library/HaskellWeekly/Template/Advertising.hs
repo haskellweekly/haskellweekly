@@ -4,9 +4,10 @@ module HaskellWeekly.Template.Advertising
 where
 
 import qualified HaskellWeekly.Template.Base
+import qualified HaskellWeekly.Type.BaseUrl
 import qualified Lucid as H
 
-advertisingTemplate :: String -> H.Html ()
+advertisingTemplate :: HaskellWeekly.Type.BaseUrl.BaseUrl -> H.Html ()
 advertisingTemplate baseUrl =
   HaskellWeekly.Template.Base.baseTemplate baseUrl ["Advertising"] mempty $ do
     H.h2_ [H.class_ "f2 mv3 tracked-tight"] "Advertising"

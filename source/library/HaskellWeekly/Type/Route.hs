@@ -9,6 +9,7 @@ module HaskellWeekly.Type.Route
 where
 
 import qualified Data.Text
+import qualified HaskellWeekly.Type.BaseUrl
 import qualified HaskellWeekly.Type.Number
 import qualified HaskellWeekly.Type.Redirect
 
@@ -60,10 +61,10 @@ routeToText route = case route of
 
 -- | Renders a route as text with the given base URL. Redirects are not
 -- affected by the base URL, but everything else is.
-routeToTextWith :: String -> Route -> Data.Text.Text
+routeToTextWith :: HaskellWeekly.Type.BaseUrl.BaseUrl -> Route -> Data.Text.Text
 routeToTextWith baseUrl route = if isRedirect route
   then routeToText route
-  else mappend (Data.Text.pack baseUrl) $ routeToText route
+  else mappend (HaskellWeekly.Type.BaseUrl.baseUrlToText baseUrl) $ routeToText route
 
 -- | Parses a list of strings as a route. Note that some lists of strings go to
 -- the same place, so this isn't necessarily a one to one mapping.

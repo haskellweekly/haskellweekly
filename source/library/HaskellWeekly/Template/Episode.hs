@@ -8,6 +8,7 @@ import qualified HaskellWeekly.Template.Base
 import qualified HaskellWeekly.Template.Podcast
 import qualified HaskellWeekly.Type.Article
 import qualified HaskellWeekly.Type.Audio
+import qualified HaskellWeekly.Type.BaseUrl
 import qualified HaskellWeekly.Type.Caption
 import qualified HaskellWeekly.Type.Date
 import qualified HaskellWeekly.Type.Episode
@@ -18,7 +19,7 @@ import qualified HaskellWeekly.Type.Title
 import qualified Lucid as H
 
 episodeTemplate
-  :: String
+  :: HaskellWeekly.Type.BaseUrl.BaseUrl
   -> HaskellWeekly.Type.Episode.Episode
   -> Maybe [HaskellWeekly.Type.Caption.Caption]
   -> H.Html ()

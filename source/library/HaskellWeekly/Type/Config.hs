@@ -10,13 +10,14 @@ import qualified Data.ByteString
 import qualified Data.Maybe
 import qualified Data.Text
 import qualified Data.Text.Encoding
+import qualified HaskellWeekly.Type.BaseUrl
 import qualified Network.Wai.Handler.Warp
 import qualified System.Environment
 import qualified Text.Read
 
 data Config =
   Config
-    { configBaseUrl :: String
+    { configBaseUrl :: HaskellWeekly.Type.BaseUrl.BaseUrl
     , configDatabaseUrl :: Data.ByteString.ByteString
     , configDataDirectory :: FilePath
     , configPort :: Network.Wai.Handler.Warp.Port
@@ -43,10 +44,13 @@ getConfig = do
 -- | Gets the base URL that the server will be available at. This is necessary
 -- because the server could be behind a reverse proxy or in a container or
 -- something.
-getBaseUrl :: Network.Wai.Handler.Warp.Port -> IO String
+getBaseUrl :: Network.Wai.Handler.Warp.Port -> IO HaskellWeekly.Type.BaseUrl.BaseUrl
 getBaseUrl port = do
   maybeString <- System.Environment.lookupEnv "BASE_URL"
-  pure $ Data.Maybe.fromMaybe ("http://localhost:" <> show port) maybeString
+  pure
+    . HaskellWeekly.Type.BaseUrl.textToBaseUrl
+    . Data.Text.pack
+    $ Data.Maybe.fromMaybe ("http://localhost:" <> show port) maybeString
 
 -- | Gets the database connection information. Although this says "URL" it
 -- could also be a PostgreSQL connection string. That means both

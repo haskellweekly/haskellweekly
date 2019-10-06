@@ -11,9 +11,9 @@ import qualified Data.ByteString.Base64
 import qualified Data.ByteString.Builder
 import qualified Data.ByteString.Lazy
 import qualified Data.CaseInsensitive
-import qualified Data.List
 import qualified Data.Text
 import qualified Data.Text.Encoding
+import qualified HaskellWeekly.Type.BaseUrl
 import qualified HaskellWeekly.Type.Config
 import qualified Network.HTTP.Types
 import qualified Network.HTTP.Types.Header
@@ -146,4 +146,6 @@ enforceHttps config =
 
 isSecure :: HaskellWeekly.Type.Config.Config -> Bool
 isSecure =
-  Data.List.isPrefixOf "https:" . HaskellWeekly.Type.Config.configBaseUrl
+  Data.Text.isPrefixOf "https:"
+    . HaskellWeekly.Type.BaseUrl.baseUrlToText
+    . HaskellWeekly.Type.Config.configBaseUrl

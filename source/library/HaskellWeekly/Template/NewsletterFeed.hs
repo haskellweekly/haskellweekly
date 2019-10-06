@@ -7,6 +7,7 @@ import qualified CMark
 import qualified Data.List
 import qualified Data.Maybe
 import qualified Data.Ord
+import qualified HaskellWeekly.Type.BaseUrl
 import qualified HaskellWeekly.Type.Date
 import qualified HaskellWeekly.Type.Issue
 import qualified HaskellWeekly.Type.Number
@@ -16,7 +17,7 @@ import qualified Text.Feed.Constructor
 import qualified Text.Feed.Types
 
 newsletterFeedTemplate
-  :: String
+  :: HaskellWeekly.Type.BaseUrl.BaseUrl
   -> [(HaskellWeekly.Type.Issue.Issue, CMark.Node)]
   -> Text.Feed.Types.Feed
 newsletterFeedTemplate baseUrl issues =
@@ -30,7 +31,7 @@ newsletterFeedTemplate baseUrl issues =
     { Text.Atom.Feed.feedEntries = entries
     }
 
-atomId :: String -> Text.Atom.Feed.URI
+atomId :: HaskellWeekly.Type.BaseUrl.BaseUrl -> Text.Atom.Feed.URI
 atomId baseUrl = HaskellWeekly.Type.Route.routeToTextWith
   baseUrl
   HaskellWeekly.Type.Route.RouteNewsletterFeed
@@ -43,7 +44,7 @@ atomUpdated =
     . fmap HaskellWeekly.Type.Issue.issueDate
 
 issueToEntry
-  :: String
+  :: HaskellWeekly.Type.BaseUrl.BaseUrl
   -> (HaskellWeekly.Type.Issue.Issue, CMark.Node)
   -> Text.Atom.Feed.Entry
 issueToEntry baseUrl (issue, node) =
@@ -60,7 +61,7 @@ issueToEntry baseUrl (issue, node) =
 nodeToEntryContent :: CMark.Node -> Text.Atom.Feed.EntryContent
 nodeToEntryContent = Text.Atom.Feed.TextContent . CMark.nodeToHtml []
 
-entryId :: String -> HaskellWeekly.Type.Issue.Issue -> Text.Atom.Feed.URI
+entryId :: HaskellWeekly.Type.BaseUrl.BaseUrl -> HaskellWeekly.Type.Issue.Issue -> Text.Atom.Feed.URI
 entryId baseUrl =
   HaskellWeekly.Type.Route.routeToTextWith baseUrl
     . HaskellWeekly.Type.Route.RouteIssue

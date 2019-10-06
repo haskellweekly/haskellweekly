@@ -7,6 +7,7 @@ where
 
 import qualified Data.Text
 import qualified HaskellWeekly.Template.Base
+import qualified HaskellWeekly.Type.BaseUrl
 import qualified HaskellWeekly.Type.Date
 import qualified HaskellWeekly.Type.Issue
 import qualified HaskellWeekly.Type.Number
@@ -14,7 +15,7 @@ import qualified HaskellWeekly.Type.Route
 import qualified Lucid as H
 import qualified Lucid.Base as H
 
-newsletterTemplate :: String -> [HaskellWeekly.Type.Issue.Issue] -> H.Html ()
+newsletterTemplate :: HaskellWeekly.Type.BaseUrl.BaseUrl -> [HaskellWeekly.Type.Issue.Issue] -> H.Html ()
 newsletterTemplate baseUrl issues =
   HaskellWeekly.Template.Base.baseTemplate
       baseUrl
@@ -28,7 +29,7 @@ newsletterTemplate baseUrl issues =
         newsletterActionTemplate baseUrl
         H.ul_ [H.class_ "lh-copy"] $ mapM_ (issueTemplate baseUrl) issues
 
-newsletterHead :: String -> Maybe HaskellWeekly.Type.Issue.Issue -> H.Html ()
+newsletterHead :: HaskellWeekly.Type.BaseUrl.BaseUrl -> Maybe HaskellWeekly.Type.Issue.Issue -> H.Html ()
 newsletterHead baseUrl maybeIssue = do
   H.link_
     [ H.href_ $ HaskellWeekly.Type.Route.routeToTextWith
@@ -64,7 +65,7 @@ twitter :: Data.Text.Text -> Data.Text.Text -> H.Html ()
 twitter name content =
   H.meta_ [H.content_ content, H.name_ $ "twitter:" <> name]
 
-newsletterActionTemplate :: String -> H.Html ()
+newsletterActionTemplate :: HaskellWeekly.Type.BaseUrl.BaseUrl -> H.Html ()
 newsletterActionTemplate baseUrl =
   H.div_ [H.class_ "ba b--yellow bg-washed-yellow center mw6 pa3"] $ do
     H.p_ [H.class_ "lh-copy mt0"] $ do
@@ -111,7 +112,7 @@ newsletterActionTemplate baseUrl =
             ]
             "Subscribe"
 
-issueTemplate :: String -> HaskellWeekly.Type.Issue.Issue -> H.Html ()
+issueTemplate :: HaskellWeekly.Type.BaseUrl.BaseUrl -> HaskellWeekly.Type.Issue.Issue -> H.Html ()
 issueTemplate baseUrl issue = H.li_ $ do
   H.a_
       [ H.href_

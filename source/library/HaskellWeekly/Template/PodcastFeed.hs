@@ -6,6 +6,7 @@ where
 import qualified Data.Text
 import qualified Data.XML.Types
 import qualified HaskellWeekly.Type.Audio
+import qualified HaskellWeekly.Type.BaseUrl
 import qualified HaskellWeekly.Type.Date
 import qualified HaskellWeekly.Type.Duration
 import qualified HaskellWeekly.Type.Episode
@@ -19,7 +20,7 @@ import qualified Text.Feed.Types
 import qualified Text.RSS.Syntax
 
 podcastFeedTemplate
-  :: String -> [HaskellWeekly.Type.Episode.Episode] -> Text.Feed.Types.Feed
+  :: HaskellWeekly.Type.BaseUrl.BaseUrl -> [HaskellWeekly.Type.Episode.Episode] -> Text.Feed.Types.Feed
 podcastFeedTemplate baseUrl episodes =
   Text.Feed.Constructor.feedFromRSS $ Text.RSS.Syntax.RSS
     "2.0"
@@ -36,7 +37,7 @@ podcastFeedTemplate baseUrl episodes =
     []
 
 makeChannel
-  :: String
+  :: HaskellWeekly.Type.BaseUrl.BaseUrl
   -> [HaskellWeekly.Type.Episode.Episode]
   -> Text.RSS.Syntax.RSSChannel
 makeChannel baseUrl episodes =
@@ -64,7 +65,7 @@ channelDescription = Data.Text.unwords
   , "two-host format and runs for about 15 minutes."
   ]
 
-channelImage :: String -> Maybe Text.RSS.Syntax.RSSImage
+channelImage :: HaskellWeekly.Type.BaseUrl.BaseUrl -> Maybe Text.RSS.Syntax.RSSImage
 channelImage baseUrl = Just $ Text.RSS.Syntax.nullImage
   (HaskellWeekly.Type.Route.routeToTextWith
     baseUrl
@@ -76,12 +77,12 @@ channelImage baseUrl = Just $ Text.RSS.Syntax.nullImage
 channelLanguage :: Maybe Data.Text.Text
 channelLanguage = Just "en-US"
 
-channelLink :: String -> Text.RSS.Syntax.URLString
+channelLink :: HaskellWeekly.Type.BaseUrl.BaseUrl -> Text.RSS.Syntax.URLString
 channelLink baseUrl = HaskellWeekly.Type.Route.routeToTextWith
   baseUrl
   HaskellWeekly.Type.Route.RoutePodcast
 
-channelOther :: String -> [Data.XML.Types.Element]
+channelOther :: HaskellWeekly.Type.BaseUrl.BaseUrl -> [Data.XML.Types.Element]
 channelOther baseUrl =
   [ Data.XML.Types.Element
     "atom:link"
@@ -123,7 +124,7 @@ channelOther baseUrl =
   ]
 
 episodeToItem
-  :: String -> HaskellWeekly.Type.Episode.Episode -> Text.RSS.Syntax.RSSItem
+  :: HaskellWeekly.Type.BaseUrl.BaseUrl -> HaskellWeekly.Type.Episode.Episode -> Text.RSS.Syntax.RSSItem
 episodeToItem baseUrl episode =
   let item = Text.RSS.Syntax.nullItem $ itemTitle episode
   in
@@ -157,7 +158,7 @@ itemGuid =
     . HaskellWeekly.Type.Episode.episodeGuid
 
 itemLink
-  :: String
+  :: HaskellWeekly.Type.BaseUrl.BaseUrl
   -> HaskellWeekly.Type.Episode.Episode
   -> Maybe Text.RSS.Syntax.URLString
 itemLink baseUrl =
