@@ -37,7 +37,7 @@ dateToRfc2822 = formatDate "%a, %d %b %Y 12:00:00 GMT"
 -- to xkcd: <https://xkcd.com/1179/>. Fortunately ISO 8601 agrees with xkcd by
 -- recommending @YYYY-mm-dd@, like @2001-02-03@ for February 3rd, 2001.
 dateToShortText :: Date -> Data.Text.Text
-dateToShortText = dateToShortText
+dateToShortText = formatDate "%Y-%m-%d"
 
 -- | Renders a date using the given format.
 formatDate :: Data.Text.Text -> Date -> Data.Text.Text
