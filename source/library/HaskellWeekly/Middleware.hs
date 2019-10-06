@@ -89,12 +89,16 @@ addSecurityHeaders config =
 contentSecurityPolicy :: String
 contentSecurityPolicy = Data.List.intercalate "; " $ fmap
   unwords
-  [ ["default-src", "'self'"]
+  [ ["base-uri", "'none'"]
+  , ["default-src", "'none'"]
+  , ["form-action", "'none'"]
+  , ["frame-ancestors", "'none'"]
   , ["img-src", "'self'", "data:"]
   , [ "media-src"
     , "https://haskell-weekly-podcast.nyc3.cdn.digitaloceanspaces.com:443"
     , "'self'"
     ]
+  , ["style-src", "'self'"]
   ]
 
 -- | The value of the @Feature-Policy@ header.
