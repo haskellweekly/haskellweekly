@@ -45,7 +45,7 @@ baseTemplate baseUrl title head_ body = do
                 ]
                 "Haskell Weekly"
           H.main_ [H.class_ "mv3"] body
-          H.footer_ [H.class_ "gray mv3"] . H.p_ $ do
+          H.footer_ [H.class_ "gray mb6 mt3"] . H.p_ [H.class_ "lh-copy"] $ do
             "The content on this site is licensed under a "
             H.a_
               [ H.class_ "color-inherit"
