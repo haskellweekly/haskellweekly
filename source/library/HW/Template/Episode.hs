@@ -44,6 +44,7 @@ episodeTemplate baseUrl episode maybeCaptions =
           H.toHtml
             . HW.Type.Summary.summaryToText
             $ HW.Type.Episode.episodeSummary episode
+          " "
           H.span_ [H.class_ "gray"] $ do
             "This episode was published on "
             H.toHtml $ date episode
