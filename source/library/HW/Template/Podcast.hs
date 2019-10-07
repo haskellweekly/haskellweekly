@@ -75,18 +75,19 @@ podcastActionTemplate baseUrl =
         ]
       $ H.img_
           [ H.alt_ "Listen on Apple Podcasts"
-          , H.class_ "dib w-50-ns"
+          , H.class_ "dib w-40-ns"
           , H.src_
           . HW.Type.Route.routeToTextWith baseUrl
           $ HW.Type.Route.RouteAppleBadge
           ]
+    H.div_ [H.class_ "dib w-10-ns"] ""
     H.a_
         [ H.href_
             "https://podcasts.google.com/?feed=aHR0cHM6Ly9oYXNrZWxsd2Vla2x5Lm5ld3MvcG9kY2FzdC9mZWVkLnJzcw=="
         ]
       $ H.img_
           [ H.alt_ "Listen on Google Podcasts"
-          , H.class_ "dib w-50-ns"
+          , H.class_ "dib w-40-ns"
           , H.src_
           . HW.Type.Route.routeToTextWith baseUrl
           $ HW.Type.Route.RouteGoogleBadge

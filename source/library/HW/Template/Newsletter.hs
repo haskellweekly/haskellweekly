@@ -97,7 +97,7 @@ newsletterActionTemplate baseUrl =
                 , H.value_ ""
                 ]
           H.input_
-            [ H.class_ "ba b--silver input-reset pa3 flex-auto"
+            [ H.class_ "ba br0 b--silver input-reset pa3 flex-auto"
             , H.name_ "EMAIL"
             , H.placeholder_ "you@example.com"
             , H.required_ "required"
