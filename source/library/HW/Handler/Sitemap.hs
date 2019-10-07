@@ -36,11 +36,11 @@ normalRoutes =
   , HW.Type.Route.RouteFavicon
   , HW.Type.Route.RouteGoogleBadge
   , HW.Type.Route.RouteIndex
+  , HW.Type.Route.RouteLogo
   , HW.Type.Route.RouteNewsletter
   , HW.Type.Route.RouteNewsletterFeed
   , HW.Type.Route.RoutePodcast
   , HW.Type.Route.RoutePodcastFeed
-  , HW.Type.Route.RoutePodcastLogo
   , HW.Type.Route.RouteRobots
   , HW.Type.Route.RouteSitemap
   , HW.Type.Route.RouteTachyons

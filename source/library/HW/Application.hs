@@ -72,7 +72,7 @@ handle state route = case route of
   HW.Type.Route.RoutePodcastFeed ->
     HW.Handler.PodcastFeed.podcastFeedHandler state
   HW.Type.Route.RoutePodcast -> HW.Handler.Podcast.podcastHandler state
-  HW.Type.Route.RoutePodcastLogo ->
+  HW.Type.Route.RouteLogo ->
     HW.Handler.Base.fileResponse "image/png" "podcast-logo.png" state
   HW.Type.Route.RouteRedirect redirect ->
     HW.Handler.Redirect.redirectHandler redirect

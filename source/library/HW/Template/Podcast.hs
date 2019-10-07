@@ -43,9 +43,8 @@ podcastHead baseUrl maybeEpisode = do
       openGraph "description"
         . HW.Type.Summary.summaryToText
         $ HW.Type.Episode.episodeSummary episode
-      openGraph "image" $ HW.Type.Route.routeToTextWith
-        baseUrl
-        HW.Type.Route.RoutePodcastLogo
+      openGraph "image"
+        $ HW.Type.Route.routeToTextWith baseUrl HW.Type.Route.RouteLogo
       openGraph "site_name" "Haskell Weekly"
       openGraph "title"
         . HW.Type.Title.titleToText

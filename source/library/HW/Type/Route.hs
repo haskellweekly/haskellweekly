@@ -21,11 +21,11 @@ data Route
   | RouteGoogleBadge
   | RouteIndex
   | RouteIssue HW.Type.Number.Number
+  | RouteLogo
   | RouteNewsletter
   | RouteNewsletterFeed
   | RoutePodcast
   | RoutePodcastFeed
-  | RoutePodcastLogo
   | RouteRedirect HW.Type.Redirect.Redirect
   | RouteRobots
   | RouteSitemap
@@ -42,18 +42,18 @@ isRedirect route = case route of
 routeToText :: Route -> Data.Text.Text
 routeToText route = case route of
   RouteAdvertising -> "/advertising.html"
-  RouteAppleBadge -> "/apple-badge.svg"
+  RouteAppleBadge -> "/apple-podcasts.svg"
   RouteEpisode number ->
-    "/podcast/episodes/" <> HW.Type.Number.numberToText number <> ".html"
+    "/episode/" <> HW.Type.Number.numberToText number <> ".html"
   RouteFavicon -> "/favicon.ico"
-  RouteGoogleBadge -> "/google-badge.svg"
+  RouteGoogleBadge -> "/google-podcasts.svg"
   RouteIndex -> "/"
   RouteIssue number ->
-    "/issues/" <> HW.Type.Number.numberToText number <> ".html"
-  RouteNewsletterFeed -> "/haskell-weekly.atom"
+    "/issue/" <> HW.Type.Number.numberToText number <> ".html"
+  RouteLogo -> "/logo.png"
+  RouteNewsletterFeed -> "/newsletter.atom"
   RouteNewsletter -> "/newsletter.html"
-  RoutePodcastFeed -> "/podcast/feed.rss"
-  RoutePodcastLogo -> "/podcast/logo.png"
+  RoutePodcastFeed -> "/podcast.rss"
   RoutePodcast -> "/podcast.html"
   RouteRedirect redirect -> HW.Type.Redirect.redirectToText redirect
   RouteRobots -> "/robots.txt"
@@ -73,22 +73,36 @@ textToRoute :: [Data.Text.Text] -> Maybe Route
 textToRoute path = case path of
   [] -> Just RouteIndex
   ["advertising.html"] -> Just RouteAdvertising
-  ["apple-badge.svg"] -> Just RouteAppleBadge
+  ["apple-podcasts.svg"] -> Just RouteAppleBadge
+  ["episode", file] -> routeContent "html" RouteEpisode file
   ["favicon.ico"] -> Just RouteFavicon
-  ["google-badge.svg"] -> Just RouteGoogleBadge
-  ["index.html"] -> Just $ routeToRedirect RouteIndex
-  ["haskell-weekly.atom"] -> Just RouteNewsletterFeed
+  ["google-podcasts.svg"] -> Just RouteGoogleBadge
+  ["issue", file] -> routeContent "html" RouteIssue file
+  ["logo.png"] -> Just RouteLogo
+  ["newsletter.atom"] -> Just RouteNewsletterFeed
   ["newsletter.html"] -> Just RouteNewsletter
-  ["issues", file] -> routeContent "html" RouteIssue file
-  ["podcast", "episodes", file] -> routeContent "html" RouteEpisode file
-  ["podcast", "feed.rss"] -> Just RoutePodcastFeed
   ["podcast.html"] -> Just RoutePodcast
-  ["podcast"] -> Just $ routeToRedirect RoutePodcast
-  ["podcast", ""] -> Just $ routeToRedirect RoutePodcast
-  ["podcast", "logo.png"] -> Just RoutePodcastLogo
+  ["podcast.rss"] -> Just RoutePodcastFeed
   ["robots.txt"] -> Just RouteRobots
   ["sitemap.txt"] -> Just RouteSitemap
   ["tachyons.css"] -> Just RouteTachyons
+--
+  ["haskell-weekly.atom"] -> Just $ routeToRedirect RouteNewsletterFeed
+  ["haskell-weekly.rss"] -> Just $ routeToRedirect RouteNewsletterFeed
+  ["images", "favicon.ico"] -> Just $ routeToRedirect RouteFavicon
+  ["images", "twitter-card.png"] -> Just $ routeToRedirect RouteLogo
+  ["index.html"] -> Just $ routeToRedirect RouteIndex
+  ["issues", file] ->
+    fmap routeToRedirect $ routeContent "html" RouteEpisode file
+  ["podcast", "apple-badge.svg"] -> Just $ routeToRedirect RouteAppleBadge
+  ["podcast", "episodes", file] ->
+    fmap routeToRedirect $ routeContent "html" RouteEpisode file
+  ["podcast", "feed.rss"] -> Just $ routeToRedirect RoutePodcastFeed
+  ["podcast", "google-badge.svg"] -> Just $ routeToRedirect RouteGoogleBadge
+  ["podcast", "index.html"] -> Just $ routeToRedirect RoutePodcast
+  ["podcast", ""] -> Just $ routeToRedirect RoutePodcast
+  ["podcast"] -> Just $ routeToRedirect RoutePodcast
+  ["podcast", "logo.png"] -> Just $ routeToRedirect RouteLogo
   _ -> Nothing
 
 -- | Handles routing content by stripping the given extension, parsing what's

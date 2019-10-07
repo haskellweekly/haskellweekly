@@ -69,7 +69,7 @@ channelDescription = Data.Text.unwords
 
 channelImage :: HW.Type.BaseUrl.BaseUrl -> Maybe Text.RSS.Syntax.RSSImage
 channelImage baseUrl = Just $ Text.RSS.Syntax.nullImage
-  (HW.Type.Route.routeToTextWith baseUrl HW.Type.Route.RoutePodcastLogo)
+  (HW.Type.Route.routeToTextWith baseUrl HW.Type.Route.RouteLogo)
   "Haskell Weekly"
   (channelLink baseUrl)
 
