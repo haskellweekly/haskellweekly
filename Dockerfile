@@ -1,22 +1,17 @@
 # https://docs.docker.com/engine/reference/builder/
-FROM alpine:3.10.2
+FROM nixos/nix:2.3
 
-  WORKDIR /opt/haskellweekly
-  RUN apk add --no-cache cabal ghc git libpq musl-dev postgresql-dev wget zlib-dev
-
-  COPY haskellweekly.cabal ./
-  RUN cabal v2-update
-  RUN cabal v2-build --enable-tests --only-dependencies
-
+  WORKDIR /haskellweekly
   COPY . .
-  RUN cabal v2-test
-  RUN cabal v2-install .
-  RUN cp ~/.cabal/bin/haskellweekly /usr/local/bin/
+  RUN nix-shell --packages cabal2nix --pure --run 'cabal2nix .' > haskellweekly.nix
+  RUN nix-build
 
-FROM alpine:3.10.2
+FROM debian:10.1-slim
 
-  RUN apk add --no-cache gmp libffi libpq
-  COPY --from=0 /usr/local/bin/haskellweekly /usr/local/bin/
-  COPY data/ /var/opt/haskellweekly/
-  ENV DATA_DIRECTORY /var/opt/haskellweekly
-  CMD haskellweekly
+  RUN apt-get update && apt-get install --assume-yes libpq5
+  COPY --from=0 /haskellweekly/result/bin/haskellweekly /bin
+  COPY data/ /opt/haskellweekly/
+  ENV DATA_DIRECTORY /opt/haskellweekly
+
+  # https://unix.stackexchange.com/a/76514
+  CMD /lib64/ld-linux-x86-64.so.2 /bin/haskellweekly
