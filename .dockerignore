@@ -1,8 +1,8 @@
 # https://docs.docker.com/engine/reference/builder/#dockerignore-file
 *
 
-!/cabal.project
 !/data/
+!/default.nix
 !/haskellweekly.cabal
 !/LICENSE.markdown
 !/README.markdown
