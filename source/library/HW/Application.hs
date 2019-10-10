@@ -5,9 +5,12 @@ module HW.Application
   )
 where
 
+import qualified Data.IORef
+import qualified Data.Map
 import qualified Data.Text
 import qualified Data.Text.Encoding
 import qualified Data.Text.Encoding.Error
+import qualified GHC.Clock
 import qualified HW.Handler.Advertising
 import qualified HW.Handler.Base
 import qualified HW.Handler.Episode
@@ -23,6 +26,53 @@ import qualified HW.Handler.Sitemap
 import qualified HW.Type.Route
 import qualified HW.Type.State
 import qualified Network.Wai
+import qualified System.IO.Unsafe
+
+type Cache
+  = Data.IORef.IORef
+      (Data.Map.Map HW.Type.Route.Route (Double, Network.Wai.Response))
+
+globalCache :: Cache
+globalCache =
+  System.IO.Unsafe.unsafePerformIO $ Data.IORef.newIORef Data.Map.empty
+
+{-# NOINLINE globalCache #-}
+getCache :: Cache -> HW.Type.Route.Route -> IO (Maybe Network.Wai.Response)
+getCache cacheRef route = do
+  cache <- Data.IORef.readIORef cacheRef
+  case Data.Map.lookup route cache of
+    Nothing -> pure Nothing
+    Just (expiresAt, response) -> do
+      now <- GHC.Clock.getMonotonicTime
+      if expiresAt <= now
+        then do
+          Data.IORef.atomicModifyIORef' cacheRef
+            $ \m -> (Data.Map.delete route m, ())
+          pure Nothing
+        else pure $ Just response
+
+putCache :: Cache -> HW.Type.Route.Route -> Network.Wai.Response -> IO ()
+putCache cache route response = do
+  now <- GHC.Clock.getMonotonicTime
+  Data.IORef.atomicModifyIORef' cache
+    $ \m -> (Data.Map.insert route (now + 15 * 60, response) m, ())
+
+cached
+  :: Cache
+  -> HW.Type.Route.Route
+  -> IO Network.Wai.Response
+  -> IO Network.Wai.Response
+cached cache route makeResponse = do
+  maybeResponse <- getCache cache route
+  case maybeResponse of
+    Just response -> do
+      putStrLn $ "cache hit for " <> show route
+      pure response
+    Nothing -> do
+      putStrLn $ "cache miss for " <> show route
+      response <- makeResponse
+      putCache cache route response
+      pure response
 
 -- | The whole application. From a high level, this is responsible for checking
 -- the request method and path. If those route to an appropriate handler, this
@@ -31,7 +81,7 @@ application :: HW.Type.State.State -> Network.Wai.Application
 application state request respond =
   case (requestMethod request, requestRoute request) of
     ("GET", Just route) -> do
-      response <- handle state route
+      response <- cached globalCache route $ handle state route
       respond response
     _ -> respond HW.Handler.Base.notFoundResponse
 

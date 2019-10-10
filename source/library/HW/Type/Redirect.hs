@@ -10,7 +10,7 @@ import qualified Data.Text
 
 newtype Redirect =
   Redirect Data.Text.Text
-  deriving (Eq, Show)
+  deriving (Eq, Ord, Show)
 
 -- | Converts a redirect into text so that it can be used somewhere like an
 -- HTTP header.
