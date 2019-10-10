@@ -65,11 +65,8 @@ cached
 cached cache route makeResponse = do
   maybeResponse <- getCache cache route
   case maybeResponse of
-    Just response -> do
-      putStrLn $ "cache hit for " <> show route
-      pure response
+    Just response -> pure response
     Nothing -> do
-      putStrLn $ "cache miss for " <> show route
       response <- makeResponse
       putCache cache route response
       pure response
