@@ -9,6 +9,8 @@ where
 
 import qualified Control.Exception
 import qualified Data.ByteString
+import qualified Data.IORef
+import qualified Data.Map
 import qualified Database.PostgreSQL.Simple
 import qualified HW.Episodes
 import qualified HW.Issues
@@ -19,7 +21,8 @@ import qualified System.IO.Error
 
 data State =
   State
-    { stateConfig :: HW.Type.Config.Config
+    { stateCache :: Data.IORef.IORef (Data.Map.Map FilePath (Maybe Data.ByteString.ByteString))
+    , stateConfig :: HW.Type.Config.Config
     , stateDatabaseConnection :: Database.PostgreSQL.Simple.Connection
     , stateEpisodes :: HW.Episodes.Episodes
     , stateIssues :: HW.Issues.Issues
@@ -29,12 +32,14 @@ data State =
 -- will fail.
 configToState :: HW.Type.Config.Config -> IO State
 configToState config = do
+  cache <- Data.IORef.newIORef Data.Map.empty
   databaseConnection <- Database.PostgreSQL.Simple.connectPostgreSQL
     $ HW.Type.Config.configDatabaseUrl config
   episodes <- either fail pure HW.Episodes.episodes
   issues <- either fail pure HW.Issues.issues
   pure State
-    { stateConfig = config
+    { stateCache = cache
+    , stateConfig = config
     , stateDatabaseConnection = databaseConnection
     , stateEpisodes = episodes
     , stateIssues = issues
@@ -44,7 +49,20 @@ configToState config = do
 -- returns nothing if the file doesn't exist and raises an exception for all
 -- other failure modes.
 readDataFile :: State -> FilePath -> IO (Maybe Data.ByteString.ByteString)
-readDataFile state file =
+readDataFile state file = do
+  let cacheRef = stateCache state
+  cache <- Data.IORef.readIORef cacheRef
+  case Data.Map.lookup file cache of
+    Just contents -> pure contents
+    Nothing -> do
+      contents <- readDataFileWithoutCache state file
+      Data.IORef.atomicModifyIORef' cacheRef
+        $ \m -> (Data.Map.insert file contents m, ())
+      pure contents
+
+readDataFileWithoutCache
+  :: State -> FilePath -> IO (Maybe Data.ByteString.ByteString)
+readDataFileWithoutCache state file =
   let
     directory = HW.Type.Config.configDataDirectory $ stateConfig state
     path = System.FilePath.combine directory file
