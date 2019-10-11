@@ -8,7 +8,7 @@ This is a weekly summary of what's going on in its community.
     > We are delighted to announce the first Hackage release of optics, a Haskell library for defining and using lenses, traversals, prisms and other optic kinds.
 
 -   [GSoC: The Conclusion](https://vijayphoenix.github.io/blog/gsoc-the-conclusion/) by Vijay Tadikamalla
-    > Finally, it’s time to wrap up and finalize the project. Here is my GSoC project HsYAML. Undoubtedly, it was the best summer.
+    > Finally, it's time to wrap up and finalize the project. Here is my GSoC project HsYAML. Undoubtedly, it was the best summer.
 
 -   [GSoC-2019](https://github.com/kderme/gsoc/blob/6f644e801e388af891bacbd28d5386b5d5e16bb3/blog/meta-blog.md) by Kostas Dermentzis
     > In my gsoc-2019 project, I used quickcheck-state-machine to write tests about different dbs, with the aim to test new functionality that I added to these dbs, provide good examples of how to write tests using q-s-m, and also improve q-s-m itself.
@@ -23,7 +23,7 @@ This is a weekly summary of what's going on in its community.
     > I was recently asked to explain why I felt disappointed by Haskell, as a language. And, well. Crucified for crucified, I might as well criticise Haskell publicly.
 
 -   [How GHC 8.8 nearly killed singletons](https://ryanglscott.github.io/2019/08/29/how-ghc-8-8-nearly-killed-singletons/) by Ryan Scott
-    > What the changelog doesn’t contain is a story about how the singletons library nearly perished due to changes introduced in GHC 8.8.
+    > What the changelog doesn't contain is a story about how the singletons library nearly perished due to changes introduced in GHC 8.8.
 
 -   [Bypassing MAX_PATH Limit with GHC on Windows](https://hub.zhox.com/posts/bypassing-max_path-limit-on-windows/) by Tamar Christina
     > GHC 8.10+ Will ship with a custom GCC+Binutils bindist that will remove the MAX_PATH limitation to files.
@@ -32,11 +32,11 @@ This is a weekly summary of what's going on in its community.
     > The goal was to check high-level fault-tolerance property while sending messages to Kafka and I ended up changing the CPU register to get the exact failure I wanted and exactly when I wanted.
 
 -   [Relational Algebra with Fancy Types](http://www.philipzucker.com/relational-algebra-with-fancy-types/) by Philip Zucker
-    > Last time, I tried to give a primer of relations and relational algebra using the Haskell type `type Rel a b = [(a,b)]`. In this post we’re going to look at these ideas from a slightly different angle.
+    > Last time, I tried to give a primer of relations and relational algebra using the Haskell type `type Rel a b = [(a,b)]`. In this post we're going to look at these ideas from a slightly different angle.
 
 ## Jobs
 
--   [Interos- We’re Hiring!!!](https://interos.applicantpro.com/jobs/986650.html) (ad)
+-   [Interos- We're Hiring!!!](https://interos.applicantpro.com/jobs/986650.html) (ad)
     > Full Stack Haskell Software Engineer
 
 -   [Haskell Intern at Tsuru Capital in Tokyo](https://www.tsurucapital.com/en/)
@@ -49,7 +49,7 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 ## In brief
 
 -   [Clash 1.0 released!](https://clash-lang.org/news/02-clash10/) by Christiaan Baaij
-    > It’s here! Clash 1.0 is finally released! And it has a binary release for the very first time!
+    > It's here! Clash 1.0 is finally released! And it has a binary release for the very first time!
 
 -   [[ANNOUNCE] New release of SBV (v8.4) is out](https://np.reddit.com/r/haskell/comments/cy01lz/announce_new_release_of_sbv_v84_is_out/) by Levent Erkok
     > This version brings first-class support for reasoning with arbitrary-size bit vectors, using the DataKinds extension.
@@ -61,7 +61,7 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
     > Wanted to see if there are any redditors out there who are interested in dependent types, quantitative type theory, interaction nets and so on.
 
 -   [Why 'Functor' Doesn't Matter](https://www.parsonsmatt.org/2019/08/30/why_functor_doesnt_matter.html) by Matt Parsons
-    > What’s the deal? Why can’t they just pick simple names that mean what they are? Why can’t they use practical and ordinary terms, the way that Object Oriented Programming does?
+    > What's the deal? Why can't they just pick simple names that mean what they are? Why can't they use practical and ordinary terms, the way that Object Oriented Programming does?
 
 -   [Monthly Hask Anything (September 2019)](https://np.reddit.com/r/haskell/comments/cxxsyz/monthly_hask_anything_september_2019/)
     > This is your opportunity to ask any questions you feel don't deserve their own threads, no matter how small or simple they might be!

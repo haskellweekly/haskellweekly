@@ -17,22 +17,22 @@ This is a weekly summary of what's going on in its community.
   > Termonad is a terminal emulator written in Haskell. It aims to be the XMonad of terminal emulators.
 
 - [What does a humped critter have to teach us?](https://markkarpov.com/post/what-does-a-humped-critter-have-to-teach-us.html) by Mark Karpov
-  > In my opinion, the module system is the most remarkable feature of OCaml. This is why I’m going to talk only about it in this post. It’s also a good opportunity to see how it relates to Haskell’s type classes.
+  > In my opinion, the module system is the most remarkable feature of OCaml. This is why I'm going to talk only about it in this post. It's also a good opportunity to see how it relates to Haskell's type classes.
 
 - [Implementing graceful-close in Haskell network library](https://kazu-yamamoto.hatenablog.jp/entry/2019/09/20/165939) by Kazu Yamamoto
   > Unfortunately, most HTTP/2 server implementations do not close connections gracefully, hence browsers cannot display pages correctly in some situations.
 
 - [What is Good About Haskell?](https://doisinkidney.com/posts/2019-10-02-what-is-good-about-haskell.html) by Donnacha Oisín Kidney
-  > This post aims to demonstrate some of these features in a simple (but hopefully not too simple) example. I’m going to write and package up a simple sorting algorithm in both Haskell and Python, and compare the code in each.
+  > This post aims to demonstrate some of these features in a simple (but hopefully not too simple) example. I'm going to write and package up a simple sorting algorithm in both Haskell and Python, and compare the code in each.
 
 - [Learn Functional Programming by writing a Scheme in Haskell](https://0x0f0f0f.github.io/posts/2019/09/learn-functional-programming-by-writing-a-scheme-in-haskell/) by Alessandro
   > How to make your first functional programming language. A book review.
 
 - [Autocompletion with deep learning](https://tabnine.com/blog/deep/) by Jacob Jackson
-  > TabNine is an autocompleter that helps you write code faster. We’re adding a deep learning model which significantly improves suggestion quality.
+  > TabNine is an autocompleter that helps you write code faster. We're adding a deep learning model which significantly improves suggestion quality.
 
 - [Figuring out how to use Beam for DB migrations](https://williamyaoh.com/posts/2019-09-27-figuring-out-beam-migrations.html) by William Yao
-  > This post collects everything I learned while trying to get up and running with Beam’s migrations, and should help you get started as well.
+  > This post collects everything I learned while trying to get up and running with Beam's migrations, and should help you get started as well.
 
 ## Jobs
 
@@ -63,7 +63,7 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 - [Monthly Hask Anything (October 2019)](https://np.reddit.com/r/haskell/comments/dbendr/monthly_hask_anything_october_2019/)
 
 - [Proving Primality with GADTs](https://chrilves.github.io/posts/prime/) by Christophe Calvès
-  > Today we will explore the Curry–Howard correspondence. Our mission is writing, in Scala’s type system, the property on natural number of being prime.
+  > Today we will explore the Curry--Howard correspondence. Our mission is writing, in Scala's type system, the property on natural number of being prime.
 
 - [Stackage nightly 2019-09-26 with GHC 8.8.1](https://www.stackage.org/nightly-2019-09-26)
 

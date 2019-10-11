@@ -90,7 +90,7 @@ a library that bins continuous values into discrete containers in an interval, u
 - 2018-08-28 in Santa Monica, CA, USA by Santa Monica Haskell Users Group: [Haskell Study Group: Parametric Polymorphism](https://www.meetup.com/santa-monica-haskell/events/253816697/)
 - 2018-08-28 in Auckland, New Zealand by Functional Programming Auckland: [Learn Haskell Hands-on](https://www.meetup.com/Functional-Programming-Auckland/events/253832786/)
 - 2018-08-28 in Copenhagen, Denmark by Mødegruppe for F#unktionelle Københavnere: [[hands-on] We will solve random exercises from HackerRank in FP languages](https://www.meetup.com/MoedegruppeFunktionelleKoebenhavnere/events/252866347/)
-- 2018-08-28 in Ann Arbor, MI, USA by Ann Arbor Functional Programming User Group: [A2FP – August Meetup](https://www.meetup.com/AnnArborFP/events/253729076/)
+- 2018-08-28 in Ann Arbor, MI, USA by Ann Arbor Functional Programming User Group: [A2FP -- August Meetup](https://www.meetup.com/AnnArborFP/events/253729076/)
 - 2018-08-28 in San Francisco, CA, USA by Bay Area Haskell Users Group: [Haskell Talks at SwiftNav](https://www.meetup.com/Bay-Area-Haskell-Users-Group/events/253256829/)
 - 2018-08-29 in Gainesville, FL, USA by Gainesville functional programming: [August meetup](https://www.meetup.com/gnv-fp/events/253559085/)
 - 2018-08-29 in Oslo, Norway by Osλo Haskell: [Haskell in production at FINN.no](https://www.meetup.com/Oslo-Haskell/events/252501785/)

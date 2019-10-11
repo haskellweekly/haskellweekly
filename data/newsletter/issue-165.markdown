@@ -10,7 +10,7 @@ This is a weekly summary of what's going on in its community.
 
 -   [Render Quake 3 Arena maps with Elm and WebGL!](https://discourse.elm-lang.org/t/render-quake-3-arena-maps-with-elm-and-webgl/3820) by Andrea Peltrin
 
-    > Hi folks, I would like to show you a pet project I’ve been working on during the past weeks. It’s a Quake 3 Arena map renderer, written entirely in Elm and WebGL.
+    > Hi folks, I would like to show you a pet project I've been working on during the past weeks. It's a Quake 3 Arena map renderer, written entirely in Elm and WebGL.
 
 -   [An Applicative for Transactional Validation](https://www.lumi.dev/blog/an-applicative-for-transactional-validation) by Phil Freeman
 
@@ -34,11 +34,11 @@ This is a weekly summary of what's going on in its community.
 
 -   [Implement With Types, Not Your Brain!](https://reasonablypolymorphic.com/blog/typeholes/index.html) by Sandy Maguire
 
-    > My favorite part is that having a strong type system means I don’t need to use my brain to do programming.
+    > My favorite part is that having a strong type system means I don't need to use my brain to do programming.
 
 -   [Lessons learned while writing a Haskell application](https://gvolpe.github.io/blog/lessons-learned-while-writing-a-haskell-app/) by Gabriel Volpe
 
-    > In this blog post I’ll try to share what I have identified as good practice so far and what are my personal recommendations when writing a Haskell application.
+    > In this blog post I'll try to share what I have identified as good practice so far and what are my personal recommendations when writing a Haskell application.
 
 -   [Why I think Haskell is the best general purpose language (as of June 22 2019)](http://www.philipzucker.com/why-i-as-of-june-22-2019-think-haskell-is-the-best-general-purpose-language-as-of-june-22-2019/) by Philip Zucker
 

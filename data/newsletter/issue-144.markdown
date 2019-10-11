@@ -92,7 +92,7 @@ a library that allows you to prevent of capture writing to STDOUT and other hand
 - 2019-02-05 in Bristol, United Kingdom by CodeHub Bristol: [Hack Night](https://www.meetup.com/CodeHub-Bristol/events/kdbxqqyzdbhb/)
 - 2019-02-06 in Berlin, Germany by Berlin Haskell Users Group: [Haskell Wednesday](https://www.meetup.com/berlinhug/events/pvpwqpyzdbjb/)
 - 2019-02-06 in Dublin, Ireland by Clojure Ireland: [ClojureScript night: talks on shadow-cljs & CSS](https://www.meetup.com/Clojure-Ireland/events/258448826/)
-- 2019-02-06 in Bucharest, Romania by Bucharest FP: [Bucharest FP #39 — Haskell Book Study Group 01](https://www.meetup.com/bucharestfp/events/258384298/)
+- 2019-02-06 in Bucharest, Romania by Bucharest FP: [Bucharest FP #39 --- Haskell Book Study Group 01](https://www.meetup.com/bucharestfp/events/258384298/)
 - 2019-02-06 in Gdańsk, Poland by Functional Tricity: [Funtional Tricity #15 Applicative Functors&Haskell](https://www.meetup.com/FunctionalTricity/events/258096469/)
 
 ### Oceania

@@ -68,7 +68,7 @@ This is a weekly summary of what's going on in its community.
 - 2019-05-06 in Amsterdam, Netherlands by FP AMS: [New Category Theory Study Group - Episode 2](https://www.meetup.com/fp-ams/events/260847969/)
 - 2019-05-08 in Leeds, United Kingdom by Code & Coffee (Leeds): [Code & Coffee](https://www.meetup.com/Code-Coffee-Leeds/events/lbrrtlyzhblb/)
 - 2019-05-08 in Budapest, Hungary by Budapest Haskell User Group: [Haskell Book reading group (28th Ed.)](https://www.meetup.com/Bp-HUG/events/260531239/)
-- 2019-05-08 in București, Romania by Bucharest FP: [Bucharest FP #51 — Haskell Book Study Group 11](https://www.meetup.com/bucharestfp/events/260847609/)
+- 2019-05-08 in București, Romania by Bucharest FP: [Bucharest FP #51 --- Haskell Book Study Group 11](https://www.meetup.com/bucharestfp/events/260847609/)
 
 ### South America
 

@@ -48,7 +48,7 @@ This is a weekly summary of what's going on in its community.
 
 -   [Senior Haskell Engineer at GitHub](https://boards.greenhouse.io/github/jobs/1262974)
 
-    > Did you know GitHub uses Haskell in production? We are looking for experienced Haskell engineers to work on the task of parsing, analyzing, interpreting and drawing conclusions from the corpus of public code on GitHub. We are working on a multi-language interpreter (currently targeting Go, Python, Ruby, PHP, JavaScript, TypeScript, Haskell, and Java) aimed at extracting useful information from untrusted user code — import graphs, control flow graphs, and reports identifying code quality issues or security vulnerabilities.
+    > Did you know GitHub uses Haskell in production? We are looking for experienced Haskell engineers to work on the task of parsing, analyzing, interpreting and drawing conclusions from the corpus of public code on GitHub. We are working on a multi-language interpreter (currently targeting Go, Python, Ruby, PHP, JavaScript, TypeScript, Haskell, and Java) aimed at extracting useful information from untrusted user code --- import graphs, control flow graphs, and reports identifying code quality issues or security vulnerabilities.
 
 -   [Engineering Manager at GitHub](https://boards.greenhouse.io/github/jobs/1106071)
 
@@ -103,7 +103,7 @@ It supports bounded and unbounded ranges, ranges in a nested manner (like librar
 - 2018-09-18 in Bristol, United Kingdom by CodeHub Bristol: [Hack Night + Haskell Study Group](https://www.meetup.com/CodeHub-Bristol/events/254376435/)
 - 2018-09-18 in Seattle, WA, USA by Fun(c)tional Programming Group: [Rúnar Bjarnason - A Crash Course in Categories [Seattle]](https://www.meetup.com/fun-c-group/events/252638108/)
 - 2018-09-19 in Berlin, Germany by Berlin Haskell Users Group: [Haskell Wednesday](https://www.meetup.com/berlinhug/events/254322396/)
-- 2018-09-19 in Berlin, Germany by Berlin Haskell Users Group: [FP Forum — Learn, Teach, Share, Grow](https://www.meetup.com/berlinhug/events/254296252/)
+- 2018-09-19 in Berlin, Germany by Berlin Haskell Users Group: [FP Forum --- Learn, Teach, Share, Grow](https://www.meetup.com/berlinhug/events/254296252/)
 - 2018-09-19 in Austin, TX, USA by Austin Haskell Users Group: [Haskell Beginner-Friendly Lab](https://www.meetup.com/ATX-Haskell/events/254356601/)
 - 2018-09-19 in Vancouver, BC, Canada by Vancouver Functional Programmers: [Haskell Peer Study Group](https://www.meetup.com/Vancouver-Functional-Programmers/events/254414371/)
 - 2018-09-19 in Boulder, USA by Boulder Haskell Programmers: [An Unsafe Talk on Safe Haskell](https://www.meetup.com/Boulder-Haskell-Programmers/events/254557645/)

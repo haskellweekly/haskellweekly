@@ -26,7 +26,7 @@ This is a weekly summary of what's going on in its community.
 
 -   [Integrating Lua tests with `tasty-lua`](https://discourse.haskell.org/t/integrating-lua-tests-with-tasty-lua/703?u=taylorfausak) by Albert Krewinkel
 
-    > I wrote a little utility, tasty-lua, to integrate Lua tests into tasty Haskell tests. It’s not much, but I liked how it turned out.
+    > I wrote a little utility, tasty-lua, to integrate Lua tests into tasty Haskell tests. It's not much, but I liked how it turned out.
 
 -   [Introducing Bipartite Graphs in Alga](https://summer.haskell.org/news/2019-05-29-alga-introduction.html) by Vasily Alferov
 
@@ -119,7 +119,7 @@ This week's package of the week is [`servant-elm`](https://hackage.haskell.org/p
 ### Oceania
 
 - 2019-05-30 in Melbourne, Australia by Melbourne Haskell Users Group: [Melbourne Haskell Users Group Meetup](https://www.meetup.com/Melbourne-Haskell-Users-Group/events/qfptslyzhbnc/)
-- 2019-06-03 in Richmond, Australia by Elm Melbourne: [Elm Meetup – conversation and hacking on personal projects](https://www.meetup.com/Elm-Melbourne/events/hxlksqyzjbfb/)
+- 2019-06-03 in Richmond, Australia by Elm Melbourne: [Elm Meetup -- conversation and hacking on personal projects](https://www.meetup.com/Elm-Melbourne/events/hxlksqyzjbfb/)
 
 ### Asia
 

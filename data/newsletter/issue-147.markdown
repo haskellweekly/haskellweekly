@@ -42,7 +42,7 @@ This is a weekly summary of what's going on in its community.
 
 -   [Quantifiers in Agda](https://cvlad.info/quantifiers/) by Vladimir Ciobanu
 
-    > This post will go a bit further than that and show the type theoretic equivalents of existential and universal quantifiers. I’ll then explore some interesting properties of these types.
+    > This post will go a bit further than that and show the type theoretic equivalents of existential and universal quantifiers. I'll then explore some interesting properties of these types.
 
 ## Jobs
 

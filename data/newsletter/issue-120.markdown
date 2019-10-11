@@ -90,7 +90,7 @@ It contains a concrete representation of the semantics of the RISC-V instruction
 - 2018-08-20 in Portland, OR, USA by Portland Functional Programming Study Group: [PDX Func Practice Track - Parallel and Concurrent Programming in Haskell](https://www.meetup.com/Portland-Functional-Programming-Study-Group/events/253309551/)
 - 2018-08-20 in Newcastle Upon Tyne, United Kingdom by FP North East: [Topic to be announced](https://www.meetup.com/FP-North-East/events/252893286/)
 - 2018-08-20 in Perth, Australia by Perth Functional Programmers: [Haskell study group](https://www.meetup.com/PerthFP/events/252829610/)
-- 2018-08-20 in Bucharest, Romania by Bucharest FP: [Bucharest FP #32 — Composition in FP](https://www.meetup.com/bucharestfp/events/253609976/)
+- 2018-08-20 in Bucharest, Romania by Bucharest FP: [Bucharest FP #32 --- Composition in FP](https://www.meetup.com/bucharestfp/events/253609976/)
 - 2018-08-21 in Minneapolis, USA by HaskellMN: [HaskellMN Monthly Meetup](https://www.meetup.com/HaskellMN/events/253098712/)
 - 2018-08-21 in Carmel, USA by Indy FP: [Don't Write Tests, Generate Them](https://www.meetup.com/Indy-FP/events/253038877/)
 - 2018-08-21 in Cluj-Napoca, Romania by Cluj.fp: [Verification of Blockchain Languages and VMs](https://www.meetup.com/Cluj-fp/events/252595802/)

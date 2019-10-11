@@ -106,7 +106,7 @@ Check out some of [these issues](https://github.com/issues?q=language%3Ahaskell+
 - 2018-10-04 in Graz, Austria by Functional Programming Graz: [Functional Programming Graz: Akka Typed and other Type Systems for Actors](https://www.meetup.com/Functional-Programming-Graz/events/253642458/)
 - 2018-10-04 in Mumbai, India by DelhiNCR Haskell And Functional Programming Languages Group: [FPNCR Monthly meetup](https://www.meetup.com/DelhiNCR-Haskell-And-Functional-Programming-Languages-Group/events/254707913/)
 - 2018-10-04 in Taipei, Taiwan by Functional Thursday: [Functional Thursday #68](https://www.meetup.com/Functional-Thursday/events/254877031/)
-- 2018-10-04 in Brasov, Romania by PentaBAR Brasov // Tech Meetup by Pentalog: [PentaBAR #41 // Functional Programming – A Beginner's Guide to Haskell](https://www.meetup.com/PentaBAR-Tech-Meetup-by-Pentalog/events/254959285/)
+- 2018-10-04 in Brasov, Romania by PentaBAR Brasov // Tech Meetup by Pentalog: [PentaBAR #41 // Functional Programming -- A Beginner's Guide to Haskell](https://www.meetup.com/PentaBAR-Tech-Meetup-by-Pentalog/events/254959285/)
 - 2018-10-04 in Singapore, Singapore by HASKELL.SG: [October Singapore Haskell Meetup](https://www.meetup.com/HASKELL-SG/events/254398860/)
 - 2018-10-04 in 28046 Madrid, Spain by Madrid Haskell Users Group: [Coq for Haskell programmers](https://www.meetup.com/Haskell-MAD/events/254067999/)
 - 2018-10-06 in Chilliwack, BC, Canada by ChilliHask Haskell User Group: [Weekly Haskell Coding Meetup](https://www.meetup.com/BC-HUG/events/254742881/)

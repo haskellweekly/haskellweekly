@@ -109,7 +109,7 @@ a CSS preprocessor like Sass implemented as an embedded domain specific language
 
 ### Asia
 
-- 2018-12-13 in Bangkok, Thailand by Bangkok Functional Programmers: [Christmas Code War “World Cup of Code”/“ศึกเขียนโค๊ดแห่งปี”](https://www.meetup.com/bangkok-fp/events/256937559/)
+- 2018-12-13 in Bangkok, Thailand by Bangkok Functional Programmers: [Christmas Code War "World Cup of Code"/"ศึกเขียนโค๊ดแห่งปี"](https://www.meetup.com/bangkok-fp/events/256937559/)
 - 2018-12-13 in Hong Kong, Hong Kong by Hong Kong Functional Programming: [A Road to Dependently Typed Haskell Core: Coercion Quantification](https://www.meetup.com/HK-Functional-programming/events/256404067/)
 - 2018-12-14 in Noida, India by Reactive Application Programmers in Delhi NCR: [Being Stateful Over Kubernetes](https://www.meetup.com/Reactive-Application-Programmers-in-Delhi-NCR/events/256936184/)
 - 2018-12-17 in Tokyo, Japan by Tokyo Haskell Meetup: [Talk by William Byrd (author MiniKanren, Reasoned Schemer)](https://www.meetup.com/Tokyo-Haskell-Meetup/events/ckxnrpyxqbvb/)

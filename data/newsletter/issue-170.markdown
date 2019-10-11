@@ -6,7 +6,7 @@ This is a weekly summary of what's going on in its community.
 
 -   [Client-side web programming in Haskell: A retrospective](https://chrisdone.com/posts/clientside-programming-haskell/) by Chris Done
 
-    > At the beginning of this decade, a few of us Haskellers were exploring how best to do client-side web programming. We didn’t want to write JavaScript.
+    > At the beginning of this decade, a few of us Haskellers were exploring how best to do client-side web programming. We didn't want to write JavaScript.
 
 -   [Generating castles for Minecraft using Haskell](http://www.timphilipwilliams.com/posts/2019-07-25-minecraft.html) by Tim Philip Williams
 
@@ -18,11 +18,11 @@ This is a weekly summary of what's going on in its community.
 
 -   [Practical event driven & sourced programs in Haskell](https://www.ahri.net/2019/07/practical-event-driven-and-sourced-programs-in-haskell/) by Adam Piper
 
-    > I’m going to provide a quick overview of the technique of driving a system through events, and what sourcing those events means in this context, and then show some code.
+    > I'm going to provide a quick overview of the technique of driving a system through events, and what sourcing those events means in this context, and then show some code.
 
 -   [Right fold superpowers!](https://hmemcpy.com/2019/07/right-fold-superpowers/) by Igal Tabachnik
 
-    > It’s amazing how sometimes just having a different framing of the problem helps with developing a much deeper understanding of the problem.
+    > It's amazing how sometimes just having a different framing of the problem helps with developing a much deeper understanding of the problem.
 
 -   [Solving a puzzle in Haskell](https://medium.com/@cdsmithus/solving-a-puzzle-in-haskell-8216a683555) by Chris Smith
 
@@ -30,15 +30,15 @@ This is a weekly summary of what's going on in its community.
 
 -   [Student Blog: Testing Bipartiteness with Monad Transformers](https://summer.haskell.org/news/2019-07-26-testing-bipartiteness.html) by Vasily Alferov
 
-    > I’m here to tell you about my implementation of the algorithm for testing bipartiteness of graphs.  A graph is called bipartite if its vertices can be split into two parts in such way that there are no edges inside one part.
+    > I'm here to tell you about my implementation of the algorithm for testing bipartiteness of graphs.  A graph is called bipartite if its vertices can be split into two parts in such way that there are no edges inside one part.
 
 -   [The Power of RecordWildCards](https://kodimensional.dev/recordwildcards) by Dmitrii Kovanikov
 
-    > RecordWildCards is one of the language extensions that improve the situation with records. However, it’s one of the most controversial extensions at the same time.
+    > RecordWildCards is one of the language extensions that improve the situation with records. However, it's one of the most controversial extensions at the same time.
 
 -   [Writing efficient free variable traversals](https://www.haskell.org/ghc/blog/20190728-free-variable-traversals.html) by Ben Gamari
 
-    > GHC’s free variable traversals are some of the most heavily used pieces of code in the compiler and we try hard to ensure that they are efficient.
+    > GHC's free variable traversals are some of the most heavily used pieces of code in the compiler and we try hard to ensure that they are efficient.
 
 ## Jobs
 

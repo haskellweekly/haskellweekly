@@ -10,13 +10,13 @@ This is a weekly summary of what's going on in its community.
 -   [cabal-install 3.0.0.0 released](https://github.com/haskell/cabal/blob/cabal-install-v3.0.0.0/cabal-install/changelog#L3) by Mikhail Glushenkov
     > Legacy commands are now only accessible with the `v1-` prefixes, and the `v2-` commands are the new default.
 
--   [HSoC — Hadrian Optimisation: Final Report](https://medium.com/@ratherforky/hsoc-hadrian-optimisation-final-report-7c6aa1132dcd) by James Foster
+-   [HSoC --- Hadrian Optimisation: Final Report](https://medium.com/@ratherforky/hsoc-hadrian-optimisation-final-report-7c6aa1132dcd) by James Foster
     > This project was all about trying to optimise Hadrian, the new build system for GHC which uses Shake instead of Make, with the hope being that faster build times helps GHC devs, which in turn helps everyone in the wider community that uses GHC.
 
 -   [Haskell-y Ever After: Summer Tales for Every Full-stack Developer (Part Two)](https://medium.com/@rizary/haskell-y-ever-after-summer-tales-for-every-full-stack-developer-part-two-1a0b0c0b8879) by Andika Demas Riyandi
-    > A Google Summer of Code’s student story about implementing Haskell on the Hackage Matrix Builder’s frontend application using Functional Reactive Programming approach.
+    > A Google Summer of Code's student story about implementing Haskell on the Hackage Matrix Builder's frontend application using Functional Reactive Programming approach.
 
--   [Building a Blog in Haskell with Yesod–Giving Back](https://odone.io/posts/2019-08-26-building-a-blog-in-haskell-with-yesod%E2%80%93giving-back.html) by Riccardo Odone
+-   [Building a Blog in Haskell with Yesod--Giving Back](https://odone.io/posts/2019-08-26-building-a-blog-in-haskell-with-yesod%E2%80%93giving-back.html) by Riccardo Odone
     > This is a series about Yesod: a Haskell web framework that follows a similar philosophy to Rails. In fact, it is strongly opinionated and provides a lot of functionality out of the box.
 
 -   [PatternSynonyms for expressive code](https://haskell-explained.gitlab.io/blog/posts/2019/08/27/pattern-synonyms/index.html) by Raghu Kaippully
@@ -29,7 +29,7 @@ This is a weekly summary of what's going on in its community.
     > Automatic creation of regression tests by designing a system that records the input, output and side-effects of a business application in production.
 
 -   [Fixed Points and Non-Fixed Points of Haskell Functors](https://free.cofree.io/2019/08/21/mu-nu/) by Ziyang Liu
-    > I’ve been playing with fixed points of Haskell functors lately and thought it would be useful to write down some of my thoughts, both to solidify my understanding and for future reference.
+    > I've been playing with fixed points of Haskell functors lately and thought it would be useful to write down some of my thoughts, both to solidify my understanding and for future reference.
 
 -   [Customizable Datatypes](https://mpardalos.xyz/posts/customizable_datatypes.html) by Michail Pardalos
     > This pattern allows parameters to be added in an easy way without cluttering up type signatures and has helped clean up a lot of code.
@@ -59,7 +59,7 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
     > Kei is a dependently typed language with a small and expressive core based on λΠ-calculus modulo rewriting.
 
 -   [Comparing native GHC versus GHCJS performance on a roguelike field-of-view algorithm](https://monoid.xyz/posts/haskell_ghcjs_benchmarks) by Mikko Juola
-    > I knew that GHCJS-produced code is slow, but how slow? Compared to native code? That’s what this post is about.
+    > I knew that GHCJS-produced code is slow, but how slow? Compared to native code? That's what this post is about.
 
 -   [Haskell editor / IDE setup](https://github.com/fairy-tale-agi-solutions/haskell-editor-setup/tree/f4977f8ef5dec487ef1bcc930cf0c30f80661154) by Răzvan Flavius Panda
     > Instructions for setting up Haskell editors/IDE
@@ -68,7 +68,7 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
     > There is a never ending discussion about using llvm vs the default backend. So here is a quick recap of what we are talking about and my opinions on the matter.
 
 -   [Static Smart Constructors with Double Splices](https://chrisdone.com/posts/static-smart-constructors/) by Chris Done
-    > Sometimes you’re making a DSL and you need a way to make a smart constructor that is static.
+    > Sometimes you're making a DSL and you need a way to make a smart constructor that is static.
 
 -   [Can we call a function a googol times?](https://medium.com/@maiavictor/calling-a-function-a-googol-times-53933c072e3a) by Victor Maia
     > Yes, this is about optimal reductions!

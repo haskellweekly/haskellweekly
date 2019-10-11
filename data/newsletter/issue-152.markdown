@@ -90,7 +90,7 @@ This week's package of the week is [scheduler](https://np.reddit.com/r/haskell/c
 - 2019-03-29 in Oslo, Norway by Pils og Programmering Oslo: [Pils og Programmering #29 @ Bekk](https://www.meetup.com/Pils-og-Programmering-Oslo/events/259951637/)
 - 2019-04-01 in Karlsruhe, Germany by Karlsruhe Haskell Meetup: [Parallel and Concurrent Programming Study Group](https://www.meetup.com/Karlsruhe-Haskell-Meetup/events/258073347/)
 - 2019-04-01 in Exeter, United Kingdom by Exeter Functional Programmers: [Talk functional](https://www.meetup.com/Exeter-Functional-Programmers/events/nxxtmqyzgbcb/)
-- 2019-04-01 in București, Romania by Bucharest FP: [Bucharest FP #47 — Haskell Book Study Group 08](https://www.meetup.com/bucharestfp/events/260111991/)
+- 2019-04-01 in București, Romania by Bucharest FP: [Bucharest FP #47 --- Haskell Book Study Group 08](https://www.meetup.com/bucharestfp/events/260111991/)
 - 2019-04-01 in Delft, Netherlands by Delft Haskell Study Group: [Haskell Study Session #6](https://www.meetup.com/Delft-Haskell-Study-Group/events/260075544/)
 - 2019-04-01 in London EC2, United Kingdom by Skills Matter - X Matters Keynote Series - Developer Events: [JavaScript Matters Lea Verou!](https://www.meetup.com/skillsmatter/events/259564218/)
 - 2019-04-01 in Amsterdam, Netherlands by FP AMS: [New category theory study group](https://www.meetup.com/fp-ams/events/259421124/)
@@ -109,4 +109,4 @@ This week's package of the week is [scheduler](https://np.reddit.com/r/haskell/c
 ### Oceania
 
 - 2019-03-28 in Melbourne, Australia by Melbourne Haskell Users Group: [Melbourne Haskell Users Group Meetup](https://www.meetup.com/Melbourne-Haskell-Users-Group/events/qfptslyzfblc/)
-- 2019-04-01 in Richmond, Australia by Elm Melbourne: [Elm Meetup – conversation and hacking on personal projects](https://www.meetup.com/Elm-Melbourne/events/hxlksqyzgbcb/)
+- 2019-04-01 in Richmond, Australia by Elm Melbourne: [Elm Meetup -- conversation and hacking on personal projects](https://www.meetup.com/Elm-Melbourne/events/hxlksqyzgbcb/)

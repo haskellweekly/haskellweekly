@@ -85,7 +85,7 @@ a library for producing fake data such as names, addressess and phone numbers.
 - 2019-03-07 in Brno-střed, Czech Republic by Functional Programming Brno: [FP Pivo](https://www.meetup.com/fpbrno/events/259327258/)
 - 2019-03-09 in Berlin, Germany by Study Haskell: [Weekly Haskell-studying session](https://www.meetup.com/Study-Haskell/events/gwtsqqyzfbmb/)
 - 2019-03-11 in Karlsruhe, Germany by Karlsruhe Haskell Meetup: [Parallel and Concurrent Programming Study Group -- Vorbesprechung](https://www.meetup.com/Karlsruhe-Haskell-Meetup/events/258073240/)
-- 2019-03-11 in București, Romania by Bucharest FP: [Bucharest FP #45 — Haskell Book Study Group 06](https://www.meetup.com/bucharestfp/events/259497680/)
+- 2019-03-11 in București, Romania by Bucharest FP: [Bucharest FP #45 --- Haskell Book Study Group 06](https://www.meetup.com/bucharestfp/events/259497680/)
 - 2019-03-11 in Delft, Netherlands by Delft Haskell Study Group: [Haskell Study Session #3](https://www.meetup.com/Delft-Haskell-Study-Group/events/259496224/)
 - 2019-03-11 in London, United Kingdom by Skills Matter - X Matters Keynote Series - Developer Events: [JavaScript Matters with Lisa Gagarina!](https://www.meetup.com/skillsmatter/events/258990860/)
 - 2019-03-12 in Rennes, France by Meetup Lambda Rennes - Programmation fonctionnelle: [Cycle.js](https://www.meetup.com/Meetup-Lambda-Rennes-Programmation-fonctionnelle/events/259439151/)

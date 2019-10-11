@@ -38,7 +38,7 @@ This is a weekly summary of what's going on in its community.
 
 -   [Your easy guide to monads, applicatives, & functors](https://medium.com/@lettier/your-easy-guide-to-monads-applicatives-functors-862048d61610)
 
-    > If you'd like to see what you can do with functors, applicatives, and monads, check out Movie Monad and Gifcurry ---  two desktop GUI apps created with Haskell, a purely functional programming language.
+    > If you'd like to see what you can do with functors, applicatives, and monads, check out Movie Monad and Gifcurry ---  two desktop GUI apps created with Haskell, a purely functional programming language.
 
 ## In brief
 

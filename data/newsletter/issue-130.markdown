@@ -94,7 +94,7 @@ Check out some of [these issues](https://github.com/issues?q=language%3Ahaskell+
 - 2018-10-29 in San Francisco, CA, USA by Coda Protocol: [Coda Protocol - Open Source Launch Party](https://www.meetup.com/Functional-Programming-Types-and-Applied-Cryptography/events/255463356/)
 - 2018-10-30 in Vancouver, BC, Canada by Vancouver Functional Programmers: [Haskell Lunch Study Group • Fall '18 Cohort](https://www.meetup.com/Vancouver-Functional-Programmers/events/jdnlhqyxnbnc/)
 - 2018-10-30 in Gainesville, FL, USA by Gainesville functional programming: [Hacktoberfest!](https://www.meetup.com/gnv-fp/events/255775891/)
-- 2018-10-30 in Ann Arbor, MI, USA by Ann Arbor Functional Programming User Group: [A2FP – October Meetup](https://www.meetup.com/AnnArborFP/events/255004968/)
+- 2018-10-30 in Ann Arbor, MI, USA by Ann Arbor Functional Programming User Group: [A2FP -- October Meetup](https://www.meetup.com/AnnArborFP/events/255004968/)
 - 2018-10-31 in Berkeley, CA by Code Self Study: [Open Programming Session (Wednesday, Berkeley)](https://www.meetup.com/codeselfstudy/events/zhgcfqyxnbpc/)
 - 2018-11-01 in Raleigh, NC, USA by Raleigh Haskell Meetup: [(hack . yack)](https://www.meetup.com/Raleigh-Haskell-Meetup/events/dlwjgqyxpbcb/)
 

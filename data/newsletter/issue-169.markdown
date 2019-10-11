@@ -22,11 +22,11 @@ This is a weekly summary of what's going on in its community.
 
 -   [Guide to Implementing Custom Monadic Effects in Issue-Wanted](https://rashadg1030.github.io/rashad-blog/7.html) by Rashad Gover
 
-    > Over the past few weeks I’ve been making steady progress on the issue-wanted project I’m working on for Google Summer of Code 2019. Today I would like to present my work on adding a custom monad/effect to issue-wanted and what I learned during the process.
+    > Over the past few weeks I've been making steady progress on the issue-wanted project I'm working on for Google Summer of Code 2019. Today I would like to present my work on adding a custom monad/effect to issue-wanted and what I learned during the process.
 
 -   [Insane in the Membrain](https://kowainik.github.io/posts/membrain) by Veronika Romashkina
 
-    > Membrain is not about creating memes, it’s about a type-safe memory data type with units being on the type level, so all the computations are guaranteed to be trustworthy and some of them even performed during compile time.
+    > Membrain is not about creating memes, it's about a type-safe memory data type with units being on the type level, so all the computations are guaranteed to be trustworthy and some of them even performed during compile time.
 
 -   [Lambda the Ultimate Pattern Factory](https://github.com/thma/LtuPatternFactory/tree/85656b63d1d2cf0a0694b45458b56dec37bd76ca) by Thomas Mahler
 

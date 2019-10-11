@@ -6,7 +6,7 @@ This is a weekly summary of what's going on in its community.
 
 -   [Dead-simple TCP/IP services using servant](https://blog.jle.im/entry/simple-tcpip-services-servant.html) by Justin Le
 
-    > Servant is usually advertised as a tool for writing web servers, web applications, and REST APIs, but it’s easily adapted to write non-web things as well. Let’s dive in and write a simple TCP/IP service (a todo list manager) to see how straightforward the process is!
+    > Servant is usually advertised as a tool for writing web servers, web applications, and REST APIs, but it's easily adapted to write non-web things as well. Let's dive in and write a simple TCP/IP service (a todo list manager) to see how straightforward the process is!
 
 -   [reflex-vty](https://github.com/reflex-frp/reflex-vty/tree/f80dff64b1312b42b704ee96471d0464c3b7df74) by Ali Abrar
 
@@ -14,7 +14,7 @@ This is a weekly summary of what's going on in its community.
 
 -   [Polysemy is fun! - Part 2](https://haskell-explained.gitlab.io/blog/posts/2019/07/31/polysemy-is-cool-part-2/index.html) by Raghu Kaippully
 
-    > So far we have seen how to define an effect as a data type and how to embed such effect values in the `Sem` monad. But those effects were not “doing” anything. It’s all nice to have a good looking program, but what is the point if it does not do something?
+    > So far we have seen how to define an effect as a data type and how to embed such effect values in the `Sem` monad. But those effects were not "doing" anything. It's all nice to have a good looking program, but what is the point if it does not do something?
 
 -   [type-sets](https://github.com/isovector/type-sets/tree/ae1eaab52f7297fc2ede82b69eb1393d98e95a42) by Sandy Maguire
 
@@ -22,11 +22,11 @@ This is a weekly summary of what's going on in its community.
 
 -   [Exploring Cloud Builds in Hadrian](https://well-typed.com/blog/2019/08/exploring-cloud-builds-in-hadrian/) by David Eichmann
 
-    > GHC’s new build system, Hadrian, now supports a cloud build option: `--share`. With that enabled, build artifacts will be cached and shared between builds.
+    > GHC's new build system, Hadrian, now supports a cloud build option: `--share`. With that enabled, build artifacts will be cached and shared between builds.
 
--   [HSoC — Hadrian Optimisation: Profiling and getting ahead of Shake changes (Update 5)](https://medium.com/@ratherforky/hsoc-hadrian-optimisation-profiling-and-getting-ahead-of-shake-changes-update-5-6b4038ed18aa) by James Foster
+-   [HSoC --- Hadrian Optimisation: Profiling and getting ahead of Shake changes (Update 5)](https://medium.com/@ratherforky/hsoc-hadrian-optimisation-profiling-and-getting-ahead-of-shake-changes-update-5-6b4038ed18aa) by James Foster
 
-    > This past couple weeks I’ve fixed some documentation, submitted a bug report for --rebuild and -B doing seemingly wrong but useful things, profiled Hadrian, and opened an MR to get ahead of some Shake changes.
+    > This past couple weeks I've fixed some documentation, submitted a bug report for --rebuild and -B doing seemingly wrong but useful things, profiled Hadrian, and opened an MR to get ahead of some Shake changes.
 
 ## Jobs
 

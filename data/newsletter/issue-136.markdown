@@ -111,5 +111,5 @@ a library that provides non-empty variants of `containers` data types.
 - 2018-12-06 in Gurugram, India by DelhiNCR Haskell And Functional Programming Languages Group: [FPNCR Monthly meetup](https://www.meetup.com/DelhiNCR-Haskell-And-Functional-Programming-Languages-Group/events/lrfxfqyxpbcb/)
 - 2018-12-06 in Singapore, Singapore by HASKELL.SG: [December Singapore Haskell Meetup](https://www.meetup.com/HASKELL-SG/events/254440879/)
 - 2018-12-09 in Bangalore, India by Bangalore Functional Programmers Meetup: [Nonstrictness in Haskell](https://www.meetup.com/Bangalore-Functional-Programmers-Meetup/events/255559641/)
-- 2018-12-13 in Bangkok, Thailand by Bangkok Functional Programmers: [Christmas Code War “World Cup of Code”/“ศึกเขียนโค๊ดแห่งปี”](https://www.meetup.com/bangkok-fp/events/256937559/)
+- 2018-12-13 in Bangkok, Thailand by Bangkok Functional Programmers: [Christmas Code War "World Cup of Code"/"ศึกเขียนโค๊ดแห่งปี"](https://www.meetup.com/bangkok-fp/events/256937559/)
 - 2018-12-13 in Hong Kong, Hong Kong by Hong Kong Functional Programming: [A Road to Dependently Typed Haskell Core: Coercion Quantification](https://www.meetup.com/HK-Functional-programming/events/256404067/)

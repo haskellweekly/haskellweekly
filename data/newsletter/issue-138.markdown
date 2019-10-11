@@ -113,4 +113,4 @@ we're going to pick two interesting projects that were announced recently.
 
 - 2018-12-20 in Karlsruhe, Germany by The Karlsruhe Functional Programmers Meetup Group: [Stammtisch (gemeinsam mit der C++ Usergroup KA)](https://www.meetup.com/The-Karlsruhe-Functional-Programmers-Meetup-Group/events/dnpcxnyxqbjc/)
 - 2018-12-20 in Heverlee, Belgium by Belgian Scala User Group: [Scalaz-ZIO Queue](https://www.meetup.com/BeScala/events/256644102/)
-- 2018-12-26 in Genève , Switzerland by Gōng-fu I/O ‹Creative Coders› Geneva: [Gōng-fu I/O Weekly #347](https://www.meetup.com/g%C5%8DngfuIO/events/hzfgppyxqbjc/)
+- 2018-12-26 in Genève , Switzerland by Gōng-fu I/O ‹Creative Coders› Geneva: [Gōng-fu I/O Weekly #347](https://www.meetup.com/g%C5%8DngfuIO/events/hzfgppyxqbjc/)

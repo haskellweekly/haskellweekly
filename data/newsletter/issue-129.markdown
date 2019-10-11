@@ -76,7 +76,7 @@ Looking to participate in the fifth annual [Hacktoberfest](https://hacktoberfest
 Check out some of [these issues](https://github.com/issues?q=language%3Ahaskell+label%3Ahacktoberfest+is%3Aissue+is%3Aopen+archived%3Afalse) with the "Hacktoberfest" label from Haskell repositories on GitHub!
 
 -   [haskell-DBFunctor: Add support for UTCTime](https://github.com/nkarag/haskell-DBFunctor/issues/5)
--   [pact: ReadTheDocs - Broken Link to “Time Formats” docs](https://github.com/kadena-io/pact/issues/246)
+-   [pact: ReadTheDocs - Broken Link to "Time Formats" docs](https://github.com/kadena-io/pact/issues/246)
 
 ## Events
 

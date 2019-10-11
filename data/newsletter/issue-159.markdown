@@ -38,7 +38,7 @@ This is a weekly summary of what's going on in its community.
 
 -   [Lightweight, efficiently sampleable enumerations in Haskell](https://byorgey.wordpress.com/2019/05/14/lightweight-efficiently-sampleable-enumerations-in-haskell/) by Brent Yorgey
 
-    > For another project I’m working on, I needed a way to enumerate and randomly sample values from various potentially infinite collections.
+    > For another project I'm working on, I needed a way to enumerate and randomly sample values from various potentially infinite collections.
 
 -   [Shake with Applicative Parallelism](https://neilmitchell.blogspot.com/2019/05/shake-with-applicative-parallelism.html) by Neil Mitchell
 
@@ -65,7 +65,7 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 -   [Announce: stdio 0.2.0.0](https://np.reddit.com/r/haskell/comments/bowpku/ann_stdio0200/)
 -   [BornHack 2019: Call for Participation](https://bornhack.dk/bornhack-2019/program/call-for-participation/)
 -   [CoRecursive podcast: Refinement Types With Niki Vazou](https://corecursive.libsyn.com/refinement-types-with-niki-vazou)
--   [LispCast: What a monoid is and why monoids kick monads’ butt](https://lispcast.com/what-a-monoid-is-and-why-monoids-kick-monads-butt/)
+-   [LispCast: What a monoid is and why monoids kick monads' butt](https://lispcast.com/what-a-monoid-is-and-why-monoids-kick-monads-butt/)
 -   [Practical Haskell: A Real World Guide to Programming](https://www.apress.com/gp/book/9781484244791)
 -   [Quicksort with Haskell!](https://mmhaskell.com/blog/2019/5/13/quicksort-with-haskell)
 

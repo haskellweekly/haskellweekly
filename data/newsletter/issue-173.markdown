@@ -13,11 +13,11 @@ This is a weekly summary of what's going on in its community.
 -   [How to write a game in Haskell from scratch](https://morgenthum.tech/articles/write-haskell-game) by Mario Morgenthum
     > I wrote a 2D arcade game called Lambda-Heights in Haskell and want to share my experiences with you.
 
--   [HSoC — Hadrian Optimisation: Elusive Unused Imports (Update 6)](https://medium.com/@ratherforky/hsoc-hadrian-optimisation-elusive-unused-imports-update-6-adaa1a7c16e2) by James Foster
+-   [HSoC --- Hadrian Optimisation: Elusive Unused Imports (Update 6)](https://medium.com/@ratherforky/hsoc-hadrian-optimisation-elusive-unused-imports-update-6-adaa1a7c16e2) by James Foster
     > Since the last update I wrote an absurdly slow unused import tester, did a load of data entry for said tester, and left said tester running over the weekend (when I said slow, I meant slow).
 
 -   [Singleton](https://typeclasses.com/featured/singleton) by Type Classes
-    > Whether computing’s menagerie of lists is a source of fascination or of annoyance depends on your interests, but regardless the varieties of lists are there and we must choose among them whenever we desire to line things up in a row.
+    > Whether computing's menagerie of lists is a source of fascination or of annoyance depends on your interests, but regardless the varieties of lists are there and we must choose among them whenever we desire to line things up in a row.
 
 -   [Typed Lisp, A Primer](https://alhassy.github.io/TypedLisp/) by Musa Al-hassy
     > We begin with a shallow comparison to Haskell, a rapid tour of type theory, try in vain to defend dynamic approaches, give a somewhat humorous account of history.

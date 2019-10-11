@@ -101,7 +101,7 @@ a smarter Dockerfile linter that helps you build best practice Docker images.
 
 - 2019-02-14 in London, United Kingdom by Hoodlums: [Hoodlums Meetup](https://www.meetup.com/hoodlums/events/hrbdtnyzdbsb/)
 - 2019-02-16 in Berlin, Germany by Study Haskell: [Weekly Haskell-studying session](https://www.meetup.com/Study-Haskell/events/gwtsqqyzdbvb/)
-- 2019-02-18 in Bucharest, Romania by Bucharest FP: [Bucharest FP #40 — Recursion Schemes in Haskell](https://www.meetup.com/bucharestfp/events/258696187/)
+- 2019-02-18 in Bucharest, Romania by Bucharest FP: [Bucharest FP #40 --- Recursion Schemes in Haskell](https://www.meetup.com/bucharestfp/events/258696187/)
 - 2019-02-18 in London EC2, United Kingdom by Skills Matter - X Matters Series - Developer Events: [Data Matters with Chanuki Illushka Seresinhe!](https://www.meetup.com/skillsmatter/events/258323591/)
 - 2019-02-19 in Bristol, United Kingdom by CodeHub Bristol: [Hack Night](https://www.meetup.com/CodeHub-Bristol/events/bpjgrqyzdbzb/)
 - 2019-02-19 in London EC2, United Kingdom by Skills Matter - X Matters Series - Developer Events: [Leadership Matters with Elizabeth Varley!](https://www.meetup.com/skillsmatter/events/258494361/)

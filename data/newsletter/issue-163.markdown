@@ -92,7 +92,7 @@ This week's package of the week is [lens-regex-pcre](https://hackage.haskell.org
 - 2019-06-13 in London, United Kingdom by Hoodlums: [Hoodlums Meetup](https://www.meetup.com/hoodlums/events/hrbdtnyzjbrb/)
 - 2019-06-17 in Karlsruhe, Germany by Karlsruhe Haskell Meetup: [Parallel and Concurrent Programming Study Group](https://www.meetup.com/Karlsruhe-Haskell-Meetup/events/261777616/)
 - 2019-06-17 in Göteborg, Sweden by Got.λ - Göteborg Functional Programming Group: [The Clojure library "flc" and the ideas that shaped it](https://www.meetup.com/got-lambda/events/260808450/)
-- 2019-06-18 in Bucharest, Romania by Bucharest FP: [Bucharest FP #58 — Automating the boring things with Clojure ChatOps](https://www.meetup.com/bucharestfp/events/261798924/)
+- 2019-06-18 in Bucharest, Romania by Bucharest FP: [Bucharest FP #58 --- Automating the boring things with Clojure ChatOps](https://www.meetup.com/bucharestfp/events/261798924/)
 - 2019-06-18 in London EC2, United Kingdom by Skills Matter - xMatters Keynote Series - Developer Events: [Keynote by Iyas AlQasem: Using Agile Techniques to lead your Startup ](https://www.meetup.com/skillsmatter/events/261542806/)
 - 2019-06-19 in London EC2, United Kingdom by Skills Matter - xMatters Keynote Series - Developer Events: [Rebecca Franks on Tips for Building Custom Views on Android with Canvas APIs📏🎨](https://www.meetup.com/skillsmatter/events/261617784/)
 - 2019-06-20 in Iași, Romania by Iasi Functional Programming: [Scala: Pure programs with ZIO](https://www.meetup.com/iasi-fp/events/262221980/)
