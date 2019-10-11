@@ -46,7 +46,6 @@ This is a weekly summary of what's going on in its community.
 
 ## Jobs
 
-<!-- keep through July 18 -->
 -   [Galois is hiring for a variety of roles](https://galois.com/careers/) (ad)
 
     > Including but not limited to: Software Engineers/Researchers, Project Managers, Hardware Engineers, Software Integration Engineer.
