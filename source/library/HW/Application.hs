@@ -5,6 +5,8 @@ module HW.Application
   )
 where
 
+import qualified Control.Monad.Reader
+import qualified Data.IORef
 import qualified Data.Text
 import qualified Data.Text.Encoding
 import qualified Data.Text.Encoding.Error
@@ -28,11 +30,11 @@ import qualified Network.Wai
 -- | The whole application. From a high level, this is responsible for checking
 -- the request method and path. If those route to an appropriate handler, this
 -- calls that handler and returns the response.
-application :: HW.Type.State.State -> Network.Wai.Application
-application state request respond =
+application :: Data.IORef.IORef HW.Type.State.State -> Network.Wai.Application
+application ref request respond =
   case (requestMethod request, requestRoute request) of
     ("GET", Just route) -> do
-      response <- HW.Type.App.appWith state $ handle route
+      response <- Control.Monad.Reader.runReaderT (handle route) ref
       respond response
     _ -> respond HW.Handler.Base.notFoundResponse
 

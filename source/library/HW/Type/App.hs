@@ -1,6 +1,5 @@
 module HW.Type.App
   ( App
-  , appWith
   , getConfig
   , getState
   , io
@@ -15,11 +14,6 @@ import qualified HW.Type.State
 
 type App
   = Control.Monad.Reader.ReaderT (Data.IORef.IORef HW.Type.State.State) IO
-
-appWith :: HW.Type.State.State -> App a -> IO a
-appWith state app = do
-  ref <- Data.IORef.newIORef state
-  Control.Monad.Reader.runReaderT app ref
 
 getConfig :: App HW.Type.Config.Config
 getConfig = fmap HW.Type.State.stateConfig getState

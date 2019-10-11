@@ -5,6 +5,7 @@ module HW.Server
 where
 
 import qualified Data.ByteString
+import qualified Data.IORef
 import qualified Data.Text
 import qualified Data.Text.Encoding
 import qualified Data.Version
@@ -22,9 +23,10 @@ import qualified Paths_haskellweekly
 server :: HW.Type.State.State -> IO ()
 server state = do
   let config = HW.Type.State.stateConfig state
+  ref <- Data.IORef.newIORef state
   Network.Wai.Handler.Warp.runSettings (configToSettings config)
     . HW.Middleware.middleware config
-    $ HW.Application.application state
+    $ HW.Application.application ref
 
 -- | Converts a Haskell Weekly config into Warp server settings.
 configToSettings :: HW.Type.Config.Config -> Network.Wai.Handler.Warp.Settings
