@@ -43,4 +43,6 @@ readIssueFile state number = do
     Nothing -> fail $ "missing Markdown for newsletter issue " <> show number
     Just byteString -> case Data.Text.Encoding.decodeUtf8' byteString of
       Left exception -> fail $ show exception
-      Right text -> pure $ CMark.commonmarkToNode [] text
+      Right text -> pure $ CMark.commonmarkToNode
+        [CMark.optNormalize, CMark.optSafe, CMark.optSmart]
+        text
