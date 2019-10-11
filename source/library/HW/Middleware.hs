@@ -11,8 +11,13 @@ import qualified Data.ByteString.Base64
 import qualified Data.ByteString.Builder
 import qualified Data.ByteString.Lazy
 import qualified Data.CaseInsensitive
+import qualified Data.Int
 import qualified Data.Text
 import qualified Data.Text.Encoding
+import qualified Data.Text.Encoding.Error
+import qualified Data.Time
+import qualified Data.Word
+import qualified GHC.Clock
 import qualified HW.Type.BaseUrl
 import qualified HW.Type.Config
 import qualified Network.HTTP.Types
@@ -21,15 +26,68 @@ import qualified Network.Wai
 import qualified Network.Wai.Internal
 import qualified Network.Wai.Middleware.ForceSSL
 import qualified Network.Wai.Middleware.Gzip
+import qualified System.Mem
+import qualified Text.Printf
 
 -- | All of the middlewares are wrapped up in this single one so that you only
 -- have to apply one.
 middleware :: HW.Type.Config.Config -> Network.Wai.Middleware
 middleware config =
   Network.Wai.Middleware.Gzip.gzip Network.Wai.Middleware.Gzip.def
+    . logger
     . addEntityTagHeader
     . addSecurityHeaders config
     . enforceHttps config
+
+logger :: Network.Wai.Middleware
+logger application request respond = do
+  now <- Data.Time.getCurrentTime
+  a1 <- System.Mem.getAllocationCounter
+  t1 <- GHC.Clock.getMonotonicTimeNSec
+  application request $ \response -> do
+    t2 <- GHC.Clock.getMonotonicTimeNSec
+    a2 <- System.Mem.getAllocationCounter
+    Text.Printf.printf
+      "time=%s method=%s path=%s status=%d length=%d ms=%d kb=%d\n"
+      (iso8601 now)
+      (requestMethod request)
+      (requestPath request)
+      (responseStatus response)
+      (responseSize response)
+      (duration t1 t2)
+      (allocation a1 a2)
+    respond response
+
+iso8601 :: Data.Time.UTCTime -> Data.Text.Text
+iso8601 = Data.Text.pack
+  . Data.Time.formatTime Data.Time.defaultTimeLocale "%Y-%m-%dT%H:%M:%S%3QZ"
+
+requestMethod :: Network.Wai.Request -> Data.Text.Text
+requestMethod =
+  Data.Text.Encoding.decodeUtf8With Data.Text.Encoding.Error.lenientDecode
+    . Network.Wai.requestMethod
+
+requestPath :: Network.Wai.Request -> Data.Text.Text
+requestPath =
+  Data.Text.Encoding.decodeUtf8With Data.Text.Encoding.Error.lenientDecode
+    . Network.Wai.rawPathInfo
+
+responseStatus :: Network.Wai.Response -> Int
+responseStatus = Network.HTTP.Types.statusCode . Network.Wai.responseStatus
+
+responseSize :: Network.Wai.Response -> Data.Int.Int64
+responseSize response = case response of
+  Network.Wai.Internal.ResponseBuilder _ _ builder ->
+    flip div 1024
+      . Data.ByteString.Lazy.length
+      $ Data.ByteString.Builder.toLazyByteString builder
+  _ -> -1
+
+duration :: Data.Word.Word64 -> Data.Word.Word64 -> Data.Word.Word64
+duration before after = div (after - before) 1000000
+
+allocation :: Data.Int.Int64 -> Data.Int.Int64 -> Data.Int.Int64
+allocation before after = div (before - after) 1024
 
 -- | Add the @ETag@ header to responses and check for the @If-None-Match@
 -- header on requests. Note that this does not perform caching. It merely

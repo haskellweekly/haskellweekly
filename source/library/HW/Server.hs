@@ -7,7 +7,6 @@ where
 import qualified Data.ByteString
 import qualified Data.Text
 import qualified Data.Text.Encoding
-import qualified Data.Text.Encoding.Error
 import qualified Data.Version
 import qualified HW.Application
 import qualified HW.Handler.Base
@@ -18,7 +17,6 @@ import qualified Network.HTTP.Types
 import qualified Network.Wai
 import qualified Network.Wai.Handler.Warp
 import qualified Paths_haskellweekly
-import qualified Text.Printf
 
 -- | Starts up the server. This function never returns.
 server :: HW.Type.State.State -> IO ()
@@ -34,7 +32,6 @@ configToSettings config =
   Network.Wai.Handler.Warp.setBeforeMainLoop
       (beforeMainLoop $ HW.Type.Config.configPort config)
     . Network.Wai.Handler.Warp.setOnExceptionResponse onExceptionResponse
-    . Network.Wai.Handler.Warp.setLogger logger
     . Network.Wai.Handler.Warp.setPort (HW.Type.Config.configPort config)
     . Network.Wai.Handler.Warp.setServerName serverName
     $ Network.Wai.Handler.Warp.defaultSettings
@@ -44,21 +41,6 @@ configToSettings config =
 -- executable has been started.
 beforeMainLoop :: Network.Wai.Handler.Warp.Port -> IO ()
 beforeMainLoop port = putStrLn $ "Listening on port " <> show port <> " ..."
-
--- | Logs HTTP requests. Compared to the default Apache style logging this is
--- pretty minimal: @METHOD PATH STATUS@. For example: @GET / 200@.
-logger
-  :: Network.Wai.Request -> Network.HTTP.Types.Status -> Maybe Integer -> IO ()
-logger request status _ =
-  let
-    code = Network.HTTP.Types.statusCode status
-    method =
-      Data.Text.Encoding.decodeUtf8With Data.Text.Encoding.Error.lenientDecode
-        $ Network.Wai.requestMethod request
-    path =
-      Data.Text.Encoding.decodeUtf8With Data.Text.Encoding.Error.lenientDecode
-        $ Network.Wai.rawPathInfo request
-  in Text.Printf.printf "%d %s %s\n" code method path
 
 -- | This function defines what the response looks like when an exception
 -- occurs. Although this function takes an exception as an argument, it returns
