@@ -12,13 +12,13 @@ synopsis: Publishes curated news about Haskell.
 
 data-dir: data
 data-files:
-  apple-badge.svg
+  apple-podcasts.svg
   favicon.ico
-  google-badge.svg
+  google-podcasts.svg
+  logo.png
   newsletter/*.markdown
-  podcast-logo.png
   podcast/*.srt
-  tachyons-4-11-2.css
+  tachyons.css
 extra-source-files: README.markdown
 license-file: LICENSE.markdown
 

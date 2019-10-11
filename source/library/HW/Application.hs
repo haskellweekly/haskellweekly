@@ -55,13 +55,13 @@ handle state route = case route of
   HW.Type.Route.RouteAdvertising ->
     HW.Handler.Advertising.advertisingHandler state
   HW.Type.Route.RouteAppleBadge ->
-    HW.Handler.Base.fileResponse "image/svg+xml" "apple-badge.svg" state
+    HW.Handler.Base.fileResponse "image/svg+xml" "apple-podcasts.svg" state
   HW.Type.Route.RouteEpisode number ->
     HW.Handler.Episode.episodeHandler state number
   HW.Type.Route.RouteFavicon ->
     HW.Handler.Base.fileResponse "image/x-icon" "favicon.ico" state
   HW.Type.Route.RouteGoogleBadge ->
-    HW.Handler.Base.fileResponse "image/svg+xml" "google-badge.svg" state
+    HW.Handler.Base.fileResponse "image/svg+xml" "google-podcasts.svg" state
   HW.Type.Route.RouteIndex -> HW.Handler.Index.indexHandler state
   HW.Type.Route.RouteIssue number ->
     HW.Handler.Issue.issueHandler state number
@@ -73,12 +73,10 @@ handle state route = case route of
     HW.Handler.PodcastFeed.podcastFeedHandler state
   HW.Type.Route.RoutePodcast -> HW.Handler.Podcast.podcastHandler state
   HW.Type.Route.RouteLogo ->
-    HW.Handler.Base.fileResponse "image/png" "podcast-logo.png" state
+    HW.Handler.Base.fileResponse "image/png" "logo.png" state
   HW.Type.Route.RouteRedirect redirect ->
     HW.Handler.Redirect.redirectHandler redirect
   HW.Type.Route.RouteRobots -> HW.Handler.Robots.robotsHandler state
   HW.Type.Route.RouteSitemap -> HW.Handler.Sitemap.sitemapHandler state
-  HW.Type.Route.RouteTachyons -> HW.Handler.Base.fileResponse
-    "text/css; charset=utf-8"
-    "tachyons-4-11-2.css"
-    state
+  HW.Type.Route.RouteTachyons ->
+    HW.Handler.Base.fileResponse "text/css; charset=utf-8" "tachyons.css" state
