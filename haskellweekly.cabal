@@ -124,6 +124,7 @@ library
 executable haskellweekly
   import: executable
 
+  ghc-options: -O2
   hs-source-dirs: source/executable
   main-is: Main.hs
 
