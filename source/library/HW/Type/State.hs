@@ -21,10 +21,10 @@ import qualified System.IO.Error
 
 data State =
   State
-    { stateCache :: Data.IORef.IORef (Data.Map.Map FilePath (Maybe Data.ByteString.ByteString))
-    , stateConfig :: HW.Type.Config.Config
+    { stateConfig :: HW.Type.Config.Config
     , stateDatabaseConnection :: Database.PostgreSQL.Simple.Connection
     , stateEpisodes :: HW.Episodes.Episodes
+    , stateFileCache :: Data.IORef.IORef (Data.Map.Map FilePath (Maybe Data.ByteString.ByteString))
     , stateIssues :: HW.Issues.Issues
     }
 
@@ -32,16 +32,16 @@ data State =
 -- will fail.
 configToState :: HW.Type.Config.Config -> IO State
 configToState config = do
-  cache <- Data.IORef.newIORef Data.Map.empty
+  fileCache <- Data.IORef.newIORef Data.Map.empty
   databaseConnection <- Database.PostgreSQL.Simple.connectPostgreSQL
     $ HW.Type.Config.configDatabaseUrl config
   episodes <- either fail pure HW.Episodes.episodes
   issues <- either fail pure HW.Issues.issues
   pure State
-    { stateCache = cache
-    , stateConfig = config
+    { stateConfig = config
     , stateDatabaseConnection = databaseConnection
     , stateEpisodes = episodes
+    , stateFileCache = fileCache
     , stateIssues = issues
     }
 
@@ -50,7 +50,7 @@ configToState config = do
 -- other failure modes.
 readDataFile :: State -> FilePath -> IO (Maybe Data.ByteString.ByteString)
 readDataFile state file = do
-  let cacheRef = stateCache state
+  let cacheRef = stateFileCache state
   cache <- Data.IORef.readIORef cacheRef
   case Data.Map.lookup file cache of
     Just contents -> pure contents
