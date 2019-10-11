@@ -30,7 +30,7 @@ data Route
   | RouteRobots
   | RouteSitemap
   | RouteTachyons
-  deriving (Eq, Ord, Show)
+  deriving (Eq, Show)
 
 -- | Returns true if the route is a redirect, false otherwise.
 isRedirect :: Route -> Bool
@@ -86,6 +86,7 @@ textToRoute path = case path of
   ["robots.txt"] -> Just RouteRobots
   ["sitemap.txt"] -> Just RouteSitemap
   ["tachyons.css"] -> Just RouteTachyons
+--
   ["haskell-weekly.atom"] -> Just $ routeToRedirect RouteNewsletterFeed
   ["haskell-weekly.rss"] -> Just $ routeToRedirect RouteNewsletterFeed
   ["images", "favicon.ico"] -> Just $ routeToRedirect RouteFavicon
@@ -104,7 +105,6 @@ textToRoute path = case path of
   ["podcast", "logo.png"] -> Just $ routeToRedirect RouteLogo
   _ -> Nothing
 
---
 -- | Handles routing content by stripping the given extension, parsing what's
 -- left of the path, and wrapping the result in a route.
 routeContent
