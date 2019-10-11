@@ -3,7 +3,9 @@ module HW.Handler.NewsletterFeed
   )
 where
 
+import qualified Data.List
 import qualified Data.Map
+import qualified Data.Ord
 import qualified HW.Handler.Base
 import qualified HW.Handler.Issue
 import qualified HW.Template.NewsletterFeed
@@ -23,6 +25,8 @@ newsletterFeedHandler state = do
           $ HW.Type.Issue.issueNumber issue
         pure (issue, node)
       )
+    . take 13
+    . Data.List.sortOn (Data.Ord.Down . HW.Type.Issue.issueDate)
     . Data.Map.elems
     $ HW.Type.State.stateIssues state
   pure
