@@ -8,6 +8,7 @@ import qualified Data.Text
 import qualified Data.Text.Encoding
 import qualified HW.Handler.Base
 import qualified HW.Template.Episode
+import qualified HW.Type.App
 import qualified HW.Type.Caption
 import qualified HW.Type.Config
 import qualified HW.Type.Number
@@ -24,7 +25,7 @@ episodeHandler state number =
     case Data.Map.lookup number episodes of
       Nothing -> pure HW.Handler.Base.notFoundResponse
       Just episode -> do
-        maybeCaptions <- readCaptionFile state number
+        maybeCaptions <- HW.Type.App.appWith state (readCaptionFile number)
         pure
           . HW.Handler.Base.htmlResponse Network.HTTP.Types.ok200 []
           $ HW.Template.Episode.episodeTemplate
@@ -35,15 +36,14 @@ episodeHandler state number =
 -- | Reads a caption file and parses it as SRT. This will return nothing if the
 -- file doesn't exist. If parsing fails, this will raise an exception.
 readCaptionFile
-  :: HW.Type.State.State
-  -> HW.Type.Number.Number
-  -> IO (Maybe [HW.Type.Caption.Caption])
-readCaptionFile state number = do
+  :: HW.Type.Number.Number -> HW.Type.App.App (Maybe [HW.Type.Caption.Caption])
+readCaptionFile number = do
   let
     name = "episode-" <> HW.Type.Number.numberToText number
     file = System.FilePath.addExtension (Data.Text.unpack name) "srt"
     path = System.FilePath.combine "podcast" file
-  result <- HW.Type.State.readDataFile state path
+  state <- HW.Type.App.getState
+  result <- HW.Type.App.io $ HW.Type.State.readDataFile state path
   case result of
     Nothing -> pure Nothing
     Just byteString -> do
