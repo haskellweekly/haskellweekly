@@ -39,6 +39,16 @@ middleware config =
     . addSecurityHeaders config
     . enforceHttps config
 
+-- | Logs a request/response as a JSON object. Each object will have the
+-- following fields:
+--
+-- - time: The wall clock time that the server started processing the request.
+-- - method: The HTTP request method.
+-- - path: The HTTP request path, excluding any query parameters.
+-- - status: The HTTP response status code.
+-- - bytes: The content length of the response body in bytes.
+-- - ns: The amount of time in nanoseconds spent processing the request.
+-- - alloc: The number of bytes allocated while processing the request.
 logger :: Network.Wai.Middleware
 logger application request respond = do
   now <- Data.Time.getCurrentTime
@@ -48,7 +58,14 @@ logger application request respond = do
     t2 <- GHC.Clock.getMonotonicTimeNSec
     a2 <- System.Mem.getAllocationCounter
     Text.Printf.printf
-      "time=%s method=%s path=%s status=%d length=%d ms=%d kb=%d\n"
+      "{ \"time\": \"%s\"\
+      \, \"method\": \"%s\"\
+      \, \"path\": \"%s\"\
+      \, \"status\": %d\
+      \, \"bytes\": %d\
+      \, \"ns\": %d\
+      \, \"alloc\": %d\
+      \ }\n"
       (iso8601 now)
       (requestMethod request)
       (requestPath request)
@@ -78,16 +95,15 @@ responseStatus = Network.HTTP.Types.statusCode . Network.Wai.responseStatus
 responseSize :: Network.Wai.Response -> Data.Int.Int64
 responseSize response = case response of
   Network.Wai.Internal.ResponseBuilder _ _ builder ->
-    flip div 1024
-      . Data.ByteString.Lazy.length
+    Data.ByteString.Lazy.length
       $ Data.ByteString.Builder.toLazyByteString builder
   _ -> -1
 
 duration :: Data.Word.Word64 -> Data.Word.Word64 -> Data.Word.Word64
-duration before after = div (after - before) 1000000
+duration before after = after - before
 
 allocation :: Data.Int.Int64 -> Data.Int.Int64 -> Data.Int.Int64
-allocation before after = div (before - after) 1024
+allocation before after = before - after
 
 -- | Add the @ETag@ header to responses and check for the @If-None-Match@
 -- header on requests. Note that this does not perform caching. It merely
