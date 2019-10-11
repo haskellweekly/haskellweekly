@@ -9,19 +9,21 @@ import qualified Data.Ord
 import qualified HW.Handler.Base
 import qualified HW.Handler.Issue
 import qualified HW.Template.NewsletterFeed
+import qualified HW.Type.App
 import qualified HW.Type.Config
 import qualified HW.Type.Issue
 import qualified HW.Type.State
 import qualified Network.HTTP.Types
 import qualified Network.Wai
 
-newsletterFeedHandler :: HW.Type.State.State -> IO Network.Wai.Response
-newsletterFeedHandler state = do
+newsletterFeedHandler :: HW.Type.App.App Network.Wai.Response
+newsletterFeedHandler = do
+  state <- HW.Type.App.getState
   let baseUrl = HW.Type.Config.configBaseUrl $ HW.Type.State.stateConfig state
   issues <-
     mapM
       (\issue -> do
-        node <- HW.Handler.Issue.readIssueFile state
+        node <- HW.Handler.Issue.readIssueFile
           $ HW.Type.Issue.issueNumber issue
         pure (issue, node)
       )

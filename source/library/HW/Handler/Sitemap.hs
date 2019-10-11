@@ -6,15 +6,16 @@ where
 import qualified Data.Map
 import qualified Data.Text
 import qualified HW.Handler.Base
+import qualified HW.Type.App
 import qualified HW.Type.Config
 import qualified HW.Type.Route
 import qualified HW.Type.State
 import qualified Network.HTTP.Types
 import qualified Network.Wai
 
-sitemapHandler
-  :: Applicative f => HW.Type.State.State -> f Network.Wai.Response
-sitemapHandler state =
+sitemapHandler :: HW.Type.App.App Network.Wai.Response
+sitemapHandler = do
+  state <- HW.Type.App.getState
   pure
     . HW.Handler.Base.textResponse Network.HTTP.Types.ok200 []
     . Data.Text.unlines

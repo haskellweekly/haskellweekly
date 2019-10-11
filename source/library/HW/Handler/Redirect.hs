@@ -5,12 +5,13 @@ where
 
 import qualified Data.Text.Encoding
 import qualified HW.Handler.Base
+import qualified HW.Type.App
 import qualified HW.Type.Redirect
 import qualified Network.HTTP.Types
 import qualified Network.Wai
 
 redirectHandler
-  :: Applicative f => HW.Type.Redirect.Redirect -> f Network.Wai.Response
+  :: HW.Type.Redirect.Redirect -> HW.Type.App.App Network.Wai.Response
 redirectHandler redirect =
   pure
     . HW.Handler.Base.textResponse

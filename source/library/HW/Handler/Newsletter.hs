@@ -8,15 +8,16 @@ import qualified Data.Map
 import qualified Data.Ord
 import qualified HW.Handler.Base
 import qualified HW.Template.Newsletter
+import qualified HW.Type.App
 import qualified HW.Type.Config
 import qualified HW.Type.Issue
 import qualified HW.Type.State
 import qualified Network.HTTP.Types
 import qualified Network.Wai
 
-newsletterHandler
-  :: Applicative m => HW.Type.State.State -> m Network.Wai.Response
-newsletterHandler state = do
+newsletterHandler :: HW.Type.App.App Network.Wai.Response
+newsletterHandler = do
+  state <- HW.Type.App.getState
   let
     baseUrl = HW.Type.Config.configBaseUrl $ HW.Type.State.stateConfig state
     issues =

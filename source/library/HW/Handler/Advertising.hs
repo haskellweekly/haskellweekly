@@ -5,16 +5,15 @@ where
 
 import qualified HW.Handler.Base
 import qualified HW.Template.Advertising
+import qualified HW.Type.App
 import qualified HW.Type.Config
-import qualified HW.Type.State
 import qualified Network.HTTP.Types
 import qualified Network.Wai
 
-advertisingHandler
-  :: Applicative f => HW.Type.State.State -> f Network.Wai.Response
-advertisingHandler =
+advertisingHandler :: HW.Type.App.App Network.Wai.Response
+advertisingHandler = do
+  config <- HW.Type.App.getConfig
   pure
     . HW.Handler.Base.htmlResponse Network.HTTP.Types.ok200 []
     . HW.Template.Advertising.advertisingTemplate
-    . HW.Type.Config.configBaseUrl
-    . HW.Type.State.stateConfig
+    $ HW.Type.Config.configBaseUrl config

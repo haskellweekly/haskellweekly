@@ -20,6 +20,7 @@ import qualified HW.Handler.PodcastFeed
 import qualified HW.Handler.Redirect
 import qualified HW.Handler.Robots
 import qualified HW.Handler.Sitemap
+import qualified HW.Type.App
 import qualified HW.Type.Route
 import qualified HW.Type.State
 import qualified Network.Wai
@@ -31,7 +32,7 @@ application :: HW.Type.State.State -> Network.Wai.Application
 application state request respond =
   case (requestMethod request, requestRoute request) of
     ("GET", Just route) -> do
-      response <- handle state route
+      response <- HW.Type.App.appWith state $ handle route
       respond response
     _ -> respond HW.Handler.Base.notFoundResponse
 
@@ -50,33 +51,29 @@ requestRoute = HW.Type.Route.textToRoute . Network.Wai.pathInfo
 
 -- | Handles a particular route by calling the appropriate handler and
 -- returning the response.
-handle :: HW.Type.State.State -> HW.Type.Route.Route -> IO Network.Wai.Response
-handle state route = case route of
-  HW.Type.Route.RouteAdvertising ->
-    HW.Handler.Advertising.advertisingHandler state
+handle :: HW.Type.Route.Route -> HW.Type.App.App Network.Wai.Response
+handle route = case route of
+  HW.Type.Route.RouteAdvertising -> HW.Handler.Advertising.advertisingHandler
   HW.Type.Route.RouteAppleBadge ->
-    HW.Handler.Base.fileResponse "image/svg+xml" "apple-podcasts.svg" state
+    HW.Handler.Base.fileResponse "image/svg+xml" "apple-podcasts.svg"
   HW.Type.Route.RouteEpisode number ->
-    HW.Handler.Episode.episodeHandler state number
+    HW.Handler.Episode.episodeHandler number
   HW.Type.Route.RouteFavicon ->
-    HW.Handler.Base.fileResponse "image/x-icon" "favicon.ico" state
+    HW.Handler.Base.fileResponse "image/x-icon" "favicon.ico"
   HW.Type.Route.RouteGoogleBadge ->
-    HW.Handler.Base.fileResponse "image/svg+xml" "google-podcasts.svg" state
-  HW.Type.Route.RouteIndex -> HW.Handler.Index.indexHandler state
-  HW.Type.Route.RouteIssue number ->
-    HW.Handler.Issue.issueHandler state number
+    HW.Handler.Base.fileResponse "image/svg+xml" "google-podcasts.svg"
+  HW.Type.Route.RouteIndex -> HW.Handler.Index.indexHandler
+  HW.Type.Route.RouteIssue number -> HW.Handler.Issue.issueHandler number
   HW.Type.Route.RouteNewsletterFeed ->
-    HW.Handler.NewsletterFeed.newsletterFeedHandler state
-  HW.Type.Route.RouteNewsletter ->
-    HW.Handler.Newsletter.newsletterHandler state
-  HW.Type.Route.RoutePodcastFeed ->
-    HW.Handler.PodcastFeed.podcastFeedHandler state
-  HW.Type.Route.RoutePodcast -> HW.Handler.Podcast.podcastHandler state
+    HW.Handler.NewsletterFeed.newsletterFeedHandler
+  HW.Type.Route.RouteNewsletter -> HW.Handler.Newsletter.newsletterHandler
+  HW.Type.Route.RoutePodcastFeed -> HW.Handler.PodcastFeed.podcastFeedHandler
+  HW.Type.Route.RoutePodcast -> HW.Handler.Podcast.podcastHandler
   HW.Type.Route.RouteLogo ->
-    HW.Handler.Base.fileResponse "image/png" "logo.png" state
+    HW.Handler.Base.fileResponse "image/png" "logo.png"
   HW.Type.Route.RouteRedirect redirect ->
     HW.Handler.Redirect.redirectHandler redirect
-  HW.Type.Route.RouteRobots -> HW.Handler.Robots.robotsHandler state
-  HW.Type.Route.RouteSitemap -> HW.Handler.Sitemap.sitemapHandler state
+  HW.Type.Route.RouteRobots -> HW.Handler.Robots.robotsHandler
+  HW.Type.Route.RouteSitemap -> HW.Handler.Sitemap.sitemapHandler
   HW.Type.Route.RouteTachyons ->
-    HW.Handler.Base.fileResponse "text/css; charset=utf-8" "tachyons.css" state
+    HW.Handler.Base.fileResponse "text/css; charset=utf-8" "tachyons.css"

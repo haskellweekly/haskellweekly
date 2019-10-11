@@ -13,12 +13,11 @@ import qualified Data.ByteString.Lazy
 import qualified Data.Text
 import qualified Data.Text.Encoding
 import qualified Data.XML.Types
-import qualified HW.Type.Config
+import qualified HW.Type.App
 import qualified HW.Type.State
 import qualified Lucid
 import qualified Network.HTTP.Types
 import qualified Network.Wai
-import qualified System.FilePath
 import qualified Text.Feed.Export
 import qualified Text.Feed.Types
 import qualified Text.XML.Unresolved
@@ -63,19 +62,16 @@ feedMime feed = case feed of
   _ -> "application/rss+xml; charset=utf-8"
 
 fileResponse
-  :: Data.Text.Text
-  -> FilePath
-  -> HW.Type.State.State
-  -> IO Network.Wai.Response
-fileResponse mime file state = do
+  :: Data.Text.Text -> FilePath -> HW.Type.App.App Network.Wai.Response
+fileResponse mime file = do
   let
     status = Network.HTTP.Types.ok200
     headers = withContentType mime []
-    directory =
-      HW.Type.Config.configDataDirectory $ HW.Type.State.stateConfig state
-    path = System.FilePath.combine directory file
-  body <- Data.ByteString.readFile path
-  pure $ bsResponse status headers body
+  state <- HW.Type.App.getState
+  maybeBody <- HW.Type.App.io $ HW.Type.State.readDataFile state file
+  case maybeBody of
+    Nothing -> fail $ "failed to read file: " <> show file
+    Just body -> pure $ bsResponse status headers body
 
 htmlResponse
   :: Network.HTTP.Types.Status

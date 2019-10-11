@@ -17,21 +17,20 @@ import qualified Network.HTTP.Types
 import qualified Network.Wai
 import qualified System.FilePath
 
-episodeHandler
-  :: HW.Type.State.State -> HW.Type.Number.Number -> IO Network.Wai.Response
-episodeHandler state number =
+episodeHandler :: HW.Type.Number.Number -> HW.Type.App.App Network.Wai.Response
+episodeHandler number = do
+  state <- HW.Type.App.getState
   let episodes = HW.Type.State.stateEpisodes state
-  in
-    case Data.Map.lookup number episodes of
-      Nothing -> pure HW.Handler.Base.notFoundResponse
-      Just episode -> do
-        maybeCaptions <- HW.Type.App.appWith state (readCaptionFile number)
-        pure
-          . HW.Handler.Base.htmlResponse Network.HTTP.Types.ok200 []
-          $ HW.Template.Episode.episodeTemplate
-              (HW.Type.Config.configBaseUrl $ HW.Type.State.stateConfig state)
-              episode
-              maybeCaptions
+  case Data.Map.lookup number episodes of
+    Nothing -> pure HW.Handler.Base.notFoundResponse
+    Just episode -> do
+      maybeCaptions <- readCaptionFile number
+      pure
+        . HW.Handler.Base.htmlResponse Network.HTTP.Types.ok200 []
+        $ HW.Template.Episode.episodeTemplate
+            (HW.Type.Config.configBaseUrl $ HW.Type.State.stateConfig state)
+            episode
+            maybeCaptions
 
 -- | Reads a caption file and parses it as SRT. This will return nothing if the
 -- file doesn't exist. If parsing fails, this will raise an exception.

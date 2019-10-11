@@ -9,6 +9,7 @@ import qualified Data.Maybe
 import qualified Data.Ord
 import qualified HW.Handler.Base
 import qualified HW.Template.Index
+import qualified HW.Type.App
 import qualified HW.Type.Config
 import qualified HW.Type.Episode
 import qualified HW.Type.Issue
@@ -16,8 +17,9 @@ import qualified HW.Type.State
 import qualified Network.HTTP.Types
 import qualified Network.Wai
 
-indexHandler :: Applicative f => HW.Type.State.State -> f Network.Wai.Response
-indexHandler state =
+indexHandler :: HW.Type.App.App Network.Wai.Response
+indexHandler = do
+  state <- HW.Type.App.getState
   let
     maybeIssue =
       Data.Maybe.listToMaybe
@@ -29,8 +31,7 @@ indexHandler state =
         . Data.List.sortOn (Data.Ord.Down . HW.Type.Episode.episodeDate)
         . Data.Map.elems
         $ HW.Type.State.stateEpisodes state
-  in
-    pure
+  pure
     . HW.Handler.Base.htmlResponse Network.HTTP.Types.ok200 []
     $ HW.Template.Index.indexTemplate
         (HW.Type.Config.configBaseUrl $ HW.Type.State.stateConfig state)
