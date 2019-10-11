@@ -86,23 +86,25 @@ textToRoute path = case path of
   ["robots.txt"] -> Just RouteRobots
   ["sitemap.txt"] -> Just RouteSitemap
   ["tachyons.css"] -> Just RouteTachyons
---
-  ["haskell-weekly.atom"] -> Just $ routeToRedirect RouteNewsletterFeed
-  ["haskell-weekly.rss"] -> Just $ routeToRedirect RouteNewsletterFeed
-  ["images", "favicon.ico"] -> Just $ routeToRedirect RouteFavicon
-  ["images", "twitter-card.png"] -> Just $ routeToRedirect RouteLogo
-  ["index.html"] -> Just $ routeToRedirect RouteIndex
-  ["issues", file] ->
-    fmap routeToRedirect $ routeContent "html" RouteEpisode file
-  ["podcast", "apple-badge.svg"] -> Just $ routeToRedirect RouteAppleBadge
-  ["podcast", "episodes", file] ->
-    fmap routeToRedirect $ routeContent "html" RouteEpisode file
-  ["podcast", "feed.rss"] -> Just $ routeToRedirect RoutePodcastFeed
-  ["podcast", "google-badge.svg"] -> Just $ routeToRedirect RouteGoogleBadge
-  ["podcast", "index.html"] -> Just $ routeToRedirect RoutePodcast
-  ["podcast", ""] -> Just $ routeToRedirect RoutePodcast
-  ["podcast"] -> Just $ routeToRedirect RoutePodcast
-  ["podcast", "logo.png"] -> Just $ routeToRedirect RouteLogo
+  _ -> textToRedirect path
+
+-- | Handles routing all redirect routes.
+textToRedirect :: [Data.Text.Text] -> Maybe Route
+textToRedirect path = fmap routeToRedirect $ case path of
+  ["haskell-weekly.atom"] -> Just RouteNewsletterFeed
+  ["haskell-weekly.rss"] -> Just RouteNewsletterFeed
+  ["images", "favicon.ico"] -> Just RouteFavicon
+  ["images", "twitter-card.png"] -> Just RouteLogo
+  ["index.html"] -> Just RouteIndex
+  ["issues", file] -> routeContent "html" RouteEpisode file
+  ["podcast", "apple-badge.svg"] -> Just RouteAppleBadge
+  ["podcast", "episodes", file] -> routeContent "html" RouteEpisode file
+  ["podcast", "feed.rss"] -> Just RoutePodcastFeed
+  ["podcast", "google-badge.svg"] -> Just RouteGoogleBadge
+  ["podcast", "index.html"] -> Just RoutePodcast
+  ["podcast", ""] -> Just RoutePodcast
+  ["podcast"] -> Just RoutePodcast
+  ["podcast", "logo.png"] -> Just RouteLogo
   _ -> Nothing
 
 -- | Handles routing content by stripping the given extension, parsing what's
