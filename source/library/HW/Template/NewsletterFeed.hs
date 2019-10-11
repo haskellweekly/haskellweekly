@@ -52,13 +52,10 @@ issueToEntry baseUrl (issue, node) =
       (entryId baseUrl issue)
       (entryTitle issue)
       (entryUpdated issue)
-  in entry { Text.Atom.Feed.entryContent = Just $ nodeToEntryContent node }
+  in entry { Text.Atom.Feed.entrySummary = Just $ nodeToTextContent node }
 
--- TODO: This needs to convert the CMark.Node into a Data.XML.Types.Element,
--- but that's tedious. It might be worth using CMark.nodeToXml and then parsing
--- that, as gross as that sounds.
-nodeToEntryContent :: CMark.Node -> Text.Atom.Feed.EntryContent
-nodeToEntryContent = Text.Atom.Feed.TextContent . CMark.nodeToHtml []
+nodeToTextContent :: CMark.Node -> Text.Atom.Feed.TextContent
+nodeToTextContent = Text.Atom.Feed.HTMLString . CMark.nodeToHtml []
 
 entryId :: HW.Type.BaseUrl.BaseUrl -> HW.Type.Issue.Issue -> Text.Atom.Feed.URI
 entryId baseUrl =
