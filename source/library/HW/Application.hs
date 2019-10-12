@@ -23,7 +23,9 @@ import qualified HW.Handler.Redirect
 import qualified HW.Handler.Robots
 import qualified HW.Handler.Sitemap
 import qualified HW.Handler.Survey
+import qualified HW.Handler.Survey2019Submission
 import qualified HW.Type.App
+import qualified HW.Type.Number
 import qualified HW.Type.Route
 import qualified HW.Type.State
 import qualified Network.Wai
@@ -37,6 +39,14 @@ application ref request respond =
     ("GET", Just route) -> do
       response <- Control.Monad.Reader.runReaderT (handle route) ref
       respond response
+    ("POST", Just (HW.Type.Route.RouteSurvey number)) ->
+      case HW.Type.Number.numberToNatural number of
+        2019 -> do
+          response <- Control.Monad.Reader.runReaderT
+            HW.Handler.Survey2019Submission.survey2019SubmissionHandler
+            ref
+          respond response
+        _ -> respond HW.Handler.Base.notFoundResponse
     _ -> respond HW.Handler.Base.notFoundResponse
 
 -- | Gets the request method as a string. This is convenient because request

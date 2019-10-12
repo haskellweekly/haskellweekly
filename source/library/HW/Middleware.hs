@@ -194,7 +194,7 @@ contentSecurityPolicy = Data.Text.intercalate
   "; "
   [ "base-uri 'none'"
   , "default-src 'none'"
-  , "form-action 'none'"
+  , "form-action 'self'"
   , "frame-ancestors 'none'"
   , "img-src data: 'self'"
   , "media-src https://haskell-weekly-podcast.nyc3.cdn.digitaloceanspaces.com:443 'self'"

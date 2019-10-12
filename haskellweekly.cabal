@@ -90,6 +90,7 @@ library
     HW.Handler.Robots
     HW.Handler.Sitemap
     HW.Handler.Survey
+    HW.Handler.Survey2019Submission
     HW.Issues
     HW.Main
     HW.Middleware
@@ -106,6 +107,7 @@ library
     HW.Template.Survey2017
     HW.Template.Survey2018
     HW.Template.Survey2019
+    HW.Template.Survey2019Submission
     HW.Type.App
     HW.Type.Article
     HW.Type.Articles

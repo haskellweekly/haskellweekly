@@ -15,7 +15,7 @@ survey2019Template baseUrl =
         H.p_ [H.class_ "b dark-red lh-copy"] $ do
           "This survey is under active development. "
           "Any submissions will be discarded."
-        H.form_ [H.action_ ".", H.method_ "post"] . H.fieldset_ $ do
+        H.form_ [H.method_ "post"] . H.fieldset_ $ do
           "Email address "
           H.input_ [H.type_ "email"]
           H.input_ [H.type_ "submit"]
