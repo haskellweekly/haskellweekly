@@ -15,7 +15,9 @@ robotsHandler :: HW.Type.App.App Network.Wai.Response
 robotsHandler = do
   config <- HW.Type.App.getConfig
   pure
-    . HW.Handler.Base.textResponse Network.HTTP.Types.ok200 []
+    . HW.Handler.Base.textResponse
+        Network.HTTP.Types.ok200
+        [(Network.HTTP.Types.hCacheControl, "max-age=86400")]
     $ Data.Text.unlines
         [ "User-agent: *"
         , "Allow: /"

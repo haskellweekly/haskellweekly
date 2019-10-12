@@ -17,7 +17,9 @@ sitemapHandler :: HW.Type.App.App Network.Wai.Response
 sitemapHandler = do
   state <- HW.Type.App.getState
   pure
-    . HW.Handler.Base.textResponse Network.HTTP.Types.ok200 []
+    . HW.Handler.Base.textResponse
+        Network.HTTP.Types.ok200
+        [(Network.HTTP.Types.hCacheControl, "max-age=86400")]
     . Data.Text.unlines
     . fmap
         (HW.Type.Route.routeToTextWith

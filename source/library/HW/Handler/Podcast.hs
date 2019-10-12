@@ -19,7 +19,9 @@ podcastHandler :: HW.Type.App.App Network.Wai.Response
 podcastHandler = do
   state <- HW.Type.App.getState
   pure
-    . HW.Handler.Base.htmlResponse Network.HTTP.Types.ok200 []
+    . HW.Handler.Base.htmlResponse
+        Network.HTTP.Types.ok200
+        [(Network.HTTP.Types.hCacheControl, "max-age=86400")]
     . (HW.Template.Podcast.podcastTemplate
       . HW.Type.Config.configBaseUrl
       $ HW.Type.State.stateConfig state

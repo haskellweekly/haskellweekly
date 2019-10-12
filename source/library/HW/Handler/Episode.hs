@@ -26,7 +26,9 @@ episodeHandler number = do
     Just episode -> do
       captions <- readCaptionFile number
       pure
-        . HW.Handler.Base.htmlResponse Network.HTTP.Types.ok200 []
+        . HW.Handler.Base.htmlResponse
+            Network.HTTP.Types.ok200
+            [(Network.HTTP.Types.hCacheControl, "max-age=86400")]
         $ HW.Template.Episode.episodeTemplate
             (HW.Type.Config.configBaseUrl $ HW.Type.State.stateConfig state)
             episode

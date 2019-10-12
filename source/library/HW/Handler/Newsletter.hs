@@ -25,5 +25,7 @@ newsletterHandler = do
         . Data.Map.elems
         $ HW.Type.State.stateIssues state
   pure
-    . HW.Handler.Base.htmlResponse Network.HTTP.Types.ok200 []
+    . HW.Handler.Base.htmlResponse
+        Network.HTTP.Types.ok200
+        [(Network.HTTP.Types.hCacheControl, "max-age=86400")]
     $ HW.Template.Newsletter.newsletterTemplate baseUrl issues
