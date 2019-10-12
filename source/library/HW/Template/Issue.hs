@@ -19,7 +19,7 @@ issueTemplate
 issueTemplate baseUrl issue node =
   HW.Template.Base.baseTemplate
       baseUrl
-      ["Newsletter", title issue, date issue]
+      (title issue <> " :: Haskell Weekly Newsletter")
       (HW.Template.Newsletter.newsletterHead baseUrl $ Just issue)
     $ do
         H.h2_ [H.class_ "f2 mv3 tracked-tight"] $ H.a_

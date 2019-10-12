@@ -18,7 +18,10 @@ import qualified Lucid.Base as H
 newsletterTemplate
   :: HW.Type.BaseUrl.BaseUrl -> [HW.Type.Issue.Issue] -> H.Html ()
 newsletterTemplate baseUrl issues =
-  HW.Template.Base.baseTemplate baseUrl [] (newsletterHead baseUrl Nothing)
+  HW.Template.Base.baseTemplate
+      baseUrl
+      "Haskell Weekly Newsletter"
+      (newsletterHead baseUrl Nothing)
     $ do
         H.h2_ [H.class_ "f2 mv3 tracked-tight"] "Newsletter"
         H.p_ [H.class_ "lh-copy"] $ do

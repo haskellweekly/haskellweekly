@@ -26,7 +26,7 @@ episodeTemplate
 episodeTemplate baseUrl episode captions =
   HW.Template.Base.baseTemplate
       baseUrl
-      ["Podcast", number episode, title episode]
+      (title episode <> " :: Haskell Weekly Podcast")
       (HW.Template.Podcast.podcastHead baseUrl $ Just episode)
     $ do
         H.h2_ [H.class_ "f2 mv3 tracked-tight"] $ H.a_

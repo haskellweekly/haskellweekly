@@ -10,7 +10,7 @@ import qualified Lucid as H
 
 baseTemplate
   :: HW.Type.BaseUrl.BaseUrl
-  -> [Data.Text.Text]
+  -> Data.Text.Text
   -> H.Html ()
   -> H.Html ()
   -> H.Html ()
@@ -23,9 +23,7 @@ baseTemplate baseUrl title head_ body = do
         [ H.name_ "viewport"
         , H.content_ "initial-scale = 1, width = device-width"
         ]
-      H.title_ . H.toHtml $ Data.Text.intercalate
-        " \x2192 "
-        ("Haskell Weekly" : title)
+      H.title_ $ H.toHtml title
       H.link_
         [ H.href_
           $ HW.Type.Route.routeToTextWith baseUrl HW.Type.Route.RouteTachyons

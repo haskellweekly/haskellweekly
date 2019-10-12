@@ -19,14 +19,18 @@ import qualified Lucid.Base as H
 podcastTemplate
   :: HW.Type.BaseUrl.BaseUrl -> [HW.Type.Episode.Episode] -> H.Html ()
 podcastTemplate baseUrl episodes =
-  HW.Template.Base.baseTemplate baseUrl [] (podcastHead baseUrl Nothing) $ do
-    H.h2_ [H.class_ "f2 mv3 tracked-tight"] "Podcast"
-    H.p_ [H.class_ "lh-copy"] $ do
-      "The Haskell Weekly Podcast covers the Haskell programming langauge. "
-      "Listen to professional software developers discuss using functional programming to solve real-world business problems. "
-      "Each episode uses a conversational two-host format and runs for about 15 minutes."
-    podcastActionTemplate baseUrl
-    H.ul_ [H.class_ "lh-copy"] $ mapM_ (episodeTemplate baseUrl) episodes
+  HW.Template.Base.baseTemplate
+      baseUrl
+      "Haskell Weekly Podcast"
+      (podcastHead baseUrl Nothing)
+    $ do
+        H.h2_ [H.class_ "f2 mv3 tracked-tight"] "Podcast"
+        H.p_ [H.class_ "lh-copy"] $ do
+          "The Haskell Weekly Podcast covers the Haskell programming langauge. "
+          "Listen to professional software developers discuss using functional programming to solve real-world business problems. "
+          "Each episode uses a conversational two-host format and runs for about 15 minutes."
+        podcastActionTemplate baseUrl
+        H.ul_ [H.class_ "lh-copy"] $ mapM_ (episodeTemplate baseUrl) episodes
 
 podcastHead
   :: HW.Type.BaseUrl.BaseUrl -> Maybe HW.Type.Episode.Episode -> H.Html ()

@@ -31,7 +31,7 @@ indexTemplate config maybeIssue maybeEpisode = do
           [ H.name_ "google-site-verification"
           , H.content_ googleSiteVerification
           ]
-  HW.Template.Base.baseTemplate baseUrl [] head_ $ do
+  HW.Template.Base.baseTemplate baseUrl "Haskell Weekly" head_ $ do
     H.h2_ [H.class_ "f2 mv3 tracked-tight"] $ H.a_
       [ H.class_ "no-underline purple"
       , H.href_
