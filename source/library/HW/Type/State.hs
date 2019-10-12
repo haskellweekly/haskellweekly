@@ -7,7 +7,6 @@ module HW.Type.State
 where
 
 import qualified Data.ByteString
-import qualified Data.IORef
 import qualified Data.Map
 import qualified Database.PostgreSQL.Simple
 import qualified HW.Episodes
@@ -19,7 +18,7 @@ data State =
     { stateConfig :: HW.Type.Config.Config
     , stateDatabaseConnection :: Database.PostgreSQL.Simple.Connection
     , stateEpisodes :: HW.Episodes.Episodes
-    , stateFileCache :: Data.IORef.IORef (Data.Map.Map FilePath Data.ByteString.ByteString)
+    , stateFileCache :: Data.Map.Map FilePath Data.ByteString.ByteString
     , stateIssues :: HW.Issues.Issues
     }
 
@@ -27,7 +26,6 @@ data State =
 -- will fail.
 configToState :: HW.Type.Config.Config -> IO State
 configToState config = do
-  fileCache <- Data.IORef.newIORef Data.Map.empty
   databaseConnection <- Database.PostgreSQL.Simple.connectPostgreSQL
     $ HW.Type.Config.configDatabaseUrl config
   episodes <- either fail pure HW.Episodes.episodes
@@ -36,6 +34,6 @@ configToState config = do
     { stateConfig = config
     , stateDatabaseConnection = databaseConnection
     , stateEpisodes = episodes
-    , stateFileCache = fileCache
+    , stateFileCache = Data.Map.empty
     , stateIssues = issues
     }
