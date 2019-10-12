@@ -104,6 +104,7 @@ library
     HW.Template.Podcast
     HW.Template.PodcastFeed
     HW.Template.Survey2017
+    HW.Template.Survey2018
     HW.Type.App
     HW.Type.Article
     HW.Type.Articles
