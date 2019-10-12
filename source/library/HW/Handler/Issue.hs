@@ -39,8 +39,7 @@ readIssueFile number = do
     name = "issue-" <> HW.Type.Number.numberToText number
     file = System.FilePath.addExtension (Data.Text.unpack name) "markdown"
     path = System.FilePath.combine "newsletter" file
-  state <- HW.Type.App.getState
-  result <- HW.Type.App.io $ HW.Type.State.readDataFile state path
+  result <- HW.Type.App.readDataFile path
   case result of
     Nothing -> fail $ "missing Markdown for newsletter issue " <> show number
     Just byteString -> case Data.Text.Encoding.decodeUtf8' byteString of

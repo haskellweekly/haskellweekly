@@ -41,8 +41,7 @@ readCaptionFile number = do
     name = "episode-" <> HW.Type.Number.numberToText number
     file = System.FilePath.addExtension (Data.Text.unpack name) "srt"
     path = System.FilePath.combine "podcast" file
-  state <- HW.Type.App.getState
-  result <- HW.Type.App.io $ HW.Type.State.readDataFile state path
+  result <- HW.Type.App.readDataFile path
   case result of
     Nothing -> pure Nothing
     Just byteString -> do

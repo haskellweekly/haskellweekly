@@ -14,7 +14,6 @@ import qualified Data.Text
 import qualified Data.Text.Encoding
 import qualified Data.XML.Types
 import qualified HW.Type.App
-import qualified HW.Type.State
 import qualified Lucid
 import qualified Network.HTTP.Types
 import qualified Network.Wai
@@ -67,8 +66,7 @@ fileResponse mime file = do
   let
     status = Network.HTTP.Types.ok200
     headers = withContentType mime []
-  state <- HW.Type.App.getState
-  maybeBody <- HW.Type.App.io $ HW.Type.State.readDataFile state file
+  maybeBody <- HW.Type.App.readDataFile file
   case maybeBody of
     Nothing -> fail $ "failed to read file: " <> show file
     Just body -> pure $ bsResponse status headers body
