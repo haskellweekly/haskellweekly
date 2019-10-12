@@ -38,14 +38,14 @@ episodeTemplate baseUrl episode captions =
         H.h3_ [H.class_ "f3 mv3 tracked-tight"] $ do
           H.toHtml $ number episode
           " "
-          H.span_ [H.class_ "gray"] . H.toHtml $ title episode
+          H.span_ [H.class_ "mid-gray"] . H.toHtml $ title episode
         HW.Template.Podcast.podcastActionTemplate baseUrl
         H.p_ [H.class_ "lh-copy"] $ do
           H.toHtml
             . HW.Type.Summary.summaryToText
             $ HW.Type.Episode.episodeSummary episode
           " "
-          H.span_ [H.class_ "gray"] $ do
+          H.span_ [H.class_ "mid-gray"] $ do
             "This episode was published on "
             H.toHtml $ date episode
             "."

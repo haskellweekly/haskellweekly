@@ -196,8 +196,7 @@ contentSecurityPolicy = Data.Text.intercalate
   , "default-src 'none'"
   , "form-action 'none'"
   , "frame-ancestors 'none'"
-  , "img-src 'self'"
-  , "data:"
+  , "img-src data: 'self'"
   , "media-src https://haskell-weekly-podcast.nyc3.cdn.digitaloceanspaces.com:443 'self'"
   , "style-src 'self'"
   ]

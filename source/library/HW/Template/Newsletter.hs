@@ -96,15 +96,15 @@ newsletterActionTemplate baseUrl =
                 , H.value_ ""
                 ]
           H.input_
-            [ H.class_ "ba br0 b--silver input-reset pa3 flex-auto"
+            [ H.makeAttribute "aria-label" "Email address"
+            , H.class_ "ba br0 b--silver input-reset pa3 flex-auto"
             , H.name_ "EMAIL"
             , H.placeholder_ "you@example.com"
             , H.required_ "required"
             , H.type_ "email"
             ]
           H.button_
-            [ H.class_
-              "b ba b--dark-blue bg-blue input-reset pa3 pointer white"
+            [ H.class_ "b bn bg-dark-blue input-reset pa3 pointer white"
             , H.type_ "submit"
             ]
             "Subscribe"
@@ -122,7 +122,7 @@ issueTemplate baseUrl issue = H.li_ $ do
         H.toHtml . HW.Type.Number.numberToText $ HW.Type.Issue.issueNumber
           issue
   " "
-  H.span_ [H.class_ "gray"]
+  H.span_ [H.class_ "mid-gray"]
     . H.toHtml
     . HW.Type.Date.dateToShortText
     $ HW.Type.Issue.issueDate issue

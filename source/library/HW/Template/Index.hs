@@ -81,7 +81,7 @@ episodeTemplate baseUrl episode = H.p_ $ do
         "Episode "
         H.toHtml $ HW.Type.Number.numberToText number
   " of the podcast was published on "
-  H.span_ [H.class_ "gray"]
+  H.span_ [H.class_ "mid-gray"]
     . H.toHtml
     . HW.Type.Date.dateToShortText
     $ HW.Type.Episode.episodeDate episode
@@ -99,7 +99,7 @@ issueTemplate baseUrl issue = H.p_ $ do
         "Issue "
         H.toHtml $ HW.Type.Number.numberToText number
   " of the newsletter was published on "
-  H.span_ [H.class_ "gray"]
+  H.span_ [H.class_ "mid-gray"]
     . H.toHtml
     . HW.Type.Date.dateToShortText
     $ HW.Type.Issue.issueDate issue

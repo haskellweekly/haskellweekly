@@ -106,7 +106,7 @@ podcastActionTemplate baseUrl =
 episodeTemplate
   :: HW.Type.BaseUrl.BaseUrl -> HW.Type.Episode.Episode -> H.Html ()
 episodeTemplate baseUrl episode = H.li_ . H.p_ $ do
-  H.span_ [H.class_ "gray"] $ do
+  H.span_ [H.class_ "mid-gray"] $ do
     "Episode "
     H.toHtml . HW.Type.Number.numberToText $ HW.Type.Episode.episodeNumber
       episode

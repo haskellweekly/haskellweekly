@@ -16,7 +16,7 @@ baseTemplate
   -> H.Html ()
 baseTemplate baseUrl title head_ body = do
   H.doctype_
-  H.html_ [H.class_ "b--purple bt bw3"] $ do
+  H.html_ [H.class_ "b--purple bt bw3", H.lang_ "en-US"] $ do
     H.head_ $ do
       H.meta_ [H.charset_ "utf-8"]
       H.meta_
@@ -45,17 +45,19 @@ baseTemplate baseUrl title head_ body = do
                 ]
                 "Haskell Weekly"
           H.main_ [H.class_ "mv3"] body
-          H.footer_ [H.class_ "gray mb6 mt3"] . H.p_ [H.class_ "lh-copy"] $ do
-            "The content on this site is licensed under a "
-            H.a_
-              [ H.class_ "color-inherit"
-              , H.href_ "https://creativecommons.org/licenses/by/4.0/"
-              ]
-              "Creative Commons Attribution 4.0 International"
-            " license. The code that powers this site is available "
-            H.a_
-              [ H.class_ "color-inherit"
-              , H.href_ "https://github.com/haskellweekly/haskellweekly"
-              ]
-              "on GitHub"
-            "."
+          H.footer_ [H.class_ "mid-gray mb6 mt3"]
+            . H.p_ [H.class_ "lh-copy"]
+            $ do
+                "The content on this site is licensed under a "
+                H.a_
+                  [ H.class_ "color-inherit"
+                  , H.href_ "https://creativecommons.org/licenses/by/4.0/"
+                  ]
+                  "Creative Commons Attribution 4.0 International"
+                " license. The code that powers this site is available "
+                H.a_
+                  [ H.class_ "color-inherit"
+                  , H.href_ "https://github.com/haskellweekly/haskellweekly"
+                  ]
+                  "on GitHub"
+                "."

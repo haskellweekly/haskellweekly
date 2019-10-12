@@ -32,7 +32,7 @@ issueTemplate baseUrl issue node =
         H.h3_ [H.class_ "f3 mv3 tracked-tight"] $ do
           H.toHtml $ title issue
           " "
-          H.span_ [H.class_ "gray"] . H.toHtml $ date issue
+          H.span_ [H.class_ "mid-gray"] . H.toHtml $ date issue
         HW.Template.Newsletter.newsletterActionTemplate baseUrl
         H.div_ [H.class_ "lh-copy"] . H.toHtmlRaw $ CMark.nodeToHtml [] node
 
