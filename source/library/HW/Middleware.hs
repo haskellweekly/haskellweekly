@@ -66,14 +66,11 @@ addCaching ref application request respond = do
               let
                 fifteenMinutes = 900 :: Data.Time.NominalDiffTime
                 expires = Data.Time.addUTCTime fifteenMinutes now
-              Data.IORef.atomicModifyIORef' ref $ \state ->
-                ( state
-                  { HW.Type.State.stateResponseCache =
-                    Data.Map.insert key (expires, response)
-                      $ HW.Type.State.stateResponseCache state
-                  }
-                , ()
-                )
+              HW.Type.State.modifyState ref $ \state -> state
+                { HW.Type.State.stateResponseCache =
+                  Data.Map.insert key (expires, response)
+                    $ HW.Type.State.stateResponseCache state
+                }
         respond response
 
 -- | Logs a request/response as a JSON object. Each object will have the

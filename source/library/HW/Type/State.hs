@@ -3,10 +3,11 @@
 module HW.Type.State
   ( State(..)
   , configToState
+  , modifyState
   )
 where
 
-import qualified Data.ByteString
+import qualified Data.IORef
 import qualified Data.Map
 import qualified Data.Text
 import qualified Data.Time
@@ -21,7 +22,6 @@ data State =
     { stateConfig :: HW.Type.Config.Config
     , stateDatabaseConnection :: Database.PostgreSQL.Simple.Connection
     , stateEpisodes :: HW.Episodes.Episodes
-    , stateFileCache :: Data.Map.Map FilePath Data.ByteString.ByteString
     , stateIssues :: HW.Issues.Issues
     , stateResponseCache :: Data.Map.Map (Data.Text.Text, Data.Text.Text) ( Data.Time.UTCTime
                                                                           , Network.Wai.Response)
@@ -39,7 +39,10 @@ configToState config = do
     { stateConfig = config
     , stateDatabaseConnection = databaseConnection
     , stateEpisodes = episodes
-    , stateFileCache = Data.Map.empty
     , stateIssues = issues
     , stateResponseCache = Data.Map.empty
     }
+
+modifyState :: Data.IORef.IORef State -> (State -> State) -> IO ()
+modifyState ref modify =
+  Data.IORef.atomicModifyIORef' ref $ \state -> (modify state, ())

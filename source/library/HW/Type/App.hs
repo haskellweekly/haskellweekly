@@ -10,7 +10,6 @@ import qualified Control.Monad.IO.Class
 import qualified Control.Monad.Reader
 import qualified Data.ByteString
 import qualified Data.IORef
-import qualified Data.Map
 import qualified HW.Type.Config
 import qualified HW.Type.State
 import qualified System.FilePath
@@ -26,31 +25,11 @@ getState = do
   ref <- Control.Monad.Reader.ask
   Control.Monad.IO.Class.liftIO $ Data.IORef.readIORef ref
 
-modifyState :: (HW.Type.State.State -> HW.Type.State.State) -> App ()
-modifyState modify = do
-  ref <- Control.Monad.Reader.ask
-  Control.Monad.IO.Class.liftIO
-    . Data.IORef.atomicModifyIORef' ref
-    $ \state -> (modify state, ())
-
 -- | Reads a data file by using the data directory in the state's config. This
 -- returns nothing if the file doesn't exist and raises an exception for all
 -- other failure modes.
 readDataFile :: FilePath -> App Data.ByteString.ByteString
 readDataFile file = do
-  cache <- fmap HW.Type.State.stateFileCache getState
-  case Data.Map.lookup file cache of
-    Just contents -> pure contents
-    Nothing -> do
-      contents <- readDataFileWithoutCache file
-      modifyState $ \state -> state
-        { HW.Type.State.stateFileCache = Data.Map.insert file contents
-          $ HW.Type.State.stateFileCache state
-        }
-      pure contents
-
-readDataFileWithoutCache :: FilePath -> App Data.ByteString.ByteString
-readDataFileWithoutCache file = do
   config <- getConfig
   let
     directory = HW.Type.Config.configDataDirectory config
