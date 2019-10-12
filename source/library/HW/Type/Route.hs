@@ -29,6 +29,7 @@ data Route
   | RouteRedirect HW.Type.Redirect.Redirect
   | RouteRobots
   | RouteSitemap
+  | RouteSurvey HW.Type.Number.Number
   | RouteTachyons
   deriving (Eq, Show)
 
@@ -58,6 +59,8 @@ routeToText route = case route of
   RouteRedirect redirect -> HW.Type.Redirect.redirectToText redirect
   RouteRobots -> "/robots.txt"
   RouteSitemap -> "/sitemap.txt"
+  RouteSurvey number ->
+    "/survey/" <> HW.Type.Number.numberToText number <> ".html"
   RouteTachyons -> "/tachyons.css"
 
 -- | Renders a route as text with the given base URL. Redirects are not
@@ -85,6 +88,7 @@ textToRoute path = case path of
   ["podcast.rss"] -> Just RoutePodcastFeed
   ["robots.txt"] -> Just RouteRobots
   ["sitemap.txt"] -> Just RouteSitemap
+  ["survey", file] -> routeContent "html" RouteSurvey file
   ["tachyons.css"] -> Just RouteTachyons
   _ -> textToRedirect path
 
@@ -105,6 +109,7 @@ textToRedirect path = fmap routeToRedirect $ case path of
   ["podcast", ""] -> Just RoutePodcast
   ["podcast"] -> Just RoutePodcast
   ["podcast", "logo.png"] -> Just RouteLogo
+  ["surveys", file] -> routeContent "html" RouteSurvey file
   _ -> Nothing
 
 -- | Handles routing content by stripping the given extension, parsing what's

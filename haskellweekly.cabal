@@ -89,6 +89,7 @@ library
     HW.Handler.Redirect
     HW.Handler.Robots
     HW.Handler.Sitemap
+    HW.Handler.Survey
     HW.Issues
     HW.Main
     HW.Middleware
@@ -102,6 +103,7 @@ library
     HW.Template.NewsletterFeed
     HW.Template.Podcast
     HW.Template.PodcastFeed
+    HW.Template.Survey2017
     HW.Type.App
     HW.Type.Article
     HW.Type.Articles

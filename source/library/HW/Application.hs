@@ -22,6 +22,7 @@ import qualified HW.Handler.PodcastFeed
 import qualified HW.Handler.Redirect
 import qualified HW.Handler.Robots
 import qualified HW.Handler.Sitemap
+import qualified HW.Handler.Survey
 import qualified HW.Type.App
 import qualified HW.Type.Route
 import qualified HW.Type.State
@@ -77,5 +78,6 @@ handle route = case route of
     HW.Handler.Redirect.redirectHandler redirect
   HW.Type.Route.RouteRobots -> HW.Handler.Robots.robotsHandler
   HW.Type.Route.RouteSitemap -> HW.Handler.Sitemap.sitemapHandler
+  HW.Type.Route.RouteSurvey number -> HW.Handler.Survey.surveyHandler number
   HW.Type.Route.RouteTachyons ->
     HW.Handler.Base.fileResponse "text/css; charset=utf-8" "tachyons.css"
