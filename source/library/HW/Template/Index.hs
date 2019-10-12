@@ -41,10 +41,10 @@ indexTemplate config maybeIssue maybeEpisode = do
     H.p_ [H.class_ "lh-copy"] $ do
       "The Haskell Weekly Newsletter covers the Haskell programming langauge. "
       "Each issue features several hand-picked links to interesting content about Haskell from around the web."
-    HW.Template.Newsletter.newsletterActionTemplate baseUrl
     case maybeIssue of
       Nothing -> pure ()
       Just issue -> issueTemplate baseUrl issue
+    HW.Template.Newsletter.newsletterActionTemplate baseUrl
     H.h2_ [H.class_ "f2 mv3 tracked-tight"] $ H.a_
       [ H.class_ "no-underline purple"
       , H.href_
@@ -55,10 +55,10 @@ indexTemplate config maybeIssue maybeEpisode = do
       "The Haskell Weekly Podcast covers the Haskell programming langauge. "
       "Listen to professional software developers discuss using functional programming to solve real-world business problems. "
       "Each episode uses a conversational two-host format and runs for about 15 minutes."
-    HW.Template.Podcast.podcastActionTemplate baseUrl
     case maybeEpisode of
       Nothing -> pure ()
       Just episode -> episodeTemplate baseUrl episode
+    HW.Template.Podcast.podcastActionTemplate baseUrl
     H.h2_ [H.class_ "f2 mv3 tracked-tight"] "Contributing"
     H.p_ [H.class_ "lh-copy"] $ do
       "If you would like to contribute content to Haskell Weekly, please open an issue "
@@ -92,10 +92,7 @@ episodeTemplate baseUrl episode = H.p_ $ do
         "Episode "
         H.toHtml $ HW.Type.Number.numberToText number
   " of the podcast was published on "
-  H.span_ [H.class_ "mid-gray"]
-    . H.toHtml
-    . HW.Type.Date.dateToShortText
-    $ HW.Type.Episode.episodeDate episode
+  H.toHtml . HW.Type.Date.dateToShortText $ HW.Type.Episode.episodeDate episode
   "."
 
 issueTemplate :: HW.Type.BaseUrl.BaseUrl -> HW.Type.Issue.Issue -> H.Html ()
@@ -110,8 +107,5 @@ issueTemplate baseUrl issue = H.p_ $ do
         "Issue "
         H.toHtml $ HW.Type.Number.numberToText number
   " of the newsletter was published on "
-  H.span_ [H.class_ "mid-gray"]
-    . H.toHtml
-    . HW.Type.Date.dateToShortText
-    $ HW.Type.Issue.issueDate issue
+  H.toHtml . HW.Type.Date.dateToShortText $ HW.Type.Issue.issueDate issue
   "."
