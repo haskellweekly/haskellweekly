@@ -16,5 +16,9 @@ survey2018Template baseUrl =
           "Thank you for your submissions! "
           "This survey is now closed. "
           "You can "
-          H.a_ [H.href_ "https://taylor.fausak.me/2018/11/18/2018-state-of-haskell-survey-results/"] "view the results"
+          H.a_
+            [ H.href_
+                "https://taylor.fausak.me/2018/11/18/2018-state-of-haskell-survey-results/"
+            ]
+            "view the results"
           "."
