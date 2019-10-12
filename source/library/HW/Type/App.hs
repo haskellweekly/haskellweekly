@@ -27,10 +27,7 @@ getConfig = fmap HW.Type.State.stateConfig getState
 getState :: App HW.Type.State.State
 getState = do
   ref <- Control.Monad.Reader.ask
-  io $ Data.IORef.readIORef ref
-
-io :: IO a -> App a
-io = Control.Monad.IO.Class.liftIO
+  Control.Monad.IO.Class.liftIO $ Data.IORef.readIORef ref
 
 -- | Reads a data file by using the data directory in the state's config. This
 -- returns nothing if the file doesn't exist and raises an exception for all
@@ -39,13 +36,14 @@ readDataFile :: FilePath -> App (Maybe Data.ByteString.ByteString)
 readDataFile file = do
   state <- getState
   let cacheRef = HW.Type.State.stateFileCache state
-  cache <- io $ Data.IORef.readIORef cacheRef
+  cache <- Control.Monad.IO.Class.liftIO $ Data.IORef.readIORef cacheRef
   case Data.Map.lookup file cache of
     Just contents -> pure contents
     Nothing -> do
       contents <- readDataFileWithoutCache file
-      io . Data.IORef.atomicModifyIORef' cacheRef $ \m ->
-        (Data.Map.insert file contents m, ())
+      Control.Monad.IO.Class.liftIO
+        . Data.IORef.atomicModifyIORef' cacheRef
+        $ \m -> (Data.Map.insert file contents m, ())
       pure contents
 
 readDataFileWithoutCache :: FilePath -> App (Maybe Data.ByteString.ByteString)
@@ -54,7 +52,7 @@ readDataFileWithoutCache file = do
   let
     directory = HW.Type.Config.configDataDirectory config
     path = System.FilePath.combine directory file
-  io $ Control.Exception.catchJust
+  Control.Monad.IO.Class.liftIO $ Control.Exception.catchJust
     keepDoesNotExistError
     (Just <$> Data.ByteString.readFile path)
     handleDoesNotExistError
