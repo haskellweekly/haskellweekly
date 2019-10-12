@@ -19,7 +19,7 @@ data State =
     { stateConfig :: HW.Type.Config.Config
     , stateDatabaseConnection :: Database.PostgreSQL.Simple.Connection
     , stateEpisodes :: HW.Episodes.Episodes
-    , stateFileCache :: Data.IORef.IORef (Data.Map.Map FilePath (Maybe Data.ByteString.ByteString))
+    , stateFileCache :: Data.IORef.IORef (Data.Map.Map FilePath Data.ByteString.ByteString)
     , stateIssues :: HW.Issues.Issues
     }
 

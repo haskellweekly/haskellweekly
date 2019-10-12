@@ -66,10 +66,8 @@ fileResponse mime file = do
   let
     status = Network.HTTP.Types.ok200
     headers = withContentType mime []
-  maybeBody <- HW.Type.App.readDataFile file
-  case maybeBody of
-    Nothing -> fail $ "failed to read file: " <> show file
-    Just body -> pure $ bsResponse status headers body
+  body <- HW.Type.App.readDataFile file
+  pure $ bsResponse status headers body
 
 htmlResponse
   :: Network.HTTP.Types.Status

@@ -24,30 +24,27 @@ episodeHandler number = do
   case Data.Map.lookup number episodes of
     Nothing -> pure HW.Handler.Base.notFoundResponse
     Just episode -> do
-      maybeCaptions <- readCaptionFile number
+      captions <- readCaptionFile number
       pure
         . HW.Handler.Base.htmlResponse Network.HTTP.Types.ok200 []
         $ HW.Template.Episode.episodeTemplate
             (HW.Type.Config.configBaseUrl $ HW.Type.State.stateConfig state)
             episode
-            maybeCaptions
+            captions
 
 -- | Reads a caption file and parses it as SRT. This will return nothing if the
 -- file doesn't exist. If parsing fails, this will raise an exception.
 readCaptionFile
-  :: HW.Type.Number.Number -> HW.Type.App.App (Maybe [HW.Type.Caption.Caption])
+  :: HW.Type.Number.Number -> HW.Type.App.App [HW.Type.Caption.Caption]
 readCaptionFile number = do
   let
     name = "episode-" <> HW.Type.Number.numberToText number
     file = System.FilePath.addExtension (Data.Text.unpack name) "srt"
     path = System.FilePath.combine "podcast" file
-  result <- HW.Type.App.readDataFile path
-  case result of
-    Nothing -> pure Nothing
-    Just byteString -> do
-      text <- case Data.Text.Encoding.decodeUtf8' byteString of
-        Left exception -> fail $ show exception
-        Right text -> pure text
-      case HW.Type.Caption.parseSrt text of
-        Nothing -> fail $ "failed to parse caption file: " <> show path
-        Just captions -> pure $ Just captions
+  byteString <- HW.Type.App.readDataFile path
+  text <- case Data.Text.Encoding.decodeUtf8' byteString of
+    Left exception -> fail $ show exception
+    Right text -> pure text
+  case HW.Type.Caption.parseSrt text of
+    Nothing -> fail $ "failed to parse caption file: " <> show path
+    Just captions -> pure captions

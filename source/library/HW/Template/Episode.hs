@@ -21,9 +21,9 @@ import qualified Lucid as H
 episodeTemplate
   :: HW.Type.BaseUrl.BaseUrl
   -> HW.Type.Episode.Episode
-  -> Maybe [HW.Type.Caption.Caption]
+  -> [HW.Type.Caption.Caption]
   -> H.Html ()
-episodeTemplate baseUrl episode maybeCaptions =
+episodeTemplate baseUrl episode captions =
   HW.Template.Base.baseTemplate
       baseUrl
       ["Podcast", number episode, title episode]
@@ -61,13 +61,10 @@ episodeTemplate baseUrl episode maybeCaptions =
         H.ul_ [H.class_ "lh-copy"]
           . mapM_ articleLink
           $ HW.Type.Episode.episodeArticles episode
-        case maybeCaptions of
-          Nothing -> pure ()
-          Just captions -> do
-            H.h4_ [H.class_ "f4 mv3"] "Transcript"
-            H.div_ [H.class_ "lh-copy"]
-              . mapM_ (H.p_ . H.toHtml)
-              $ HW.Type.Caption.renderTranscript captions
+        H.h4_ [H.class_ "f4 mv3"] "Transcript"
+        H.div_ [H.class_ "lh-copy"]
+          . mapM_ (H.p_ . H.toHtml)
+          $ HW.Type.Caption.renderTranscript captions
 
 number :: HW.Type.Episode.Episode -> Data.Text.Text
 number =
