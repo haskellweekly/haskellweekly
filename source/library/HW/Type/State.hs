@@ -8,10 +8,13 @@ where
 
 import qualified Data.ByteString
 import qualified Data.Map
+import qualified Data.Text
+import qualified Data.Time
 import qualified Database.PostgreSQL.Simple
 import qualified HW.Episodes
 import qualified HW.Issues
 import qualified HW.Type.Config
+import qualified Network.Wai
 
 data State =
   State
@@ -20,6 +23,8 @@ data State =
     , stateEpisodes :: HW.Episodes.Episodes
     , stateFileCache :: Data.Map.Map FilePath Data.ByteString.ByteString
     , stateIssues :: HW.Issues.Issues
+    , stateResponseCache :: Data.Map.Map (Data.Text.Text, Data.Text.Text) ( Data.Time.UTCTime
+                                                                          , Network.Wai.Response)
     }
 
 -- | Builds up the state using the given config. If anything goes wrong, this
@@ -36,4 +41,5 @@ configToState config = do
     , stateEpisodes = episodes
     , stateFileCache = Data.Map.empty
     , stateIssues = issues
+    , stateResponseCache = Data.Map.empty
     }

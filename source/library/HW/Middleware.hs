@@ -5,13 +5,16 @@ module HW.Middleware
   )
 where
 
+import qualified Control.Monad
 import qualified Crypto.Hash.SHA1
 import qualified Data.ByteString
 import qualified Data.ByteString.Base64
 import qualified Data.ByteString.Builder
 import qualified Data.ByteString.Lazy
 import qualified Data.CaseInsensitive
+import qualified Data.IORef
 import qualified Data.Int
+import qualified Data.Map
 import qualified Data.Text
 import qualified Data.Text.Encoding
 import qualified Data.Text.Encoding.Error
@@ -20,6 +23,7 @@ import qualified Data.Word
 import qualified GHC.Clock
 import qualified HW.Type.BaseUrl
 import qualified HW.Type.Config
+import qualified HW.Type.State
 import qualified Network.HTTP.Types
 import qualified Network.HTTP.Types.Header
 import qualified Network.Wai
@@ -31,13 +35,46 @@ import qualified Text.Printf
 
 -- | All of the middlewares are wrapped up in this single one so that you only
 -- have to apply one.
-middleware :: HW.Type.Config.Config -> Network.Wai.Middleware
-middleware config =
+middleware
+  :: HW.Type.Config.Config
+  -> Data.IORef.IORef HW.Type.State.State
+  -> Network.Wai.Middleware
+middleware config ref =
   Network.Wai.Middleware.Gzip.gzip Network.Wai.Middleware.Gzip.def
-    . logger
+    . addLogging
     . addEntityTagHeader
+    . addCaching ref
     . addSecurityHeaders config
     . enforceHttps config
+
+addCaching :: Data.IORef.IORef HW.Type.State.State -> Network.Wai.Middleware
+addCaching ref application request respond = do
+  let
+    method = requestMethod request
+    key = (method, requestPath request)
+  cache <- fmap HW.Type.State.stateResponseCache $ Data.IORef.readIORef ref
+  now <- Data.Time.getCurrentTime
+  case Data.Map.lookup key cache of
+    Just (expires, response) | expires >= now -> do
+      print ("cache hit" :: String, key)
+      respond response
+    _ -> do
+      print ("cache miss" :: String, key)
+      application request $ \response -> do
+        Control.Monad.when (method == "GET" && responseStatus response == 200)
+          $ do
+              let
+                fifteenMinutes = 900 :: Data.Time.NominalDiffTime
+                expires = Data.Time.addUTCTime fifteenMinutes now
+              Data.IORef.atomicModifyIORef' ref $ \state ->
+                ( state
+                  { HW.Type.State.stateResponseCache =
+                    Data.Map.insert key (expires, response)
+                      $ HW.Type.State.stateResponseCache state
+                  }
+                , ()
+                )
+        respond response
 
 -- | Logs a request/response as a JSON object. Each object will have the
 -- following fields:
@@ -49,8 +86,8 @@ middleware config =
 -- - bytes: The content length of the response body in bytes.
 -- - ns: The amount of time in nanoseconds spent processing the request.
 -- - alloc: The number of bytes allocated while processing the request.
-logger :: Network.Wai.Middleware
-logger application request respond = do
+addLogging :: Network.Wai.Middleware
+addLogging application request respond = do
   now <- Data.Time.getCurrentTime
   a1 <- System.Mem.getAllocationCounter
   t1 <- GHC.Clock.getMonotonicTimeNSec
