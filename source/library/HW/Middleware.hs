@@ -55,23 +55,19 @@ addCaching ref application request respond = do
   cache <- fmap HW.Type.State.stateResponseCache $ Data.IORef.readIORef ref
   now <- Data.Time.getCurrentTime
   case Data.Map.lookup key cache of
-    Just (expires, response) | expires >= now -> do
-      print ("cache hit" :: String, key)
+    Just (expires, response) | expires >= now -> respond response
+    _ -> application request $ \response -> do
+      let
+        fifteenMinutes = 900 :: Data.Time.NominalDiffTime
+        expires = Data.Time.addUTCTime fifteenMinutes now
+      Control.Monad.when (method == "GET" && responseStatus response == 200)
+        . HW.Type.State.modifyState ref
+        $ \state -> state
+            { HW.Type.State.stateResponseCache =
+              Data.Map.insert key (expires, response)
+                $ HW.Type.State.stateResponseCache state
+            }
       respond response
-    _ -> do
-      print ("cache miss" :: String, key)
-      application request $ \response -> do
-        Control.Monad.when (method == "GET" && responseStatus response == 200)
-          $ do
-              let
-                fifteenMinutes = 900 :: Data.Time.NominalDiffTime
-                expires = Data.Time.addUTCTime fifteenMinutes now
-              HW.Type.State.modifyState ref $ \state -> state
-                { HW.Type.State.stateResponseCache =
-                  Data.Map.insert key (expires, response)
-                    $ HW.Type.State.stateResponseCache state
-                }
-        respond response
 
 -- | Logs a request/response as a JSON object. Each object will have the
 -- following fields:
