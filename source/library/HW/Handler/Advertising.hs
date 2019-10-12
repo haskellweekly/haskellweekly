@@ -14,6 +14,8 @@ advertisingHandler :: HW.Type.App.App Network.Wai.Response
 advertisingHandler = do
   config <- HW.Type.App.getConfig
   pure
-    . HW.Handler.Base.htmlResponse Network.HTTP.Types.ok200 []
+    . HW.Handler.Base.htmlResponse
+        Network.HTTP.Types.ok200
+        [(Network.HTTP.Types.hCacheControl, "max-age=86400")]
     . HW.Template.Advertising.advertisingTemplate
     $ HW.Type.Config.configBaseUrl config

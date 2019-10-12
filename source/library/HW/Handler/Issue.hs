@@ -30,7 +30,9 @@ issueHandler number = do
         baseUrl =
           HW.Type.Config.configBaseUrl $ HW.Type.State.stateConfig state
       pure
-        . HW.Handler.Base.htmlResponse Network.HTTP.Types.ok200 []
+        . HW.Handler.Base.htmlResponse
+            Network.HTTP.Types.ok200
+            [(Network.HTTP.Types.hCacheControl, "max-age=86400")]
         $ HW.Template.Issue.issueTemplate baseUrl issue node
 
 readIssueFile :: HW.Type.Number.Number -> HW.Type.App.App CMark.Node

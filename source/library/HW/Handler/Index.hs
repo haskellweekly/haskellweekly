@@ -32,7 +32,9 @@ indexHandler = do
         . Data.Map.elems
         $ HW.Type.State.stateEpisodes state
   pure
-    . HW.Handler.Base.htmlResponse Network.HTTP.Types.ok200 []
+    . HW.Handler.Base.htmlResponse
+        Network.HTTP.Types.ok200
+        [(Network.HTTP.Types.hCacheControl, "max-age=86400")]
     $ HW.Template.Index.indexTemplate
         (HW.Type.Config.configBaseUrl $ HW.Type.State.stateConfig state)
         maybeIssue

@@ -32,5 +32,7 @@ newsletterFeedHandler = do
     . Data.Map.elems
     $ HW.Type.State.stateIssues state
   pure
-    . HW.Handler.Base.feedResponse Network.HTTP.Types.ok200 []
+    . HW.Handler.Base.feedResponse
+        Network.HTTP.Types.ok200
+        [(Network.HTTP.Types.hCacheControl, "max-age=86400")]
     $ HW.Template.NewsletterFeed.newsletterFeedTemplate baseUrl issues

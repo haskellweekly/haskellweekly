@@ -19,5 +19,7 @@ podcastFeedHandler = do
     baseUrl = HW.Type.Config.configBaseUrl $ HW.Type.State.stateConfig state
     episodes = Data.Map.elems $ HW.Type.State.stateEpisodes state
   pure
-    . HW.Handler.Base.feedResponse Network.HTTP.Types.ok200 []
+    . HW.Handler.Base.feedResponse
+        Network.HTTP.Types.ok200
+        [(Network.HTTP.Types.hCacheControl, "max-age=86400")]
     $ HW.Template.PodcastFeed.podcastFeedTemplate baseUrl episodes
