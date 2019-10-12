@@ -10,7 +10,6 @@ import qualified Data.Ord
 import qualified HW.Handler.Base
 import qualified HW.Template.Index
 import qualified HW.Type.App
-import qualified HW.Type.Config
 import qualified HW.Type.Episode
 import qualified HW.Type.Issue
 import qualified HW.Type.State
@@ -36,6 +35,6 @@ indexHandler = do
         Network.HTTP.Types.ok200
         [(Network.HTTP.Types.hCacheControl, "max-age=900")]
     $ HW.Template.Index.indexTemplate
-        (HW.Type.Config.configBaseUrl $ HW.Type.State.stateConfig state)
+        (HW.Type.State.stateConfig state)
         maybeIssue
         maybeEpisode

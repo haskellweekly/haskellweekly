@@ -20,6 +20,7 @@ data Config =
     { configBaseUrl :: HW.Type.BaseUrl.BaseUrl
     , configDatabaseUrl :: Data.ByteString.ByteString
     , configDataDirectory :: FilePath
+    , configGoogleSiteVerification :: Maybe Data.Text.Text
     , configPort :: Network.Wai.Handler.Warp.Port
     }
   deriving (Eq, Show)
@@ -32,12 +33,14 @@ getConfig :: IO Config
 getConfig = do
   databaseUrl <- getDatabaseUrl
   dataDirectory <- getDataDirectory
+  googleSiteVerification <- getGoogleSiteVerification
   port <- getPort
   baseUrl <- getBaseUrl port
   pure Config
     { configBaseUrl = baseUrl
     , configDatabaseUrl = databaseUrl
     , configDataDirectory = dataDirectory
+    , configGoogleSiteVerification = googleSiteVerification
     , configPort = port
     }
 
@@ -70,6 +73,13 @@ getDataDirectory :: IO FilePath
 getDataDirectory = do
   maybeString <- System.Environment.lookupEnv "DATA_DIRECTORY"
   pure $ Data.Maybe.fromMaybe "data" maybeString
+
+-- | This is used to verify that I actually own the website as far as Google is
+-- concerned. The verification is useful for Google's webmaster tools.
+getGoogleSiteVerification :: IO (Maybe Data.Text.Text)
+getGoogleSiteVerification = do
+  maybeString <- System.Environment.lookupEnv "GOOGLE_SITE_VERIFICATION"
+  pure $ fmap Data.Text.pack maybeString
 
 -- | Gets the port that the server should run on. By default this is @8080@.
 getPort :: IO Network.Wai.Handler.Warp.Port

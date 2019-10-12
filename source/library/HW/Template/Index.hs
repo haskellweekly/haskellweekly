@@ -7,6 +7,7 @@ import qualified HW.Template.Base
 import qualified HW.Template.Newsletter
 import qualified HW.Template.Podcast
 import qualified HW.Type.BaseUrl
+import qualified HW.Type.Config
 import qualified HW.Type.Date
 import qualified HW.Type.Episode
 import qualified HW.Type.Issue
@@ -15,12 +16,22 @@ import qualified HW.Type.Route
 import qualified Lucid as H
 
 indexTemplate
-  :: HW.Type.BaseUrl.BaseUrl
+  :: HW.Type.Config.Config
   -> Maybe HW.Type.Issue.Issue
   -> Maybe HW.Type.Episode.Episode
   -> H.Html ()
-indexTemplate baseUrl maybeIssue maybeEpisode =
-  HW.Template.Base.baseTemplate baseUrl [] mempty $ do
+indexTemplate config maybeIssue maybeEpisode = do
+  let
+    baseUrl = HW.Type.Config.configBaseUrl config
+    head_ :: H.Html ()
+    head_ = case HW.Type.Config.configGoogleSiteVerification config of
+      Nothing -> mempty
+      Just googleSiteVerification ->
+        H.meta_
+          [ H.name_ "google-site-verification"
+          , H.content_ googleSiteVerification
+          ]
+  HW.Template.Base.baseTemplate baseUrl [] head_ $ do
     H.h2_ [H.class_ "f2 mv3 tracked-tight"] $ H.a_
       [ H.class_ "no-underline purple"
       , H.href_
