@@ -53,6 +53,7 @@ episodes = do
     , episode19
     , episode20
     , episode21
+    , episode22
     ]
   checkGuids validEpisodes Data.Set.empty
   checkNumbers validEpisodes 1
@@ -454,3 +455,19 @@ episode21 =
     <*> HW.Type.Summary.textToSummary
           "Cody Goodman and Taylor Fausak explore the event log that GHC can produce when compiling or running."
     <*> HW.Type.Title.textToTitle "Event Log"
+
+episode22 :: Either String HW.Type.Episode.Episode
+episode22 =
+  HW.Type.Episode.Episode
+    <$> HW.Type.Articles.textsToArticles
+          ["http://h2.jaguarpaw.co.uk/posts/good-design-and-type-safety-in-yahtzee/"]
+    <*> HW.Type.Audio.textToAudio
+          "https://haskell-weekly-podcast.nyc3.cdn.digitaloceanspaces.com/2019-10-14-episode-22.mp3"
+    <*> HW.Type.Date.gregorianToDate 2019 10 14
+    <*> HW.Type.Duration.timestampToDuration 31 41
+    <*> HW.Type.Guid.textToGuid "e6e8718a-19f5-4a0b-8962-f2fb08cd1432"
+    <*> HW.Type.Number.naturalToNumber 22
+    <*> HW.Type.Size.naturalToSize 45579206
+    <*> HW.Type.Summary.textToSummary
+          "Cameron Gera and Taylor Fausak discuss using types to guide refactoring toward better design."
+    <*> HW.Type.Title.textToTitle "Refactoring with Types"
