@@ -460,7 +460,8 @@ episode22 :: Either String HW.Type.Episode.Episode
 episode22 =
   HW.Type.Episode.Episode
     <$> HW.Type.Articles.textsToArticles
-          ["http://h2.jaguarpaw.co.uk/posts/good-design-and-type-safety-in-yahtzee/"]
+          [ "http://h2.jaguarpaw.co.uk/posts/good-design-and-type-safety-in-yahtzee/"
+          ]
     <*> HW.Type.Audio.textToAudio
           "https://haskell-weekly-podcast.nyc3.cdn.digitaloceanspaces.com/2019-10-14-episode-22.mp3"
     <*> HW.Type.Date.gregorianToDate 2019 10 14
