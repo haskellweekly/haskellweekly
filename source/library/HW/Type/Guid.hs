@@ -6,6 +6,7 @@ module HW.Type.Guid
   ( Guid
   , guidToText
   , textToGuid
+  , uuidToGuid
   )
 where
 
@@ -30,4 +31,7 @@ guidToUuid (Guid uuid) = uuid
 textToGuid :: Data.Text.Text -> Either String Guid
 textToGuid text = case Data.UUID.fromText text of
   Nothing -> Left $ "invalid Guid: " <> show text
-  Just uuid -> Right $ Guid uuid
+  Just uuid -> Right $ uuidToGuid uuid
+
+uuidToGuid :: Data.UUID.UUID -> Guid
+uuidToGuid = Guid
