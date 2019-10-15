@@ -17,16 +17,16 @@ import qualified Network.HTTP.Types
 import qualified Network.Wai
 
 surveyHandler :: HW.Type.Number.Number -> HW.Type.App.App Network.Wai.Response
-surveyHandler number = do
-  state <- HW.Type.App.getState
-  pure $ case surveyTemplate number of
-    Nothing -> HW.Handler.Base.notFoundResponse
-    Just template ->
-      HW.Handler.Base.htmlResponse
+surveyHandler number = case surveyTemplate number of
+  Nothing -> pure HW.Handler.Base.notFoundResponse
+  Just template -> do
+    state <- HW.Type.App.getState
+    pure
+      . HW.Handler.Base.htmlResponse
           Network.HTTP.Types.ok200
           [(Network.HTTP.Types.hCacheControl, "max-age=900")]
-        $ template
-            (HW.Type.Config.configBaseUrl $ HW.Type.State.stateConfig state)
+      $ template
+          (HW.Type.Config.configBaseUrl $ HW.Type.State.stateConfig state)
 
 surveyTemplate
   :: HW.Type.Number.Number -> Maybe (HW.Type.BaseUrl.BaseUrl -> Lucid.Html ())
