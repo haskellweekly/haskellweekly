@@ -14,10 +14,18 @@ issue! This can be used for anything from typos to new content. For
 example, this has been used for [calls for participation][], [jobs][],
 and [bugs][].
 
+[calls for participation]: https://github.com/haskellweekly/haskellweekly.github.io/issues/138
+[jobs]: https://github.com/haskellweekly/haskellweekly.github.io/issues/136
+[bugs]: https://github.com/haskellweekly/haskellweekly.github.io/issues/62
+
 If you want to make a change yourself, please open a pull request! We
 encourage you to make changes when you can, and we'll work with you to
 get your changes merged quickly. For instance, this has been used for
 [packages of the week][], [featured content][], and [typos][].
+
+[packages of the week]: https://github.com/haskellweekly/haskellweekly.github.io/issues/159
+[featured content]: https://github.com/haskellweekly/haskellweekly.github.io/issues/148
+[typos]: https://github.com/haskellweekly/haskellweekly.github.io/issues/145
 
 ### Job postings
 
