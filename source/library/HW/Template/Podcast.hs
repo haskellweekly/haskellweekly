@@ -8,8 +8,8 @@ where
 import qualified Data.Text
 import qualified HW.Template.Base
 import qualified HW.Type.BaseUrl
+import qualified HW.Type.Date
 import qualified HW.Type.Episode
-import qualified HW.Type.Number
 import qualified HW.Type.Route
 import qualified HW.Type.Summary
 import qualified HW.Type.Title
@@ -110,11 +110,6 @@ podcastActionTemplate baseUrl =
 episodeTemplate
   :: HW.Type.BaseUrl.BaseUrl -> HW.Type.Episode.Episode -> H.Html ()
 episodeTemplate baseUrl episode = H.li_ . H.p_ $ do
-  H.span_ [H.class_ "mid-gray"] $ do
-    "Episode "
-    H.toHtml . HW.Type.Number.numberToText $ HW.Type.Episode.episodeNumber
-      episode
-  " "
   H.a_
       [ H.href_
         . HW.Type.Route.routeToTextWith baseUrl
@@ -127,3 +122,8 @@ episodeTemplate baseUrl episode = H.li_ . H.p_ $ do
   ": "
   H.toHtml . HW.Type.Summary.summaryToText $ HW.Type.Episode.episodeSummary
     episode
+  " "
+  H.span_ [H.class_ "mid-gray"]
+    . H.toHtml
+    . HW.Type.Date.dateToShortText
+    $ HW.Type.Episode.episodeDate episode
