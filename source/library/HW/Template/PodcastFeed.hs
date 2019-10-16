@@ -14,6 +14,7 @@ import qualified HW.Type.Guid
 import qualified HW.Type.Number
 import qualified HW.Type.Route
 import qualified HW.Type.Size
+import qualified HW.Type.Summary
 import qualified HW.Type.Title
 import qualified Text.Feed.Constructor
 import qualified Text.Feed.Types
@@ -129,13 +130,17 @@ episodeToItem baseUrl episode =
   let item = Text.RSS.Syntax.nullItem $ itemTitle episode
   in
     item
-      { Text.RSS.Syntax.rssItemDescription = Nothing
+      { Text.RSS.Syntax.rssItemDescription = itemDescription episode
       , Text.RSS.Syntax.rssItemEnclosure = itemEnclosure episode
       , Text.RSS.Syntax.rssItemGuid = itemGuid episode
       , Text.RSS.Syntax.rssItemLink = itemLink baseUrl episode
       , Text.RSS.Syntax.rssItemOther = itemOther episode
       , Text.RSS.Syntax.rssItemPubDate = itemPubDate episode
       }
+
+itemDescription :: HW.Type.Episode.Episode -> Maybe Data.Text.Text
+itemDescription episode =
+  Just . HW.Type.Summary.summaryToText $ HW.Type.Episode.episodeSummary episode
 
 itemEnclosure :: HW.Type.Episode.Episode -> Maybe Text.RSS.Syntax.RSSEnclosure
 itemEnclosure episode = Just $ Text.RSS.Syntax.nullEnclosure
