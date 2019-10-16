@@ -25,7 +25,7 @@ server state = do
   let config = HW.Type.State.stateConfig state
   ref <- Data.IORef.newIORef state
   Network.Wai.Handler.Warp.runSettings (configToSettings config)
-    . HW.Middleware.middleware config ref
+    . HW.Middleware.middleware ref
     $ HW.Application.application ref
 
 -- | Converts a Haskell Weekly config into Warp server settings.

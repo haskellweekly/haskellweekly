@@ -21,32 +21,25 @@ import qualified Data.Text.Encoding.Error
 import qualified Data.Time
 import qualified Data.Word
 import qualified GHC.Clock
-import qualified HW.Type.BaseUrl
-import qualified HW.Type.Config
 import qualified HW.Type.State
 import qualified Network.HTTP.Types
 import qualified Network.HTTP.Types.Header
 import qualified Network.Wai
 import qualified Network.Wai.Internal
 import qualified Network.Wai.Middleware.Autohead
-import qualified Network.Wai.Middleware.ForceSSL
 import qualified Network.Wai.Middleware.Gzip
 import qualified System.Mem
 import qualified Text.Printf
 
 -- | All of the middlewares are wrapped up in this single one so that you only
 -- have to apply one.
-middleware
-  :: HW.Type.Config.Config
-  -> Data.IORef.IORef HW.Type.State.State
-  -> Network.Wai.Middleware
-middleware config ref =
+middleware :: Data.IORef.IORef HW.Type.State.State -> Network.Wai.Middleware
+middleware ref =
   Network.Wai.Middleware.Gzip.gzip Network.Wai.Middleware.Gzip.def
     . addLogging
     . addEntityTagHeader
     . addCaching ref
-    . addSecurityHeaders config
-    . enforceHttps config
+    . addSecurityHeaders
     . Network.Wai.Middleware.Autohead.autohead
 
 addCaching :: Data.IORef.IORef HW.Type.State.State -> Network.Wai.Middleware
@@ -173,17 +166,13 @@ makeEntityTag response = case response of
   _ -> Nothing
 
 -- | Adds security headers as recommended by <https://securityheaders.com>.
-addSecurityHeaders :: HW.Type.Config.Config -> Network.Wai.Middleware
-addSecurityHeaders config =
+addSecurityHeaders :: Network.Wai.Middleware
+addSecurityHeaders =
   Network.Wai.modifyResponse
     . Network.Wai.mapResponseHeaders
     $ addHeader "Content-Security-Policy" contentSecurityPolicy
     . addHeader "Feature-Policy" featurePolicy
     . addHeader "Referrer-Policy" "no-referrer"
-    . (if isSecure config
-        then addHeader "Strict-Transport-Security" strictTransportSecurity
-        else id
-      )
     . addHeader "X-Content-Type-Options" "nosniff"
     . addHeader "X-Frame-Options" "deny"
     . addHeader "X-XSS-Protection" "1; mode=block"
@@ -223,11 +212,6 @@ featurePolicy = Data.Text.intercalate
   , "vibrate 'none'"
   ]
 
--- | The value of the @Strict-Transport-Security@ header.
--- <https://scotthelme.co.uk/hsts-cheat-sheet/>
-strictTransportSecurity :: Data.Text.Text
-strictTransportSecurity = "max-age=600"
-
 -- | Adds a header to a response. This doesn't remove any existing headers with
 -- the same name, so it's possible to end up with duplicates.
 addHeader
@@ -244,13 +228,3 @@ makeHeader name value =
   ( Data.CaseInsensitive.mk $ Data.Text.Encoding.encodeUtf8 name
   , Data.Text.Encoding.encodeUtf8 value
   )
-
-enforceHttps :: HW.Type.Config.Config -> Network.Wai.Middleware
-enforceHttps config =
-  if isSecure config then Network.Wai.Middleware.ForceSSL.forceSSL else id
-
-isSecure :: HW.Type.Config.Config -> Bool
-isSecure =
-  Data.Text.isPrefixOf "https:"
-    . HW.Type.BaseUrl.baseUrlToText
-    . HW.Type.Config.configBaseUrl
