@@ -2,10 +2,11 @@ cabal-version: 2.2
 -- https://www.haskell.org/cabal/users-guide/developing-packages.html#package-descriptions
 
 name: haskellweekly
-version: 0.0.0.0
+version: 0.2019.10.15
 
 category: Web
-description: Haskell Weekly publishes curated news about Haskell.
+description:
+  Haskell Weekly publishes curated news about the Haskell programming language.
 license: ISC
 maintainer: Taylor Fausak
 synopsis: Publishes curated news about Haskell.
