@@ -62,7 +62,7 @@ podcastFeedTemplate baseUrl episodes =
         , ("url", itemEnclosureUrl episode)
         ]
         []
-      , node "guid" [("isPermalink", "false")] [itemGuid episode]
+      , node "guid" [("isPermaLink", "false")] [itemGuid episode]
       , node "pubDate" [] [itemPubDate episode]
       , node "itunes:author" [] [text "Taylor Fausak"]
       , node "itunes:duration" [] [itemDuration episode]
@@ -93,7 +93,7 @@ podcastFeedTemplate baseUrl episodes =
           []
           [ node "url" [] [channelImageUrl]
           , node "title" [] [text "Haskell Weekly"]
-          , node "link" [] [channelDescription]
+          , node "link" [] [channelLink]
           ]
       : node
           "atom:link"
