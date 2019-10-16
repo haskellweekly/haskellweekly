@@ -1,0 +1,3387 @@
+1
+00:00:01,470 --> 00:00:04,540
+hello and welcome to the Haskell weekly
+
+2
+00:00:03,910 --> 00:00:06,730
+podcast
+
+3
+00:00:04,540 --> 00:00:09,639
+I'm your host Taylor fossick I'm the
+
+4
+00:00:06,730 --> 00:00:11,110
+lead engineer at IT Pro TV and with me
+
+5
+00:00:09,639 --> 00:00:13,269
+today is Cameron Guerra
+
+6
+00:00:11,110 --> 00:00:14,740
+one of the engineers on my team thanks
+
+7
+00:00:13,269 --> 00:00:16,869
+for joining me cam thanks for having me
+
+8
+00:00:14,740 --> 00:00:17,919
+Taylor spin a little bit yeah it's been
+
+9
+00:00:16,869 --> 00:00:20,770
+a little bit we're happy to have you
+
+10
+00:00:17,919 --> 00:00:22,540
+back on the podcast appreciate that so
+
+11
+00:00:20,770 --> 00:00:24,840
+today we are going to be talking about
+
+12
+00:00:22,540 --> 00:00:27,279
+Haskell of course but more specifically
+
+13
+00:00:24,840 --> 00:00:29,050
+refactoring and types but what's the
+
+14
+00:00:27,279 --> 00:00:32,320
+article we're gonna be covering cam yeah
+
+15
+00:00:29,050 --> 00:00:34,300
+so it's it's an article by Tom Ellis so
+
+16
+00:00:32,320 --> 00:00:37,000
+it's called good design and type safety
+
+17
+00:00:34,300 --> 00:00:40,719
+in yacht in Yahtzee which is I'm
+
+18
+00:00:37,000 --> 00:00:43,030
+actually a article looking at another
+
+19
+00:00:40,719 --> 00:00:44,379
+article improving some code and doing
+
+20
+00:00:43,030 --> 00:00:46,929
+some refactoring which is a really
+
+21
+00:00:44,379 --> 00:00:49,570
+really informational so I'm really
+
+22
+00:00:46,929 --> 00:00:51,519
+excited about today me too because this
+
+23
+00:00:49,570 --> 00:00:53,320
+like you mentioned is kind of a response
+
+24
+00:00:51,519 --> 00:00:55,239
+article to another one where somebody
+
+25
+00:00:53,320 --> 00:00:57,429
+had some code that they'd written and
+
+26
+00:00:55,239 --> 00:00:59,199
+they slapped some types on it and we're
+
+27
+00:00:57,429 --> 00:01:00,879
+complaining that it kind of made things
+
+28
+00:00:59,199 --> 00:01:03,190
+harder to read and didn't give them too
+
+29
+00:01:00,879 --> 00:01:04,720
+much type safety right yeah the words
+
+30
+00:01:03,190 --> 00:01:05,740
+that you use were unreadable and
+
+31
+00:01:04,720 --> 00:01:09,549
+unmaintainable
+
+32
+00:01:05,740 --> 00:01:11,079
+which bad words I looking at the code it
+
+33
+00:01:09,549 --> 00:01:13,450
+was pretty hard to read yeah and I was
+
+34
+00:01:11,079 --> 00:01:15,250
+like but there has to be a better way
+
+35
+00:01:13,450 --> 00:01:16,509
+you know there's all kinds of stuff and
+
+36
+00:01:15,250 --> 00:01:19,329
+I think we're going to talk about the
+
+37
+00:01:16,509 --> 00:01:21,969
+various steps that Tom took to kind of
+
+38
+00:01:19,329 --> 00:01:24,130
+say hey like type type safety isn't
+
+39
+00:01:21,969 --> 00:01:27,430
+something you just throw on it's
+
+40
+00:01:24,130 --> 00:01:30,070
+something that you design with right you
+
+41
+00:01:27,430 --> 00:01:32,649
+know when you have good design you know
+
+42
+00:01:30,070 --> 00:01:34,000
+type safety is just there and it allows
+
+43
+00:01:32,649 --> 00:01:35,829
+you to really feel confident about the
+
+44
+00:01:34,000 --> 00:01:37,990
+code you're writing exactly so instead
+
+45
+00:01:35,829 --> 00:01:40,689
+of taking some piece of code and
+
+46
+00:01:37,990 --> 00:01:43,930
+throwing types on it you kind of develop
+
+47
+00:01:40,689 --> 00:01:46,960
+the types and the design in lockstep run
+
+48
+00:01:43,930 --> 00:01:49,689
+influences the other mm-hmm okay which i
+
+49
+00:01:46,960 --> 00:01:51,850
+think was cool yeah because yeah there's
+
+50
+00:01:49,689 --> 00:01:53,680
+a quote he said he you know I don't
+
+51
+00:01:51,850 --> 00:01:54,969
+think I'm gonna quote it exactly but you
+
+52
+00:01:53,680 --> 00:01:57,299
+know he talks about building type safety
+
+53
+00:01:54,969 --> 00:02:00,189
+struck type safe structures and
+
+54
+00:01:57,299 --> 00:02:02,049
+combinators relevant to the domain and
+
+55
+00:02:00,189 --> 00:02:05,649
+then that's what we use with the
+
+56
+00:02:02,049 --> 00:02:06,909
+implementation right yeah so this is
+
+57
+00:02:05,649 --> 00:02:08,200
+going to be a little interesting to talk
+
+58
+00:02:06,909 --> 00:02:10,810
+about because obviously we're talking
+
+59
+00:02:08,200 --> 00:02:12,250
+about a piece of code and it's really
+
+60
+00:02:10,810 --> 00:02:13,989
+hard to communicate code over voice
+
+61
+00:02:12,250 --> 00:02:16,239
+right but you know
+
+62
+00:02:13,989 --> 00:02:18,069
+think about the game of Yahtzee that's
+
+63
+00:02:16,239 --> 00:02:21,189
+what we're talking about so the game of
+
+64
+00:02:18,069 --> 00:02:23,349
+Yahtzee you have five dice you roll them
+
+65
+00:02:21,189 --> 00:02:26,500
+you have it believe tends to be three
+
+66
+00:02:23,349 --> 00:02:28,180
+rolls and you can you know it's a dice
+
+67
+00:02:26,500 --> 00:02:30,370
+so it's one to six
+
+68
+00:02:28,180 --> 00:02:34,659
+mm-hm and yeah so what we're doing I
+
+69
+00:02:30,370 --> 00:02:37,209
+gotta do is understand what the roles
+
+70
+00:02:34,659 --> 00:02:39,340
+are I guess that's that's the name of it
+
+71
+00:02:37,209 --> 00:02:41,230
+it's called all roles as the function
+
+72
+00:02:39,340 --> 00:02:43,659
+we're gonna kind of be evaluating yeah
+
+73
+00:02:41,230 --> 00:02:45,370
+so the the original function by Mark
+
+74
+00:02:43,659 --> 00:02:49,269
+Dominus the blog post he wrote about it
+
+75
+00:02:45,370 --> 00:02:52,269
+it has some role Kazuma Blee from a game
+
+76
+00:02:49,269 --> 00:02:54,669
+of Yahtzee and it is given some choices
+
+77
+00:02:52,269 --> 00:02:56,439
+like reroll that die keep that one and
+
+78
+00:02:54,669 --> 00:02:57,310
+then figure out what the next results
+
+79
+00:02:56,439 --> 00:02:59,530
+gonna be mm-hmm
+
+80
+00:02:57,310 --> 00:03:02,139
+so that's the that's the game plan here
+
+81
+00:02:59,530 --> 00:03:04,930
+and as Kim mentioned this kind of starts
+
+82
+00:03:02,139 --> 00:03:06,669
+off as something that the the
+
+83
+00:03:04,930 --> 00:03:08,169
+quote-unquote not type safe version is
+
+84
+00:03:06,669 --> 00:03:09,760
+kind of understandable but a little
+
+85
+00:03:08,169 --> 00:03:11,950
+dense and then the quote-unquote type
+
+86
+00:03:09,760 --> 00:03:13,150
+safe version is just completely
+
+87
+00:03:11,950 --> 00:03:14,769
+impenetrable because there's so many
+
+88
+00:03:13,150 --> 00:03:18,549
+like wrapping unwrapping things going on
+
+89
+00:03:14,769 --> 00:03:21,489
+right so yeah I mean the type safety
+
+90
+00:03:18,549 --> 00:03:22,959
+doesn't you know doesn't just get
+
+91
+00:03:21,489 --> 00:03:25,799
+slapped on like we said earlier so I'm
+
+92
+00:03:22,959 --> 00:03:28,829
+really excited to kind of dive dive in
+
+93
+00:03:25,799 --> 00:03:32,049
+so let's do that let's dive right in and
+
+94
+00:03:28,829 --> 00:03:33,489
+get started here so we start with the
+
+95
+00:03:32,049 --> 00:03:35,650
+original implementation just kind of
+
+96
+00:03:33,489 --> 00:03:38,199
+repeated in full mm-hmm
+
+97
+00:03:35,650 --> 00:03:40,419
+and from a high level what we're doing
+
+98
+00:03:38,199 --> 00:03:43,479
+is applying a bunch of very small
+
+99
+00:03:40,419 --> 00:03:46,629
+refactorings to this piece of code an
+
+100
+00:03:43,479 --> 00:03:48,519
+iterative basis yeah iteratively so at
+
+101
+00:03:46,629 --> 00:03:51,069
+each step we don't need to know too much
+
+102
+00:03:48,519 --> 00:03:53,379
+if anything about what the original code
+
+103
+00:03:51,069 --> 00:03:57,129
+is doing we're just saying I recognize
+
+104
+00:03:53,379 --> 00:03:58,359
+this pattern as something that could use
+
+105
+00:03:57,129 --> 00:04:00,220
+a little more type safety so let's
+
+106
+00:03:58,359 --> 00:04:01,930
+measure it in that direction right and
+
+107
+00:04:00,220 --> 00:04:04,120
+and as somebody who's been in Haskell
+
+108
+00:04:01,930 --> 00:04:05,319
+for a year now like some of these
+
+109
+00:04:04,120 --> 00:04:08,409
+suggestions that we're going to talk
+
+110
+00:04:05,319 --> 00:04:10,509
+about are now relevant but starting out
+
+111
+00:04:08,409 --> 00:04:13,209
+I would have been very like wait what
+
+112
+00:04:10,509 --> 00:04:15,699
+you can do that um so you know if you're
+
+113
+00:04:13,209 --> 00:04:17,380
+a beginner like this is something you
+
+114
+00:04:15,699 --> 00:04:19,269
+kind of learn with time and you know
+
+115
+00:04:17,380 --> 00:04:21,849
+this article could be a good help for
+
+116
+00:04:19,269 --> 00:04:23,650
+you to understand and see you know not
+
+117
+00:04:21,849 --> 00:04:25,630
+understood what the code is doing but
+
+118
+00:04:23,650 --> 00:04:27,280
+the patterns and which its implementing
+
+119
+00:04:25,630 --> 00:04:31,060
+and being able to pull it out
+
+120
+00:04:27,280 --> 00:04:33,220
+you know the common you know best
+
+121
+00:04:31,060 --> 00:04:36,220
+practices of Haskell right um yeah it's
+
+122
+00:04:33,220 --> 00:04:37,750
+kind of like a quick tour of some kind
+
+123
+00:04:36,220 --> 00:04:39,460
+of design patterns that you might use in
+
+124
+00:04:37,750 --> 00:04:40,870
+Haskell for refactoring and I've also
+
+125
+00:04:39,460 --> 00:04:43,330
+heard people describe this as a
+
+126
+00:04:40,870 --> 00:04:44,530
+intermediate level Haskell post where
+
+127
+00:04:43,330 --> 00:04:46,210
+there's a lot of the kind of beginner
+
+128
+00:04:44,530 --> 00:04:47,890
+stuff of like here's a Mont here's how
+
+129
+00:04:46,210 --> 00:04:49,270
+to do addition you know real rudimentary
+
+130
+00:04:47,890 --> 00:04:50,890
+things right and then there's all the
+
+131
+00:04:49,270 --> 00:04:52,210
+super advanced you know type level
+
+132
+00:04:50,890 --> 00:04:53,830
+shenanigans stuff and this one's right
+
+133
+00:04:52,210 --> 00:04:55,600
+in the middle of like actual work a day
+
+134
+00:04:53,830 --> 00:04:58,330
+just how do you make software better
+
+135
+00:04:55,600 --> 00:05:00,430
+right yeah which I'm a fan of because
+
+136
+00:04:58,330 --> 00:05:02,500
+you know as a day-to-day engineer this
+
+137
+00:05:00,430 --> 00:05:04,870
+is stuff you use yeah like we're not
+
+138
+00:05:02,500 --> 00:05:07,390
+designing this giant you know data
+
+139
+00:05:04,870 --> 00:05:09,970
+parser that needs to be perfect but
+
+140
+00:05:07,390 --> 00:05:12,190
+we're also not you know just making a
+
+141
+00:05:09,970 --> 00:05:13,930
+simple API they say hey I'm here you
+
+142
+00:05:12,190 --> 00:05:15,730
+know like there's nothing so we're in
+
+143
+00:05:13,930 --> 00:05:18,580
+the middle and this is what kind of you
+
+144
+00:05:15,730 --> 00:05:19,650
+plays into it so I think we should jump
+
+145
+00:05:18,580 --> 00:05:23,590
+right in
+
+146
+00:05:19,650 --> 00:05:26,050
+you know the first thing he notices and
+
+147
+00:05:23,590 --> 00:05:28,419
+this is something we do more in
+
+148
+00:05:26,050 --> 00:05:31,210
+intermediate steps but is the use of
+
+149
+00:05:28,419 --> 00:05:33,190
+undefined so that means there's a case
+
+150
+00:05:31,210 --> 00:05:34,990
+that we aren't accounting for there's
+
+151
+00:05:33,190 --> 00:05:36,460
+something like that's the case we don't
+
+152
+00:05:34,990 --> 00:05:38,410
+expect to get to because you hit that
+
+153
+00:05:36,460 --> 00:05:40,479
+undefined and runtime and you're blowing
+
+154
+00:05:38,410 --> 00:05:42,490
+up right now and you're blowing up with
+
+155
+00:05:40,479 --> 00:05:44,080
+a really useless error message message
+
+156
+00:05:42,490 --> 00:05:45,700
+that just says undefined happened
+
+157
+00:05:44,080 --> 00:05:48,520
+somewhere good luck figuring it out
+
+158
+00:05:45,700 --> 00:05:51,669
+peace yeah so how do they improve the
+
+159
+00:05:48,520 --> 00:05:53,919
+situation right so he says you know all
+
+160
+00:05:51,669 --> 00:05:57,070
+right we we have this undefined that's a
+
+161
+00:05:53,919 --> 00:05:58,600
+red flag let's throw a useful air that's
+
+162
+00:05:57,070 --> 00:05:59,950
+what he does first he says all right
+
+163
+00:05:58,600 --> 00:06:02,110
+we're gonna you know call the air
+
+164
+00:05:59,950 --> 00:06:05,020
+function with a string that says you hit
+
+165
+00:06:02,110 --> 00:06:06,669
+this location and there you know choices
+
+166
+00:06:05,020 --> 00:06:09,070
+has to be the same length as the Val's
+
+167
+00:06:06,669 --> 00:06:09,460
+or values that you're working in it's
+
+168
+00:06:09,070 --> 00:06:12,250
+alright
+
+169
+00:06:09,460 --> 00:06:13,930
+so after this change if you do run into
+
+170
+00:06:12,250 --> 00:06:15,790
+that case if something went wrong you
+
+171
+00:06:13,930 --> 00:06:17,590
+now have a breadcrumb to go look for and
+
+172
+00:06:15,790 --> 00:06:19,870
+say okay well I can track things down a
+
+173
+00:06:17,590 --> 00:06:22,780
+little bit yeah and the other thing he
+
+174
+00:06:19,870 --> 00:06:26,140
+does is you know to kind of set himself
+
+175
+00:06:22,780 --> 00:06:28,570
+up well for successes he avoids you know
+
+176
+00:06:26,140 --> 00:06:31,090
+catch-all patterns right like because I
+
+177
+00:06:28,570 --> 00:06:32,440
+catch all you know there's a chance
+
+178
+00:06:31,090 --> 00:06:34,870
+you're missing something there's some
+
+179
+00:06:32,440 --> 00:06:37,419
+invariant that you don't know about
+
+180
+00:06:34,870 --> 00:06:39,940
+because you're like anything happens
+
+181
+00:06:37,419 --> 00:06:42,730
+here you know we're gonna fail
+
+182
+00:06:39,940 --> 00:06:44,440
+yes so if your pattern matching on like
+
+183
+00:06:42,730 --> 00:06:46,330
+the empty list and then your padding
+
+184
+00:06:44,440 --> 00:06:48,040
+matching pattern matching on the list
+
+185
+00:06:46,330 --> 00:06:49,930
+having exactly one element and then like
+
+186
+00:06:48,040 --> 00:06:51,700
+a catch-all you could think oh well the
+
+187
+00:06:49,930 --> 00:06:53,260
+catch-all is for when there's three or
+
+188
+00:06:51,700 --> 00:06:55,290
+more elements but really you're missing
+
+189
+00:06:53,260 --> 00:06:57,820
+the case where there's exactly two and
+
+190
+00:06:55,290 --> 00:06:59,020
+it's you know ghe is not gonna warn you
+
+191
+00:06:57,820 --> 00:07:01,690
+about that because you're explicitly
+
+192
+00:06:59,020 --> 00:07:03,160
+handling quote-unquote every case with
+
+193
+00:07:01,690 --> 00:07:05,650
+that catch-all but it may not be working
+
+194
+00:07:03,160 --> 00:07:08,080
+the way you expect right so you know he
+
+195
+00:07:05,650 --> 00:07:09,760
+he kind of you know that's not the next
+
+196
+00:07:08,080 --> 00:07:12,400
+step after you know throwing the areas
+
+197
+00:07:09,760 --> 00:07:14,140
+oh hey like let's not use catch all the
+
+198
+00:07:12,400 --> 00:07:17,050
+uses catch-all internally but he D
+
+199
+00:07:14,140 --> 00:07:20,080
+structures that wasn't working right and
+
+200
+00:07:17,050 --> 00:07:22,420
+you know with the Warhol which or warned
+
+201
+00:07:20,080 --> 00:07:24,910
+everything or all the high school you
+
+202
+00:07:22,420 --> 00:07:26,020
+know compiler warnings he kind of turns
+
+203
+00:07:24,910 --> 00:07:29,230
+on he's able to find that there's
+
+204
+00:07:26,020 --> 00:07:32,110
+another invariant in there yeah so he
+
+205
+00:07:29,230 --> 00:07:34,090
+keeps strengthening the invariant or
+
+206
+00:07:32,110 --> 00:07:36,370
+finding more right where he's like okay
+
+207
+00:07:34,090 --> 00:07:37,540
+previously we just had one case here but
+
+208
+00:07:36,370 --> 00:07:39,010
+really there were two cases kind of
+
+209
+00:07:37,540 --> 00:07:40,990
+hiding behind this thing mm-hmm
+
+210
+00:07:39,010 --> 00:07:43,870
+yeah and I've everything down the road
+
+211
+00:07:40,990 --> 00:07:47,590
+that's something for like for me like as
+
+212
+00:07:43,870 --> 00:07:49,870
+a intermediate you know mid-level high
+
+213
+00:07:47,590 --> 00:07:52,120
+school developer is like understanding
+
+214
+00:07:49,870 --> 00:07:54,820
+that catch-all aren't always the best
+
+215
+00:07:52,120 --> 00:07:56,470
+solution and to maybe try to put out
+
+216
+00:07:54,820 --> 00:08:00,040
+every case and see if there's something
+
+217
+00:07:56,470 --> 00:08:02,710
+that you know you can bubble up to the
+
+218
+00:08:00,040 --> 00:08:04,570
+type system that would have value not to
+
+219
+00:08:02,710 --> 00:08:07,360
+have to even care about these invariant
+
+220
+00:08:04,570 --> 00:08:10,660
+cases right which is kind of what he's
+
+221
+00:08:07,360 --> 00:08:14,290
+doing here which is really really for me
+
+222
+00:08:10,660 --> 00:08:15,550
+informational and I would recommend
+
+223
+00:08:14,290 --> 00:08:18,490
+anybody to read this article because I
+
+224
+00:08:15,550 --> 00:08:19,960
+felt like I was like oh okay I I don't
+
+225
+00:08:18,490 --> 00:08:22,630
+have to just use a catch-all because
+
+226
+00:08:19,960 --> 00:08:25,570
+it's you know what I know to do mm-hm I
+
+227
+00:08:22,630 --> 00:08:30,550
+can write out each case and understand
+
+228
+00:08:25,570 --> 00:08:32,979
+and see where the logic air or the
+
+229
+00:08:30,550 --> 00:08:34,210
+invariant could live and maybe bubble
+
+230
+00:08:32,979 --> 00:08:35,789
+that up to the type system like I said
+
+231
+00:08:34,210 --> 00:08:38,620
+yeah and even though we're talking about
+
+232
+00:08:35,789 --> 00:08:40,690
+kind of removing catch-all cases here as
+
+233
+00:08:38,620 --> 00:08:42,310
+a refactoring step sometimes it can be
+
+234
+00:08:40,690 --> 00:08:44,680
+useful to still use them and especially
+
+235
+00:08:42,310 --> 00:08:47,380
+if you have a bunch of them and you
+
+236
+00:08:44,680 --> 00:08:49,240
+write them all out all excuse me you
+
+237
+00:08:47,380 --> 00:08:51,220
+write all of them out explicitly mm-hmm
+
+238
+00:08:49,240 --> 00:08:52,690
+you may see like oh these I have twenty
+
+239
+00:08:51,220 --> 00:08:53,560
+cases here and nineteen of them are the
+
+240
+00:08:52,690 --> 00:08:54,880
+same I'll go
+
+241
+00:08:53,560 --> 00:08:57,190
+replace those with a catch all right
+
+242
+00:08:54,880 --> 00:08:58,810
+that's done that legwork to say well I
+
+243
+00:08:57,190 --> 00:09:00,430
+looked at all the cases right you're
+
+244
+00:08:58,810 --> 00:09:02,529
+understanding the code and what you're
+
+245
+00:09:00,430 --> 00:09:05,170
+writing and that's you know part of
+
+246
+00:09:02,529 --> 00:09:06,520
+refactoring like yes there's things you
+
+247
+00:09:05,170 --> 00:09:07,480
+can do in high school that you don't
+
+248
+00:09:06,520 --> 00:09:10,630
+have to fully understand what the code
+
+249
+00:09:07,480 --> 00:09:12,010
+is doing to refactor but if you want to
+
+250
+00:09:10,630 --> 00:09:14,950
+understand the code you want to make it
+
+251
+00:09:12,010 --> 00:09:17,860
+a useful refactor it tends to be better
+
+252
+00:09:14,950 --> 00:09:19,029
+to take the extra step yeah which i
+
+253
+00:09:17,860 --> 00:09:22,360
+think is really cool
+
+254
+00:09:19,029 --> 00:09:23,980
+and I think you know we can all kind of
+
+255
+00:09:22,360 --> 00:09:26,710
+glean that and you know some information
+
+256
+00:09:23,980 --> 00:09:28,000
+from that process so moving on from the
+
+257
+00:09:26,710 --> 00:09:29,800
+catch-all patterns
+
+258
+00:09:28,000 --> 00:09:32,650
+this next refactoring I feel like is a
+
+259
+00:09:29,800 --> 00:09:34,060
+really big one and mm-hmm the key thing
+
+260
+00:09:32,650 --> 00:09:36,940
+that it does here that I see is that
+
+261
+00:09:34,060 --> 00:09:39,310
+they recognize a function is doing two
+
+262
+00:09:36,940 --> 00:09:43,330
+things and they pull them out into two
+
+263
+00:09:39,310 --> 00:09:46,360
+functions yeah I don't think you know a
+
+264
+00:09:43,330 --> 00:09:49,120
+function doing multiple things is always
+
+265
+00:09:46,360 --> 00:09:50,500
+the clearest choice mm-hmm especially
+
+266
+00:09:49,120 --> 00:09:52,660
+for pure functions you know it's very
+
+267
+00:09:50,500 --> 00:09:55,900
+common for some effectual function to do
+
+268
+00:09:52,660 --> 00:09:57,070
+a lot of stuff like write you know it's
+
+269
+00:09:55,900 --> 00:09:58,720
+stitching a bunch of other things to get
+
+270
+00:09:57,070 --> 00:10:00,550
+right right right but pure functions
+
+271
+00:09:58,720 --> 00:10:02,860
+yeah there's no reason to do that mm-hmm
+
+272
+00:10:00,550 --> 00:10:06,220
+and as we'll see later on it can often
+
+273
+00:10:02,860 --> 00:10:08,380
+really clarify things to have two very
+
+274
+00:10:06,220 --> 00:10:09,880
+tiny functions that do separate things
+
+275
+00:10:08,380 --> 00:10:10,810
+and then you combine them into one top
+
+276
+00:10:09,880 --> 00:10:13,570
+level function that does everything
+
+277
+00:10:10,810 --> 00:10:13,839
+right yeah definitely makes refactoring
+
+278
+00:10:13,570 --> 00:10:16,720
+easy
+
+279
+00:10:13,839 --> 00:10:19,570
+so yeah this function he pulls out is
+
+280
+00:10:16,720 --> 00:10:21,160
+great because it kind of checks for the
+
+281
+00:10:19,570 --> 00:10:22,900
+unvarying it says I want to pull that
+
+282
+00:10:21,160 --> 00:10:25,360
+logic out and you know if I find this
+
+283
+00:10:22,900 --> 00:10:27,250
+invariant I'll throw my air mm-hmm if
+
+284
+00:10:25,360 --> 00:10:30,640
+not then I'll just return the values
+
+285
+00:10:27,250 --> 00:10:32,080
+that you know the function the function
+
+286
+00:10:30,640 --> 00:10:36,490
+I extracted from expects
+
+287
+00:10:32,080 --> 00:10:38,709
+right and then it also clears up the the
+
+288
+00:10:36,490 --> 00:10:40,720
+main function that we were using yeah oh
+
+289
+00:10:38,709 --> 00:10:42,130
+hey we just have a you know in this case
+
+290
+00:10:40,720 --> 00:10:45,790
+it's a maybe you know okay we just have
+
+291
+00:10:42,130 --> 00:10:48,730
+a case that says is you know is it just
+
+292
+00:10:45,790 --> 00:10:51,160
+or is it nothing and the air is handled
+
+293
+00:10:48,730 --> 00:10:53,380
+within the separate function yeah it
+
+294
+00:10:51,160 --> 00:10:56,050
+kind of quarantine those invariant
+
+295
+00:10:53,380 --> 00:10:58,120
+checks into one function so that outside
+
+296
+00:10:56,050 --> 00:10:59,730
+of there you can generally just say okay
+
+297
+00:10:58,120 --> 00:11:01,600
+I'm assuming those have been handled
+
+298
+00:10:59,730 --> 00:11:03,790
+which is really nice and as you
+
+299
+00:11:01,600 --> 00:11:05,020
+mentioned it also cleans up reading that
+
+300
+00:11:03,790 --> 00:11:07,030
+top level function that calls the other
+
+301
+00:11:05,020 --> 00:11:07,779
+one because you don't have to when
+
+302
+00:11:07,030 --> 00:11:08,980
+you're reading it you don't have
+
+303
+00:11:07,779 --> 00:11:10,269
+worried about the logic there you can
+
+304
+00:11:08,980 --> 00:11:11,949
+say okay that other function handles it
+
+305
+00:11:10,269 --> 00:11:13,209
+I can read that if I'm interested but
+
+306
+00:11:11,949 --> 00:11:15,850
+when I'm here I just have to pattern
+
+307
+00:11:13,209 --> 00:11:18,550
+match on that maybe right yeah image
+
+308
+00:11:15,850 --> 00:11:20,199
+yeah I think that's something we as an
+
+309
+00:11:18,550 --> 00:11:22,839
+engineering team have gotten better at
+
+310
+00:11:20,199 --> 00:11:25,389
+is understanding like okay like we don't
+
+311
+00:11:22,839 --> 00:11:27,040
+have to do everything in this one pure
+
+312
+00:11:25,389 --> 00:11:28,870
+function we should break it out make
+
+313
+00:11:27,040 --> 00:11:31,990
+make it smaller make it easier to
+
+314
+00:11:28,870 --> 00:11:33,639
+understand right and kind of keep keep
+
+315
+00:11:31,990 --> 00:11:35,949
+bite size pieces rather than a whole sub
+
+316
+00:11:33,639 --> 00:11:38,379
+or something you know yeah it's almost
+
+317
+00:11:35,949 --> 00:11:39,939
+never a bad idea sometimes you can go
+
+318
+00:11:38,379 --> 00:11:42,249
+crazy and have way too many small
+
+319
+00:11:39,939 --> 00:11:43,629
+functions right but I think it's usually
+
+320
+00:11:42,249 --> 00:11:45,519
+pretty obvious when that when that
+
+321
+00:11:43,629 --> 00:11:46,749
+happens especially when you're trying to
+
+322
+00:11:45,519 --> 00:11:48,189
+read through one function you have to
+
+323
+00:11:46,749 --> 00:11:52,120
+keep bouncing around other definitions
+
+324
+00:11:48,189 --> 00:11:54,360
+makes our I don't you come out cool well
+
+325
+00:11:52,120 --> 00:11:56,949
+we're gonna move on go to the next one
+
+326
+00:11:54,360 --> 00:11:59,220
+the next one is a little bit trickier
+
+327
+00:11:56,949 --> 00:12:01,990
+because you have to think through the
+
+328
+00:11:59,220 --> 00:12:04,949
+design process and kind of have a better
+
+329
+00:12:01,990 --> 00:12:07,899
+understanding of what your code is doing
+
+330
+00:12:04,949 --> 00:12:08,589
+so this is you know kind of that next
+
+331
+00:12:07,899 --> 00:12:11,139
+step
+
+332
+00:12:08,589 --> 00:12:13,480
+and it's you know kind of finding that a
+
+333
+00:12:11,139 --> 00:12:15,459
+value is unused so when you're looking
+
+334
+00:12:13,480 --> 00:12:17,680
+at a function especially a recursive
+
+335
+00:12:15,459 --> 00:12:19,449
+function and you see a value that
+
+336
+00:12:17,680 --> 00:12:22,899
+doesn't end up being in the final result
+
+337
+00:12:19,449 --> 00:12:25,809
+that kind of stir your stomach and kind
+
+338
+00:12:22,899 --> 00:12:28,660
+of feel like something's wrong and for
+
+339
+00:12:25,809 --> 00:12:30,279
+us I'm sure there's lots of pause spots
+
+340
+00:12:28,660 --> 00:12:31,809
+in our code where we're like yeah we
+
+341
+00:12:30,279 --> 00:12:33,120
+don't need this but you know having
+
+342
+00:12:31,809 --> 00:12:36,279
+senior engineers like you and Cody
+
+343
+00:12:33,120 --> 00:12:38,800
+allows us to think through those things
+
+344
+00:12:36,279 --> 00:12:41,139
+and see them and identify them faster so
+
+345
+00:12:38,800 --> 00:12:43,779
+with time you get better at that but you
+
+346
+00:12:41,139 --> 00:12:47,050
+know Tom here is like hey like there's
+
+347
+00:12:43,779 --> 00:12:49,540
+this value we're kind of using and at
+
+348
+00:12:47,050 --> 00:12:51,939
+the end of the day we don't ever display
+
+349
+00:12:49,540 --> 00:12:53,199
+it or return it it's just to keep track
+
+350
+00:12:51,939 --> 00:12:54,579
+of something in a recursive function
+
+351
+00:12:53,199 --> 00:12:56,649
+mm-hmm
+
+352
+00:12:54,579 --> 00:12:58,240
+and so he does a lot he'll he kind of
+
+353
+00:12:56,649 --> 00:13:02,009
+says hey let's take some time and think
+
+354
+00:12:58,240 --> 00:13:05,079
+about why we're returning this value and
+
+355
+00:13:02,009 --> 00:13:08,259
+he kind of puts in like a test like hey
+
+356
+00:13:05,079 --> 00:13:10,509
+if we hit this value this what we expect
+
+357
+00:13:08,259 --> 00:13:12,279
+to be here then we should throw an error
+
+358
+00:13:10,509 --> 00:13:14,019
+because we actually don't expect to be
+
+359
+00:13:12,279 --> 00:13:16,360
+here like it's not a final value right
+
+360
+00:13:14,019 --> 00:13:18,819
+and in a way this is another type of
+
+361
+00:13:16,360 --> 00:13:21,699
+invariant and the invariant is we're not
+
+362
+00:13:18,819 --> 00:13:23,199
+using this value but I think it's also
+
+363
+00:13:21,699 --> 00:13:25,059
+to point out here that we're talking
+
+364
+00:13:23,199 --> 00:13:28,600
+about refactoring and using type systems
+
+365
+00:13:25,059 --> 00:13:30,369
+but really in this case you're relying
+
+366
+00:13:28,600 --> 00:13:32,079
+on the test suite because he's saying I
+
+367
+00:13:30,369 --> 00:13:33,879
+looked at this value and I don't think
+
+368
+00:13:32,079 --> 00:13:36,489
+it's used so I'm gonna plug in an error
+
+369
+00:13:33,879 --> 00:13:38,829
+there and then rerun my tests and see
+
+370
+00:13:36,489 --> 00:13:40,929
+that that error doesn't get thrown so
+
+371
+00:13:38,829 --> 00:13:42,850
+yeah that values not used right so a lot
+
+372
+00:13:40,929 --> 00:13:45,399
+of people think that you have to kind of
+
+373
+00:13:42,850 --> 00:13:47,679
+use types or use tests but really you
+
+374
+00:13:45,399 --> 00:13:50,999
+use both right both help right and
+
+375
+00:13:47,679 --> 00:13:53,679
+that's kind of his whole scheme yeah
+
+376
+00:13:50,999 --> 00:13:55,959
+point in this article was like it's not
+
+377
+00:13:53,679 --> 00:13:58,839
+one or the other it's together right
+
+378
+00:13:55,959 --> 00:14:01,209
+it's a symbiotic relationship which i
+
+379
+00:13:58,839 --> 00:14:03,309
+think is cool and so he kind of
+
+380
+00:14:01,209 --> 00:14:06,399
+indicates okay this is unused and then
+
+381
+00:14:03,309 --> 00:14:08,379
+he kind of takes it you know a step to
+
+382
+00:14:06,399 --> 00:14:10,749
+say oh wait like we're kind of having
+
+383
+00:14:08,379 --> 00:14:12,999
+these different types that are you know
+
+384
+00:14:10,749 --> 00:14:14,859
+they don't need to be bound together
+
+385
+00:14:12,999 --> 00:14:17,859
+they're not you know something that
+
+386
+00:14:14,859 --> 00:14:19,689
+relies on one another so he as a tuple
+
+387
+00:14:17,859 --> 00:14:21,970
+here that he's like I don't feel like
+
+388
+00:14:19,689 --> 00:14:23,889
+this types actually used so he kind of
+
+389
+00:14:21,970 --> 00:14:25,449
+gets rid of the type alias and says okay
+
+390
+00:14:23,889 --> 00:14:27,189
+like let's just name it and let's see
+
+391
+00:14:25,449 --> 00:14:29,369
+and take some steps and see if we can
+
+392
+00:14:27,189 --> 00:14:31,989
+get these to be independent right
+
+393
+00:14:29,369 --> 00:14:34,869
+they're you know independent arguments
+
+394
+00:14:31,989 --> 00:14:37,179
+and then if those arguments don't get
+
+395
+00:14:34,869 --> 00:14:38,470
+used we can factor them out a little bit
+
+396
+00:14:37,179 --> 00:14:40,600
+better right because it's a lot easier
+
+397
+00:14:38,470 --> 00:14:43,419
+to get rid of one argument than it is to
+
+398
+00:14:40,600 --> 00:14:48,119
+get rid of half of a tuple right mmm
+
+399
+00:14:43,419 --> 00:14:52,149
+half a tuple One Bowl oh one pool okay
+
+400
+00:14:48,119 --> 00:14:55,539
+just parens mm-hmm so yeah he kind of
+
+401
+00:14:52,149 --> 00:14:58,029
+takes a couple steps to rearrange some
+
+402
+00:14:55,539 --> 00:15:00,459
+stuff yeah and I think it's interesting
+
+403
+00:14:58,029 --> 00:15:02,470
+the way that he does this because he
+
+404
+00:15:00,459 --> 00:15:04,089
+recognizes that these two values that
+
+405
+00:15:02,470 --> 00:15:06,639
+are in a tuple together probably
+
+406
+00:15:04,089 --> 00:15:08,769
+shouldn't be together but he doesn't
+
+407
+00:15:06,639 --> 00:15:11,730
+immediately delete one of them
+
+408
+00:15:08,769 --> 00:15:14,319
+he kind of prized them apart and then
+
+409
+00:15:11,730 --> 00:15:16,329
+makes it easier for himself to delete
+
+410
+00:15:14,319 --> 00:15:19,119
+that single argument later on and I
+
+411
+00:15:16,329 --> 00:15:21,699
+really like that because he identifies
+
+412
+00:15:19,119 --> 00:15:23,679
+the refactoring that he wants to do of
+
+413
+00:15:21,699 --> 00:15:26,259
+getting rid of this member of the tuple
+
+414
+00:15:23,679 --> 00:15:28,029
+and then he does like a intermediate
+
+415
+00:15:26,259 --> 00:15:29,980
+refactoring that makes that thing he
+
+416
+00:15:28,029 --> 00:15:32,110
+wants to do later a lot easier so that
+
+417
+00:15:29,980 --> 00:15:34,180
+instead of getting rid of one thing out
+
+418
+00:15:32,110 --> 00:15:35,920
+of a tuple he can get rid of an ax
+
+419
+00:15:34,180 --> 00:15:37,600
+an argument to a function which as we
+
+420
+00:15:35,920 --> 00:15:38,529
+said is a little easier to manage mm-hmm
+
+421
+00:15:37,600 --> 00:15:40,750
+yep
+
+422
+00:15:38,529 --> 00:15:41,830
+and I feel like yeah I think like error
+
+423
+00:15:40,750 --> 00:15:43,750
+message is associated with that
+
+424
+00:15:41,830 --> 00:15:45,940
+substance easier to rather than like oh
+
+425
+00:15:43,750 --> 00:15:49,350
+wait we have a to poot yeah yeah I just
+
+426
+00:15:45,940 --> 00:15:52,270
+think it's all around a better choice
+
+427
+00:15:49,350 --> 00:15:55,149
+you know and if if there are two
+
+428
+00:15:52,270 --> 00:15:57,640
+arguments that are very closely tied
+
+429
+00:15:55,149 --> 00:15:59,589
+like yeah a tuple is understandable he
+
+430
+00:15:57,640 --> 00:16:02,589
+kind of gets back to that at some point
+
+431
+00:15:59,589 --> 00:16:04,000
+yeah but he says like hey like let's
+
+432
+00:16:02,589 --> 00:16:06,130
+let's figure out where the real
+
+433
+00:16:04,000 --> 00:16:07,120
+connection is here right he's not saying
+
+434
+00:16:06,130 --> 00:16:08,290
+that the tuple is the wrong data
+
+435
+00:16:07,120 --> 00:16:09,700
+structure he's saying it doesn't look
+
+436
+00:16:08,290 --> 00:16:12,279
+right right now right here
+
+437
+00:16:09,700 --> 00:16:14,560
+so let's pry it apart right so I think
+
+438
+00:16:12,279 --> 00:16:16,870
+that's good and I think you know for you
+
+439
+00:16:14,560 --> 00:16:18,730
+know mark and as he wrote that you'll
+
+440
+00:16:16,870 --> 00:16:21,430
+deal role dimension yeah the original
+
+441
+00:16:18,730 --> 00:16:22,660
+authors like you know he's still
+
+442
+00:16:21,430 --> 00:16:26,649
+learning he's kind of figuring it out
+
+443
+00:16:22,660 --> 00:16:28,870
+he's you know saying hey like this tuple
+
+444
+00:16:26,649 --> 00:16:31,570
+seems like the right moving and that is
+
+445
+00:16:28,870 --> 00:16:33,520
+as software engineers that's art that's
+
+446
+00:16:31,570 --> 00:16:36,040
+what happens that's our job we say oh
+
+447
+00:16:33,520 --> 00:16:38,020
+this works we get it functional we make
+
+448
+00:16:36,040 --> 00:16:40,540
+it work we'll make it you know do what
+
+449
+00:16:38,020 --> 00:16:42,820
+we expect it to and then you know we can
+
+450
+00:16:40,540 --> 00:16:44,650
+come back and refactor so I think this
+
+451
+00:16:42,820 --> 00:16:48,640
+is very information was like you know it
+
+452
+00:16:44,650 --> 00:16:50,620
+worked it's a good it's an okay solution
+
+453
+00:16:48,640 --> 00:16:52,690
+but you can kind of look at it and say
+
+454
+00:16:50,620 --> 00:16:55,089
+oh let's let's bring it do something
+
+455
+00:16:52,690 --> 00:16:57,459
+better yeah and in case in point the
+
+456
+00:16:55,089 --> 00:16:59,650
+refactoring here isn't let's slap some
+
+457
+00:16:57,459 --> 00:17:01,360
+types on it on the arguments after the
+
+458
+00:16:59,650 --> 00:17:03,700
+fact it's okay let's take that function
+
+459
+00:17:01,360 --> 00:17:04,929
+and really break it down step by step
+
+460
+00:17:03,700 --> 00:17:08,170
+and find the better ways to do those
+
+461
+00:17:04,929 --> 00:17:11,620
+things yeah so I think that's cool
+
+462
+00:17:08,170 --> 00:17:13,120
+and as he rearranges arguments he
+
+463
+00:17:11,620 --> 00:17:15,640
+actually put something back into a tuple
+
+464
+00:17:13,120 --> 00:17:17,829
+mm-hmm that he's passing to this that
+
+465
+00:17:15,640 --> 00:17:21,280
+helper function we created earlier that
+
+466
+00:17:17,829 --> 00:17:23,980
+pure invariant function right and he's
+
+467
+00:17:21,280 --> 00:17:26,260
+you know he made it a tuple and then he
+
+468
+00:17:23,980 --> 00:17:28,809
+realized oh we passed that tuple to this
+
+469
+00:17:26,260 --> 00:17:30,760
+function we deconstruct it but we don't
+
+470
+00:17:28,809 --> 00:17:32,140
+really need to deconstruct it yeah
+
+471
+00:17:30,760 --> 00:17:33,429
+because we're just passing it to a
+
+472
+00:17:32,140 --> 00:17:36,040
+function and that function returns a
+
+473
+00:17:33,429 --> 00:17:38,410
+value that we can you know deconstruct
+
+474
+00:17:36,040 --> 00:17:42,700
+individually rather than having you know
+
+475
+00:17:38,410 --> 00:17:45,309
+this confusing decoupling in the type
+
+476
+00:17:42,700 --> 00:17:47,590
+that it's not that direction but yeah
+
+477
+00:17:45,309 --> 00:17:49,659
+the function declaration so instead of
+
+478
+00:17:47,590 --> 00:17:50,950
+matching on this tuple and grabbing the
+
+479
+00:17:49,659 --> 00:17:52,840
+left and the right value out of it and
+
+480
+00:17:50,950 --> 00:17:55,120
+then later on building that exact same
+
+481
+00:17:52,840 --> 00:17:56,710
+tuple again you can not do structure it
+
+482
+00:17:55,120 --> 00:18:00,100
+and pass that original tuple straight
+
+483
+00:17:56,710 --> 00:18:02,590
+through mm-hmm yeah which is a nice nice
+
+484
+00:18:00,100 --> 00:18:04,929
+add you know there's nothing wrong with
+
+485
+00:18:02,590 --> 00:18:06,399
+D structuring the tuple but it makes it
+
+486
+00:18:04,929 --> 00:18:08,019
+harder to read like you said it can be
+
+487
+00:18:06,399 --> 00:18:09,730
+hard because you when you read that you
+
+488
+00:18:08,019 --> 00:18:11,470
+think okay I'm gonna be using each piece
+
+489
+00:18:09,730 --> 00:18:12,669
+of this individually but really you're
+
+490
+00:18:11,470 --> 00:18:14,919
+not you're just building that thing
+
+491
+00:18:12,669 --> 00:18:16,629
+again later right now if you later
+
+492
+00:18:14,919 --> 00:18:17,830
+you're trying to use that value one of
+
+493
+00:18:16,629 --> 00:18:19,929
+those values for me that makes sense
+
+494
+00:18:17,830 --> 00:18:21,399
+yeah but if it's only being passed to
+
+495
+00:18:19,929 --> 00:18:24,610
+another function there's no reason to do
+
+496
+00:18:21,399 --> 00:18:26,919
+that the next one I think is the big one
+
+497
+00:18:24,610 --> 00:18:27,850
+is the Big Kahuna if you know what I
+
+498
+00:18:26,919 --> 00:18:30,070
+mean
+
+499
+00:18:27,850 --> 00:18:32,169
+and this one is something that you know
+
+500
+00:18:30,070 --> 00:18:33,850
+you you probably need to know and
+
+501
+00:18:32,169 --> 00:18:34,960
+understand what the code is doing yeah
+
+502
+00:18:33,850 --> 00:18:37,840
+to do effectively
+
+503
+00:18:34,960 --> 00:18:39,759
+yeah and I back it up a little bit all
+
+504
+00:18:37,840 --> 00:18:41,019
+the things we've talked about so far you
+
+505
+00:18:39,759 --> 00:18:42,190
+don't really need to understand what the
+
+506
+00:18:41,019 --> 00:18:43,690
+code is doing you can just look at it
+
+507
+00:18:42,190 --> 00:18:44,950
+and say oh I recognize that's kind of a
+
+508
+00:18:43,690 --> 00:18:49,419
+weird pattern let's do it this other way
+
+509
+00:18:44,950 --> 00:18:51,909
+instead mm-hmm yeah and I mean Italy the
+
+510
+00:18:49,419 --> 00:18:53,769
+big idea here and he kind of says in a
+
+511
+00:18:51,909 --> 00:18:55,779
+summary is like you know these factor
+
+512
+00:18:53,769 --> 00:18:57,460
+house is gonna hold your hand through it
+
+513
+00:18:55,779 --> 00:18:58,749
+you know like you can do this kind of
+
+514
+00:18:57,460 --> 00:19:00,850
+refactor in any language
+
+515
+00:18:58,749 --> 00:19:02,799
+it doesn't like there's always a way to
+
+516
+00:19:00,850 --> 00:19:04,899
+refactor the nice thing about high
+
+517
+00:19:02,799 --> 00:19:06,159
+school is it's gonna hold your hand
+
+518
+00:19:04,899 --> 00:19:08,980
+through yeah it helps you along the way
+
+519
+00:19:06,159 --> 00:19:10,929
+right so this next big one is this idea
+
+520
+00:19:08,980 --> 00:19:12,820
+of like that unused value that we kind
+
+521
+00:19:10,929 --> 00:19:14,710
+of talked about earlier that's not
+
+522
+00:19:12,820 --> 00:19:17,200
+really needed in the core of the
+
+523
+00:19:14,710 --> 00:19:19,419
+function is we're getting rid of this
+
+524
+00:19:17,200 --> 00:19:24,179
+we're making a structural change and
+
+525
+00:19:19,419 --> 00:19:26,470
+design decision that allows like the
+
+526
+00:19:24,179 --> 00:19:28,570
+confidence that the type is doing what
+
+527
+00:19:26,470 --> 00:19:31,179
+we you know or the function and types
+
+528
+00:19:28,570 --> 00:19:32,710
+are doing what we expected yeah we added
+
+529
+00:19:31,179 --> 00:19:34,360
+that invariant that said we're not using
+
+530
+00:19:32,710 --> 00:19:36,549
+this argument mm-hmm and now we're
+
+531
+00:19:34,360 --> 00:19:38,679
+finally getting rid of that argument so
+
+532
+00:19:36,549 --> 00:19:40,629
+we're like taking this information that
+
+533
+00:19:38,679 --> 00:19:42,009
+we had only in our head and pushing it
+
+534
+00:19:40,629 --> 00:19:43,600
+into the type signature of this function
+
+535
+00:19:42,009 --> 00:19:46,570
+so that it doesn't need that argument
+
+536
+00:19:43,600 --> 00:19:48,700
+anymore right you know and pushing out
+
+537
+00:19:46,570 --> 00:19:51,669
+some of the you know doing the doing the
+
+538
+00:19:48,700 --> 00:19:54,580
+making it pure and pushing out like the
+
+539
+00:19:51,669 --> 00:19:57,369
+core logic into a separate function and
+
+540
+00:19:54,580 --> 00:19:59,350
+allowing the original function just to
+
+541
+00:19:57,369 --> 00:20:00,050
+say hey I know I keep track of this
+
+542
+00:19:59,350 --> 00:20:01,550
+integer
+
+543
+00:20:00,050 --> 00:20:03,740
+because I need to know where I am
+
+544
+00:20:01,550 --> 00:20:06,290
+recursively mm-hmm but it doesn't
+
+545
+00:20:03,740 --> 00:20:09,560
+require that you know you know if I have
+
+546
+00:20:06,290 --> 00:20:13,430
+an empty list of choices that okay
+
+547
+00:20:09,560 --> 00:20:15,620
+I do nothing and if you know we have
+
+548
+00:20:13,430 --> 00:20:17,030
+something then okay let's we don't
+
+549
+00:20:15,620 --> 00:20:20,390
+really care about what that value is
+
+550
+00:20:17,030 --> 00:20:22,460
+we just need to do an action right so I
+
+551
+00:20:20,390 --> 00:20:23,900
+think that's really cool yeah so that's
+
+552
+00:20:22,460 --> 00:20:25,250
+one of the big refactorings and I feel
+
+553
+00:20:23,900 --> 00:20:28,460
+like we're maybe not doing it justice
+
+554
+00:20:25,250 --> 00:20:30,860
+over audio but they then follow up with
+
+555
+00:20:28,460 --> 00:20:34,790
+another really huge one which I think is
+
+556
+00:20:30,860 --> 00:20:36,830
+the the main kind of rallying cry of
+
+557
+00:20:34,790 --> 00:20:39,770
+type systems which is making legal
+
+558
+00:20:36,830 --> 00:20:41,030
+states unrepresentable so they say like
+
+559
+00:20:39,770 --> 00:20:42,470
+okay we've done all these little
+
+560
+00:20:41,030 --> 00:20:43,850
+refactorings to kind of clean it up and
+
+561
+00:20:42,470 --> 00:20:46,010
+make it easier to understand but now
+
+562
+00:20:43,850 --> 00:20:48,200
+let's do one that actually eliminates
+
+563
+00:20:46,010 --> 00:20:49,670
+some of these invariants that we have
+
+564
+00:20:48,200 --> 00:20:54,350
+and pushes them into the type system
+
+565
+00:20:49,670 --> 00:20:55,880
+mm-hmm oh yeah the big kahuna yep
+
+566
+00:20:54,350 --> 00:20:58,580
+the other big kahuna there's two of them
+
+567
+00:20:55,880 --> 00:20:59,630
+yeah yeah which I mean that's kind of
+
+568
+00:20:58,580 --> 00:21:00,710
+what he's saying is like hey there's
+
+569
+00:20:59,630 --> 00:21:03,440
+little things you can do but there's
+
+570
+00:21:00,710 --> 00:21:05,390
+also bigger things you can do so I think
+
+571
+00:21:03,440 --> 00:21:08,240
+it's very informational and yeah I think
+
+572
+00:21:05,390 --> 00:21:10,250
+you know kind of this is the moment
+
+573
+00:21:08,240 --> 00:21:12,980
+where you say okay these two things are
+
+574
+00:21:10,250 --> 00:21:14,750
+so closely tied together that they
+
+575
+00:21:12,980 --> 00:21:19,370
+shouldn't be separated and there should
+
+576
+00:21:14,750 --> 00:21:21,650
+be a you know the way to make the type
+
+577
+00:21:19,370 --> 00:21:24,500
+system make the legal states they
+
+578
+00:21:21,650 --> 00:21:26,840
+represent not representable yeah I don't
+
+579
+00:21:24,500 --> 00:21:28,820
+words are hard anyhow you know we're
+
+580
+00:21:26,840 --> 00:21:32,060
+kind of talking here but no we're trying
+
+581
+00:21:28,820 --> 00:21:33,740
+Travis and this step actually reminds me
+
+582
+00:21:32,060 --> 00:21:36,050
+of a blog post awhile ago by Matt
+
+583
+00:21:33,740 --> 00:21:38,150
+Parsons called type safety back and
+
+584
+00:21:36,050 --> 00:21:41,120
+forth where he mentions that you can
+
+585
+00:21:38,150 --> 00:21:42,530
+have functions that you know return and
+
+586
+00:21:41,120 --> 00:21:45,170
+maybe a return in either or something
+
+587
+00:21:42,530 --> 00:21:47,200
+like that or you can have a function
+
+588
+00:21:45,170 --> 00:21:49,130
+where the input to that function
+
+589
+00:21:47,200 --> 00:21:51,410
+represents that invariant that you're
+
+590
+00:21:49,130 --> 00:21:52,610
+that you were enforcing by the output so
+
+591
+00:21:51,410 --> 00:21:53,900
+I feel like that's what's kind of
+
+592
+00:21:52,610 --> 00:21:56,180
+happening here we had a function that
+
+593
+00:21:53,900 --> 00:21:58,670
+returned to maybe because it was kind of
+
+594
+00:21:56,180 --> 00:22:01,100
+like connecting these two lists together
+
+595
+00:21:58,670 --> 00:22:03,380
+mm-hm and what we did instead was pushed
+
+596
+00:22:01,100 --> 00:22:04,850
+that connection out of the function and
+
+597
+00:22:03,380 --> 00:22:06,110
+said okay I take a tuple where the
+
+598
+00:22:04,850 --> 00:22:07,190
+things have already been connected and
+
+599
+00:22:06,110 --> 00:22:07,940
+then I don't have to return it maybe
+
+600
+00:22:07,190 --> 00:22:10,040
+anymore
+
+601
+00:22:07,940 --> 00:22:11,660
+I can always return something right so
+
+602
+00:22:10,040 --> 00:22:12,530
+in this particular instance they pushed
+
+603
+00:22:11,660 --> 00:22:14,390
+it out to a zip
+
+604
+00:22:12,530 --> 00:22:16,910
+at the top level that says okay combine
+
+605
+00:22:14,390 --> 00:22:20,380
+these two things right and you know it
+
+606
+00:22:16,910 --> 00:22:23,300
+it it didn't fully get rid of our maybe
+
+607
+00:22:20,380 --> 00:22:26,000
+but he got us closer it got us closer
+
+608
+00:22:23,300 --> 00:22:28,610
+right it allowed us to see what she can
+
+609
+00:22:26,000 --> 00:22:31,250
+talk to on Nexus you know okay we can
+
+610
+00:22:28,610 --> 00:22:34,630
+use on cons which Jack's very step after
+
+611
+00:22:31,250 --> 00:22:36,890
+that is don't use unconscious
+
+612
+00:22:34,630 --> 00:22:39,500
+pattern-matching but that's the thing is
+
+613
+00:22:36,890 --> 00:22:41,180
+you take baby steps exactly okay this I
+
+614
+00:22:39,500 --> 00:22:43,160
+see this as on console okay well okay
+
+615
+00:22:41,180 --> 00:22:45,740
+don't quite need uncon see here I can
+
+616
+00:22:43,160 --> 00:22:47,660
+just pattern match yeah it's just steps
+
+617
+00:22:45,740 --> 00:22:50,300
+you don't need to go 0 to 100 in one
+
+618
+00:22:47,660 --> 00:22:52,340
+step nope this is another upshot of
+
+619
+00:22:50,300 --> 00:22:53,960
+doing really small functions like we
+
+620
+00:22:52,340 --> 00:22:55,220
+talked about earlier is that sometimes
+
+621
+00:22:53,960 --> 00:22:56,630
+you'll have one of those small functions
+
+622
+00:22:55,220 --> 00:22:57,890
+and you'll see oh this is just some
+
+623
+00:22:56,630 --> 00:22:59,480
+other functions that I already knew but
+
+624
+00:22:57,890 --> 00:23:01,310
+I didn't realize it when I was using it
+
+625
+00:22:59,480 --> 00:23:02,840
+in the first place because often
+
+626
+00:23:01,310 --> 00:23:05,570
+especially in Haskell with really
+
+627
+00:23:02,840 --> 00:23:07,280
+polymorphic types you can have something
+
+628
+00:23:05,570 --> 00:23:08,540
+that's really concrete and then when you
+
+629
+00:23:07,280 --> 00:23:10,820
+actually write it out you say oh this is
+
+630
+00:23:08,540 --> 00:23:13,310
+just Traverse or map M or something like
+
+631
+00:23:10,820 --> 00:23:17,000
+that right which you'll see later
+
+632
+00:23:13,310 --> 00:23:20,170
+yeah he's foreshadowing in case alright
+
+633
+00:23:17,000 --> 00:23:23,120
+so the next one for me is something
+
+634
+00:23:20,170 --> 00:23:24,980
+that's beyond helpful and it's the unit
+
+635
+00:23:23,120 --> 00:23:27,470
+using dude notation mm-hmm
+
+636
+00:23:24,980 --> 00:23:30,350
+you know we have the bind operator in
+
+637
+00:23:27,470 --> 00:23:31,550
+Haskell and that's great and if you can
+
+638
+00:23:30,350 --> 00:23:33,200
+make the bind operator look
+
+639
+00:23:31,550 --> 00:23:37,580
+understandable that's awesome
+
+640
+00:23:33,200 --> 00:23:41,030
+yeah I'm a fan but the fact that 95% of
+
+641
+00:23:37,580 --> 00:23:43,400
+the time in my opinion do notation is
+
+642
+00:23:41,030 --> 00:23:45,020
+much clearer yeah and yeah I know it
+
+643
+00:23:43,400 --> 00:23:48,350
+these sugars to the bind operator
+
+644
+00:23:45,020 --> 00:23:51,290
+underneath the covers but it visually
+
+645
+00:23:48,350 --> 00:23:53,120
+and understandability was it doesn't
+
+646
+00:23:51,290 --> 00:23:55,700
+help and so that maybe that's part of
+
+647
+00:23:53,120 --> 00:23:57,920
+the reason why you know mark said oh
+
+648
+00:23:55,700 --> 00:24:00,140
+this is unattainable and unreadable like
+
+649
+00:23:57,920 --> 00:24:02,120
+this bind operator right here is not
+
+650
+00:24:00,140 --> 00:24:03,770
+helpful right yeah it's got to bind
+
+651
+00:24:02,120 --> 00:24:05,840
+right in the middle of like the core
+
+652
+00:24:03,770 --> 00:24:07,340
+business logic know that this thing is
+
+653
+00:24:05,840 --> 00:24:10,340
+doing so you have to understand not only
+
+654
+00:24:07,340 --> 00:24:12,020
+all of the Yahtzee rules but also this
+
+655
+00:24:10,340 --> 00:24:13,940
+weird Haskell operator and how it works
+
+656
+00:24:12,020 --> 00:24:15,650
+right which direction is it going what's
+
+657
+00:24:13,940 --> 00:24:18,230
+you know obviously the type system gonna
+
+658
+00:24:15,650 --> 00:24:20,720
+help you with that but yeah and I'm with
+
+659
+00:24:18,230 --> 00:24:22,820
+you 100% I feel like if you can use do
+
+660
+00:24:20,720 --> 00:24:24,260
+notation you probably should even if it
+
+661
+00:24:22,820 --> 00:24:25,540
+feels a little silly if you're only like
+
+662
+00:24:24,260 --> 00:24:28,330
+pulling one value out or something
+
+663
+00:24:25,540 --> 00:24:30,400
+it just it's so much more familiar to a
+
+664
+00:24:28,330 --> 00:24:32,380
+lot of programmers right because it's a
+
+665
+00:24:30,400 --> 00:24:34,620
+step-by-step process like okay do this
+
+666
+00:24:32,380 --> 00:24:37,720
+this value now I can use that value here
+
+667
+00:24:34,620 --> 00:24:42,390
+and even in cases like this where we're
+
+668
+00:24:37,720 --> 00:24:44,680
+using do notation with list datatype so
+
+669
+00:24:42,390 --> 00:24:45,970
+we can think of it kind of sequentially
+
+670
+00:24:44,680 --> 00:24:47,700
+like grab this value then grab this
+
+671
+00:24:45,970 --> 00:24:49,690
+value but really the list data type is
+
+672
+00:24:47,700 --> 00:24:51,910
+representing choice for us so it's
+
+673
+00:24:49,690 --> 00:24:53,140
+saying well choose a value here and then
+
+674
+00:24:51,910 --> 00:24:55,630
+choose another value and then combine
+
+675
+00:24:53,140 --> 00:24:57,610
+them in some way so you know that's the
+
+676
+00:24:55,630 --> 00:24:58,960
+that's the value add of mana adds is
+
+677
+00:24:57,610 --> 00:25:00,820
+that you can choose a different
+
+678
+00:24:58,960 --> 00:25:03,430
+representation and this one we're using
+
+679
+00:25:00,820 --> 00:25:05,590
+lists to represent doing different stuff
+
+680
+00:25:03,430 --> 00:25:08,610
+but we still use do notation right nice
+
+681
+00:25:05,590 --> 00:25:10,840
+good old list monad
+
+682
+00:25:08,610 --> 00:25:16,330
+cool well the next step is something
+
+683
+00:25:10,840 --> 00:25:20,800
+that I think as this refactor happened
+
+684
+00:25:16,330 --> 00:25:23,940
+it became apparently clear is we are
+
+685
+00:25:20,800 --> 00:25:26,860
+taking you know the head of a list
+
+686
+00:25:23,940 --> 00:25:30,040
+modifying that value and then sticking
+
+687
+00:25:26,860 --> 00:25:32,890
+it back onto the list right you know and
+
+688
+00:25:30,040 --> 00:25:35,010
+in him anybody's mind who's been around
+
+689
+00:25:32,890 --> 00:25:37,630
+Haskell cultural programming you know
+
+690
+00:25:35,010 --> 00:25:38,350
+even in NOLA no matter what the language
+
+691
+00:25:37,630 --> 00:25:42,070
+is
+
+692
+00:25:38,350 --> 00:25:43,840
+oh I'm just mapping over a list and
+
+693
+00:25:42,070 --> 00:25:47,290
+doing some operation on each value
+
+694
+00:25:43,840 --> 00:25:49,630
+mm-hmm that's a map and so he's like hey
+
+695
+00:25:47,290 --> 00:25:51,940
+and you know we're in the list monad so
+
+696
+00:25:49,630 --> 00:25:54,210
+let's use math in right because the
+
+697
+00:25:51,940 --> 00:25:57,790
+action we're taking for each element is
+
+698
+00:25:54,210 --> 00:25:59,710
+monadic but yeah this is this is a great
+
+699
+00:25:57,790 --> 00:26:00,910
+example of these really small steps
+
+700
+00:25:59,710 --> 00:26:01,960
+paying off because you're looking at
+
+701
+00:26:00,910 --> 00:26:04,420
+this new saying you know what this is
+
+702
+00:26:01,960 --> 00:26:06,490
+just a map let's call it a map and that
+
+703
+00:26:04,420 --> 00:26:09,220
+way whoever reads it next doesn't have
+
+704
+00:26:06,490 --> 00:26:10,330
+to understand like the manual recursion
+
+705
+00:26:09,220 --> 00:26:11,470
+that's going on or whatever it is
+
+706
+00:26:10,330 --> 00:26:11,740
+they're like oh map I know how that
+
+707
+00:26:11,470 --> 00:26:14,860
+works
+
+708
+00:26:11,740 --> 00:26:18,760
+mm-hmm yeah no and I think that was a
+
+709
+00:26:14,860 --> 00:26:22,030
+big a big boost I mean it literally took
+
+710
+00:26:18,760 --> 00:26:24,280
+it from five you know seven lines to to
+
+711
+00:26:22,030 --> 00:26:27,490
+write it really crunches it down right
+
+712
+00:26:24,280 --> 00:26:29,710
+and and it's not any less clear right
+
+713
+00:26:27,490 --> 00:26:31,030
+I'd argue it's more clear right even
+
+714
+00:26:29,710 --> 00:26:32,590
+though it's shorter right because you
+
+715
+00:26:31,030 --> 00:26:34,810
+don't have to worry about oh this case
+
+716
+00:26:32,590 --> 00:26:37,000
+what's going on like it's all kind of
+
+717
+00:26:34,810 --> 00:26:37,450
+taken care of yeah which I think it's
+
+718
+00:26:37,000 --> 00:26:39,360
+really cool
+
+719
+00:26:37,450 --> 00:26:41,640
+and then finally we get to the last
+
+720
+00:26:39,360 --> 00:26:46,080
+factor which is one we've done an entire
+
+721
+00:26:41,640 --> 00:26:48,480
+podcast on exactly go check it out but
+
+722
+00:26:46,080 --> 00:26:51,570
+avoiding boolean blindness mm-hmm I
+
+723
+00:26:48,480 --> 00:26:53,700
+think last week when our teammates had
+
+724
+00:26:51,570 --> 00:26:55,410
+like this question like oh you just use
+
+725
+00:26:53,700 --> 00:26:58,410
+a boolean here and we're like we're all
+
+726
+00:26:55,410 --> 00:27:01,440
+like wait let's think about this like is
+
+727
+00:26:58,410 --> 00:27:03,059
+this a value we rely on or is it just a
+
+728
+00:27:01,440 --> 00:27:04,770
+value of returning and you know if
+
+729
+00:27:03,059 --> 00:27:07,049
+you're just returning the boolean okay
+
+730
+00:27:04,770 --> 00:27:10,860
+that's fine yeah but if you're trying to
+
+731
+00:27:07,049 --> 00:27:13,080
+use that in an operation it's yeah it's
+
+732
+00:27:10,860 --> 00:27:16,140
+not clear right so in this particular
+
+733
+00:27:13,080 --> 00:27:17,940
+example we have a tuple with a boolean
+
+734
+00:27:16,140 --> 00:27:19,710
+in it and some integer and if I just
+
+735
+00:27:17,940 --> 00:27:20,490
+describe that to you you don't actually
+
+736
+00:27:19,710 --> 00:27:22,890
+know what that means
+
+737
+00:27:20,490 --> 00:27:26,220
+but what we refactor it into is a data
+
+738
+00:27:22,890 --> 00:27:28,140
+type that says reroll this died or keep
+
+739
+00:27:26,220 --> 00:27:29,520
+this role that we already have had and
+
+740
+00:27:28,140 --> 00:27:31,470
+its value was this integer
+
+741
+00:27:29,520 --> 00:27:32,460
+now obviously the data type constructors
+
+742
+00:27:31,470 --> 00:27:34,140
+are much shorter than what I've just
+
+743
+00:27:32,460 --> 00:27:36,299
+said right but they communicate that
+
+744
+00:27:34,140 --> 00:27:37,860
+intent much better than a tuple with
+
+745
+00:27:36,299 --> 00:27:39,870
+these two things in it right
+
+746
+00:27:37,860 --> 00:27:42,780
+yeah it's like oh what am I doing with
+
+747
+00:27:39,870 --> 00:27:44,880
+this boolean yeah oh I'm either rolling
+
+748
+00:27:42,780 --> 00:27:46,500
+or I'm keeping it you know because it's
+
+749
+00:27:44,880 --> 00:27:48,929
+a state of type and you know you can
+
+750
+00:27:46,500 --> 00:27:51,600
+create a simple function that turns that
+
+751
+00:27:48,929 --> 00:27:53,610
+data type into the boolean result you
+
+752
+00:27:51,600 --> 00:27:56,220
+want right or you can pattern match on
+
+753
+00:27:53,610 --> 00:27:57,419
+it right so then it reads a lot better
+
+754
+00:27:56,220 --> 00:27:59,669
+when you're reading through the code you
+
+755
+00:27:57,419 --> 00:28:02,130
+don't have to say if you know this
+
+756
+00:27:59,669 --> 00:28:04,140
+boolean part of this tuple is true then
+
+757
+00:28:02,130 --> 00:28:05,040
+do this blah blah blah you can say oh if
+
+758
+00:28:04,140 --> 00:28:06,480
+we're reroll in
+
+759
+00:28:05,040 --> 00:28:09,809
+do this or if we're keeping it do that
+
+760
+00:28:06,480 --> 00:28:12,690
+right boolean blindness so much nicer
+
+761
+00:28:09,809 --> 00:28:16,200
+being a blind yeah I love seeing yeah I
+
+762
+00:28:12,690 --> 00:28:19,559
+know I know we've talked about this
+
+763
+00:28:16,200 --> 00:28:22,770
+internally as a team is you know using
+
+764
+00:28:19,559 --> 00:28:24,360
+lambda case mm-hmm like it's cool I was
+
+765
+00:28:22,770 --> 00:28:28,350
+like I guess he you know he uses lambda
+
+766
+00:28:24,360 --> 00:28:31,559
+case which is cool and I think it's nice
+
+767
+00:28:28,350 --> 00:28:33,090
+I just also the normal case statement in
+
+768
+00:28:31,559 --> 00:28:36,840
+my mind is it's not that much worse
+
+769
+00:28:33,090 --> 00:28:41,070
+right I'm not so yeah and there you can
+
+770
+00:28:36,840 --> 00:28:43,470
+you know you were uncontroversial yeah I
+
+771
+00:28:41,070 --> 00:28:45,960
+mean it's a pretty common language
+
+772
+00:28:43,470 --> 00:28:48,059
+extension mm-hmm but I do feel like it
+
+773
+00:28:45,960 --> 00:28:50,669
+kind of undercuts his argument here
+
+774
+00:28:48,059 --> 00:28:52,380
+where you know Haskell has a reputation
+
+775
+00:28:50,669 --> 00:28:53,190
+of needing all of these language
+
+776
+00:28:52,380 --> 00:28:55,020
+extensions to do
+
+777
+00:28:53,190 --> 00:28:56,880
+anything and I'm happy that he shows one
+
+778
+00:28:55,020 --> 00:28:59,880
+here because it does make it look nicer
+
+779
+00:28:56,880 --> 00:29:01,740
+but I feel like he could have just as
+
+780
+00:28:59,880 --> 00:29:03,690
+easily written out the lamda explicitly
+
+781
+00:29:01,740 --> 00:29:05,580
+and said well this is kind of you know
+
+782
+00:29:03,690 --> 00:29:07,770
+maybe not super nice and if you want to
+
+783
+00:29:05,580 --> 00:29:09,360
+avoid it use lamda case but really every
+
+784
+00:29:07,770 --> 00:29:11,010
+other programming language is pretty
+
+785
+00:29:09,360 --> 00:29:12,870
+comfortable using lambdas you know
+
+786
+00:29:11,010 --> 00:29:13,950
+JavaScript Ruby Python whatever you
+
+787
+00:29:12,870 --> 00:29:14,730
+would just write the lamda and nobody
+
+788
+00:29:13,950 --> 00:29:18,450
+would think twice about it
+
+789
+00:29:14,730 --> 00:29:21,390
+mm-hm so yeah and now we've arrived at
+
+790
+00:29:18,450 --> 00:29:23,430
+the end we have this perfect refactored
+
+791
+00:29:21,390 --> 00:29:24,450
+all roles function and we can now play
+
+792
+00:29:23,430 --> 00:29:26,850
+Yahtzee in Haskell
+
+793
+00:29:24,450 --> 00:29:29,280
+oh yeah and we can understand what we
+
+794
+00:29:26,850 --> 00:29:31,980
+wrote yes helpful yeah no go come back
+
+795
+00:29:29,280 --> 00:29:35,190
+later yeah we know what this is doing
+
+796
+00:29:31,980 --> 00:29:38,010
+rather than there's something going on
+
+797
+00:29:35,190 --> 00:29:40,290
+here I'm not sure so I mean I would
+
+798
+00:29:38,010 --> 00:29:42,480
+definitely agree with with marks like
+
+799
+00:29:40,290 --> 00:29:44,700
+feelings of it being on his original
+
+800
+00:29:42,480 --> 00:29:48,000
+work being unreadable and I'm
+
+801
+00:29:44,700 --> 00:29:51,420
+maintainable but I think you know Tom
+
+802
+00:29:48,000 --> 00:29:53,340
+says hey like I you I get that and
+
+803
+00:29:51,420 --> 00:29:56,520
+Haskell can be unreadable unattainable
+
+804
+00:29:53,340 --> 00:29:58,710
+but if you focus on not just type safety
+
+805
+00:29:56,520 --> 00:30:02,100
+but good design and type safety right
+
+806
+00:29:58,710 --> 00:30:04,170
+you can create a beautiful work of art
+
+807
+00:30:02,100 --> 00:30:05,670
+and you know yeah and and we now have
+
+808
+00:30:04,170 --> 00:30:07,470
+those two things complementing each
+
+809
+00:30:05,670 --> 00:30:08,940
+other where you use the types to
+
+810
+00:30:07,470 --> 00:30:11,370
+influence your design and your design
+
+811
+00:30:08,940 --> 00:30:15,390
+influences your types as well that's the
+
+812
+00:30:11,370 --> 00:30:17,100
+sweet spot to be in oh so sweet yeah I
+
+813
+00:30:15,390 --> 00:30:18,450
+mean I think this is a great article by
+
+814
+00:30:17,100 --> 00:30:22,110
+Tom I would definitely encourage all of
+
+815
+00:30:18,450 --> 00:30:24,960
+our listeners to go check it out it's a
+
+816
+00:30:22,110 --> 00:30:27,090
+little hefty but it's a good
+
+817
+00:30:24,960 --> 00:30:29,490
+intermediate post yeah and it really
+
+818
+00:30:27,090 --> 00:30:31,830
+teaches you or shows you rather these
+
+819
+00:30:29,490 --> 00:30:33,900
+refactoring strategies you can use in a
+
+820
+00:30:31,830 --> 00:30:36,330
+school or really as he mentions any
+
+821
+00:30:33,900 --> 00:30:37,980
+language but the reason that he focuses
+
+822
+00:30:36,330 --> 00:30:41,820
+on Haskell here is a because he knows it
+
+823
+00:30:37,980 --> 00:30:43,440
+I imagine but be it really pushes you in
+
+824
+00:30:41,820 --> 00:30:45,420
+the right direction with a lot of these
+
+825
+00:30:43,440 --> 00:30:48,270
+decisions it makes them easy right yeah
+
+826
+00:30:45,420 --> 00:30:50,100
+it definitely nudges it away so I think
+
+827
+00:30:48,270 --> 00:30:51,300
+that's pretty awesome but uh yeah I
+
+828
+00:30:50,100 --> 00:30:52,920
+appreciate being on the show today
+
+829
+00:30:51,300 --> 00:30:55,560
+thanks for being on the show with me cam
+
+830
+00:30:52,920 --> 00:30:57,150
+it's always great having you and thank
+
+831
+00:30:55,560 --> 00:31:00,630
+you for listening to the Haskell weekly
+
+832
+00:30:57,150 --> 00:31:02,640
+podcast this has been episode 22
+
+833
+00:31:00,630 --> 00:31:04,950
+we hope you enjoyed and if you did
+
+834
+00:31:02,640 --> 00:31:07,710
+please go rate and review us on iTunes
+
+835
+00:31:04,950 --> 00:31:09,270
+and tune in next week where we'll be
+
+836
+00:31:07,710 --> 00:31:11,330
+talking about Haskell once again who
+
+837
+00:31:09,270 --> 00:31:14,190
+knows what though yeah and you know
+
+838
+00:31:11,330 --> 00:31:17,130
+obviously this is sponsored by IT Pro TV
+
+839
+00:31:14,190 --> 00:31:19,680
+so any of your sis admin's or you know
+
+840
+00:31:17,130 --> 00:31:23,460
+networking geeks need any training
+
+841
+00:31:19,680 --> 00:31:25,650
+please have them check out IT Pro TV
+
+842
+00:31:23,460 --> 00:31:27,600
+we'd love to get you on board and help
+
+843
+00:31:25,650 --> 00:31:30,720
+you out with all of our engaging content
+
+844
+00:31:27,600 --> 00:31:33,420
+by various IT platform so we're quite
+
+845
+00:31:30,720 --> 00:31:35,970
+excited and we're definitely gonna miss
+
+846
+00:31:33,420 --> 00:31:38,210
+you guys but we'll be back next week see
+
+847
+00:31:35,970 --> 00:31:38,210
+you then
