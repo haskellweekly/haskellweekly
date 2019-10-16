@@ -93,7 +93,13 @@ episodeTemplate baseUrl episode = H.p_ $ do
         H.toHtml $ HW.Type.Number.numberToText number
   " of the podcast was published on "
   H.toHtml . HW.Type.Date.dateToShortText $ HW.Type.Episode.episodeDate episode
-  "."
+  ". Browse "
+  H.a_
+    [ H.href_
+        $ HW.Type.Route.routeToTextWith baseUrl HW.Type.Route.RoutePodcast
+    ]
+    "the archives"
+  " for older episodes."
 
 issueTemplate :: HW.Type.BaseUrl.BaseUrl -> HW.Type.Issue.Issue -> H.Html ()
 issueTemplate baseUrl issue = H.p_ $ do
@@ -108,4 +114,10 @@ issueTemplate baseUrl issue = H.p_ $ do
         H.toHtml $ HW.Type.Number.numberToText number
   " of the newsletter was published on "
   H.toHtml . HW.Type.Date.dateToShortText $ HW.Type.Issue.issueDate issue
-  "."
+  ". Browse "
+  H.a_
+    [ H.href_
+        $ HW.Type.Route.routeToTextWith baseUrl HW.Type.Route.RouteNewsletter
+    ]
+    "the archives"
+  " for older issues."
