@@ -28,6 +28,7 @@ import qualified Network.HTTP.Types
 import qualified Network.HTTP.Types.Header
 import qualified Network.Wai
 import qualified Network.Wai.Internal
+import qualified Network.Wai.Middleware.Autohead
 import qualified Network.Wai.Middleware.ForceSSL
 import qualified Network.Wai.Middleware.Gzip
 import qualified System.Mem
@@ -46,6 +47,7 @@ middleware config ref =
     . addCaching ref
     . addSecurityHeaders config
     . enforceHttps config
+    . Network.Wai.Middleware.Autohead.autohead
 
 addCaching :: Data.IORef.IORef HW.Type.State.State -> Network.Wai.Middleware
 addCaching ref application request respond = do
