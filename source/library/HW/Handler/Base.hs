@@ -2,6 +2,7 @@ module HW.Handler.Base
   ( feedResponse
   , fileResponse
   , htmlResponse
+  , lbsResponse
   , notFoundResponse
   , textResponse
   )
