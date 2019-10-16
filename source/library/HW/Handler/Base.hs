@@ -1,6 +1,5 @@
 module HW.Handler.Base
-  ( feedResponse
-  , fileResponse
+  ( fileResponse
   , htmlResponse
   , lbsResponse
   , notFoundResponse
@@ -8,19 +7,14 @@ module HW.Handler.Base
   )
 where
 
-import qualified Conduit
 import qualified Data.ByteString
 import qualified Data.ByteString.Lazy
 import qualified Data.Text
 import qualified Data.Text.Encoding
-import qualified Data.XML.Types
 import qualified HW.Type.App
 import qualified Lucid
 import qualified Network.HTTP.Types
 import qualified Network.Wai
-import qualified Text.Feed.Export
-import qualified Text.Feed.Types
-import qualified Text.XML.Unresolved
 
 bsResponse
   :: Network.HTTP.Types.Status
@@ -38,28 +32,6 @@ bsResponse status extraHeaders body =
       (Network.HTTP.Types.hContentLength, contentLength) : extraHeaders
   in Network.Wai.responseLBS status headers
     $ Data.ByteString.Lazy.fromStrict body
-
-feedResponse
-  :: Network.HTTP.Types.Status
-  -> Network.HTTP.Types.ResponseHeaders
-  -> Text.Feed.Types.Feed
-  -> Network.Wai.Response
-feedResponse status extraHeaders feed =
-  let
-    headers = withContentType (feedMime feed) extraHeaders
-    prologue = Data.XML.Types.Prologue [] Nothing []
-    element = Text.Feed.Export.xmlFeed feed
-    document = Data.XML.Types.Document prologue element []
-    body =
-      Conduit.runConduitPure
-        $ Text.XML.Unresolved.renderBuilder Text.XML.Unresolved.def document
-        Conduit..| Conduit.sinkLazyBuilder
-  in lbsResponse status headers body
-
-feedMime :: Text.Feed.Types.Feed -> Data.Text.Text
-feedMime feed = case feed of
-  Text.Feed.Types.AtomFeed _ -> "application/atom+xml; charset=utf-8"
-  _ -> "application/rss+xml; charset=utf-8"
 
 fileResponse
   :: Data.Text.Text -> FilePath -> HW.Type.App.App Network.Wai.Response

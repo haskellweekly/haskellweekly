@@ -68,7 +68,6 @@ podcastFeedTemplate baseUrl episodes =
       , node "itunes:duration" [] [itemDuration episode]
       , node "itunes:episode" [] [itemEpisode episode]
       ]
-    items = fmap item episodes
     channelLink =
       text $ HW.Type.Route.routeToTextWith baseUrl HW.Type.Route.RoutePodcast
     channelDescription = text $ Data.Text.unwords
@@ -112,7 +111,7 @@ podcastFeedTemplate baseUrl episodes =
           [ node "itunes:email" [] [text "taylor@fausak.me"]
           , node "itunes:name" [] [text "Taylor Fausak"]
           ]
-      : items
+      : fmap item episodes
       )
     rss = element
       "rss"

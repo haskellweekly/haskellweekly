@@ -5,6 +5,7 @@ where
 
 import qualified CMark
 import qualified Data.List
+import qualified Data.Map
 import qualified Data.Maybe
 import qualified Data.Ord
 import qualified HW.Type.BaseUrl
@@ -12,63 +13,59 @@ import qualified HW.Type.Date
 import qualified HW.Type.Issue
 import qualified HW.Type.Number
 import qualified HW.Type.Route
-import qualified Text.Atom.Feed
-import qualified Text.Feed.Constructor
-import qualified Text.Feed.Types
+import qualified Text.XML
 
 newsletterFeedTemplate
   :: HW.Type.BaseUrl.BaseUrl
   -> [(HW.Type.Issue.Issue, CMark.Node)]
-  -> Text.Feed.Types.Feed
+  -> Text.XML.Document
 newsletterFeedTemplate baseUrl issues =
   let
-    atom = Text.Atom.Feed.nullFeed
-      (atomId baseUrl)
-      (Text.Atom.Feed.TextString "Haskell Weekly")
-      (atomUpdated $ fmap fst issues)
-    entries = fmap (issueToEntry baseUrl) issues
-  in Text.Feed.Constructor.feedFromAtom atom
-    { Text.Atom.Feed.feedEntries = entries
-    }
-
-atomId :: HW.Type.BaseUrl.BaseUrl -> Text.Atom.Feed.URI
-atomId baseUrl =
-  HW.Type.Route.routeToTextWith baseUrl HW.Type.Route.RouteNewsletterFeed
-
-atomUpdated :: [HW.Type.Issue.Issue] -> Text.Atom.Feed.Date
-atomUpdated =
-  maybe "2001-01-01T12:00:00Z" HW.Type.Date.dateToLongText
-    . Data.Maybe.listToMaybe
-    . Data.List.sortOn Data.Ord.Down
-    . fmap HW.Type.Issue.issueDate
-
-issueToEntry
-  :: HW.Type.BaseUrl.BaseUrl
-  -> (HW.Type.Issue.Issue, CMark.Node)
-  -> Text.Atom.Feed.Entry
-issueToEntry baseUrl (issue, node) =
-  let
-    entry = Text.Atom.Feed.nullEntry
-      (entryId baseUrl issue)
-      (entryTitle issue)
-      (entryUpdated issue)
-  in entry { Text.Atom.Feed.entrySummary = Just $ nodeToTextContent node }
-
-nodeToTextContent :: CMark.Node -> Text.Atom.Feed.TextContent
-nodeToTextContent = Text.Atom.Feed.HTMLString . CMark.nodeToHtml []
-
-entryId :: HW.Type.BaseUrl.BaseUrl -> HW.Type.Issue.Issue -> Text.Atom.Feed.URI
-entryId baseUrl =
-  HW.Type.Route.routeToTextWith baseUrl
-    . HW.Type.Route.RouteIssue
-    . HW.Type.Issue.issueNumber
-
-entryTitle :: HW.Type.Issue.Issue -> Text.Atom.Feed.TextContent
-entryTitle =
-  Text.Atom.Feed.TextString
-    . mappend "Issue "
-    . HW.Type.Number.numberToText
-    . HW.Type.Issue.issueNumber
-
-entryUpdated :: HW.Type.Issue.Issue -> Text.Atom.Feed.Date
-entryUpdated = HW.Type.Date.dateToLongText . HW.Type.Issue.issueDate
+    element name attributes =
+      Text.XML.Element name (Data.Map.fromList attributes)
+    node name attributes = Text.XML.NodeElement . element name attributes
+    text = Text.XML.NodeContent
+    entryLink =
+      HW.Type.Route.routeToTextWith baseUrl
+        . HW.Type.Route.RouteIssue
+        . HW.Type.Issue.issueNumber
+    entryTitle =
+      text
+        . mappend "Issue "
+        . HW.Type.Number.numberToText
+        . HW.Type.Issue.issueNumber
+    entryUpdated =
+      text . HW.Type.Date.dateToLongText . HW.Type.Issue.issueDate
+    entry (issue, content) = node
+      "entry"
+      []
+      [ node "id" [] [text $ entryLink issue]
+      , node "title" [] [entryTitle issue]
+      , node "updated" [] [entryUpdated issue]
+      , node "link" [("href", entryLink issue), ("rel", "self")] []
+      , node
+        "author"
+        []
+        [ node "name" [] [text "Haskell Weekly"]
+        , node "email" [] [text "info@haskellweekly.news"]
+        ]
+      , node "content" [("type", "html")] [text $ CMark.nodeToHtml [] content]
+      ]
+    feedId = text $ HW.Type.Route.routeToTextWith
+      baseUrl
+      HW.Type.Route.RouteNewsletterFeed
+    feedUpdated =
+      text
+        . maybe "2001-01-01T12:00:00Z" HW.Type.Date.dateToLongText
+        . Data.Maybe.listToMaybe
+        . Data.List.sortOn Data.Ord.Down
+        $ fmap (HW.Type.Issue.issueDate . fst) issues
+    feed = element
+      "feed"
+      [("xmlns", "http://www.w3.org/2005/Atom")]
+      (node "title" [] [text "Haskell Weekly"]
+      : node "id" [] [feedId]
+      : node "updated" [] [feedUpdated]
+      : fmap entry issues
+      )
+  in Text.XML.Document (Text.XML.Prologue [] Nothing []) feed []
