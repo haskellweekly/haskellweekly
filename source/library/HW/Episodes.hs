@@ -471,4 +471,4 @@ episode22 =
     <*> HW.Type.Size.naturalToSize 45579206
     <*> HW.Type.Summary.textToSummary
           "Cameron Gera and Taylor Fausak discuss using types to guide refactoring toward better design."
-    <*> HW.Type.Title.textToTitle "Refactoring with Types"
+    <*> HW.Type.Title.textToTitle "Refactoring Yahtzee"
