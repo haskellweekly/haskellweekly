@@ -34,4 +34,4 @@ surveyHandler number = do
 respondWith :: Lucid.Html () -> HW.Type.App.App Network.Wai.Response
 respondWith = pure . HW.Handler.Base.htmlResponse
   Network.HTTP.Types.ok200
-  [(Network.HTTP.Types.hCacheControl, "max-age=900")]
+  [(Network.HTTP.Types.hCacheControl, "public, max-age=900")]

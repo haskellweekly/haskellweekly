@@ -32,7 +32,7 @@ issueHandler number = do
       pure
         . HW.Handler.Base.htmlResponse
             Network.HTTP.Types.ok200
-            [(Network.HTTP.Types.hCacheControl, "max-age=900")]
+            [(Network.HTTP.Types.hCacheControl, "public, max-age=900")]
         $ HW.Template.Issue.issueTemplate baseUrl issue node
 
 readIssueFile :: HW.Type.Number.Number -> HW.Type.App.App CMark.Node

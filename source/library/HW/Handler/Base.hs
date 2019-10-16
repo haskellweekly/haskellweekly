@@ -67,7 +67,7 @@ fileResponse mime file = do
     status = Network.HTTP.Types.ok200
     headers = withContentType
       mime
-      [(Network.HTTP.Types.hCacheControl, "max-age=86400")]
+      [(Network.HTTP.Types.hCacheControl, "public, max-age=86400")]
   body <- HW.Type.App.readDataFile file
   pure $ bsResponse status headers body
 

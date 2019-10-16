@@ -17,7 +17,7 @@ robotsHandler = do
   pure
     . HW.Handler.Base.textResponse
         Network.HTTP.Types.ok200
-        [(Network.HTTP.Types.hCacheControl, "max-age=86400")]
+        [(Network.HTTP.Types.hCacheControl, "public, max-age=86400")]
     $ Data.Text.unlines
         [ "User-agent: *"
         , "Allow: /"

@@ -19,7 +19,7 @@ sitemapHandler = do
   pure
     . HW.Handler.Base.textResponse
         Network.HTTP.Types.ok200
-        [(Network.HTTP.Types.hCacheControl, "max-age=900")]
+        [(Network.HTTP.Types.hCacheControl, "public, max-age=900")]
     . Data.Text.unlines
     . fmap
         (HW.Type.Route.routeToTextWith

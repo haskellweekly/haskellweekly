@@ -33,7 +33,7 @@ indexHandler = do
   pure
     . HW.Handler.Base.htmlResponse
         Network.HTTP.Types.ok200
-        [(Network.HTTP.Types.hCacheControl, "max-age=900")]
+        [(Network.HTTP.Types.hCacheControl, "public, max-age=900")]
     $ HW.Template.Index.indexTemplate
         (HW.Type.State.stateConfig state)
         maybeIssue

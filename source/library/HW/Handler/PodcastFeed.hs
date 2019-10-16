@@ -21,5 +21,5 @@ podcastFeedHandler = do
   pure
     . HW.Handler.Base.feedResponse
         Network.HTTP.Types.ok200
-        [(Network.HTTP.Types.hCacheControl, "max-age=900")]
+        [(Network.HTTP.Types.hCacheControl, "public, max-age=900")]
     $ HW.Template.PodcastFeed.podcastFeedTemplate baseUrl episodes

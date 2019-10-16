@@ -28,7 +28,7 @@ episodeHandler number = do
       pure
         . HW.Handler.Base.htmlResponse
             Network.HTTP.Types.ok200
-            [(Network.HTTP.Types.hCacheControl, "max-age=900")]
+            [(Network.HTTP.Types.hCacheControl, "public, max-age=900")]
         $ HW.Template.Episode.episodeTemplate
             (HW.Type.Config.configBaseUrl $ HW.Type.State.stateConfig state)
             episode
