@@ -16,7 +16,7 @@ This is a weekly summary of what's going on in its community.
 - [A new book about programming with Haskell](https://www.haskellfromtheverybeginning.com/) by John Whitington
   > Haskell from the Very Beginning will appeal both to new programmers, and to experienced programmers eager to explore functional languages such as Haskell.
 
-- [Good design and type safety in Yahtzee](http://h2.jaguarpaw.co.uk/posts/good-design-and-type-safety-in-yahtzee/)
+- [Good design and type safety in Yahtzee](http://h2.jaguarpaw.co.uk/posts/good-design-and-type-safety-in-yahtzee/) by Tom Ellis
   > We can't just expect to sprinkle type safety on a bad design and get something good. Type safety and good design are qualities that evolve symbiotically.
 
 - [Nicer Data Types a la Carte with `DefaultSignatures`](https://yairchu.github.io/posts/dtalc-with-defaultsigs.html) by Yair Chuchem
