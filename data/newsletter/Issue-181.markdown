@@ -26,3 +26,5 @@ undefined
 
 Looking for something to work on?
 Browse [Haskell Hacktoberfest issues](https://github.com/issues?q=is%3Aissue+is%3Aopen+label%3Ahacktoberfest+language%3Ahaskell) on GitHub.
+
+-   [fission-suite/web-api: Move IPFS S3 node address to an env var and expose it via /peers](https://github.com/fission-suite/web-api/issues/146)
