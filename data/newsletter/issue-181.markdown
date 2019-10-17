@@ -82,10 +82,6 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 
 - [LambdAle 2019 videos](https://www.youtube.com/playlist?list=PL6pAiTPnKkEN_LlgodlGhDLCmIOsizE1o)
 
-## Package of the week
-
-undefined
-
 ## Call for participation
 
 Looking for something to work on?
