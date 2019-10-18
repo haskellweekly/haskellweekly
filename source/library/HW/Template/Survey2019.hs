@@ -35,19 +35,78 @@ survey2019Template baseUrl guid =
               , H.type_ "hidden"
               , H.value_ $ HW.Type.Guid.guidToText guid
               ]
-            H.ol_ . H.li_ $ do
-              H.strong_ "What is your email address?"
-              " (required) "
-              "We will never share your email address with anyone. "
-              "This will not sign you up for anything. "
-              "We will only use your email address to follow up on survey responses."
-              H.input_
-                [ H.class_ "db"
-                , H.name_ "email"
-                , H.placeholder_ "someone@example.com"
-                , H.type_ "email"
-                ]
-              H.input_ [H.name_ "email_t", H.type_ "hidden"]
+            H.ol_ $ do
+              H.li_ $ do
+                H.p_ $ do
+                  H.strong_ "What is your email address?"
+                  " (required) "
+                  "We will never share your email address with anyone. "
+                  "This will not sign you up for anything. "
+                  "We will only use your email address to follow up on survey responses."
+                H.input_
+                  [ H.name_ "email"
+                  , H.placeholder_ "someone@example.com"
+                  , H.type_ "email"
+                  ]
+                H.input_ [H.name_ "email_t", H.type_ "hidden"]
+              H.li_ $ do
+                H.p_ $ H.strong_ "Do you use Haskell?"
+                H.label_ [H.class_ "db"] $ do
+                  H.input_
+                    [H.name_ "use_haskell", H.type_ "radio", H.value_ "yes"]
+                  " Yes"
+                H.label_ [H.class_ "db"] $ do
+                  H.input_
+                    [ H.name_ "use_haskell"
+                    , H.type_ "radio"
+                    , H.value_ "used_to"
+                    ]
+                  " No, but I used to"
+                H.label_ [H.class_ "db"] $ do
+                  H.input_
+                    [H.name_ "use_haskell", H.type_ "radio", H.value_ "never"]
+                  " No, I never have"
+                H.input_ [H.name_ "use_haskell_t", H.type_ "hidden"]
+              H.li_ $ do
+                H.p_
+                  $ H.strong_
+                      "If you stopped using Haskell, how long did you use it before you stopped?"
+                H.label_ [H.class_ "db"] $ do
+                  H.input_
+                    [ H.name_ "stopped_after"
+                    , H.type_ "radio"
+                    , H.value_ "one_day"
+                    ]
+                  " Less than 1 day"
+                H.label_ [H.class_ "db"] $ do
+                  H.input_
+                    [ H.name_ "stopped_after"
+                    , H.type_ "radio"
+                    , H.value_ "one_week"
+                    ]
+                  " 1 day to 1 week"
+                H.label_ [H.class_ "db"] $ do
+                  H.input_
+                    [ H.name_ "stopped_after"
+                    , H.type_ "radio"
+                    , H.value_ "one_month"
+                    ]
+                  " 1 week to 1 month"
+                H.label_ [H.class_ "db"] $ do
+                  H.input_
+                    [ H.name_ "stopped_after"
+                    , H.type_ "radio"
+                    , H.value_ "one_year"
+                    ]
+                  " 1 month to 1 year"
+                H.label_ [H.class_ "db"] $ do
+                  H.input_
+                    [ H.name_ "stopped_after"
+                    , H.type_ "radio"
+                    , H.value_ "many_years"
+                    ]
+                  " More than 1 year"
+                H.input_ [H.name_ "stopped_after_t", H.type_ "hidden"]
             H.input_ [H.type_ "submit"]
         H.noscript_ . H.p_ [H.class_ "lh-copy"] $ do
           "JavaScript is required to fill out this survey. "
@@ -57,7 +116,9 @@ survey2019Template baseUrl guid =
           , "  document.querySelector('#survey').classList.remove('dn');"
           , "  document.querySelectorAll('input').forEach(function (input) {"
           , "    input.addEventListener('input', (event) => {"
-          , "      document.querySelector('[name=' + event.target.name + '_t]').value = new Date().toISOString();"
+          , "      const selector = '[name=' + event.target.name + '_t]';"
+          , "      const now = new Date().toISOString();"
+          , "      document.querySelector(selector).value = now;"
           , "    });"
           , "  });"
           , "}());"
