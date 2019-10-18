@@ -189,6 +189,7 @@ contentSecurityPolicy = Data.Text.intercalate
   , "frame-ancestors 'none'"
   , "img-src data: 'self'"
   , "media-src https://haskell-weekly-podcast.nyc3.cdn.digitaloceanspaces.com:443 'self'"
+  , "script-src 'unsafe-inline'"
   , "style-src 'self'"
   ]
 

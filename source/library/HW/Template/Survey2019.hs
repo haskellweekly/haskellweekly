@@ -3,6 +3,7 @@ module HW.Template.Survey2019
   )
 where
 
+import qualified Data.Text
 import qualified HW.Template.Base
 import qualified HW.Type.BaseUrl
 import qualified HW.Type.Guid
@@ -16,13 +17,23 @@ survey2019Template baseUrl guid =
         H.p_ [H.class_ "b dark-red lh-copy"] $ do
           "This survey is under active development. "
           "Any submissions will be discarded."
-        H.form_ [H.method_ "post"] . H.fieldset_ $ do
-          H.input_
-            [ H.name_ "guid"
-            , H.type_ "hidden"
-            , H.value_ $ HW.Type.Guid.guidToText guid
-            ]
-          H.label_ $ do
-            "Email address "
-            H.input_ [H.name_ "email", H.type_ "email"]
-          H.input_ [H.type_ "submit"]
+        H.noscript_ . H.p_ [H.class_ "lh-copy"] $ do
+          "JavaScript is required to fill out this survey. "
+          "Please enable JavaScript to continue."
+        H.form_ [H.class_ "dn", H.id_ "survey", H.method_ "post"]
+          . H.fieldset_
+          $ do
+              H.input_
+                [ H.name_ "guid"
+                , H.type_ "hidden"
+                , H.value_ $ HW.Type.Guid.guidToText guid
+                ]
+              H.label_ $ do
+                "Email address "
+                H.input_ [H.name_ "email", H.type_ "email"]
+              H.input_ [H.type_ "submit"]
+        H.script_ $ Data.Text.concat
+          [ "(function(){"
+          , "document.querySelector('#survey').classList.remove('dn');"
+          , "}());"
+          ]
