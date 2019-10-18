@@ -3,6 +3,8 @@ module HW.Template.Survey2019
   )
 where
 
+import qualified Control.Monad
+import qualified Data.Char
 import qualified Data.Text
 import qualified HW.Template.Base
 import qualified HW.Type.BaseUrl
@@ -35,78 +37,7 @@ survey2019Template baseUrl guid =
               , H.type_ "hidden"
               , H.value_ $ HW.Type.Guid.guidToText guid
               ]
-            H.ol_ $ do
-              H.li_ $ do
-                H.p_ $ do
-                  H.strong_ "What is your email address?"
-                  " (required) "
-                  "We will never share your email address with anyone. "
-                  "This will not sign you up for anything. "
-                  "We will only use your email address to follow up on survey responses."
-                H.input_
-                  [ H.name_ "email"
-                  , H.placeholder_ "someone@example.com"
-                  , H.type_ "email"
-                  ]
-                H.input_ [H.name_ "email_t", H.type_ "hidden"]
-              H.li_ $ do
-                H.p_ $ H.strong_ "Do you use Haskell?"
-                H.label_ [H.class_ "db"] $ do
-                  H.input_
-                    [H.name_ "use_haskell", H.type_ "radio", H.value_ "yes"]
-                  " Yes"
-                H.label_ [H.class_ "db"] $ do
-                  H.input_
-                    [ H.name_ "use_haskell"
-                    , H.type_ "radio"
-                    , H.value_ "used_to"
-                    ]
-                  " No, but I used to"
-                H.label_ [H.class_ "db"] $ do
-                  H.input_
-                    [H.name_ "use_haskell", H.type_ "radio", H.value_ "never"]
-                  " No, I never have"
-                H.input_ [H.name_ "use_haskell_t", H.type_ "hidden"]
-              H.li_ $ do
-                H.p_
-                  $ H.strong_
-                      "If you stopped using Haskell, how long did you use it before you stopped?"
-                H.label_ [H.class_ "db"] $ do
-                  H.input_
-                    [ H.name_ "stopped_after"
-                    , H.type_ "radio"
-                    , H.value_ "one_day"
-                    ]
-                  " Less than 1 day"
-                H.label_ [H.class_ "db"] $ do
-                  H.input_
-                    [ H.name_ "stopped_after"
-                    , H.type_ "radio"
-                    , H.value_ "one_week"
-                    ]
-                  " 1 day to 1 week"
-                H.label_ [H.class_ "db"] $ do
-                  H.input_
-                    [ H.name_ "stopped_after"
-                    , H.type_ "radio"
-                    , H.value_ "one_month"
-                    ]
-                  " 1 week to 1 month"
-                H.label_ [H.class_ "db"] $ do
-                  H.input_
-                    [ H.name_ "stopped_after"
-                    , H.type_ "radio"
-                    , H.value_ "one_year"
-                    ]
-                  " 1 month to 1 year"
-                H.label_ [H.class_ "db"] $ do
-                  H.input_
-                    [ H.name_ "stopped_after"
-                    , H.type_ "radio"
-                    , H.value_ "many_years"
-                    ]
-                  " More than 1 year"
-                H.input_ [H.name_ "stopped_after_t", H.type_ "hidden"]
+            renderQuestions questions
             H.input_ [H.type_ "submit"]
         H.noscript_ . H.p_ [H.class_ "lh-copy"] $ do
           "JavaScript is required to fill out this survey. "
@@ -123,3 +54,78 @@ survey2019Template baseUrl guid =
           , "  });"
           , "}());"
           ]
+
+questions :: [Question]
+questions =
+  [ Question
+    Required
+    "What is your email address?"
+    "We will never share your email address with anyone. This will not sign you up for anything. We will only use your email address to follow up on survey responses."
+    Email
+  , Question Optional "Do you use Haskell?" ""
+    $ SingleResponse ["Yes", "No, but I used to", "No, I never have"]
+  , Question
+      Optional
+      "If you stopped using Haskell, how long did you use it before you stopped?"
+      ""
+    $ SingleResponse
+        [ "Less than 1 day"
+        , "1 day to 1 week"
+        , "1 week to 1 month"
+        , "1 month to 1 year"
+        , "More than 1 year"
+        ]
+  ]
+
+data Question =
+  Question
+    { questionRequired :: Required
+    , questionPrompt :: Data.Text.Text
+    , questionDescription :: Data.Text.Text
+    , questionResponse :: Response
+    }
+  deriving (Eq, Show)
+
+data Required
+  = Required
+  | Optional
+  deriving (Eq, Show)
+
+data Response
+  = Email
+  | SingleResponse [Data.Text.Text]
+  deriving (Eq, Show)
+
+renderQuestions :: [Question] -> H.Html ()
+renderQuestions = H.ol_ . mapM_ renderQuestion
+
+renderQuestion :: Question -> H.Html ()
+renderQuestion question = H.li_ $ do
+  let
+    description = questionDescription question
+    name = toSlug $ questionPrompt question
+  H.p_ $ do
+    H.strong_ . H.toHtml $ questionPrompt question
+    case questionRequired question of
+      Required -> " (required)"
+      Optional -> ""
+    Control.Monad.unless (Data.Text.null description) $ do
+      " "
+      H.toHtml description
+  case questionResponse question of
+    Email -> H.input_
+      [H.name_ name, H.placeholder_ "someone@example.com", H.type_ "email"]
+    SingleResponse choices -> Control.Monad.forM_ choices $ \choice ->
+      H.label_ [H.class_ "db"] $ do
+        H.input_ [H.name_ name, H.type_ "radio", H.value_ $ toSlug choice]
+        " "
+        H.toHtml choice
+  H.input_ [H.name_ $ name <> "_t", H.type_ "hidden"]
+
+toSlug :: Data.Text.Text -> Data.Text.Text
+toSlug =
+  Data.Text.intercalate "_"
+    . Data.Text.words
+    . Data.Text.toLower
+    . Data.Text.filter
+        (\char -> Data.Char.isAlphaNum char || Data.Char.isSpace char)
