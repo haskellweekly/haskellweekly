@@ -37,7 +37,7 @@ survey2019Template baseUrl guid =
               , H.type_ "hidden"
               , H.value_ $ HW.Type.Guid.guidToText guid
               ]
-            renderQuestions questions
+            renderSections sections
             H.input_ [H.type_ "submit"]
         H.noscript_ . H.p_ [H.class_ "lh-copy"] $ do
           "JavaScript is required to fill out this survey. "
@@ -55,17 +55,17 @@ survey2019Template baseUrl guid =
           , "}());"
           ]
 
-questions :: [Question]
-questions =
-  [ Question
-    "What is your email address?"
-    "(required) This will not sign you up for anything. We will never share your email address with anyone. We may use your email address to follow up on survey responses."
-    Email
-  , Question "Do you use Haskell?" ""
+sections :: [Section]
+sections = [haskellUsageSection, projectsSection]
+
+haskellUsageSection :: Section
+haskellUsageSection = Section
+  "Haskell usage"
+  [ Question "What is your email address?" Email
+  , Question "Do you use Haskell?"
     $ SingleResponse ["Yes", "No, but I used to", "No, I never have"]
   , Question
       "If you stopped using Haskell, how long did you use it before you stopped?"
-      ""
     $ SingleResponse
         [ "Less than 1 day"
         , "1 day to 1 week"
@@ -73,7 +73,7 @@ questions =
         , "1 month to 1 year"
         , "More than 1 year"
         ]
-  , Question "If you do not use Haskell, why not?" "" $ MultiResponse
+  , Question "If you do not use Haskell, why not?" $ MultiResponse
     AllowOther
     [ "Haskell does not support the platforms I need"
     , "Haskell is too hard to learn"
@@ -84,7 +84,7 @@ questions =
     , "Haskell's performance is not good enough"
     , "My company doesn't use Haskell"
     ]
-  , Question "How long have you been using Haskell?" "" $ SingleResponse
+  , Question "How long have you been using Haskell?" $ SingleResponse
     [ "Less than 1 day"
     , "1 day to 1 week"
     , "1 week to 1 month"
@@ -97,21 +97,20 @@ questions =
     , "6 years to 7 years"
     , "More than 7 years"
     ]
-  , Question "How frequently do you use Haskell?" ""
+  , Question "How frequently do you use Haskell?"
     $ SingleResponse ["Daily", "Weekly", "Monthly", "Yearly", "Rarely"]
-  , Question "How would you rate your proficiency in Haskell?" ""
-    $ SingleResponse
-        ["Beginner", "Intermediate", "Advanced", "Expert", "Master"]
-  , Question "Where do you use Haskell?" ""
+  , Question "How would you rate your proficiency in Haskell?" $ SingleResponse
+    ["Beginner", "Intermediate", "Advanced", "Expert", "Master"]
+  , Question "Where do you use Haskell?"
     $ MultiResponse RejectOther ["Home", "School", "Work"]
-  , Question "Do you use Haskell at work?" "" $ SingleResponse
+  , Question "Do you use Haskell at work?" $ SingleResponse
     [ "Yes, most of the time"
     , "Yes, some of the time"
     , "No, but my company does"
     , "No, but I'd like to"
     , "No, and I don't want to"
     ]
-  , Question "If you do not use Haskell at work, why not?" "" $ MultiResponse
+  , Question "If you do not use Haskell at work, why not?" $ MultiResponse
     AllowOther
     [ "Haskell does not support the platforms I need"
     , "Haskell is too hard to learn"
@@ -125,7 +124,6 @@ questions =
     ]
   , Question
       "Which programming languages other than Haskell are you fluent in?"
-      ""
     $ MultiResponse
         AllowOther
         [ "Assembly"
@@ -161,7 +159,7 @@ questions =
         , "VBA"
         , "VB.NET"
         ]
-  , Question "Which types of software do you develop with Haskell?" ""
+  , Question "Which types of software do you develop with Haskell?"
     $ MultiResponse
         AllowOther
         [ "Agents of daemons"
@@ -173,7 +171,7 @@ questions =
         , "Libraries or frameworks"
         , "Web services (returning HTML)"
         ]
-  , Question "Which industries do you use Haskell in?" "" $ MultiResponse
+  , Question "Which industries do you use Haskell in?" $ MultiResponse
     AllowOther
     [ "Banking or finance"
     , "Commerce or retail"
@@ -187,10 +185,36 @@ questions =
     ]
   ]
 
+projectsSection :: Section
+projectsSection = Section
+  "Projects"
+  [ Question "How many Haskell projects do you contribute to?" $ SingleResponse
+    ["0", "1", "2", "3", "4", "5", "6 to 10", "11 to 20", "More than 20"]
+  , Question
+      "What is the total size of all the Haskell projects you contribute to?"
+    $ SingleResponse
+        [ "Less than 1,000 lines of code"
+        , "Between 1,000 and 9,999 lines of code"
+        , "Between 10,000 and 99,999 lines of code"
+        , "More than 100,000 lines of code"
+        ]
+  , Question "Which platforms do you develop Haskell on?"
+    $ MultiResponse AllowOther ["BSD", "Linux", "MacOS", "Windows"]
+  , Question "Which platforms do you target?" $ MultiResponse
+    AllowOther
+    ["Android", "BSD", "iOS", "Linux", "MacOS", "Windows"]
+  ]
+
+data Section =
+  Section
+    { sectionTitle :: Data.Text.Text
+    , sectionQuestions :: [Question]
+    }
+  deriving (Eq, Show)
+
 data Question =
   Question
     { questionPrompt :: Data.Text.Text
-    , questionDescription :: Data.Text.Text
     , questionResponse :: Response
     }
   deriving (Eq, Show)
@@ -206,19 +230,29 @@ data Other
   | RejectOther
   deriving (Eq, Show)
 
+renderSections :: [Section] -> H.Html ()
+renderSections = mapM_ renderSection
+
+renderSection :: Section -> H.Html ()
+renderSection section = do
+  H.h3_ [H.class_ "f3 mv3 tracked-tight"] . H.toHtml $ sectionTitle section
+  renderQuestions $ sectionQuestions section
+
 renderQuestions :: [Question] -> H.Html ()
 renderQuestions = H.ol_ . mapM_ renderQuestion
 
 renderQuestion :: Question -> H.Html ()
 renderQuestion question = H.li_ $ do
-  let
-    description = questionDescription question
-    name = toSlug $ questionPrompt question
+  let name = toSlug $ questionPrompt question
   H.p_ $ do
     H.strong_ . H.toHtml $ questionPrompt question
-    Control.Monad.unless (Data.Text.null description) $ do
-      " "
-      H.toHtml description
+    case questionResponse question of
+      Email -> do
+        " (required) "
+        "This will not sign you up for anything. "
+        "We will never share your email address with anyone. "
+        "We may use your email address to follow up on survey responses."
+      _ -> pure ()
   case questionResponse question of
     Email -> H.input_
       [ H.name_ name
