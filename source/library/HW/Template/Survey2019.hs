@@ -58,14 +58,12 @@ survey2019Template baseUrl guid =
 questions :: [Question]
 questions =
   [ Question
-    Required
     "What is your email address?"
-    "We will never share your email address with anyone. This will not sign you up for anything. We will only use your email address to follow up on survey responses."
+    "(required) This will not sign you up for anything. We will never share your email address with anyone. We may use your email address to follow up on survey responses."
     Email
-  , Question Optional "Do you use Haskell?" ""
+  , Question "Do you use Haskell?" ""
     $ SingleResponse ["Yes", "No, but I used to", "No, I never have"]
   , Question
-      Optional
       "If you stopped using Haskell, how long did you use it before you stopped?"
       ""
     $ SingleResponse
@@ -75,7 +73,7 @@ questions =
         , "1 month to 1 year"
         , "More than 1 year"
         ]
-  , Question Optional "If you do not use Haskell, why not?" "" $ MultiResponse
+  , Question "If you do not use Haskell, why not?" "" $ MultiResponse
     AllowOther
     [ "Haskell does not support the platforms I need"
     , "Haskell is too hard to learn"
@@ -86,20 +84,115 @@ questions =
     , "Haskell's performance is not good enough"
     , "My company doesn't use Haskell"
     ]
+  , Question "How long have you been using Haskell?" "" $ SingleResponse
+    [ "Less than 1 day"
+    , "1 day to 1 week"
+    , "1 week to 1 month"
+    , "1 month to 1 year"
+    , "1 year to 2 years"
+    , "2 years to 3 years"
+    , "3 years to 4 years"
+    , "4 years to 5 years"
+    , "5 years to 6 years"
+    , "6 years to 7 years"
+    , "More than 7 years"
+    ]
+  , Question "How frequently do you use Haskell?" ""
+    $ SingleResponse ["Daily", "Weekly", "Monthly", "Yearly", "Rarely"]
+  , Question "How would you rate your proficiency in Haskell?" ""
+    $ SingleResponse
+        ["Beginner", "Intermediate", "Advanced", "Expert", "Master"]
+  , Question "Where do you use Haskell?" ""
+    $ MultiResponse RejectOther ["Home", "School", "Work"]
+  , Question "Do you use Haskell at work?" "" $ SingleResponse
+    [ "Yes, most of the time"
+    , "Yes, some of the time"
+    , "No, but my company does"
+    , "No, but I'd like to"
+    , "No, and I don't want to"
+    ]
+  , Question "If you do not use Haskell at work, why not?" "" $ MultiResponse
+    AllowOther
+    [ "Haskell does not support the platforms I need"
+    , "Haskell is too hard to learn"
+    , "Haskell lacks critical features"
+    , "Haskell lacks critical libraries"
+    , "Haskell lacks critical tools"
+    , "Haskell's documentation is not good enough"
+    , "Haskell's performance is not good enough"
+    , "It's too hard to hire Haskell developers"
+    , "My company doesn't use Haskell"
+    ]
+  , Question
+      "Which programming languages other than Haskell are you fluent in?"
+      ""
+    $ MultiResponse
+        AllowOther
+        [ "Assembly"
+        , "C"
+        , "C#"
+        , "C++"
+        , "Clojure"
+        , "Elm"
+        , "Erlang"
+        , "F#"
+        , "Go"
+        , "Groovy"
+        , "Hack"
+        , "Java"
+        , "JavaScript"
+        , "Julia"
+        , "Kotlin"
+        , "Lua"
+        , "Matlab"
+        , "Objective-C"
+        , "Ocaml"
+        , "Perl"
+        , "PHP"
+        , "PureScript"
+        , "Python"
+        , "R"
+        , "Ruby"
+        , "Rust"
+        , "Scala"
+        , "Shell"
+        , "Swift"
+        , "TypeScript"
+        , "VBA"
+        , "VB.NET"
+        ]
+  , Question "Which types of software do you develop with Haskell?" ""
+    $ MultiResponse
+        AllowOther
+        [ "Agents of daemons"
+        , "API services (returning non-HTML)"
+        , "Automation or scripts"
+        , "Command-line programs (CLI)"
+        , "Data processing"
+        , "Desktop programs (GUI)"
+        , "Libraries or frameworks"
+        , "Web services (returning HTML)"
+        ]
+  , Question "Which industries do you use Haskell in?" "" $ MultiResponse
+    AllowOther
+    [ "Banking or finance"
+    , "Commerce or retail"
+    , "Education"
+    , "Embedded"
+    , "Gaming"
+    , "Government"
+    , "Healthcare or medical"
+    , "Mobile"
+    , "Web"
+    ]
   ]
 
 data Question =
   Question
-    { questionRequired :: Required
-    , questionPrompt :: Data.Text.Text
+    { questionPrompt :: Data.Text.Text
     , questionDescription :: Data.Text.Text
     , questionResponse :: Response
     }
-  deriving (Eq, Show)
-
-data Required
-  = Required
-  | Optional
   deriving (Eq, Show)
 
 data Response
@@ -123,15 +216,16 @@ renderQuestion question = H.li_ $ do
     name = toSlug $ questionPrompt question
   H.p_ $ do
     H.strong_ . H.toHtml $ questionPrompt question
-    case questionRequired question of
-      Required -> " (required)"
-      Optional -> ""
     Control.Monad.unless (Data.Text.null description) $ do
       " "
       H.toHtml description
   case questionResponse question of
     Email -> H.input_
-      [H.name_ name, H.placeholder_ "someone@example.com", H.type_ "email"]
+      [ H.name_ name
+      , H.placeholder_ "someone@example.com"
+      , H.required_ ""
+      , H.type_ "email"
+      ]
     SingleResponse choices -> Control.Monad.forM_ choices $ \choice ->
       H.label_ [H.class_ "db"] $ do
         H.input_ [H.name_ name, H.type_ "radio", H.value_ $ toSlug choice]
