@@ -75,6 +75,17 @@ questions =
         , "1 month to 1 year"
         , "More than 1 year"
         ]
+  , Question Optional "If you do not use Haskell, why not?" "" $ MultiResponse
+    AllowOther
+    [ "Haskell does not support the platforms I need"
+    , "Haskell is too hard to learn"
+    , "Haskell lacks critical features"
+    , "Haskell lacks critical libraries"
+    , "Haskell lacks critical tools"
+    , "Haskell's documentation is not good enough"
+    , "Haskell's performance is not good enough"
+    , "My company doesn't use Haskell"
+    ]
   ]
 
 data Question =
@@ -94,6 +105,12 @@ data Required
 data Response
   = Email
   | SingleResponse [Data.Text.Text]
+  | MultiResponse Other [Data.Text.Text]
+  deriving (Eq, Show)
+
+data Other
+  = AllowOther
+  | RejectOther
   deriving (Eq, Show)
 
 renderQuestions :: [Question] -> H.Html ()
@@ -120,11 +137,22 @@ renderQuestion question = H.li_ $ do
         H.input_ [H.name_ name, H.type_ "radio", H.value_ $ toSlug choice]
         " "
         H.toHtml choice
-  H.input_ [H.name_ $ name <> "_t", H.type_ "hidden"]
+    MultiResponse other choices -> do
+      Control.Monad.forM_ choices $ \choice -> H.label_ [H.class_ "db"] $ do
+        H.input_ [H.name_ name, H.type_ "checkbox", H.value_ $ toSlug choice]
+        " "
+        H.toHtml choice
+      case other of
+        RejectOther -> pure ()
+        AllowOther -> H.label_ [H.class_ "db"] $ do
+          H.input_ [H.name_ name, H.type_ "checkbox", H.value_ "other"]
+          " Other: "
+          H.input_ [H.name_ $ name <> "-other"]
+  H.input_ [H.name_ $ name <> "-time", H.type_ "hidden"]
 
 toSlug :: Data.Text.Text -> Data.Text.Text
 toSlug =
-  Data.Text.intercalate "_"
+  Data.Text.intercalate "-"
     . Data.Text.words
     . Data.Text.toLower
     . Data.Text.filter
