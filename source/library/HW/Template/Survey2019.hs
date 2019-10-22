@@ -55,7 +55,8 @@ survey2019Template baseUrl guid =
           ]
 
 sections :: [Section]
-sections = [haskellUsageSection, projectsSection, compilersSection]
+sections =
+  [haskellUsageSection, projectsSection, compilersSection, toolingSection]
 
 haskellUsageSection :: Section
 haskellUsageSection = Section
@@ -366,6 +367,42 @@ compilersSection = Section
         , "Slightly important"
         , "Not at all important"
         ]
+  ]
+
+toolingSection :: Section
+toolingSection = Section
+  "Tooling"
+  [ Question "Which build tools do you use for Haskell?" $ MultiResponse
+    AllowOther
+    ["Bazel", "Cabal", "ghc-pkg", "Mafia", "Make", "Nix", "Shake", "Stack"]
+  , Question "Which editors do you use for Haskell?" $ MultiResponse
+    AllowOther
+    [ "Atom"
+    , "Emacs"
+    , "IntelliJ IDEA"
+    , "Notepad++"
+    , "Sublime Text"
+    , "Vi"
+    , "Visual Studio Code"
+    ]
+  , Question "Which version control systems do you use for Haskell?"
+    $ MultiResponse
+        AllowOther
+        ["Darcs", "Git", "Mercurial", "Pijul", "Subversion"]
+  , Question "Where do you get Haskell packages from?"
+    $ MultiResponse AllowOther ["Hackage", "Nix", "Source", "Stackage"]
+  , Question "Which tools do you use to test Haskell code?" $ MultiResponse
+    AllowOther
+    [ "Haskell Test Framework"
+    , "Hedgehog"
+    , "Hspec"
+    , "HUnit"
+    , "QuickCheck"
+    , "SmallCheck"
+    , "Tasty"
+    ]
+  , Question "Which tools do you use to benchmark Haskell code?"
+    $ MultiResponse AllowOther ["Bench", "Criterion", "Gauge"]
   ]
 
 data Section =
