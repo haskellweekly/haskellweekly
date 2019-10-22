@@ -56,7 +56,12 @@ survey2019Template baseUrl guid =
 
 sections :: [Section]
 sections =
-  [haskellUsageSection, projectsSection, compilersSection, toolingSection]
+  [ haskellUsageSection
+  , projectsSection
+  , compilersSection
+  , toolingSection
+  , infrastructureSection
+  ]
 
 haskellUsageSection :: Section
 haskellUsageSection = Section
@@ -403,6 +408,28 @@ toolingSection = Section
     ]
   , Question "Which tools do you use to benchmark Haskell code?"
     $ MultiResponse AllowOther ["Bench", "Criterion", "Gauge"]
+  ]
+
+infrastructureSection :: Section
+infrastructureSection = Section
+  "Infrastructure"
+  [ Question "Which tools do you use to deploy Haskell applications?"
+    $ MultiResponse
+        AllowOther
+        [ "Docker images"
+        , "Dynamic binaries"
+        , "Nix expressions"
+        , "Static binaries"
+        ]
+  , Question "Where do you deploy Haskell applications?" $ MultiResponse
+    AllowOther
+    [ "Amazon Web Services"
+    , "Digital Ocean"
+    , "Google Cloud"
+    , "Heroku"
+    , "Microsoft Azure"
+    , "Self or company owned servers"
+    ]
   ]
 
 data Section =
