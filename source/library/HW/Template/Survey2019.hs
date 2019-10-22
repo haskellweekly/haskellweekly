@@ -4,7 +4,6 @@ module HW.Template.Survey2019
 where
 
 import qualified Control.Monad
-import qualified Data.Char
 import qualified Data.Text
 import qualified HW.Template.Base
 import qualified HW.Type.BaseUrl
@@ -56,7 +55,7 @@ survey2019Template baseUrl guid =
           ]
 
 sections :: [Section]
-sections = [haskellUsageSection, projectsSection]
+sections = [haskellUsageSection, projectsSection, compilersSection]
 
 haskellUsageSection :: Section
 haskellUsageSection = Section
@@ -205,6 +204,170 @@ projectsSection = Section
     ["Android", "BSD", "iOS", "Linux", "MacOS", "Windows"]
   ]
 
+compilersSection :: Section
+compilersSection = Section
+  "Compilers"
+  [ Question "Which Haskell compilers do you use?"
+    $ MultiResponse AllowOther ["GHC", "GHCJS", "Eta"]
+  , Question "Which installation methods do you use for your Haskell compiler?"
+    $ MultiResponse
+        AllowOther
+        [ "Source"
+        , "Official binaries"
+        , "Minimal installer"
+        , "Haskell Platform"
+        , "Operating system package"
+        , "Stack"
+        , "Nix"
+        , "ghcup"
+        ]
+  , Question
+      "Has upgrading your Haskell compiler broken your code in the last year?"
+    $ SingleResponse ["Yes", "No"]
+  , Question
+      "How has upgrading your Haskell compiler broken your code in the last year?"
+    $ MultiResponse
+        AllowOther
+        [ "Compiler bugs"
+        , "Expected changes, such as the MonadFail proposal"
+        , "Incompatible dependencies"
+        , "New warnings"
+        , "Unexpected changes"
+        ]
+  , Question "Which versions of GHC do you use?" $ MultiResponse
+    RejectOther
+    ["HEAD", "8.8.x", "8.6.x", "8.4.x", "8.2.x", "8.0.x", "7.x"]
+  , Question
+      "Which language extensions would you like to be enabled by default?"
+    $ MultiResponse
+        RejectOther
+        [ "AllowAmbiguousTypes"
+        , "AlternativeLayoutRule"
+        , "AlternativeLayoutRuleTransitional"
+        , "ApplicativeDo"
+        , "Arrows"
+        , "AutoDeriveTypeable"
+        , "BangPatterns"
+        , "BinaryLiterals"
+        , "BlockArguments"
+        , "CApiFFI"
+        , "ConstrainedClassMethods"
+        , "ConstraintKinds"
+        , "Cpp"
+        , "DataKinds"
+        , "DatatypeContexts"
+        , "DefaultSignatures"
+        , "DeriveAnyClass"
+        , "DeriveDataTypeable"
+        , "DeriveFoldable"
+        , "DeriveFunctor"
+        , "DeriveGeneric"
+        , "DeriveLift"
+        , "DeriveTraversable"
+        , "DerivingStrategies"
+        , "DerivingVia"
+        , "DisambiguateRecordFields"
+        , "DoAndIfThenElse"
+        , "DuplicateRecordFields"
+        , "EmptyCase"
+        , "EmptyDataDecls"
+        , "EmptyDataDeriving"
+        , "ExistentialQuantification"
+        , "ExplicitForAll"
+        , "ExplicitNamespaces"
+        , "ExtendedDefaultRules"
+        , "FlexibleContexts"
+        , "FlexibleInstances"
+        , "ForeignFunctionInterface"
+        , "FunctionalDependencies"
+        , "GADTs"
+        , "GADTSyntax"
+        , "GeneralizedNewtypeDeriving"
+        , "GHCForeignImportPrim"
+        , "HexFloatLiterals"
+        , "ImplicitParams"
+        , "ImpredicativeTypes"
+        , "IncoherentInstances"
+        , "InstanceSigs"
+        , "InterruptibleFFI"
+        , "JavaScriptFFI"
+        , "KindSignatures"
+        , "LambdaCase"
+        , "LiberalTypeSynonyms"
+        , "MagicHash"
+        , "MonadComprehensions"
+        , "MonadFailDesugaring"
+        , "MonoLocalBinds"
+        , "MonoPatBinds"
+        , "MultiParamTypeClasses"
+        , "MultiWayIf"
+        , "NamedWildCards"
+        , "NegativeLiterals"
+        , "NoImplicitPrelude"
+        , "NoMonomorphismRestriction"
+        , "NondecreasingIndentation"
+        , "NoTraditionalRecordSyntax"
+        , "NPlusKPatterns"
+        , "NullaryTypeClasses"
+        , "NumDecimals"
+        , "NumericUnderscores"
+        , "OverlappingInstances"
+        , "OverloadedLabels"
+        , "OverloadedLists"
+        , "OverloadedStrings"
+        , "PackageImports"
+        , "ParallelArrays"
+        , "ParallelListComp"
+        , "PartialTypeSignatures"
+        , "PatternGuards"
+        , "PatternSynonyms"
+        , "PolyKinds"
+        , "PostfixOperators"
+        , "QuantifiedConstraints"
+        , "QuasiQuotes"
+        , "RankNTypes"
+        , "RebindableSyntax"
+        , "RecordPuns"
+        , "RecordWildCards"
+        , "RecursiveDo"
+        , "RelaxedLayout"
+        , "RelaxedPolyRec"
+        , "RoleAnnotations"
+        , "ScopedTypeVariables"
+        , "StandaloneDeriving"
+        , "StarIsType"
+        , "StaticPointers"
+        , "Strict"
+        , "StrictData"
+        , "TemplateHaskell"
+        , "TemplateHaskellQuotes"
+        , "TransformListComp"
+        , "TupleSections"
+        , "TypeApplications"
+        , "TypeFamilies"
+        , "TypeFamilyDependencies"
+        , "TypeInType"
+        , "TypeOperators"
+        , "TypeSynonymInstances"
+        , "UnboxedSums"
+        , "UnboxedTuples"
+        , "UndecidableInstances"
+        , "UndecidableSuperClasses"
+        , "UnicodeSyntax"
+        , "UnliftedFFITypes"
+        , "ViewPatterns"
+        ]
+  , Question
+      "How important do you feel it would be to have a new version of the Haskell language standard?"
+    $ SingleResponse
+        [ "Extremely important"
+        , "Very important"
+        , "Moderately important"
+        , "Slightly important"
+        , "Not at all important"
+        ]
+  ]
+
 data Section =
   Section
     { sectionTitle :: Data.Text.Text
@@ -243,7 +406,7 @@ renderQuestions = H.ol_ . mapM_ renderQuestion
 
 renderQuestion :: Question -> H.Html ()
 renderQuestion question = H.li_ $ do
-  let name = toSlug $ questionPrompt question
+  let name = questionPrompt question
   H.p_ $ do
     H.strong_ . H.toHtml $ questionPrompt question
     case questionResponse question of
@@ -262,12 +425,12 @@ renderQuestion question = H.li_ $ do
       ]
     SingleResponse choices -> Control.Monad.forM_ choices $ \choice ->
       H.label_ [H.class_ "db"] $ do
-        H.input_ [H.name_ name, H.type_ "radio", H.value_ $ toSlug choice]
+        H.input_ [H.name_ name, H.type_ "radio", H.value_ choice]
         " "
         H.toHtml choice
     MultiResponse other choices -> do
       Control.Monad.forM_ choices $ \choice -> H.label_ [H.class_ "db"] $ do
-        H.input_ [H.name_ name, H.type_ "checkbox", H.value_ $ toSlug choice]
+        H.input_ [H.name_ name, H.type_ "checkbox", H.value_ choice]
         " "
         H.toHtml choice
       case other of
@@ -275,13 +438,5 @@ renderQuestion question = H.li_ $ do
         AllowOther -> H.label_ [H.class_ "db"] $ do
           H.input_ [H.name_ name, H.type_ "checkbox", H.value_ "other"]
           " Other: "
-          H.input_ [H.name_ $ name <> "-other"]
-  H.input_ [H.name_ $ name <> "-time", H.type_ "hidden"]
-
-toSlug :: Data.Text.Text -> Data.Text.Text
-toSlug =
-  Data.Text.intercalate "-"
-    . Data.Text.words
-    . Data.Text.toLower
-    . Data.Text.filter
-        (\char -> Data.Char.isAlphaNum char || Data.Char.isSpace char)
+          H.input_ [H.name_ $ name <> " (other)"]
+  H.input_ [H.name_ $ name <> " (time)", H.type_ "hidden"]
