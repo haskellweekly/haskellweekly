@@ -61,6 +61,7 @@ sections =
   , compilersSection
   , toolingSection
   , infrastructureSection
+  , communitySection
   ]
 
 haskellUsageSection :: Section
@@ -430,6 +431,55 @@ infrastructureSection = Section
     , "Microsoft Azure"
     , "Self or company owned servers"
     ]
+  ]
+
+communitySection :: Section
+communitySection = Section
+  "Community"
+  [ Question "Where do you interact with the Haskell community?"
+    $ MultiResponse
+        AllowOther
+        [ "Conferences (academic)"
+        , "Conferences (commercial)"
+        , "Discord"
+        , "GitHub"
+        , "Gitter"
+        , "IRC"
+        , "Lobsters"
+        , "Mailing lists"
+        , "Mastodon"
+        , "Matrix/Riot"
+        , "Meetups"
+        , "Reddit"
+        , "Slack"
+        , "Stack Overflow"
+        , "Telegram"
+        , "Twitter"
+        ]
+  , Question
+      "Which of the following Haskell topics would you like to see more written about?"
+    $ MultiResponse
+        AllowOther
+        [ "Algorithm implementations"
+        , "Application architectures"
+        , "Beginner fundamentals"
+        , "Best practices"
+        , "Case studies"
+        , "Comparisons to other languages"
+        , "Debugging how-tos"
+        , "Design patterns"
+        , "Game development"
+        , "GUIs"
+        , "Library walkthroughs"
+        , "Machine learning"
+        , "Mobile development"
+        , "Performance analysis"
+        , "Production infrastructure"
+        , "Project maintenance"
+        , "Project setup"
+        , "Tooling choices"
+        , "Web development"
+        ]
   ]
 
 data Section =
