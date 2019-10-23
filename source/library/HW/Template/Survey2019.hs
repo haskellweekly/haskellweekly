@@ -64,6 +64,7 @@ sections =
   , communitySection
   , feelingsSection
   , demographicsSection
+  , metaSection
   , freeResponseSection
   ]
 
@@ -841,6 +842,30 @@ demographicsSection = Section
   , Question "Do you code as a hobby?" $ SingleResponse ["Yes", "No"]
   , Question "Have you contributed to any open source projects?"
     $ SingleResponse ["Yes", "No"]
+  ]
+
+metaSection :: Section
+metaSection = Section
+  "Meta"
+  [ Question "Did you take any previous surveys?"
+    $ MultiResponse RejectOther ["2018", "2017"]
+  , Question "How did you hear about this survey?" $ SingleResponse
+    [ "Discord"
+    , "GitHub"
+    , "Haskell Weekly"
+    , "Gitter"
+    , "In person"
+    , "IRC"
+    , "Lobsters"
+    , "Mailing lists"
+    , "Mastodon"
+    , "Matrix/Riot"
+    , "Reddit"
+    , "Slack"
+    , "Telegram"
+    , "Twitter"
+    , "Other"
+    ]
   ]
 
 freeResponseSection :: Section
