@@ -62,6 +62,7 @@ sections =
   , toolingSection
   , infrastructureSection
   , communitySection
+  , feelingsSection
   ]
 
 haskellUsageSection :: Section
@@ -482,6 +483,39 @@ communitySection = Section
         ]
   ]
 
+feelingsSection :: Section
+feelingsSection = Section
+  "Feelings"
+  [ likert "I feel welcome in the Haskell community."
+  , likert "I am satisfied with Haskell as a language."
+  , likert "I am satisfied with Haskell's compilers, such as GHC."
+  , likert "I am satisfied with Haskell's build tools, such as Cabal."
+  , likert
+    "I am satisfied with Haskell's package repositories, such as Hackage."
+  , likert "I can find Haskell libraries for the things that I need."
+  , likert "I think Haskell libraries are high quality."
+  , likert "I have a good understanding of Haskell best practices."
+  , likert "I think Haskell libraries are well documented."
+  , likert
+    "I can easily compare competing Haskell libraries to select the best one."
+  , likert "I think that Haskell libraries are easy to use."
+  , likert "I think that Haskell libraries provide a stable API."
+  , likert "I think that Haskell libraries work well together."
+  , likert "I think that software written in Haskell is easy to maintain."
+  , likert
+    "Once my Haskell program compiles, it generally does what I intended."
+  , likert "I think that Haskell libraries perform well."
+  , likert "Haskell's performance meets my needs."
+  , likert "I can easily reason about the performance of my Haskell code."
+  , likert "I would recommend using Haskell to others."
+  , likert "I would prefer to use Haskell for my next new project."
+  , likert "Haskell is working well for my team."
+  , likert "Haskell is critical to my company's success."
+  , likert "As a candidate, I can easily find Haskell jobs."
+  , likert
+    "As a hiring manager, I can easily find qualified Haskell candidates."
+  ]
+
 data Section =
   Section
     { sectionTitle :: Data.Text.Text
@@ -501,6 +535,10 @@ data Response
   | SingleResponse [Data.Text.Text]
   | MultiResponse Other [Data.Text.Text]
   deriving (Eq, Show)
+
+likert :: Data.Text.Text -> Question
+likert prompt = Question prompt $ SingleResponse
+  ["Strongly disagree", "Disagree", "Neutral", "Agree", " Strongly agree"]
 
 data Other
   = AllowOther
