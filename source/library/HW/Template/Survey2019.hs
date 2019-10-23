@@ -64,6 +64,7 @@ sections =
   , communitySection
   , feelingsSection
   , demographicsSection
+  , freeResponseSection
   ]
 
 haskellUsageSection :: Section
@@ -795,7 +796,7 @@ demographicsSection = Section
     $ SingleResponse ["Yes, full time", "Yes, part time", "No"]
   , Question "What is the highest level of education you have completed?"
     $ SingleResponse
-        [ "Less than high scholl diploma"
+        [ "Less than high school diploma"
         , "High school diploma"
         , "Some college"
         , "Associate degree"
@@ -842,6 +843,17 @@ demographicsSection = Section
     $ SingleResponse ["Yes", "No"]
   ]
 
+freeResponseSection :: Section
+freeResponseSection = Section
+  "Free response"
+  [ Question
+    "If you wanted to convince someone to use Haskell, what would you say?"
+    FreeResponse
+  , Question
+    "If you could change one thing about Haskell, what would it be?"
+    FreeResponse
+  ]
+
 data Section =
   Section
     { sectionTitle :: Data.Text.Text
@@ -860,6 +872,7 @@ data Response
   = Email
   | SingleResponse [Data.Text.Text]
   | MultiResponse Other [Data.Text.Text]
+  | FreeResponse
   deriving (Eq, Show)
 
 likert :: Data.Text.Text -> Question
@@ -917,4 +930,5 @@ renderQuestion question = H.li_ $ do
           H.input_ [H.name_ name, H.type_ "checkbox", H.value_ "other"]
           " Other: "
           H.input_ [H.name_ $ name <> " (other)"]
+    FreeResponse -> H.textarea_ [H.class_ "db h4 mv3 w-100", H.name_ name] ""
   H.input_ [H.name_ $ name <> " (time)", H.type_ "hidden"]
