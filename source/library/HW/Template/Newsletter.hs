@@ -42,6 +42,10 @@ newsletterHead baseUrl maybeIssue = do
   case maybeIssue of
     Nothing -> pure ()
     Just issue -> do
+      openGraph "description"
+        $ "News about the Haskell programming language from "
+        <> HW.Type.Date.dateToShortText (HW.Type.Issue.issueDate issue)
+        <> "."
       openGraph "image"
         $ HW.Type.Route.routeToTextWith baseUrl HW.Type.Route.RouteLogo
       openGraph "site_name" "Haskell Weekly"
