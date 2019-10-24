@@ -3,11 +3,14 @@ module HW.Handler.PodcastFeed
   )
 where
 
+import qualified Data.List
 import qualified Data.Map
+import qualified Data.Ord
 import qualified HW.Handler.Base
 import qualified HW.Template.PodcastFeed
 import qualified HW.Type.App
 import qualified HW.Type.Config
+import qualified HW.Type.Episode
 import qualified HW.Type.State
 import qualified Network.HTTP.Types
 import qualified Network.Wai
@@ -18,7 +21,10 @@ podcastFeedHandler = do
   state <- HW.Type.App.getState
   let
     baseUrl = HW.Type.Config.configBaseUrl $ HW.Type.State.stateConfig state
-    episodes = Data.Map.elems $ HW.Type.State.stateEpisodes state
+    episodes =
+      Data.List.sortOn (Data.Ord.Down . HW.Type.Episode.episodeDate)
+        . Data.Map.elems
+        $ HW.Type.State.stateEpisodes state
   pure
     . HW.Handler.Base.lbsResponse
         Network.HTTP.Types.ok200
