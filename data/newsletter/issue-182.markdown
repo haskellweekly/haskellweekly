@@ -26,3 +26,8 @@ undefined
 
 Looking for something to work on?
 Browse [Haskell Hacktoberfest issues](https://github.com/issues?q=is%3Aissue+is%3Aopen+label%3Ahacktoberfest+language%3Ahaskell) on GitHub.
+
+## Events
+
+- [Haskell talks at Mercury!](https://www.meetup.com/Bay-Area-Haskell-Users-Group/events/265110367) on October 29 in San Francisco
+  > It's finally time for another meetup! Come watch three great Haskell talks at Mercury's brand new office.
