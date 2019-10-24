@@ -1,5 +1,6 @@
 module HW.Template.Base
   ( baseTemplate
+  , metaOpenGraph
   )
 where
 
@@ -7,6 +8,7 @@ import qualified Data.Text
 import qualified HW.Type.BaseUrl
 import qualified HW.Type.Route
 import qualified Lucid as H
+import qualified Lucid.Base as H
 
 baseTemplate
   :: HW.Type.BaseUrl.BaseUrl
@@ -29,6 +31,20 @@ baseTemplate baseUrl title head_ body = do
           $ HW.Type.Route.routeToTextWith baseUrl HW.Type.Route.RouteTachyons
         , H.rel_ "stylesheet"
         ]
+      H.link_
+        [ H.href_
+          $ HW.Type.Route.routeToTextWith baseUrl HW.Type.Route.RouteLogo
+        , H.rel_ "apple-touch-icon"
+        ]
+      metaOpenGraph "image"
+        $ HW.Type.Route.routeToTextWith baseUrl HW.Type.Route.RouteLogo
+      metaOpenGraph "site_name" "Haskell Weekly"
+      metaOpenGraph "type" "website"
+      metaTwitter "card" "summary"
+      metaTwitter "creator" "@haskellweekly"
+      metaTwitter "image"
+        $ HW.Type.Route.routeToTextWith baseUrl HW.Type.Route.RouteLogo
+      metaTwitter "site" "@haskellweekly"
       head_
     H.body_ [H.class_ "bg-white black flex justify-center mh3 sans-serif"]
       . H.div_ [H.class_ "mw7 w-100"]
@@ -59,3 +75,11 @@ baseTemplate baseUrl title head_ body = do
                   ]
                   "on GitHub"
                 "."
+
+metaOpenGraph :: Data.Text.Text -> Data.Text.Text -> H.Html ()
+metaOpenGraph property content =
+  H.meta_ [H.content_ content, H.makeAttribute "property" $ "og:" <> property]
+
+metaTwitter :: Data.Text.Text -> Data.Text.Text -> H.Html ()
+metaTwitter name content =
+  H.meta_ [H.content_ content, H.name_ $ "twitter:" <> name]

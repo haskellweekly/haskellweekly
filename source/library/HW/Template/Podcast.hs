@@ -5,7 +5,6 @@ module HW.Template.Podcast
   )
 where
 
-import qualified Data.Text
 import qualified HW.Template.Base
 import qualified HW.Type.BaseUrl
 import qualified HW.Type.Date
@@ -14,7 +13,6 @@ import qualified HW.Type.Route
 import qualified HW.Type.Summary
 import qualified HW.Type.Title
 import qualified Lucid as H
-import qualified Lucid.Base as H
 
 podcastTemplate
   :: HW.Type.BaseUrl.BaseUrl -> [HW.Type.Episode.Episode] -> H.Html ()
@@ -44,30 +42,16 @@ podcastHead baseUrl maybeEpisode = do
   case maybeEpisode of
     Nothing -> pure ()
     Just episode -> do
-      openGraph "description"
+      HW.Template.Base.metaOpenGraph "description"
         . HW.Type.Summary.summaryToText
         $ HW.Type.Episode.episodeSummary episode
-      openGraph "image"
-        $ HW.Type.Route.routeToTextWith baseUrl HW.Type.Route.RouteLogo
-      openGraph "site_name" "Haskell Weekly"
-      openGraph "title"
+      HW.Template.Base.metaOpenGraph "title"
         . HW.Type.Title.titleToText
         $ HW.Type.Episode.episodeTitle episode
-      openGraph "type" "website"
-      openGraph "url"
+      HW.Template.Base.metaOpenGraph "url"
         . HW.Type.Route.routeToTextWith baseUrl
         . HW.Type.Route.RouteEpisode
         $ HW.Type.Episode.episodeNumber episode
-      twitter "card" "summary"
-      twitter "site" "@haskellweekly"
-
-openGraph :: Data.Text.Text -> Data.Text.Text -> H.Html ()
-openGraph property content =
-  H.meta_ [H.content_ content, H.makeAttribute "property" $ "og:" <> property]
-
-twitter :: Data.Text.Text -> Data.Text.Text -> H.Html ()
-twitter name content =
-  H.meta_ [H.content_ content, H.name_ $ "twitter:" <> name]
 
 podcastActionTemplate :: HW.Type.BaseUrl.BaseUrl -> H.Html ()
 podcastActionTemplate baseUrl =

@@ -5,7 +5,6 @@ module HW.Template.Newsletter
   )
 where
 
-import qualified Data.Text
 import qualified HW.Template.Base
 import qualified HW.Type.BaseUrl
 import qualified HW.Type.Date
@@ -42,32 +41,18 @@ newsletterHead baseUrl maybeIssue = do
   case maybeIssue of
     Nothing -> pure ()
     Just issue -> do
-      openGraph "description"
+      HW.Template.Base.metaOpenGraph "description"
         $ "News about the Haskell programming language from "
         <> HW.Type.Date.dateToShortText (HW.Type.Issue.issueDate issue)
         <> "."
-      openGraph "image"
-        $ HW.Type.Route.routeToTextWith baseUrl HW.Type.Route.RouteLogo
-      openGraph "site_name" "Haskell Weekly"
-      openGraph "title"
+      HW.Template.Base.metaOpenGraph "title"
         . mappend "Issue "
         . HW.Type.Number.numberToText
         $ HW.Type.Issue.issueNumber issue
-      openGraph "type" "website"
-      openGraph "url"
+      HW.Template.Base.metaOpenGraph "url"
         . HW.Type.Route.routeToTextWith baseUrl
         . HW.Type.Route.RouteIssue
         $ HW.Type.Issue.issueNumber issue
-      twitter "card" "summary"
-      twitter "site" "@haskellweekly"
-
-openGraph :: Data.Text.Text -> Data.Text.Text -> H.Html ()
-openGraph property content =
-  H.meta_ [H.content_ content, H.makeAttribute "property" $ "og:" <> property]
-
-twitter :: Data.Text.Text -> Data.Text.Text -> H.Html ()
-twitter name content =
-  H.meta_ [H.content_ content, H.name_ $ "twitter:" <> name]
 
 newsletterActionTemplate :: HW.Type.BaseUrl.BaseUrl -> H.Html ()
 newsletterActionTemplate baseUrl =
