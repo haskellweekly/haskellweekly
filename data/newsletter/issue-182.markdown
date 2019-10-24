@@ -91,6 +91,9 @@ This week's package of the week is [nonempty-vector](https://hackage.haskell.org
 Looking for something to work on?
 Browse [Haskell Hacktoberfest issues](https://github.com/issues?q=is%3Aissue+is%3Aopen+label%3Ahacktoberfest+language%3Ahaskell) on GitHub.
 
+-   [lightstep-haskell: Implement logs](https://github.com/ethercrow/lightstep-haskell/issues/4)
+-   [squeal: Slow query rendering](https://github.com/morphismtech/squeal/issues/158)
+
 ## Events
 
 - [Haskell talks at Mercury!](https://www.meetup.com/Bay-Area-Haskell-Users-Group/events/265110367) on October 29 in San Francisco
