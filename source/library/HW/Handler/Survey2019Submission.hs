@@ -60,7 +60,7 @@ survey2019SubmissionHandler request = do
                   [ "headers" Data.Aeson..= Data.Map.restrictKeys
                     headers
                     (Data.Set.fromList
-                      ["accept", "accept-language", "content-type"]
+                      ["accept", "accept-language", "user-agent"]
                     )
                   , "responses"
                     Data.Aeson..= Data.Map.restrictKeys responses questionNames
