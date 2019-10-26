@@ -3,7 +3,10 @@ module HW.Handler.Survey
   )
 where
 
+import qualified Control.Monad
 import qualified Control.Monad.IO.Class
+import qualified Data.Pool
+import qualified Database.PostgreSQL.Simple
 import qualified HW.Handler.Base
 import qualified HW.Template.Survey2017
 import qualified HW.Template.Survey2018
@@ -24,20 +27,34 @@ surveyHandler number = do
   let baseUrl = HW.Type.Config.configBaseUrl $ HW.Type.State.stateConfig state
   case HW.Type.Number.numberToNatural number of
     2017 ->
-      respondWith [(Network.HTTP.Types.hCacheControl, "public, max-age=900")]
+      respondWith
+          Network.HTTP.Types.ok200
+          [(Network.HTTP.Types.hCacheControl, "public, max-age=900")]
         $ HW.Template.Survey2017.survey2017Template baseUrl
     2018 ->
-      respondWith [(Network.HTTP.Types.hCacheControl, "public, max-age=900")]
+      respondWith
+          Network.HTTP.Types.ok200
+          [(Network.HTTP.Types.hCacheControl, "public, max-age=900")]
         $ HW.Template.Survey2018.survey2018Template baseUrl
     2019 -> do
       guid <- Control.Monad.IO.Class.liftIO
         $ fmap HW.Type.Guid.uuidToGuid System.Random.randomIO
-      respondWith [] $ HW.Template.Survey2019.survey2019Template baseUrl guid
+      Data.Pool.withResource (HW.Type.State.stateDatabase state)
+        $ \connection ->
+            Control.Monad.void
+              . Control.Monad.IO.Class.liftIO
+              $ Database.PostgreSQL.Simple.execute
+                  connection
+                  "insert into survey_2019_responses (guid) values (?)"
+                  [guid]
+      respondWith Network.HTTP.Types.created201 []
+        $ HW.Template.Survey2019.survey2019Template baseUrl guid
     _ -> pure HW.Handler.Base.notFoundResponse
 
 respondWith
-  :: Network.HTTP.Types.ResponseHeaders
+  :: Network.HTTP.Types.Status
+  -> Network.HTTP.Types.ResponseHeaders
   -> Lucid.Html ()
   -> HW.Type.App.App Network.Wai.Response
-respondWith headers =
-  pure . HW.Handler.Base.htmlResponse Network.HTTP.Types.ok200 headers
+respondWith status headers =
+  pure . HW.Handler.Base.htmlResponse status headers

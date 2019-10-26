@@ -9,6 +9,7 @@ where
 
 import qualified Data.IORef
 import qualified Data.Map
+import qualified Data.Pool
 import qualified Data.Text
 import qualified Data.Time
 import qualified Database.PostgreSQL.Simple
@@ -20,7 +21,7 @@ import qualified Network.Wai
 data State =
   State
     { stateConfig :: HW.Type.Config.Config
-    , stateDatabaseConnection :: Database.PostgreSQL.Simple.Connection
+    , stateDatabase :: Data.Pool.Pool Database.PostgreSQL.Simple.Connection
     , stateEpisodes :: HW.Episodes.Episodes
     , stateIssues :: HW.Issues.Issues
     , stateResponseCache :: Data.Map.Map (Data.Text.Text, Data.Text.Text) ( Data.Time.UTCTime
@@ -31,13 +32,19 @@ data State =
 -- will fail.
 configToState :: HW.Type.Config.Config -> IO State
 configToState config = do
-  databaseConnection <- Database.PostgreSQL.Simple.connectPostgreSQL
+  database <- Data.Pool.createPool
+    (Database.PostgreSQL.Simple.connectPostgreSQL
     $ HW.Type.Config.configDatabaseUrl config
+    )
+    Database.PostgreSQL.Simple.close
+    1
+    60
+    10
   episodes <- either fail pure HW.Episodes.episodes
   issues <- either fail pure HW.Issues.issues
   pure State
     { stateConfig = config
-    , stateDatabaseConnection = databaseConnection
+    , stateDatabase = database
     , stateEpisodes = episodes
     , stateIssues = issues
     , stateResponseCache = Data.Map.empty

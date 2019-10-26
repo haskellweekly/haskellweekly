@@ -1,5 +1,8 @@
 module HW.Template.Survey2019
   ( survey2019Template
+  , Section(sectionQuestions)
+  , Question(questionPrompt)
+  , sections
   )
 where
 
@@ -46,7 +49,7 @@ survey2019Template baseUrl guid =
           , "  document.querySelector('#survey').classList.remove('dn');"
           , "  document.querySelectorAll('input').forEach(function (input) {"
           , "    input.addEventListener('input', (event) => {"
-          , "      const selector = '[name=' + event.target.name + '_t]';"
+          , "      const selector = '[name=\"' + event.target.name + ' (time)\"]';"
           , "      const now = new Date().toISOString();"
           , "      document.querySelector(selector).value = now;"
           , "    });"
@@ -172,7 +175,7 @@ haskellUsageSection = Section
   , Question "Which types of software do you develop with Haskell?"
     $ MultiResponse
         AllowOther
-        [ "Agents of daemons"
+        [ "Agents or daemons"
         , "API services (returning non-HTML)"
         , "Automation or scripts"
         , "Command-line programs (CLI)"
@@ -952,8 +955,7 @@ renderQuestion question = H.li_ $ do
       case other of
         RejectOther -> pure ()
         AllowOther -> H.label_ [H.class_ "db"] $ do
-          H.input_ [H.name_ name, H.type_ "checkbox", H.value_ "other"]
-          " Other: "
-          H.input_ [H.name_ $ name <> " (other)"]
+          "Other: "
+          H.input_ [H.name_ name]
     FreeResponse -> H.textarea_ [H.class_ "db h4 mv3 w-100", H.name_ name] ""
   H.input_ [H.name_ $ name <> " (time)", H.type_ "hidden"]

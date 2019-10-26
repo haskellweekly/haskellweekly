@@ -2,7 +2,7 @@ cabal-version: 2.2
 -- https://www.haskell.org/cabal/users-guide/developing-packages.html#package-descriptions
 
 name: haskellweekly
-version: 0.2019.10.24
+version: 0.2019.10.26
 
 category: Web
 description:
@@ -29,6 +29,7 @@ source-repository head
 
 common library
   build-depends:
+    aeson >= 1.4.4 && < 1.5,
     base >= 4.11.1 && < 4.14,
     base64-bytestring >= 1.0.0 && < 1.1,
     bytestring >= 0.10.8 && < 0.11,
@@ -43,6 +44,7 @@ common library
     network-uri >= 2.6.1 && < 2.7,
     postgresql-simple >= 0.5.4 && < 0.7,
     random >= 1.1 && < 1.2,
+    resource-pool >= 0.2.3 && < 0.3,
     text >= 1.2.3 && < 1.3,
     time >= 1.8.0 && < 1.10,
     transformers >= 0.5.5 && < 0.6,
