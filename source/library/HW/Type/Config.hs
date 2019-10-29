@@ -35,7 +35,7 @@ getConfig = do
   dataDirectory <- getDataDirectory
   googleSiteVerification <- getGoogleSiteVerification
   port <- getPort
-  baseUrl <- getBaseUrl port
+  baseUrl <- getBaseUrl
   pure Config
     { configBaseUrl = baseUrl
     , configDatabaseUrl = databaseUrl
@@ -47,12 +47,10 @@ getConfig = do
 -- | Gets the base URL that the server will be available at. This is necessary
 -- because the server could be behind a reverse proxy or in a container or
 -- something.
-getBaseUrl :: Network.Wai.Handler.Warp.Port -> IO HW.Type.BaseUrl.BaseUrl
-getBaseUrl port = do
-  maybeString <- System.Environment.lookupEnv "BASE_URL"
-  pure . HW.Type.BaseUrl.textToBaseUrl . Data.Text.pack $ Data.Maybe.fromMaybe
-    ("http://localhost:" <> show port)
-    maybeString
+getBaseUrl :: IO HW.Type.BaseUrl.BaseUrl
+getBaseUrl =
+  fmap (HW.Type.BaseUrl.textToBaseUrl . maybe Data.Text.empty Data.Text.pack)
+    $ System.Environment.lookupEnv "BASE_URL"
 
 -- | Gets the database connection information. Although this says "URL" it
 -- could also be a PostgreSQL connection string. That means both
