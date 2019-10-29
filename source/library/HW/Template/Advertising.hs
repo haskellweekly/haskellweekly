@@ -5,6 +5,7 @@ where
 
 import qualified HW.Template.Base
 import qualified HW.Type.BaseUrl
+import qualified HW.Type.Route
 import qualified Lucid as H
 
 advertisingTemplate :: HW.Type.BaseUrl.BaseUrl -> H.Html ()
@@ -20,7 +21,10 @@ advertisingTemplate baseUrl =
         H.ul_ . H.li_ $ do
           H.p_ $ do
             H.a_
-              [H.href_ "#"]
+              [ H.href_ $ HW.Type.Route.routeToTextWith
+                  baseUrl
+                  HW.Type.Route.RouteAdvertising
+              ]
               "Reach an engaged audience by advertising with Haskell Weekly!"
             " (ad)"
           H.p_ $ do
