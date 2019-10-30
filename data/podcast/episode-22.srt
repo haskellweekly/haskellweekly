@@ -1,42 +1,46 @@
 1
 00:00:01,470 --> 00:00:04,540
-hello and welcome to the Haskell weekly
+>> Hello and welcome to the Haskell Weekly
 
 2
 00:00:03,910 --> 00:00:06,730
-podcast
+podcast.
 
 3
 00:00:04,540 --> 00:00:09,639
-I'm your host Taylor fossick I'm the
+I'm your host Taylor Fausak. I'm the
 
 4
 00:00:06,730 --> 00:00:11,110
-lead engineer at IT Pro TV and with me
+lead engineer at ITProTV. And with me
 
 5
 00:00:09,639 --> 00:00:13,269
-today is Cameron Guerra
+today is Cameron Gera,
 
 6
 00:00:11,110 --> 00:00:14,740
-one of the engineers on my team thanks
+one of the engineers on my team. Thanks
 
 7
 00:00:13,269 --> 00:00:16,869
-for joining me cam thanks for having me
+for joining me, Cam!
+>> Thanks for having me,
 
 8
 00:00:14,740 --> 00:00:17,919
-Taylor spin a little bit yeah it's been
+Taylor! It's been a little bit.
+>> Yeah it's been
 
 9
 00:00:16,869 --> 00:00:20,770
-a little bit we're happy to have you
+a little bit. We're happy to have you
 
 10
 00:00:17,919 --> 00:00:22,540
-back on the podcast appreciate that so
+back on the podcast.
+>> Appreciate that.
+>> So
 
 11
 00:00:20,770 --> 00:00:24,840
@@ -44,47 +48,49 @@ today we are going to be talking about
 
 12
 00:00:22,540 --> 00:00:27,279
-Haskell of course but more specifically
+Haskell of course, but more specifically
 
 13
 00:00:24,840 --> 00:00:29,050
-refactoring and types but what's the
+refactoring and types. What's the
 
 14
 00:00:27,279 --> 00:00:32,320
-article we're gonna be covering cam yeah
+article we're gonna be covering, Cam?
+>> Yeah
 
 15
 00:00:29,050 --> 00:00:34,300
-so it's it's an article by Tom Ellis so
+so it's it's an article by Tom Ellis.
 
 16
 00:00:32,320 --> 00:00:37,000
-it's called good design and type safety
+It's called "Good Design and Type Safety
 
 17
 00:00:34,300 --> 00:00:40,719
-in yacht in Yahtzee which is I'm
+in Yahtzee" which is
 
 18
 00:00:37,000 --> 00:00:43,030
-actually a article looking at another
+actually an article looking at another
 
 19
 00:00:40,719 --> 00:00:44,379
-article improving some code and doing
+article, improving some code, and doing
 
 20
 00:00:43,030 --> 00:00:46,929
-some refactoring which is a really
+some refactoring, which is really,
 
 21
 00:00:44,379 --> 00:00:49,570
-really informational so I'm really
+really informational. So I'm really
 
 22
 00:00:46,929 --> 00:00:51,519
-excited about today me too because this
+excited about today.
+>> Me too! Because this
 
 23
 00:00:49,570 --> 00:00:53,320
@@ -112,31 +118,32 @@ harder to read and didn't give them too
 
 29
 00:01:00,879 --> 00:01:04,720
-much type safety right yeah the words
+much type safety.
+>> Right yeah. The words
 
 30
 00:01:03,190 --> 00:01:05,740
-that you use were unreadable and
+they used were "unreadable" and
 
 31
 00:01:04,720 --> 00:01:09,549
-unmaintainable
+"unmaintainable",
 
 32
 00:01:05,740 --> 00:01:11,079
-which bad words I looking at the code it
+which I get. Looking at the code, it
 
 33
 00:01:09,549 --> 00:01:13,450
-was pretty hard to read yeah and I was
+was pretty hard to read. And I was
 
 34
 00:01:11,079 --> 00:01:15,250
-like but there has to be a better way
+like, there has to be a better way.
 
 35
 00:01:13,450 --> 00:01:16,509
-you know there's all kinds of stuff and
+You know there's all kinds of stuff and
 
 36
 00:01:15,250 --> 00:01:19,329
@@ -156,7 +163,7 @@ something you just throw on it's
 
 40
 00:01:24,130 --> 00:01:30,070
-something that you design with right you
+something that you design with you
 
 41
 00:01:27,430 --> 00:01:32,649
@@ -172,7 +179,8 @@ you to really feel confident about the
 
 44
 00:01:34,000 --> 00:01:37,990
-code you're writing exactly so instead
+code you're writing
+>> exactly so instead
 
 45
 00:01:35,829 --> 00:01:40,689
@@ -184,11 +192,12 @@ throwing types on it you kind of develop
 
 47
 00:01:40,689 --> 00:01:46,960
-the types and the design in lockstep run
+the types and the design in lockstep one
 
 48
 00:01:43,930 --> 00:01:49,689
-influences the other mm-hmm okay which i
+influences the other okay
+>> which i
 
 49
 00:01:46,960 --> 00:01:51,850
@@ -220,7 +229,8 @@ then that's what we use with the
 
 56
 00:02:02,049 --> 00:02:06,909
-implementation right yeah so this is
+implementation
+>> right yeah so this is
 
 57
 00:02:05,649 --> 00:02:08,200
@@ -240,7 +250,7 @@ hard to communicate code over voice
 
 61
 00:02:12,250 --> 00:02:16,239
-right but you know
+>> right but you know
 
 62
 00:02:13,989 --> 00:02:18,069
@@ -268,7 +278,7 @@ so it's one to six
 
 68
 00:02:28,180 --> 00:02:34,659
-mm-hm and yeah so what we're doing I
+and yeah so what we're doing I
 
 69
 00:02:30,370 --> 00:02:37,209
@@ -284,7 +294,8 @@ it's called all roles as the function
 
 72
 00:02:39,340 --> 00:02:43,659
-we're gonna kind of be evaluating yeah
+we're gonna kind of be evaluating
+>> yeah
 
 73
 00:02:41,230 --> 00:02:45,370
@@ -296,7 +307,7 @@ Dominus the blog post he wrote about it
 
 75
 00:02:45,370 --> 00:02:52,269
-it has some role Kazuma Blee from a game
+it has some role presumably from a game
 
 76
 00:02:49,269 --> 00:02:54,669
@@ -312,7 +323,7 @@ then figure out what the next results
 
 79
 00:02:56,439 --> 00:02:59,530
-gonna be mm-hmm
+gonna be
 
 80
 00:02:57,310 --> 00:03:02,139
@@ -320,7 +331,7 @@ so that's the that's the game plan here
 
 81
 00:02:59,530 --> 00:03:04,930
-and as Kim mentioned this kind of starts
+and as Cam mentioned this kind of starts
 
 82
 00:03:02,139 --> 00:03:06,669
@@ -352,7 +363,7 @@ like wrapping unwrapping things going on
 
 89
 00:03:14,769 --> 00:03:21,489
-right so yeah I mean the type safety
+>> right yeah I mean the type safety
 
 90
 00:03:18,549 --> 00:03:22,959
@@ -368,7 +379,7 @@ really excited to kind of dive dive in
 
 93
 00:03:25,799 --> 00:03:32,049
-so let's do that let's dive right in and
+>> so let's do that let's dive right in and
 
 94
 00:03:28,829 --> 00:03:33,489
@@ -380,7 +391,7 @@ original implementation just kind of
 
 96
 00:03:33,489 --> 00:03:38,199
-repeated in full mm-hmm
+repeated in full
 
 97
 00:03:35,650 --> 00:03:40,419
@@ -392,11 +403,13 @@ is applying a bunch of very small
 
 99
 00:03:40,419 --> 00:03:46,629
-refactorings to this piece of code an
+refactorings to this piece of code
+>> an
 
 100
 00:03:43,479 --> 00:03:48,519
-iterative basis yeah iteratively so at
+iterative basis
+>> yeah iteratively so at
 
 101
 00:03:46,629 --> 00:03:51,069
@@ -420,7 +433,8 @@ a little more type safety so let's
 
 106
 00:03:58,359 --> 00:04:01,930
-measure it in that direction right and
+measure it in that direction
+>> Right and
 
 107
 00:04:00,220 --> 00:04:04,120
@@ -480,7 +494,8 @@ you know the common you know best
 
 121
 00:04:31,060 --> 00:04:36,220
-practices of Haskell right um yeah it's
+practices of Haskell
+>> Right um yeah it's
 
 122
 00:04:33,220 --> 00:04:37,750
@@ -508,7 +523,7 @@ there's a lot of the kind of beginner
 
 128
 00:04:44,530 --> 00:04:47,890
-stuff of like here's a Mont here's how
+stuff of like here's a monad here's how
 
 129
 00:04:46,210 --> 00:04:49,270
@@ -536,7 +551,7 @@ just how do you make software better
 
 135
 00:04:55,600 --> 00:05:00,430
-right yeah which I'm a fan of because
+>> right yeah which I'm a fan of because
 
 136
 00:04:58,330 --> 00:05:02,500
@@ -612,7 +627,8 @@ undefined and runtime and you're blowing
 
 154
 00:05:38,410 --> 00:05:42,490
-up right now and you're blowing up with
+up
+>> Right now and you're blowing up with
 
 155
 00:05:40,479 --> 00:05:44,080
@@ -632,7 +648,8 @@ peace yeah so how do they improve the
 
 159
 00:05:48,520 --> 00:05:53,919
-situation right so he says you know all
+situation
+>> Right so he says you know all
 
 160
 00:05:51,669 --> 00:05:57,070
@@ -668,7 +685,7 @@ or values that you're working in it's
 
 168
 00:06:09,070 --> 00:06:12,250
-alright
+>> alright
 
 169
 00:06:09,460 --> 00:06:13,930
@@ -688,7 +705,8 @@ say okay well I can track things down a
 
 173
 00:06:17,590 --> 00:06:22,780
-little bit yeah and the other thing he
+little bit
+>> Yeah and the other thing he
 
 174
 00:06:19,870 --> 00:06:26,140
@@ -724,7 +742,7 @@ here you know we're gonna fail
 
 182
 00:06:39,940 --> 00:06:44,440
-yes so if your pattern matching on like
+>> yes so if your pattern matching on like
 
 183
 00:06:42,730 --> 00:06:46,330
@@ -772,7 +790,8 @@ that catch-all but it may not be working
 
 194
 00:07:03,160 --> 00:07:08,080
-the way you expect right so you know he
+the way you expect
+>> Right so you know he
 
 195
 00:07:05,650 --> 00:07:09,760
@@ -796,7 +815,7 @@ structures that wasn't working right and
 
 200
 00:07:17,050 --> 00:07:22,420
-you know with the Warhol which or warned
+you know with the warn all which or warned
 
 201
 00:07:20,080 --> 00:07:24,910
@@ -812,7 +831,8 @@ on he's able to find that there's
 
 204
 00:07:26,020 --> 00:07:32,110
-another invariant in there yeah so he
+another invariant in there
+>> Yeah so he
 
 205
 00:07:29,230 --> 00:07:34,090
@@ -836,7 +856,7 @@ hiding behind this thing mm-hmm
 
 210
 00:07:39,010 --> 00:07:43,870
-yeah and I've everything down the road
+>> yeah and I've everything down the road
 
 211
 00:07:40,990 --> 00:07:47,590
@@ -920,7 +940,7 @@ that up to the type system like I said
 
 231
 00:08:34,210 --> 00:08:38,620
-yeah and even though we're talking about
+>> yeah and even though we're talking about
 
 232
 00:08:35,789 --> 00:08:40,690
@@ -968,7 +988,8 @@ that's done that legwork to say well I
 
 243
 00:08:57,190 --> 00:09:00,430
-looked at all the cases right you're
+looked at all the cases
+>> Right you're
 
 244
 00:08:58,810 --> 00:09:02,529
@@ -1020,7 +1041,8 @@ glean that and you know some information
 
 256
 00:09:23,980 --> 00:09:28,000
-from that process so moving on from the
+from that process
+>> So moving on from the
 
 257
 00:09:26,710 --> 00:09:29,800
@@ -1048,7 +1070,8 @@ things and they pull them out into two
 
 263
 00:09:39,310 --> 00:09:46,360
-functions yeah I don't think you know a
+functions
+>> Yeah I don't think you know a
 
 264
 00:09:43,330 --> 00:09:49,120
@@ -1056,7 +1079,8 @@ function doing multiple things is always
 
 265
 00:09:46,360 --> 00:09:50,500
-the clearest choice mm-hmm especially
+the clearest choice mm-hmm
+>> Especially
 
 266
 00:09:49,120 --> 00:09:52,660
@@ -1076,7 +1100,7 @@ stitching a bunch of other things to get
 
 270
 00:09:57,070 --> 00:10:00,550
-right right right but pure functions
+>> right right right but pure functions
 
 271
 00:09:58,720 --> 00:10:02,860
@@ -1084,7 +1108,7 @@ yeah there's no reason to do that mm-hmm
 
 272
 00:10:00,550 --> 00:10:06,220
-and as we'll see later on it can often
+>> and as we'll see later on it can often
 
 273
 00:10:02,860 --> 00:10:08,380
@@ -1104,7 +1128,7 @@ level function that does everything
 
 277
 00:10:10,810 --> 00:10:13,839
-right yeah definitely makes refactoring
+>> right yeah definitely makes refactoring
 
 278
 00:10:13,570 --> 00:10:16,720
@@ -1168,7 +1192,8 @@ or is it nothing and the air is handled
 
 293
 00:10:48,730 --> 00:10:53,380
-within the separate function yeah it
+within the separate function
+>> Yeah it
 
 294
 00:10:51,160 --> 00:10:56,050
@@ -1224,7 +1249,8 @@ when I'm here I just have to pattern
 
 307
 00:11:13,209 --> 00:11:18,550
-match on that maybe right yeah image
+match on that maybe
+>> Right yeah image
 
 308
 00:11:15,850 --> 00:11:20,199
@@ -1260,7 +1286,8 @@ bite size pieces rather than a whole sub
 
 316
 00:11:33,639 --> 00:11:38,379
-or something you know yeah it's almost
+or something
+>> You know yeah it's almost
 
 317
 00:11:35,949 --> 00:11:39,939
@@ -1292,7 +1319,8 @@ keep bouncing around other definitions
 
 324
 00:11:48,189 --> 00:11:54,360
-makes our I don't you come out cool well
+makes our I don't you come out
+>> Cool well
 
 325
 00:11:52,120 --> 00:11:56,949
@@ -1432,7 +1460,8 @@ because we actually don't expect to be
 
 359
 00:13:12,279 --> 00:13:16,360
-here like it's not a final value right
+here like it's not a final value
+>> Right
 
 360
 00:13:14,019 --> 00:13:18,819
@@ -1492,7 +1521,8 @@ use types or use tests but really you
 
 374
 00:13:45,399 --> 00:13:50,999
-use both right both help right and
+use both right both help
+>> Right and
 
 375
 00:13:47,679 --> 00:13:53,679
@@ -1580,7 +1610,8 @@ used we can factor them out a little bit
 
 396
 00:14:37,179 --> 00:14:40,600
-better right because it's a lot easier
+better
+>> Right because it's a lot easier
 
 397
 00:14:38,470 --> 00:14:43,419
@@ -1596,7 +1627,8 @@ half a tuple One Bowl oh one pool okay
 
 400
 00:14:48,119 --> 00:14:55,539
-just parens mm-hmm so yeah he kind of
+just parens mm-hmm
+>> So yeah he kind of
 
 401
 00:14:52,149 --> 00:14:58,029
@@ -1604,7 +1636,8 @@ takes a couple steps to rearrange some
 
 402
 00:14:55,539 --> 00:15:00,459
-stuff yeah and I think it's interesting
+stuff
+>> Yeah and I think it's interesting
 
 403
 00:14:58,029 --> 00:15:02,470
@@ -1676,7 +1709,8 @@ an argument to a function which as we
 
 420
 00:15:35,920 --> 00:15:38,529
-said is a little easier to manage mm-hmm
+said is a little easier to manage
+>> Mm-hmm
 
 421
 00:15:37,600 --> 00:15:40,750
@@ -1728,7 +1762,8 @@ let's figure out where the real
 
 433
 00:16:04,000 --> 00:16:07,120
-connection is here right he's not saying
+connection is here
+>> Right he's not saying
 
 434
 00:16:06,130 --> 00:16:08,290
@@ -1744,7 +1779,8 @@ right right now right here
 
 437
 00:16:09,700 --> 00:16:14,560
-so let's pry it apart right so I think
+so let's pry it apart
+>> Right so I think
 
 438
 00:16:12,279 --> 00:16:16,870
@@ -1816,7 +1852,8 @@ oh let's let's bring it do something
 
 455
 00:16:52,690 --> 00:16:57,459
-better yeah and in case in point the
+better
+>> Yeah and in case in point the
 
 456
 00:16:55,089 --> 00:16:59,650
@@ -1840,7 +1877,8 @@ and find the better ways to do those
 
 461
 00:17:04,929 --> 00:17:11,620
-things yeah so I think that's cool
+things
+>> Yeah so I think that's cool
 
 462
 00:17:08,170 --> 00:17:13,120
@@ -1904,7 +1942,8 @@ that it's not that direction but yeah
 
 477
 00:17:45,309 --> 00:17:49,659
-the function declaration so instead of
+the function declaration
+>> So instead of
 
 478
 00:17:47,590 --> 00:17:50,950
@@ -1928,7 +1967,8 @@ and pass that original tuple straight
 
 483
 00:17:56,710 --> 00:18:02,590
-through mm-hmm yeah which is a nice nice
+through
+>> Mm-hmm yeah which is a nice nice
 
 484
 00:18:00,100 --> 00:18:04,929
@@ -1936,7 +1976,8 @@ add you know there's nothing wrong with
 
 485
 00:18:02,590 --> 00:18:06,399
-D structuring the tuple but it makes it
+D structuring the tuple
+>> But it makes it
 
 486
 00:18:04,929 --> 00:18:08,019
@@ -1960,7 +2001,8 @@ not you're just building that thing
 
 491
 00:18:12,669 --> 00:18:16,629
-again later right now if you later
+again later
+>> Right now if you later
 
 492
 00:18:14,919 --> 00:18:17,830
@@ -1980,11 +2022,12 @@ another function there's no reason to do
 
 496
 00:18:21,399 --> 00:18:26,919
-that the next one I think is the big one
+that the next one
+>> i think is the big one
 
 497
 00:18:24,610 --> 00:18:27,850
-is the Big Kahuna if you know what I
+>> is the Big Kahuna if you know what I
 
 498
 00:18:26,919 --> 00:18:30,070
@@ -2008,7 +2051,7 @@ to do effectively
 
 503
 00:18:34,960 --> 00:18:39,759
-yeah and I back it up a little bit all
+>> yeah and I back it up a little bit all
 
 504
 00:18:37,840 --> 00:18:41,019
@@ -2032,7 +2075,8 @@ weird pattern let's do it this other way
 
 509
 00:18:44,950 --> 00:18:51,909
-instead mm-hmm yeah and I mean Italy the
+instead
+>> Mm-hmm yeah and I mean Italy the
 
 510
 00:18:49,419 --> 00:18:53,769
@@ -2068,11 +2112,13 @@ school is it's gonna hold your hand
 
 518
 00:19:04,899 --> 00:19:08,980
-through yeah it helps you along the way
+through
+>> Yeah it helps you along the way
 
 519
 00:19:06,159 --> 00:19:10,929
-right so this next big one is this idea
+right
+>> So this next big one is this idea
 
 520
 00:19:08,980 --> 00:19:12,820
@@ -2108,7 +2154,8 @@ we you know or the function and types
 
 528
 00:19:28,570 --> 00:19:32,710
-are doing what we expected yeah we added
+are doing what we expected yeah
+>> We added
 
 529
 00:19:31,179 --> 00:19:34,360
@@ -2140,7 +2187,8 @@ so that it doesn't need that argument
 
 536
 00:19:43,600 --> 00:19:48,700
-anymore right you know and pushing out
+anymore
+>> Right you know and pushing out
 
 537
 00:19:46,570 --> 00:19:51,669
@@ -2200,7 +2248,8 @@ we just need to do an action right so I
 
 551
 00:20:20,390 --> 00:20:23,900
-think that's really cool yeah so that's
+think that's really cool
+>> Yeah so that's
 
 552
 00:20:22,460 --> 00:20:25,250
@@ -2256,7 +2305,8 @@ and pushes them into the type system
 
 565
 00:20:49,670 --> 00:20:55,880
-mm-hmm oh yeah the big kahuna yep
+>> mm-hmm oh yeah the big kahuna
+>> Yep
 
 566
 00:20:54,350 --> 00:20:58,580
@@ -2264,7 +2314,8 @@ the other big kahuna there's two of them
 
 567
 00:20:55,880 --> 00:20:59,630
-yeah yeah which I mean that's kind of
+yeah
+>> Yeah which I mean that's kind of
 
 568
 00:20:58,580 --> 00:21:00,710
@@ -2320,7 +2371,8 @@ kind of talking here but no we're trying
 
 581
 00:21:28,820 --> 00:21:33,740
-Travis and this step actually reminds me
+Travis
+>> And this step actually reminds me
 
 582
 00:21:32,060 --> 00:21:36,050
@@ -2416,7 +2468,8 @@ at the top level that says okay combine
 
 605
 00:22:14,390 --> 00:22:20,380
-these two things right and you know it
+these two things
+>> Right and you know it
 
 606
 00:22:16,910 --> 00:22:23,300
@@ -2464,7 +2517,7 @@ just pattern match yeah it's just steps
 
 617
 00:22:45,740 --> 00:22:50,300
-you don't need to go 0 to 100 in one
+>> you don't need to go 0 to 100 in one
 
 618
 00:22:47,660 --> 00:22:52,340
@@ -2520,7 +2573,8 @@ just Traverse or map M or something like
 
 631
 00:23:10,820 --> 00:23:17,000
-that right which you'll see later
+that
+>> Right which you'll see later
 
 632
 00:23:13,310 --> 00:23:20,170
@@ -2596,7 +2650,8 @@ this bind operator right here is not
 
 650
 00:24:00,140 --> 00:24:03,770
-helpful right yeah it's got to bind
+helpful
+>> Right yeah it's got to bind
 
 651
 00:24:02,120 --> 00:24:05,840
@@ -2620,7 +2675,7 @@ weird Haskell operator and how it works
 
 656
 00:24:12,020 --> 00:24:15,650
-right which direction is it going what's
+>> right which direction is it going what's
 
 657
 00:24:13,940 --> 00:24:18,230
@@ -2628,7 +2683,8 @@ you know obviously the type system gonna
 
 658
 00:24:15,650 --> 00:24:20,720
-help you with that but yeah and I'm with
+help you with that but
+>> Yeah and I'm with
 
 659
 00:24:18,230 --> 00:24:22,820
@@ -2652,7 +2708,8 @@ it just it's so much more familiar to a
 
 664
 00:24:28,330 --> 00:24:32,380
-lot of programmers right because it's a
+lot of programmers
+>> Right because it's a
 
 665
 00:24:30,400 --> 00:24:34,620
@@ -2664,7 +2721,7 @@ this value now I can use that value here
 
 667
 00:24:34,620 --> 00:24:42,390
-and even in cases like this where we're
+>> and even in cases like this where we're
 
 668
 00:24:37,720 --> 00:24:44,680
@@ -2720,7 +2777,7 @@ but we still use do notation right nice
 
 681
 00:25:05,590 --> 00:25:10,840
-good old list monad
+>> good old list monad
 
 682
 00:25:08,610 --> 00:25:16,330
@@ -2772,7 +2829,8 @@ doing some operation on each value
 
 694
 00:25:43,840 --> 00:25:49,630
-mm-hmm that's a map and so he's like hey
+>> mm-hmm that's a map
+>> And so he's like hey
 
 695
 00:25:47,290 --> 00:25:51,940
@@ -2780,7 +2838,8 @@ and you know we're in the list monad so
 
 696
 00:25:49,630 --> 00:25:54,210
-let's use math in right because the
+let's use math in
+>> Right because the
 
 697
 00:25:51,940 --> 00:25:57,790
@@ -2828,7 +2887,7 @@ works
 
 708
 00:26:11,740 --> 00:26:18,760
-mm-hmm yeah no and I think that was a
+>> mm-hmm yeah no and I think that was a
 
 709
 00:26:14,860 --> 00:26:22,030
@@ -2840,7 +2899,8 @@ it from five you know seven lines to to
 
 711
 00:26:22,030 --> 00:26:27,490
-write it really crunches it down right
+>> write it really crunches it down
+>> Right
 
 712
 00:26:24,280 --> 00:26:29,710
@@ -2848,11 +2908,12 @@ and and it's not any less clear right
 
 713
 00:26:27,490 --> 00:26:31,030
-I'd argue it's more clear right even
+>> I'd argue it's more clear right even
 
 714
 00:26:29,710 --> 00:26:32,590
-though it's shorter right because you
+though it's shorter right
+>> Because you
 
 715
 00:26:31,030 --> 00:26:34,810
@@ -2872,11 +2933,12 @@ really cool
 
 719
 00:26:37,450 --> 00:26:41,640
-and then finally we get to the last
+>> and then finally we get to the last
 
 720
 00:26:39,360 --> 00:26:46,080
-factor which is one we've done an entire
+factor
+>> Which is one we've done an entire
 
 721
 00:26:41,640 --> 00:26:48,480
@@ -2924,7 +2986,8 @@ use that in an operation it's yeah it's
 
 732
 00:27:10,860 --> 00:27:16,140
-not clear right so in this particular
+not clear
+>> Right so in this particular
 
 733
 00:27:13,080 --> 00:27:17,940
@@ -2976,7 +3039,8 @@ intent much better than a tuple with
 
 745
 00:27:36,299 --> 00:27:39,870
-these two things in it right
+these two things in it
+>> Right
 
 746
 00:27:37,860 --> 00:27:42,780
@@ -3004,7 +3068,8 @@ data type into the boolean result you
 
 752
 00:27:51,600 --> 00:27:56,220
-want right or you can pattern match on
+want
+>> Right or you can pattern match on
 
 753
 00:27:53,610 --> 00:27:57,419
@@ -3036,11 +3101,13 @@ do this or if we're keeping it do that
 
 760
 00:28:06,480 --> 00:28:12,690
-right boolean blindness so much nicer
+>> right boolean blindness
+>> So much nicer
 
 761
 00:28:09,809 --> 00:28:16,200
-being a blind yeah I love seeing yeah I
+being a blind
+>> Yeah I love seeing yeah I
 
 762
 00:28:12,690 --> 00:28:19,559
@@ -3068,15 +3135,17 @@ I just also the normal case statement in
 
 768
 00:28:31,559 --> 00:28:36,840
-my mind is it's not that much worse
+my mind is
+>> It's not that much worse
 
 769
 00:28:33,090 --> 00:28:41,070
-right I'm not so yeah and there you can
+>> right I'm not so yeah and there you can
 
 770
 00:28:36,840 --> 00:28:43,470
-you know you were uncontroversial yeah I
+you know you were uncontroversial
+>> Yeah I
 
 771
 00:28:41,070 --> 00:28:45,960
@@ -3168,7 +3237,7 @@ Yahtzee in Haskell
 
 793
 00:29:24,450 --> 00:29:29,280
-oh yeah and we can understand what we
+>> oh yeah and we can understand what we
 
 794
 00:29:26,850 --> 00:29:31,980
@@ -3224,7 +3293,8 @@ you can create a beautiful work of art
 
 807
 00:30:02,100 --> 00:30:05,670
-and you know yeah and and we now have
+and you know
+>> Yeah and and we now have
 
 808
 00:30:04,170 --> 00:30:07,470
@@ -3244,7 +3314,8 @@ influences your types as well that's the
 
 812
 00:30:11,370 --> 00:30:17,100
-sweet spot to be in oh so sweet yeah I
+sweet spot to be in
+>> Oh so sweet yeah I
 
 813
 00:30:15,390 --> 00:30:18,450
@@ -3264,7 +3335,8 @@ little hefty but it's a good
 
 817
 00:30:24,960 --> 00:30:29,490
-intermediate post yeah and it really
+intermediate post
+>> Yeah and it really
 
 818
 00:30:27,090 --> 00:30:31,830
@@ -3296,7 +3368,8 @@ the right direction with a lot of these
 
 825
 00:30:43,440 --> 00:30:48,270
-decisions it makes them easy right yeah
+decisions it makes them easy
+>> Right yeah
 
 826
 00:30:45,420 --> 00:30:50,100
@@ -3312,7 +3385,7 @@ appreciate being on the show today
 
 829
 00:30:51,300 --> 00:30:55,560
-thanks for being on the show with me cam
+>> thanks for being on the show with me cam
 
 830
 00:30:52,920 --> 00:30:57,150
@@ -3344,7 +3417,8 @@ talking about Haskell once again who
 
 837
 00:31:09,270 --> 00:31:14,190
-knows what though yeah and you know
+knows what though
+>> Yeah and you know
 
 838
 00:31:11,330 --> 00:31:17,130
@@ -3360,7 +3434,7 @@ networking geeks need any training
 
 841
 00:31:19,680 --> 00:31:25,650
-please have them check out IT Pro TV
+please have them check out itpro.tv
 
 842
 00:31:23,460 --> 00:31:27,600
@@ -3380,7 +3454,8 @@ excited and we're definitely gonna miss
 
 846
 00:31:33,420 --> 00:31:38,210
-you guys but we'll be back next week see
+you guys but we'll be back next week
+>> See
 
 847
 00:31:35,970 --> 00:31:38,210
