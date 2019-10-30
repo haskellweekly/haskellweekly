@@ -54,6 +54,7 @@ episodes = do
     , episode20
     , episode21
     , episode22
+    , episode23
     ]
   checkGuids validEpisodes Data.Set.empty
   checkNumbers validEpisodes 1
@@ -472,3 +473,25 @@ episode22 =
     <*> HW.Type.Summary.textToSummary
           "Cameron Gera and Taylor Fausak discuss using types to guide refactoring toward better design."
     <*> HW.Type.Title.textToTitle "Refactoring Yahtzee"
+
+episode23 :: Either String HW.Type.Episode.Episode
+episode23 =
+  HW.Type.Episode.Episode
+    <$> HW.Type.Articles.textsToArticles
+          [ "https://begriffs.com/posts/2015-07-22-essence-of-frp.html"
+          , "https://www.seas.upenn.edu/~cis194/fall16/lectures/11-frp.html"
+          , "https://apfelmus.nfshost.com/blog/2011/05/06-frp-why-functors.html"
+          , "https://stackoverflow.com/questions/1028250/what-is-functional-reactive-programming"
+          , "https://wiki.haskell.org/FRP_explanation_using_reactive-banana"
+          , "https://wiki.haskell.org/Reactive-banana/Examples"
+          ]
+    <*> HW.Type.Audio.textToAudio
+          "https://haskell-weekly-podcast.nyc3.cdn.digitaloceanspaces.com/2019-10-30-episode-23.mp3"
+    <*> HW.Type.Date.gregorianToDate 2019 10 30
+    <*> HW.Type.Duration.timestampToDuration 20 18
+    <*> HW.Type.Guid.textToGuid "1492e4e4-4897-402f-b953-796870946ebd"
+    <*> HW.Type.Number.naturalToNumber 23
+    <*> HW.Type.Size.naturalToSize 29309575
+    <*> HW.Type.Summary.textToSummary
+          "Jose Silvestri and Dustin Segers give a whirlwind tour of FRP, exploring what it is and why you might want to use it."
+    <*> HW.Type.Title.textToTitle "Functional Reactive Programming"
