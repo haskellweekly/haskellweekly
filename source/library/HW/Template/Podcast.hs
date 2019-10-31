@@ -22,6 +22,7 @@ podcastTemplate baseUrl episodes =
       "Haskell Weekly Podcast"
       (podcastHead baseUrl Nothing)
     $ do
+        HW.Template.Base.surveyCallout baseUrl
         H.h2_ [H.class_ "f2 mv3 tracked-tight"] "Podcast"
         H.p_ [H.class_ "lh-copy"] $ do
           "The Haskell Weekly Podcast covers the Haskell programming langauge. "

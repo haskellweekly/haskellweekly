@@ -22,6 +22,7 @@ issueTemplate baseUrl issue node =
       (title issue <> " :: Haskell Weekly Newsletter")
       (HW.Template.Newsletter.newsletterHead baseUrl $ Just issue)
     $ do
+        HW.Template.Base.surveyCallout baseUrl
         H.h2_ [H.class_ "f2 mv3 tracked-tight"] $ H.a_
           [ H.class_ "no-underline purple"
           , H.href_ $ HW.Type.Route.routeToTextWith

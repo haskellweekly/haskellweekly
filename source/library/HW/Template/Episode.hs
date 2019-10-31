@@ -29,6 +29,7 @@ episodeTemplate baseUrl episode captions =
       (title episode <> " :: Haskell Weekly Podcast")
       (HW.Template.Podcast.podcastHead baseUrl $ Just episode)
     $ do
+        HW.Template.Base.surveyCallout baseUrl
         H.h2_ [H.class_ "f2 mv3 tracked-tight"] $ H.a_
           [ H.class_ "no-underline purple"
           , H.href_

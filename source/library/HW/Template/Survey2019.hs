@@ -23,7 +23,7 @@ survey2019Template baseUrl guid =
           "Any submissions will be discarded."
         H.div_ [H.class_ "dn lh-copy", H.id_ "survey"] $ do
           H.p_ $ do
-            "Welcome to the 2019 state of Haskell survey! "
+            "Welcome to the 2019 State of Haskell Survey! "
             "This survey opens on November 1st and closes on the 15th. "
           H.p_ $ do
             "The goal of this survey is to better understand what people think of the Haskell programming language, together with its ecosystem and community. "

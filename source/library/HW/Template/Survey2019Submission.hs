@@ -16,7 +16,7 @@ survey2019SubmissionTemplate baseUrl =
         H.h2_ [H.class_ "f2 mv3 tracked-tight"] "2019 Survey"
         H.p_
           [H.class_ "lh-copy"]
-          "Thank you for filling out the 2019 state of Haskell survey!"
+          "Thank you for filling out the 2019 State of Haskell Survey!"
         H.p_ [H.class_ "lh-copy"] $ do
           "Consider subscribing to Haskell Weekly's "
           H.a_
