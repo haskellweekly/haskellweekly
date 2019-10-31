@@ -85,6 +85,9 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 - [A basic Haskell solution to the robot journeys coding exercise](https://blog.ploeh.dk/2019/10/28/a-basic-haskell-solution-to-the-robot-journeys-coding-exercise/) by Mark Seemann
   > This article shows an idiomatic, yet beginner-friendly Haskell solution to a coding exercise.
 
+- [Functional Reactive Programming](https://haskellweekly.news/episode/23.html) by Haskell Weekly Podcast
+  > Jose Silvestri and Dustin Segers give a whirlwind tour of FRP, exploring what it is and why you might want to use it.
+
 ## Package of the week
 
 This week's package of the week is [`relude`](https://hackage.haskell.org/package/relude-0.6.0.0), an alternative prelude library. If you find the default `Prelude` unsatisfying, despite its advantages, consider using `relude` instead.
