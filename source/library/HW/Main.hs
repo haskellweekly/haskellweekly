@@ -33,4 +33,5 @@ runMigrations connection = mapM_
   (Database.PostgreSQL.Simple.execute_ connection)
   [ "create table if not exists survey_2019_responses (guid uuid primary key, content jsonb)"
   , "alter table survey_2019_responses add column if not exists created_at timestamptz"
+  , "alter table survey_2019_responses add column if not exists submitted_at timestamptz"
   ]

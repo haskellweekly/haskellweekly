@@ -16,6 +16,7 @@ import qualified Data.Set
 import qualified Data.Text
 import qualified Data.Text.Encoding
 import qualified Data.Text.Encoding.Error
+import qualified Data.Time
 import qualified Database.PostgreSQL.Simple
 import qualified HW.Handler.Base
 import qualified HW.Template.Survey2019
@@ -45,13 +46,15 @@ survey2019SubmissionHandler request = do
             [guid]
       case rows :: [[Int]] of
         [[1]] -> do
+          now <- Control.Monad.IO.Class.liftIO Data.Time.getCurrentTime
           Control.Monad.void
             . Control.Monad.IO.Class.liftIO
             . Data.Pool.withResource (HW.Type.State.stateDatabase state)
             $ \connection -> Database.PostgreSQL.Simple.execute
                 connection
-                "update survey_2019_responses set content = ? where guid = ? and content is null"
-                ( Data.Aeson.object
+                "update survey_2019_responses set submitted_at = ?, content = ? where guid = ? and content is null"
+                ( now
+                , Data.Aeson.object
                   [ "headers" Data.Aeson..= Data.Map.restrictKeys
                     headers
                     (Data.Set.fromList
