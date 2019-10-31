@@ -6,6 +6,7 @@ where
 import qualified Control.Monad
 import qualified Control.Monad.IO.Class
 import qualified Data.Pool
+import qualified Data.Time
 import qualified Database.PostgreSQL.Simple
 import qualified HW.Handler.Base
 import qualified HW.Template.Survey2017
@@ -39,14 +40,15 @@ surveyHandler number = do
     2019 -> do
       guid <- Control.Monad.IO.Class.liftIO
         $ fmap HW.Type.Guid.uuidToGuid System.Random.randomIO
+      now <- Control.Monad.IO.Class.liftIO Data.Time.getCurrentTime
       Data.Pool.withResource (HW.Type.State.stateDatabase state)
         $ \connection ->
             Control.Monad.void
               . Control.Monad.IO.Class.liftIO
               $ Database.PostgreSQL.Simple.execute
                   connection
-                  "insert into survey_2019_responses (guid) values (?)"
-                  [guid]
+                  "insert into survey_2019_responses (guid, created_at) values (?, ?)"
+                  (guid, now)
       respondWith Network.HTTP.Types.created201 []
         $ HW.Template.Survey2019.survey2019Template baseUrl guid
     _ -> pure HW.Handler.Base.notFoundResponse
