@@ -31,8 +31,12 @@ survey2019Template baseUrl guid =
           H.p_ $ do
             "Most questions are optional. "
             "If you do not feel comfortable answering a question, skip it!"
-          H.p_
-            "When the survey closes, anonymized survey results will be made publicly available under the ODbL 1.0 license."
+          H.p_ $ do
+            "When the survey closes, anonymized survey results will be made publicly available under the "
+            H.a_
+              [H.href_ "https://opendatacommons.org/licenses/odbl/index.html"]
+              "ODbL 1.0"
+            " license."
           H.form_ [H.method_ "post"] $ do
             H.input_
               [ H.name_ "guid"
