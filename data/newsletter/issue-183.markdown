@@ -96,3 +96,6 @@ This week's package of the week is [`relude`](https://hackage.haskell.org/packag
 
 Looking for something to work on?
 Browse [Haskell Hacktoberfest issues](https://github.com/issues?q=is%3Aissue+is%3Aopen+label%3Ahacktoberfest+language%3Ahaskell) on GitHub.
+
+-   [porcupine: Rework layout of github pages](https://github.com/tweag/porcupine/issues/70)
+-   [stack: Document how to install specific versions of stack](https://github.com/commercialhaskell/stack/issues/5067)
