@@ -44,7 +44,11 @@ survey2019Template baseUrl guid =
               , H.value_ $ HW.Type.Guid.guidToText guid
               ]
             renderSections sections
-            H.input_ [H.type_ "submit"]
+            H.input_
+              [ H.class_ "b bn bg-dark-blue input-reset pa3 pointer white"
+              , H.type_ "submit"
+              , H.value_ "Submit"
+              ]
         H.noscript_ . H.p_ [H.class_ "lh-copy"] $ do
           "JavaScript is required to fill out this survey. "
           "Please enable JavaScript to continue."
