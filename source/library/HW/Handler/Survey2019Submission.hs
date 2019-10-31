@@ -34,11 +34,6 @@ survey2019SubmissionHandler request = do
   let
     headers = parseHeaders request
     responses = parseBody body
-  Control.Monad.IO.Class.liftIO $ do
-    putStrLn "HEADERS"
-    mapM_ print $ Data.Map.toList headers
-    putStrLn "BODY"
-    mapM_ print $ Data.Map.toList responses
   case Data.Map.lookup "guid" responses of
     Just [guid] -> do
       rows <-
