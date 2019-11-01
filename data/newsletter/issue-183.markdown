@@ -19,7 +19,7 @@ This is a weekly summary of what's going on in its community.
 - [How does the continuation monad work?](https://maxhallinan.com/posts/2019/10/22/how-does-the-continuation-monad-work/) by Max Hallinan
   > I had trouble using the continuation monad until I understood how it works. Here is what I wish I knew from the beginning.
 
-- [A monad is just a submonad of the continuation monad, what's the problem?](https://blog.poisson.chat/posts/2019-10-26-reasonable-continuations.html) by Li-yao Xia
+- [A monad is just a submonad of the continuation monad, what's the problem?](https://blog.poisson.chat/posts/2019-10-27-continuation-submonads.html) by Li-yao Xia
   > The previous post showed off the flexibility of the continuation monad to represent various effects. As it turns out, it has a deeper relationship with monads in general.
 
 - [Simon Marlow, Simon Peyton Jones, and Satnam Singh win Most Influential ICFP Paper Award](https://engineering.fb.com/security/simon-marlow/) by Facebook Engineering
