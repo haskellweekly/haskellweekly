@@ -484,6 +484,7 @@ episode23 =
           , "https://stackoverflow.com/questions/1028250/what-is-functional-reactive-programming"
           , "https://wiki.haskell.org/FRP_explanation_using_reactive-banana"
           , "https://wiki.haskell.org/Reactive-banana/Examples"
+          , "https://github.com/gelisam/frp-zoo"
           ]
     <*> HW.Type.Audio.textToAudio
           "https://haskell-weekly-podcast.nyc3.cdn.digitaloceanspaces.com/2019-10-30-episode-23.mp3"
