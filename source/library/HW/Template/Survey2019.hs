@@ -18,9 +18,6 @@ survey2019Template baseUrl guid =
   HW.Template.Base.baseTemplate baseUrl "2019 Survey :: Haskell Weekly" mempty
     $ do
         H.h2_ [H.class_ "f2 mv3 tracked-tight"] "2019 Survey"
-        H.p_ [H.class_ "b dark-red lh-copy"] $ do
-          "This survey is under active development. "
-          "Any submissions will be discarded."
         H.div_ [H.class_ "dn lh-copy", H.id_ "survey"] $ do
           H.p_ $ do
             "Welcome to the 2019 State of Haskell Survey! "
