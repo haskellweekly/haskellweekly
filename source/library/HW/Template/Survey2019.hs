@@ -90,6 +90,7 @@ haskellUsageSection = Section
         , "1 week to 1 month"
         , "1 month to 1 year"
         , "More than 1 year"
+        , "n/a"
         ]
   , Question "If you do not use Haskell, why not?" $ MultiResponse
     AllowOther
@@ -444,6 +445,7 @@ communitySection = Section
         [ "Conferences (academic)"
         , "Conferences (commercial)"
         , "Discord"
+        , "Discourse"
         , "GitHub"
         , "Gitter"
         , "IRC"
@@ -817,6 +819,7 @@ demographicsSection = Section
     , "10 to 99 employees"
     , "100 to 999 employees"
     , "More than 1,000 employees"
+    , "n/a"
     ]
   , Question "How many years have you been coding?" $ SingleResponse
     [ "0 to 4 years"
@@ -849,6 +852,7 @@ metaSection = Section
     $ MultiResponse RejectOther ["2018", "2017"]
   , Question "How did you hear about this survey?" $ SingleResponse
     [ "Discord"
+    , "Discourse"
     , "GitHub"
     , "Haskell Weekly"
     , "Gitter"
