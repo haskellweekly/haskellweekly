@@ -61,4 +61,4 @@ This week's package of the week is [ArrayFire](https://hackage.haskell.org/packa
 
 ## Call for participation
 
-undefined
+-   [spago: Ignore emacs tempfiles in `--watch`](https://github.com/spacchetti/spago/issues/477)
