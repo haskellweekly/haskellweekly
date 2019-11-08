@@ -55,6 +55,7 @@ episodes = do
     , episode21
     , episode22
     , episode23
+    , episode24
     ]
   checkGuids validEpisodes Data.Set.empty
   checkNumbers validEpisodes 1
@@ -496,3 +497,22 @@ episode23 =
     <*> HW.Type.Summary.textToSummary
           "Jose Silvestri and Dustin Segers give a whirlwind tour of FRP, exploring what it is and why you might want to use it."
     <*> HW.Type.Title.textToTitle "Functional Reactive Programming"
+
+episode24 :: Either String HW.Type.Episode.Episode
+episode24 =
+  HW.Type.Episode.Episode
+    <$> HW.Type.Articles.textsToArticles
+          [ "https://haskellweekly.news/survey/2019.html"
+          , "https://taylor.fausak.me/2018/11/18/2018-state-of-haskell-survey-results/"
+          , "https://taylor.fausak.me/2017/11/15/2017-state-of-haskell-survey-results/"
+          ]
+    <*> HW.Type.Audio.textToAudio
+          "https://haskell-weekly-podcast.nyc3.cdn.digitaloceanspaces.com/2019-11-08-episode-24.mp3"
+    <*> HW.Type.Date.gregorianToDate 2019 11 8
+    <*> HW.Type.Duration.timestampToDuration 7 57
+    <*> HW.Type.Guid.textToGuid "ec19bb5d-f9e9-4bf6-b4e4-d055a3d747f0"
+    <*> HW.Type.Number.naturalToNumber 24
+    <*> HW.Type.Size.naturalToSize 11497472
+    <*> HW.Type.Summary.textToSummary
+          "Jose Silvestri and Cameron Gera go over the 2019 State of Haskell Survey and encourage you to fill it out."
+    <*> HW.Type.Title.textToTitle "Haskell Survey"
