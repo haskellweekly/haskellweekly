@@ -42,7 +42,7 @@ newsletterFeedTemplate baseUrl issues =
       [ node "id" [] [text $ entryLink issue]
       , node "title" [] [entryTitle issue]
       , node "updated" [] [entryUpdated issue]
-      , node "link" [("href", entryLink issue), ("rel", "self")] []
+      , node "link" [("href", entryLink issue)] []
       , node
         "author"
         []
