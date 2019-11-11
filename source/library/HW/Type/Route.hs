@@ -100,7 +100,7 @@ textToRedirect path = fmap routeToRedirect $ case path of
   ["images", "favicon.ico"] -> Just RouteFavicon
   ["images", "twitter-card.png"] -> Just RouteLogo
   ["index.html"] -> Just RouteIndex
-  ["issues", file] -> routeContent "html" RouteEpisode file
+  ["issues", file] -> routeContent "html" RouteIssue file
   ["podcast", "apple-badge.svg"] -> Just RouteAppleBadge
   ["podcast", "episodes", file] -> routeContent "html" RouteEpisode file
   ["podcast", "feed.rss"] -> Just RoutePodcastFeed
