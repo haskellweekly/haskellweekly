@@ -66,4 +66,5 @@ This week's package of the week is [`fused-effects`](https://hackage.haskell.org
 
 ## Call for participation
 
-undefined
+-   [haskell-ide-engine: Install.hs: cabal-ghcs shows unsupported GHC versions](https://github.com/haskell/haskell-ide-engine/issues/1445)
+-   [llvm-pretty: Add a MonadFail instance for BB](https://github.com/elliottt/llvm-pretty/issues/72)
