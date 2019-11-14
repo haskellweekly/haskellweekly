@@ -52,6 +52,9 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 - [Linear Relation Algebra of Circuits with HMatrix](http://www.philipzucker.com/linear-relation-algebra-of-circuits-with-hmatrix/) by Philip Zucker
   > In this post, we are going to be talking about linear or affine subspaces of a continuous space. These subspaces are hyperplanes. Linear subspaces have to go through the origin, while affine spaces can have an offset from the origin.
 
+- [Looking Ahead with More Steps!](https://mmhaskell.com/blog/2019/10/31/looking-ahead-with-more-steps) by Monday Morning Haskell
+  > In last week's article, we set ourselves up to make our agent use temporal difference learning. But TD is actually a whole family of potential learning methods we can use.
+
 - [Lesson 6: Tuples, Reading/Querying Types & Lists](https://www.youtube.com/watch?v=J-AbYwOM4wQ) by Learning Haskell for Dummies
 
 - [Haskell Survey](https://haskellweekly.news/episode/24.html) by Haskell Weekly Podcast
