@@ -1,31 +1,14 @@
 module HW.Template.Base
   ( baseTemplate
   , metaOpenGraph
-  , surveyCallout
   )
 where
 
 import qualified Data.Text
 import qualified HW.Type.BaseUrl
-import qualified HW.Type.Number
 import qualified HW.Type.Route
 import qualified Lucid as H
 import qualified Lucid.Base as H
-
-surveyCallout :: HW.Type.BaseUrl.BaseUrl -> H.Html ()
-surveyCallout baseUrl =
-  H.div_ [H.class_ "ba b--green bg-washed-green center mw6 pa3"]
-    . H.p_ [H.class_ "lh-copy mv0"]
-    $ do
-        "Please take a few minutes to fill out the "
-        year <- either fail pure $ HW.Type.Number.naturalToNumber 2019
-        H.a_
-          [ H.href_
-            . HW.Type.Route.routeToTextWith baseUrl
-            $ HW.Type.Route.RouteSurvey year
-          ]
-          "2019 State of Haskell Survey"
-        ". Thanks, and be sure to tell your friends!"
 
 baseTemplate
   :: HW.Type.BaseUrl.BaseUrl

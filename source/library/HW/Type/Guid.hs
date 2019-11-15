@@ -6,20 +6,15 @@ module HW.Type.Guid
   ( Guid
   , guidToText
   , textToGuid
-  , uuidToGuid
   )
 where
 
 import qualified Data.Text
 import qualified Data.UUID
-import qualified Database.PostgreSQL.Simple.ToField
 
 newtype Guid =
   Guid Data.UUID.UUID
   deriving (Eq, Ord, Show)
-
-instance Database.PostgreSQL.Simple.ToField.ToField Guid where
-  toField = Database.PostgreSQL.Simple.ToField.toField . guidToUuid
 
 -- | Converts a GUID into text. This is the opposite of 'textToGuid'.
 guidToText :: Guid -> Data.Text.Text

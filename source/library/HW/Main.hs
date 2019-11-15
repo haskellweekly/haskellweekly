@@ -6,9 +6,7 @@ module HW.Main
   )
 where
 
-import qualified Data.Pool
 import qualified Data.Version
-import qualified Database.PostgreSQL.Simple
 import qualified HW.Server
 import qualified HW.Type.Config
 import qualified HW.Type.State
@@ -25,13 +23,4 @@ main = do
     <> " ..."
   config <- HW.Type.Config.getConfig
   state <- HW.Type.State.configToState config
-  Data.Pool.withResource (HW.Type.State.stateDatabase state) runMigrations
   HW.Server.server state
-
-runMigrations :: Database.PostgreSQL.Simple.Connection -> IO ()
-runMigrations connection = mapM_
-  (Database.PostgreSQL.Simple.execute_ connection)
-  [ "create table if not exists survey_2019_responses (guid uuid primary key, content jsonb)"
-  , "alter table survey_2019_responses add column if not exists created_at timestamptz"
-  , "alter table survey_2019_responses add column if not exists submitted_at timestamptz"
-  ]

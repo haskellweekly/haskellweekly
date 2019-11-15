@@ -12,7 +12,6 @@ advertisingTemplate :: HW.Type.BaseUrl.BaseUrl -> H.Html ()
 advertisingTemplate baseUrl =
   HW.Template.Base.baseTemplate baseUrl "Advertising :: Haskell Weekly" mempty
     $ do
-        HW.Template.Base.surveyCallout baseUrl
         H.h2_ [H.class_ "f2 mv3 tracked-tight"] "Advertising"
         H.h3_ [H.class_ "f3 mv3 tracked-tight"] "Newsletter"
         H.p_ $ do
