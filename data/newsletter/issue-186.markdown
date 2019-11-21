@@ -64,4 +64,6 @@ This week's package of the week is [ghc-trace-events](https://hackage.haskell.or
 
 ## Call for participation
 
-undefined
+-   [clay: Get rid of build warnings related to monoids](https://github.com/sebastiaanvisser/clay/issues/190)
+-   [unison: let the default `ucm transcript` behavior delete a codebase that the transcript runner created](https://github.com/unisonweb/unison/issues/975)
+-   [yesod: Function to parse JSON in yesod-test](https://github.com/yesodweb/yesod/issues/1643)
