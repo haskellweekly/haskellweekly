@@ -8,7 +8,9 @@ undefined
 
 ## Jobs
 
-undefined
+[Anduril Industries](https://www.anduril.com/) is hiring Haskellers familiar with numerical programming to implement
+high-speed robot motion planning algorithms. Anduril is located in Orange County, California. Interested? Email
+travis@anduril.com
 
 Trying to hire a Haskell developer?
 You should [advertise with us](https://haskellweekly.news/advertising.html)!
