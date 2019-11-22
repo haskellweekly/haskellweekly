@@ -28,6 +28,8 @@ import qualified HW.Type.Number
 import qualified HW.Type.State
 import qualified Network.HTTP.Client
 import qualified Network.URI
+import qualified Text.Feed.Import
+import qualified Text.Feed.Query
 import qualified Text.HTML.TagSoup
 import qualified Text.StringLike
 
@@ -35,7 +37,34 @@ worker :: Data.IORef.IORef HW.Type.State.State -> IO ()
 worker stateRef = do
   urls <- getUrls stateRef
   updateFeedUrls stateRef urls
+  syncFeeds stateRef
   Control.Monad.forever $ Control.Concurrent.threadDelay 1000000
+
+syncFeeds :: Data.IORef.IORef HW.Type.State.State -> IO ()
+syncFeeds stateRef = do
+  state <- Data.IORef.readIORef stateRef
+  let manager = HW.Type.State.stateManager state
+  Data.Pool.withResource (HW.Type.State.stateDatabase state) $ \connection ->
+    do
+      rows <- Database.PostgreSQL.Simple.query_
+        connection
+        "select distinct feed_url from feeds where feed_url is not null order by feed_url asc"
+      Control.Monad.forM_ rows $ \(Database.PostgreSQL.Simple.Only string) ->
+        do
+          putStrLn $ "- " <> string
+          request <- Network.HTTP.Client.parseUrlThrow string
+          result <- Control.Exception.try
+            $ Network.HTTP.Client.httpLbs request manager
+          case result of
+            Left httpException ->
+              print (httpException :: Network.HTTP.Client.HttpException)
+            Right response ->
+              case
+                  Text.Feed.Import.parseFeedSource
+                    $ Network.HTTP.Client.responseBody response
+                of
+                  Nothing -> print response
+                  Just feed -> print . length $ Text.Feed.Query.feedItems feed
 
 updateFeedUrls
   :: Data.IORef.IORef HW.Type.State.State
@@ -70,7 +99,7 @@ updateFeedUrlWith manager uri connection = do
       request <- fmap Network.HTTP.Client.setRequestCheckStatus
         $ Network.HTTP.Client.requestFromURI uri
       result <- Control.Exception.try
-        (Network.HTTP.Client.httpLbs request manager)
+        $ Network.HTTP.Client.httpLbs request manager
       case result of
         Left httpException -> do
           print (httpException :: Network.HTTP.Client.HttpException)

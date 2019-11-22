@@ -37,6 +37,7 @@ common library
     cmark >= 0.6 && < 0.7,
     containers >= 0.5.11 && < 0.7,
     cryptohash-sha1 >= 0.11.100 && < 0.12,
+    feed >= 1.2.0 && < 1.3,
     filepath >= 1.4.2 && < 1.5,
     http-client >= 0.6.4 && < 0.7,
     http-client-tls >= 0.3.5 && < 0.4,
