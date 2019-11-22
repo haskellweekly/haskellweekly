@@ -7,6 +7,7 @@ module HW.Type.State
   )
 where
 
+import qualified Data.ByteString
 import qualified Data.IORef
 import qualified Data.Map
 import qualified Data.Pool
@@ -23,6 +24,7 @@ data State =
     { stateConfig :: HW.Type.Config.Config
     , stateDatabase :: Data.Pool.Pool Database.PostgreSQL.Simple.Connection
     , stateEpisodes :: HW.Episodes.Episodes
+    , stateFileCache :: Data.Map.Map FilePath Data.ByteString.ByteString
     , stateIssues :: HW.Issues.Issues
     , stateResponseCache :: Data.Map.Map (Data.Text.Text, Data.Text.Text) ( Data.Time.UTCTime
                                                                           , Network.Wai.Response)
@@ -46,6 +48,7 @@ configToState config = do
     { stateConfig = config
     , stateDatabase = database
     , stateEpisodes = episodes
+    , stateFileCache = Data.Map.empty
     , stateIssues = issues
     , stateResponseCache = Data.Map.empty
     }

@@ -1,6 +1,7 @@
 module HW.Worker
   ( worker
-  ) where
+  )
+where
 
 import qualified Control.Concurrent
 import qualified Control.Monad

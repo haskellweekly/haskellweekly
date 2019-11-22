@@ -10,6 +10,7 @@ import qualified Control.Monad.IO.Class
 import qualified Control.Monad.Trans.Reader
 import qualified Data.ByteString
 import qualified Data.IORef
+import qualified Data.Map
 import qualified HW.Type.Config
 import qualified HW.Type.State
 import qualified System.FilePath
@@ -32,6 +33,22 @@ getState = do
 -- other failure modes.
 readDataFile :: FilePath -> App Data.ByteString.ByteString
 readDataFile file = do
+  state <- getState
+  case Data.Map.lookup file (HW.Type.State.stateFileCache state) of
+    Just contents -> pure contents
+    Nothing -> do
+      contents <- readDataFileWithoutCache file
+      stateRef <- Control.Monad.Trans.Reader.ask
+      Control.Monad.IO.Class.liftIO
+        . HW.Type.State.modifyState stateRef
+        $ \oldState -> oldState
+            { HW.Type.State.stateFileCache = Data.Map.insert file contents
+              $ HW.Type.State.stateFileCache oldState
+            }
+      pure contents
+
+readDataFileWithoutCache :: FilePath -> App Data.ByteString.ByteString
+readDataFileWithoutCache file = do
   config <- getConfig
   let
     directory = HW.Type.Config.configDataDirectory config
