@@ -56,7 +56,7 @@ Tweet us at [@HaskellWeekly](https://twitter.com/haskellweekly) or [open a pull 
 
 ## In brief
 
-- [Alternatives to typed holes for talking to your compiler](http://bitemyapp.com//posts/2017-09-23-please-stop-using-typed-holes.html)
+- [Alternatives to typed holes for talking to your compiler](https://bitemyapp.com/blog/please-stop-using-typed-holes/)
 - [Automating the build of your technical presentation](https://wickstrom.tech/programming/2017/09/24/automating-the-build-of-your-technical-presentation.html)
 - [Formlets are biapplicative](https://pepeiborra.wordpress.com/2017/09/21/formlets-are-biapplicative/)
 - [Grenade! Dependently typed neural networks](https://mmhaskell.com/blog/2017/9/25/grenade-dependently-typed-neural-networks)

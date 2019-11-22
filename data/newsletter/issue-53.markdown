@@ -34,7 +34,7 @@ or open an issue [on GitHub](https://github.com/haskellweekly/haskellweekly.gith
 
     > In Haskell, we have a mantra that if your code compiles it ought to work. This is might be more true in Haskell than in other languages. But it's still a tongue-in-cheek comment that doesn't quite pass muster.
 
--   [What a Haskell study group is not](http://bitemyapp.com//posts/2017-05-03-what-a-haskell-study-group-is-not.html)
+-   [What a Haskell study group is not](https://bitemyapp.com/blog/what-a-haskell-study-group-is-not/)
 
     > In this article, I will share my thoughts on what made our group successful, where we went astray, and in particular on what a Haskell study group should not be as the pitfalls are many but advice for avoiding them, based on actual experience, scant.
 
