@@ -25,7 +25,7 @@ import qualified Numeric.Natural
 -- | Convenient type alias for a map of episodes by number.
 type Episodes = Data.Map.Map HW.Type.Number.Number HW.Type.Episode.Episode
 
--- | All of the published episodes. Note that this is wrapper in 'Either' to
+-- | All of the published episodes. Note that this is wrapped in 'Either' to
 -- handle any of the episodes being invalid or the entire collection being
 -- invalid. Since the server won't start without this being 'Right', you can be
 -- reasonably sure that no 'Left's have snuck in.
