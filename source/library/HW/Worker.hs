@@ -46,37 +46,44 @@ updateFeedUrls stateRef urls = do
   mapM_ (updateFeedUrl state) $ Data.Set.toList urls
 
 updateFeedUrl :: HW.Type.State.State -> Network.URI.URI -> IO ()
-updateFeedUrl state uri =
-  Data.Pool.withResource (HW.Type.State.stateDatabase state) $ \connection ->
-    do
-      let uriText = HW.Type.Article.uriToText uri
-      rows <- Database.PostgreSQL.Simple.query
-        connection
-        "select count( * ) from feeds where page_url = ?"
-        [uriText]
-      case rows of
-        [[n]] | n == (1 :: Int) -> pure ()
-        _ -> do
-          putStrLn $ "- " <> show uri
-          request <- fmap Network.HTTP.Client.setRequestCheckStatus
-            $ Network.HTTP.Client.requestFromURI uri
-          result <- Control.Exception.try
-            (Network.HTTP.Client.httpLbs request
-            $ HW.Type.State.stateManager state
-            )
-          case result of
-            Left httpException -> do
-              print (httpException :: Network.HTTP.Client.HttpException)
-              Control.Monad.void $ Database.PostgreSQL.Simple.execute
-                connection
-                "insert into feeds ( page_url ) values ( ? )"
-                [uriText]
-            Right response -> do
-              let feedUrl = extractFeedUrl uri response
-              Control.Monad.void $ Database.PostgreSQL.Simple.execute
-                connection
-                "insert into feeds ( page_url, feed_url ) values ( ?, ? )"
-                [Just uriText, fmap HW.Type.Article.uriToText feedUrl]
+updateFeedUrl state uri = do
+  let manager = HW.Type.State.stateManager state
+  Data.Pool.withResource
+    (HW.Type.State.stateDatabase state)
+    (updateFeedUrlWith manager uri)
+
+updateFeedUrlWith
+  :: Network.HTTP.Client.Manager
+  -> Network.URI.URI
+  -> Database.PostgreSQL.Simple.Connection
+  -> IO ()
+updateFeedUrlWith manager uri connection = do
+  let uriText = HW.Type.Article.uriToText uri
+  rows <- Database.PostgreSQL.Simple.query
+    connection
+    "select count( * ) from feeds where page_url = ?"
+    [uriText]
+  case rows of
+    [[n]] | n == (1 :: Int) -> pure ()
+    _ -> do
+      putStrLn $ "- " <> show uri
+      request <- fmap Network.HTTP.Client.setRequestCheckStatus
+        $ Network.HTTP.Client.requestFromURI uri
+      result <- Control.Exception.try
+        (Network.HTTP.Client.httpLbs request manager)
+      case result of
+        Left httpException -> do
+          print (httpException :: Network.HTTP.Client.HttpException)
+          Control.Monad.void $ Database.PostgreSQL.Simple.execute
+            connection
+            "insert into feeds ( page_url ) values ( ? )"
+            [uriText]
+        Right response -> do
+          let feedUrl = extractFeedUrl uri response
+          Control.Monad.void $ Database.PostgreSQL.Simple.execute
+            connection
+            "insert into feeds ( page_url, feed_url ) values ( ?, ? )"
+            [Just uriText, fmap HW.Type.Article.uriToText feedUrl]
 
 extractFeedUrl
   :: Network.URI.URI
