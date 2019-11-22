@@ -6,6 +6,7 @@ module HW.Type.Article
   , articleToText
   , articleToUri
   , textToArticle
+  , uriToText
   )
 where
 

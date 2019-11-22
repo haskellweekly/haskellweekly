@@ -17,6 +17,8 @@ import qualified Database.PostgreSQL.Simple
 import qualified HW.Episodes
 import qualified HW.Issues
 import qualified HW.Type.Config
+import qualified Network.HTTP.Client
+import qualified Network.HTTP.Client.TLS
 import qualified Network.Wai
 
 data State =
@@ -26,6 +28,7 @@ data State =
     , stateEpisodes :: HW.Episodes.Episodes
     , stateFileCache :: Data.Map.Map FilePath Data.ByteString.ByteString
     , stateIssues :: HW.Issues.Issues
+    , stateManager :: Network.HTTP.Client.Manager
     , stateResponseCache :: Data.Map.Map (Data.Text.Text, Data.Text.Text) ( Data.Time.UTCTime
                                                                           , Network.Wai.Response)
     }
@@ -44,12 +47,14 @@ configToState config = do
     10
   episodes <- either fail pure HW.Episodes.episodes
   issues <- either fail pure HW.Issues.issues
+  manager <- Network.HTTP.Client.TLS.newTlsManager
   pure State
     { stateConfig = config
     , stateDatabase = database
     , stateEpisodes = episodes
     , stateFileCache = Data.Map.empty
     , stateIssues = issues
+    , stateManager = manager
     , stateResponseCache = Data.Map.empty
     }
 

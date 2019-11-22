@@ -5,26 +5,61 @@ where
 
 import qualified CMark
 import qualified Control.Concurrent
+import qualified Control.Exception
 import qualified Control.Monad
 import qualified Control.Monad.Trans.Reader
 import qualified Data.Either
 import qualified Data.IORef
 import qualified Data.List.NonEmpty
 import qualified Data.Map
+import qualified Data.Pool
 import qualified Data.Set
+import qualified Data.Text
+import qualified Database.PostgreSQL.Simple
 import qualified HW.Handler.Issue
 import qualified HW.Type.Article
 import qualified HW.Type.Episode
 import qualified HW.Type.Issue
 import qualified HW.Type.Number
 import qualified HW.Type.State
+import qualified Network.HTTP.Client
 import qualified Network.URI
 
 worker :: Data.IORef.IORef HW.Type.State.State -> IO ()
 worker stateRef = do
   urls <- getUrls stateRef
   print $ Data.Set.size urls
+  state <- Data.IORef.readIORef stateRef
+  mapM_ (updateFeedUrl state) $ Data.Set.toList urls
   Control.Monad.forever $ Control.Concurrent.threadDelay 1000000
+
+updateFeedUrl :: HW.Type.State.State -> Network.URI.URI -> IO ()
+updateFeedUrl state uri =
+  Data.Pool.withResource (HW.Type.State.stateDatabase state) $ \connection ->
+    do
+      let uriText = HW.Type.Article.uriToText uri
+      rows <- Database.PostgreSQL.Simple.query
+        connection
+        "select count( * ) from feeds where page_url = ?"
+        [uriText]
+      case rows of
+        [[n]] | n == (1 :: Int) -> pure ()
+        _ -> do
+          putStrLn $ Data.Text.unpack uriText
+          request <- fmap Network.HTTP.Client.setRequestCheckStatus
+            $ Network.HTTP.Client.requestFromURI uri
+          result <- Control.Exception.try
+            (Network.HTTP.Client.httpLbs request
+            $ HW.Type.State.stateManager state
+            )
+          case result of
+            Left httpException -> do
+              print (httpException :: Network.HTTP.Client.HttpException)
+              Control.Monad.void $ Database.PostgreSQL.Simple.execute
+                connection
+                "insert into feeds ( page_url ) values ( ? )"
+                [uriText]
+            Right _response -> pure () -- TODO
 
 getUrls
   :: Data.IORef.IORef HW.Type.State.State -> IO (Data.Set.Set Network.URI.URI)
