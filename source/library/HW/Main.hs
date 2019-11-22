@@ -7,6 +7,7 @@ module HW.Main
 where
 
 import qualified Control.Concurrent.Async
+import qualified Data.IORef
 import qualified Data.Pool
 import qualified Data.Version
 import qualified Database.PostgreSQL.Simple
@@ -28,9 +29,10 @@ main = do
   config <- HW.Type.Config.getConfig
   state <- HW.Type.State.configToState config
   runMigrations state
+  stateRef <- Data.IORef.newIORef state
   Control.Concurrent.Async.race_
-    (HW.Server.server state)
-    (HW.Worker.worker state)
+    (HW.Server.server stateRef)
+    (HW.Worker.worker stateRef)
 
 runMigrations :: HW.Type.State.State -> IO ()
 runMigrations state =

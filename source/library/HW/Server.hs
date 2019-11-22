@@ -20,10 +20,10 @@ import qualified Network.Wai.Handler.Warp
 import qualified Paths_haskellweekly
 
 -- | Starts up the server. This function never returns.
-server :: HW.Type.State.State -> IO ()
-server state = do
+server :: Data.IORef.IORef HW.Type.State.State -> IO ()
+server ref = do
+  state <- Data.IORef.readIORef ref
   let config = HW.Type.State.stateConfig state
-  ref <- Data.IORef.newIORef state
   Network.Wai.Handler.Warp.runSettings (configToSettings config)
     . HW.Middleware.middleware ref
     $ HW.Application.application ref
