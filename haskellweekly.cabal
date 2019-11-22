@@ -38,6 +38,7 @@ common library
     containers >= 0.5.11 && < 0.7,
     cryptohash-sha1 >= 0.11.100 && < 0.12,
     filepath >= 1.4.2 && < 1.5,
+    http-client >= 0.6.4 && < 0.7,
     http-types >= 0.12.2 && < 0.13,
     lucid >= 2.9.11 && < 2.10,
     network-uri >= 2.6.1 && < 2.7,

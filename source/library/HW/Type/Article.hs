@@ -4,6 +4,7 @@
 module HW.Type.Article
   ( Article
   , articleToText
+  , articleToUri
   , textToArticle
   )
 where
