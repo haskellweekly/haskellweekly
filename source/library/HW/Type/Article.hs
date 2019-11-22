@@ -28,8 +28,14 @@ articleToUri (Article uri) = uri
 -- future this may check for HTTP as well.
 textToArticle :: Data.Text.Text -> Either String Article
 textToArticle text = case Network.URI.parseURI $ Data.Text.unpack text of
-  Nothing -> Left $ "invalid Article: " <> show text
-  Just uri -> Right $ Article uri
+  Just uri | isHttp uri || isHttps uri -> Right $ Article uri
+  _ -> Left $ "invalid Article: " <> show text
+
+isHttp :: Network.URI.URI -> Bool
+isHttp uri = Network.URI.uriScheme uri == "http:"
+
+isHttps :: Network.URI.URI -> Bool
+isHttps uri = Network.URI.uriScheme uri == "https:"
 
 -- | Converts a URL into text. This is only necessary because the regular
 -- way of doing this is annoyingly complicated.
