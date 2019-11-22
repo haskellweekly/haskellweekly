@@ -59,6 +59,25 @@ indexTemplate config maybeIssue maybeEpisode = do
       Nothing -> pure ()
       Just episode -> episodeTemplate baseUrl episode
     HW.Template.Podcast.podcastActionTemplate baseUrl
+    H.h2_ [H.class_ "f2 mv3 tracked-tight"] "Survey"
+    H.p_ [H.class_ "lh-copy"] $ do
+      "The State of Haskell Survey is a yearly survey of the Haskell community. "
+      "The survey is typically open for two weeks at the beginning of November. "
+      "You can view the results of previous surveys:"
+    H.ul_ [H.class_ "lh-copy"] $ do
+      H.li_ $ H.a_
+        [H.href_ "https://taylor.fausak.me/2019/11/16/haskell-survey-results/"]
+        "2019 State of Haskell Survey results"
+      H.li_ $ H.a_
+        [ H.href_
+            "https://taylor.fausak.me/2018/11/18/2018-state-of-haskell-survey-results/"
+        ]
+        "2018 State of Haskell Survey results"
+      H.li_ $ H.a_
+        [ H.href_
+            "https://taylor.fausak.me/2017/11/15/2017-state-of-haskell-survey-results/"
+        ]
+        "2017 State of Haskell Survey results"
     H.h2_ [H.class_ "f2 mv3 tracked-tight"] "Contributing"
     H.p_ [H.class_ "lh-copy"] $ do
       "If you would like to contribute content to Haskell Weekly, please open an issue "
