@@ -17,9 +17,13 @@ import qualified Data.Map
 import qualified Data.Maybe
 import qualified Data.Pool
 import qualified Data.Set
+import qualified Data.Text
 import qualified Data.Text.Encoding
 import qualified Data.Text.Encoding.Error
+import qualified Data.Time
 import qualified Database.PostgreSQL.Simple
+import qualified Database.PostgreSQL.Simple.ToField
+import qualified Database.PostgreSQL.Simple.ToRow
 import qualified HW.Handler.Issue
 import qualified HW.Type.Article
 import qualified HW.Type.Episode
@@ -30,15 +34,41 @@ import qualified Network.HTTP.Client
 import qualified Network.URI
 import qualified Text.Feed.Import
 import qualified Text.Feed.Query
+import qualified Text.Feed.Types
 import qualified Text.HTML.TagSoup
 import qualified Text.StringLike
 
 worker :: Data.IORef.IORef HW.Type.State.State -> IO ()
 worker stateRef = do
+  say "getting urls"
   urls <- getUrls stateRef
+  say $ "finished getting " <> pluralize "url" (length urls)
+  say "fetching feed urls"
   updateFeedUrls stateRef urls
-  syncFeeds stateRef
-  Control.Monad.forever $ Control.Concurrent.threadDelay 1000000
+  say "finished fetching feed urls"
+  Control.Monad.forever $ do
+    say "syncing feeds"
+    syncFeeds stateRef -- TODO: move into loop
+    say "finished syncing feeds"
+    sleep 60
+
+sleep :: Double -> IO ()
+sleep seconds = Control.Concurrent.threadDelay . round $ seconds * 1000000
+
+say :: String -> IO ()
+say message = do
+  now <- Data.Time.getCurrentTime
+  putStrLn
+    $ Data.Time.formatTime
+        Data.Time.defaultTimeLocale
+        "%Y-%m-%dT%H:%M:%S%3QZ"
+        now
+    <> " [worker] "
+    <> message
+
+pluralize :: String -> Int -> String
+pluralize word count =
+  show count <> " " <> word <> if count == 1 then "" else "s"
 
 syncFeeds :: Data.IORef.IORef HW.Type.State.State -> IO ()
 syncFeeds stateRef = do
@@ -49,22 +79,78 @@ syncFeeds stateRef = do
       rows <- Database.PostgreSQL.Simple.query_
         connection
         "select distinct feed_url from feeds where feed_url is not null order by feed_url asc"
-      Control.Monad.forM_ rows $ \(Database.PostgreSQL.Simple.Only string) ->
-        do
-          putStrLn $ "- " <> string
-          request <- Network.HTTP.Client.parseUrlThrow string
-          result <- Control.Exception.try
-            $ Network.HTTP.Client.httpLbs request manager
-          case result of
-            Left httpException ->
-              print (httpException :: Network.HTTP.Client.HttpException)
-            Right response ->
-              case
-                  Text.Feed.Import.parseFeedSource
-                    $ Network.HTTP.Client.responseBody response
-                of
-                  Nothing -> print response
-                  Just feed -> print . length $ Text.Feed.Query.feedItems feed
+      say $ "syncing " <> pluralize "feed" (length rows)
+      Control.Monad.forM_ rows $ \(Database.PostgreSQL.Simple.Only url) -> do
+        say $ "syncing feed " <> url
+        request <- Network.HTTP.Client.parseUrlThrow url
+        result <- Control.Exception.try
+          $ Network.HTTP.Client.httpLbs request manager
+        case result of
+          Left httpException -> do
+            say $ "failed to sync feed " <> url
+            Control.Monad.void $ Database.PostgreSQL.Simple.execute
+              connection
+              "update feeds set time = now(), feed_url = null, failure_reason = ? where feed_url = ?"
+              ( Control.Exception.displayException
+                (httpException :: Network.HTTP.Client.HttpException)
+              , url
+              )
+          Right response ->
+            case
+                Text.Feed.Import.parseFeedSource
+                  $ Network.HTTP.Client.responseBody response
+              of
+                Nothing -> do
+                  say $ "invalid feed " <> url
+                  Control.Monad.void $ Database.PostgreSQL.Simple.execute
+                    connection
+                    "update feeds set time = now(), feed_url = null, failure_reason = ? where feed_url = ?"
+                    (show response, url)
+                Just feed ->
+                  Control.Monad.forM_ (Text.Feed.Query.feedItems feed)
+                    $ \item -> case makeEntry url item of
+                        Nothing ->
+                          say
+                            $ "failed to convert item into entry "
+                            <> show item
+                        Just entry -> do
+                          say $ "got entry " <> show (entryLink entry)
+                          Control.Monad.void
+                            $ Database.PostgreSQL.Simple.execute
+                                connection
+                                "insert into entries ( id, link, time, title ) values ( ?, ?, ?, ? ) on conflict do nothing"
+                                entry
+
+data Entry =
+  Entry
+    { entryId :: Data.Text.Text
+    , entryLink :: Data.Text.Text
+    , entryTime :: Data.Time.UTCTime
+    , entryTitle :: Data.Text.Text
+    }
+  deriving (Show)
+
+instance Database.PostgreSQL.Simple.ToRow Entry where
+  toRow entry =
+    [ Database.PostgreSQL.Simple.ToField.toField $ entryId entry
+    , Database.PostgreSQL.Simple.ToField.toField $ entryLink entry
+    , Database.PostgreSQL.Simple.ToField.toField $ entryTime entry
+    , Database.PostgreSQL.Simple.ToField.toField $ entryTitle entry
+    ]
+
+makeEntry :: String -> Text.Feed.Types.Item -> Maybe Entry
+makeEntry url entry = do
+  id_ <- fmap snd $ Text.Feed.Query.getItemId entry
+  link <- Text.Feed.Query.getItemLink entry
+  maybeTime <- Text.Feed.Query.getItemPublishDate entry
+  time <- maybeTime
+  title <- Text.Feed.Query.getItemTitle entry
+  pure Entry
+    { entryId = Data.Text.pack url <> " " <> id_
+    , entryLink = link
+    , entryTime = time
+    , entryTitle = title
+    }
 
 updateFeedUrls
   :: Data.IORef.IORef HW.Type.State.State
@@ -75,51 +161,61 @@ updateFeedUrls stateRef urls = do
   mapM_ (updateFeedUrl state) $ Data.Set.toList urls
 
 updateFeedUrl :: HW.Type.State.State -> Network.URI.URI -> IO ()
-updateFeedUrl state uri = do
+updateFeedUrl state url = do
   let manager = HW.Type.State.stateManager state
   Data.Pool.withResource
     (HW.Type.State.stateDatabase state)
-    (updateFeedUrlWith manager uri)
+    (updateFeedUrlWith manager url)
 
 updateFeedUrlWith
   :: Network.HTTP.Client.Manager
   -> Network.URI.URI
   -> Database.PostgreSQL.Simple.Connection
   -> IO ()
-updateFeedUrlWith manager uri connection = do
-  let uriText = HW.Type.Article.uriToText uri
+updateFeedUrlWith manager url connection = do
+  say $ "fetching feed url for " <> show url
+  let urlText = HW.Type.Article.uriToText url
   rows <- Database.PostgreSQL.Simple.query
     connection
     "select count( * ) from feeds where page_url = ?"
-    [uriText]
+    [urlText]
   case rows of
-    [[n]] | n == (1 :: Int) -> pure ()
+    [[n]] | n == (1 :: Int) -> say $ "already fetched, skipping " <> show url
     _ -> do
-      putStrLn $ "- " <> show uri
       request <- fmap Network.HTTP.Client.setRequestCheckStatus
-        $ Network.HTTP.Client.requestFromURI uri
+        $ Network.HTTP.Client.requestFromURI url
       result <- Control.Exception.try
         $ Network.HTTP.Client.httpLbs request manager
       case result of
         Left httpException -> do
-          print (httpException :: Network.HTTP.Client.HttpException)
+          say $ "failed to fetch " <> show url
           Control.Monad.void $ Database.PostgreSQL.Simple.execute
             connection
-            "insert into feeds ( page_url ) values ( ? )"
-            [uriText]
-        Right response -> do
-          let feedUrl = extractFeedUrl uri response
-          Control.Monad.void $ Database.PostgreSQL.Simple.execute
-            connection
-            "insert into feeds ( page_url, feed_url ) values ( ?, ? )"
-            [Just uriText, fmap HW.Type.Article.uriToText feedUrl]
+            "insert into feeds ( page_url, time, failure_reason ) values ( ?, now(), ? )"
+            ( urlText
+            , Control.Exception.displayException
+              (httpException :: Network.HTTP.Client.HttpException)
+            )
+        Right response -> case extractFeedUrl url response of
+          Nothing -> do
+            say $ "did not contain feed " <> show url
+            Control.Monad.void $ Database.PostgreSQL.Simple.execute
+              connection
+              "insert into feeds ( page_url, time, failure_reason ) values ( ?, now(), ? )"
+              [urlText, "no-feed-url"]
+          Just feedUrl -> do
+            say $ "successfully fetched feed url from " <> show url
+            Control.Monad.void $ Database.PostgreSQL.Simple.execute
+              connection
+              "insert into feeds ( page_url, time, feed_url ) values ( ?, now(), ? )"
+              (urlText, HW.Type.Article.uriToText feedUrl)
 
 extractFeedUrl
   :: Network.URI.URI
   -> Network.HTTP.Client.Response Data.ByteString.Lazy.ByteString
   -> Maybe Network.URI.URI
-extractFeedUrl uri =
-  fmap (flip Network.URI.relativeTo uri)
+extractFeedUrl url =
+  fmap (flip Network.URI.relativeTo url)
     . Data.Maybe.listToMaybe
     . Data.Maybe.mapMaybe
         (\tag -> do
@@ -219,7 +315,9 @@ shouldIgnore =
 -- simply avoid crawling them at all.
 domainNamesToIgnore :: Data.Set.Set String
 domainNamesToIgnore = Data.Set.fromList
-  [ "discourse.haskell.org"
+  [ "atom.io"
+  , "discourse.elm-lang.org"
+  , "discourse.haskell.org"
   , "docs.google.com"
   , "ghc.haskell.org"
   , "gist.github.com"
@@ -227,6 +325,7 @@ domainNamesToIgnore = Data.Set.fromList
   , "hackage.haskell.org"
   , "mail.haskell.org"
   , "medium.com" -- has RSS feeds, but not <link>ed
+  , "motherboard.vice.com"
   , "np.reddit.com"
   , "stackoverflow.com"
   , "twitter.com"
