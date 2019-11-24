@@ -17,15 +17,13 @@ import qualified Data.Map
 import qualified Data.Maybe
 import qualified Data.Pool
 import qualified Data.Set
-import qualified Data.Text
 import qualified Data.Text.Encoding
 import qualified Data.Text.Encoding.Error
 import qualified Data.Time
 import qualified Database.PostgreSQL.Simple
-import qualified Database.PostgreSQL.Simple.ToField
-import qualified Database.PostgreSQL.Simple.ToRow
 import qualified HW.Handler.Issue
 import qualified HW.Type.Article
+import qualified HW.Type.Entry
 import qualified HW.Type.Episode
 import qualified HW.Type.Issue
 import qualified HW.Type.Number
@@ -34,7 +32,6 @@ import qualified Network.HTTP.Client
 import qualified Network.URI
 import qualified Text.Feed.Import
 import qualified Text.Feed.Query
-import qualified Text.Feed.Types
 import qualified Text.HTML.TagSoup
 import qualified Text.StringLike
 
@@ -108,49 +105,19 @@ syncFeeds stateRef = do
                     (show response, url)
                 Just feed ->
                   Control.Monad.forM_ (Text.Feed.Query.feedItems feed)
-                    $ \item -> case makeEntry url item of
+                    $ \item -> case HW.Type.Entry.makeEntry url item of
                         Nothing ->
                           say
                             $ "failed to convert item into entry "
                             <> show item
                         Just entry -> do
-                          say $ "got entry " <> show (entryLink entry)
+                          say $ "got entry " <> show
+                            (HW.Type.Entry.entryLink entry)
                           Control.Monad.void
                             $ Database.PostgreSQL.Simple.execute
                                 connection
                                 "insert into entries ( id, link, time, title ) values ( ?, ?, ?, ? ) on conflict do nothing"
                                 entry
-
-data Entry =
-  Entry
-    { entryId :: Data.Text.Text
-    , entryLink :: Data.Text.Text
-    , entryTime :: Data.Time.UTCTime
-    , entryTitle :: Data.Text.Text
-    }
-  deriving (Show)
-
-instance Database.PostgreSQL.Simple.ToRow Entry where
-  toRow entry =
-    [ Database.PostgreSQL.Simple.ToField.toField $ entryId entry
-    , Database.PostgreSQL.Simple.ToField.toField $ entryLink entry
-    , Database.PostgreSQL.Simple.ToField.toField $ entryTime entry
-    , Database.PostgreSQL.Simple.ToField.toField $ entryTitle entry
-    ]
-
-makeEntry :: String -> Text.Feed.Types.Item -> Maybe Entry
-makeEntry url entry = do
-  id_ <- fmap snd $ Text.Feed.Query.getItemId entry
-  link <- Text.Feed.Query.getItemLink entry
-  maybeTime <- Text.Feed.Query.getItemPublishDate entry
-  time <- maybeTime
-  title <- Text.Feed.Query.getItemTitle entry
-  pure Entry
-    { entryId = Data.Text.pack url <> " " <> id_
-    , entryLink = link
-    , entryTime = time
-    , entryTitle = title
-    }
 
 updateFeedUrls
   :: Data.IORef.IORef HW.Type.State.State
