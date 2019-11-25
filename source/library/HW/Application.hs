@@ -11,6 +11,7 @@ import qualified Data.Text
 import qualified Data.Text.Encoding
 import qualified Data.Text.Encoding.Error
 import qualified HW.Handler.Advertising
+import qualified HW.Handler.Aggregator
 import qualified HW.Handler.Base
 import qualified HW.Handler.Episode
 import qualified HW.Handler.Index
@@ -57,6 +58,7 @@ requestRoute = HW.Type.Route.textToRoute . Network.Wai.pathInfo
 handle :: HW.Type.Route.Route -> HW.Type.App.App Network.Wai.Response
 handle route = case route of
   HW.Type.Route.RouteAdvertising -> HW.Handler.Advertising.advertisingHandler
+  HW.Type.Route.RouteAggregator -> HW.Handler.Aggregator.aggregatorHandler
   HW.Type.Route.RouteAppleBadge ->
     HW.Handler.Base.fileResponse "image/svg+xml" "apple-podcasts.svg"
   HW.Type.Route.RouteEpisode number ->

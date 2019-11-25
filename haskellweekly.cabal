@@ -82,6 +82,7 @@ library
     HW.Application
     HW.Episodes
     HW.Handler.Advertising
+    HW.Handler.Aggregator
     HW.Handler.Base
     HW.Handler.Episode
     HW.Handler.Index
@@ -99,6 +100,7 @@ library
     HW.Middleware
     HW.Server
     HW.Template.Advertising
+    HW.Template.Aggregator
     HW.Template.Base
     HW.Template.Episode
     HW.Template.Index

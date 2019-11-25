@@ -15,6 +15,7 @@ import qualified HW.Type.Redirect
 
 data Route
   = RouteAdvertising
+  | RouteAggregator
   | RouteAppleBadge
   | RouteEpisode HW.Type.Number.Number
   | RouteFavicon
@@ -43,6 +44,7 @@ isRedirect route = case route of
 routeToText :: Route -> Data.Text.Text
 routeToText route = case route of
   RouteAdvertising -> "/advertising.html"
+  RouteAggregator -> "/aggregator.html"
   RouteAppleBadge -> "/apple-podcasts.svg"
   RouteEpisode number ->
     "/episode/" <> HW.Type.Number.numberToText number <> ".html"
@@ -76,6 +78,7 @@ textToRoute :: [Data.Text.Text] -> Maybe Route
 textToRoute path = case path of
   [] -> Just RouteIndex
   ["advertising.html"] -> Just RouteAdvertising
+  ["aggregator.html"] -> Just RouteAggregator
   ["apple-podcasts.svg"] -> Just RouteAppleBadge
   ["episode", file] -> routeContent "html" RouteEpisode file
   ["favicon.ico"] -> Just RouteFavicon

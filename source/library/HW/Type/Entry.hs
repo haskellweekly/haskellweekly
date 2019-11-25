@@ -7,6 +7,7 @@ where
 import qualified Data.Text
 import qualified Data.Time
 import qualified Database.PostgreSQL.Simple
+import qualified Database.PostgreSQL.Simple.FromRow
 import qualified Database.PostgreSQL.Simple.ToField
 import qualified Database.PostgreSQL.Simple.ToRow
 import qualified Text.Feed.Query
@@ -20,6 +21,21 @@ data Entry =
     , entryTitle :: Data.Text.Text
     }
   deriving (Show)
+
+instance Database.PostgreSQL.Simple.FromRow Entry where
+  fromRow = do
+    id_ <- Database.PostgreSQL.Simple.FromRow.field
+    link <- Database.PostgreSQL.Simple.FromRow.field
+    time <- fmap
+      (Data.Time.localTimeToUTC Data.Time.utc)
+      Database.PostgreSQL.Simple.FromRow.field
+    title <- Database.PostgreSQL.Simple.FromRow.field
+    pure Entry
+      { entryId = id_
+      , entryLink = link
+      , entryTime = time
+      , entryTitle = title
+      }
 
 instance Database.PostgreSQL.Simple.ToRow Entry where
   toRow entry =
