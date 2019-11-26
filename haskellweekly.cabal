@@ -119,7 +119,6 @@ library
     HW.Type.Config
     HW.Type.Date
     HW.Type.Duration
-    HW.Type.Entry
     HW.Type.Episode
     HW.Type.Guid
     HW.Type.Issue
