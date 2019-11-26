@@ -40,6 +40,5 @@ runMigrations state =
     mapM_
       (Database.PostgreSQL.Simple.execute_ connection)
       [ "begin; commit"
-      , "create table if not exists feeds ( page_url text primary key, time timestamp, feed_url text, failure_reason text )"
-      , "create table if not exists entries ( id text primary key, link text not null, time timestamp not null, title text not null )"
+      , "create table if not exists feeds ( page_url text primary key, feed_url text )"
       ]
