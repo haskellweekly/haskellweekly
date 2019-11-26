@@ -6,15 +6,11 @@ module HW.Main
   )
 where
 
-import qualified Control.Concurrent.Async
 import qualified Data.IORef
-import qualified Data.Pool
 import qualified Data.Version
-import qualified Database.PostgreSQL.Simple
 import qualified HW.Server
 import qualified HW.Type.Config
 import qualified HW.Type.State
-import qualified HW.Worker
 import qualified Paths_haskellweekly
 import qualified System.IO
 
@@ -28,13 +24,5 @@ main = do
     <> " ..."
   config <- HW.Type.Config.getConfig
   state <- HW.Type.State.configToState config
-  runMigrations state
   stateRef <- Data.IORef.newIORef state
-  Control.Concurrent.Async.race_
-    (HW.Server.server stateRef)
-    (HW.Worker.worker stateRef)
-
-runMigrations :: HW.Type.State.State -> IO ()
-runMigrations state =
-  Data.Pool.withResource (HW.Type.State.stateDatabase state) $ \connection ->
-    mapM_ (Database.PostgreSQL.Simple.execute_ connection) ["begin; commit"]
+  HW.Server.server stateRef
