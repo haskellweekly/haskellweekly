@@ -10,25 +10,19 @@ where
 import qualified Data.ByteString
 import qualified Data.IORef
 import qualified Data.Map
-import qualified Data.Pool
 import qualified Data.Text
 import qualified Data.Time
-import qualified Database.PostgreSQL.Simple
 import qualified HW.Episodes
 import qualified HW.Issues
 import qualified HW.Type.Config
-import qualified Network.HTTP.Client
-import qualified Network.HTTP.Client.TLS
 import qualified Network.Wai
 
 data State =
   State
     { stateConfig :: HW.Type.Config.Config
-    , stateDatabase :: Data.Pool.Pool Database.PostgreSQL.Simple.Connection
     , stateEpisodes :: HW.Episodes.Episodes
     , stateFileCache :: Data.Map.Map FilePath Data.ByteString.ByteString
     , stateIssues :: HW.Issues.Issues
-    , stateManager :: Network.HTTP.Client.Manager
     , stateResponseCache :: Data.Map.Map (Data.Text.Text, Data.Text.Text) ( Data.Time.UTCTime
                                                                           , Network.Wai.Response)
     }
@@ -37,24 +31,13 @@ data State =
 -- will fail.
 configToState :: HW.Type.Config.Config -> IO State
 configToState config = do
-  database <- Data.Pool.createPool
-    (Database.PostgreSQL.Simple.connectPostgreSQL
-    $ HW.Type.Config.configDatabaseUrl config
-    )
-    Database.PostgreSQL.Simple.close
-    1
-    60
-    10
   episodes <- either fail pure HW.Episodes.episodes
   issues <- either fail pure HW.Issues.issues
-  manager <- Network.HTTP.Client.TLS.newTlsManager
   pure State
     { stateConfig = config
-    , stateDatabase = database
     , stateEpisodes = episodes
     , stateFileCache = Data.Map.empty
     , stateIssues = issues
-    , stateManager = manager
     , stateResponseCache = Data.Map.empty
     }
 
