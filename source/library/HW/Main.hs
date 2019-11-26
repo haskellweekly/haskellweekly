@@ -37,8 +37,4 @@ main = do
 runMigrations :: HW.Type.State.State -> IO ()
 runMigrations state =
   Data.Pool.withResource (HW.Type.State.stateDatabase state) $ \connection ->
-    mapM_
-      (Database.PostgreSQL.Simple.execute_ connection)
-      [ "begin; commit"
-      , "create table if not exists feeds ( page_url text primary key, feed_url text )"
-      ]
+    mapM_ (Database.PostgreSQL.Simple.execute_ connection) ["begin; commit"]
