@@ -58,4 +58,7 @@ This week's package of the week is [`advent-of-code-api`](https://hackage.haskel
 
 ## Call for participation
 
-undefined
+-   [polysemy: outputToTrace has a bad type](https://github.com/polysemy-research/polysemy/issues/286)
+-   [pretty-simple: add pPrintString function](https://github.com/cdepillabout/pretty-simple/issues/53)
+-   [rib: Support all Pandoc (text) readers](https://github.com/srid/rib/issues/54)
+
