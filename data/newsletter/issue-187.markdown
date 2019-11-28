@@ -4,6 +4,9 @@ This is a weekly summary of what's going on in its community.
 
 ## Featured
 
+- [Convolutional Neural Networks Tutorial](http://penkovsky.com/neural-networks/day5/) by Bogdan Penkovsky
+  > Convolutional neural network is one of the most important deep learning architectures, it was even called the "master algorithm" in computer vision. To gain better understanding of the algorithm, today we are going to implement convolutional neural networks in Haskell on top of massiv, multi-dimensional arrays library.
+
 - [Automatic Testing of Haskell Projects with Travis CI](https://blog.qfpl.io/posts/testing-with-travis/index.html) by George Wilson
   > Every time you push a commit, a free service called Travis CI will compile your code and run any test suites you have.
 
@@ -21,9 +24,6 @@ This is a weekly summary of what's going on in its community.
 
 - [Low-Tech AST Extensibility with Extension Patterns](https://reasonablypolymorphic.com/blog/extension-patterns/index.html) by Sandy Maguire
   > Today I want to share a common pattern I've been using for extending AST-like data structures that I don't own.
-
-- [Modelling the World of Blade Runner with Haskell's Type System](https://dev.to/therewillbecode/modelling-the-world-of-blade-runner-with-haskell-s-type-system-41af) by Tom Chambrier
-  > Let's model a simplified demography of the fictional Blade Runner universe with algebraic data types.
 
 - [Moments in time](https://typeclasses.com/phrasebook/moments-in-time) by Type Classes
   > Here we demonstrate getting the current time, comparing two moments in time, and converting between a few different timestamp representations.
@@ -54,6 +54,9 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 
 - [Glasgow Haskell Compiler 8.10.1-alpha1 released](https://mail.haskell.org/pipermail/ghc-devs/2019-November/018337.html) by Ben Gamari
   > The GHC team is happy to announce the availability of the first alpha release in the GHC 8.10 series.
+
+- [Modelling the World of Blade Runner with Haskell's Type System](https://dev.to/therewillbecode/modelling-the-world-of-blade-runner-with-haskell-s-type-system-41af) by Tom Chambrier
+  > Let's model a simplified demography of the fictional Blade Runner universe with algebraic data types.
 
 ## Package of the week
 
