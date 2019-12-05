@@ -63,4 +63,4 @@ This week's package of the week is [hasql-th](https://hackage.haskell.org/packag
 
 ## Call for participation
 
-undefined
+-   [asterius: Missing Time API](https://github.com/tweag/asterius/issues/356)
