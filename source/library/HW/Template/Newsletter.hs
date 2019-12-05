@@ -24,7 +24,7 @@ newsletterTemplate baseUrl issues =
     $ do
         H.h2_ [H.class_ "f2 mv3 tracked-tight"] "Newsletter"
         H.p_ [H.class_ "lh-copy"] $ do
-          "The Haskell Weekly Newsletter covers the Haskell programming langauge. "
+          "The Haskell Weekly Newsletter covers the Haskell programming language. "
           "Each issue features several hand-picked links to interesting content about Haskell from around the web."
         newsletterActionTemplate baseUrl
         H.ul_ [H.class_ "lh-copy"] $ mapM_ (issueTemplate baseUrl) issues
