@@ -52,7 +52,7 @@ indexTemplate config maybeIssue maybeEpisode = do
       ]
       "Podcast"
     H.p_ [H.class_ "lh-copy"] $ do
-      "The Haskell Weekly Podcast covers the Haskell programming langauge. "
+      "The Haskell Weekly Podcast covers the Haskell programming language. "
       "Listen to professional software developers discuss using functional programming to solve real-world business problems. "
       "Each episode uses a conversational two-host format and runs for about 15 minutes."
     case maybeEpisode of
