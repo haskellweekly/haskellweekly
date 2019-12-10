@@ -25,6 +25,9 @@ This is a weekly summary of what's going on in its community.
 - [28th Netherlands Functional Programming Day 2020](https://sites.google.com/view/nl-fp-day-2020/home)
   > The Netherlands Functional Programming Day is an annual gathering of researchers, students, and practitioners sharing a common interest in functional programming.
 
+- [Gluing together animations](https://reanimate.readthedocs.io/en/latest/glue_tut/)
+  > Introducing Reanimate, a batteries-included way of gluing together different technologies: SVG as a universal image format, LaTeX for typesetting, ffmpeg for video encoding, inkscape/imagemagick for rasterization, potrace for vectorization, blender/povray for 3D graphics, and Haskell for scripting.
+
 ## Jobs
 
 - [Interos is Hiring Full Stack Haskell Software Engineers](https://www.interos.ai/careers/#haskell-software-engineer-ii) (ad)
