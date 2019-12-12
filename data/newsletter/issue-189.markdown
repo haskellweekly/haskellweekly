@@ -98,4 +98,4 @@ This week's package of the week is [`downloader`](https://hackage.haskell.org/pa
 
 ## Call for participation
 
-undefined
+-   [these: Instances for ReaderT and MaybeT?](https://github.com/isomorphism/these/issues/135)
