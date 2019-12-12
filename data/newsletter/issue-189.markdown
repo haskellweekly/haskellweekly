@@ -4,7 +4,7 @@ This is a weekly summary of what's going on in its community.
 
 ## Featured
 
-- [Gluing together animations](https://reanimate.readthedocs.io/en/latest/glue_tut/)
+- [Gluing together animations](https://reanimate.readthedocs.io/en/latest/glue_tut/) by David Himmelstrup
   > Introducing Reanimate, a batteries-included way of gluing together different technologies: SVG as a universal image format, LaTeX for typesetting, ffmpeg for video encoding, inkscape/imagemagick for rasterization, potrace for vectorization, blender/povray for 3D graphics, and Haskell for scripting.
 
 - [Haskell vs OCaml](https://markkarpov.com/post/haskell-vs-ocaml.html) by Mark Karpov
