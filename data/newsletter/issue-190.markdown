@@ -55,6 +55,9 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 - [Lazy Constructive Numbers and the Stern-Brocot Tree](https://doisinkidney.com/posts/2019-12-14-stern-brocot.html) by Donnacha Oisín Kidney
   > In this post, I'm going to talk about a type for the rational numbers, and I'm going to try satisfy those requirements as best I can.
 
+- [A monitoring server](https://typeclasses.com/phrasebook/monitoring) by Type Classes
+  > This example demonstrates simple inter-process communication using sockets, multi-threaded applications, a daemon that responds to an interrupt signal, spawning new processes, and calculating the success-to-failure ratio over a sliding window of event data to assess the health of a service.
+
 - [Top 10 Haskell Open-Source Projects for Linux Users](https://serokell.io/blog/top-haskell-open-source-projects-for-linux) by Jonn Mostovoy
   > In this post, we would like to provide our developers' view on the best projects written in Haskell that they use regularly, in some cases --- daily.
 
