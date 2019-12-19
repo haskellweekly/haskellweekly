@@ -64,4 +64,6 @@ undefined
 
 ## Call for participation
 
-undefined
+-   [herms: Build with GHC 8.8, 8.10](https://github.com/JackMiranda/herms/issues/107)
+-   [polysemy: `Polysemy.State` lacks `execState` method ](https://github.com/polysemy-research/polysemy/issues/301)
+-   [rib: Fix Hackage docs build](https://github.com/srid/rib/issues/61)
