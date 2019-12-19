@@ -63,7 +63,7 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 
 ## Package of the week
 
-undefined
+This week's package of the week is [Hedis](https://hackage.haskell.org/package/hedis-0.12.11), a client library for the Redis datastore. It supports the full command set and pipelining.
 
 ## Call for participation
 
