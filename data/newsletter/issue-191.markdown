@@ -4,7 +4,8 @@ This is a weekly summary of what's going on in its community.
 
 ## Featured
 
-undefined
+- [Monadic Party 2020](https://monadic.party) by Monadic Party
+  > Monadic Party is a four days long summer school of Haskell with excellent speakers, three tracks and lunch included. Join us this year for workshops at beginner, intermediate and advanced levels. See the recordings from our previous two editions on our [Youtube Channel](https://www.youtube.com/channel/UCCeiYYR2fCXarkfSqqFBwuA/videos). CFP applications are open.
 
 ## Jobs
 
