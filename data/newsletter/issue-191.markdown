@@ -47,7 +47,3 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 ## Package of the week
 
 This week's package of the week is [FIR](https://gitlab.com/sheaf/fir/blob/cbbfb3b6a8731ac10f4d90e42ece705abe4e0656/readme.md), an EDSL that compiles to SPIR-V for graphics programming on the GPU in Haskell.
-
-## Call for participation
-
-undefined
