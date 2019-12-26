@@ -4,7 +4,8 @@ This is a weekly summary of what's going on in its community.
 
 ## Featured
 
-undefined
+- [Random benchmarks](https://alexey.kuleshevi.ch/blog/2019/12/21/random-benchmarks/) by Alexey Kuleshevich
+  > This post will compare performance of available libraries in Haskell for random number generation, as well as provide a brief introduction on how to use those libraries and what their conceptual differences are.
 
 ## Jobs
 
