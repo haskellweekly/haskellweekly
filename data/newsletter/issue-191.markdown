@@ -7,6 +7,9 @@ This is a weekly summary of what's going on in its community.
 - [Random benchmarks](https://alexey.kuleshevi.ch/blog/2019/12/21/random-benchmarks/) by Alexey Kuleshevich
   > This post will compare performance of available libraries in Haskell for random number generation, as well as provide a brief introduction on how to use those libraries and what their conceptual differences are.
 
+- [Monadic Party 2020](https://monadic.party) by Monadic Party
+  > Monadic Party is a four days long summer school of Haskell with excellent speakers, three tracks and lunch included. Join us this year for workshops at beginner, intermediate and advanced levels. See the recordings from our previous two editions on our [Youtube Channel](https://www.youtube.com/channel/UCCeiYYR2fCXarkfSqqFBwuA/videos). CFP applications are open.
+
 ## Jobs
 
 - [Interos is Hiring Full Stack Haskell Software Engineers](https://www.interos.ai/careers/#haskell-software-engineer-ii) (ad)
