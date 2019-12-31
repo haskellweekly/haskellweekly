@@ -13,6 +13,9 @@ This is a weekly summary of what's going on in its community.
 - [Hire and Train Haskell Junior Developers](https://cvlad.info/junior-developers/) by Vladimir Ciobanu
   > I think the reason we don’t have more people doing Haskell is we’re not actually hiring junior developers, and when we do, we don’t set them up for success by properly training them.
   
+- [Fancy Haskell](https://dfithian.github.io/2019/12/30/fancy-haskell.html) by Dan Fithian
+  > Fancy Haskell code has a time and a place. Make sure to clearly identify the tradeoffs when reaching for anything fancy. Incorporate those tradeoffs into an ideal manifestation of simple code, and then interate until code represents that ideal.
+  
 - [Runtime based caching](https://qnikst.github.io/posts/2019-09-30-runtime-based-caching.html) by Alexander Vershilov
   > When many users send requests, we have to generate lots of connections and perform many queries. The obvious solution here is to introduce a caching mechanism. In this post, I’m going to describe some solutions available in the Haskell ecosystem and our solution, which is quite interesting.
   
