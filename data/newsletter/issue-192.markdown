@@ -49,6 +49,5 @@ This week's package of the week is [`hpath`](https://github.com/hasufell/hpath),
 
 ## Call for participation
 
--   [haskell-ide-engine: Add `hie.yaml.stack` and `hie.yaml.cabal` template for HIE](https://github.com/haskell/haskell-ide-engine/issues/1515)
 -   [persistent: MySQL backend generates foreign keys over length limit](https://github.com/yesodweb/persistent/issues/1000)
 -   [termonad: not possible build with ghc-8.8.x](https://github.com/cdepillabout/termonad/issues/142)
