@@ -9,6 +9,9 @@ This is a weekly summary of what's going on in its community.
 
 - [Plucking Constraints](https://www.parsonsmatt.org/2020/01/03/plucking_constraints.html) by Matt Parsons
   > There’s a Haskell trick that I’ve observed in a few settings, and I’ve never seen a name put to it. I’d like to write a post about the technique and give it a name. It’s often useful to write in a type class constrained manner, but at some point you need to discharge (or satisfy?) those constraints. You can pluck a single constraint at a time.
+  
+- [Dhall - Year in review (2019-2020)](http://www.haskellforall.com/2020/01/dhall-year-in-review-2019-2020.html) by Gabriel Gonzalez
+  > The Dhall configuration language is now three years old and this post reviews progress in 2019 and the future direction of the language in 2020.
 
 - [A Gentle Run-through of Continuation Passing Style and Its Use Cases](https://free.cofree.io/2020/01/02/cps/) by Ziyang Liu
   > I’ll first go over CPS basics, followed by discussing some use cases of CPS, and only in the end will I briefly touch upon the `Cont` monad and `callCC`.
