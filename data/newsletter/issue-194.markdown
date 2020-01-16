@@ -46,7 +46,7 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 
 ## Package of the week
 
-undefined
+This week's package of the week is [Gloss](https://hackage.haskell.org/package/gloss-1.13.1.1), a library that provides painless 2D vector graphics, animations and simulations. Get something cool on the screen in under 10 minutes.
 
 ## Call for participation
 
