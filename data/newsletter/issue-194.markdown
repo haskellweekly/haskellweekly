@@ -50,4 +50,4 @@ undefined
 
 ## Call for participation
 
-undefined
+-   [yesod: Remove unnecessary deriving of Typeable](https://github.com/yesodweb/yesod/issues/1653)
