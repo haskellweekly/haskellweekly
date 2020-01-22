@@ -51,9 +51,8 @@ newsletterFeedTemplate baseUrl issues =
         ]
       , node "content" [("type", "html")] [text $ CMark.nodeToHtml [] content]
       ]
-    feedId = text $ HW.Type.Route.routeToTextWith
-      baseUrl
-      HW.Type.Route.RouteNewsletterFeed
+    feedId =
+      HW.Type.Route.routeToTextWith baseUrl HW.Type.Route.RouteNewsletterFeed
     feedUpdated =
       text
         . maybe "2001-01-01T12:00:00Z" HW.Type.Date.dateToLongText
@@ -64,8 +63,16 @@ newsletterFeedTemplate baseUrl issues =
       "feed"
       [("xmlns", "http://www.w3.org/2005/Atom")]
       (node "title" [] [text "Haskell Weekly"]
-      : node "id" [] [feedId]
+      : node "id" [] [text feedId]
       : node "updated" [] [feedUpdated]
+      : node "link" [("rel", "self"), ("href", feedId)] []
+      : node
+          "link"
+          [ ( "href"
+            , HW.Type.Route.routeToTextWith baseUrl HW.Type.Route.RouteIndex
+            )
+          ]
+          []
       : fmap entry issues
       )
   in Text.XML.Document (Text.XML.Prologue [] Nothing []) feed []

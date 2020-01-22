@@ -17,15 +17,16 @@ import qualified HW.Issues
 import qualified HW.Type.Config
 import qualified Network.Wai
 
-data State =
-  State
-    { stateConfig :: HW.Type.Config.Config
-    , stateEpisodes :: HW.Episodes.Episodes
-    , stateFileCache :: Data.Map.Map FilePath Data.ByteString.ByteString
-    , stateIssues :: HW.Issues.Issues
-    , stateResponseCache :: Data.Map.Map (Data.Text.Text, Data.Text.Text) ( Data.Time.UTCTime
-                                                                          , Network.Wai.Response)
-    }
+data State = State
+  { stateConfig :: HW.Type.Config.Config
+  , stateEpisodes :: HW.Episodes.Episodes
+  , stateFileCache :: Data.Map.Map FilePath Data.ByteString.ByteString
+  , stateIssues :: HW.Issues.Issues
+  , stateResponseCache
+      :: Data.Map.Map
+        (Data.Text.Text, Data.Text.Text)
+        (Data.Time.UTCTime, Network.Wai.Response)
+  }
 
 -- | Builds up the state using the given config. If anything goes wrong, this
 -- will fail.

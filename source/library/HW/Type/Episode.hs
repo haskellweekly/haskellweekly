@@ -14,16 +14,15 @@ import qualified HW.Type.Size
 import qualified HW.Type.Summary
 import qualified HW.Type.Title
 
-data Episode =
-  Episode
-    { episodeArticles :: HW.Type.Articles.Articles
-    , episodeAudio :: HW.Type.Audio.Audio
-    , episodeDate :: HW.Type.Date.Date
-    , episodeDuration :: HW.Type.Duration.Duration
-    , episodeGuid :: HW.Type.Guid.Guid
-    , episodeNumber :: HW.Type.Number.Number
-    , episodeSize :: HW.Type.Size.Size
-    , episodeSummary :: HW.Type.Summary.Summary
-    , episodeTitle :: HW.Type.Title.Title
-    }
+data Episode = Episode
+  { episodeArticles :: HW.Type.Articles.Articles
+  , episodeAudio :: HW.Type.Audio.Audio
+  , episodeDate :: HW.Type.Date.Date
+  , episodeDuration :: HW.Type.Duration.Duration
+  , episodeGuid :: HW.Type.Guid.Guid
+  , episodeNumber :: HW.Type.Number.Number
+  , episodeSize :: HW.Type.Size.Size
+  , episodeSummary :: HW.Type.Summary.Summary
+  , episodeTitle :: HW.Type.Title.Title
+  }
   deriving (Eq, Show)

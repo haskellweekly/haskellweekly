@@ -20,13 +20,12 @@ import qualified Numeric.Natural
 import qualified Text.ParserCombinators.ReadP
 import qualified Text.Read
 
-data Caption =
-  Caption
-    { captionIdentifier :: Numeric.Natural.Natural
-    , captionStart :: Data.Time.TimeOfDay
-    , captionEnd :: Data.Time.TimeOfDay
-    , captionPayload :: Data.List.NonEmpty.NonEmpty Data.Text.Text
-    }
+data Caption = Caption
+  { captionIdentifier :: Numeric.Natural.Natural
+  , captionStart :: Data.Time.TimeOfDay
+  , captionEnd :: Data.Time.TimeOfDay
+  , captionPayload :: Data.List.NonEmpty.NonEmpty Data.Text.Text
+  }
   deriving (Eq, Show)
 
 -- | Parses a SubRip Text (SRT) file into a bunch of captions. If parsing

@@ -13,13 +13,12 @@ import qualified Network.Wai.Handler.Warp
 import qualified System.Environment
 import qualified Text.Read
 
-data Config =
-  Config
-    { configBaseUrl :: HW.Type.BaseUrl.BaseUrl
-    , configDataDirectory :: FilePath
-    , configGoogleSiteVerification :: Maybe Data.Text.Text
-    , configPort :: Network.Wai.Handler.Warp.Port
-    }
+data Config = Config
+  { configBaseUrl :: HW.Type.BaseUrl.BaseUrl
+  , configDataDirectory :: FilePath
+  , configGoogleSiteVerification :: Maybe Data.Text.Text
+  , configPort :: Network.Wai.Handler.Warp.Port
+  }
   deriving (Eq, Show)
 
 -- | Gets all the necessary pieces of the 'Config' and stitches them together.
