@@ -73,4 +73,5 @@ This week's packages of the week are:
 
 ## Call for participation
 
-undefined
+-   [pretty-simple: Trailing whitespace](https://github.com/cdepillabout/pretty-simple/issues/61)
+-   [spago: Add `--source-maps` flag](https://github.com/purescript/spago/issues/545)
