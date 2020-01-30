@@ -81,4 +81,4 @@ undefined
 
 ## Call for participation
 
-undefined
+-   [Allure: Flesh out the use of the spacesuit](https://github.com/AllureOfTheStars/Allure/issues/104)
