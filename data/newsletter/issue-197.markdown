@@ -87,4 +87,5 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 
 ## Call for participation
 
-undefined
+-   [curl-runnings: requests timer](https://github.com/aviaviavi/curl-runnings/issues/49)
+-   [fission-suite/web-api: Best Practice: Benchmarks](https://github.com/fission-suite/web-api/issues/254)
