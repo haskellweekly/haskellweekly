@@ -74,4 +74,4 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 
 ## Call for participation
 
-undefined
+-   [ldgallery: viewer: set page title](https://github.com/pacien/ldgallery/issues/95)
