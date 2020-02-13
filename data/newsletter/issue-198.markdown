@@ -7,7 +7,7 @@ This is a weekly summary of what's going on in its community.
 - [Lessons learned from writing ShellCheck, GitHub’s now most starred Haskell project](https://www.vidarholen.net/contents/blog/?p=859) by Vidar Holen
   > I started the project 8 years ago, and this seems like a good opportunity to share some of the lessons learned along the way.
 
-> [Decimal Safety Right on The Money](https://tech.fpcomplete.com/blog/safe-decimal-right-on-the-money) by Alexey Kuleshevich
+- [Decimal Safety Right on The Money](https://tech.fpcomplete.com/blog/safe-decimal-right-on-the-money) by Alexey Kuleshevich
   > I would like to share an approach for safely and efficiently representing currency data in Haskell with safe-decimal.
 
 - [Upcoming stackage LTS 15 snapshot with ghc-8.8.2](https://www.stackage.org/blog/2020/02/upcoming-lts-15-ghc-8-8-2) by Mihai Maruseac
