@@ -59,4 +59,5 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 
 ## Call for participation
 
-undefined
+-   [LambdaHack: Move the definition of 'stand still' keys to where direction keys are defined](https://github.com/LambdaHack/LambdaHack/issues/194)
+-   [persistent: Refactor JSON Postgres tests](https://github.com/yesodweb/persistent/issues/1043)
