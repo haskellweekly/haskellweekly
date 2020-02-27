@@ -84,4 +84,4 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 
 ## Call for participation
 
-undefined
+-   [library: Add edit and delete option in author and book view](https://github.com/MaurizioBruetsch/library/issues/11)
