@@ -80,4 +80,5 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 
 ## Call for participation
 
-undefined
+-   [deep-sky: Common loading indicator](https://github.com/tuturto/deep-sky/issues/17)
+-   [frost: Add OverloadedStrings to default-extensions](https://github.com/frost-org/frost/issues/62)
