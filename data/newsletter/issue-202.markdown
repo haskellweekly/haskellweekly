@@ -6,6 +6,9 @@ This is a weekly summary of what's going on in its community.
 
 - [Monadic Party Speakers and Workshops released!](https://monadic.party) by Monadic Party
   > We have selected speakers for this year's edition of Monadic Party, a four day, three track summer school of Haskell. Join us this year for workshops at beginner, intermediate and advanced levels. See the recordings from our previous two editions on our [Youtube Channel](https://www.youtube.com/channel/UCCeiYYR2fCXarkfSqqFBwuA/videos).
+  
+- [Bringing your Haskell types to Reason](https://www.stackbuilders.com/news/bring-your-haskell-types-to-reason) by Stack Builders
+  > One of the challenges that we face in web development is that we are often writing the backend and the frontend in different languages and type systems. To build reliable applications, we need a way to connect both. We can build a bridge that helps us to traverse safely between the backend and the frontend with a code generation tool that allows us to use the same types on both sides of the application. This article is based on the talk presented in [Compose Conference NYC 2019](https://www.youtube.com/watch?v=BxUElNb-0Q0)
 
 ## Jobs
 
