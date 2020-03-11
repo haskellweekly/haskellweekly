@@ -85,7 +85,7 @@ addLogging application request respond = do
     Text.Printf.printf
       "{ \"time\": \"%s\"\
       \, \"method\": \"%s\"\
-      \, \"path\": \"%s\"\
+      \, \"path\": \"%s%s\"\
       \, \"status\": %d\
       \, \"bytes\": %d\
       \, \"ns\": %d\
@@ -94,6 +94,7 @@ addLogging application request respond = do
       (iso8601 now)
       (requestMethod request)
       (requestPath request)
+      (requestQuery request)
       (responseStatus response)
       (responseSize response)
       (duration t1 t2)
@@ -113,6 +114,11 @@ requestPath :: Network.Wai.Request -> Data.Text.Text
 requestPath =
   Data.Text.Encoding.decodeUtf8With Data.Text.Encoding.Error.lenientDecode
     . Network.Wai.rawPathInfo
+
+requestQuery :: Network.Wai.Request -> Data.Text.Text
+requestQuery =
+  Data.Text.Encoding.decodeUtf8With Data.Text.Encoding.Error.lenientDecode
+    . Network.Wai.rawQueryString
 
 responseStatus :: Network.Wai.Response -> Int
 responseStatus = Network.HTTP.Types.statusCode . Network.Wai.responseStatus
@@ -185,7 +191,7 @@ contentSecurityPolicy = Data.Text.intercalate
   "; "
   [ "base-uri 'none'"
   , "default-src 'none'"
-  , "form-action https://news.us10.list-manage.com 'self'"
+  , "form-action https://duckduckgo.com https://news.us10.list-manage.com 'self'"
   , "frame-ancestors 'none'"
   , "img-src data: 'self'"
   , "media-src https://haskell-weekly-podcast.nyc3.cdn.digitaloceanspaces.com:443 'self'"

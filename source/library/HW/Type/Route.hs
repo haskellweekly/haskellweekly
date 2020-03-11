@@ -28,6 +28,7 @@ data Route
   | RoutePodcastFeed
   | RouteRedirect HW.Type.Redirect.Redirect
   | RouteRobots
+  | RouteSearch
   | RouteSitemap
   | RouteSurvey HW.Type.Number.Number
   | RouteTachyons
@@ -58,6 +59,7 @@ routeToText route = case route of
   RoutePodcast -> "/podcast.html"
   RouteRedirect redirect -> HW.Type.Redirect.redirectToText redirect
   RouteRobots -> "/robots.txt"
+  RouteSearch -> "/search"
   RouteSitemap -> "/sitemap.txt"
   RouteSurvey number ->
     "/survey/" <> HW.Type.Number.numberToText number <> ".html"
@@ -87,6 +89,7 @@ textToRoute path = case path of
   ["podcast.html"] -> Just RoutePodcast
   ["podcast.rss"] -> Just RoutePodcastFeed
   ["robots.txt"] -> Just RouteRobots
+  ["search"] -> Just RouteSearch
   ["sitemap.txt"] -> Just RouteSitemap
   ["survey", file] -> routeContent "html" RouteSurvey file
   ["tachyons.css"] -> Just RouteTachyons

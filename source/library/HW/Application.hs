@@ -21,6 +21,7 @@ import qualified HW.Handler.Podcast
 import qualified HW.Handler.PodcastFeed
 import qualified HW.Handler.Redirect
 import qualified HW.Handler.Robots
+import qualified HW.Handler.Search
 import qualified HW.Handler.Sitemap
 import qualified HW.Handler.Survey
 import qualified HW.Type.App
@@ -35,7 +36,9 @@ application :: Data.IORef.IORef HW.Type.State.State -> Network.Wai.Application
 application ref request respond =
   case (requestMethod request, requestRoute request) of
     ("GET", Just route) -> do
-      response <- Control.Monad.Trans.Reader.runReaderT (handle route) ref
+      response <- Control.Monad.Trans.Reader.runReaderT
+        (handle route request)
+        ref
       respond response
     _ -> respond HW.Handler.Base.notFoundResponse
 
@@ -54,8 +57,11 @@ requestRoute = HW.Type.Route.textToRoute . Network.Wai.pathInfo
 
 -- | Handles a particular route by calling the appropriate handler and
 -- returning the response.
-handle :: HW.Type.Route.Route -> HW.Type.App.App Network.Wai.Response
-handle route = case route of
+handle
+  :: HW.Type.Route.Route
+  -> Network.Wai.Request
+  -> HW.Type.App.App Network.Wai.Response
+handle route request = case route of
   HW.Type.Route.RouteAdvertising -> HW.Handler.Advertising.advertisingHandler
   HW.Type.Route.RouteAppleBadge ->
     HW.Handler.Base.fileResponse "image/svg+xml" "apple-podcasts.svg"
@@ -77,6 +83,7 @@ handle route = case route of
   HW.Type.Route.RouteRedirect redirect ->
     HW.Handler.Redirect.redirectHandler redirect
   HW.Type.Route.RouteRobots -> HW.Handler.Robots.robotsHandler
+  HW.Type.Route.RouteSearch -> HW.Handler.Search.searchHandler request
   HW.Type.Route.RouteSitemap -> HW.Handler.Sitemap.sitemapHandler
   HW.Type.Route.RouteSurvey number -> HW.Handler.Survey.surveyHandler number
   HW.Type.Route.RouteTachyons ->

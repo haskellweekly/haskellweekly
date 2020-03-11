@@ -49,15 +49,31 @@ baseTemplate baseUrl title head_ body = do
     H.body_ [H.class_ "bg-white black flex justify-center mh3 sans-serif"]
       . H.div_ [H.class_ "mw7 w-100"]
       $ do
-          H.header_ [H.class_ "mv3"]
-            . H.h1_ [H.class_ "f1 mv3 tracked-tight"]
-            $ H.a_
-                [ H.class_ "no-underline purple"
-                , H.href_ $ HW.Type.Route.routeToTextWith
+          H.header_ [H.class_ "mv3"] $ do
+            H.h1_ [H.class_ "f1 mv3 tracked-tight"] $ H.a_
+              [ H.class_ "no-underline purple"
+              , H.href_ $ HW.Type.Route.routeToTextWith
+                baseUrl
+                HW.Type.Route.RouteIndex
+              ]
+              "Haskell Weekly"
+            H.form_
+                [ H.action_ $ HW.Type.Route.routeToTextWith
                   baseUrl
-                  HW.Type.Route.RouteIndex
+                  HW.Type.Route.RouteSearch
+                , H.class_ "ba b--silver center flex mw6"
                 ]
-                "Haskell Weekly"
+              $ do
+                  H.input_
+                    [ H.class_ "bg-inherit bn flex-auto input-reset pa3"
+                    , H.name_ "query"
+                    , H.placeholder_ "functor, applicative, monad"
+                    ]
+                  H.button_
+                    [ H.class_ "b bg-inherit bn input-reset pa3 pointer"
+                    , H.type_ "submit"
+                    ]
+                    "Search"
           H.main_ [H.class_ "mv3"] body
           H.footer_ [H.class_ "mid-gray mb6 mt3"]
             . H.p_ [H.class_ "lh-copy"]

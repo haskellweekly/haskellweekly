@@ -85,6 +85,7 @@ library
     HW.Handler.PodcastFeed
     HW.Handler.Redirect
     HW.Handler.Robots
+    HW.Handler.Search
     HW.Handler.Sitemap
     HW.Handler.Survey
     HW.Issues
