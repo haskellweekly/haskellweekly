@@ -65,4 +65,4 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 
 ## Call for participation
 
-undefined
+-   [tomland: Add 'ByteString' newtypes for Generic coding](https://github.com/kowainik/tomland/issues/251)
