@@ -39,7 +39,7 @@ This is a weekly summary of what's going on in its community.
 - [Interos is Hiring Full Stack Haskell Software Engineers](https://www.interos.ai/careers/#haskell-software-engineer-ii) (ad)
   > At Interos, we are disrupting the way Fortune 500 companies and government agencies identify and respond to risk within their supply chains. We deliver the data and insights to business leaders that help them identify, visualize and understand the ripple effects that could impact their supply chains, before they happen. Recently funded by Kleiner Perkins and pivoting to an automated solution, Interos is in essence, a start-up SaaS environment.
 
-- [Haskell development job with Well-Typed]()
+- [Haskell development job with Well-Typed](https://well-typed.com/blog/2020/03/haskell-development-job-with-well-typed/)
 
 Trying to hire a Haskell developer?
 You should [advertise with us](https://haskellweekly.news/advertising.html)!
