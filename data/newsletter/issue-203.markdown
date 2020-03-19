@@ -70,4 +70,4 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 
 ## Call for participation
 
-undefined
+-   [Mary: add semicolon](https://github.com/msp-strath/Mary/issues/21)
