@@ -79,7 +79,7 @@ newsletterActionTemplate baseUrl =
       $ do
           H.div_
               [ H.makeAttribute "aria-hidden" "true"
-              , H.class_ "absolute top--2"
+              , H.class_ "absolute f7 top--2"
               ]
             $ H.input_
                 [ H.name_ "b_49a6a2e17b12be2c5c4dcb232_ffbbbbd930"
