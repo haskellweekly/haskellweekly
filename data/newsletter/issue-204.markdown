@@ -58,4 +58,4 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 
 ## Call for participation
 
-undefined
+-   [transformers-compat: Add a newtype wrapper in Data.Functor.Classes.Generic for DerivingVia purposes](https://github.com/ekmett/transformers-compat/issues/47)
