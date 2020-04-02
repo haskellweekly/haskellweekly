@@ -21,7 +21,7 @@ undefined
 
 ## Call for participation
 
--   [neuron: Add `-e` option to automatically open in editor](https://github.com/srid/neuron/issues/43)
--   [restyler: restyle-path should accept directory arguments](https://github.com/restyled-io/restyler/issues/86)
--   [persistent: Refactor `[]` to `NonEmpty` where appropriate](https://github.com/yesodweb/persistent/issues/1061)
 -   [generic-data: Optimize generic implementations of Read and Show](https://github.com/Lysxia/generic-data/issues/37)
+-   [neuron: Add `-e` option to automatically open in editor](https://github.com/srid/neuron/issues/43)
+-   [persistent: Refactor `[]` to `NonEmpty` where appropriate](https://github.com/yesodweb/persistent/issues/1061)
+-   [restyler: restyle-path should accept directory arguments](https://github.com/restyled-io/restyler/issues/86)
