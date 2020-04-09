@@ -77,6 +77,9 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 - [JSON parser performance optimization, the slow path trick](https://blog.typeable.io/posts/2020-02-24-performance_slow_path.html) by Yuras Shumovich
   > Given that even slight speedup in a core package will have a big impact on the whole community, we at Typeable decided to invest some time into `aeson` performance.
 
+- [Micro C, Part 0](https://blog.josephmorag.com/posts/mcc0/) by Joseph Morag
+  > In this series, we will explore how to write a compiler for a small subset of C to LLVM in Haskell.
+
 - [Serving HTML with Servant](https://mmhaskell.com/blog/2020/3/23/serving-html-with-servant) by Monday Morning Haskell
   > You'll have to send the HTML you generate to your end-user, typically over a web server. So in this article we're going to explore the most basic way we can do that.
 
