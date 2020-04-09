@@ -93,4 +93,5 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 
 ## Call for participation
 
-undefined
+-   [Character-Sheet: Add UX for parse errors](https://github.com/blargg/Character-Sheet/issues/1)
+-   [pandoc: ignoring underscored text](https://github.com/jgm/pandoc/issues/6255)
