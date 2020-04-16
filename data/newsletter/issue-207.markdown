@@ -61,4 +61,5 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 
 ## Call for participation
 
-undefined
+-   [dotenv-hs: Support for GHC 8.8 and 8.10](https://github.com/stackbuilders/dotenv-hs/issues/118)
+-   [persistent: upsertBy` does not work with a non-default Id](https://github.com/yesodweb/persistent/issues/1074)
