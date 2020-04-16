@@ -10,9 +10,6 @@ This is a weekly summary of what's going on in its community.
 - [Micro C, Part 1](https://blog.josephmorag.com/posts/mcc1/) by Joseph Morag
   > Welcome to the beginning of the compiler proper!
 
-- [Performance comparison of parallel ray tracing in functional programming languages](https://github.com/athas/raytracers/tree/44f88046e298401abfdeb049f61dc215d0df9742) by Troels Henriksen
-  > The intent is to investigate, on a rather small and simple problem, to which degree functional programming lives up to the frequent promise of easy parallelism, and whether the resulting code is actually fast in an objective sense.
-
 - [Polymorphic Perplexion](https://ucsd-progsys.github.io/liquidhaskell-blog/2020/04/12/polymorphic-perplexion.lhs/) by Ranjit Jhala
   > Thanks to its ubiquity, we often take polymorphism for granted, and it can be quite baffling to figure out why verification fails with monomorphic signatures.
 
@@ -27,6 +24,9 @@ This is a weekly summary of what's going on in its community.
 
 - [Things Software Engineers Trip Up On When Learning Haskell](https://williamyaoh.com/posts/2020-04-12-software-engineer-hangups.html) by William Yaoh
   > Most likely you’ve worked in an imperative language, and now you want to find out what all the fuss about functional programming is.
+
+- [The three kinds of Haskell exceptions and how to use them](https://www.tweag.io/posts/2020-04-16-exceptions-in-haskell.html) by Arnaud Spiwack
+  > In this blog post, I'd like to explain how I recommend understanding and using Haskell's exceptions.
 
 - [Towards Faster Iteration in Industrial Haskell](https://blog.sumtypeofway.com/posts/fast-iteration-with-haskell.html) by Patrick Thomson
   > This particular post concerns one industry perspective: the speed at which a team of programmers can iteratively improve and extend a given codebase.
@@ -52,6 +52,9 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 
 - [Lesson 7: The Compose newtype](https://typeclasses.com/functortown/the-compose-newtype) by Type Classes
   > This lesson will extend the theme of the previous lesson, picking up where it left off and then introducing another newtype called `Compose` that generalizes this idea that any two functors or applicative functors can, well, *compose*.
+
+- [Performance comparison of parallel ray tracing in functional programming languages](https://github.com/athas/raytracers/tree/44f88046e298401abfdeb049f61dc215d0df9742) by Troels Henriksen
+  > The intent is to investigate, on a rather small and simple problem, to which degree functional programming lives up to the frequent promise of easy parallelism, and whether the resulting code is actually fast in an objective sense.
 
 - [Programming totally with `head` and `tail`](https://blog.poisson.chat/posts/2020-04-13-safe-head-tail.html) by Li-yao Xia
   > Today, we will investigate a more exotic answer using dependent types.
