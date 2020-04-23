@@ -71,4 +71,6 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 
 ## Call for participation
 
-undefined
+-   [cabal: Change knownSuffixHandlers from `[(String, String)]` to `[(PackageName, UnqualComponentName, Extension)]`](https://github.com/haskell/cabal/issues/6727)
+-   [dunai: Dunai-test is missing Functor constraint](https://github.com/ivanperez-keera/dunai/issues/208)
+-   [neuron: neuron new: disallow empty title](https://github.com/srid/neuron/issues/123)
