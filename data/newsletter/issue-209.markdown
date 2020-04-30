@@ -13,6 +13,9 @@ This is a weekly summary of what's going on in its community.
 - [Deriving Isomorphically](https://www.tweag.io/posts/2020-04-23-deriving-isomorphically.html) by Hans Hoeglund
   > In this post I'll present iso-deriving and show some examples of iso-deriving in action. I've packaged up all the types and classes used here in the iso-deriving package.
 
+- [Hakyll Pt. 6 – Pure Builds With Nix](https://robertwpearce.com/hakyll-pt-6-pure-builds-with-nix.html) by Robert Pearce
+  > Learn how to make your hakyll project build pure and how to patch hakyll if you need to.
+
 - [Learn to moonwalk with waterflow problem](https://iokasimov.github.io/posts/2020/04/waterflow) by Murat Kasimov
   > I’d like to find my own solution that would be composable, readable and involve effects.
 
@@ -22,9 +25,6 @@ This is a weekly summary of what's going on in its community.
 - [Property testing in depth: genvalidity's fixed-size type generators](https://cs-syd.eu/posts/2020-04-28-genvalidity-improvements) by Tom Sydney Kerckhove
   > This post announces `genvalidity-0.10.0.0` and recently released companion libraries. This post explores the changes to the generators of `Int`, `Word`, `Float`, `Double`, `Natural` and `Integer`.
 
-- [A Servant API Testing Example From the Wild](https://vadosware.io/post/a-servant-api-testing-example-from-the-wild/) by Victor Adossi
-  > I share some code snippets to test endpoints on a servant-powered API I work on.
-
 - [Speeding up the Sixty compiler](https://ollef.github.io/blog/posts/speeding-up-sixty.html) by Olle Fredriksson
   > I will show the workflow and profiling tools that I use to find what to optimise in Haskell programs such as Sixty.
 
@@ -33,9 +33,6 @@ This is a weekly summary of what's going on in its community.
 
 - [Writing a discord library using Polysemy](https://nitros12.github.io/writing-a-discord-library-using-polysemy/) by Ben Simms
   > Recently I’ve migrated my discord library from mtl/transformers to polysemy after reading as many blog posts as I could find on it.
-
-- [Hakyll Pt. 6 – Pure Builds With Nix](https://robertwpearce.com/hakyll-pt-6-pure-builds-with-nix.html) by Robert Pearce
-  > Learn how to make your hakyll project build pure and how to patch hakyll if you need to.
 
 ## Jobs
 
@@ -49,6 +46,9 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 
 - [Class: Signature innovation is a slow burner](https://chrisdornan.com/posts/2020-04-23-class.html) by Chris Dornan
   > When Haskell initially proposed type classes as a way of systematically dealing showing and comparing user types I was not happy and avoided using them when I could for years.
+
+- [A Servant API Testing Example From the Wild](https://vadosware.io/post/a-servant-api-testing-example-from-the-wild/) by Victor Adossi
+  > I share some code snippets to test endpoints on a servant-powered API I work on.
 
 ## Show & tell
 
