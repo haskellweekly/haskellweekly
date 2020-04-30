@@ -34,6 +34,9 @@ This is a weekly summary of what's going on in its community.
 - [Writing a discord library using Polysemy](https://nitros12.github.io/writing-a-discord-library-using-polysemy/) by Ben Simms
   > Recently I’ve migrated my discord library from mtl/transformers to polysemy after reading as many blog posts as I could find on it.
 
+- [Hakyll Pt. 6 – Pure Builds With Nix](https://robertwpearce.com/hakyll-pt-6-pure-builds-with-nix.html) by Robert Pearce
+  > Learn how to make your hakyll project build pure and how to patch hakyll if you need to.
+
 ## Jobs
 
 - [Interos is Hiring Full Stack Haskell Software Engineers](https://www.interos.ai/vacancies/#haskell-software-engineer) (ad)
