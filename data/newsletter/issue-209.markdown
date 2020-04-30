@@ -62,4 +62,4 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 
 ## Call for participation
 
-undefined
+-   [free-compiler: Ignore `Arbitrary` instances](https://github.com/FreeProving/free-compiler/issues/15)
