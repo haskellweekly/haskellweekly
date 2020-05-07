@@ -4,17 +4,17 @@ This is a weekly summary of what's going on in its community.
 
 ## Featured
 
+- [Haskell on AWS Lambda - A Detailed Tutorial](https://www.haskelltutorials.com/haskell-aws-lambda/) by Saurabh Nanda
+  > This tutorial, along with the accompanying source-code walks you through the process of managing AWS Lambda Functions completely in Haskell.
+
+- [Eat Haskell String Types for Breakfast](https://free.cofree.io/2020/05/06/string-types/) by Ziyang Liu
+  > This blog post summarizes, with bite-size bullet points, some knowledge on Haskell string types that I think is important to recognize when writing Haskell.
+
 - [Environment variables parsing for free (applicatives)](https://tech.fretlink.com/environment-variables-parsing-for-free-applicatives/) by Clément Delafargue
   > The `base` library provides a really bare-bones way to get them, with `getEnv` and `lookupEnv`. This gets cumbersome quickly, if you want proper error reporting.
 
 - [Google Summer of Code: Haskell.org](https://summerofcode.withgoogle.com/organizations/6387985961975808/)
   > In Google Summer of Code, we attempt to improve not only the language, but the whole ecosystem.
-
-- [Haskell on AWS Lambda - A Detailed Tutorial](https://www.haskelltutorials.com/haskell-aws-lambda/) by Saurabh Nanda
-  > This tutorial, along with the accompanying source-code walks you through the process of managing AWS Lambda Functions completely in Haskell.
-
-- [Hierarchical Free Monads: The Most Developed Approach In Haskell](https://github.com/graninas/hierarchical-free-monads-the-most-developed-approach-in-haskell/blob/7472b5c1a073366d87153dd3976873687422c8b1/README.md) by Alexander Granin
-  > It also provides a technical perspective on HFM in comparison to Final Tagless / mtl and demonstrates how to solve typical tasks with it.
 
 - [HLint 3.0](https://neilmitchell.blogspot.com/2020/05/hlint-30.html) by Neil Mitchell
   > As of now, if your code can be parsed with GHC, it can probably be parsed with HLint. As new GHC releases come out, with new features and new forms of syntax, HLint will follow along closely.
@@ -59,6 +59,9 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 - [Haskell Language Server version 0.1](https://github.com/haskell/haskell-language-server/releases/tag/0.1) by Alan Zimmerman
   > Changes: This is the initial version, so too many to list individually.
 
+- [Hierarchical Free Monads: The Most Developed Approach In Haskell](https://github.com/graninas/hierarchical-free-monads-the-most-developed-approach-in-haskell/blob/7472b5c1a073366d87153dd3976873687422c8b1/README.md) by Alexander Granin
+  > It also provides a technical perspective on HFM in comparison to Final Tagless / mtl and demonstrates how to solve typical tasks with it.
+
 - [Monthly Hask Anything (May 2020)](https://np.reddit.com/r/haskell/comments/gazovx/monthly_hask_anything_may_2020/)
 
 - [More Random Access Lists](https://doisinkidney.com/posts/2020-05-02-more-random-access-lists.html) by Donnacha Oisín Kidney
@@ -72,10 +75,6 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 
 - [A taste of Bazel: Build a library, a service and Hspec tests](https://www.tweag.io/posts/2020-05-06-convert-haskell-project-to-bazel.html) by Clément Hurlin
   > In this post, we'll show how to get started with Bazel on a small but non-trivial project, featuring a library, a web service and an Hspec test suite.
-
-## Show & tell
-
-undefined
 
 ## Call for participation
 
