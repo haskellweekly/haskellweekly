@@ -79,4 +79,5 @@ undefined
 
 ## Call for participation
 
-undefined
+-   [cabal: `PerCompilerFlavor` could use a `Functor` instance](https://github.com/haskell/cabal/issues/6756)
+-   [restyler: Check alternative locations for `.restyled.yaml`](https://github.com/restyled-io/restyler/issues/98)
