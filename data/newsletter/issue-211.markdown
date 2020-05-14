@@ -23,4 +23,5 @@ undefined
 
 ## Call for participation
 
-undefined
+-   [agda: Incorrect HTML is generated](https://github.com/agda/agda/issues/4653)
+-   [password: hackage-docs: All links in Algorithm section go to 404](https://github.com/cdepillabout/password/issues/17)
