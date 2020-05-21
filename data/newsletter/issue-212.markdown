@@ -31,7 +31,7 @@ This is a weekly summary of what's going on in its community.
 - [Trade-Offs in Type Safety](https://alpacaaa.net/type-safety/) by Marco Sampellegrini
   > Fancy types have a cost. There are scenarios where exceptions are not as bad as one might think.
 
-- [Weekly Update and Multiple Components](https://mpickering.github.io/ide/posts/2020-05-15-multiple-components.html) by Matthew Pickering
+- [Weekly Update and Multiple Components](https://mpickering.github.io/ide/posts/2020-05-15-multiple-components.html) by Fendor
   > In this blog post I will first present the progress we made during the last week, what we have been working on, what has been implemented, and what has been fixed.
 
 ## Jobs
@@ -53,7 +53,7 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 - [Defunctionalize the Continuation](https://www.cis.upenn.edu/~plclub/blog/2020-05-15-Defunctionalize-the-Continuation/) by Li-yao Xia
   > This post details a little example of refactoring a program using defunctionalization.
 
-- [DerivingVia sums-of-products](https://iceland_jack.brick.do/e28e745c-40b8-4b0b-8148-1f1ae0c32d43) by Baldur Blöndal
+- [DerivingVia sums-of-products](https://iceland_jack.brick.do/e28e745c-40b8-4b0b-8148-1f1ae0c32d43) by Baldur Blöndal
   > "Sums of products" represents `Bool` with two constructors (sums) generically as a list of length two. The inner lists represent the arguments of the constructors (products).
 
 - [Examples of incorrect abstractions in other languages](https://np.reddit.com/r/haskell/comments/glz389/examples_of_incorrect_abstractions_in_other/) by Pavel Potoček
