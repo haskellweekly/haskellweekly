@@ -2,7 +2,7 @@ cabal-version: 2.2
 -- https://www.haskell.org/cabal/users-guide/developing-packages.html#package-descriptions
 
 name: haskellweekly
-version: 0.2020.5.7
+version: 0.2020.5.21
 
 category: Web
 description:
@@ -58,6 +58,9 @@ common library
     -Wno-missing-exported-signatures
     -Wno-safe
     -Wno-unsafe
+
+  if impl(ghc >= 8.8)
+    ghc-options: -Wno-missing-deriving-strategies
 
 common executable
   import: library
