@@ -93,4 +93,5 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 
 ## Call for participation
 
-undefined
+-   [Carp: `meta` calling forms are broken in the REPL](https://github.com/carp-lang/Carp/issues/818)
+-   [reanimate: Rename Reanimate.Signals](https://github.com/Lemmih/reanimate/issues/74)
