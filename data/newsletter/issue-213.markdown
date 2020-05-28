@@ -23,4 +23,5 @@ undefined
   
 ## Call for participation
 
-undefined
+-   [servant-rawm: Move client and docs to separate packages?](https://github.com/cdepillabout/servant-rawm/issues/14)
+-   [smos: Open the file browser in the current directory](https://github.com/NorfairKing/smos/issues/60)
