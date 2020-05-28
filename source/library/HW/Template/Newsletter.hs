@@ -69,6 +69,13 @@ newsletterActionTemplate baseUrl =
             HW.Type.Route.RouteNewsletterFeed
         ]
         "our feed"
+      ". Read more issues in "
+      H.a_
+        [ H.href_ $ HW.Type.Route.routeToTextWith
+            baseUrl
+            HW.Type.Route.RouteNewsletter
+        ]
+        "the archives"
       "."
     H.form_
         [ H.action_

@@ -79,7 +79,7 @@ podcastActionTemplate baseUrl =
           . HW.Type.Route.routeToTextWith baseUrl
           $ HW.Type.Route.RouteGoogleBadge
           ]
-    H.p_ [H.class_ "mb0"] $ do
+    H.p_ [H.class_ "lh-copy mb0"] $ do
       "You can also follow us "
       H.a_ [H.href_ "https://twitter.com/haskellweekly"] "on Twitter"
       " or with "
@@ -89,6 +89,12 @@ podcastActionTemplate baseUrl =
           $ HW.Type.Route.RoutePodcastFeed
         ]
         "our feed"
+      ". Listen to more episodes in "
+      H.a_
+        [ H.href_
+            $ HW.Type.Route.routeToTextWith baseUrl HW.Type.Route.RoutePodcast
+        ]
+        "the archives"
       "."
 
 episodeTemplate
