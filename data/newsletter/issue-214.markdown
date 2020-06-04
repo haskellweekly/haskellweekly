@@ -93,4 +93,5 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 
 ## Call for participation
 
-undefined
+-   [opentelemetry-haskell: eventlog-to-tracy improvements](https://github.com/ethercrow/opentelemetry-haskell/issues/24)
+-   [smash: Monad Transformers for `smash-core`](https://github.com/emilypi/smash/issues/7)
