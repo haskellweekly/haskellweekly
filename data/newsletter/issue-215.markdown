@@ -83,4 +83,4 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 
 ## Call for participation
 
-undefined
+-   [futhark: `futhark autotune` should also have a progress bar](https://github.com/diku-dk/futhark/issues/1008)
