@@ -44,6 +44,12 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 
 ## In brief
 
+- [Bracketing and async exceptions in Haskell](https://joeyh.name/blog/entry/bracketing_and_async_exceptions_in_haskell/) by Joey Hess
+  > I've been digging into async exceptions in haskell, and getting more and more concerned. In particular, `bracket` seems to be often used in ways that are not async exception safe.
+
+- [Calling to the JVM from Haskell: Some benchmarks](https://www.tweag.io/blog/2020-06-11-inline-java-benchmarks/) by Facundo Domínguez
+  > In this post, I want to argue that `inline-java` can be a good solution for integrating Haskell and Java from a perfomance standpoint.
+
 - [Custom Markdown in Pandoc](https://dev.to/riccardoodone/custom-markdown-in-pandoc-43hf) by Riccardo Odone
   > Pandoc allows changing the AST before the output document is written.
 
