@@ -102,7 +102,7 @@ a CSS preprocessor like Sass implemented as an embedded domain specific language
 - 2018-12-13 in London, United Kingdom by Hoodlums: [Hoodlums Meetup](https://www.meetup.com/hoodlums/events/hrbdtnyxqbrb/)
 - 2018-12-13 in La Madeleine, France by NightClazz by Zenika Lille: [BBL Programmation Fonctionnelle avec Haskell](https://www.meetup.com/NightClazz-Lille-by-Zenika/events/256700598/)
 - 2018-12-17 in Karlsruhe, Germany by Karlsruhe Haskell Meetup: [Haskell Monday](https://www.meetup.com/Karlsruhe-Haskell-Meetup/events/zdzlkqyxqbwb/)
-- 2018-12-18 in Montpellier, France by Functional Programming Montpellier: [Meetup FP de Noël !!  ](https://www.meetup.com/Functional-Programming-Montpellier/events/257008572/)
+- 2018-12-18 in Montpellier, France by Functional Programming Montpellier: [Meetup FP de Noël!!](https://www.meetup.com/Functional-Programming-Montpellier/events/257008572/)
 - 2018-12-18 in Gent, Belgium by Ghent Functional Programming Group Meetup: [Dependent Types in Haskell: Binomial Heaps](https://www.meetup.com/Ghent-Functional-Programming-Group-Meetup/events/257125475/)
 - 2018-12-19 in cluj-napoca, Romania by Cluj.fp: [Zippers, when you really want to point at something](https://www.meetup.com/Cluj-fp/events/256969441/)
 - 2018-12-19 in Vilnius, Lithuania by Functional Vilnius: [Functional Vilnius #12: Implicits & Sequent Calculus](https://www.meetup.com/functional-vilnius/events/256980015/)

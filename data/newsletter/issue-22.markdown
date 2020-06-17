@@ -1,6 +1,6 @@
 -   [Simon Peyton Jones: Respect](https://mail.haskell.org/pipermail/haskell/2016-September/024995.html)
 
-    > There's no denying that our shared dialogue as a community has taken a nose-dive in the last few months.  If this change of tone becomes established as a norm, I believe it will corrode our common life, perhaps permanently, and harm our shared purpose. I would be heartbroken if that happened.
+    > There's no denying that our shared dialogue as a community has taken a nose-dive in the last few months. If this change of tone becomes established as a norm, I believe it will corrode our common life, perhaps permanently, and harm our shared purpose. I would be heartbroken if that happened.
 
 -   [Modern functional programming: part 2](http://degoes.net/articles/modern-fp-part-2)
 

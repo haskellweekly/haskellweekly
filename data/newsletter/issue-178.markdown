@@ -8,7 +8,7 @@ This is a weekly summary of what's going on in its community.
   > Last week I had an interesting run-in with a Servant API type. I was requesting from an API that could return two possible responses.
 
 - [Bazel's Persistent Worker Mode for GHC: An Industrial Internship](https://www.tweag.io/posts/2019-09-25-bazel-ghc-persistent-worker-internship.html) by Artem Pelenitsyn
-  >  My internship goal was to improve the method of communication between Bazel and the Haskell GHC compiler by adding support for this persistent worker mode in rules_haskell.
+  > My internship goal was to improve the method of communication between Bazel and the Haskell GHC compiler by adding support for this persistent worker mode in rules_haskell.
 
 - [Eventful GHC](https://www.well-typed.com/blog/2019/09/eventful-ghc/) by Alp Mestanogullari
   > What can we do when it takes GHC a lot of time to compile a given module? Where is it spending its time?

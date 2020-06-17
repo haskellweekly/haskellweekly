@@ -2,15 +2,15 @@ This is the last issue of 2016.
 Looking back on the year,
 these are the most-clicked links of 2016.
 
-1.  [Why Haskell sucks](https://secure.plaimi.net/~alexander/tmp/pres/2016-05-11-why-haskell-sucks.html)
-2.  [Haskell sucks!](http://paul.bone.id.au/pub/pbone-2016-haskell-sucks/)
-3.  [New haskell-lang.org](https://haskell-lang.org/announcements#haskell-lang-live)
-4.  [Powerline-hs](https://github.com/rdnetto/powerline-hs/blob/be579f68840c1bb7709d169ea2453a62fafe62d6/README.md)
-5.  [HyperHaskell: the strongly hyped Haskell interpreter](https://mail.haskell.org/pipermail/haskell/2016-October/025010.html)
-6.  [Good way to convert between ad-hoc polymorphic functions and parametric polymorphic ones](http://stackoverflow.com/questions/38326420/good-way-to-convert-between-ad-hoc-polymorphic-functions-and-parametric-polymorp)
-7.  [The unreasonable effectiveness of reasoning: eliminating bottom](https://github.com/typedops/funops/blob/f3a2983f655e2d920003ff3b802b3ad8e16f9d32/src/main/tut/2016-05-31-unreasonable-effectiveness-of-reasoning-understanding-bottom.md)
-8.  [Modern function programming: part 2](http://degoes.net/articles/modern-fp-part-2)
-9.  [Thoughts on Haskell](http://get-finch.com/2016/09/26/thoughts_on_haskell.html)
+1. [Why Haskell sucks](https://secure.plaimi.net/~alexander/tmp/pres/2016-05-11-why-haskell-sucks.html)
+2. [Haskell sucks!](http://paul.bone.id.au/pub/pbone-2016-haskell-sucks/)
+3. [New haskell-lang.org](https://haskell-lang.org/announcements#haskell-lang-live)
+4. [Powerline-hs](https://github.com/rdnetto/powerline-hs/blob/be579f68840c1bb7709d169ea2453a62fafe62d6/README.md)
+5. [HyperHaskell: the strongly hyped Haskell interpreter](https://mail.haskell.org/pipermail/haskell/2016-October/025010.html)
+6. [Good way to convert between ad-hoc polymorphic functions and parametric polymorphic ones](http://stackoverflow.com/questions/38326420/good-way-to-convert-between-ad-hoc-polymorphic-functions-and-parametric-polymorp)
+7. [The unreasonable effectiveness of reasoning: eliminating bottom](https://github.com/typedops/funops/blob/f3a2983f655e2d920003ff3b802b3ad8e16f9d32/src/main/tut/2016-05-31-unreasonable-effectiveness-of-reasoning-understanding-bottom.md)
+8. [Modern function programming: part 2](http://degoes.net/articles/modern-fp-part-2)
+9. [Thoughts on Haskell](http://get-finch.com/2016/09/26/thoughts_on_haskell.html)
 10. [ML modules versus Haskell type classes](http://stackoverflow.com/questions/36927169/ml-modules-vs-haskell-type-classes)
 
 Many other people reflected on 2016 in Haskell this year.

@@ -38,7 +38,7 @@ This is a weekly summary of what's going on in its community.
 
 -   [Worldwide Haskell Collaboration](https://isovector.github.io/erdos/) by Sandy Maguire
 
-    >  I'm in the beginning stages of planning a trip around the world. The goal is to wander from place to place, meeting cool Haskellers and collaborating together on whatever project we're most excited about
+    > I'm in the beginning stages of planning a trip around the world. The goal is to wander from place to place, meeting cool Haskellers and collaborating together on whatever project we're most excited about
 
 ## Jobs
 

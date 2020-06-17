@@ -48,7 +48,7 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
   > This book is devoted to five main principles of algorithm design: divide and conquer, greedy algorithms, thinning, dynamic programming, and exhaustive search.
 
 - [Documentation plans](https://mail.haskell.org/pipermail/ghc-devs/2020-May/018852.html) by Hécate
-  > You may have seen me on various community channels and on social media  to recruit motivated volunteers to help improve the documentation of the `base` library.
+  > You may have seen me on various community channels and on social media to recruit motivated volunteers to help improve the documentation of the `base` library.
 
 - [Frozen Lake in Haskell](https://mmhaskell.com/blog/2020/4/20/frozen-lake-in-haskell) by Monday Morning Haskell
   > Last time on MMH, we began our investigation into Open AI Gym. We started by using the Frozen Lake toy example to learn about environments.

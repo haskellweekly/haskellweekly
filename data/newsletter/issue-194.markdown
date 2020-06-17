@@ -14,13 +14,13 @@ This is a weekly summary of what's going on in its community.
   > The goal is to show how much this example made me further appreciate the conceptual idea of adjunctions and how they can pop up in interesting places in practical libraries.
 
 - [The road to proficient Haskell](https://williamyaoh.com/posts/2020-01-11-road-to-proficient.html) by William Yao
-  > Here’s my recommendation about what resources and exercises to use for each step. May it help you on your path to proficiency.
+  > Here's my recommendation about what resources and exercises to use for each step. May it help you on your path to proficiency.
 
 - [Using Cabal on its Own](https://mmhaskell.com/blog/2020/1/13/using-cabal-on-its-own) by Monday Morning Haskell
   > We can use Cabal in a standalone fashion, as Haskell developers did for years. This week, we'll explore what this looks like. We'll encounter the problems that ultimately led to the development of Stack.
 
 - [Common stanzas](https://vrom911.github.io/blog/common-stanzas) by Veronika Romashkina
-  > I would like to discuss one specific feature of Cabal — common stanzas, explain its mission and demonstrate how it could be used, which problems it helps to avoid, and also mention some widely used alternatives.
+  > I would like to discuss one specific feature of Cabal --- common stanzas, explain its mission and demonstrate how it could be used, which problems it helps to avoid, and also mention some widely used alternatives.
 
 - [Generating small binaries in Haskell](https://dixonary.co.uk/blog/haskell/small) by Alex Dixon
   > I've been mulling over the biggest problem that microcosmos has: It's huge. To be precsise, it's 113MB once compiled.

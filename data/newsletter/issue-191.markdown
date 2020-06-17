@@ -20,7 +20,7 @@ This is a weekly summary of what's going on in its community.
   > This post is going to compare the Haskell async exception mechanism to whatever powers Tokio's `timeout`.
 
 - [A Glossary of Functional Programming](http://degoes.net/articles/fp-glossary) by John A. De Goes
-  > Over time, I’ve collected and converged on simple (but reasonably precise) pedagogical definitions for a range of functional concepts.
+  > Over time, I've collected and converged on simple (but reasonably precise) pedagogical definitions for a range of functional concepts.
 
 - [Up to date Real World Haskell](https://github.com/tssm/up-to-date-real-world-haskell) by Tae Sandoval
   > Sadly the language and libraries have changed enough to make several of the examples useless so I am making them working again.
@@ -29,7 +29,7 @@ This is a weekly summary of what's going on in its community.
   > In this post we'll introduce Construct's declarative approach and then discuss how to implement an equivalent principled solution in Haskell, based on optics.
 
 - [Faster Database Testing with the New `tmp-postgres`](https://jfischoff.github.io/blog/faster-database-testing.html) by Jonathan Fischoff
-  > The new `tmp-postgres` is over 5x faster on macOS and linux but the story doesn’t end here.
+  > The new `tmp-postgres` is over 5x faster on macOS and linux but the story doesn't end here.
 
 ## Jobs
 

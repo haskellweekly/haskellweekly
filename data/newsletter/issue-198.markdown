@@ -4,7 +4,7 @@ This is a weekly summary of what's going on in its community.
 
 ## Featured
 
-- [Lessons learned from writing ShellCheck, GitHub’s now most starred Haskell project](https://www.vidarholen.net/contents/blog/?p=859) by Vidar Holen
+- [Lessons learned from writing ShellCheck, GitHub's now most starred Haskell project](https://www.vidarholen.net/contents/blog/?p=859) by Vidar Holen
   > I started the project 8 years ago, and this seems like a good opportunity to share some of the lessons learned along the way.
 
 - [Decimal Safety Right on The Money](https://tech.fpcomplete.com/blog/safe-decimal-right-on-the-money) by Alexey Kuleshevich
@@ -23,7 +23,7 @@ This is a weekly summary of what's going on in its community.
   > Compiling Haskell to JavaScript in this way won't work for all of Haskell, for example type-classes are not resolved, not to mention lazy vs. strict semantics.
 
 - [Competitive Programming in Haskell: primes and factoring](https://byorgey.wordpress.com/2020/02/07/competitive-programming-in-haskell-primes-and-factoring/) by Brent Yorgey
-  > I’ve developed a bunch of code over the years that regularly comes in handy.
+  > I've developed a bunch of code over the years that regularly comes in handy.
 
 - [Converting Cabal to Nix!](https://mmhaskell.com/blog/2020/2/10/converting-cabal-to-nix) by Monday Morning Haskell
   > A neat tool allows us to get the advantages of Nix in conjunction with Cabal. This week, we'll explore how to make a basic project with this combination.
@@ -59,7 +59,7 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
   > The three year partnership with the Queensland Government as part of its Advance Queensland Initiative is now coming to a close.
 
 - [Haskell for impatient Scala developer: Getting into speed](https://msitko.pl/blog/2020/02/08/haskell-getting-into-speed.html) by Michał Sitko
-  > If you’re reading this I am assuming you are a Scala developer and you want to learn some Haskell.
+  > If you're reading this I am assuming you are a Scala developer and you want to learn some Haskell.
 
 ## Show & tell
 

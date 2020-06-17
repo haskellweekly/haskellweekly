@@ -17,7 +17,7 @@ This is a weekly summary of what's going on in its community.
   > It is not possible to partially apply a constraint tuple type constructor in the conventional sense, which can make them somewhat awkward to use at times.
 
 - [How does Haskell make your life easier?](https://williamyaoh.com/posts/2019-11-30-how-does-haskell-make-life-easier.html) by William Yao
-  > Let’s instead take a 10,000-foot overview of how Haskell’s design makes this level of bug-freeness and maintainability not just possible, but easy.
+  > Let's instead take a 10,000-foot overview of how Haskell's design makes this level of bug-freeness and maintainability not just possible, but easy.
 
 - [The revolution in computing education at school](https://codesync.global/media/revolution-in-computing-education-at-school-opportunity-and-challenge-cmldn19/) by Simon Peyton Jones
   > The new English National Curriculum in computing says that every child should learn computer science, as a foundational subject discipline like maths or natural science, from primary school onwards.

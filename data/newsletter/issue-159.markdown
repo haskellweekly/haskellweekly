@@ -14,7 +14,7 @@ This is a weekly summary of what's going on in its community.
 
 -   [Functional architecture is Ports and Adapters](https://blog.ploeh.dk/2016/03/18/functional-architecture-is-ports-and-adapters/) by Mark Seemann
 
-    >  Functional architecture tends to fall into a pit of success that looks a lot like Ports and Adapters.
+    > Functional architecture tends to fall into a pit of success that looks a lot like Ports and Adapters.
 
 -   [Handling GHC parser errors right](https://blog.shaynefletcher.org/2019/05/handling-ghc-parser-errors-right.html) by Shayne Fletcher
 

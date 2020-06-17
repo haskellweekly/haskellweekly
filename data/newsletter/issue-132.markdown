@@ -68,7 +68,7 @@ Please take a few minutes to fill it out.
 
 -   [Compiler developer at Crowdstrike](https://www.crowdstrike.com/careers/?p=job%2Fo9yD8fwc)
 
-    > We're looking for a talented colleague to join our small language and data tools team.  The ontology team at Crowdstrike researches, develops, and maintains tooling central to the data model used throughout our engineering department, including custom languages and compiler environments.
+    > We're looking for a talented colleague to join our small language and data tools team. The ontology team at Crowdstrike researches, develops, and maintains tooling central to the data model used throughout our engineering department, including custom languages and compiler environments.
 
 -   [Formal methods engineer in Zurich](https://functional.works-hub.com/jobs/FormalMethodsEngineer-May-2017-1d3d7)
 

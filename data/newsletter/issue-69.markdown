@@ -18,7 +18,7 @@ Tweet us at [@HaskellWeekly](https://twitter.com/haskellweekly) or [open a pull 
 
 -   [Backpack for deep learning](http://blog.ezyang.com/2017/08/backpack-for-deep-learning/)
 
-    > Although there many different types of tensor,  the computations for each type of tensor are the same, i.e, they share the same interface. Since Backpack lets you program against one interface which can have multiple implementations, it is the perfect tool for implementing a tensor library.
+    > Although there many different types of tensor, the computations for each type of tensor are the same, i.e, they share the same interface. Since Backpack lets you program against one interface which can have multiple implementations, it is the perfect tool for implementing a tensor library.
 
 -   [Diversity through inline code](https://www.tweag.io/posts/2017-08-17-inline-code.html)
 

@@ -14,16 +14,16 @@ This is a weekly summary of what's going on in its community.
   > Thanks to its ubiquity, we often take polymorphism for granted, and it can be quite baffling to figure out why verification fails with monomorphic signatures.
 
 - [Rewriting to Haskell: Testing](https://odone.io/posts/2020-04-13-rewriting-haskell-testing.html) by Riccardo Odone
-  > We have managed to delay testing by leaning on Ruby RSpec for a while. It’s time to do the right thing and write some tests in Haskell.
+  > We have managed to delay testing by leaning on Ruby RSpec for a while. It's time to do the right thing and write some tests in Haskell.
 
 - [Servant Testing Helpers!](https://mmhaskell.com/blog/2020/3/30/servant-testing-helpers) by Monday Morning Haskell
   > This week, we're going to look at a couple shortcuts we can take that will make testing our server a little easier.
 
 - [Streaming the Redis replication stream](https://wjwh.eu/posts/2020-04-12-redis-conduit.html) by Wander Hillen
-  > In this post I’ll implement this simpler way and also show off a nicer way to initialize the replication stream with `PSYNC` that does not rely on pulling in the entire redis contents first.
+  > In this post I'll implement this simpler way and also show off a nicer way to initialize the replication stream with `PSYNC` that does not rely on pulling in the entire redis contents first.
 
 - [Things Software Engineers Trip Up On When Learning Haskell](https://williamyaoh.com/posts/2020-04-12-software-engineer-hangups.html) by William Yaoh
-  > Most likely you’ve worked in an imperative language, and now you want to find out what all the fuss about functional programming is.
+  > Most likely you've worked in an imperative language, and now you want to find out what all the fuss about functional programming is.
 
 - [The three kinds of Haskell exceptions and how to use them](https://www.tweag.io/posts/2020-04-16-exceptions-in-haskell.html) by Arnaud Spiwack
   > In this blog post, I'd like to explain how I recommend understanding and using Haskell's exceptions.

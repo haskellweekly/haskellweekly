@@ -20,7 +20,7 @@ This is a weekly summary of what's going on in its community.
   > This blog post is yet another attempt to provide a simple, step-by-step tutorial to get Haskell running on your machine.
 
 - [Sum algebraic data types in C](https://nullbuffer.com/2019/11/15/algebraic_c.html) by Alessio Chiapperini
-  > One can say that sum types feel a lot like a combination of unions and enumerations, and that’s true, in fact we’ll see how to implement various (sum) algebraic data types in C.
+  > One can say that sum types feel a lot like a combination of unions and enumerations, and that's true, in fact we'll see how to implement various (sum) algebraic data types in C.
 
 - [Sum types for relational databases](https://blog.typeable.io/posts/2019-11-21-sql-sum-types.html) by Dmitry Olshansky
   > Matt Parsons talks about a few ways to encode sum types in relational databases in his blog. Not so long ago I was thinking about the same problem and came up with slightly different solutions.
@@ -29,7 +29,7 @@ This is a weekly summary of what's going on in its community.
   > This tutorial is based on a simple but realistic system under test (SUT), aiming to show some ways you can test and find bugs in such logic using PBT.
 
 - [Variational Autoencoders in Haskell, or: How I Learned to Stop Worrying and Turn My Friends Into Dogs](https://www.declanoller.com/2019/11/15/variational-autoencoders-in-haskell-or-how-i-learned-to-stop-worrying-and-turn-my-friends-into-dogs/) by Declan Oller
-  > If you frequently wander down the dark alleys of the computer science neighborhood of the internet, it won’t be too long before you bump into a strange man in a trench coat who says, "Hey, kid ... you ever try Functional Programming?"
+  > If you frequently wander down the dark alleys of the computer science neighborhood of the internet, it won't be too long before you bump into a strange man in a trench coat who says, "Hey, kid ... you ever try Functional Programming?"
 
 - [Winter is coming even more quickly](https://www.joachim-breitner.de/blog/758-Winter_is_coming_even_more_quickly) by Joachim Breitner
   > I explain how I improved the performance of an interpreter for WebAssembly written in Haskell by plucking some low-hanging fruit.

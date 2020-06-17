@@ -30,7 +30,7 @@ This is a weekly summary of what's going on in its community.
 
 -   [Student Blog: Testing Bipartiteness with Monad Transformers](https://summer.haskell.org/news/2019-07-26-testing-bipartiteness.html) by Vasily Alferov
 
-    > I'm here to tell you about my implementation of the algorithm for testing bipartiteness of graphs.  A graph is called bipartite if its vertices can be split into two parts in such way that there are no edges inside one part.
+    > I'm here to tell you about my implementation of the algorithm for testing bipartiteness of graphs. A graph is called bipartite if its vertices can be split into two parts in such way that there are no edges inside one part.
 
 -   [The Power of RecordWildCards](https://kodimensional.dev/recordwildcards) by Dmitrii Kovanikov
 
@@ -43,7 +43,7 @@ This is a weekly summary of what's going on in its community.
 ## Jobs
 
 -   [Arcesium LLC, New York is hiring Infrastructure Engineers!](https://arcesium.com/careers.html) (ad)
-  
+
     > Join the infrastructure team of a fintech company using AWS, Kubernetes, Python, Haskell, and Nix to build a declarative infrastructure. We're looking for someone experienced in design, development, and systems engineering. Compensation is competitive.
 
 Trying to hire a Haskell developer?

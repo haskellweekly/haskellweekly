@@ -45,7 +45,7 @@ Open an issue or pull request [on GitHub](https://github.com/haskellweekly/haske
 
 -   [SLURP: A single liberal unified registry of Haskell packages](https://github.com/haskell/ecosystem-proposals/pull/4)
 
-    >  We have emerged with SLURP, a proposal that could go a long way towards supporting the upsides of a diverse ecosystem, without the sad downsides of forking into mutually-exclusive sub-communities.
+    > We have emerged with SLURP, a proposal that could go a long way towards supporting the upsides of a diverse ecosystem, without the sad downsides of forking into mutually-exclusive sub-communities.
 
 ## Jobs
 

@@ -32,7 +32,7 @@ This is a weekly summary of what's going on in its community.
   > According to Stephen Diehl, algebraic effects are one of the most important problems that will be solved in the future for Haskell and I would like to make my modest contribution.
 
 - [Why Monad Composes Operations Sequentially](https://odone.io/posts/2020-02-03-monad-composes-sequentially.html) by Riccardo Odone
-  > I’ve been in the dark for a long time, until a few days ago it clicked. So here I am, writing the post my past self would have loved to read.
+  > I've been in the dark for a long time, until a few days ago it clicked. So here I am, writing the post my past self would have loved to read.
 
 ## Jobs
 
@@ -50,13 +50,13 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
   > My framework for programming Arduinos in Haskell in FRP-style is a week old, and it's grown up a lot.
 
 - [Destroying C with 20 lines of Haskell: wc](https://0xd34df00d.me/posts/2020/02/destroying-c-with-20-lines-of-haskell.html) by Georg Rudoy
-  > Today we’ll look at implementing a toy `wc` command that is about 4-5 times faster than the corresponding GNU Coreutils implementation.
+  > Today we'll look at implementing a toy `wc` command that is about 4-5 times faster than the corresponding GNU Coreutils implementation.
 
 - [Discontinuing legacy snapshots](https://www.stackage.org/blog/2020/02/discontinuing-legacy-snapshots) by Michael Snoyman
-  > As we mentioned at announcement, though, we wouldn’t be continuing that conversion indefinitely. Today, we’re announcing that within the next two weeks (likely sooner), we’ll be turning off that job.
+  > As we mentioned at announcement, though, we wouldn't be continuing that conversion indefinitely. Today, we're announcing that within the next two weeks (likely sooner), we'll be turning off that job.
 
 - [Gain confidence with Haskell's type system!](https://cswithbaddrawings.wordpress.com/2020/02/04/gain-confidence-with-haskells-type-system/) by Brandon
-  > In this post, I’ll be going over what type systems are, what makes them really powerful tools for developers, and how Haskell’s type system gives me more confidence in my code than if I were using a different language.
+  > In this post, I'll be going over what type systems are, what makes them really powerful tools for developers, and how Haskell's type system gives me more confidence in my code than if I were using a different language.
 
 - [Haskell library for the GitLab API](https://www.macs.hw.ac.uk/~rs46/posts/2020-02-01-gitlab-haskell.html) by Rob Stewart
   > The `gitlab-haskell` library lifts the GitLab API into Haskell.

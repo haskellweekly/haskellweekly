@@ -10,8 +10,8 @@ This is a weekly summary of what's going on in its community.
 - [Building a web app with functional programming - Haskell - part I](https://blog.patchgirl.io/haskell/2020/03/08/haskell-part-I.html) by Iori Matsuhara
   > This post talks about my feedback with Haskell on this project and whether I consider it production ready.
 
-- [Built with Hakyll – Part 02: Custom Fields](https://blog.ysndr.de/posts/internals/2020-03-22-built-with-hakyll-part-2.html) by Yannik Sander
-  > While setting up the structure of this blog I found the “need” of having some more fields available though. This is how I started to adapt some implementations I found on the internet, and developed my own.
+- [Built with Hakyll -- Part 02: Custom Fields](https://blog.ysndr.de/posts/internals/2020-03-22-built-with-hakyll-part-2.html) by Yannik Sander
+  > While setting up the structure of this blog I found the "need" of having some more fields available though. This is how I started to adapt some implementations I found on the internet, and developed my own.
 
 - [Blaze: Lightweight Html Generation](https://mmhaskell.com/blog/2020/3/9/blaze-lightweight-html-generation) by Monday Morning Haskell
   > In the next couple weeks, we'll consider two simple libraries we can use to generate HTML code. This week, we'll look at the Blaze HTML library.
@@ -23,7 +23,7 @@ This is a weekly summary of what's going on in its community.
   > I spent some time getting a working Haskell environment on OS X.
 
 - [The problem with adding functions to compact regions](https://www.well-typed.com/blog/2020/03/functions-in-compact-regions/) by Ömer Sinan Ağacan
-  > The question why functions cannot be added to compact regions often comes up in GHC’s IRC channel, and because I don’t work on or with compact regions, every time I see the question I try to remember the reason for why functions can’t be moved to a compact region, often coming up with incorrect answers on the way.
+  > The question why functions cannot be added to compact regions often comes up in GHC's IRC channel, and because I don't work on or with compact regions, every time I see the question I try to remember the reason for why functions can't be moved to a compact region, often coming up with incorrect answers on the way.
 
 - [Setting up Ghcide in Ubuntu with Nixpkgs](https://gvolpe.github.io/blog/setting-up-ghcide-nixpkgs-ubuntu/) by Gabriel Volpe
   > This is the reason why I am writing this blog post. Aim at those who use Nixpkgs like me, in a different distro other than NixOS.

@@ -18,7 +18,7 @@ This is a weekly summary of what's going on in its community.
 
 -   [Building terminal user interfaces in Haskell](https://www.fpcomplete.com/blog/building-tuis-in-haskell) by Robert Bobbett
 
-    > In this month's webinar, Tom Sydney Kerckhove will demonstrate just how easy it is to get started with Terminal User Interfaces (TUIs).  As a recap, TUIs are text-based user interfaces for use from a terminal.
+    > In this month's webinar, Tom Sydney Kerckhove will demonstrate just how easy it is to get started with Terminal User Interfaces (TUIs). As a recap, TUIs are text-based user interfaces for use from a terminal.
 
 -   [Detecting the undetectable: Custom type errors for stuck type families](https://kcsongor.github.io/report-stuck-families/) by Csongor Kiss
 

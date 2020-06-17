@@ -8,10 +8,10 @@ This is a weekly summary of what's going on in its community.
   > The challenge is to build a faster clone of the hand-optimized C implementation of the `wc` utility in our favourite high-level garbage-collected runtime-based language: Haskell!
 
 - [A Summer of Runtime Performance](https://www.well-typed.com/blog/2019/10/summer-of-runtime-performance/) by Andreas Klebinger
-  > GHC produces pretty fast code by most standards. After Well-Typed put some development effort towards faster code it’s now even faster, with a reduction in runtime of 3-4%.
+  > GHC produces pretty fast code by most standards. After Well-Typed put some development effort towards faster code it's now even faster, with a reduction in runtime of 3-4%.
 
 - [Haskell in Production](http://felixmulder.com/writing/2019/10/05/Haskell-in-Production.html) by Felix Mulder
-  > During the past year, my team has been building production services using Haskell. It’s been quite a journey. None of us had written production code using Haskell before.
+  > During the past year, my team has been building production services using Haskell. It's been quite a journey. None of us had written production code using Haskell before.
 
 - [GHCi `:set` command](https://typeclasses.com/ghci/set#the-seti-difference) by Type Classes
   > The `:set` command can be used to change various behaviors of GHCi from within a running REPL. Options set with the `:set` command can be undone with the `:unset` command.
@@ -20,13 +20,13 @@ This is a weekly summary of what's going on in its community.
   > Our aim here will be to understand how Servant can take so many varied API descriptions and guide us to a corresponding implementation.
 
 - [Partial application using flip](https://jaspervdj.be/posts/2019-10-15-flip-partial-application.html) by Jasper Van der Jeugt
-  > I have been writing Haskell for a reasonable time now – I believe I am coming up on ten years – so sadly the frequency with which I discover delightful things about the language has decreased.
+  > I have been writing Haskell for a reasonable time now -- I believe I am coming up on ten years -- so sadly the frequency with which I discover delightful things about the language has decreased.
 
 - [Monads as Graphs](https://neilmitchell.blogspot.com/2019/10/monads-as-graphs.html) by Neil Mitchell
   > In the Build Systems a la Carte paper we described build systems in terms of the type class their dependencies could take. This post takes the other view point - trying to describe type classes by the graphs they permit.
 
 - [Ormolu: Announcing First Release](https://www.tweag.io/posts/2019-10-11-ormolu-first-release.html) by Mark Karpov and Utku Demir
-  > We're happy to announce the first release of Ormolu, a formatter for Haskell source code. Some may remember our first post from a couple months ago where we disclosed our work on the Ormolu project --- but carefully called it “vaporware” then. Times have changed; it's not anymore.
+  > We're happy to announce the first release of Ormolu, a formatter for Haskell source code. Some may remember our first post from a couple months ago where we disclosed our work on the Ormolu project --- but carefully called it "vaporware" then. Times have changed; it's not anymore.
 
 - [Record Dot Syntax proposal](https://github.com/shayne-fletcher-da/ghc-proposals/blob/d0b0952971d5379d064ee2e9350f711ae42d65d0/proposals/0000-record-dot-syntax.md) by Neil Mitchell and Shayne Fletcher
   > We propose a new language extension `RecordDotSyntax` that provides syntactic sugar to make the features introduced in the `HasField` proposal more accessible, improving the user experience.
@@ -69,7 +69,7 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
   > A morphism, the basic building block of every category, is like a defective isomorphism. It maps the initial state to the final state, but it provides no guarantees that you can recover the original.
 
 - [Functors, Vectors, and Quantum Circuits](http://www.philipzucker.com/functors-and-vectors/) by Philip Zucker
-  > There are certain analogies between Haskell Functors and Vectors that corresponds to a style of computational vector mathematics that I think is pretty cool and don’t see talked about much.
+  > There are certain analogies between Haskell Functors and Vectors that corresponds to a style of computational vector mathematics that I think is pretty cool and don't see talked about much.
 
 - [Most functional compiler](https://www.ioccc.org/2019/lynn/hint.html) by Ben Lynn
   > A Haskell compiler. Supports a subset of Haskell more than large enough to self-host. Like GHC with custom language extensions.

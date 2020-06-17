@@ -48,7 +48,7 @@ This is a weekly summary of what's going on in its community.
 
 -   [GHC Web Backend Developer at IOHK](https://iohk.io/careers/#op-302245-ghc-web-backend-developer)
 
-    > We are looking for a talented Haskell compiler engineer to join our growing in-house team.  In this full time, remote work opportunity the candidate will be responsible for designing, implementing, and maintaining existing and emerging backends for the Glasgow Haskell Compiler (GHC) targeting Web platforms, such as JavaScript and WebAssembly.
+    > We are looking for a talented Haskell compiler engineer to join our growing in-house team. In this full time, remote work opportunity the candidate will be responsible for designing, implementing, and maintaining existing and emerging backends for the Glasgow Haskell Compiler (GHC) targeting Web platforms, such as JavaScript and WebAssembly.
 
 -   [Intern at Layer 3 in Atlanta](https://np.reddit.com/r/haskell/comments/ahdgmm/job_posting_layer_3_communications_is_looking_for/)
 

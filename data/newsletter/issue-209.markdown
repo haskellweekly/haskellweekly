@@ -13,11 +13,11 @@ This is a weekly summary of what's going on in its community.
 - [Deriving Isomorphically](https://www.tweag.io/posts/2020-04-23-deriving-isomorphically.html) by Hans Hoeglund
   > In this post I'll present iso-deriving and show some examples of iso-deriving in action. I've packaged up all the types and classes used here in the iso-deriving package.
 
-- [Hakyll Pt. 6 – Pure Builds With Nix](https://robertwpearce.com/hakyll-pt-6-pure-builds-with-nix.html) by Robert Pearce
+- [Hakyll Pt. 6 -- Pure Builds With Nix](https://robertwpearce.com/hakyll-pt-6-pure-builds-with-nix.html) by Robert Pearce
   > Learn how to make your hakyll project build pure and how to patch hakyll if you need to.
 
 - [Learn to moonwalk with waterflow problem](https://iokasimov.github.io/posts/2020/04/waterflow) by Murat Kasimov
-  > I’d like to find my own solution that would be composable, readable and involve effects.
+  > I'd like to find my own solution that would be composable, readable and involve effects.
 
 - [overloaded-0.2.1: Overloaded:Do](https://oleg.fi/gists/posts/2020-04-27-overloaded-local-do.html) by Oleg Grenrus
   > The `Overloaded:Do` is one of the new features of recent `overloaded 0.2.1` release. `overloaded` package uses source plugins to reinterpret syntax in different ways.
@@ -29,10 +29,10 @@ This is a weekly summary of what's going on in its community.
   > I will show the workflow and profiling tools that I use to find what to optimise in Haskell programs such as Sixty.
 
 - [Tools for working on GHC](https://mpickering.github.io/posts/2019-06-11-ghc-tools.html) by Matthew Pickering
-  > In this post we’ll briefly describe some recent advancements in developer tooling which have been made possible by the move to Hadrian.
+  > In this post we'll briefly describe some recent advancements in developer tooling which have been made possible by the move to Hadrian.
 
 - [Writing a discord library using Polysemy](https://nitros12.github.io/writing-a-discord-library-using-polysemy/) by Ben Simms
-  > Recently I’ve migrated my discord library from mtl/transformers to polysemy after reading as many blog posts as I could find on it.
+  > Recently I've migrated my discord library from mtl/transformers to polysemy after reading as many blog posts as I could find on it.
 
 ## Jobs
 

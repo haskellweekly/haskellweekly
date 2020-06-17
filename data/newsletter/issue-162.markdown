@@ -22,7 +22,7 @@ This is a weekly summary of what's going on in its community.
 
 -   [Either catamorphism](https://blog.ploeh.dk/2019/06/03/either-catamorphism/) by Mark Seemann
 
-    >  This article is part of an article series about catamorphisms. A catamorphism is a universal abstraction that describes how to digest a data structure into a potentially more compact value. This article presents the catamorphism for Either (also known as Result), as well as how to identify it.
+    > This article is part of an article series about catamorphisms. A catamorphism is a universal abstraction that describes how to digest a data structure into a potentially more compact value. This article presents the catamorphism for Either (also known as Result), as well as how to identify it.
 
 -   [Have GHC parsing respect dynamic pragmas](https://blog.shaynefletcher.org/2019/06/have-ghc-parsing-respect-dynamic-pragmas.html) by Shayne Fletcher
 

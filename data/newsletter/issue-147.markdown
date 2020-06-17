@@ -62,7 +62,7 @@ This is a weekly summary of what's going on in its community.
 
 -   [GHC web backend developer at IOHK](https://iohk.io/careers/#op-302245-ghc-web-backend-developer)
 
-    > We are looking for a talented Haskell compiler engineer to join our growing in-house team.  In this full time, remote work opportunity the candidate will be responsible for designing, implementing, and maintaining existing and emerging backends for the Glasgow Haskell Compiler (GHC) targeting Web platforms, such as JavaScript and WebAssembly.
+    > We are looking for a talented Haskell compiler engineer to join our growing in-house team. In this full time, remote work opportunity the candidate will be responsible for designing, implementing, and maintaining existing and emerging backends for the Glasgow Haskell Compiler (GHC) targeting Web platforms, such as JavaScript and WebAssembly.
 
 ## In brief
 
@@ -116,7 +116,7 @@ a library that provides utilities for manipulating type-level strings.
 - 2019-02-25 in Katowice, Poland by Let's DAZN IT! - Lovefield DB/Scaling frontend applications: [Let's DAZN IT! -Lovefield DB/Scaling frontend applications with micro-frontends](https://www.meetup.com/Lets-DAZN-IT-Lovefield-DB-Scaling-frontend-applications/events/258926742/)
 - 2019-02-25 in London EC2, United Kingdom by Skills Matter - X Matters Series - Developer Events: [Scala Matters with John De Goes!](https://www.meetup.com/skillsmatter/events/258526473/)
 - 2019-02-26 in Copenhagen, Denmark by Mødegruppe for F#unktionelle Københavnere: [[Oskar Wickström]: Property-Based Testing The Ugly Parts](https://www.meetup.com/MoedegruppeFunktionelleKoebenhavnere/events/rqbcdlyzdbjc/)
-- 2019-02-26 in London EC2, United Kingdom by Skills Matter - X Matters Series - Developer Events: [Diversity Matters with Bill  Liao!](https://www.meetup.com/skillsmatter/events/258462643/)
+- 2019-02-26 in London EC2, United Kingdom by Skills Matter - X Matters Series - Developer Events: [Diversity Matters with Bill Liao!](https://www.meetup.com/skillsmatter/events/258462643/)
 - 2019-02-27 in Leipzig, Germany by Funktionaler Stammtisch Leipzig: [Erstes Treffen "Funktionaler Stammtisch" (Clojure, Elm, Haskell, Scala ...](https://www.meetup.com/Funktionaler-Stammtisch-Leipzig/events/zhzkrqyzdbkc/)
 - 2019-02-27 in Leuven, Belgium by Belgian Scala User Group: [Meet Akka gRPC](https://www.meetup.com/BeScala/events/258670176/)
 - 2019-02-27 in Lille, France by Lille FP: [LilleFP 12 : le tant attendu Haskell s'invite à LilleFP !](https://www.meetup.com/Lille-FP/events/258682124/)

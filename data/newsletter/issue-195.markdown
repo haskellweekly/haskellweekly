@@ -8,7 +8,7 @@ This is a weekly summary of what's going on in its community.
   > It makes development very satisfying, when each push to master lands in production right away, without any further manual work needed.
 
 - [No, dynamic type systems are not inherently more open](https://lexi-lambda.github.io/blog/2020/01/19/no-dynamic-type-systems-are-not-inherently-more-open/) by Alexis King
-  > In practice static type systems excel at processing data with only a partially-known structure, as they can be used to ensure application logic doesn’t accidentally assume too much.
+  > In practice static type systems excel at processing data with only a partially-known structure, as they can be used to ensure application logic doesn't accidentally assume too much.
 
 - [Some arguments against small syntax extensions in GHC](https://osa1.net/posts/2020-01-22-no-small-syntax-extensions.html) by Ömer Sinan Ağacan
   > At this point adding new syntax to GHC/Haskell is a bad idea.
@@ -20,7 +20,7 @@ This is a weekly summary of what's going on in its community.
   > Are you trying to process a large amount of timestamped data? Your choice of time library could be slowing you down.
 
 - [Stack and Nix](https://typeclasses.com/stack-and-nix) by Type Classes
-  > Here are some tips from the trenches, as it were, on using Stack’s Nix integration.
+  > Here are some tips from the trenches, as it were, on using Stack's Nix integration.
 
 - [Algebraic data types aren't numbers on steroids](https://blog.ploeh.dk/2020/01/20/algebraic-data-types-arent-numbers-on-steroids/) by Mark Seemann
   > There are still good arguments on either side. It's not my goal to dispute any of the good arguments. It's my goal to counter a common bad argument.
@@ -47,7 +47,7 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
   > The GHC team is proud to announce the release of GHC 8.8.2.
 
 - [A Tale of Two Functors, or: How I learned to Stop Worrying and Love Data and Control](https://www.tweag.io/posts/2020-01-16-data-vs-control.html) by Arnaud Spiwack
-  > There's `Data.Functor` and `Control.Monad`—why?
+  > There's `Data.Functor` and `Control.Monad` --- why?
 
 - [For Beginners](https://argumatronic.com/posts/1970-01-01-beginners.html) by Julie Moronuki
   > People ask me a lot how they can best get started with programming, functional programming, or Haskell specifically.
@@ -59,7 +59,7 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
   > I'm pleased to announce that the results for the Haskell.org committee nominations are in, and voting has completed.
 
 - [Why Dhall advertises the absence of Turing-completeness](http://www.haskellforall.com/2020/01/why-dhall-advertises-absence-of-turing.html) by Gabriel Gonzalez
-  > Several people have asked why I make a big deal out of the Dhall configuration language being “total” (i.e. not Turing-complete) and this post will summarize the two main reasons.
+  > Several people have asked why I make a big deal out of the Dhall configuration language being "total" (i.e. not Turing-complete) and this post will summarize the two main reasons.
 
 ## Packages of the week
 

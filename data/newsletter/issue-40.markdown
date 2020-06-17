@@ -32,7 +32,7 @@ or open an issue [on GitHub](https://github.com/haskellweekly/haskellweekly.gith
 
 -   [Type-level insertion sort](https://kseo.github.io/posts/2017-01-30-type-level-insertion-sort.html)
 
-    > Back in 2000, Thomas Hallgren showed an implementation of insertion sort as an example of static computation using functional dependencies.  In this post, I will show you a more "functional-style" implementation of insertion sort using closed type families.
+    > Back in 2000, Thomas Hallgren showed an implementation of insertion sort as an example of static computation using functional dependencies. In this post, I will show you a more "functional-style" implementation of insertion sort using closed type families.
 
 -   [Haskell and Docker: Down the rabbit hole and back](https://denibertovic.com/posts/haskell-and-docker-down-the-rabbit-hole-and-back/)
 

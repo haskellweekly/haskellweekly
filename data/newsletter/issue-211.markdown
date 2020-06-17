@@ -26,7 +26,7 @@ This is a weekly summary of what's going on in its community.
   > The following discussion occured on the FPChat Slack. It was pasted into a gist by Emily Pillmore.
 
 - [Reanimate: Swearing at bad documentation](https://williamyaoh.com/posts/2020-05-10-reanimate-an-experience-report.html) by William Yao
-  > Reanimate’s a fairly recent addition to the Haskell ecosystem and I haven’t seen a lot of discussion about actually using it, so I’d like to chime in with my own experiences with the library.
+  > Reanimate's a fairly recent addition to the Haskell ecosystem and I haven't seen a lot of discussion about actually using it, so I'd like to chime in with my own experiences with the library.
 
 - [Sockets and Pipes](https://leanpub.com/sockets-and-pipes) by Type Classes
   > Using a handful of everyday Haskell libraries, this book walks through reading the HTTP specification and implementing it to create a web server.
@@ -63,7 +63,7 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
   > This is a response to Hierarchical Free Monads: The Most Developed Approach In Haskell.
 
 - [Interview about Composition in Blockchain Implementations](http://www.well-typed.com/blog/2020/05/interview-with-edsko-and-duncan-about-composition-in-blockchain-implementations/) by Duncan Coutts and Edsko de Vries
-  > Well-Typed’s Edsko and Duncan were recently interviewed by Anthony Quinn for the IOHK blog on the work they are doing on the Cardano blockchain project.
+  > Well-Typed's Edsko and Duncan were recently interviewed by Anthony Quinn for the IOHK blog on the work they are doing on the Cardano blockchain project.
 
 - [Match URI templates with Burrito](https://dev.to/tfausak/match-uri-templates-with-burrito-4a1p) by Taylor Fausak
   > I'm happy to announce that version 1.1.0.0 of Burrito, my URI template library for Haskell, can now perform this matching operation!

@@ -26,7 +26,7 @@ This is a weekly summary of what's going on in its community.
   > The onboarding process demands an academic's exploration and synthesis. Not everyone has a researcher's mindset.
 
 - [Overriding Type Class Instances (Part 2)](http://caryrobbins.com/dev/overriding-type-class-instances-2/) by Cary Robbins
-  > In most cases, we likely won’t be able to tamper with the source code to inject our override machinery. Furthermore, we’d like to be able to achieve this with as little boilerplate as possible.
+  > In most cases, we likely won't be able to tamper with the source code to inject our override machinery. Furthermore, we'd like to be able to achieve this with as little boilerplate as possible.
 
 - [Repeatable execution in Haskell](https://blog.ploeh.dk/2020/03/30/repeatable-execution-in-haskell/) by Mark Seemann
   > This article is part of a series of articles about repeatable execution. The previous article argued that if you've logged the impure actions that a system made, you have enough information to reproduce what happened.

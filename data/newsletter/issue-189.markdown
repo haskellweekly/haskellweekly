@@ -17,7 +17,7 @@ This is a weekly summary of what's going on in its community.
   > If you stick around long enough, you'll hear something quite curious --- people will describe `main` as a pure function.
 
 - [Serving HTTP Content with Fused-Effects](https://blog.sumtypeofway.com/posts/serving-http-content-with-fused-effects.html) by Patrick Thomson
-  >  I'll show you how to use `fused-effects`'s APIs to build a minimal but aesthetically-pleasing syntax for handling HTTP requests and serving HTTP content.
+  > I'll show you how to use `fused-effects`'s APIs to build a minimal but aesthetically-pleasing syntax for handling HTTP requests and serving HTTP content.
 
 - [Collection of Haskell Articles](https://www.onikudaki.net/blog/archives/239) by Michael Oswald
   > I compiled all articles into a single PDF in LaTeX book format.

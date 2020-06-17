@@ -110,7 +110,7 @@ This week's package of the week is [unordered-containers](https://hackage.haskel
 - 2019-06-25 in Regensburg, Germany by Regensburg Haskell Meetup: [June Meetup](https://www.meetup.com/Regensburg-Haskell-Meetup/events/262371100/)
 - 2019-06-25 in Bristol, United Kingdom by CodeHub Bristol: [Hack Night](https://www.meetup.com/CodeHub-Bristol/events/bpjgrqyzjbhc/)
 - 2019-06-25 in Brno-střed, Czech Republic by Functional Programming Brno: [Zurihac Trip Report & The Art of Editing](https://www.meetup.com/fpbrno/events/262181698/)
-- 2019-06-25 in London EC2, United Kingdom by Skills Matter - xMatters Keynote Series - Developer Events: [Keynote by Rachel Appel:  Build Data Driven Web Apps using ASP.NET Core](https://www.meetup.com/skillsmatter/events/261862568/)
+- 2019-06-25 in London EC2, United Kingdom by Skills Matter - xMatters Keynote Series - Developer Events: [Keynote by Rachel Appel: Build Data Driven Web Apps using ASP.NET Core](https://www.meetup.com/skillsmatter/events/261862568/)
 - 2019-06-25 in Copenhagen, Denmark by Mødegruppe for F#unktionelle Københavnere: [Scripting, pure and functional](https://www.meetup.com/MoedegruppeFunktionelleKoebenhavnere/events/rqbcdlyzjbhc/)
 - 2019-06-26 in Berlin, Germany by Berlin Haskell Users Group: [Haskell Wednesday](https://www.meetup.com/berlinhug/events/pvpwqpyzjbjc/)
 - 2019-06-26 in Leipzig, Germany by Funktionaler Stammtisch Leipzig: ["Funktionaler Stammtisch" Clojure, Elm, Haskell, Scala and Co...](https://www.meetup.com/Funktionaler-Stammtisch-Leipzig/events/zwgxtqyzjbjc/)

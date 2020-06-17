@@ -20,7 +20,7 @@ This is a weekly summary of what's going on in its community.
 
     > I've implemented a couple Unix core utilities in Haskell, and want to start a series of posts going through the details - starting with simple programs like `cat`.
 
--   [Hierarchies In a Hakyll Blog](https://hackeryarn.com/post/hierarchies-in-hakyll/) by  Artem Chernyak
+-   [Hierarchies In a Hakyll Blog](https://hackeryarn.com/post/hierarchies-in-hakyll/) by Artem Chernyak
 
     > Hakyll didn't support this out of the box, and I didn't find examples of anyone using similar layouts. So, I created my own approach which I am now sharing.
 

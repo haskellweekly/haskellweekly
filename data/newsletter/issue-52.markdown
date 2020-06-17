@@ -40,7 +40,7 @@ or open an issue [on GitHub](https://github.com/haskellweekly/haskellweekly.gith
 
 -   [Shipping Haskell via Homebrew](http://chrispenner.ca/posts/homebrew-haskell)
 
-    >  One thing that isn't so great is Haskell's story for distributing code to non-Haskellers. `stack install` is great, but most folks don't have Stack installed and compiling Haskell projects from source is a lengthy process. These barriers prevented me from sharing my Haskell projects for a long time.
+    > One thing that isn't so great is Haskell's story for distributing code to non-Haskellers. `stack install` is great, but most folks don't have Stack installed and compiling Haskell projects from source is a lengthy process. These barriers prevented me from sharing my Haskell projects for a long time.
 
 -   [My "Haskell in production" story](https://medium.com/@djoyner/my-haskell-in-production-story-e48897ed54c)
 

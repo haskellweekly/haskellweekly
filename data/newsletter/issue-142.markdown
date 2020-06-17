@@ -102,7 +102,7 @@ This is a weekly summary of what's going on in its community.
 
 -   [bugsnag-haskell: Orphan instances](https://github.com/pbrisbin/bugsnag-haskell/issues/48)
 -   [dh-core: analyze: generate and check random test data](https://github.com/DataHaskell/dh-core/issues/37)
--   [pact:  Make `mkContCmd` for testing Pact Continuations](https://github.com/kadena-io/pact/issues/359)
+-   [pact: Make `mkContCmd` for testing Pact Continuations](https://github.com/kadena-io/pact/issues/359)
 -   [purescript: UnknownName in types/kinds can have better positions now](https://github.com/purescript/purescript/issues/3515)
 
 ## Events

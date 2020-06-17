@@ -6,7 +6,7 @@ This is a weekly summary of what's going on in its community.
 
 -   [How to Replace React Components With PureScript's React Libraries](https://thomashoneyman.com/articles/replace-react-components-with-purescript/) by Thomas Honeyman
 
-    >  PureScript helps reduce bugs and improve the stability of complex applications. Learn how to incrementally take over a small React application using Purescript's React and React Basic libraries while writing idiomatic code in both languages.
+    > PureScript helps reduce bugs and improve the stability of complex applications. Learn how to incrementally take over a small React application using Purescript's React and React Basic libraries while writing idiomatic code in both languages.
 
 -   [Render Quake 3 Arena maps with Elm and WebGL!](https://discourse.elm-lang.org/t/render-quake-3-arena-maps-with-elm-and-webgl/3820) by Andrea Peltrin
 

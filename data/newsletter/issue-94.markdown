@@ -45,7 +45,7 @@ Open an issue or pull request [on GitHub](https://github.com/haskellweekly/haske
 
 -   [Humble Book Bundle: Functional Programming](https://www.humblebundle.com/books/functional-programming-books?partner=haskellweekly)
 
-    > More awesome tech ebooks for you.  We've teamed up with O'Reilly for another bundle full of top-quality books! Get titles like Functional Thinking, Clojure Programming, Learning Scala, and Programming Rust. Plus, your purchase will support Code for America!
+    > More awesome tech ebooks for you. We've teamed up with O'Reilly for another bundle full of top-quality books! Get titles like Functional Thinking, Clojure Programming, Learning Scala, and Programming Rust. Plus, your purchase will support Code for America!
 
 ## Jobs
 

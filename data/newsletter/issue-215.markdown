@@ -77,10 +77,10 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
   > I've written about what Template Haskell is, and given an example of what it can be used for, it's time to explain why I was looking at it in the context of my PhD work.
 
 - [Using client-side Haskell web frameworks in CodeWorld](https://medium.com/@cdsmithus/using-client-side-haskell-web-frameworks-in-codeworld-7d8661647191) by Chris Smith
-  > I’ve made another change to make the CodeWorld environment more useful for general Haskell programming.
+  > I've made another change to make the CodeWorld environment more useful for general Haskell programming.
 
 - [Well-Typed Advanced Track at ZuriHac 2020](https://www.well-typed.com/blog/2020/06/well-typed-advanced-track-zurihac-2020/) by Andres Löh
-  > Just as last year, we will offer an Advanced Track comprising two (completely independent) workshops at this year’s ZuriHac.
+  > Just as last year, we will offer an Advanced Track comprising two (completely independent) workshops at this year's ZuriHac.
 
 ## Show & tell
 

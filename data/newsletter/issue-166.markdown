@@ -80,7 +80,7 @@ This week's package of the week is [semirings](http://hackage.haskell.org/packag
 ### Asia
 
 - 2019-07-04 in Taipei, Taiwan by Functional Thursday: [FunTh#74 談 Groebner basis 與 Buchberger's Algorithm](https://www.meetup.com/Functional-Thursday/events/261891286/)
-- 2019-07-06 in Bengaluru, India by Bots,AR,PWeb-Mobile,ServerlessCC & BChain  Codeseeker's: [GO Lang $5,000 case study](https://www.meetup.com/Bots-AR-PWeb-Mobile-ServerlessCC-BChain-Codeseekers/events/262602135/)
+- 2019-07-06 in Bengaluru, India by Bots,AR,PWeb-Mobile,ServerlessCC & BChain Codeseeker's: [GO Lang $5,000 case study](https://www.meetup.com/Bots-AR-PWeb-Mobile-ServerlessCC-BChain-Codeseekers/events/262602135/)
 - 2019-07-10 in Singapore, Singapore by HASKELL.SG: [July Singapore Haskell Meetup](https://www.meetup.com/HASKELL-SG/events/260364372/)
 
 ### Africa

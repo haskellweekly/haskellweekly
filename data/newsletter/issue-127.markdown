@@ -60,7 +60,7 @@ This is a weekly summary of what's going on in its community.
 
 -   [Interns at Tsuru Capital in Tokyo](https://www.tsurucapital.com/en/)
 
-    >  Tsuru Capital is a proprietary trading fund focused on options market-making. In-house software is mainly developed in Haskell. We are hiring interns!
+    > Tsuru Capital is a proprietary trading fund focused on options market-making. In-house software is mainly developed in Haskell. We are hiring interns!
 
 -   [Engineer at Mercury in San Francisco](https://np.reddit.com/r/haskell/comments/9kiyqy/mercury_is_hiring_an_engineer_sf_fulltime/)
 

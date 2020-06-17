@@ -23,10 +23,10 @@ This is a weekly summary of what's going on in its community.
   > Is there a way to get the convenience of `RecordWildCards` and the safety of knowing that modifying the type will cause a compile error?
 
 - [Reanimate: a tutorial on making programmatic animations](https://williamyaoh.com/posts/2020-05-31-reanimate-nqueens-tutorial.html) by William Yao
-  > Today we’re going to see how to make the animation from the last post about my experience using Reanimate.
+  > Today we're going to see how to make the animation from the last post about my experience using Reanimate.
 
 - [Responsive IDEs](https://mpickering.github.io/ide/posts/2020-05-29-hiedb.html) by Zubin Duggal
-  > I will discuss some of the latest developments with respect to the ghcide architecture and how we’ve been working to increase its responsiveness.
+  > I will discuss some of the latest developments with respect to the ghcide architecture and how we've been working to increase its responsiveness.
 
 - [Setting up a Haskell development environment with Nix](https://romainviallard.dev/en/blog/setting-up-a-haskell-development-environment-with-nix/) by Romain Viallard
   > For this first entry, we'll explore how to quickly setup a reliable environment to hack on our Haskell projects using the Nix language and its Nixpkgs infrastructure.
@@ -48,7 +48,7 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
   > I've tried several different approaches to using CircleCI for Haskell projects and it's taken me a while to find a solution that works well.
 
 - [Cleaning up threads in Haskell](https://chrismwendt.github.io/blog/2020/05/31/cleaning-up-threads-in-haskell.html) by Chris Wendt
-  > If you don’t keep track of your threads and kill them when the main thread receives an exception, you can accidentally hold on to resources that should be released.
+  > If you don't keep track of your threads and kill them when the main thread receives an exception, you can accidentally hold on to resources that should be released.
 
 - [CodeWorld as a Haskell Playground: Call for Package Requests](https://medium.com/@cdsmithus/codeworld-as-a-haskell-playground-call-for-package-requests-3b9ae3bcd840) by Chris Smith
   > To further this goal, I am formalizing the list of Haskell packages that I can guarantee to be available in the environment.
@@ -68,7 +68,7 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 - [Refactored Game Play!](https://mmhaskell.com/blog/2020/5/18/refactored-gameplay) by Monday Morning Haskell
   > We created a new class EnvironmentMonad to combine the steps these games have in common. This week, we'll see a full implementation of that class.
 
-- [A short exploration of GHC’s instance resolution hiding mistakes from the type checker](https://dorchard.blog/2020/06/03/a-short-exploration-of-ghcs-instance-resolution-hiding-mistakes-from-the-type-checker/) by Dominic Orchard
+- [A short exploration of GHC's instance resolution hiding mistakes from the type checker](https://dorchard.blog/2020/06/03/a-short-exploration-of-ghcs-instance-resolution-hiding-mistakes-from-the-type-checker/) by Dominic Orchard
   > I thought this was an interesting little example of how type class instance resolution can sometimes trip you up in Haskell, and how to uncover what is going on.
 
 - [Simulated annealing](https://oleg.fi/gists/posts/2020-06-02-simulated-annealing.html) by Oleg Grenrus

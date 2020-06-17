@@ -108,7 +108,7 @@ Check out some of [these issues](https://github.com/issues?q=language%3Ahaskell+
 - 2018-10-30 in Bristol, United Kingdom by CodeHub Bristol: [Hack Night + Haskell Study Group](https://www.meetup.com/CodeHub-Bristol/events/gvdwfqyxnbnc/)
 - 2018-10-30 in cluj-napoca, Romania by Cluj.fp: [How to Stay Up When Everything Fails. Leveraging the Power of Erlang and Elixir](https://www.meetup.com/Cluj-fp/events/255415200/)
 - 2018-10-30 in Copenhagen, Denmark by Mødegruppe for F#unktionelle Københavnere: [[fredefox] Univalent Categories: A formalization of cat. theory in Cubical Agda](https://www.meetup.com/MoedegruppeFunktionelleKoebenhavnere/events/rqbcdlyxnbnc/)
-- 2018-10-31 in London, United Kingdom by London Haskell: [AutoBench: Comparing the Time Performance  of Haskell Programs](https://www.meetup.com/London-Haskell/events/255750152/)
+- 2018-10-31 in London, United Kingdom by London Haskell: [AutoBench: Comparing the Time Performance of Haskell Programs](https://www.meetup.com/London-Haskell/events/255750152/)
 - 2018-11-01 in Berlin, Germany by Berlin Haskell Users Group: [Adrian Sieber: Introduction to PureScript](https://www.meetup.com/berlinhug/events/255526443/)
 
 ### Asia

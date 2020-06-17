@@ -8,7 +8,7 @@ This is a weekly summary of what's going on in its community.
   > One of the biggest goals of this blog has been to show Haskell's utility as a production language. Our Practical Haskell course is the culmination of that goal.
 
 - [Building a Friendly and Safe EDSL with IxState and TypeLits](https://free.cofree.io/2020/02/29/dsl/)
-  > Let’s take a simple EDSL as a running example, and evolve it in a series of steps to make it more user-friendly and safer.
+  > Let's take a simple EDSL as a running example, and evolve it in a series of steps to make it more user-friendly and safer.
 
 - [Competitive Programming in Haskell: modular arithmetic, part 2](https://byorgey.wordpress.com/2020/03/03/competitive-programming-in-haskell-modular-arithmetic-part-2/) by Brent Yorgey
   > In this post, I consider the problem of solving modular equivalences, building on code from the previous post.
@@ -26,10 +26,10 @@ This is a weekly summary of what's going on in its community.
   > Originally, I wanted to write a complete guide to lazy evaluation, but then.
 
 - [Optimizing a maze with graph theory, genetic algorithms, and Haskell](https://medium.com/@cdsmithus/optimizing-a-maze-with-graph-theory-genetic-algorithms-and-haskell-e3702dd6439f) by Chris Smith
-  > Lately, I’ve been working on a side project that became a fun exercise in both graph theory and genetic algorithms.
+  > Lately, I've been working on a side project that became a fun exercise in both graph theory and genetic algorithms.
 
 - [Template Haskell Workshop](https://dfithian.github.io/2020/02/29/template-haskell-workshop.html) by Dan Fithian
-  > Today I’m writing to announce that I have posted a Template Haskell workshop on my GitHub in case anyone wants more exposure to learning about it or using it.
+  > Today I'm writing to announce that I have posted a Template Haskell workshop on my GitHub in case anyone wants more exposure to learning about it or using it.
 
 - [Uploading Package to Hackage](https://svejcar.dev/posts/2020/02/29/uploading-package-to-hackage/) by Vaclav Svejcar
   > I found the process not to be as straightforward as I expected, so I decided to sum up my experience in this blog post, both for future myself and for anyone else interested.

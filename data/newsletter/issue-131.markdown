@@ -103,7 +103,7 @@ a fast, flexible, fused effect system.
 
 ### Europe
 
-- 2018-11-01 in Berlin, Germany by Berlin Haskell Users Group: [Adrian Sieber: Introduction to PureScript.  Plus a primer on Data Kinds.](https://www.meetup.com/berlinhug/events/255526443/)
+- 2018-11-01 in Berlin, Germany by Berlin Haskell Users Group: [Adrian Sieber: Introduction to PureScript. Plus a primer on Data Kinds.](https://www.meetup.com/berlinhug/events/255526443/)
 - 2018-11-05 in Karlsruhe, Germany by Karlsruhe Haskell Meetup: [Haskell Monday](https://www.meetup.com/Karlsruhe-Haskell-Meetup/events/zdzlkqyxpbhb/)
 - 2018-11-05 in Exeter, United Kingdom by Exeter Functional Programmers: [Talk functional](https://www.meetup.com/Exeter-Functional-Programmers/events/nnjhbmyxpbhb/)
 - 2018-11-06 in Regensburg, Germany by Regensburg Haskell Meetup: [Early November Meetup](https://www.meetup.com/Regensburg-Haskell-Meetup/events/255960839/)
