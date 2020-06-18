@@ -90,4 +90,5 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 
 ## Call for participation
 
-undefined
+-   [ghcide: Initial session setup should use LSP `InitializeParams.rootUri`](https://github.com/digital-asset/ghcide/issues/646)
+-   [smos: Refactor the `next` report to use the entry report internally](https://github.com/NorfairKing/smos/issues/86)
