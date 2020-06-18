@@ -69,6 +69,9 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 - [Xmobar updates from ZuriHac](https://psibi.in/posts/2020-06-16-xmobar-zurihac.html) by Sibi Prabakaran
   > Xmobar is a minimalistic status bar for X Window Systems.
 
+- [ZuricHac 2020](https://collectednotes.com/gillchristian/zurichac-2020) by Christian Gill
+  > Here's a small recap of the things I did and learned.
+
 - [ZuriHac 2020 videos](https://www.youtube.com/playlist?list=PLiU7KJ5_df6aZbNfh_TUJt-6w9N3rYkTX)
 
 ## Show & tell
@@ -88,7 +91,11 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 - [unfog-cli](https://github.com/unfog-io/unfog-cli/tree/a5cf8e5a734d6285c464a9047bb1d130a70531e7) by Clément Douin
   > A simple task & time manager, written in Haskell.
 
+- [zeus](https://github.com/mightybyte/zeus/tree/ff278d0f823758de63ecfe0a7ec3cce9629cd2e5) by Doug Beardsley
+  > Zeus is a no-fuss production quality CI server for Nix projects.
+
 ## Call for participation
 
+-   [clay: Support grid](https://github.com/sebastiaanvisser/clay/issues/176)
 -   [ghcide: Initial session setup should use LSP `InitializeParams.rootUri`](https://github.com/digital-asset/ghcide/issues/646)
 -   [smos: Refactor the `next` report to use the entry report internally](https://github.com/NorfairKing/smos/issues/86)
