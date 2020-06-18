@@ -60,7 +60,7 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 - [Integrating head.hackage with GHC's CI infrastructure](https://www.haskell.org/ghc/blog/20200611-head-hackage.html)by Ben Gamari
   > In this post we will describe the current state of that infrastructure as well as what you (yes, you!) can do to help us make the most of this infrastructure; no GHC hacking experience is required!
 
-- [Monoidal catamorphisms](https://bartoszmilewski.com/2020/06/15/monoidal-catamorphisms/) by Matosz Milewski
+- [Monoidal catamorphisms](https://bartoszmilewski.com/2020/06/15/monoidal-catamorphisms/) by Bartosz Milewski
   > A `Fold` is an interesting abstraction. It encapsulates the idea of focusing on a monoidal contents of some data structure.
 
 - [Type inference](https://splintah.gitlab.io/posts/2020-06-14-Type-inference.html) by Splinter Suidman
