@@ -240,6 +240,7 @@ issues = do
     , issue214
     , issue215
     , issue216
+    , issue217
     ]
   checkNumbers validIssues
   pure $ foldr insertIssue Data.Map.empty validIssues
@@ -1554,3 +1555,9 @@ issue216 =
   HW.Type.Issue.Issue
     <$> HW.Type.Date.gregorianToDate 2020 6 18
     <*> HW.Type.Number.naturalToNumber 216
+
+issue217 :: Either String HW.Type.Issue.Issue
+issue217 =
+  HW.Type.Issue.Issue
+    <$> HW.Type.Date.gregorianToDate 2020 6 25
+    <*> HW.Type.Number.naturalToNumber 217
