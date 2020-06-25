@@ -30,4 +30,6 @@ undefined
 
 ## Call for participation
 
-undefined
+-   [fourmolu: Command line options](https://github.com/parsonsmatt/fourmolu/issues/12)
+-   [hipsterfy: Display error message for invalid friend codes](https://github.com/liftM/hipsterfy/issues/6)
+-   [password: support for cryptonite-0.27](https://github.com/cdepillabout/password/issues/23)
