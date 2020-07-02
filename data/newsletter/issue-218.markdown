@@ -64,4 +64,5 @@ undefined
 
 ## Call for participation
 
-undefined
+-   [smos: Document the fuzzy time parsing](https://github.com/NorfairKing/smos/issues/124)
+-   [summoner: Remove `neat-interpolation`](https://github.com/kowainik/summoner/issues/477)
