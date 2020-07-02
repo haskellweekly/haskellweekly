@@ -11,7 +11,7 @@ This is a weekly summary of what's going on in its community.
   > I was interested in experimenting with Amazon Lambda and having statically linked Haskell programs sounded like a great idea too, so this is a write-up of what it took to get those things working.
 
 - [Haskell for a New Decade with Stephen Diehl](https://www.youtube.com/watch?v=B9_xAixGlmk) by Berlin Functional Programming Group
-  > Stephen will discuss the recent history of Haskell over the last decade with an emphasis on the features that have shaped the language into its modern form in the 2010–2020 era.
+  > Stephen will discuss the recent history of Haskell over the last decade with an emphasis on the features that have shaped the language into its modern form in the 2010--2020 era.
 
 - [Haskell Game Enpuzzled Released for Android and iOS](https://keera.co.uk/2020/06/18/enpuzzled-released-for-android-and-ios/) by Keera Studios
   > After two years of work, thousands of commits, and over 100 releases on iTunes and Android, we are very proud to release Enpuzzled, our latest game for Android and iOS.
