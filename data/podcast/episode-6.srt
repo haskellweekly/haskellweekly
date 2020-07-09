@@ -1332,7 +1332,7 @@ the change you just made.
 
 284
 00:14:25,619 --> 00:14:27,348
->> Yeah, that´s nice.
+>> Yeah, that's nice.
 
 285
 00:14:27,348 --> 00:14:36,023

@@ -384,7 +384,7 @@ about how slow it is.
 
 81
 00:04:46,810 --> 00:04:51,270
-And again, it´s crazy to me that's under a
+And again, it's crazy to me that's under a
 second, and he's like it's just too slow.
 
 82
