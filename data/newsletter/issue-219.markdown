@@ -4,6 +4,9 @@ This is a weekly summary of what's going on in its community.
 
 ## Featured
 
+- [This is your chance to influence the future of software development](https://www.developereconomics.net/?utm_medium=newsletter&utm_source=haskell&utm_campaign=haskell_newsletter) (ad)
+  > Join 30,000+ developers around the world who are taking the Developer Economics survey and leave your mark! You may win one out of USD $15,000 worth of prizes or $1,000 cash for referring other developers to take the survey. Open to developers only, until August 10th. Hurry up - take the survey!
+
 - [A fork of Haskell prometheus-client](https://qnikst.github.io/posts/2020-07-04-prometheus.html) by Alexander Vershilov
   > For the last few months, I slowly work on improving the prometheus-client library. And I'd like to share some details of that work.
 
@@ -36,8 +39,8 @@ This is a weekly summary of what's going on in its community.
 - [Interos is Hiring Full Stack Haskell Software Engineers](https://www.interos.ai/vacancies/#haskell-software-engineer) (ad)
   > At Interos, we are disrupting the way Fortune 500 companies and government agencies identify and respond to risk within their supply chains. We deliver the data and insights to business leaders that help them identify, visualize and understand the ripple effects that could impact their supply chains, before they happen. Recently funded by Kleiner Perkins and pivoting to an automated solution, Interos is in essence, a start-up SaaS environment.
 
-- [Experienced Haskell Developer at Stack Builders](https://apply.workable.com/stackbuilders/j/E01709D897/)
-  > Join our Haskellers crew! Our team of experienced functional programming engineers is looking for a new team member.
+- [Stack Builders is looking for an Experience Haskell Developer (Remote - Full-time)](https://apply.workable.com/stackbuilders/j/E01709D897)
+  > Stack Builders is one of the few software consultancies specializing in functional programming languages, with a particular passion for the Haskell ecosystem. Our cross-cultural development team pushes the boundaries of the industry by building products that exceed our clients' expectations following the best software practices.
 
 Trying to hire a Haskell developer?
 You should [advertise with us](https://haskellweekly.news/advertising.html)!
@@ -63,6 +66,9 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 
 - [Summer Course Sale!](https://mmhaskell.com/blog/2020/7/6/summer-course-sale) by Monday Morning Haskell
   > As a special bonus, for this week only, both of our courses are on sale, $100 off their normal prices!
+
+- [Surprise discount](https://twitter.com/atopbook/status/1281157734906429440) by A Type Of Programming
+  > A Type of Programming for just £25! 180.000 words in over 800 pages.
 
 ## Show & tell
 
