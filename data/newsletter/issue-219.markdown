@@ -74,4 +74,5 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 
 ## Call for participation
 
-undefined
+-   [password: Documentation oopsies](https://github.com/cdepillabout/password/issues/25)
+-   [semantic: Eliminate TermMode type family](https://github.com/github/semantic/issues/589)
