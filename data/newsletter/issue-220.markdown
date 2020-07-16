@@ -91,4 +91,4 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 
 ## Call for participation
 
-undefined
+-   [zeus: Implement GitLab API for build status](https://github.com/mightybyte/zeus/issues/38)
