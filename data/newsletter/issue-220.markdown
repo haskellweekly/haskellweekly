@@ -4,7 +4,7 @@ This is a weekly summary of what's going on in its community.
 
 ## Featured
 
-- [GHC 8.8.4 is now available](https://mail.haskell.org/pipermail/haskell-cafe/2020-July/132497.html) by Gen Gamari
+- [GHC 8.8.4 is now available](https://mail.haskell.org/pipermail/haskell-cafe/2020-July/132497.html) by Ben Gamari
   > The GHC team is proud to announce the release of GHC 8.8.4.
 
 - [Building static Haskell binary with Nix on Linux](https://blog.patchgirl.io/haskell/2020/07/13/static-haskell-binary.html) by Iori Matsuhara
