@@ -91,4 +91,5 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 
 ## Call for participation
 
-undefined
+-   [LambdaHack: Make Key Bindings for Switching through Teammates more Intuitive for Beginners](https://github.com/LambdaHack/LambdaHack/issues/206)
+-   [spago: Error after run "spago repl"](https://github.com/purescript/spago/issues/667)
