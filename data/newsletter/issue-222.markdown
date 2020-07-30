@@ -7,6 +7,35 @@ This is a weekly summary of what's going on in its community.
 - [Haskell Study With Alejandro](https://www.haskell.amsterdam/2020/07/24/haskell-study-with-alejandro.html) by Haskell Amsterdam
   > Starting this August Haskell.amsterdam will be organizing a four-month-long study group of Practical Haskell: A Real World Guide to Programming by Alejandro Serrano Mena.
 
+- [Golfing language extensions](https://dev.to/tfausak/golfing-language-extensions-2obl) by Taylor Fausak
+  > `x# ∷_=id @(_∷_)mdo if|let?_=(0x0.0,'(),)→[0b_0^0e0| !_←[]|_←[],then\case]`
+  >
+  > This blog post aims to quickly explain what that code does by showing how to require various language extensions with the least amount of code.
+
+- [Haskell Language Server, binaries and installation](https://mpickering.github.io/ide/posts/2020-07-10-ghc-libdir.html) by Luke Lau
+  > Many of us have spent the past month hard at work trying to improve the installation story.
+
+- [How a Java Programmer Wrote Console Tetris In Haskell](https://shiraeeshi.github.io/console-tetris-in-haskell.html)
+  > We want to write something complex and intertwined in functional style and check if spagetti is going to get untangled because we used functions, and if so, what will it look like?
+
+- [Improving Haskell's big numbers support](https://iohk.io/en/blog/posts/2020/07/28/improving-haskells-big-numbers-support/) by Sylvain Henry
+  > Recently we have been working on improving GHC's support for big numbers, ie, numbers larger than 64-bit (both Integer and Natural types in Haskell).
+
+- [The pl-a.net link aggregators](https://blog.poisson.chat/posts/2020-07-26-pl-anet.html) by Li-yao Xia
+  > If you were familiar with Haskell News, and missed it since it closed down, Haskell Planetarium is a clone of it.
+
+- [Preliminary benchmarking results for a Haskell I/O manager backend based on io_uring](https://wjwh.eu/posts/2020-07-26-haskell-iouring-manager.html) by Wander Hillen
+  > To test the relative performance of the io_uring backend compared to the epoll backend, I needed an application that spends as much of its time as possible on pollable I/O.
+
+- [Record keys prefix whitespace recovering](https://dev.to/german1608/record-keys-prefix-whitespace-recovering-1o2g) by German Robayo
+  > The main subject of this post is the recovering of prefix whitespace on Record keys, which will allow users to document record types and literals' keys.
+
+- [Setting Up Haskell Development Environment: The Basics](https://schooloffp.co/2020/07/25/setting-up-haskell-development-environment-the-basics.html) by School of FP
+  > This post is going to outline the procedure for setting up a Haskell development environment.
+
+- [Use Nix to make experimenting with Haskell easier](https://publish.elbear.com/#Use%20Nix%20to%20make%20experimenting%20with%20Haskell%20easier) by Lucian Ursu
+  > Enter Nix, another thing people are excited about, but which has a reputation for steep learning curve (for good reason, I still don't like its language).
+
 ## Jobs
 
 - [Software Engineer at ITProTV](https://www.linkedin.com/jobs/view/1938385901/)
@@ -51,23 +80,10 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 - [The golden rule of software quality](http://www.haskellforall.com/2020/07/the-golden-rule-of-software-quality.html) by Gabriel Gonzalez
   > The golden rule is: Prefer to push fixes upstream instead of working around problems downstream.
 
-- [Golfing language extensions](https://dev.to/tfausak/golfing-language-extensions-2obl) by Taylor Fausak
-  > `x# ∷_=id @(_∷_)mdo if|let?_=(0x0.0,'(),)→[0b_0^0e0| !_←[]|_←[],then\case]`
-  > This blog post aims to quickly explain what that code does by showing how to require various language extensions with the least amount of code.
-
-- [Haskell Language Server, binaries and installation](https://mpickering.github.io/ide/posts/2020-07-10-ghc-libdir.html) by Luke Lau
-  > Many of us have spent the past month hard at work trying to improve the installation story.
-
 - [Haskeller Competency Matrix](https://gist.github.com/graninas/833a9ff306338aefec7e543100c16ea1/86bcd2da3cd5d25073622316206b3fbfbd181b9e) by Alexander Granin
-
-- [How a Java Programmer Wrote Console Tetris In Haskell](https://shiraeeshi.github.io/console-tetris-in-haskell.html)
-  > We want to write something complex and intertwined in functional style and check if spagetti is going to get untangled because we used functions, and if so, what will it look like?
 
 - [How to deal with money in software](https://cs-syd.eu/posts/2020-07-28-how-to-deal-with-money-in-software) by Tom Sydney Kerckhove
   > After a bit of a rant on twitter, I want to explain what they likely did wrong and how to deal with money correctly.
-
-- [Improving Haskell's big numbers support](https://iohk.io/en/blog/posts/2020/07/28/improving-haskells-big-numbers-support/) by Sylvain Henry
-  > Recently we have been working on improving GHC's support for big numbers, ie, numbers larger than 64-bit (both Integer and Natural types in Haskell).
 
 - [Machine Learning in Haskell](https://tonyday567.github.io/posts/learning/) by Tony Day
   > I don't code in Haskell to help eliminate bugs. That seems a goal unlikely to produce joy in my code. I write Haskell primarily because in enables me to name things a bit better.
@@ -84,23 +100,8 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 - [Neuron 0.6 released](https://www.srid.ca/cbf057a6.html) by Sridhar Ratnakumar
   > Neuron is a note-taking tool based on Zettelkasten, that aims to be future-proof. Version 0.6 just got released.
 
-- [The pl-a.net link aggregators](https://blog.poisson.chat/posts/2020-07-26-pl-anet.html) by Li-yao Xia
-  > If you were familiar with Haskell News, and missed it since it closed down, Haskell Planetarium is a clone of it.
-
-- [Preliminary benchmarking results for a Haskell I/O manager backend based on io_uring](https://wjwh.eu/posts/2020-07-26-haskell-iouring-manager.html) by Wander Hillen
-  > To test the relative performance of the io_uring backend compared to the epoll backend, I needed an application that spends as much of its time as possible on pollable I/O.
-
-- [Record keys prefix whitespace recovering](https://dev.to/german1608/record-keys-prefix-whitespace-recovering-1o2g) by German Robayo
-  > The main subject of this post is the recovering of prefix whitespace on Record keys, which will allow users to document record types and literals' keys.
-
-- [Setting Up Haskell Development Environment: The Basics](https://schooloffp.co/2020/07/25/setting-up-haskell-development-environment-the-basics.html) by School of FP
-  > This post is going to outline the procedure for setting up a Haskell development environment.
-
 - [Tutorial: Transparent interfaces in Haskell](https://boxbase.org/entries/2020/jul/29/hasked/) by Henri Tuhola
   > Have you ever wanted to take a JSON object and access it in Haskell with minimal effort of only specifying what you're expecting from the value?
-
-- [Use Nix to make experimenting with Haskell easier](https://publish.elbear.com/#Use%20Nix%20to%20make%20experimenting%20with%20Haskell%20easier) by Lucian Ursu
-  > Enter Nix, another thing people are excited about, but which has a reputation for steep learning curve (for good reason, I still don't like its language).
 
 - [Which packages does Hoogle search?](https://neilmitchell.blogspot.com/2020/07/which-packages-does-hoogle-search.html) by Neil Mitchell
   > This post explains which packages are searched, why some packages are excluded, and thus, how you can ensure your package is searched.
