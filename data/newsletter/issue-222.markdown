@@ -118,4 +118,6 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 
 ## Call for participation
 
-undefined
+-   [dex-lang: Portable regex-based syntax highlighting](https://github.com/google-research/dex-lang/issues/176)
+-   [monpad: Make the background colour configurable](https://github.com/georgefst/monpad/issues/6)
+-   [smos: Easy entry removal from header](https://github.com/NorfairKing/smos/issues/135)
