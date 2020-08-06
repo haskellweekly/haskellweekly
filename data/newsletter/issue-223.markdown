@@ -71,7 +71,7 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 - [prettyprinter version 1.7.0](https://github.com/quchen/prettyprinter/releases/tag/v1.7.0) by Simon Jakobi
 
 - [runhs](https://hackage.haskell.org/package/runhs-1.0.0.4) by Daniel Brice
-  > Without having to teach what a _project_ or a _cabal file_ or _hpack_ or a _feeze-file_ is, you can get your friends setup to use Haskell for their one-off scripting and data munging tasks.
+  > Skip the minutia of project management, cabal files, or hpack. Get your casual-programming friends setup to use Haskell, with all the greatest libraries, for their one-off scripting and data munging tasks.
 
 ## Call for participation
 
