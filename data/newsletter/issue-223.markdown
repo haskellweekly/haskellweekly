@@ -75,4 +75,5 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 
 ## Call for participation
 
-undefined
+-   [dex-lang: Conventional syntax for typeclass declarations and instances](https://github.com/google-research/dex-lang/issues/185)
+-   [neuron: Hide footnote refs from search result preview](https://github.com/srid/neuron/issues/326)
