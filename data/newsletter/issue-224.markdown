@@ -77,4 +77,5 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 
 ## Call for participation
 
-undefined
+-   [dapptools: Treat constructor arguments](https://github.com/dapphub/dapptools/issues/476)
+-   [persistent: Remove unnecessary deriving of Typeable](https://github.com/yesodweb/persistent/issues/1107)
