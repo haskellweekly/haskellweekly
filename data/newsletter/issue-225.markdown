@@ -13,6 +13,9 @@ This is a weekly summary of what's going on in its community.
 - [Haskell to Core: Understanding Haskell Features Through Their Desugaring](https://serokell.io/blog/haskell-to-core) by Vladislav Zavialov
   > How much Haskell is essential, and how much is sugar on top? This becomes clear if we start thinking about the way Haskell programs are desugared into GHC’s Core: a small, elegant language, used as an intermediate representation in GHC’s compilation pipeline.
 
+- [How stylish-haskell works](https://felixmulder.com/writing/2020/08/20/How-Stylish-Haskell-works.html) by Felix Mulder
+  > I believe that one of the most important things that you can do as a developer is to make sure that the above is automated. Which leads us to one of my pet peeves: code formatting.
+
 - [Introduction to Haskell Crash Course](https://typeclasses.com/news/2020-08-beginner-course) by Julie Moronuki
   > Since we had all these videos recorded, we decided to make this course permanently accessible and free to anyone interested in taking a crash course on Haskell.
 
@@ -21,6 +24,9 @@ This is a weekly summary of what's going on in its community.
 
 - [Types as axioms, or: playing god with static types](https://lexi-lambda.github.io/blog/2020/08/13/types-as-axioms-or-playing-god-with-static-types/) by Alexis King
   > You need not be limited any longer by what the designers of your programming language decided the typechecker can and cannot prove. You do not serve the typechecker; the typechecker serves you.
+
+- [Understanding Memory Fragmentation](https://www.well-typed.com/blog/2020/08/memory-fragmentation/) by David Eichmann
+  > In this blog post, we look at memory fragmentation in the Haskell heap and how it arises.
 
 - [Whirlwind Tour Of Cabal For Beginners](https://schooloffp.co/2020/08/17/whirlwind-tour-of-cabal-for-beginners.html) by School of FP
   > In this post, we move forward and we introduce Cabal, which is a build tool that can be described as a system for building and packaging Haskell libraries and programs.
@@ -46,7 +52,8 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 
 ## Show & tell
 
-undefined
+- [unicode-transforms](https://np.reddit.com/r/haskell/comments/icx3rs/ann_unicodetransforms037/) by Harendra Kumar
+  > This release features Unicode 13.0 normalization, but the real highlights are massive performance improvements.
 
 ## Call for participation
 
