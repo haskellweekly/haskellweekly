@@ -50,4 +50,5 @@ undefined
 
 ## Call for participation
 
-undefined
+-   [haskell-language-server: Case splitting features](https://github.com/haskell/haskell-language-server/issues/323)
+-   [neuron: Blockquote paragraphs appear in reverse order in footnotes](https://github.com/srid/neuron/issues/350)
