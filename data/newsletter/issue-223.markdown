@@ -8,7 +8,7 @@ This is a weekly summary of what's going on in its community.
   > The Semantic Code team shipped a massive improvement to the language support system that powers code navigation.
 
 - [Come to Virtual ICFP!](https://blog.sigplan.org/2020/08/04/come-to-virtual-icfp/) by Stephanie Weirich
-  > ICFP 2020 is right around the corner (Aug 23-29), and you won’t want to miss it!
+  > ICFP 2020 is right around the corner (Aug 23-29), and you won't want to miss it!
 
 - ["Four in a Row" in Haskell (Part II)](https://paedubucher.ch/articles/2020-08-05-four-in-a-row-in-haskell-part-ii.html) by Patrick Bucher
   > In this article, I'm going to show how the board logic for the game "Four in a Row" can be implemented in Haskell.
@@ -20,7 +20,7 @@ This is a weekly summary of what's going on in its community.
   > If there's one thing compiler writers spill a lot of ink over, it's tree traversals. Tree traversals are infuriatingly simple conceptually, but can be a lot of boilerplate to actually write.
 
 - [Measuring memory usage of Haskell values and patching GHC](https://mpickering.github.io//ide/posts/2020-08-04-measuring-memory-size.html) by Michail Pardalos
-  > After getting blocked by a bug in a GHC primop I fell down a rabbit hole of learning about GHC’s memory layout, C– and making my first contribution to GHC.
+  > After getting blocked by a bug in a GHC primop I fell down a rabbit hole of learning about GHC's memory layout, C-- and making my first contribution to GHC.
 
 - [Solving text adventure games via symbolic execution](https://gergo.erdi.hu/blog/2020-08-01-solving_text_adventure_games_via_symbolic_execution/) by Gergő Érdi
   > This combination of semi-formal methods and interactive fiction, plus the fact that I wanted to play around with SMT solver-backed interpreters ever since the Rosette talk at last year's ICFP, meant that the pull of this topic was just irresistable nerd catnip for me.

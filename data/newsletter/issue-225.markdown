@@ -5,13 +5,13 @@ This is a weekly summary of what's going on in its community.
 ## Featured
 
 - [Enhancing Functor Structures Step-By-Step (Part 1)](https://blog.jle.im/entry/enhancing-functor-structures-step-by-step-1.html) by Justin Le
-  > In this post we’re going to be exploring the idea of enhancing normal data types with different types of functor structures step-by-step, by starting with a simple useful structure and enhancing it piece by piece in order to reap incremental benefits.
+  > In this post we're going to be exploring the idea of enhancing normal data types with different types of functor structures step-by-step, by starting with a simple useful structure and enhancing it piece by piece in order to reap incremental benefits.
 
 - [Haskell mini-patterns handbook](https://kowainik.github.io/posts/haskell-mini-patterns) by Kowainik
-  > This blog post contains a structured collection of some programming mini-patterns in Haskell with the detailed description and examples, some small “quality of life” improvements that would help everyone on their developer journey.
+  > This blog post contains a structured collection of some programming mini-patterns in Haskell with the detailed description and examples, some small "quality of life" improvements that would help everyone on their developer journey.
 
 - [Haskell to Core: Understanding Haskell Features Through Their Desugaring](https://serokell.io/blog/haskell-to-core) by Vladislav Zavialov
-  > How much Haskell is essential, and how much is sugar on top? This becomes clear if we start thinking about the way Haskell programs are desugared into GHC’s Core: a small, elegant language, used as an intermediate representation in GHC’s compilation pipeline.
+  > How much Haskell is essential, and how much is sugar on top? This becomes clear if we start thinking about the way Haskell programs are desugared into GHC's Core: a small, elegant language, used as an intermediate representation in GHC's compilation pipeline.
 
 - [How stylish-haskell works](https://felixmulder.com/writing/2020/08/20/How-Stylish-Haskell-works.html) by Felix Mulder
   > I believe that one of the most important things that you can do as a developer is to make sure that the above is automated. Which leads us to one of my pet peeves: code formatting.
@@ -45,7 +45,7 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 ## In brief
 
 - [Probabilistic programming with continuations](https://julesh.com/2020/08/15/probabilistic-programming-with-continuations/) by Jules Hedges
-  > In this post I’ll explain something folkloric: that you can pretend that the continuation monad is a probability monad, and do probabilistic programming in it.
+  > In this post I'll explain something folkloric: that you can pretend that the continuation monad is a probability monad, and do probabilistic programming in it.
 
 - [Switching nightlies to GHC 8.10.2 and a workaround for Windows](https://www.stackage.org/blog/2020/08/ghc-8-10-2-windows-workaround) by Alexey Zabelin
   > The nightly builds are now using GHC 8.10.2 which is known to be broken on Windows. This bug should be fixed in GHC 8.10.3.
