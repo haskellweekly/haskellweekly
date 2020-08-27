@@ -47,4 +47,4 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 
 ## Call for participation
 
-undefined
+-   [pretty-simple: OutputPrinter module name](https://github.com/cdepillabout/pretty-simple/issues/76)
