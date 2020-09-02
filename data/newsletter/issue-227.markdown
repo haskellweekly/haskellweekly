@@ -29,4 +29,5 @@ undefined
 
 ## Call for participation
 
-undefined
+-   [graphql-engine: cli: support absolute paths in --envfile](https://github.com/hasura/graphql-engine/issues/5689)
+-   [mu-haskell: How to represent oneof with a schema/use oneof in .proto files?](https://github.com/higherkindness/mu-haskell/issues/219)
