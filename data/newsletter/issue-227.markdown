@@ -4,15 +4,6 @@ This is a weekly summary of what's going on in its community.
 
 ## Featured
 
-undefined
-
-## Jobs
-
-Trying to hire a Haskell developer?
-You should [advertise with us](https://haskellweekly.news/advertising.html)!
-
-## In brief
-
 - [Actually, Maybe is Great](https://ostina.to/posts/2020-08-20-maybe-is-great.html) by Dave Della Costa
   > `Maybe` lets us avoid the hazards and frustration in dealing with `NULL` values, and helps us eliminate boilerplate significantly.
 
@@ -28,9 +19,6 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 - [Finger Trees Explained Anew, and Slightly Simplified (Functional Pearl)](https://dl.acm.org/doi/pdf/10.1145/3406088.3409026) by Koen Claessen
   > We explicitly motivate the subtle intricacies of Hinze and Paterson's Finger Tree datastructure, by step-wise refining a naive implementation.
 
-- [Fixed points of indexed functors](https://oleg.fi/gists/posts/2020-08-28-indexed-fixpoint.html) by Oleg Grenrus
-  > I was lately thinking about fixed points, more or less.
-
 - [Handing over ghcide to the Haskell community](https://daml.com/daml-driven/handing-over-ghcide-to-the-haskell-community/) by Moritz Kiefer
   > Digital Asset has made the decision to turn ghcide into a proper community project under the haskell github organization.
 
@@ -39,6 +27,22 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 
 - [Implementing a GHC Plugin for Liquid Haskell](https://www.well-typed.com/blog/2020/08/implementing-a-ghc-plugin-for-liquid-haskell/) by Alfredo Di Napoli
   > In this blog post we'll explore how we turned LiquidHaskell into a GHC Plugin, and all the challenges we had to overcome along the way.
+
+- [Un-obscuring a few GHC type error messages](https://free.cofree.io/2020/09/01/type-errors/) by Ziyang Liu
+  > Some of the GHC type error messages that can potentially lead to bewilderment are discussed in this post.
+
+- [WebUI for Haskell tooling!](https://www.patreon.com/posts/41065262) by Csaba Hruska
+  > This time I'd like to tell the story why and how I learned to build web UI based compiler tools.
+
+## Jobs
+
+Trying to hire a Haskell developer?
+You should [advertise with us](https://haskellweekly.news/advertising.html)!
+
+## In brief
+
+- [Fixed points of indexed functors](https://oleg.fi/gists/posts/2020-08-28-indexed-fixpoint.html) by Oleg Grenrus
+  > I was lately thinking about fixed points, more or less.
 
 - [Interactive Reanimate playground](https://reanimate.github.io/reanimate/playground/) by David Himmelstrup
   > Here you can write Haskell code and have it render directly to your browser.
@@ -50,12 +54,6 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 
 - [Should Purescript's Partial instead be called Unsafe?](https://boxbase.org/entries/2020/aug/28/should-purescript-partial-be-unsafe/) by Henri Tuhola
   > Purescript's partial functions aren't observable in this way though, they may become preconditions that aren't encoded in the type at the moment.
-
-- [Un-obscuring a few GHC type error messages](https://free.cofree.io/2020/09/01/type-errors/) by Ziyang Liu
-  > Some of the GHC type error messages that can potentially lead to bewilderment are discussed in this post.
-
-- [WebUI for Haskell tooling!](https://www.patreon.com/posts/41065262) by Csaba Hruska
-  > This time I'd like to tell the story why and how I learned to build web UI based compiler tools.
 
 ## Show & tell
 
