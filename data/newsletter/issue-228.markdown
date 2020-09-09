@@ -18,7 +18,7 @@ undefined
 
 ## Show & tell
 
-* [Cerveau: a future-proof web app for notes](https://www.srid.ca/689c4a39.html) by [Srid](https://www.srid.ca/)
+- [Cerveau: a future-proof web app for notes](https://www.srid.ca/689c4a39.html) by Sridhar Ratnakumar
   > Cerveau is a full-stack Haskell web app written using Reflex and Obelisk (GHCJS) in the frontend. This blog post describes the tech stack used.
 
 ## Call for participation
