@@ -4,7 +4,8 @@ This is a weekly summary of what's going on in its community.
 
 ## Featured
 
-undefined
+- [Four reasons that PureScript is your best choice to build a server in 2020](https://meeshkan.com/blog/purescript-2020/) by Mike Solomon
+  > Here are four reasons that PureScript is the best way to build a server in 2020. I'll tl;dr them here, but you should stick around for the bonus reason at the end as well!
 
 ## Jobs
 
