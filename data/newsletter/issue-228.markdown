@@ -72,4 +72,5 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 
 ## Call for participation
 
-undefined
+-   [LambdaHack: Render the message log so that a full window of messages is visible when looking at the newest message](https://github.com/LambdaHack/LambdaHack/issues/236)
+-   [ghcide: Encourage space-leak correct value storage](https://github.com/haskell/ghcide/issues/773)
