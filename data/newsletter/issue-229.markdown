@@ -63,4 +63,4 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 
 ## Call for participation
 
-undefined
+-   [monpad: SDL readme section may not always be necessary](https://github.com/georgefst/monpad/issues/12)
