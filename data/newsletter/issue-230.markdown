@@ -56,4 +56,4 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 
 ## Call for participation
 
-undefined
+-   [persistent: SQLite: FOREIGN KEY constraint failed when migrating](https://github.com/yesodweb/persistent/issues/1125)
