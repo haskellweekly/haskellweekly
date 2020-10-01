@@ -46,7 +46,7 @@ advertisingTemplate baseUrl =
           "Sponsored links cost US$60 per issue. "
           "A 25% bulk discount is available if you buy 4 or more links. "
           "Payment is accepted through Square. "
-          "If you are interesting in advertising with Haskell Weekly, please reach out to "
+          "If you are interested in advertising with Haskell Weekly, please reach out to "
           H.a_
             [H.href_ "mailto:info@haskellweekly.news"]
             "info@haskellweekly.news"
