@@ -11,6 +11,9 @@ alpha release in the GHC 9.0 series.
 - [Being lazy without getting bloated](https://www.well-typed.com/blog/2020/09/nothunks/) by Edsko de Vries
   > In this post we introduce a new library called nothunks aimed at discovering a large class of such leaks early, and helping to debug them.
 
+- [The Cubix Framework](http://www.cubix-framework.com) by James Koppel
+  > Cubix is a Haskell framework for building language-parametric programming tools.
+
 - [Fully statically linked Haskell binaries with Bazel](https://www.tweag.io/blog/2020-09-30-bazel-static-haskell/) by Tweag
   > Thanks to the contribution of Will Jones of Habito, `rules_haskell`, the Haskell Bazel extension, has gained support for fully static linking of Haskell binaries.
 
@@ -41,6 +44,9 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 
 - [How to break the infinite loop](https://dev.to/lotz84/how-to-break-the-infinite-loop-3hii) by Tatsuya Hirose
   > Can you `break` and escape from the infinite loop as you do in an imperative programming language?
+
+- [Learn4Haskell](https://github.com/kowainik/learn4haskell/tree/8ee297086232fc2b791b9e199542e919c0e005e5) by Kowainik
+  > Learn4Haskell is a GitHub-located course that would get you into the Haskell Functional Programming world in just 4 Pull Requests.
 
 - [RFC: A plan to gradual removal of v1- commands](https://mail.haskell.org/pipermail/cabal-devel/2020-September/010488.html) by Oleg Grenrus
   > Dear development aware cabal users: I request you to comment on a plan to gradually remove `v1-` commands.
