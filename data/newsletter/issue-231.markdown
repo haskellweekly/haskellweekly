@@ -58,4 +58,5 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 
 ## Call for participation
 
-undefined
+-   [smos: A way to delete timestamps](https://github.com/NorfairKing/smos/issues/159)
+-   [termonad: Add `show menu` menu option to context menu](https://github.com/cdepillabout/termonad/issues/170)
