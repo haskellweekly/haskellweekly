@@ -2,7 +2,7 @@ cabal-version: 2.2
 -- https://www.haskell.org/cabal/users-guide/developing-packages.html#package-descriptions
 
 name: haskellweekly
-version: 0.2020.9.24
+version: 0.2020.10.4
 
 category: Web
 description:
