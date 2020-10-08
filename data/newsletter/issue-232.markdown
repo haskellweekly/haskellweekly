@@ -21,4 +21,5 @@ undefined
 
 ## Call for participation
 
-undefined
+-   [egison: Add test for command-line options](https://github.com/egison/egison/issues/244)
+-   [heidi: date/time types](https://github.com/ocramz/heidi/issues/8)
