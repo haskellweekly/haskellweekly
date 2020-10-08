@@ -56,6 +56,7 @@ episodes = do
     , episode22
     , episode23
     , episode24
+    , episode25
     ]
   checkGuids validEpisodes Data.Set.empty
   checkNumbers validEpisodes 1
@@ -516,3 +517,24 @@ episode24 =
     <*> HW.Type.Summary.textToSummary
           "Jose Silvestri and Cameron Gera go over the 2019 State of Haskell Survey and encourage you to fill it out."
     <*> HW.Type.Title.textToTitle "Haskell Survey"
+
+episode25 :: Either String HW.Type.Episode.Episode
+episode25 =
+  HW.Type.Episode.Episode
+    <$> HW.Type.Articles.textsToArticles
+          [ "https://kowainik.github.io/posts/deriving"
+          , "https://hacktoberfest.digitalocean.com"
+          , "https://dev.to/tfausak/how-to-define-json-instances-quickly-5ei7"
+          , "https://www.parsonsmatt.org/2019/11/27/keeping_compilation_fast.html"
+          , "https://www.youtube.com/watch?v=pwnrfREbhWY"
+          ]
+    <*> HW.Type.Audio.textToAudio
+          "https://haskell-weekly-podcast.nyc3.cdn.digitaloceanspaces.com/2020-10-08-episode-25.mp3"
+    <*> HW.Type.Date.gregorianToDate 2020 10 8
+    <*> HW.Type.Duration.timestampToDuration 33 5
+    <*> HW.Type.Guid.textToGuid "474c84d6-4364-408d-91e9-94eaf08945d2"
+    <*> HW.Type.Number.naturalToNumber 25
+    <*> HW.Type.Size.naturalToSize 37134093
+    <*> HW.Type.Summary.textToSummary
+          "Cameron Gera and Taylor Fausak discuss the pros and cons of various deriving strategies."
+    <*> HW.Type.Title.textToTitle "Strategic Deriving"

@@ -17,7 +17,7 @@ This is a weekly summary of what's going on in its community.
   > The product of this fellowship was a good selection of ghcide and haskell-language-server features that you can use right now, or will be able to use very soon, including better search, richer information and more efficient queries.
 
 - [Production Haskell Alpha Release](https://www.parsonsmatt.org/2020/10/07/production_haskell_alpha_release.html) by Matt Parsons
-  > I’m thrilled to announce that my book Production Haskell is released in alpha version. The first release has 240 pages of content, with much much more to come.
+  > I'm thrilled to announce that my book Production Haskell is released in alpha version. The first release has 240 pages of content, with much much more to come.
 
 - [Starting Haskellings!](https://mmhaskell.com/blog/2020/10/5/starting-haskellings) by Monday Morning Haskell
   > In this week's video blog, we'll learn a little bit about using the `ghc` command on its own outside of Stack/Cabal, and then how to run it from within our program using the `System.Process` library.
@@ -28,7 +28,7 @@ This is a weekly summary of what's going on in its community.
 ## Jobs
 
 - [Backend Engineer at Freckle](https://jobs.smartrecruiters.com/Renaissance/743999721138061-backend-engineer-freckle-by-renaissance)
-  > We are seeking an experienced, talented Backend Engineer to join the engineering team at Freckle by Renaissance. You’ll be bringing your talents and expertise to continue building and evolving our highly available and distributed SaaS platform.
+  > We are seeking an experienced, talented Backend Engineer to join the engineering team at Freckle by Renaissance. You'll be bringing your talents and expertise to continue building and evolving our highly available and distributed SaaS platform.
 
 Trying to hire a Haskell developer?
 You should [advertise with us](https://haskellweekly.news/advertising.html)!
