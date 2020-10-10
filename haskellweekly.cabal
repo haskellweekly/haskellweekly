@@ -61,7 +61,7 @@ library
     -Wno-missing-exported-signatures
     -Wno-safe
     -Wno-unsafe
-  hs-source-dirs: src/library
+  hs-source-dirs: src/lib
   other-modules:
     HW.Application
     HW.Episodes
