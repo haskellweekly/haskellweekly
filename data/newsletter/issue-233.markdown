@@ -4,7 +4,8 @@ This is a weekly summary of what's going on in its community.
 
 ## Featured
 
-undefined
+- [Neuron 1.0](https://www.srid.ca/neuron-v1.html) by Sridhar Ratnakumar
+  > Neuron is a note-taking app with static site publishing; version 1.0 comes with wiki-links and static binary via Nix.
 
 ## Jobs
 
@@ -19,8 +20,7 @@ undefined
 
 ## Show & tell
 
-- [Neuron 1.0](https://www.srid.ca/neuron-v1.html) by Sridhar Ratnakumar
-  > Neuron is a note-taking app with static site publishing; version 1.0 comes with wiki-links and static binary via Nix.
+undefined
 
 ## Call for participation
 
