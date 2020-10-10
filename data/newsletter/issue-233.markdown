@@ -19,7 +19,8 @@ undefined
 
 ## Show & tell
 
-undefined
+- [Neuron 1.0](https://www.srid.ca/neuron-v1.html) by Sridhar Ratnakumar
+  > Neuron is a note-taking app with static site publishing; version 1.0 comes with wiki-links and static binary via Nix.
 
 ## Call for participation
 
