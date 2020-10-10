@@ -7,6 +7,7 @@ module HaskellWeekly
   , HW.Main.main
   , HW.Type.Caption.parseVtt
   , HW.Type.Caption.renderTranscript
+  , Paths_haskellweekly.getDataDir
   )
 where
 
@@ -14,3 +15,4 @@ import qualified HW.Episodes
 import qualified HW.Issues
 import qualified HW.Main
 import qualified HW.Type.Caption
+import qualified Paths_haskellweekly
