@@ -132,7 +132,7 @@ executable haskellweekly
   import: executable
 
   ghc-options: -O2
-  hs-source-dirs: src/executable
+  hs-source-dirs: src/exe
   main-is: Main.hs
 
 test-suite test
