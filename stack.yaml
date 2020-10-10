@@ -1,0 +1,2 @@
+allow-different-user: true
+resolver: lts-16.17
