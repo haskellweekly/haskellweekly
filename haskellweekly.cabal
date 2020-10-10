@@ -78,7 +78,7 @@ library
 
   autogen-modules: Paths_haskellweekly
   exposed-modules: HaskellWeekly
-  hs-source-dirs: source/library
+  hs-source-dirs: src/library
   other-modules:
     HW.Application
     HW.Episodes
@@ -137,7 +137,7 @@ executable haskellweekly
   import: executable
 
   ghc-options: -O2
-  hs-source-dirs: source/executable
+  hs-source-dirs: src/executable
   main-is: Main.hs
 
 test-suite test
@@ -146,7 +146,7 @@ test-suite test
   autogen-modules: Paths_haskellweekly
   build-depends:
     directory >= 1.3.1 && < 1.4,
-  hs-source-dirs: source/test-suite
+  hs-source-dirs: src/test-suite
   main-is: Main.hs
   other-modules: Paths_haskellweekly
   type: exitcode-stdio-1.0
