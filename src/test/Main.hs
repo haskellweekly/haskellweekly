@@ -9,7 +9,6 @@ import qualified Control.Monad
 import qualified Data.Text
 import qualified Data.Text.IO
 import qualified HaskellWeekly
-import qualified Paths_haskellweekly
 import qualified System.Directory
 import qualified System.FilePath
 
@@ -23,7 +22,7 @@ main = do
     putStrLn "Getting episodes ..."
     episodes <- either fail pure HaskellWeekly.episodes
     putStrLn $ "Got " <> pluralize "episode" (length episodes) <> "."
-  dataDirectory <- Paths_haskellweekly.getDataDir
+  dataDirectory <- HaskellWeekly.getDataDir
   do
     putStrLn "Parsing issues ..."
     let directory = System.FilePath.combine dataDirectory "newsletter"
