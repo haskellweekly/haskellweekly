@@ -1,9 +1,0 @@
-# https://github.com/ndmitchell/weeder
-- package:
-  - name: haskellweekly
-  - section:
-    - name: test:test
-    - message:
-      - name: Redundant build-depends entry
-      - depends: ''
-
