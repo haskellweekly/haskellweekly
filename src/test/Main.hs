@@ -3,54 +3,49 @@ module Main
   )
 where
 
-import qualified CMark
+import qualified CMark as MD
 import qualified Control.Exception
-import qualified Control.Monad
-import qualified Data.Text
-import qualified Data.Text.IO
-import qualified HaskellWeekly
-import qualified System.Directory
-import qualified System.FilePath
+import qualified Control.Monad as Monad
+import qualified Data.Text as Text
+import qualified Data.Text.IO as Text
+import qualified HaskellWeekly as HW
+import qualified System.Directory as Directory
+import qualified System.FilePath as FilePath
 
 main :: IO ()
 main = do
-  do
-    putStrLn "Getting issues ..."
-    issues <- either fail pure HaskellWeekly.issues
-    putStrLn $ "Got " <> pluralize "issue" (length issues) <> "."
-  do
-    putStrLn "Getting episodes ..."
-    episodes <- either fail pure HaskellWeekly.episodes
-    putStrLn $ "Got " <> pluralize "episode" (length episodes) <> "."
-  dataDirectory <- HaskellWeekly.getDataDir
-  do
-    putStrLn "Parsing issues ..."
-    let directory = System.FilePath.combine dataDirectory "newsletter"
-    entries <- System.Directory.listDirectory directory
-    Control.Monad.forM_ entries $ \entry -> do
-      let file = System.FilePath.combine directory entry
-      contents <- Data.Text.IO.readFile file
-      Control.Monad.void
-        . Control.Exception.evaluate
-        . Data.Text.length
-        $ CMark.commonmarkToHtml [] contents
-    putStrLn $ "Parsed " <> pluralize "issue" (length entries) <> "."
-  do
-    putStrLn "Parsing episodes ..."
-    let directory = System.FilePath.combine dataDirectory "podcast"
-    entries <- System.Directory.listDirectory directory
-    Control.Monad.forM_ entries $ \entry -> do
-      let file = System.FilePath.combine directory entry
-      contents <- Data.Text.IO.readFile file
-      case HaskellWeekly.parseSrt contents of
-        Nothing -> fail entry
-        Just captions ->
-          Control.Monad.void
-            . Control.Exception.evaluate
-            . Data.Text.length
-            . mconcat
-            $ HaskellWeekly.renderTranscript captions
-    putStrLn $ "Parsed " <> pluralize "episode" (length entries) <> "."
+  putStrLn "Getting issues ..."
+  issues <- either fail pure HW.issues
+  putStrLn $ "Got " <> pluralize "issue" (length issues) <> "."
+
+  putStrLn "Getting episodes ..."
+  episodes <- either fail pure HW.episodes
+  putStrLn $ "Got " <> pluralize "episode" (length episodes) <> "."
+
+  parse "issue" "newsletter" $ \ _ contents -> Monad.void
+    . Control.Exception.evaluate
+    . Text.length
+    $ MD.commonmarkToHtml [] contents
+
+  parse "episode" "podcast" $ \ file contents -> case HW.parseSrt contents of
+    Nothing -> fail file
+    Just captions -> Monad.void
+      . Control.Exception.evaluate
+      . Text.length
+      . mconcat
+      $ HW.renderTranscript captions
+
+parse :: String -> FilePath -> (FilePath -> Text.Text -> IO ()) -> IO ()
+parse label folder callback = do
+  putStrLn $ "Parsing " <> label <> "s ..."
+  dataDirectory <- HW.getDataDir
+  let directory = FilePath.combine dataDirectory folder
+  entries <- Directory.listDirectory directory
+  Monad.forM_ entries $ \entry -> do
+    let file = FilePath.combine directory entry
+    contents <- Text.readFile file
+    callback file contents
+  putStrLn $ "Parsed " <> pluralize label (length entries) <> "."
 
 pluralize :: String -> Int -> String
 pluralize word count =
