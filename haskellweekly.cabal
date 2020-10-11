@@ -1,13 +1,12 @@
-cabal-version: >= 1.10
--- https://www.haskell.org/cabal/users-guide/developing-packages.html#package-descriptions
-
 name: haskellweekly
-version: 0.2020.10.8
+version: 0.2020.10.10
 
 build-type: Simple
+cabal-version: >= 1.10
 category: Web
-description:
-  Haskell Weekly publishes curated news about the Haskell programming language.
+description: Haskell Weekly publishes curated news about Haskell.
+extra-source-files: README.markdown
+license-file: LICENSE.markdown
 license: ISC
 maintainer: Taylor Fausak
 synopsis: Publishes curated news about Haskell.
@@ -21,121 +20,71 @@ data-files:
   newsletter/*.markdown
   podcast/*.srt
   tachyons.css
-extra-source-files: README.markdown
-license-file: LICENSE.markdown
 
 source-repository head
-  location: https://github.com/haskellweekly/haskellweekly.git
+  location: https://github.com/haskellweekly/haskellweekly
   type: git
 
 library
   autogen-modules: Paths_haskellweekly
   build-depends:
-    base >= 4.11.1 && < 4.14
-    , base64-bytestring >= 1.0.0 && < 1.1
-    , bytestring >= 0.10.8 && < 0.11
-    , case-insensitive >= 1.2.0 && < 1.3
+    base >= 4.13.0 && < 4.14
+    , bytestring >= 0.10.10 && < 0.11
     , cmark >= 0.6 && < 0.7
-    , containers >= 0.5.11 && < 0.7
-    , cryptohash-sha1 >= 0.11.100 && < 0.12
+    , containers >= 0.6.2 && < 0.7
     , filepath >= 1.4.2 && < 1.5
-    , http-types >= 0.12.2 && < 0.13
-    , lucid >= 2.9.11 && < 2.10
-    , network-uri >= 2.6.1 && < 2.7
-    , text >= 1.2.3 && < 1.3
-    , time >= 1.8.0 && < 1.10
-    , transformers >= 0.5.5 && < 0.6
+    , http-types >= 0.12.3 && < 0.13
+    , lucid >= 2.9.12 && < 2.10
+    , text >= 1.2.4 && < 1.3
+    , time >= 1.9.3 && < 1.10
+    , transformers >= 0.5.6 && < 0.6
     , uuid >= 1.3.13 && < 1.4
-    , wai >= 3.2.1 && < 3.3
-    , wai-extra >= 3.0.24 && < 3.1
-    , warp >= 3.2.25 && < 3.4
-    , xml-conduit >= 1.8.0 && < 1.10
+    , wai >= 3.2.2 && < 3.3
+    , warp >= 3.3.13 && < 3.4
+    , xml-conduit >= 1.9.0 && < 1.10
   default-extensions: OverloadedStrings
   default-language: Haskell2010
-  exposed-modules: HaskellWeekly
   ghc-options:
     -Weverything
-    -Wno-all-missed-specialisations
     -Wno-implicit-prelude
-    -Wno-missed-specialisations
+    -Wno-missing-deriving-strategies
     -Wno-missing-exported-signatures
+    -Wno-missing-local-signatures
+    -Wno-monomorphism-restriction
     -Wno-safe
     -Wno-unsafe
   hs-source-dirs: src/lib
+  exposed-modules: HaskellWeekly.Main
   other-modules:
-    HW.Application
-    HW.Episodes
-    HW.Handler.Advertising
-    HW.Handler.Base
-    HW.Handler.Episode
-    HW.Handler.Index
-    HW.Handler.Issue
-    HW.Handler.Newsletter
-    HW.Handler.NewsletterFeed
-    HW.Handler.Podcast
-    HW.Handler.PodcastFeed
-    HW.Handler.Redirect
-    HW.Handler.Robots
-    HW.Handler.Search
-    HW.Handler.Sitemap
-    HW.Handler.Survey
-    HW.Issues
-    HW.Main
-    HW.Middleware
-    HW.Server
-    HW.Template.Advertising
-    HW.Template.Base
-    HW.Template.Episode
-    HW.Template.Index
-    HW.Template.Issue
-    HW.Template.Newsletter
-    HW.Template.NewsletterFeed
-    HW.Template.Podcast
-    HW.Template.PodcastFeed
-    HW.Template.Survey2017
-    HW.Template.Survey2018
-    HW.Template.Survey2019
-    HW.Type.App
-    HW.Type.Article
-    HW.Type.Articles
-    HW.Type.Audio
-    HW.Type.BaseUrl
-    HW.Type.Caption
-    HW.Type.Config
-    HW.Type.Date
-    HW.Type.Duration
-    HW.Type.Episode
-    HW.Type.Guid
-    HW.Type.Issue
-    HW.Type.Number
-    HW.Type.Redirect
-    HW.Type.Route
-    HW.Type.Size
-    HW.Type.State
-    HW.Type.Summary
-    HW.Type.Title
+    HaskellWeekly.Episodes
+    HaskellWeekly.Episodes.Episode1
+    HaskellWeekly.Episodes.Episode2
+    HaskellWeekly.Extra
+    HaskellWeekly.Handler
+    HaskellWeekly.Issues
+    HaskellWeekly.Issues.Issue1
+    HaskellWeekly.Issues.Issue2
+    HaskellWeekly.Log
+    HaskellWeekly.Response
+    HaskellWeekly.Server
+    HaskellWeekly.Surveys
+    HaskellWeekly.Surveys.Survey2017
+    HaskellWeekly.Surveys.Survey2018
+    HaskellWeekly.Surveys.Survey2019
+    HaskellWeekly.Template
+    HaskellWeekly.Type.Config
+    HaskellWeekly.Type.Context
+    HaskellWeekly.Type.Episode
+    HaskellWeekly.Type.Flag
+    HaskellWeekly.Type.Handler
+    HaskellWeekly.Type.Issue
+    HaskellWeekly.Type.Redirect
+    HaskellWeekly.Type.Route
+    HaskellWeekly.Type.Survey
     Paths_haskellweekly
-
-  if impl(ghc >= 8.8)
-    ghc-options: -Wno-missing-deriving-strategies
 
 executable haskellweekly
   build-depends: base, haskellweekly
   default-language: Haskell2010
-  ghc-options: -rtsopts -threaded
   hs-source-dirs: src/exe
   main-is: Main.hs
-
-test-suite test
-  build-depends:
-    base
-    , cmark
-    , directory >= 1.3.1 && < 1.4
-    , filepath
-    , haskellweekly
-    , text
-  default-language: Haskell2010
-  ghc-options: -rtsopts -threaded
-  hs-source-dirs: src/test
-  main-is: Main.hs
-  type: exitcode-stdio-1.0
