@@ -3,8 +3,10 @@ module HW.Template.PodcastFeed
   )
 where
 
+import qualified Data.List.NonEmpty
 import qualified Data.Map
 import qualified Data.Text
+import qualified HW.Type.Article
 import qualified HW.Type.Audio
 import qualified HW.Type.BaseUrl
 import qualified HW.Type.Date
@@ -49,12 +51,16 @@ podcastFeedTemplate baseUrl episodes =
       text . HW.Type.Duration.durationToText . HW.Type.Episode.episodeDuration
     itemEpisode =
       text . HW.Type.Number.numberToText . HW.Type.Episode.episodeNumber
+    articles = Data.List.NonEmpty.toList . HW.Type.Episode.episodeArticles
+    articleToNode = text . mappend "\n- " . HW.Type.Article.articleToText
     item episode = node
       "item"
       []
       [ node "title" [] [itemTitle episode]
       , node "link" [] [itemLink episode]
-      , node "description" [] [itemDescription episode]
+      , node "description" []
+        $ itemDescription episode
+        : fmap articleToNode (articles episode)
       , node
         "enclosure"
         [ ("length", itemEnclosureLength episode)
