@@ -57,6 +57,7 @@ episodes = do
     , episode23
     , episode24
     , episode25
+    , episode26
     ]
   checkGuids validEpisodes Data.Set.empty
   checkNumbers validEpisodes 1
@@ -538,3 +539,19 @@ episode25 =
     <*> HW.Type.Summary.textToSummary
           "Cameron Gera and Taylor Fausak discuss the pros and cons of various deriving strategies."
     <*> HW.Type.Title.textToTitle "Strategic Deriving"
+
+episode26 :: Either String HW.Type.Episode.Episode
+episode26 = HW.Type.Episode.Episode
+  <$> HW.Type.Articles.textsToArticles
+    [ "https://dev.to/sshine/getting-recursively-drunk-with-monoids-2jek"
+    ]
+  <*> HW.Type.Audio.textToAudio
+    "https://haskell-weekly-podcast.nyc3.cdn.digitaloceanspaces.com/2020-10-13-episode-26.mp3"
+  <*> HW.Type.Date.gregorianToDate 2020 10 13
+  <*> HW.Type.Duration.timestampToDuration 18 51
+  <*> HW.Type.Guid.textToGuid "4b9f812e-8a9f-45c2-b221-f2b8f8d5270c"
+  <*> HW.Type.Number.naturalToNumber 26
+  <*> HW.Type.Size.naturalToSize 20277774
+  <*> HW.Type.Summary.textToSummary
+    "Sara Lichtenstein, Cameron Gera, and Taylor Fausak get recursively drunk on semigroups and monoids."
+  <*> HW.Type.Title.textToTitle "Recursive Monoids"
