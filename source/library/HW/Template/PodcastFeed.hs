@@ -67,6 +67,7 @@ podcastFeedTemplate baseUrl episodes =
       , node "itunes:author" [] [text "Taylor Fausak"]
       , node "itunes:duration" [] [itemDuration episode]
       , node "itunes:episode" [] [itemEpisode episode]
+      , node "itunes:summary" [] [itemDescription episode]
       ]
     channelLink =
       text $ HW.Type.Route.routeToTextWith baseUrl HW.Type.Route.RoutePodcast
@@ -77,7 +78,7 @@ podcastFeedTemplate baseUrl episodes =
       , "two-host format and runs for about 15 minutes."
       ]
     channelImageUrl =
-      text $ HW.Type.Route.routeToTextWith baseUrl HW.Type.Route.RouteLogo
+      HW.Type.Route.routeToTextWith baseUrl HW.Type.Route.RouteLogo
     channelSelfLink =
       HW.Type.Route.routeToTextWith baseUrl HW.Type.Route.RoutePodcastFeed
     channel = node
@@ -91,7 +92,7 @@ podcastFeedTemplate baseUrl episodes =
       : node
           "image"
           []
-          [ node "url" [] [channelImageUrl]
+          [ node "url" [] [text channelImageUrl]
           , node "title" [] [text "Haskell Weekly"]
           , node "link" [] [channelLink]
           ]
@@ -111,6 +112,7 @@ podcastFeedTemplate baseUrl episodes =
           [ node "itunes:email" [] [text "taylor@fausak.me"]
           , node "itunes:name" [] [text "Taylor Fausak"]
           ]
+      : node "itunes:image" [("href", channelImageUrl)] []
       : fmap item episodes
       )
     rss = element
