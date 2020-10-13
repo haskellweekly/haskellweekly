@@ -19,7 +19,11 @@ undefined
 
 ## Show & tell
 
-undefined
+- [pastebin-haskell](https://github.com/tomsmeding/pastebin-haskell) by Tom Smeding
+  > A simple pastebin service for the `#haskell` IRC channel on Freenode, written in Haskell: [paste.tomsmeding.com](https://paste.tomsmeding.com).
+
+- [ircbrowse](https://github.com/tomsmeding/ircbrowse) by Chris Done &amp; Tom Smeding
+  > Originally by Chris Done, the IRC Browse service is [online again](https://ircbrowse.tomsmeding.com), and now builds with a recent GHC.
 
 ## Call for participation
 
