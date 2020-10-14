@@ -18,7 +18,7 @@ data-files:
   google-podcasts.svg
   logo.png
   newsletter/*.markdown
-  podcast/*.srt
+  podcast/*.vtt
   tachyons.css
 extra-source-files: README.markdown
 license-file: LICENSE.markdown

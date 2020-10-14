@@ -1,1713 +1,1715 @@
+WEBVTT
+
 1
-00:00:00,000 --> 00:00:02,180
+00:00:00.000 --> 00:00:02.180
 [MUSIC]
 
 2
-00:00:02,180 --> 00:00:04,452
+00:00:02.180 --> 00:00:04.452
 Welcome to the Haskell Weekly Podcast.
 
 3
-00:00:04,452 --> 00:00:08,455
+00:00:04.452 --> 00:00:08.455
 This show is about Haskell,
 a purely functional programming language.
 
 4
-00:00:08,455 --> 00:00:13,178
+00:00:08.455 --> 00:00:13.178
 I'm your guest, Jason Fry,
 I'm a software engineer here at ITProTV.
 
 5
-00:00:13,178 --> 00:00:16,699
+00:00:13.178 --> 00:00:16.699
 With me as always today is your host,
 Taylor Fausak,
 
 6
-00:00:16,699 --> 00:00:19,457
+00:00:16.699 --> 00:00:19.457
 he's the lead engineer here at ITProTV.
 
 7
-00:00:19,457 --> 00:00:21,653
+00:00:19.457 --> 00:00:21.653
 Thank you for joining me today, Taylor.
 
 8
-00:00:21,653 --> 00:00:24,027
+00:00:21.653 --> 00:00:24.027
 >> Hey Jason, thanks for hosting me.
 
 9
-00:00:24,027 --> 00:00:26,822
+00:00:24.027 --> 00:00:26.822
 >> So what are we getting into today?
 
 10
-00:00:26,822 --> 00:00:31,865
+00:00:26.822 --> 00:00:31.865
 >> Today we're gonna be getting into
 a post in the most recent issue of
 
 11
-00:00:31,865 --> 00:00:36,924
+00:00:31.865 --> 00:00:36.924
 Haskell Weekly that talks about
 using GHCID for web development.
 
 12
-00:00:36,924 --> 00:00:41,240
+00:00:36.924 --> 00:00:41.240
 And using it to have a quick feedback
 cycle so that you're not waiting for
 
 13
-00:00:41,240 --> 00:00:42,881
+00:00:41.240 --> 00:00:42.881
 the compiler all day long.
 
 14
-00:00:42,881 --> 00:00:45,681
+00:00:42.881 --> 00:00:45.681
 >> Yeah, yeah we use GHCID here.
 
 15
-00:00:45,681 --> 00:00:46,214
+00:00:45.681 --> 00:00:46.214
 >> We do.
 
 16
-00:00:46,214 --> 00:00:47,459
+00:00:46.214 --> 00:00:47.459
 >> It's very speedy.
 
 17
-00:00:47,459 --> 00:00:49,819
+00:00:47.459 --> 00:00:49.819
 I would love to talk
 a little more about this.
 
 18
-00:00:49,819 --> 00:00:53,041
+00:00:49.819 --> 00:00:53.041
 Cool so where are we starting,
 what are we doing?
 
 19
-00:00:53,041 --> 00:00:56,001
+00:00:53.041 --> 00:00:56.001
 >> So we'll start kind of
 at the dark ages, I guess.
 
 20
-00:00:56,001 --> 00:00:58,609
+00:00:56.001 --> 00:00:58.609
 >> Ooh.
 >> Far away from GHCID to talk about how
 
 21
-00:00:58,609 --> 00:01:02,884
+00:00:58.609 --> 00:01:02.884
 bad it is and then as we kind of
 improve things, we'll get closer and
 
 22
-00:01:02,884 --> 00:01:05,977
+00:01:02.884 --> 00:01:05.977
 closer to GHCID and
 the beauty that it gives you.
 
 23
-00:01:05,977 --> 00:01:06,599
+00:01:05.977 --> 00:01:06.599
 >> Okay.
 
 24
-00:01:06,599 --> 00:01:08,834
+00:01:06.599 --> 00:01:08.834
 So when do the dark ages start?
 
 25
-00:01:08,834 --> 00:01:11,058
+00:01:08.834 --> 00:01:11.058
 >> [LAUGH]
 >> A few years ago?
 
 26
-00:01:11,058 --> 00:01:12,949
+00:01:11.058 --> 00:01:12.949
 >> Time-wise I'm not sure but
 
 27
-00:01:12,949 --> 00:01:16,665
+00:01:12.949 --> 00:01:16.665
 tool wise they start with
 just GHC the compiler itself.
 
 28
-00:01:16,665 --> 00:01:18,702
+00:01:16.665 --> 00:01:18.702
 This blog post talks
 about web development.
 
 29
-00:01:18,702 --> 00:01:21,702
+00:01:18.702 --> 00:01:21.702
 And if you're producing
 a website with Haskell,
 
 30
-00:01:21,702 --> 00:01:25,201
+00:01:21.702 --> 00:01:25.201
 you may run GHC which will
 produce an executable for you and
 
 31
-00:01:25,201 --> 00:01:28,504
+00:01:25.201 --> 00:01:28.504
 then you'll run the executable
 to make your website.
 
 32
-00:01:28,504 --> 00:01:32,038
+00:01:28.504 --> 00:01:32.038
 That's in comparison to something like
 Ruby where it's just a script and
 
 33
-00:01:32,038 --> 00:01:36,206
+00:01:32.038 --> 00:01:36.206
 running the script produces a website,
 there's no intermediate compilation step.
 
 34
-00:01:36,206 --> 00:01:40,130
+00:01:36.206 --> 00:01:40.130
 >> Okay, so that intermediate compilation
 step that makes the process for web
 
 35
-00:01:40,130 --> 00:01:44,437
+00:01:40.130 --> 00:01:44.437
 development a lot slower cuz you have to
 re-render it in your browser and all that.
 
 36
-00:01:44,437 --> 00:01:47,727
+00:01:44.437 --> 00:01:47.727
 >> Right, you have to compile it and
 then either generate your files or
 
 37
-00:01:47,727 --> 00:01:51,131
+00:01:47.727 --> 00:01:51.131
 start a new web server or whatever,
 and then go look in your browser for
 
 38
-00:01:51,131 --> 00:01:52,534
+00:01:51.131 --> 00:01:52.534
 the changes, pretty slow.
 
 39
-00:01:52,534 --> 00:01:54,219
+00:01:52.534 --> 00:01:54.219
 >> Okay, yeah, that is pretty slow.
 
 40
-00:01:54,219 --> 00:01:56,955
+00:01:54.219 --> 00:01:56.955
 So what is the next step from that?
 
 41
-00:01:56,955 --> 00:01:58,021
+00:01:56.955 --> 00:01:58.021
 What happens next?
 
 42
-00:01:58,021 --> 00:02:03,330
+00:01:58.021 --> 00:02:03.330
 >> The next step and this is the one that
 we were most familiar with here at ITPro
 
 43
-00:02:03,330 --> 00:02:08,218
+00:02:03.330 --> 00:02:08.218
 in recent memory is using some type
 of file watcher to do that thing for
 
 44
-00:02:08,218 --> 00:02:10,948
+00:02:08.218 --> 00:02:10.948
 you, in our case we were using Stack.
 
 45
-00:02:10,948 --> 00:02:14,144
+00:02:10.948 --> 00:02:14.144
 There are many tools that do this
 Stack is the most convenient for
 
 46
-00:02:14,144 --> 00:02:16,168
+00:02:14.144 --> 00:02:16.168
 us because it does a lot of other things.
 
 47
-00:02:16,168 --> 00:02:21,127
+00:02:16.168 --> 00:02:21.127
 But Stack has an option dash dash file
 watch to say when any of the files in
 
 48
-00:02:21,127 --> 00:02:25,177
+00:02:21.127 --> 00:02:25.177
 your project change go ahead and
 rebuild the whole thing,
 
 49
-00:02:25,177 --> 00:02:28,582
+00:02:25.177 --> 00:02:28.582
 so that handles the compilation
 side of things.
 
 50
-00:02:28,582 --> 00:02:33,019
+00:02:28.582 --> 00:02:33.019
 It also has an extra option called
 exec that says once the build has
 
 51
-00:02:33,019 --> 00:02:35,124
+00:02:33.019 --> 00:02:35.124
 finished do this other thing.
 
 52
-00:02:35,124 --> 00:02:39,241
+00:02:35.124 --> 00:02:39.241
 So you can say watch all the files,
 rebuild it when any of them change and
 
 53
-00:02:39,241 --> 00:02:43,700
+00:02:39.241 --> 00:02:43.700
 then once that build has succeeded,
 rerun the site generator or the server or
 
 54
-00:02:43,700 --> 00:02:44,679
+00:02:43.700 --> 00:02:44.679
 whatever it is.
 
 55
-00:02:44,679 --> 00:02:49,807
+00:02:44.679 --> 00:02:49.807
 >> Okay, I actually use that Stack Build
 whenever I'm writing a script to
 
 56
-00:02:49,807 --> 00:02:55,805
+00:02:49.807 --> 00:02:55.805
 do something to interact with the database
 to fix some customer data or something.
 
 57
-00:02:55,805 --> 00:03:00,941
+00:02:55.805 --> 00:03:00.941
 So I always use Stack Build fast,
 why would I ever not, I'm not sure?
 
 58
-00:03:00,941 --> 00:03:02,149
+00:03:00.941 --> 00:03:02.149
 And by-
 >> And to be clear,
 
 59
-00:03:02,149 --> 00:03:06,881
+00:03:02.149 --> 00:03:06.881
 fast means build it quickly, not
 the thing you're producing will be fast.
 
 60
-00:03:06,881 --> 00:03:11,227
+00:03:06.881 --> 00:03:11.227
 In fact, the thing that you're producing
 will be really slow because what fast does
 
 61
-00:03:11,227 --> 00:03:13,099
+00:03:11.227 --> 00:03:13.099
 is turn off optimizations.
 
 62
-00:03:13,099 --> 00:03:16,995
+00:03:13.099 --> 00:03:16.995
 >> It says, I don't actually need the code
 you're generating to be fast I just wanna
 
 63
-00:03:16,995 --> 00:03:18,694
+00:03:16.995 --> 00:03:18.694
 know if it type checks or whatever.
 
 64
-00:03:18,694 --> 00:03:20,963
+00:03:18.694 --> 00:03:20.963
 >> Okay, I always was curious about that.
 
 65
-00:03:20,963 --> 00:03:24,741
+00:03:20.963 --> 00:03:24.741
 I knew that it was compiling it
 faster but, okay, that makes sense.
 
 66
-00:03:24,741 --> 00:03:29,326
+00:03:24.741 --> 00:03:29.326
 It turns off the optimization so it really
 is more geared towards fast feedback
 
 67
-00:03:29,326 --> 00:03:32,392
+00:03:29.326 --> 00:03:32.392
 cycle, writing the code but
 not production stuff?
 
 68
-00:03:32,392 --> 00:03:33,645
+00:03:32.392 --> 00:03:33.645
 >> Yeah.
 >> Okay, that makes sense.
 
 69
-00:03:33,645 --> 00:03:34,245
+00:03:33.645 --> 00:03:34.245
 >> That's exactly right.
 
 70
-00:03:34,245 --> 00:03:38,346
+00:03:34.245 --> 00:03:38.346
 >> So we'll do the fast flag,
 as well as the file watch flag but
 
 71
-00:03:38,346 --> 00:03:41,394
+00:03:38.346 --> 00:03:41.394
 it doesn't actually pick up on my changes.
 
 72
-00:03:41,394 --> 00:03:45,241
+00:03:41.394 --> 00:03:45.241
 I still have to go over to the terminal
 and press Enter to redo that.
 
 73
-00:03:45,241 --> 00:03:47,048
+00:03:45.241 --> 00:03:47.048
 Is that always happened like that?
 
 74
-00:03:47,048 --> 00:03:48,250
+00:03:47.048 --> 00:03:48.250
 >> Not always.
 
 75
-00:03:48,250 --> 00:03:53,632
+00:03:48.250 --> 00:03:53.632
 I think that's a side effect of
 our local development environment
 
 76
-00:03:53,632 --> 00:03:59,408
+00:03:53.632 --> 00:03:59.408
 where we use Docker and we're running
 Stack inside of Docker on Mac OS.
 
 77
-00:03:59,408 --> 00:04:02,874
+00:03:59.408 --> 00:04:02.874
 And there's a bug in how Mac OS
 implements these file notifications and
 
 78
-00:04:02,874 --> 00:04:06,589
+00:04:02.874 --> 00:04:06.589
 Stack doesn't pick up on the change
 even though it should probably should.
 
 79
-00:04:06,589 --> 00:04:09,470
+00:04:06.589 --> 00:04:09.470
 >> That's right so
 really quite separate from GHCID-
 
 80
-00:04:09,470 --> 00:04:10,320
+00:04:09.470 --> 00:04:10.320
 >> Yes.
 
 81
-00:04:10,320 --> 00:04:12,354
+00:04:10.320 --> 00:04:12.354
 >> And Stack and all that?
 
 82
-00:04:12,354 --> 00:04:14,807
+00:04:12.354 --> 00:04:14.807
 >> I think I know where you're
 going with that though,
 
 83
-00:04:14,807 --> 00:04:17,055
+00:04:14.807 --> 00:04:17.055
 because with GHCID it
 does pick up the changes.
 
 84
-00:04:17,055 --> 00:04:17,582
+00:04:17.055 --> 00:04:17.582
 >> Mm-hm.
 >> And
 
 85
-00:04:17,582 --> 00:04:20,859
+00:04:17.582 --> 00:04:20.859
 there's no secret sauce difference
 between those two things.
 
 86
-00:04:20,859 --> 00:04:24,973
+00:04:20.859 --> 00:04:24.973
 It's just that GHCID is using a newer
 version of some library behind the scenes
 
 87
-00:04:24,973 --> 00:04:29,022
+00:04:24.973 --> 00:04:29.022
 that works around this bug and the version
 of Stack that we're on and in fact,
 
 88
-00:04:29,022 --> 00:04:32,636
+00:04:29.022 --> 00:04:32.636
 I think the next version to be released
 will have that same version but
 
 89
-00:04:32,636 --> 00:04:34,533
+00:04:32.636 --> 00:04:34.533
 the one we're on doesn't have it.
 
 90
-00:04:34,533 --> 00:04:38,601
+00:04:34.533 --> 00:04:38.601
 >> Ooh to be released, do we have
 an insight as when that will be Taylor?
 
 91
-00:04:38,601 --> 00:04:39,329
+00:04:38.601 --> 00:04:39.329
 [LAUGH]
 >> No,
 
 92
-00:04:39,329 --> 00:04:42,849
+00:04:39.329 --> 00:04:42.849
 no idea the Stack release
 process is a mystery to me.
 
 93
-00:04:42,849 --> 00:04:45,170
+00:04:42.849 --> 00:04:45.170
 [LAUGH]
 >> Yes, I'm sure it is to everyone.
 
 94
-00:04:45,170 --> 00:04:50,110
+00:04:45.170 --> 00:04:50.110
 So that's where we are with GHC, Stack,
 file watch but and you can use exec to
 
 95
-00:04:50,110 --> 00:04:54,680
+00:04:50.110 --> 00:04:54.680
 run something arbitrary,
 like start your server again or something.
 
 96
-00:04:54,680 --> 00:04:57,648
+00:04:54.680 --> 00:04:57.648
 But that's still kind of
 a slow feedback loop,
 
 97
-00:04:57,648 --> 00:05:01,664
+00:04:57.648 --> 00:05:01.664
 especially compared to JavaScript,
 as I commented last week.
 
 98
-00:05:01,664 --> 00:05:02,749
+00:05:01.664 --> 00:05:02.749
 >> Yeah.
 >> It's so fast,
 
 99
-00:05:02,749 --> 00:05:04,463
+00:05:02.749 --> 00:05:04.463
 that it doesn't have to compile anything.
 
 100
-00:05:04,463 --> 00:05:06,033
+00:05:04.463 --> 00:05:06.033
 >> [LAUGH]
 >> It's just so quick.
 
 101
-00:05:06,033 --> 00:05:07,560
+00:05:06.033 --> 00:05:07.560
 So what comes next?
 
 102
-00:05:07,560 --> 00:05:10,125
+00:05:07.560 --> 00:05:10.125
 >> Well, it's funny you mention
 not compiling anything,
 
 103
-00:05:10,125 --> 00:05:12,857
+00:05:10.125 --> 00:05:12.857
 because that's really the only
 way to speed things up here.
 
 104
-00:05:12,857 --> 00:05:15,475
+00:05:12.857 --> 00:05:15.475
 One of the slowest parts of the Stack file
 
 105
-00:05:15,475 --> 00:05:19,402
+00:05:15.475 --> 00:05:19.402
 watch feedback loop is that it
 has to link your executable and
 
 106
-00:05:19,402 --> 00:05:23,725
+00:05:19.402 --> 00:05:23.725
 rebuild it and get all these things
 lined up that just take a while.
 
 107
-00:05:23,725 --> 00:05:28,644
+00:05:23.725 --> 00:05:28.644
 There's another way of doing this
 feedback loop before we get to
 
 108
-00:05:28,644 --> 00:05:31,481
+00:05:28.644 --> 00:05:31.481
 GHCID which is using GHCI directly.
 
 109
-00:05:31,481 --> 00:05:36,519
+00:05:31.481 --> 00:05:36.519
 And instead of rerunning GHC and
 then rerunning your executable
 
 110
-00:05:36,519 --> 00:05:41,470
+00:05:36.519 --> 00:05:41.470
 you can have a ripple prompt up
 with your whole project loaded.
 
 111
-00:05:41,470 --> 00:05:45,331
+00:05:41.470 --> 00:05:45.331
 And then when you make a change,
 you go over to the ripple and you type,
 
 112
-00:05:45,331 --> 00:05:49,664
+00:05:45.331 --> 00:05:49.664
 colon reload or just colon r and then
 hit Enter and it'll rebuild everything.
 
 113
-00:05:49,664 --> 00:05:53,266
+00:05:49.664 --> 00:05:53.266
 So it has a manual step involved,
 but since it's in GHCI,
 
 114
-00:05:53,266 --> 00:05:55,187
+00:05:53.266 --> 00:05:55.187
 it's going to be a lot faster.
 
 115
-00:05:55,187 --> 00:05:59,251
+00:05:55.187 --> 00:05:59.251
 The I in GHCI stands for
 interactive or interpreted, and
 
 116
-00:05:59,251 --> 00:06:04,416
+00:05:59.251 --> 00:06:04.416
 that means that it's not exactly
 compiling things behind the scenes and
 
 117
-00:06:04,416 --> 00:06:07,394
+00:06:04.416 --> 00:06:07.394
 it also isn't doing any optimizations.
 
 118
-00:06:07,394 --> 00:06:11,679
+00:06:07.394 --> 00:06:11.679
 So you're getting that quick compilation
 speed that the dash dash fast flag gives
 
 119
-00:06:11,679 --> 00:06:15,529
+00:06:11.679 --> 00:06:15.529
 you and you're not wasting any time
 actually producing an executable and
 
 120
-00:06:15,529 --> 00:06:17,160
+00:06:15.529 --> 00:06:17.160
 linking it and all that stuff.
 
 121
-00:06:17,160 --> 00:06:19,659
+00:06:17.160 --> 00:06:19.659
 >> So, I have so many questions-
 >> [LAUGH]
 
 122
-00:06:19,659 --> 00:06:22,293
+00:06:19.659 --> 00:06:22.293
 >> But we're gonna get into some nuts and
 
 123
-00:06:22,293 --> 00:06:26,172
+00:06:22.293 --> 00:06:26.172
 bolts of that and so
 I will punt on that for another time.
 
 124
-00:06:26,172 --> 00:06:30,991
+00:06:26.172 --> 00:06:30.991
 So yeah, we actually began to flirt
 with that workflow, I don't know,
 
 125
-00:06:30,991 --> 00:06:32,657
+00:06:30.991 --> 00:06:32.657
 a year ago or something.
 
 126
-00:06:32,657 --> 00:06:35,293
+00:06:32.657 --> 00:06:35.293
 It was just too much of a burden.
 
 127
-00:06:35,293 --> 00:06:36,307
+00:06:35.293 --> 00:06:36.307
 >> [LAUGH]
 >> To type colon r.
 
 128
-00:06:36,307 --> 00:06:38,029
+00:06:36.307 --> 00:06:38.029
 >> To press, yeah colon r,
 who's got the time?
 
 129
-00:06:38,029 --> 00:06:38,965
+00:06:38.029 --> 00:06:38.965
 [LAUGH]
 >> Who's got the time?
 
 130
-00:06:38,965 --> 00:06:42,473
+00:06:38.965 --> 00:06:42.473
 And, I'm maybe a particularly
 lazy developer so
 
 131
-00:06:42,473 --> 00:06:44,811
+00:06:42.473 --> 00:06:44.811
 I want my feedback loop, I mean,
 
 132
-00:06:44,811 --> 00:06:47,713
+00:06:44.811 --> 00:06:47.713
 to be in the past if I can get it just-
 >> [LAUGH]
 
 133
-00:06:47,713 --> 00:06:48,892
+00:06:47.713 --> 00:06:48.892
 >> Faster than instant.
 
 134
-00:06:48,892 --> 00:06:51,099
+00:06:48.892 --> 00:06:51.099
 So I kept complaining and
 kept complaining.
 
 135
-00:06:51,099 --> 00:06:55,816
+00:06:51.099 --> 00:06:55.816
 >> [LAUGH]
 >> And heard about this GHCID thing and so
 
 136
-00:06:55,816 --> 00:07:01,169
+00:06:55.816 --> 00:07:01.169
 what happens next in
 the iteration of this stuff?
 
 137
-00:07:01,169 --> 00:07:06,167
+00:07:01.169 --> 00:07:06.167
 >> So the last hopefully or maybe not last
 the iteration we're on right now is GHCID.
 
 138
-00:07:06,167 --> 00:07:10,556
+00:07:06.167 --> 00:07:10.556
 And the way I like to think of GHCID
 is it takes that workflow I just
 
 139
-00:07:10,556 --> 00:07:12,995
+00:07:10.556 --> 00:07:12.995
 described of having GHCI open it and
 
 140
-00:07:12,995 --> 00:07:17,573
+00:07:12.995 --> 00:07:17.573
 pressing colon r whenever something
 changes, and automates it.
 
 141
-00:07:17,573 --> 00:07:18,783
+00:07:17.573 --> 00:07:18.783
 And-
 >> Brilliant.
 
 142
-00:07:18,783 --> 00:07:19,858
+00:07:18.783 --> 00:07:19.858
 >> [LAUGH]
 >> Yeah, brilliant.
 
 143
-00:07:19,858 --> 00:07:23,189
+00:07:19.858 --> 00:07:23.189
 [LAUGH]
 >> Million dollar idea.
 
 144
-00:07:23,189 --> 00:07:26,100
+00:07:23.189 --> 00:07:26.100
 At its core,
 that's basically what it's doing.
 
 145
-00:07:26,100 --> 00:07:29,880
+00:07:26.100 --> 00:07:29.880
 It's using a file watcher
 like the Stack Build did but
 
 146
-00:07:29,880 --> 00:07:35,007
+00:07:29.880 --> 00:07:35.007
 instead of creating an executable,
 it's running everything in GHCI.
 
 147
-00:07:35,007 --> 00:07:37,533
+00:07:35.007 --> 00:07:37.533
 And it'll pick up your change,
 it'll reload everything, and
 
 148
-00:07:37,533 --> 00:07:40,431
+00:07:37.533 --> 00:07:40.431
 then it'll show you the errors if
 there were any, and if there weren't,
 
 149
-00:07:40,431 --> 00:07:42,005
+00:07:40.431 --> 00:07:42.005
 it'll run whatever you tell it to run.
 
 150
-00:07:42,005 --> 00:07:42,963
+00:07:42.005 --> 00:07:42.963
 >> Mm-hm.
 
 151
-00:07:42,963 --> 00:07:46,353
+00:07:42.963 --> 00:07:46.353
 It's really cool, we really enjoy it here.
 
 152
-00:07:46,353 --> 00:07:52,691
+00:07:46.353 --> 00:07:52.691
 There's not my understanding of the editor
 integrations that are available they don't
 
 153
-00:07:52,691 --> 00:07:58,452
+00:07:52.691 --> 00:07:58.452
 really show you the errors in the code,
 it's still in a side panel or something.
 
 154
-00:07:58,452 --> 00:08:00,693
+00:07:58.452 --> 00:08:00.693
 >> Mm-hm.
 >> Are there maybe editors I'm not aware
 
 155
-00:08:00,693 --> 00:08:04,036
+00:08:00.693 --> 00:08:04.036
 of that are doing this better or
 is that just the limitation of GHCID or?
 
 156
-00:08:04,036 --> 00:08:07,634
+00:08:04.036 --> 00:08:07.634
 >> There are probably editors that do
 it better, I am not aware of any or
 
 157
-00:08:07,634 --> 00:08:09,477
+00:08:07.634 --> 00:08:09.477
 I haven't explored this enough.
 
 158
-00:08:09,477 --> 00:08:11,647
+00:08:09.477 --> 00:08:11.647
 For me I feel comfortable enough and
 
 159
-00:08:11,647 --> 00:08:14,830
+00:08:11.647 --> 00:08:14.830
 productive enough having
 basically my editor up and
 
 160
-00:08:14,830 --> 00:08:19,114
+00:08:14.830 --> 00:08:19.114
 the terminal up at the same time and
 just kind of looking between them.
 
 161
-00:08:19,114 --> 00:08:24,158
+00:08:19.114 --> 00:08:24.158
 I definitely would prefer, a red
 squiggly underline in the editor, but
 
 162
-00:08:24,158 --> 00:08:29,133
+00:08:24.158 --> 00:08:29.133
 it hasn't been worth it yet for
 me to figure out how to get that lined up.
 
 163
-00:08:29,133 --> 00:08:33,383
+00:08:29.133 --> 00:08:33.383
 Yeah, I know that you have some experience
 setting that up with Haskell IDE
 
 164
-00:08:33,383 --> 00:08:34,399
+00:08:33.383 --> 00:08:34.399
 engine, right?
 
 165
-00:08:34,399 --> 00:08:38,335
+00:08:34.399 --> 00:08:38.335
 >> Yeah, I was just gonna say
 I've tried to make that work,
 
 166
-00:08:38,335 --> 00:08:42,763
+00:08:38.335 --> 00:08:42.763
 because that kind of is the ideal
 situation where you have nearly
 
 167
-00:08:42,763 --> 00:08:47,041
+00:08:42.763 --> 00:08:47.041
 instant feedback as you're
 typing almost it's that quick.
 
 168
-00:08:47,041 --> 00:08:52,582
+00:08:47.041 --> 00:08:52.582
 But the problem is there's some memory
 leak in the GHC version that it uses or
 
 169
-00:08:52,582 --> 00:08:56,304
+00:08:52.582 --> 00:08:56.304
 something and so
 after about a half hour or an hour or
 
 170
-00:08:56,304 --> 00:08:58,918
+00:08:56.304 --> 00:08:58.918
 two your entire computer crashes.
 
 171
-00:08:58,918 --> 00:09:01,374
+00:08:58.918 --> 00:09:01.374
 >> [LAUGH]
 >> It's not always but it's bad.
 
 172
-00:09:01,374 --> 00:09:02,196
+00:09:01.374 --> 00:09:02.196
 >> It doesn't sound good.
 
 173
-00:09:02,196 --> 00:09:03,247
+00:09:02.196 --> 00:09:03.247
 >> No it's not good.
 
 174
-00:09:03,247 --> 00:09:08,736
+00:09:03.247 --> 00:09:08.736
 So, can't really use HIE that well,
 one of our coworkers has a script that
 
 175
-00:09:08,736 --> 00:09:11,863
+00:09:08.736 --> 00:09:11.863
 will just kill HIE every time it hits-
 >> [LAUGH]
 
 176
-00:09:11,863 --> 00:09:13,524
+00:09:11.863 --> 00:09:13.524
 >> 2 gigs of memory usage or more-
 
 177
-00:09:13,524 --> 00:09:14,194
+00:09:13.524 --> 00:09:14.194
 >> Problem solved.
 
 178
-00:09:14,194 --> 00:09:16,663
+00:09:14.194 --> 00:09:16.663
 >> [LAUGH] Memory leak solved.
 
 179
-00:09:16,663 --> 00:09:21,414
+00:09:16.663 --> 00:09:21.414
 But it noticeably slows down the machine,
 noticeably slows down the editor.
 
 180
-00:09:21,414 --> 00:09:24,607
+00:09:21.414 --> 00:09:24.607
 I'm running Vim with a very
 lightweight vimrc, and
 
 181
-00:09:24,607 --> 00:09:28,526
+00:09:24.607 --> 00:09:28.526
 that was still crashing at least
 once a day [LAUGH] because of HIE,
 
 182
-00:09:28,526 --> 00:09:32,610
+00:09:28.526 --> 00:09:32.610
 I commented out that, and only that,
 no crashes in the last week.
 
 183
-00:09:32,610 --> 00:09:34,311
+00:09:32.610 --> 00:09:34.311
 >> Hard to get more
 lightweight than that set up.
 
 184
-00:09:34,311 --> 00:09:34,832
+00:09:34.311 --> 00:09:34.832
 >> Right.
 
 185
-00:09:34,832 --> 00:09:40,528
+00:09:34.832 --> 00:09:40.528
 So HIE has great promise, I can't wait for
 it to get stable in that sense, but
 
 186
-00:09:40,528 --> 00:09:46,487
+00:09:40.528 --> 00:09:46.487
 like you, I've just kind of gotten used
 to having GHCID up, I have my editor up,
 
 187
-00:09:46,487 --> 00:09:51,334
+00:09:46.487 --> 00:09:51.334
 I save, I see the issues,
 I go fix them, hopefully I go fix them.
 
 188
-00:09:51,334 --> 00:09:54,408
+00:09:51.334 --> 00:09:54.408
 >> [LAUGH]
 >> For some reason that feels awkward but
 
 189
-00:09:54,408 --> 00:09:58,807
+00:09:54.408 --> 00:09:58.807
 I've been doing it for enough months
 now that I'm kind of used to it.
 
 190
-00:09:58,807 --> 00:09:59,879
+00:09:58.807 --> 00:09:59.879
 >> Right.
 >> It's not what I want.
 
 191
-00:09:59,879 --> 00:10:01,000
+00:09:59.879 --> 00:10:01.000
 >> You're desensitized to it?
 
 192
-00:10:01,000 --> 00:10:03,305
+00:10:01.000 --> 00:10:03.305
 >> Yeah, I'm desensitized to it.
 
 193
-00:10:03,305 --> 00:10:06,820
+00:10:03.305 --> 00:10:06.820
 I want the feedback loop
 to be as quick as possible.
 
 194
-00:10:06,820 --> 00:10:10,663
+00:10:06.820 --> 00:10:10.663
 We have all our stuff containerized
 in the Docker stuff we use Mac OS so
 
 195
-00:10:10,663 --> 00:10:14,123
+00:10:10.663 --> 00:10:14.123
 it's got that issue with file
 watch doesn't do it properly.
 
 196
-00:10:14,123 --> 00:10:17,408
+00:10:14.123 --> 00:10:17.408
 But even if it did
 the feedback loop was still-
 
 197
-00:10:17,408 --> 00:10:17,972
+00:10:17.408 --> 00:10:17.972
 >> It's still slow.
 
 198
-00:10:17,972 --> 00:10:19,071
+00:10:17.972 --> 00:10:19.071
 >> Multiple minutes-
 >> Yeah.
 
 199
-00:10:19,071 --> 00:10:22,061
+00:10:19.071 --> 00:10:22.061
 >> At one point before you
 started rejiggering things.
 
 200
-00:10:22,061 --> 00:10:24,431
+00:10:22.061 --> 00:10:24.431
 >> Yeah,
 I think we're much better these days but
 
 201
-00:10:24,431 --> 00:10:27,465
+00:10:24.431 --> 00:10:27.465
 it's still a lot slower to use
 the Stack Build than the GHCl.
 
 202
-00:10:27,465 --> 00:10:30,905
+00:10:27.465 --> 00:10:30.905
 >> Yeah and at this point GHCID,
 it's really quick,
 
 203
-00:10:30,905 --> 00:10:36,025
+00:10:30.905 --> 00:10:36.025
 it's pretty easy to set up like
 containerizing it wasn't very difficult or
 
 204
-00:10:36,025 --> 00:10:39,710
+00:10:36.025 --> 00:10:39.710
 just running it on the metal
 is very straightforward.
 
 205
-00:10:39,710 --> 00:10:44,040
+00:10:39.710 --> 00:10:44.040
 So we've only been using GHCID for
 six months-
 
 206
-00:10:44,040 --> 00:10:44,748
+00:10:44.040 --> 00:10:44.748
 >> Something like that.
 
 207
-00:10:44,748 --> 00:10:46,056
+00:10:44.748 --> 00:10:46.056
 >> Eight months maybe.
 >> It hasn't been long.
 
 208
-00:10:46,056 --> 00:10:49,441
+00:10:46.056 --> 00:10:49.441
 >> Why having we been doing
 it from [LAUGH] the get go?
 
 209
-00:10:49,441 --> 00:10:50,645
+00:10:49.441 --> 00:10:50.645
 >> That's a great question.
 
 210
-00:10:50,645 --> 00:10:52,794
+00:10:50.645 --> 00:10:52.794
 I don't know why we didn't
 use it from the outset.
 
 211
-00:10:52,794 --> 00:10:56,541
+00:10:52.794 --> 00:10:56.541
 I think that I ran into some
 problems getting it set up.
 
 212
-00:10:56,541 --> 00:10:59,124
+00:10:56.541 --> 00:10:59.124
 They weren't insurmountable,
 obviously, we're using it now.
 
 213
-00:10:59,124 --> 00:11:02,096
+00:10:59.124 --> 00:11:02.096
 But the way our project was structured,
 
 214
-00:11:02,096 --> 00:11:07,612
+00:11:02.096 --> 00:11:07.612
 we had one kind of top level project
 that had lots of smaller packages in it.
 
 215
-00:11:07,612 --> 00:11:13,452
+00:11:07.612 --> 00:11:13.452
 And it was hard to get GHCID to run
 all of those packages simultaneously.
 
 216
-00:11:13,452 --> 00:11:16,789
+00:11:13.452 --> 00:11:16.789
 And part of that is our fault
 because we had multiple or
 
 217
-00:11:16,789 --> 00:11:20,587
+00:11:16.789 --> 00:11:20.587
 within each package we had
 module names that were repeated.
 
 218
-00:11:20,587 --> 00:11:24,505
+00:11:20.587 --> 00:11:24.505
 So package a had module x and
 package b also had module x and
 
 219
-00:11:24,505 --> 00:11:26,805
+00:11:24.505 --> 00:11:26.805
 they defined different things.
 
 220
-00:11:26,805 --> 00:11:30,918
+00:11:26.805 --> 00:11:30.918
 And with GHCID it has to be able to
 pull everything into scope at once.
 
 221
-00:11:30,918 --> 00:11:33,287
+00:11:30.918 --> 00:11:33.287
 So it says, well,
 you had module x over here and
 
 222
-00:11:33,287 --> 00:11:37,037
+00:11:33.287 --> 00:11:37.037
 module x over there I don't know
 which one you want I'm gonna crash.
 
 223
-00:11:37,037 --> 00:11:38,405
+00:11:37.037 --> 00:11:38.405
 >> I remember this yes.
 
 224
-00:11:38,405 --> 00:11:45,341
+00:11:38.405 --> 00:11:45.341
 [LAUGH] So we had to restructure our app
 essentially, our code base to use GHCID.
 
 225
-00:11:45,341 --> 00:11:46,469
+00:11:45.341 --> 00:11:46.469
 >> More or less yeah.
 
 226
-00:11:46,469 --> 00:11:47,707
+00:11:46.469 --> 00:11:47.707
 >> So don't do it that way.
 
 227
-00:11:47,707 --> 00:11:49,773
+00:11:47.707 --> 00:11:49.773
 >> [LAUGH] Start with GHCID.
 
 228
-00:11:49,773 --> 00:11:53,934
+00:11:49.773 --> 00:11:53.934
 >> Yeah start with GHCID and
 it'll go a lot faster.
 
 229
-00:11:53,934 --> 00:11:58,077
+00:11:53.934 --> 00:11:58.077
 So, what are some of
 the neat features of GHCID?
 
 230
-00:11:58,077 --> 00:12:03,492
+00:11:58.077 --> 00:12:03.492
 >> I'm glad you asked, I was gonna loop
 back to bring up something about HIE.
 
 231
-00:12:03,492 --> 00:12:07,105
+00:12:03.492 --> 00:12:07.105
 You said that you want the feedback
 cycle to be as short as possible and
 
 232
-00:12:07,105 --> 00:12:09,485
+00:12:07.105 --> 00:12:09.485
 with HIE I think that's
 as good as it can get.
 
 233
-00:12:09,485 --> 00:12:11,678
+00:12:09.485 --> 00:12:11.678
 >> Yeah.
 >> It's integrated tightly with the editor
 
 234
-00:12:11,678 --> 00:12:14,772
+00:12:11.678 --> 00:12:14.772
 and it gives you very quick feedback
 about the code you're writing.
 
 235
-00:12:14,772 --> 00:12:19,286
+00:12:14.772 --> 00:12:19.286
 However often you want feedback
 beyond just syntax errors or
 
 236
-00:12:19,286 --> 00:12:21,684
+00:12:19.286 --> 00:12:21.684
 type errors or stuff like that.
 
 237
-00:12:21,684 --> 00:12:23,090
+00:12:21.684 --> 00:12:23.090
 You wanna run your test suite,
 
 238
-00:12:23,090 --> 00:12:25,849
+00:12:23.090 --> 00:12:25.849
 or you wanna launch a server and
 poke around in your browser,
 
 239
-00:12:25,849 --> 00:12:28,951
+00:12:25.849 --> 00:12:28.951
 or you wanna run an executable
 against a test file you have locally.
 
 240
-00:12:28,951 --> 00:12:31,165
+00:12:28.951 --> 00:12:31.165
 You can't exactly do that with HIE.
 
 241
-00:12:31,165 --> 00:12:32,954
+00:12:31.165 --> 00:12:32.954
 >> Right.
 >> Because its whole purpose is to
 
 242
-00:12:32,954 --> 00:12:36,855
+00:12:32.954 --> 00:12:36.855
 integrate with your editor and your editor
 hopefully isn't doing those things.
 
 243
-00:12:36,855 --> 00:12:38,905
+00:12:36.855 --> 00:12:38.905
 >> [LAUGH]
 >> I don't know yours might be
 
 244
-00:12:38,905 --> 00:12:39,660
+00:12:38.905 --> 00:12:39.660
 with VScode.
 
 245
-00:12:39,660 --> 00:12:40,708
+00:12:39.660 --> 00:12:40.708
 >> I knew that was gonna be a shot
 
 246
-00:12:40,708 --> 00:12:41,507
+00:12:40.708 --> 00:12:41.507
 at VScode-
 >> [LAUGH]
 
 247
-00:12:41,507 --> 00:12:42,051
+00:12:41.507 --> 00:12:42.051
 >> I knew it.
 
 248
-00:12:42,051 --> 00:12:43,656
+00:12:42.051 --> 00:12:43.656
 >> Should've been a shot of Emacs.
 
 249
-00:12:43,656 --> 00:12:44,288
+00:12:43.656 --> 00:12:44.288
 >> Yeah, there you go.
 
 250
-00:12:44,288 --> 00:12:46,388
+00:12:44.288 --> 00:12:46.388
 >> [LAUGH]
 >> I can run VScode in Emacs.
 
 251
-00:12:46,388 --> 00:12:47,789
+00:12:46.388 --> 00:12:47.789
 >> There you go.
 
 252
-00:12:47,789 --> 00:12:49,772
+00:12:47.789 --> 00:12:49.772
 Probably the other way around too.
 
 253
-00:12:49,772 --> 00:12:50,322
+00:12:49.772 --> 00:12:50.322
 >> Yeah.
 
 254
-00:12:50,322 --> 00:12:55,222
+00:12:50.322 --> 00:12:55.222
 >> I bring that up because one of
 the nice things about GHCID is that you
 
 255
-00:12:55,222 --> 00:12:58,911
+00:12:55.222 --> 00:12:58.911
 can run arbitrary things
 after your code builds.
 
 256
-00:12:58,911 --> 00:13:04,296
+00:12:58.911 --> 00:13:04.296
 And since it is essentially just a GHCI
 ripple, you can type whatever you could
 
 257
-00:13:04,296 --> 00:13:09,773
+00:13:04.296 --> 00:13:09.773
 type into the ripple into your command
 line options for GHCID and have them run.
 
 258
-00:13:09,773 --> 00:13:13,480
+00:13:09.773 --> 00:13:13.480
 So in our case,
 we often run like do our build and
 
 259
-00:13:13,480 --> 00:13:17,204
+00:13:13.480 --> 00:13:17.204
 then run our web server,
 or run our test suite.
 
 260
-00:13:17,204 --> 00:13:21,627
+00:13:17.204 --> 00:13:21.627
 And you'll get your actual test suite
 output right there as fast as possible
 
 261
-00:13:21,627 --> 00:13:23,504
+00:13:21.627 --> 00:13:23.504
 once your build has completed.
 
 262
-00:13:23,504 --> 00:13:28,138
+00:13:23.504 --> 00:13:28.138
 >> Yeah that's really nice for us because
 at this point you have set it up so
 
 263
-00:13:28,138 --> 00:13:32,250
+00:13:28.138 --> 00:13:32.250
 that it compiles and then if it
 compiles it runs the test suite.
 
 264
-00:13:32,250 --> 00:13:32,801
+00:13:32.250 --> 00:13:32.801
 >> Mm-hm.
 >> And
 
 265
-00:13:32,801 --> 00:13:36,681
+00:13:32.801 --> 00:13:36.681
 it's really nice because sometimes you
 don't want to run the whole test suite
 
 266
-00:13:36,681 --> 00:13:39,169
+00:13:36.681 --> 00:13:39.169
 when you know you're in
 the middle of something.
 
 267
-00:13:39,169 --> 00:13:42,778
+00:13:39.169 --> 00:13:42.778
 You don't really need it to run,
 it's just sort of running silently in
 
 268
-00:13:42,778 --> 00:13:46,401
+00:13:42.778 --> 00:13:46.401
 the background, you have the information
 you need it compiles or not.
 
 269
-00:13:46,401 --> 00:13:47,753
+00:13:46.401 --> 00:13:47.753
 >> Mm-hm.
 >> That's what you need right now.
 
 270
-00:13:47,753 --> 00:13:48,306
+00:13:47.753 --> 00:13:48.306
 >> Yeah.
 >> And
 
 271
-00:13:48,306 --> 00:13:52,088
+00:13:48.306 --> 00:13:52.088
 then you make sure you run the test suite
 multiple times throughout you while you're
 
 272
-00:13:52,088 --> 00:13:55,082
+00:13:52.088 --> 00:13:55.082
 developing but just not every single save,
 you don't need that.
 
 273
-00:13:55,082 --> 00:13:55,629
+00:13:55.082 --> 00:13:55.629
 >> Mm-hm.
 >> So
 
 274
-00:13:55,629 --> 00:13:59,574
+00:13:55.629 --> 00:13:59.574
 by having it silently run in
 the background at the end I find that so
 
 275
-00:13:59,574 --> 00:14:00,304
+00:13:59.574 --> 00:14:00.304
 valuable.
 
 276
-00:14:00,304 --> 00:14:03,286
+00:14:00.304 --> 00:14:03.286
 I don't have to worry about it,
 if I don't care about it in the moment,
 
 277
-00:14:03,286 --> 00:14:04,292
+00:14:03.286 --> 00:14:04.292
 it's really helpful.
 
 278
-00:14:04,292 --> 00:14:08,627
+00:14:04.292 --> 00:14:08.627
 >> Another nice thing that GHCID does, in
 relation to test suites, is that if your
 
 279
-00:14:08,627 --> 00:14:13,155
+00:14:08.627 --> 00:14:13.155
 test suite is running, and then you make
 another change in your editor and save it,
 
 280
-00:14:13,155 --> 00:14:17,062
+00:14:13.155 --> 00:14:17.062
 it'll stop that run of your test suite,
 and rebuild it, and rerun it.
 
 281
-00:14:17,062 --> 00:14:20,625
+00:14:17.062 --> 00:14:20.625
 So you don't have to sit there,
 like you do with the Stack Build, and
 
 282
-00:14:20,625 --> 00:14:24,249
+00:14:20.625 --> 00:14:24.249
 wait for the tests to succeed or
 fail in order to start another build for
 
 283
-00:14:24,249 --> 00:14:25,619
+00:14:24.249 --> 00:14:25.619
 the change you just made.
 
 284
-00:14:25,619 --> 00:14:27,348
+00:14:25.619 --> 00:14:27.348
 >> Yeah, that's nice.
 
 285
-00:14:27,348 --> 00:14:36,023
+00:14:27.348 --> 00:14:36.023
 So, you mentioned you can run some
 arbitrary something with the exec command.
 
 286
-00:14:36,023 --> 00:14:37,704
+00:14:36.023 --> 00:14:37.704
 Is that what it is, you use exec command?
 
 287
-00:14:37,704 --> 00:14:40,142
+00:14:37.704 --> 00:14:40.142
 >> Or
 I think in GHC idea it's called test.
 
 288
-00:14:40,142 --> 00:14:41,197
+00:14:40.142 --> 00:14:41.197
 >> Yes.
 >> Which is a little
 
 289
-00:14:41,197 --> 00:14:42,101
+00:14:41.197 --> 00:14:42.101
 confusing-
 >> Yes.
 
 290
-00:14:42,101 --> 00:14:43,459
+00:14:42.101 --> 00:14:43.459
 >> Because you can run non-tests.
 
 291
-00:14:43,459 --> 00:14:46,145
+00:14:43.459 --> 00:14:46.145
 >> Yes, it's a test flag but
 you can target whatever you want.
 
 292
-00:14:46,145 --> 00:14:47,067
+00:14:46.145 --> 00:14:47.067
 >> Yeah.
 >> Which when
 
 293
-00:14:47,067 --> 00:14:50,060
+00:14:47.067 --> 00:14:50.060
 you showed me this a little while ago,
 confused me as it should.
 
 294
-00:14:50,060 --> 00:14:53,095
+00:14:50.060 --> 00:14:53.095
 >> [LAUGH]
 >> But it was really helpful because I was
 
 295
-00:14:53,095 --> 00:14:58,144
+00:14:53.095 --> 00:14:58.144
 writing a script and I had it set up so
 that when I ran it it gave me meaningful
 
 296
-00:14:58,144 --> 00:15:03,287
+00:14:58.144 --> 00:15:03.287
 output, and then I just needed to change
 the innards to change the output.
 
 297
-00:15:03,287 --> 00:15:07,603
+00:15:03.287 --> 00:15:07.603
 So you said well you can you use
 the test flag, target this script and
 
 298
-00:15:07,603 --> 00:15:12,526
+00:15:07.603 --> 00:15:12.526
 every single time you save it will run
 that and show you the output instead of,
 
 299
-00:15:12,526 --> 00:15:17,192
+00:15:12.526 --> 00:15:17.192
 saving, seeing if it compiles, and
 then manually running the script.
 
 300
-00:15:17,192 --> 00:15:17,927
+00:15:17.192 --> 00:15:17.927
 >> Right, how I made it.
 
 301
-00:15:17,927 --> 00:15:20,322
+00:15:17.927 --> 00:15:20.322
 >> My gosh, I just saved five seconds.
 
 302
-00:15:20,322 --> 00:15:21,022
+00:15:20.322 --> 00:15:21.022
 Thank you so much.
 
 303
-00:15:21,022 --> 00:15:23,940
+00:15:21.022 --> 00:15:23.940
 >> [LAUGH]
 >> But really, it was really a little bit,
 
 304
-00:15:23,940 --> 00:15:25,141
+00:15:23.940 --> 00:15:25.141
 I mean, really cool for
 
 305
-00:15:25,141 --> 00:15:28,215
+00:15:25.141 --> 00:15:28.215
 me because it makes the feedback
 loop just that much faster.
 
 306
-00:15:28,215 --> 00:15:28,816
+00:15:28.215 --> 00:15:28.816
 >> Mm-hm.
 
 307
-00:15:28,816 --> 00:15:32,877
+00:15:28.816 --> 00:15:32.877
 >> And once I finally realized
 the test flag meant whatever.
 
 308
-00:15:32,877 --> 00:15:35,788
+00:15:32.877 --> 00:15:35.788
 [LAUGH] Yeah,
 you can use a target whatever.
 
 309
-00:15:35,788 --> 00:15:40,149
+00:15:35.788 --> 00:15:40.149
 >> Yeah, it's confusing because it says
 test and you can use it for test and you
 
 310
-00:15:40,149 --> 00:15:44,668
+00:15:40.149 --> 00:15:44.668
 probably should but really what it means
 is run this after the build succeeds.
 
 311
-00:15:44,668 --> 00:15:47,506
+00:15:44.668 --> 00:15:47.506
 >> Right, so that is really helpful.
 
 312
-00:15:47,506 --> 00:15:52,527
+00:15:47.506 --> 00:15:52.527
 So there's a lot of things that
 we've done to speed up our feedback
 
 313
-00:15:52,527 --> 00:15:57,369
+00:15:52.527 --> 00:15:57.369
 loop going from GHC,
 flirted with GHCI a little bit then GHCID,
 
 314
-00:15:57,369 --> 00:16:02,231
+00:15:57.369 --> 00:16:02.231
 we got it containerized,
 we're trying to make HIE work for us.
 
 315
-00:16:02,231 --> 00:16:08,561
+00:16:02.231 --> 00:16:08.561
 I think we got that containerized at one
 point or we nearly did test suite running,
 
 316
-00:16:08,561 --> 00:16:13,254
+00:16:08.561 --> 00:16:13.254
 restructured our app [LAUGH] to
 make GHCID work better for us.
 
 317
-00:16:13,254 --> 00:16:16,645
+00:16:13.254 --> 00:16:16.645
 But I would say it's all worth
 it because at this point,
 
 318
-00:16:16,645 --> 00:16:20,844
+00:16:16.645 --> 00:16:20.844
 our workflow as long as we're using
 GHCID is very quick, very easy.
 
 319
-00:16:20,844 --> 00:16:23,116
+00:16:20.844 --> 00:16:23.116
 >> Mm-hm.
 >> We don't have to worry about the issue
 
 320
-00:16:23,116 --> 00:16:27,203
+00:16:23.116 --> 00:16:27.203
 in Mac OS Docker where it doesn't actually
 pick up the file changes correctly,
 
 321
-00:16:27,203 --> 00:16:29,096
+00:16:27.203 --> 00:16:29.096
 we don't have to worry about Stack.
 
 322
-00:16:29,096 --> 00:16:31,809
+00:16:29.096 --> 00:16:31.809
 As fast as it is, I mean really,
 it is not slow but
 
 323
-00:16:31,809 --> 00:16:34,205
+00:16:31.809 --> 00:16:34.205
 really when you think of what you'll get.
 
 324
-00:16:34,205 --> 00:16:37,513
+00:16:34.205 --> 00:16:37.513
 >> It's on the order of a couple seconds
 which can kind of kill your momentum if
 
 325
-00:16:37,513 --> 00:16:39,361
+00:16:37.513 --> 00:16:39.361
 you're looking for that fast feedback.
 
 326
-00:16:39,361 --> 00:16:44,335
+00:16:39.361 --> 00:16:44.335
 >> Yes, yes and that's something you were
 saying earlier about how GHCID is so fast,
 
 327
-00:16:44,335 --> 00:16:47,902
+00:16:44.335 --> 00:16:47.902
 you just throw away save,
 you don't really care, right?
 
 328
-00:16:47,902 --> 00:16:49,745
+00:16:47.902 --> 00:16:49.745
 >> Mm-hm.
 >> So how does that affect
 
 329
-00:16:49,745 --> 00:16:52,786
+00:16:49.745 --> 00:16:52.786
 your development cycle or
 how ever you do it?
 
 330
-00:16:52,786 --> 00:16:57,379
+00:16:52.786 --> 00:16:57.379
 >> The way that I used to develop with
 Stack Build would be I would try to make
 
 331
-00:16:57,379 --> 00:17:00,977
+00:16:57.379 --> 00:17:00.977
 the code as perfect as I knew how,
 and then hit Save, and
 
 332
-00:17:00,977 --> 00:17:05,748
+00:17:00.977 --> 00:17:05.748
 have the compiler check me and then if
 I messed something up I'd go fix it.
 
 333
-00:17:05,748 --> 00:17:10,833
+00:17:05.748 --> 00:17:10.833
 And with GHCID I feel like my workflow
 has changed to where I write something
 
 334
-00:17:10,833 --> 00:17:16,400
+00:17:10.833 --> 00:17:16.400
 that I know is gonna fail, and I get GHCID
 to tell me exactly what's wrong with it,
 
 335
-00:17:16,400 --> 00:17:19,655
+00:17:16.400 --> 00:17:19.655
 and I make these real
 small incremental steps.
 
 336
-00:17:19,655 --> 00:17:21,654
+00:17:19.655 --> 00:17:21.654
 >> Yeah.
 >> One bit at a time, all the way through.
 
 337
-00:17:21,654 --> 00:17:23,817
+00:17:21.654 --> 00:17:23.817
 >> Yeah, not literally one B-Y-T-E.
 
 338
-00:17:23,817 --> 00:17:25,666
+00:17:23.817 --> 00:17:25.666
 >> [LAUGH]
 >> Not writing one character.
 
 339
-00:17:25,666 --> 00:17:31,497
+00:17:25.666 --> 00:17:31.497
 When I can get into that flow, and go at
 that clip, where I'm writing one line,
 
 340
-00:17:31,497 --> 00:17:35,698
+00:17:31.497 --> 00:17:35.698
 saving, one line saving,
 that is so much faster for me.
 
 341
-00:17:35,698 --> 00:17:37,871
+00:17:35.698 --> 00:17:37.871
 >> Agreed.
 >> That's because GHCID, I mean,
 
 342
-00:17:37,871 --> 00:17:41,163
+00:17:37.871 --> 00:17:41.163
 it feels like it's a less than
 a second for it to recompile.
 
 343
-00:17:41,163 --> 00:17:44,155
+00:17:41.163 --> 00:17:44.155
 And we have like 600-
 >> Yeah our app is not small.
 
 344
-00:17:44,155 --> 00:17:48,206
+00:17:44.155 --> 00:17:48.206
 >> It's not tiny, it's probably not huge,
 I don't know what huge is in this regards,
 
 345
-00:17:48,206 --> 00:17:49,175
+00:17:48.206 --> 00:17:49.175
 but it feels large.
 
 346
-00:17:49,175 --> 00:17:50,790
+00:17:49.175 --> 00:17:50.790
 >> Mm-hm.
 >> And it takes minutes for
 
 347
-00:17:50,790 --> 00:17:54,441
+00:17:50.790 --> 00:17:54.441
 the Docker container to come up,
 build everything, do everything.
 
 348
-00:17:54,441 --> 00:17:58,228
+00:17:54.441 --> 00:17:58.228
 Once you have that up and going, running
 GHCID in that container, it's so quick.
 
 349
-00:17:58,228 --> 00:17:58,852
+00:17:58.228 --> 00:17:58.852
 >> It's a game-changer.
 
 350
-00:17:58,852 --> 00:18:02,754
+00:17:58.852 --> 00:18:02.754
 >> Yeah, it really is, it really has
 improved my personal dev practice.
 
 351
-00:18:02,754 --> 00:18:05,924
+00:18:02.754 --> 00:18:05.924
 I think the whole team, I mean,
 I know the whole team likes it, but
 
 352
-00:18:05,924 --> 00:18:08,602
+00:18:05.924 --> 00:18:08.602
 I don't know how much has
 revolutionized what they do.
 
 353
-00:18:08,602 --> 00:18:10,798
+00:18:08.602 --> 00:18:10.798
 >> [LAUGH]
 >> But I know it's really improved mine,
 
 354
-00:18:10,798 --> 00:18:12,614
+00:18:10.798 --> 00:18:12.614
 and everybody's very happy with it.
 
 355
-00:18:12,614 --> 00:18:14,393
+00:18:12.614 --> 00:18:14.393
 >> Thanks for
 being on the show with me today, Jason.
 
 356
-00:18:14,393 --> 00:18:16,106
+00:18:14.393 --> 00:18:16.106
 >> My pleasure, thank you.
 
 357
-00:18:16,106 --> 00:18:19,078
+00:18:16.106 --> 00:18:19.078
 >> And thank you for
 listening to the Haskell Weekly Podcast.
 
 358
-00:18:19,078 --> 00:18:21,071
+00:18:19.078 --> 00:18:21.071
 This has been episode six.
 
 359
-00:18:21,071 --> 00:18:25,518
+00:18:21.071 --> 00:18:25.518
 If you liked our show, find out more
 at our website, haskellweekly.news.
 
 360
-00:18:25,518 --> 00:18:26,626
+00:18:25.518 --> 00:18:26.626
 Thanks again for listening.
 
 361
-00:18:26,626 --> 00:18:28,787
+00:18:26.626 --> 00:18:28.787
 I've been your host, Taylor Fausak.
 
 362
-00:18:28,787 --> 00:18:30,300
+00:18:28.787 --> 00:18:30.300
 We'll see you again next week.
 
 363
-00:18:30,300 --> 00:18:31,441
+00:18:30.300 --> 00:18:31.441
 >> Bye everybody!
 
 364
-00:18:31,441 --> 00:18:38,353
+00:18:31.441 --> 00:18:38.353
 [MUSIC]

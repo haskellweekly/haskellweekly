@@ -1,612 +1,614 @@
+WEBVTT
+
 1
-00:00:00,727 --> 00:00:03,324
+00:00:00.727 --> 00:00:03.324
 Hello, and
 welcome to the Haskell Weekly Podcast.
 
 2
-00:00:03,324 --> 00:00:05,963
+00:00:03.324 --> 00:00:05.963
 As you might have guessed,
 this show is about Haskell,
 
 3
-00:00:05,963 --> 00:00:08,502
+00:00:05.963 --> 00:00:08.502
 which is a purely functional
 programming language.
 
 4
-00:00:08,502 --> 00:00:10,250
+00:00:08.502 --> 00:00:10.250
 I'm your host Taylor Fausak.
 
 5
-00:00:10,250 --> 00:00:12,891
+00:00:10.250 --> 00:00:12.891
 I'm the lead engineer at ITPro.TV.
 
 6
-00:00:12,891 --> 00:00:13,410
+00:00:12.891 --> 00:00:13.410
 >> Hey, Taylor.
 
 7
-00:00:13,410 --> 00:00:17,816
+00:00:13.410 --> 00:00:17.816
 I'm Cameron, I'm also an engineer here,
 but I'm not the lead engineer.
 
 8
-00:00:17,816 --> 00:00:19,203
+00:00:17.816 --> 00:00:19.203
 I'm just excited to be here today.
 
 9
-00:00:19,203 --> 00:00:22,150
+00:00:19.203 --> 00:00:22.150
 I'm glad we get to do a show again,
 it's been a little while.
 
 10
-00:00:22,150 --> 00:00:23,387
+00:00:22.150 --> 00:00:23.387
 >> Yeah, it has been a little while.
 
 11
-00:00:23,387 --> 00:00:25,516
+00:00:23.387 --> 00:00:25.516
 >> How are you doing,
 what are we talking about today?
 
 12
-00:00:25,516 --> 00:00:28,815
+00:00:25.516 --> 00:00:28.815
 >> I'm doing well, and I'm really looking
 forward to talking about this post.
 
 13
-00:00:28,815 --> 00:00:33,425
+00:00:28.815 --> 00:00:33.425
 It's titled Evaluation of Function Calls
 in Haskell, which just sounds riveting.
 
 14
-00:00:33,425 --> 00:00:37,210
+00:00:33.425 --> 00:00:37.210
 But very exciting for me,
 and it's by Laszlo Tretski.
 
 15
-00:00:37,210 --> 00:00:39,867
+00:00:37.210 --> 00:00:39.867
 Hopefully, I'm pronouncing that name
 right, I'm almost sure I'm not.
 
 16
-00:00:39,867 --> 00:00:43,690
+00:00:39.867 --> 00:00:43.690
 And we're pulling it from
 issue 168 of Haskell Weekly.
 
 17
-00:00:43,690 --> 00:00:46,869
+00:00:43.690 --> 00:00:46.869
 And I'm still flabbergasted that we're
 up into the hundreds for issue numbers,
 
 18
-00:00:46,869 --> 00:00:47,431
+00:00:46.869 --> 00:00:47.431
 it's crazy.
 
 19
-00:00:47,431 --> 00:00:50,390
+00:00:47.431 --> 00:00:50.390
 >> That's a lot of articles,
 which is really cool,
 
 20
-00:00:50,390 --> 00:00:53,778
+00:00:50.390 --> 00:00:53.778
 that we'll able to kinda group
 all this stuff together.
 
 21
-00:00:53,778 --> 00:00:54,417
+00:00:53.778 --> 00:00:54.417
 >> Yeah.
 >> But I'm
 
 22
-00:00:54,417 --> 00:00:57,468
+00:00:54.417 --> 00:00:57.468
 really excited about that article,
 it sounds really fascinating.
 
 23
-00:00:57,468 --> 00:01:04,344
+00:00:57.468 --> 00:01:04.344
 Reading over it, it was a little heavy cuz
 it talks a lot, it's a lot nitty-gritty.
 
 24
-00:01:04,344 --> 00:01:07,101
+00:01:04.344 --> 00:01:07.101
 And so, I think we should really
 start high level kind of-
 
 25
-00:01:07,101 --> 00:01:07,792
+00:01:07.101 --> 00:01:07.792
 >> It's a good place to start.
 
 26
-00:01:07,792 --> 00:01:08,959
+00:01:07.792 --> 00:01:08.959
 >> Good overview, right?
 
 27
-00:01:10,699 --> 00:01:13,152
+00:01:10.699 --> 00:01:13.152
 I could go really high level and
 be like what is a function?
 
 28
-00:01:13,152 --> 00:01:15,730
+00:01:13.152 --> 00:01:15.730
 >> [LAUGH] I think we can
 assume everybody knows.
 
 29
-00:01:15,730 --> 00:01:17,317
+00:01:15.730 --> 00:01:17.317
 >> Yeah, that's fair.
 
 30
-00:01:17,317 --> 00:01:20,320
+00:01:17.317 --> 00:01:20.320
 But in this article, he talks a lot about,
 
 31
-00:01:20,320 --> 00:01:24,993
+00:01:20.320 --> 00:01:24.993
 kinda the gist of it is coming from
 a chapter in Haskell Programming
 
 32
-00:01:24,993 --> 00:01:29,597
+00:01:24.993 --> 00:01:29.597
 form First Principles by
 Christopher Allen and Julie Moronuki.
 
 33
-00:01:29,597 --> 00:01:30,484
+00:01:29.597 --> 00:01:30.484
 >> Yeah.
 
 34
-00:01:30,484 --> 00:01:31,010
+00:01:30.484 --> 00:01:31.010
 >> I nailed that.
 
 35
-00:01:31,010 --> 00:01:33,055
+00:01:31.010 --> 00:01:33.055
 >> [LAUGH]
 >> I was curious and
 
 36
-00:01:33,055 --> 00:01:38,464
+00:01:33.055 --> 00:01:38.464
 this is something they're kind of talking
 about preventing sharing on purpose.
 
 37
-00:01:38,464 --> 00:01:39,845
+00:01:38.464 --> 00:01:39.845
 So it's sharing.
 
 38
-00:01:39,845 --> 00:01:41,106
+00:01:39.845 --> 00:01:41.106
 >> Yeah, sharing.
 >> [INAUDIBLE] sharing.
 
 39
-00:01:41,106 --> 00:01:44,199
+00:01:41.106 --> 00:01:44.199
 >> Yeah, that's kind of a weird concept
 cuz it's not something we think
 
 40
-00:01:44,199 --> 00:01:44,940
+00:01:44.199 --> 00:01:44.940
 about usually.
 
 41
-00:01:44,940 --> 00:01:49,021
+00:01:44.940 --> 00:01:49.021
 So much so that it's a term a lot of
 people probably haven't heard of.
 
 42
-00:01:49,021 --> 00:01:53,173
+00:01:49.021 --> 00:01:53.173
 I'm sure many people are familiar with
 the fact that Haskell is a lazy language,
 
 43
-00:01:53,173 --> 00:01:54,103
+00:01:53.173 --> 00:01:54.103
 or non-strict.
 
 44
-00:01:54,103 --> 00:01:56,630
+00:01:54.103 --> 00:01:56.630
 And what that means is that,
 when you write a function call,
 
 45
-00:01:56,630 --> 00:01:58,376
+00:01:56.630 --> 00:01:58.376
 it doesn't evaluate that immediately.
 
 46
-00:01:58,376 --> 00:02:01,848
+00:01:58.376 --> 00:02:01.848
 It can wait until you actually need
 that thing before it evaluates it.
 
 47
-00:02:01,848 --> 00:02:06,582
+00:02:01.848 --> 00:02:06.582
 And what sharing means is that if you
 have the same thing used in two places,
 
 48
-00:02:06,582 --> 00:02:09,740
+00:02:06.582 --> 00:02:09.740
 maybe it will only actually
 be computed once, and
 
 49
-00:02:09,740 --> 00:02:12,988
+00:02:09.740 --> 00:02:12.988
 then it'll use the result
 in both of those places.
 
 50
-00:02:12,988 --> 00:02:14,560
+00:02:12.988 --> 00:02:14.560
 Whereas in a strict language,
 
 51
-00:02:14,560 --> 00:02:18,435
+00:02:14.560 --> 00:02:18.435
 you would be forced to compute at both
 times because you're using it twice.
 
 52
-00:02:18,435 --> 00:02:20,723
+00:02:18.435 --> 00:02:20.723
 So that's a real quick
 introduction of what sharing is,
 
 53
-00:02:20,723 --> 00:02:22,590
+00:02:20.723 --> 00:02:22.590
 hopefully I didn't miss anything too bad-
 >> And
 
 54
-00:02:22,590 --> 00:02:23,777
+00:02:22.590 --> 00:02:23.777
 sharing is always caring, so that's good.
 
 55
-00:02:23,777 --> 00:02:24,553
+00:02:23.777 --> 00:02:24.553
 >> Exactly.
 
 56
-00:02:24,553 --> 00:02:27,952
+00:02:24.553 --> 00:02:27.952
 [LAUGH]
 >> Well, I think we use sharing well.
 
 57
-00:02:27,952 --> 00:02:32,562
+00:02:27.952 --> 00:02:32.562
 But this article presents
 a way to not share,
 
 58
-00:02:32,562 --> 00:02:37,184
+00:02:32.562 --> 00:02:37.184
 to create a function that isn't shareable.
 
 59
-00:02:37,184 --> 00:02:40,474
+00:02:37.184 --> 00:02:40.474
 >> Right, yeah, they have kinda
 two motivating examples, right?
 
 60
-00:02:40,474 --> 00:02:43,966
+00:02:40.474 --> 00:02:43.966
 They have this this lambda,
 this function that takes an argument and
 
 61
-00:02:43,966 --> 00:02:46,625
+00:02:43.966 --> 00:02:46.625
 completely ignores it and
 then returns something.
 
 62
-00:02:46,625 --> 00:02:50,552
+00:02:46.625 --> 00:02:50.552
 And they use that as an example
 of something that doesn't share.
 
 63
-00:02:50,552 --> 00:02:53,578
+00:02:50.552 --> 00:02:53.578
 It keeps all of its toys for itself.
 
 64
-00:02:53,578 --> 00:02:57,914
+00:02:53.578 --> 00:02:57.914
 And then, they have another example
 that functionally is exactly the same,
 
 65
-00:02:57,914 --> 00:03:01,121
+00:02:57.914 --> 00:03:01.121
 the end result is the same
 except that it allows sharing.
 
 66
-00:03:01,121 --> 00:03:05,482
+00:03:01.121 --> 00:03:05.482
 And it does that by using the const
 helper function that's in
 
 67
-00:03:05,482 --> 00:03:08,312
+00:03:05.482 --> 00:03:08.312
 the prelude to not have a lambda there.
 
 68
-00:03:08,312 --> 00:03:12,589
+00:03:08.312 --> 00:03:12.589
 And that allows GHC to analyze
 this a little more thoroughly and
 
 69
-00:03:12,589 --> 00:03:14,696
+00:03:12.589 --> 00:03:14.696
 do the sharing optimization.
 
 70
-00:03:14,696 --> 00:03:16,529
+00:03:14.696 --> 00:03:16.529
 >> Yeah, which is really cool.
 
 71
-00:03:16,529 --> 00:03:23,802
+00:03:16.529 --> 00:03:23.802
 Which the way they use the const operator,
 or the function, it's not an operator.
 
 72
-00:03:23,802 --> 00:03:28,760
+00:03:23.802 --> 00:03:28.760
 Using the const function,
 it makes the function point free, right?
 
 73
-00:03:28,760 --> 00:03:29,415
+00:03:28.760 --> 00:03:29.415
 >> Yeah.
 
 74
-00:03:29,415 --> 00:03:31,256
+00:03:29.415 --> 00:03:31.256
 >> As opposed to point full.
 
 75
-00:03:31,256 --> 00:03:31,837
+00:03:31.256 --> 00:03:31.837
 >> Right.
 
 76
-00:03:31,837 --> 00:03:34,641
+00:03:31.837 --> 00:03:34.641
 >> So could you kinda talk about point
 free verse point full a little bit?
 
 77
-00:03:34,641 --> 00:03:38,882
+00:03:34.641 --> 00:03:38.882
 >> Sure, point free programming
 is definitely something that is,
 
 78
-00:03:38,882 --> 00:03:42,670
+00:03:38.882 --> 00:03:42.670
 when people look at Haskell,
 they think about that a lot.
 
 79
-00:03:42,670 --> 00:03:46,870
+00:03:42.670 --> 00:03:46.870
 All these really dense expressions
 with a lot of function composition.
 
 80
-00:03:46,870 --> 00:03:52,134
+00:03:46.870 --> 00:03:52.134
 But really, what it boils down to is
 that with point free programming,
 
 81
-00:03:52,134 --> 00:03:55,393
+00:03:52.134 --> 00:03:55.393
 you don't talk about your argument names.
 
 82
-00:03:55,393 --> 00:03:57,370
+00:03:55.393 --> 00:03:57.370
 You don't actually list them out.
 
 83
-00:03:57,370 --> 00:04:01,218
+00:03:57.370 --> 00:04:01.218
 So what we're used to in most programming
 languages is that when you write
 
 84
-00:04:01,218 --> 00:04:05,331
+00:04:01.218 --> 00:04:05.331
 a function, you have to explicitly list
 all of the arguments that you take in.
 
 85
-00:04:05,331 --> 00:04:06,437
+00:04:05.331 --> 00:04:06.437
 And in Haskell, you can do that.
 
 86
-00:04:06,437 --> 00:04:09,832
+00:04:06.437 --> 00:04:09.832
 And when you write a lambda or
 a top-level function declaration,
 
 87
-00:04:09,832 --> 00:04:11,722
+00:04:09.832 --> 00:04:11.722
 that's the common way to do things.
 
 88
-00:04:11,722 --> 00:04:16,592
+00:04:11.722 --> 00:04:16.592
 But if your function is just a series
 of other functions composed together,
 
 89
-00:04:16,592 --> 00:04:18,342
+00:04:16.592 --> 00:04:18.342
 and it takes its argument,
 
 90
-00:04:18,342 --> 00:04:23,516
+00:04:18.342 --> 00:04:23.516
 it can be a little annoying to say f of x
 equals this function, open parentheses,
 
 91
-00:04:23,516 --> 00:04:27,954
+00:04:23.516 --> 00:04:27.954
 this other function, open parentheses,
 this other function, x.
 
 92
-00:04:27,954 --> 00:04:32,765
+00:04:27.954 --> 00:04:32.765
 And so, point free lets you kinda rewrite
 that without mentioning the x at all, and
 
 93
-00:04:32,765 --> 00:04:36,151
+00:04:32.765 --> 00:04:36.151
 just say f equals f1 composed
 with f2 composed with f3.
 
 94
-00:04:36,151 --> 00:04:36,881
+00:04:36.151 --> 00:04:36.881
 >> Right.
 
 95
-00:04:36,881 --> 00:04:40,606
+00:04:36.881 --> 00:04:40.606
 >> Which is really nice for kind of
 understandability and looking at it and
 
 96
-00:04:40,606 --> 00:04:43,162
+00:04:40.606 --> 00:04:43.162
 seeing that it's just
 a pipeline of functions.
 
 97
-00:04:43,162 --> 00:04:43,856
+00:04:43.162 --> 00:04:43.856
 >> Right.
 >> But
 
 98
-00:04:43,856 --> 00:04:48,642
+00:04:43.856 --> 00:04:48.642
 specifically, with regards to this blog
 post, point free is interesting because it
 
 99
-00:04:48,642 --> 00:04:51,308
+00:04:48.642 --> 00:04:51.308
 changes the semantics of
 how it actually runs.
 
 100
-00:04:51,308 --> 00:04:53,580
+00:04:51.308 --> 00:04:53.580
 And we've talked about sharing already, so
 
 101
-00:04:53,580 --> 00:04:56,527
+00:04:53.580 --> 00:04:56.527
 it should come as no surprise
 that it influences sharing.
 
 102
-00:04:56,527 --> 00:05:02,336
+00:04:56.527 --> 00:05:02.336
 >> Right, and yeah, it's behind the scenes
 that things are different, right?
 
 103
-00:05:02,336 --> 00:05:07,017
+00:05:02.336 --> 00:05:07.017
 Cuz if you look at the lambda
 verse the const compositionally,
 
 104
-00:05:07,017 --> 00:05:10,383
+00:05:07.017 --> 00:05:10.383
 it doesn't look that different in Haskell.
 
 105
-00:05:10,383 --> 00:05:14,074
+00:05:10.383 --> 00:05:14.074
 But they kind of touch on
 something called core, right?
 
 106
-00:05:14,074 --> 00:05:17,438
+00:05:14.074 --> 00:05:17.438
 >> Yeah, and
 core is something that hopefully, or
 
 107
-00:05:17,438 --> 00:05:21,222
+00:05:17.438 --> 00:05:21.222
 maybe not hopefully,
 that's the wrong way to put it.
 
 108
-00:05:21,222 --> 00:05:24,428
+00:05:21.222 --> 00:05:24.428
 Generally speaking, day-to-day,
 if you're writing Haskell code,
 
 109
-00:05:24,428 --> 00:05:27,440
+00:05:24.428 --> 00:05:27.440
 you're not gonna have reason to go
 look at the core that it produces.
 
 110
-00:05:28,929 --> 00:05:33,446
+00:05:28.929 --> 00:05:33.446
 But you can think of core as the first
 step in the compilation pipeline.
 
 111
-00:05:33,446 --> 00:05:38,517
+00:05:33.446 --> 00:05:38.517
 And core could be, it isn't this,
 but essentially, you can think of it
 
 112
-00:05:38,517 --> 00:05:44,025
+00:05:38.517 --> 00:05:44.025
 as a very minified version of Haskell
 that doesn't have any syntactic sugar.
 
 113
-00:05:44,025 --> 00:05:46,939
+00:05:44.025 --> 00:05:46.939
 And because of that,
 it ends up having a lot of lambdas and
 
 114
-00:05:46,939 --> 00:05:48,286
+00:05:46.939 --> 00:05:48.286
 a lot of case statements.
 
 115
-00:05:48,286 --> 00:05:49,885
+00:05:48.286 --> 00:05:49.885
 >> So it's not as sweet as Haskell,
 is that what you're telling me?
 
 116
-00:05:49,885 --> 00:05:51,819
+00:05:49.885 --> 00:05:51.819
 >> [LAUGH] Yeah,
 it's a little sour maybe, or
 
 117
-00:05:51,819 --> 00:05:54,035
+00:05:51.819 --> 00:05:54.035
 bitter, I'm not sure
 which flavor it would be.
 
 118
-00:05:54,035 --> 00:05:56,389
+00:05:54.035 --> 00:05:56.389
 [LAUGH]
 >> Nonetheless,
 
 119
-00:05:56,389 --> 00:05:59,684
+00:05:56.389 --> 00:05:59.684
 it's still part of Haskell and
 the compilation process.
 
 120
-00:05:59,684 --> 00:06:03,380
+00:05:59.684 --> 00:06:03.380
 >> Right, and the reason that core
 kinda comes into this discussion
 
 121
-00:06:03,380 --> 00:06:07,815
+00:06:03.380 --> 00:06:07.815
 is that when we talk about sharing,
 it's not apparent when you look at Haskell
 
 122
-00:06:07,815 --> 00:06:10,522
+00:06:07.815 --> 00:06:10.522
 source code if something will be shared or
 not.
 
 123
-00:06:10,522 --> 00:06:14,438
+00:06:10.522 --> 00:06:14.438
 There are some kind of heuristics that
 this blog post talks about, especially at
 
 124
-00:06:14,438 --> 00:06:17,967
+00:06:14.438 --> 00:06:17.967
 the end, that tell you when you can
 expect something to be shared or not.
 
 125
-00:06:17,967 --> 00:06:20,892
+00:06:17.967 --> 00:06:20.892
 But the only way to be sure
 is to look at the core.
 
 126
-00:06:20,892 --> 00:06:24,567
+00:06:20.892 --> 00:06:24.567
 And you can tell GHC to output of
 the core so that you can look at it.
 
 127
-00:06:24,567 --> 00:06:28,005
+00:06:24.567 --> 00:06:28.005
 And as I said,
 it doesn't have any syntactic sugar, so
 
 128
-00:06:28,005 --> 00:06:31,020
+00:06:28.005 --> 00:06:31.020
 it ends up being really
 verbose a lot of the time.
 
 129
-00:06:31,020 --> 00:06:33,550
+00:06:31.020 --> 00:06:33.550
 Which means it's not something you
 typically want to be looking at
 
 130
-00:06:33,550 --> 00:06:34,100
+00:06:33.550 --> 00:06:34.100
 all the time.

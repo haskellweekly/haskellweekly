@@ -1,1100 +1,1102 @@
+WEBVTT
+
 1
-00:00:00,336 --> 00:00:04,652
+00:00:00.336 --> 00:00:04.652
 [MUSIC]
 
 2
-00:00:04,652 --> 00:00:07,360
+00:00:04.652 --> 00:00:07.360
 Hello and
 welcome to the Haskell weekly podcast.
 
 3
-00:00:07,360 --> 00:00:09,170
+00:00:07.360 --> 00:00:09.170
 I'm your host Cody Goodman.
 
 4
-00:00:09,170 --> 00:00:11,880
+00:00:09.170 --> 00:00:11.880
 I'm a senior engineer at ITProTV.
 
 5
-00:00:11,880 --> 00:00:16,650
+00:00:11.880 --> 00:00:16.650
 With me today is Andres one
 of the engineers on my team.
 
 6
-00:00:16,650 --> 00:00:18,970
+00:00:16.650 --> 00:00:18.970
 Thanks for joining me today, Andres.
 
 7
-00:00:18,970 --> 00:00:22,377
+00:00:18.970 --> 00:00:22.377
 >> Yeah, thanks for having me, Cody.
 
 8
-00:00:22,377 --> 00:00:26,400
+00:00:22.377 --> 00:00:26.400
 I'm excited to talk about
 some fun stuff with you.
 
 9
-00:00:26,400 --> 00:00:30,940
+00:00:26.400 --> 00:00:30.940
 >> Cool, this shows about Haskell,
 a purely function program language.
 
 10
-00:00:30,940 --> 00:00:35,350
+00:00:30.940 --> 00:00:35.350
 Today we're gonna be talking
 about Refined which is a way
 
 11
-00:00:35,350 --> 00:00:39,870
+00:00:35.350 --> 00:00:39.870
 of moving a lot of runtime
 errors into the types system.
 
 12
-00:00:39,870 --> 00:00:45,995
+00:00:39.870 --> 00:00:45.995
 There is an interesting blog post recently
 in Haskell Weekly that explored using
 
 13
-00:00:45,995 --> 00:00:52,700
+00:00:45.995 --> 00:00:52.700
 Refined to solve a few common
 cases of runtime errors,
 
 14
-00:00:52,700 --> 00:00:57,700
+00:00:52.700 --> 00:00:57.700
 such as division by zero, or
 making sure a string is uppercase.
 
 15
-00:00:57,700 --> 00:00:59,960
+00:00:57.700 --> 00:00:59.960
 Things that you'd usually
 have to worry about runtime.
 
 16
-00:00:59,960 --> 00:01:01,440
+00:00:59.960 --> 00:01:01.440
 Andres, what were your thoughts on it?
 
 17
-00:01:01,440 --> 00:01:05,800
+00:01:01.440 --> 00:01:05.800
 >> The first thing that came to
 mind was it's very interesting
 
 18
-00:01:05,800 --> 00:01:10,710
+00:01:05.800 --> 00:01:10.710
 to think of type checking
 at the runtime level.
 
 19
-00:01:10,710 --> 00:01:15,930
+00:01:10.710 --> 00:01:15.930
 And one of the things that first
 stood out to me was what is the use?
 
 20
-00:01:15,930 --> 00:01:18,150
+00:01:15.930 --> 00:01:18.150
 High level seems very useful.
 
 21
-00:01:18,150 --> 00:01:22,690
+00:01:18.150 --> 00:01:22.690
 After diving into it a little bit,
 seems like maybe some of these
 
 22
-00:01:22,690 --> 00:01:27,610
+00:01:22.690 --> 00:01:27.610
 features should be implemented more
 directly into the compiler level, or
 
 23
-00:01:27,610 --> 00:01:31,860
+00:01:27.610 --> 00:01:31.860
 even just as part of
 the actual Haskell language.
 
 24
-00:01:31,860 --> 00:01:34,330
+00:01:31.860 --> 00:01:34.330
 But we can talk more about that in a bit.
 
 25
-00:01:34,330 --> 00:01:35,140
+00:01:34.330 --> 00:01:35.140
 >> Great.
 
 26
-00:01:35,140 --> 00:01:36,865
+00:01:35.140 --> 00:01:36.865
 Definitely want to talk
 more about that in a bit.
 
 27
-00:01:36,865 --> 00:01:41,873
+00:01:36.865 --> 00:01:41.873
 Haskell is actually moving towards
 supporting dependent typing I hear
 
 28
-00:01:41,873 --> 00:01:48,120
+00:01:41.873 --> 00:01:48.120
 in the next year, so we'll probably have
 something pretty useful and workable.
 
 29
-00:01:48,120 --> 00:01:52,767
+00:01:48.120 --> 00:01:52.767
 In terms of Refined specifically though,
 and things that we can use today,
 
 30
-00:01:52,767 --> 00:01:57,500
+00:01:52.767 --> 00:01:57.500
 what do you think are the trade-offs
 in deciding to use something like that?
 
 31
-00:01:57,500 --> 00:02:01,360
+00:01:57.500 --> 00:02:01.360
 Is there a lot of ceremony involved
 with using something like Refined?
 
 32
-00:02:01,360 --> 00:02:03,640
+00:02:01.360 --> 00:02:03.640
 So runtime errors are expensive but
 
 33
-00:02:03,640 --> 00:02:07,570
+00:02:03.640 --> 00:02:07.570
 is it more expensive to implement
 something with Refined?
 
 34
-00:02:07,570 --> 00:02:12,690
+00:02:07.570 --> 00:02:12.690
 >> I think the major point
 that came to me first is
 
 35
-00:02:12,690 --> 00:02:17,970
+00:02:12.690 --> 00:02:17.970
 how much extra coding work do I need
 to actually do to be able to use this?
 
 36
-00:02:17,970 --> 00:02:23,230
+00:02:17.970 --> 00:02:23.230
 And I think that's probably the major
 downside to using something like Refined.
 
 37
-00:02:23,230 --> 00:02:28,787
+00:02:23.230 --> 00:02:28.787
 We've gotten to a point where we
 are trying to fix, or not really fix but
 
 38
-00:02:28,787 --> 00:02:34,529
+00:02:28.787 --> 00:02:34.529
 more solve a problem that isn't already
 solved by using type checking and
 
 39
-00:02:34,529 --> 00:02:38,020
+00:02:34.529 --> 00:02:38.020
 runtime checking and all of these things.
 
 40
-00:02:38,020 --> 00:02:42,480
+00:02:38.020 --> 00:02:42.480
 And the first thing that sticks out is
 lots of different conversion functions.
 
 41
-00:02:42,480 --> 00:02:47,420
+00:02:42.480 --> 00:02:47.420
 So there's a lot of extra boilerplate
 required around using Refined and
 
 42
-00:02:47,420 --> 00:02:51,240
+00:02:47.420 --> 00:02:51.240
 using it in such a way that
 is helpful to the code.
 
 43
-00:02:51,240 --> 00:02:52,820
+00:02:51.240 --> 00:02:52.820
 And that's my first takeaway,
 
 44
-00:02:52,820 --> 00:02:56,730
+00:02:52.820 --> 00:02:56.730
 and there's some extra stuff in
 there as well that is very nice.
 
 45
-00:02:56,730 --> 00:03:00,300
+00:02:56.730 --> 00:03:00.300
 It's just that my first question is,
 how much extra coding do I have to do?
 
 46
-00:03:00,300 --> 00:03:03,740
+00:03:00.300 --> 00:03:03.740
 And it's actually a little bit
 more than I'm comfortable with.
 
 47
-00:03:03,740 --> 00:03:04,370
+00:03:03.740 --> 00:03:04.370
 >> Okay.
 
 48
-00:03:04,370 --> 00:03:08,600
+00:03:04.370 --> 00:03:08.600
 And like you mentioned, part of the reason
 for that is because it's an external
 
 49
-00:03:08,600 --> 00:03:11,995
+00:03:08.600 --> 00:03:11.995
 library and not something
 integrated with a compiler, so
 
 50
-00:03:11,995 --> 00:03:17,820
+00:03:11.995 --> 00:03:17.820
 it's exciting to see if that helps
 reduce that ceremony and boilerplate.
 
 51
-00:03:17,820 --> 00:03:22,742
+00:03:17.820 --> 00:03:22.742
 >> Yeah, definitely something that
 I think would be better benefited
 
 52
-00:03:22,742 --> 00:03:26,710
+00:03:22.742 --> 00:03:26.710
 to be directly inside
 the language than as a library.
 
 53
-00:03:26,710 --> 00:03:32,850
+00:03:26.710 --> 00:03:32.850
 But it would be nice to know, or
 at least to be able to use it in practice,
 
 54
-00:03:32,850 --> 00:03:36,800
+00:03:32.850 --> 00:03:36.800
 to be able to see if is it
 actually a lot of work?
 
 55
-00:03:36,800 --> 00:03:42,230
+00:03:36.800 --> 00:03:42.230
 Or if it's just something that
 I get from the representation
 
 56
-00:03:42,230 --> 00:03:44,400
+00:03:42.230 --> 00:03:44.400
 of it in the blog post and
 the documentation.
 
 57
-00:03:44,400 --> 00:03:46,001
+00:03:44.400 --> 00:03:46.001
 >> Right.
 >> What did you think,
 
 58
-00:03:46,001 --> 00:03:49,938
+00:03:46.001 --> 00:03:49.938
 as a first glance, what did you
 first think that this was gonna do?
 
 59
-00:03:49,938 --> 00:03:53,240
+00:03:49.938 --> 00:03:53.240
 >> I think that Refined
 is really interesting.
 
 60
-00:03:53,240 --> 00:03:57,150
+00:03:53.240 --> 00:03:57.150
 I know there's a lot of ceremony
 with setting up things at first.
 
 61
-00:03:57,150 --> 00:04:01,800
+00:03:57.150 --> 00:04:01.800
 I do wonder, though, if you go from the
 approach of wrecked by construction, and
 
 62
-00:04:01,800 --> 00:04:04,870
+00:04:01.800 --> 00:04:04.870
 you eventually build up a lot
 of these refined helpers.
 
 63
-00:04:04,870 --> 00:04:09,650
+00:04:04.870 --> 00:04:09.650
 If it pretty much gets rid of the
 ceremony, once you've integrated into your
 
 64
-00:04:09,650 --> 00:04:15,210
+00:04:09.650 --> 00:04:15.210
 normal workflow of programming and
 start thinking in terms of runtime errors.
 
 65
-00:04:15,210 --> 00:04:17,730
+00:04:15.210 --> 00:04:17.730
 If you think in terms of using Refined,
 
 66
-00:04:17,730 --> 00:04:23,110
+00:04:17.730 --> 00:04:23.110
 and does this value Refined,
 before I pass it to the next function?
 
 67
-00:04:23,110 --> 00:04:27,240
+00:04:23.110 --> 00:04:27.240
 If you start thinking that way and
 just implementing those things
 
 68
-00:04:27,240 --> 00:04:31,330
+00:04:27.240 --> 00:04:31.330
 as a lever you could reuse,
 I think it could be a lot more convenient.
 
 69
-00:04:31,330 --> 00:04:35,620
+00:04:31.330 --> 00:04:35.620
 It's harder to make that argument though
 without having a flushed out example.
 
 70
-00:04:35,620 --> 00:04:36,480
+00:04:35.620 --> 00:04:36.480
 >> Yeah, I agree.
 
 71
-00:04:36,480 --> 00:04:39,510
+00:04:36.480 --> 00:04:39.510
 I think once this is actually in use,
 
 72
-00:04:39,510 --> 00:04:44,760
+00:04:39.510 --> 00:04:44.760
 and we're able to see more of how it
 is used, then we can make that call.
 
 73
-00:04:44,760 --> 00:04:50,550
+00:04:44.760 --> 00:04:50.550
 It's just one of my major downsides
 that I can see just off the bat.
 
 74
-00:04:50,550 --> 00:04:55,390
+00:04:50.550 --> 00:04:55.390
 If the extra work required to
 wrapping it and unwrapping it,
 
 75
-00:04:55,390 --> 00:05:00,210
+00:04:55.390 --> 00:05:00.210
 better than just doing that
 type checking by hand.
 
 76
-00:05:00,210 --> 00:05:03,590
+00:05:00.210 --> 00:05:03.590
 Or, is that actually worth it?
 
 77
-00:05:03,590 --> 00:05:08,540
+00:05:03.590 --> 00:05:08.540
 >> Right, and I think that when you look
 at some of the examples, by nature they're
 
 78
-00:05:08,540 --> 00:05:12,100
+00:05:08.540 --> 00:05:12.100
 trying to teach something, so
 they're gonna be a little contrived.
 
 79
-00:05:12,100 --> 00:05:17,150
+00:05:12.100 --> 00:05:17.150
 You have to simplify things to teach the
 concept first, but it would be good if we
 
 80
-00:05:17,150 --> 00:05:21,610
+00:05:17.150 --> 00:05:21.610
 had somewhere to go from there, layers on
 the different things that we've learned.
 
 81
-00:05:21,610 --> 00:05:25,410
+00:05:21.610 --> 00:05:25.410
 Maybe having Refined
 check at compile time,
 
 82
-00:05:25,410 --> 00:05:28,020
+00:05:25.410 --> 00:05:28.020
 that a string is uppercase is invaluable.
 
 83
-00:05:28,020 --> 00:05:31,800
+00:05:28.020 --> 00:05:31.800
 But if you're verifying
 social security numbers,
 
 84
-00:05:31,800 --> 00:05:37,300
+00:05:31.800 --> 00:05:37.300
 maybe verifying that they are again eight,
 
 85
-00:05:37,300 --> 00:05:41,160
+00:05:37.300 --> 00:05:41.160
 nine digits, then that's
 something that could be useful.
 
 86
-00:05:41,160 --> 00:05:42,760
+00:05:41.160 --> 00:05:42.760
 >> Yeah, I agree.
 
 87
-00:05:42,760 --> 00:05:47,895
+00:05:42.760 --> 00:05:47.895
 However, I do see verification is
 usually user input variables and
 
 88
-00:05:47,895 --> 00:05:49,600
+00:05:47.895 --> 00:05:49.600
 they're not available at build time.
 
 89
-00:05:49,600 --> 00:05:54,550
+00:05:49.600 --> 00:05:54.550
 So I can see that being a major issue, so
 
 90
-00:05:54,550 --> 00:05:58,600
+00:05:54.550 --> 00:05:58.600
 let's say that you have a Refined
 type of positive number.
 
 91
-00:05:58,600 --> 00:06:03,390
+00:05:58.600 --> 00:06:03.390
 What, how will the compiler know that
 a user is gonna input two minus one
 
 92
-00:06:03,390 --> 00:06:07,230
+00:06:03.390 --> 00:06:07.230
 if you don't actually go through
 the entire refining it and
 
 93
-00:06:07,230 --> 00:06:08,440
+00:06:07.230 --> 00:06:08.440
 unrefining it in the process?
 
 94
-00:06:08,440 --> 00:06:13,280
+00:06:08.440 --> 00:06:13.280
 Which, when you refine the two minus
 one it's gonna throw an error,
 
 95
-00:06:13,280 --> 00:06:16,770
+00:06:13.280 --> 00:06:16.770
 or however you decide to
 actually implement it, and
 
 96
-00:06:16,770 --> 00:06:20,410
+00:06:16.770 --> 00:06:20.410
 that is the same as if you just
 did an If statement for example.
 
 97
-00:06:20,410 --> 00:06:25,520
+00:06:20.410 --> 00:06:25.520
 So I'm a bit hard to see the difference of
 
 98
-00:06:25,520 --> 00:06:30,740
+00:06:25.520 --> 00:06:30.740
 actually type checking in code, and
 type checking in the types itself.
 
 99
-00:06:30,740 --> 00:06:32,310
+00:06:30.740 --> 00:06:32.310
 >> Right, that's a great point.
 
 100
-00:06:32,310 --> 00:06:36,420
+00:06:32.310 --> 00:06:36.420
 I think the special sauce,
 so to speak, lies in that.
 
 101
-00:06:36,420 --> 00:06:39,060
+00:06:36.420 --> 00:06:39.060
 It's really not about
 verifying that value.
 
 102
-00:06:39,060 --> 00:06:44,500
+00:06:39.060 --> 00:06:44.500
 It is in the exhaustiveness checking
 that we get by defining that and
 
 103
-00:06:44,500 --> 00:06:46,890
+00:06:44.500 --> 00:06:46.890
 how it forces programmers.
 
 104
-00:06:46,890 --> 00:06:51,680
+00:06:46.890 --> 00:06:51.680
 If you are throwing an error
 on exhaustiveness checks,
 
 105
-00:06:51,680 --> 00:06:55,620
+00:06:51.680 --> 00:06:55.620
 it forces the programmers to
 handle that case upfront.
 
 106
-00:06:55,620 --> 00:07:00,239
+00:06:55.620 --> 00:07:00.239
 Whereas you could have missed
 that case at a dynamic language.
 
 107
-00:07:00,239 --> 00:07:01,280
+00:07:00.239 --> 00:07:01.280
 >> Yeah, I agree.
 
 108
-00:07:01,280 --> 00:07:06,300
+00:07:01.280 --> 00:07:06.300
 And that's obviously where we see
 the benefits of this library.
 
 109
-00:07:06,300 --> 00:07:09,780
+00:07:06.300 --> 00:07:09.780
 The question I had was, is it worth it?
 
 110
-00:07:09,780 --> 00:07:12,180
+00:07:09.780 --> 00:07:12.180
 Do we want to add all
 this extra complexity?
 
 111
-00:07:12,180 --> 00:07:17,180
+00:07:12.180 --> 00:07:17.180
 Just to be more safe for
 the developer to write this code.
 
 112
-00:07:17,180 --> 00:07:22,500
+00:07:17.180 --> 00:07:22.500
 And the upsides I think are still
 not better than the downsides.
 
 113
-00:07:22,500 --> 00:07:25,650
+00:07:22.500 --> 00:07:25.650
 >> Okay.
 What do you think about the possibility of
 
 114
-00:07:25,650 --> 00:07:30,820
+00:07:25.650 --> 00:07:30.820
 senior engineers using Refined
 to write out the types and
 
 115
-00:07:30,820 --> 00:07:32,490
+00:07:30.820 --> 00:07:32.490
 stub out implementations?
 
 116
-00:07:32,490 --> 00:07:37,542
+00:07:32.490 --> 00:07:37.542
 And then having the rest of the engineers
 implementing the functionality for
 
 117
-00:07:37,542 --> 00:07:38,560
+00:07:37.542 --> 00:07:38.560
 those things?
 
 118
-00:07:38,560 --> 00:07:44,084
+00:07:38.560 --> 00:07:44.084
 >> If most of these types are gonna
 be used in a compilation manner,
 
 119
-00:07:44,084 --> 00:07:48,910
+00:07:44.084 --> 00:07:48.910
 so we are mainly using Haskell
 in a in a web environment.
 
 120
-00:07:48,910 --> 00:07:53,300
+00:07:48.910 --> 00:07:53.300
 So most of our types that need type
 checking are gonna be user input, and
 
 121
-00:07:53,300 --> 00:07:55,470
+00:07:53.300 --> 00:07:55.470
 I think that's where it falls short.
 
 122
-00:07:55,470 --> 00:08:00,030
+00:07:55.470 --> 00:08:00.030
 If it is going to be used in
 such a way that this type
 
 123
-00:08:00,030 --> 00:08:04,710
+00:08:00.030 --> 00:08:04.710
 checking is gonna help in the code
 writing, then I think that's a good thing.
 
 124
-00:08:04,710 --> 00:08:09,840
+00:08:04.710 --> 00:08:09.840
 So Refined is a great library
 to make sure that your types
 
 125
-00:08:09,840 --> 00:08:15,820
+00:08:09.840 --> 00:08:15.820
 that are more dynamic than other types,
 such as numbers, lists, things like that.
 
 126
-00:08:15,820 --> 00:08:18,080
+00:08:15.820 --> 00:08:18.080
 Stay inside the range
 they're supposed to be,
 
 127
-00:08:18,080 --> 00:08:21,140
+00:08:18.080 --> 00:08:21.140
 then Refined is a great library for that.
 
 128
-00:08:21,140 --> 00:08:25,070
+00:08:21.140 --> 00:08:25.070
 Regardless whether it's a senior
 engineer doing the structuring or
 
 129
-00:08:25,070 --> 00:08:29,180
+00:08:25.070 --> 00:08:29.180
 it's a junior one,
 I don't see a difference in that scenario.
 
 130
-00:08:29,180 --> 00:08:31,720
+00:08:29.180 --> 00:08:31.720
 >> Okay.
 Did you see if it was possible in
 
 131
-00:08:31,720 --> 00:08:34,030
+00:08:31.720 --> 00:08:34.030
 the docs, I'm scrolling through them now,
 
 132
-00:08:34,030 --> 00:08:39,560
+00:08:34.030 --> 00:08:39.560
 to add Refined values to have
 composite Refined values?
 
 133
-00:08:39,560 --> 00:08:43,790
+00:08:39.560 --> 00:08:43.790
 >> You mean doing, for example,
 one plus one on a Refined value?
 
 134
-00:08:43,790 --> 00:08:44,810
+00:08:43.790 --> 00:08:44.810
 >> Sort of.
 
 135
-00:08:44,810 --> 00:08:49,710
+00:08:44.810 --> 00:08:49.710
 I mean saying that to
 refine this value needs to
 
 136
-00:08:49,710 --> 00:08:53,750
+00:08:49.710 --> 00:08:53.750
 both be uppercase and
 both be a length of ten.
 
 137
-00:08:55,600 --> 00:09:00,980
+00:08:55.600 --> 00:09:00.980
 >> I'm actually not sure exactly how
 it's used and that's the idea behind
 
 138
-00:09:02,265 --> 00:09:05,970
+00:09:02.265 --> 00:09:05.970
 looking into this library
 was to see what my
 
 139
-00:09:07,370 --> 00:09:11,216
+00:09:07.370 --> 00:09:11.216
 first thoughts are in just
 as a skimming sort of view.
 
 140
-00:09:11,216 --> 00:09:17,020
+00:09:11.216 --> 00:09:17.020
 So, is it going to appeal enough for me
 to actually sit down and start using it?
 
 141
-00:09:17,020 --> 00:09:21,850
+00:09:17.020 --> 00:09:21.850
 I could go in there and start writing
 it and see if it feels natural.
 
 142
-00:09:21,850 --> 00:09:25,493
+00:09:21.850 --> 00:09:25.493
 If it just feels very unnatural, or
 
 143
-00:09:25,493 --> 00:09:29,420
+00:09:25.493 --> 00:09:29.420
 just completely different
 than what we're used to.
 
 144
-00:09:29,420 --> 00:09:32,660
+00:09:29.420 --> 00:09:32.660
 And I can't actually answer
 the question that you're asking there.
 
 145
-00:09:32,660 --> 00:09:33,980
+00:09:32.660 --> 00:09:33.980
 >> Right.
 
 146
-00:09:33,980 --> 00:09:38,360
+00:09:33.980 --> 00:09:38.360
 >> If it were the case that you can
 do that then that's an extra plus.
 
 147
-00:09:38,360 --> 00:09:43,660
+00:09:38.360 --> 00:09:43.660
 >> Right, and actually that's
 a little bit of a warning sign to me,
 
 148
-00:09:43,660 --> 00:09:46,800
+00:09:43.660 --> 00:09:46.800
 and something I see too commonly
 in Haskell libraries is
 
 149
-00:09:46,800 --> 00:09:50,640
+00:09:46.800 --> 00:09:50.640
 if you can't communicate the really
 valuable pieces like that.
 
 150
-00:09:50,640 --> 00:09:55,490
+00:09:50.640 --> 00:09:55.490
 So if you can't show how to move past
 the trivial examples to something more
 
 151
-00:09:55,490 --> 00:10:01,170
+00:09:55.490 --> 00:10:01.170
 complicated but also more useful,
 that's a marketing problem as well.
 
 152
-00:10:01,170 --> 00:10:02,740
+00:10:01.170 --> 00:10:02.740
 >> Yeah, I agree.
 
 153
-00:10:02,740 --> 00:10:07,390
+00:10:02.740 --> 00:10:07.390
 I had the same thought, I said I'm
 probably gonna have a different mindset,
 
 154
-00:10:07,390 --> 00:10:10,920
+00:10:07.390 --> 00:10:10.920
 when I actually go in there and
 play around with it.
 
 155
-00:10:10,920 --> 00:10:14,860
+00:10:10.920 --> 00:10:14.860
 But I thought it was more
 valuable to have that
 
 156
-00:10:14,860 --> 00:10:17,860
+00:10:14.860 --> 00:10:17.860
 viewpoint where I actually
 haven't used the code.
 
 157
-00:10:17,860 --> 00:10:22,684
+00:10:17.860 --> 00:10:22.684
 I'm just going by what the author
 has told me about it, and
 
 158
-00:10:22,684 --> 00:10:25,839
+00:10:22.684 --> 00:10:25.839
 so far I'm not 100% agreed on it.
 
 159
-00:10:25,839 --> 00:10:28,809
+00:10:25.839 --> 00:10:28.809
 >> Mm-hm.
 >> And I think having a little more
 
 160
-00:10:28,809 --> 00:10:35,062
+00:10:28.809 --> 00:10:35.062
 examples that could help you understand
 what the library is meant to fix and
 
 161
-00:10:35,062 --> 00:10:39,615
+00:10:35.062 --> 00:10:39.615
 how it fixes it would
 benefit the adoption of it.
 
 162
-00:10:39,615 --> 00:10:43,945
+00:10:39.615 --> 00:10:43.945
 >> Right, and I think it's really
 valuable for you to look at this from
 
 163
-00:10:43,945 --> 00:10:47,765
+00:10:43.945 --> 00:10:47.765
 the mindset of somebody who's just
 thinking about looking at Haskell,
 
 164
-00:10:47,765 --> 00:10:51,435
+00:10:47.765 --> 00:10:51.435
 thinking about adopting Haskell for
 some of these benefits they heard about.
 
 165
-00:10:51,435 --> 00:10:54,676
+00:10:51.435 --> 00:10:54.676
 Or maybe is a Haskell user who's
 thinking about putting more
 
 166
-00:10:54,676 --> 00:10:56,905
+00:10:54.676 --> 00:10:56.905
 type safety into their code base.
 
 167
-00:10:56,905 --> 00:11:00,770
+00:10:56.905 --> 00:11:00.770
 That's pretty similar to
 the mindset they're going to be in.
 
 168
-00:11:00,770 --> 00:11:06,293
+00:11:00.770 --> 00:11:06.293
 And I think you found a valuable
 opportunity for anyone who's writing blog
 
 169
-00:11:06,293 --> 00:11:12,092
+00:11:06.293 --> 00:11:12.092
 posts about Refined or any documentation,
 and that is to give more examples.
 
 170
-00:11:12,092 --> 00:11:15,995
+00:11:12.092 --> 00:11:15.995
 And this is true through Haskell
 documentation in general, but
 
 171
-00:11:15,995 --> 00:11:20,043
+00:11:15.995 --> 00:11:20.043
 especially in here you wanna motivate
 not only the simple cases but
 
 172
-00:11:20,043 --> 00:11:22,010
+00:11:20.043 --> 00:11:22.010
 the intermediately advanced.
 
 173
-00:11:23,120 --> 00:11:27,250
+00:11:23.120 --> 00:11:27.250
 >> Yes, and I actually have
 a comment on that one as well.
 
 174
-00:11:27,250 --> 00:11:32,140
+00:11:27.250 --> 00:11:32.140
 The last part of the blog post where
 they show the examples of using
 
 175
-00:11:32,140 --> 00:11:34,940
+00:11:32.140 --> 00:11:34.940
 Refined inside of a JSON type.
 
 176
-00:11:34,940 --> 00:11:39,290
+00:11:34.940 --> 00:11:39.290
 As a used case to use Refined to
 
 177
-00:11:39,290 --> 00:11:44,420
+00:11:39.290 --> 00:11:44.420
 make sure that your JSON parsing
 matches want you want it to be,
 
 178
-00:11:44,420 --> 00:11:48,920
+00:11:44.420 --> 00:11:48.920
 that seems like what Refined was
 meant to do, at least in my eyesight.
 
 179
-00:11:48,920 --> 00:11:55,000
+00:11:48.920 --> 00:11:55.000
 As a server developer for Haskell,
 JSON parsing is pretty much a lot of what
 
 180
-00:11:55,000 --> 00:12:00,560
+00:11:55.000 --> 00:12:00.560
 we do so we wanna make sure that the input
 that comes in is what we want it to be.
 
 181
-00:12:00,560 --> 00:12:06,590
+00:12:00.560 --> 00:12:06.590
 And I think Refined
 attempted to use liaison
 
 182
-00:12:07,990 --> 00:12:12,305
+00:12:07.990 --> 00:12:12.305
 library to help type these
 JSON values a little better.
 
 183
-00:12:12,305 --> 00:12:13,050
+00:12:12.305 --> 00:12:13.050
 >> Right.
 
 184
-00:12:13,050 --> 00:12:18,240
+00:12:13.050 --> 00:12:18.240
 >> However, that seemed to me like
 it was an afterthought, it was okay.
 
 185
-00:12:18,240 --> 00:12:19,590
+00:12:18.240 --> 00:12:19.590
 We also did this.
 
 186
-00:12:19,590 --> 00:12:24,590
+00:12:19.590 --> 00:12:24.590
 They never went into what you can do
 with it or what the code can do what?
 
 187
-00:12:24,590 --> 00:12:29,170
+00:12:24.590 --> 00:12:29.170
 When you're writing it, if it can make
 the parsing less verbose or maybe more
 
 188
-00:12:29,170 --> 00:12:34,810
+00:12:29.170 --> 00:12:34.810
 concise, things like that, is what I want
 to see when I'm reading a blog post.
 
 189
-00:12:34,810 --> 00:12:37,160
+00:12:34.810 --> 00:12:37.160
 It is a fine line though, right?
 
 190
-00:12:37,160 --> 00:12:40,640
+00:12:37.160 --> 00:12:40.640
 >> Mm-hm, so what they left is
 a footnote about JSON there.
 
 191
-00:12:40,640 --> 00:12:43,350
+00:12:40.640 --> 00:12:43.350
 You would have maybe like to
 see them leave with that and
 
 192
-00:12:43,350 --> 00:12:45,790
+00:12:43.350 --> 00:12:45.790
 then expound upon that example.
 
 193
-00:12:45,790 --> 00:12:50,088
+00:12:45.790 --> 00:12:50.088
 >> Yeah, I mean, everyone's thoughts
 on what Refined is good for
 
 194
-00:12:50,088 --> 00:12:52,390
+00:12:50.088 --> 00:12:52.390
 is obviously different.
 
 195
-00:12:52,390 --> 00:12:58,040
+00:12:52.390 --> 00:12:58.040
 I just wanted to get a little
 more information upfront about
 
 196
-00:12:58,040 --> 00:13:03,980
+00:12:58.040 --> 00:13:03.980
 all the different ways you can use
 Refined, not just simple strings and
 
 197
-00:13:03,980 --> 00:13:07,033
+00:13:03.980 --> 00:13:07.033
 then by the way, we also do JSON.
 
 198
-00:13:07,033 --> 00:13:10,360
+00:13:07.033 --> 00:13:10.360
 >> So, look at their example for a second.
 
 199
-00:13:10,360 --> 00:13:15,759
+00:13:10.360 --> 00:13:15.759
 Looks like they find a type called the
 alcohol user, who has a name and an age.
 
 200
-00:13:15,759 --> 00:13:18,378
+00:13:15.759 --> 00:13:18.378
 They have a Refined type to make sure that
 
 201
-00:13:18,378 --> 00:13:21,920
+00:13:18.378 --> 00:13:21.920
 there's at least one
 character in the string.
 
 202
-00:13:21,920 --> 00:13:27,980
+00:13:21.920 --> 00:13:27.980
 Where would you have usually verified
 something like that without Refined?
 
 203
-00:13:27,980 --> 00:13:29,790
+00:13:27.980 --> 00:13:29.790
 >> That is a good question.
 
 204
-00:13:29,790 --> 00:13:34,020
+00:13:29.790 --> 00:13:34.020
 That would probably depend on
 how simple the parsing is.
 
 205
-00:13:34,020 --> 00:13:39,558
+00:13:34.020 --> 00:13:39.558
 Most likely I would write it either
 directly inside the ASON instance,
 
 206
-00:13:39,558 --> 00:13:45,150
+00:13:39.558 --> 00:13:45.150
 or as a conversion of the type.
 
 207
-00:13:45,150 --> 00:13:49,420
+00:13:45.150 --> 00:13:49.420
 So if I had a type that
 was an alcohol username,
 
 208
-00:13:49,420 --> 00:13:54,080
+00:13:49.420 --> 00:13:54.080
 I would have a string to alcohol
 username that would type check there and
 
 209
-00:13:54,080 --> 00:13:59,520
+00:13:54.080 --> 00:13:59.520
 make sure you can only convert a string to
 that type if it is at least one character.
 
 210
-00:13:59,520 --> 00:14:00,970
+00:13:59.520 --> 00:14:00.970
 Otherwise you fail.
 
 211
-00:14:00,970 --> 00:14:05,430
+00:14:00.970 --> 00:14:05.430
 >> So the difference that would get us
 is kind of a more declarative way of
 
 212
-00:14:05,430 --> 00:14:08,930
+00:14:05.430 --> 00:14:08.930
 listing out how to parse and
 validate that JSON.
 
 213
-00:14:09,950 --> 00:14:13,810
+00:14:09.950 --> 00:14:13.810
 >> Right, and if it would also remove
 a little bit of the boilerplate code
 
 214
-00:14:13,810 --> 00:14:14,600
+00:14:13.810 --> 00:14:14.600
 required to do so.
 
 215
-00:14:15,860 --> 00:14:19,990
+00:14:15.860 --> 00:14:19.990
 >> Right, yeah for
 building a [INAUDIBLE] syntax for
 
 216
-00:14:19,990 --> 00:14:22,240
+00:14:19.990 --> 00:14:22.240
 building the data and stuff like that.
 
 217
-00:14:22,240 --> 00:14:23,170
+00:14:22.240 --> 00:14:23.170
 >> Yeah.
 
 218
-00:14:23,170 --> 00:14:25,820
+00:14:23.170 --> 00:14:25.820
 >> Thanks for
 being on the show with me today, Andres.
 
 219
-00:14:25,820 --> 00:14:27,400
+00:14:25.820 --> 00:14:27.400
 >> Yeah, thank you very much.
 
 220
-00:14:27,400 --> 00:14:29,380
+00:14:27.400 --> 00:14:29.380
 It was fun doing this.
 
 221
-00:14:29,380 --> 00:14:34,760
+00:14:29.380 --> 00:14:34.760
 And something that I actually forgot to
 mention at the beginning, I have just
 
 222
-00:14:34,760 --> 00:14:40,450
+00:14:34.760 --> 00:14:40.450
 started doing Haskell a couple months ago,
 so most of this stuff is brand new to me.
 
 223
-00:14:40,450 --> 00:14:45,880
+00:14:40.450 --> 00:14:45.880
 And it helps a lot to read about these
 libraries that people want to implement,
 
 224
-00:14:45,880 --> 00:14:50,940
+00:14:45.880 --> 00:14:50.940
 just to understand what
 people's thoughts are in terms
 
 225
-00:14:50,940 --> 00:14:56,050
+00:14:50.940 --> 00:14:56.050
 of Haskell's strict type system and
 where it needs to be improved in.
 
 226
-00:14:56,050 --> 00:14:58,630
+00:14:56.050 --> 00:14:58.630
 >> Thanks for that very valuable input.
 
 227
-00:14:58,630 --> 00:15:01,860
+00:14:58.630 --> 00:15:01.860
 And thank you for
 listening to the Haskell Weekly podcast.
 
 228
-00:15:01,860 --> 00:15:06,730
+00:15:01.860 --> 00:15:06.730
 If you liked what you heard, find out
 more at our website HaskellWeekly.news.
 
 229
-00:15:06,730 --> 00:15:09,110
+00:15:06.730 --> 00:15:09.110
 Also, please rate and review us on iTunes.
 
 230
-00:15:09,110 --> 00:15:10,630
+00:15:09.110 --> 00:15:10.630
 It helps a lot.
 
 231
-00:15:10,630 --> 00:15:11,960
+00:15:10.630 --> 00:15:11.960
 Thanks again for listening.
 
 232
-00:15:11,960 --> 00:15:13,478
+00:15:11.960 --> 00:15:13.478
 We'll see you again next week.
 
 233
-00:15:13,478 --> 00:15:18,401
+00:15:13.478 --> 00:15:18.401
 [MUSIC]

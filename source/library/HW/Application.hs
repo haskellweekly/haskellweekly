@@ -25,6 +25,7 @@ import qualified HW.Handler.Search
 import qualified HW.Handler.Sitemap
 import qualified HW.Handler.Survey
 import qualified HW.Type.App
+import qualified HW.Type.Number
 import qualified HW.Type.Route
 import qualified HW.Type.State
 import qualified Network.Wai
@@ -65,6 +66,11 @@ handle route request = case route of
   HW.Type.Route.RouteAdvertising -> HW.Handler.Advertising.advertisingHandler
   HW.Type.Route.RouteAppleBadge ->
     HW.Handler.Base.fileResponse "image/svg+xml" "apple-podcasts.svg"
+  HW.Type.Route.RouteCaptions number ->
+    HW.Handler.Base.fileResponse "text/vtt"
+      $ "podcast/episode-"
+      <> Data.Text.unpack (HW.Type.Number.numberToText number)
+      <> ".vtt"
   HW.Type.Route.RouteEpisode number ->
     HW.Handler.Episode.episodeHandler number
   HW.Type.Route.RouteFavicon ->

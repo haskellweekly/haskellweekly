@@ -43,7 +43,7 @@ main = do
     Control.Monad.forM_ entries $ \entry -> do
       let file = System.FilePath.combine directory entry
       contents <- Data.Text.IO.readFile file
-      case HaskellWeekly.parseSrt contents of
+      case HaskellWeekly.parseVtt contents of
         Nothing -> fail entry
         Just captions ->
           Control.Monad.void

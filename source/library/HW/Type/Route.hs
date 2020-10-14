@@ -16,6 +16,7 @@ import qualified HW.Type.Redirect
 data Route
   = RouteAdvertising
   | RouteAppleBadge
+  | RouteCaptions HW.Type.Number.Number
   | RouteEpisode HW.Type.Number.Number
   | RouteFavicon
   | RouteGoogleBadge
@@ -45,6 +46,8 @@ routeToText :: Route -> Data.Text.Text
 routeToText route = case route of
   RouteAdvertising -> "/advertising.html"
   RouteAppleBadge -> "/apple-podcasts.svg"
+  RouteCaptions number ->
+    "/captions/" <> HW.Type.Number.numberToText number <> ".vtt"
   RouteEpisode number ->
     "/episode/" <> HW.Type.Number.numberToText number <> ".html"
   RouteFavicon -> "/favicon.ico"
@@ -79,6 +82,7 @@ textToRoute path = case path of
   [] -> Just RouteIndex
   ["advertising.html"] -> Just RouteAdvertising
   ["apple-podcasts.svg"] -> Just RouteAppleBadge
+  ["captions", file] -> routeContent "vtt" RouteCaptions file
   ["episode", file] -> routeContent "html" RouteEpisode file
   ["favicon.ico"] -> Just RouteFavicon
   ["google-podcasts.svg"] -> Just RouteGoogleBadge

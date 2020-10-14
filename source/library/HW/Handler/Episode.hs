@@ -34,19 +34,19 @@ episodeHandler number = do
             episode
             captions
 
--- | Reads a caption file and parses it as SRT. This will return nothing if the
--- file doesn't exist. If parsing fails, this will raise an exception.
+-- | Reads a caption file and parses it as WebVTT. This will return nothing if
+-- the file doesn't exist. If parsing fails, this will raise an exception.
 readCaptionFile
   :: HW.Type.Number.Number -> HW.Type.App.App [HW.Type.Caption.Caption]
 readCaptionFile number = do
   let
     name = "episode-" <> HW.Type.Number.numberToText number
-    file = System.FilePath.addExtension (Data.Text.unpack name) "srt"
+    file = System.FilePath.addExtension (Data.Text.unpack name) "vtt"
     path = System.FilePath.combine "podcast" file
   byteString <- HW.Type.App.readDataFile path
   text <- case Data.Text.Encoding.decodeUtf8' byteString of
     Left exception -> fail $ show exception
     Right text -> pure text
-  case HW.Type.Caption.parseSrt text of
+  case HW.Type.Caption.parseVtt text of
     Nothing -> fail $ "failed to parse caption file: " <> show path
     Just captions -> pure captions

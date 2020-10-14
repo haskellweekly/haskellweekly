@@ -1,1133 +1,1135 @@
+WEBVTT
+
 1
-00:00:03,540 --> 00:00:08,460
+00:00:03.540 --> 00:00:08.460
 >> Hello and welcome to the Haskell Weekly podcast. I'm your host, Taylor Fausak.
 
 2
-00:00:08,470 --> 00:00:13,470
+00:00:08.470 --> 00:00:13.470
 I am the lead engineer at ITProTV. And with me today is one
 
 3
-00:00:13,470 --> 00:00:16,730
+00:00:13.470 --> 00:00:16.730
 of the engineers on my team, Cameron Gera. Welcome Cam.
 
 4
-00:00:16,740 --> 00:00:21,690
+00:00:16.740 --> 00:00:21.690
 >> Hey Taylor, it's good to be with you. Well today is a special episode of Haskell Weekly.
 
 5
-00:00:21,700 --> 00:00:26,460
+00:00:21.700 --> 00:00:26.460
 We have a guest. We have someone else from our team here at ITProTV,
 
 6
-00:00:26,640 --> 00:00:28,620
+00:00:26.640 --> 00:00:28.620
 Sara. How's it going today Sara?
 
 7
-00:00:28,630 --> 00:00:30,300
+00:00:28.630 --> 00:00:30.300
 >> It's going good. Thank you all for having
 
 8
-00:00:30,300 --> 00:00:35,070
+00:00:30.300 --> 00:00:35.070
 me.
 >> Well, awesome. Sara it's so exciting to have you here today with us. It's also an
 
 9
-00:00:35,070 --> 00:00:38,940
+00:00:35.070 --> 00:00:38.940
 exciting month in the world of open source because it's
 
 10
-00:00:38,940 --> 00:00:43,730
+00:00:38.940 --> 00:00:43.730
 Hacktoberfest. Which means we have a lot of opportunities
 
 11
-00:00:43,730 --> 00:00:48,170
+00:00:43.730 --> 00:00:48.170
 to commit and contribute to open source projects that are going on
 
 12
-00:00:48,540 --> 00:00:53,170
+00:00:48.540 --> 00:00:53.170
 all over the world. So you know if you check it out it's at
 
 13
-00:00:53,180 --> 00:00:58,090
+00:00:53.180 --> 00:00:58.090
 Hacktoberfest.DigitalOcean.com and there you can kind of figure
 
 14
-00:00:58,090 --> 00:01:02,970
+00:00:58.090 --> 00:01:02.970
 out what it's all about and get started on you know maybe even get a free T
 
 15
-00:01:02,970 --> 00:01:05,550
+00:01:02.970 --> 00:01:05.550
 shirt if you're able to contribute what they need.
 
 16
-00:01:05,940 --> 00:01:07,470
+00:01:05.940 --> 00:01:07.470
 >> Anything for a free T shirt.
 
 17
-00:01:07,480 --> 00:01:12,430
+00:01:07.480 --> 00:01:12.430
 >> Exactly Sara. Well here at Haskell Weekly we wanted to share a project called
 
 18
-00:01:12,430 --> 00:01:16,820
+00:01:12.430 --> 00:01:16.820
 Learn4Haskell that is actually a part of the Hacktoberfest
 
 19
-00:01:16,820 --> 00:01:21,530
+00:01:16.820 --> 00:01:21.530
 event. And it's gonna give you the opportunity to get more
 
 20
-00:01:21,530 --> 00:01:25,450
+00:01:21.530 --> 00:01:25.450
 familiar with Haskell and also get that free T shirt I was talking about earlier.
 
 21
-00:01:25,940 --> 00:01:30,640
+00:01:25.940 --> 00:01:30.640
 But you know, that's about it for the events and things that are going on
 
 22
-00:01:30,650 --> 00:01:35,610
+00:01:30.650 --> 00:01:35.610
 from our side. But today we have some really great content. So Taylor, what
 
 23
-00:01:35,610 --> 00:01:36,760
+00:01:35.610 --> 00:01:36.760
 are we talking about today?
 
 24
-00:01:36,770 --> 00:01:41,420
+00:01:36.770 --> 00:01:41.420
 >> Today we're gonna be talking about getting recursively drunk with monoids,
 
 25
-00:01:41,430 --> 00:01:46,430
+00:01:41.430 --> 00:01:46.430
 which is a blog post by Simon Shine. And this is really exciting because we're in the
 
 26
-00:01:46,430 --> 00:01:51,200
+00:01:46.430 --> 00:01:51.200
 spookiest month and what's spookier than a recursive cocktail? I can't think of
 
 27
-00:01:51,200 --> 00:01:51,660
+00:01:51.200 --> 00:01:51.660
 anything.
 
 28
-00:01:51,840 --> 00:01:56,070
+00:01:51.840 --> 00:01:56.070
 >> Mmm. Love me some recursive cocktails. That was Friday night.
 
 29
-00:01:56,440 --> 00:01:57,620
+00:01:56.440 --> 00:01:57.620
 Definitely got hit with
 
 30
-00:01:57,620 --> 00:02:00,460
+00:01:57.620 --> 00:02:00.460
 that.
 >> Take a drink, and then you take another drink. That's recursion,
 
 31
-00:02:00,460 --> 00:02:02,350
+00:02:00.460 --> 00:02:02.350
 right?
 >> Yes.
 >> Yeah.
 
 32
-00:02:02,360 --> 00:02:06,930
+00:02:02.360 --> 00:02:06.930
 >> But for me, you know, someone else is pouring the beer on the other side, so it just kept coming.
 
 33
-00:02:06,940 --> 00:02:10,690
+00:02:06.940 --> 00:02:10.690
 Gotta funnel that every once in a while.
 
 34
-00:02:10,700 --> 00:02:11,710
+00:02:10.700 --> 00:02:11.710
 >> That's true.
 
 35
-00:02:11,720 --> 00:02:16,670
+00:02:11.720 --> 00:02:16.670
 >> We decided to dig into this blog post because we like semigroups and monoids,
 
 36
-00:02:16,680 --> 00:02:21,500
+00:02:16.680 --> 00:02:21.500
 but this is a really light hearted take on it, even though it is still informative so you
 
 37
-00:02:21,500 --> 00:02:23,570
+00:02:21.500 --> 00:02:23.570
 can laugh and learn at the same time.
 >> Wow!
 
 38
-00:02:24,140 --> 00:02:28,960
+00:02:24.140 --> 00:02:28.960
 >> It's definitely the funniest blog post I've read in 2020. Every good blog post should include a Rick and
 
 39
-00:02:28,960 --> 00:02:30,350
+00:02:28.960 --> 00:02:30.350
 Morty joke, in my opinion.
 
 40
-00:02:30,360 --> 00:02:35,300
+00:02:30.360 --> 00:02:35.300
 >> Yeah, that's kind of a low bar to clear for 2020 though. I mean, there's not a lot of good
 
 41
-00:02:35,300 --> 00:02:37,980
+00:02:35.300 --> 00:02:37.980
 stuff going on in this year, but this is one
 
 42
-00:02:37,980 --> 00:02:40,220
+00:02:37.980 --> 00:02:40.220
 of them.
 >> But this blog post is a shining star!
 
 43
-00:02:40,230 --> 00:02:45,150
+00:02:40.230 --> 00:02:45.150
 >> Very true. As you can guess from the title. This blog post is about monoids
 
 44
-00:02:45,150 --> 00:02:50,050
+00:02:45.150 --> 00:02:50.050
 and also about semigroups, which are, you know, a related concept. But I think
 
 45
-00:02:50,060 --> 00:02:55,030
+00:02:50.060 --> 00:02:55.030
 those can sometimes scare people away. And I'm curious. Cam, do you feel like the first
 
 46
-00:02:55,030 --> 00:02:58,950
+00:02:55.030 --> 00:02:58.950
 time you heard about semigroups and monoids were you scared or you like, what is that?
 
 47
-00:02:58,960 --> 00:03:03,920
+00:02:58.960 --> 00:03:03.920
 >> Yeah, it was a little bit of both. You know, there's inquisitive side of
 
 48
-00:03:03,920 --> 00:03:08,650
+00:03:03.920 --> 00:03:08.650
 it, you know. I never really heard about it. I never really had an experience. So
 
 49
-00:03:08,740 --> 00:03:13,160
+00:03:08.740 --> 00:03:13.160
 you know, it's that mystery. What is it? And you know, coming to read this blog post and
 
 50
-00:03:13,170 --> 00:03:17,470
+00:03:13.170 --> 00:03:17.470
 actually the blog post that inspired this one, which is in the
 
 51
-00:03:18,040 --> 00:03:22,630
+00:03:18.040 --> 00:03:22.630
 getting recursively drunk with monoids post. It kind of allowed me to kind of just
 
 52
-00:03:22,640 --> 00:03:27,390
+00:03:22.640 --> 00:03:27.390
 get a good firm definition of what semigroups and monoids
 
 53
-00:03:27,390 --> 00:03:32,210
+00:03:27.390 --> 00:03:32.210
 are, which semigroups are a way to combine
 
 54
-00:03:32,220 --> 00:03:36,980
+00:03:32.220 --> 00:03:36.980
 two items. And, you know, in Haskell we have we can derive an instance for
 
 55
-00:03:36,980 --> 00:03:41,940
+00:03:36.980 --> 00:03:41.940
 that, whether it be custom or just via deriving like we talked about
 
 56
-00:03:41,940 --> 00:03:46,650
+00:03:41.940 --> 00:03:46.650
 last week in the Haskell Weekly podcast. And, you know, that allows us
 
 57
-00:03:46,650 --> 00:03:51,430
+00:03:46.650 --> 00:03:51.430
 to merge various maps and different data
 
 58
-00:03:51,430 --> 00:03:56,350
+00:03:51.430 --> 00:03:56.350
 structures that have a lot of commonality. But we don't wanna have to always do the boilerplate around
 
 59
-00:03:56,350 --> 00:04:00,870
+00:03:56.350 --> 00:04:00.870
 that. So, uh, you know, that was really cool. And, you know, one fact about
 
 60
-00:04:00,880 --> 00:04:05,510
+00:04:00.880 --> 00:04:05.510
 the semigroup is it carries over the law of associativity.
 
 61
-00:04:05,510 --> 00:04:10,230
+00:04:05.510 --> 00:04:10.230
 So, in mathematics, you've probably experienced that or learned about it
 
 62
-00:04:10,240 --> 00:04:14,950
+00:04:10.240 --> 00:04:14.950
 in algebra, uh, kind of that fun stuff that we all learned back in sixth,
 
 63
-00:04:14,950 --> 00:04:19,330
+00:04:14.950 --> 00:04:19.330
 seventh, eighth grade. And, you know, sometimes we forget when we program and we're like,
 
 64
-00:04:19,340 --> 00:04:19,790
+00:04:19.340 --> 00:04:19.790
 oh yeah,
 
 65
-00:04:19,790 --> 00:04:22,260
+00:04:19.790 --> 00:04:22.260
 that's really nice. So.
 
 66
-00:04:22,740 --> 00:04:27,480
+00:04:22.740 --> 00:04:27.480
 >> Yeah, and just in case anybody has for gotten since sixth grade or whenever they learned it in the first
 
 67
-00:04:27,480 --> 00:04:32,450
+00:04:27.480 --> 00:04:32.450
 time associativity is where If you want to add, like, let's say X plus Y plus
 
 68
-00:04:32,450 --> 00:04:37,450
+00:04:32.450 --> 00:04:37.450
 Z, it doesn't matter if you do X plus Y first or Y plus Z first.
 
 69
-00:04:37,460 --> 00:04:42,400
+00:04:37.460 --> 00:04:42.400
 Um and it can be instructive to think about things that aren't associative. So,
 
 70
-00:04:42,400 --> 00:04:47,020
+00:04:42.400 --> 00:04:47.020
 like division. It matters which one you do first. But with addition, it
 
 71
-00:04:47,020 --> 00:04:51,650
+00:04:47.020 --> 00:04:51.650
 doesn't. So you're free to do them in any order. And that's what a semigroup requires you to be able to do.
 
 72
-00:04:52,040 --> 00:04:56,400
+00:04:52.040 --> 00:04:56.400
 >> Right. And then we've got monoid which allows you to have a
 
 73
-00:04:56,410 --> 00:05:01,180
+00:04:56.410 --> 00:05:01.180
 default implementation for a semigroup. So you know, when you're
 
 74
-00:05:01,180 --> 00:05:06,040
+00:05:01.180 --> 00:05:06.040
 dealing with a map, you can merge a map that has items and merge a map that has
 
 75
-00:05:06,040 --> 00:05:10,390
+00:05:06.040 --> 00:05:10.390
 nothing and monoid is kind of what allows you to do that on so yeah.
 
 76
-00:05:10,390 --> 00:05:11,570
+00:05:10.390 --> 00:05:11.570
 >> Ye old mempty.
 
 77
-00:05:11,900 --> 00:05:16,850
+00:05:11.900 --> 00:05:16.850
 >> Mmm mempty.
 >> Mmm mempty.
 >> Whenever my stomach gets mempty. I
 
 78
-00:05:16,850 --> 00:05:20,370
+00:05:16.850 --> 00:05:20.370
 gotta hit the pantry and make sure I got some food. Especially.
 
 79
-00:05:20,380 --> 00:05:22,230
+00:05:20.380 --> 00:05:22.230
 >> You gotta mappend some food in there.
 
 80
-00:05:22,240 --> 00:05:25,930
+00:05:22.240 --> 00:05:25.930
 >> Oh yeah, all about them monoids and semigroups
 
 81
-00:05:25,930 --> 00:05:28,710
+00:05:25.930 --> 00:05:28.710
 >> If you got a mempty tummy you gotta mappend some snacks.
 
 82
-00:05:28,720 --> 00:05:33,340
+00:05:28.720 --> 00:05:33.340
 >> Mmhmm. Or some of Sara's delicious cookies. Ship them
 
 83
-00:05:33,340 --> 00:05:37,890
+00:05:33.340 --> 00:05:37.890
 to me!
 >> Soon!
 
 84
-00:05:37,900 --> 00:05:42,520
+00:05:37.900 --> 00:05:42.520
 >> But anyways, back to this blog post. Um, yeah. So,
 
 85
-00:05:42,530 --> 00:05:47,230
+00:05:42.530 --> 00:05:47.230
 Taylor, you know, kind of, dive in more. What was the the big talk?
 
 86
-00:05:47,240 --> 00:05:51,870
+00:05:47.240 --> 00:05:51.870
 >> I think the big idea here was that if you squint a little bit, you can
 
 87
-00:05:51,870 --> 00:05:56,810
+00:05:51.870 --> 00:05:56.810
 model cocktails as monoids. And I have to say, as
 
 88
-00:05:56,810 --> 00:06:01,470
+00:05:56.810 --> 00:06:01.470
 somebody who has made a handful of mixed drinks myself, there's some questions
 
 89
-00:06:01,470 --> 00:06:05,950
+00:06:01.470 --> 00:06:05.950
 lingering on if you can really do this or not, but I'll ride with it for this post. You know
 
 90
-00:06:06,140 --> 00:06:10,880
+00:06:06.140 --> 00:06:10.880
 so when they say a cocktail could be modeled as a monoid we have to kind
 
 91
-00:06:10,880 --> 00:06:15,310
+00:06:10.880 --> 00:06:15.310
 of meet all of the things that we just laid out. We have to be able to
 
 92
-00:06:15,310 --> 00:06:20,250
+00:06:15.310 --> 00:06:20.250
 combine cocktails associatively, and we have to have an empty
 
 93
-00:06:20,250 --> 00:06:25,090
+00:06:20.250 --> 00:06:25.090
 cocktail. Now the empty cocktail is really easy because it's just
 
 94
-00:06:25,100 --> 00:06:26,410
+00:06:25.100 --> 00:06:26.410
 nothing. No cocktail.
 
 95
-00:06:26,420 --> 00:06:31,310
+00:06:26.420 --> 00:06:31.310
 >> But you gotta be careful when combining your cocktails. Remember beer before liquor. Never
 
 96
-00:06:31,310 --> 00:06:33,900
+00:06:31.310 --> 00:06:33.900
 sicker liquor before beer in the clear.
 
 97
-00:06:34,040 --> 00:06:38,870
+00:06:34.040 --> 00:06:38.870
 >> Or you end up with a Molotov cocktail. You know, that's also very dangerous.
 
 98
-00:06:39,640 --> 00:06:43,340
+00:06:39.640 --> 00:06:43.340
 >> I hope we're not talking about that type of cocktail in this post.
 
 99
-00:06:43,350 --> 00:06:45,380
+00:06:43.350 --> 00:06:45.380
 >> I mean, who knows?
 
 100
-00:06:45,510 --> 00:06:49,970
+00:06:45.510 --> 00:06:49.970
 >> These seem like the drinkable ones To be fair. Gin and tonic is usually for
 
 101
-00:06:49,970 --> 00:06:54,360
+00:06:49.970 --> 00:06:54.360
 drinking. Molotov, I believe, is for lighting things on fire.
 
 102
-00:06:55,740 --> 00:06:59,950
+00:06:55.740 --> 00:06:59.950
 >> Yeah, I gotta rewatch The Good Place to make sure I understand that.
 >> Bortles!
 
 103
-00:07:00,340 --> 00:07:05,030
+00:07:00.340 --> 00:07:05.030
 >> To be fair --
 >> Jacksonville!
 >> -- though this post is definitely lighting a fire in
 
 104
-00:07:05,030 --> 00:07:05,690
+00:07:05.030 --> 00:07:05.690
 us
 
 105
-00:07:05,700 --> 00:07:10,620
+00:07:05.700 --> 00:07:10.620
 >> And this conversation, right? It's sparking this conversation.
 
 106
-00:07:10,630 --> 00:07:13,190
+00:07:10.630 --> 00:07:13.190
 >> Exactly. It all comes back.
 
 107
-00:07:13,200 --> 00:07:18,150
+00:07:13.200 --> 00:07:18.150
 >> Well, anyways, we've got cocktails. We're talking about real drinking cocktails here, right? One
 
 108
-00:07:18,150 --> 00:07:22,770
+00:07:18.150 --> 00:07:22.770
 that has a name, you know, like sex on the beach or
 
 109
-00:07:23,440 --> 00:07:28,360
+00:07:23.440 --> 00:07:28.360
 gosh, rum and coke. Yeah.
 >> Old fashioned.
 >> Old fashioned, gin and tonic. Like Sara
 
 110
-00:07:28,360 --> 00:07:33,230
+00:07:28.360 --> 00:07:33.230
 said earlier. Yeah, and this one actually talks a lot about gin and tonic and lemon.
 
 111
-00:07:33,240 --> 00:07:37,830
+00:07:33.240 --> 00:07:37.830
 >> Mojito.
 >> That's actually in the underlying
 
 112
-00:07:37,840 --> 00:07:40,470
+00:07:37.840 --> 00:07:40.470
 post. Which good stuff.
 
 113
-00:07:40,480 --> 00:07:45,320
+00:07:40.480 --> 00:07:45.320
 >> The underlying post was so funny because the idea of combining a mojito and the
 
 114
-00:07:45,330 --> 00:07:50,230
+00:07:45.330 --> 00:07:50.230
 rum drink sounds disgusting, like you can do it in code. But if you
 
 115
-00:07:50,230 --> 00:07:53,640
+00:07:50.230 --> 00:07:53.640
 physically combine those drinks to ingest, that would be very gross.
 
 116
-00:07:53,650 --> 00:07:58,460
+00:07:53.650 --> 00:07:58.460
 >> Oh, yeah. We're not saying that if you mappend two cocktails, you're gonna end up with a
 
 117
-00:07:58,470 --> 00:08:02,080
+00:07:58.470 --> 00:08:02.080
 good cocktail. Just that it is still technically a cocktail.
 
 118
-00:08:02,090 --> 00:08:06,960
+00:08:02.090 --> 00:08:06.960
 >> Yeah I mean, I'm just not sure that guy was 21 yet, so he probably hasn't tried it yet.
 
 119
-00:08:07,040 --> 00:08:09,770
+00:08:07.040 --> 00:08:09.770
 >> This is all in theory, theoretical cocktails.
 
 120
-00:08:09,840 --> 00:08:14,830
+00:08:09.840 --> 00:08:14.830
 >> Right? But anyway, so they've got name and ingredients which they kind of talk about in
 
 121
-00:08:14,830 --> 00:08:19,640
+00:08:14.830 --> 00:08:19.640
 this post. Uh, you know, and there's something called the super
 
 122
-00:08:19,640 --> 00:08:22,400
+00:08:19.640 --> 00:08:22.400
 drink, which I don't know what the heck that is.
 
 123
-00:08:22,410 --> 00:08:27,300
+00:08:22.410 --> 00:08:27.300
 >> Yeah, this is from some Dutch computer science paper. I could not read it, but it looked very
 
 124
-00:08:27,300 --> 00:08:27,840
+00:08:27.300 --> 00:08:27.840
 entertaining.
 
 125
-00:08:27,850 --> 00:08:29,760
+00:08:27.850 --> 00:08:29.760
 >> You know, the Dutch, They can have a good time.
 
 126
-00:08:29,770 --> 00:08:31,660
+00:08:29.770 --> 00:08:31.660
 >> Apparently, they're drinking super drinks.
 
 127
-00:08:32,040 --> 00:08:33,330
+00:08:32.040 --> 00:08:33.330
 >> So what is the super drink?
 
 128
-00:08:33,340 --> 00:08:37,950
+00:08:33.340 --> 00:08:37.950
 >> I still don't know? You didn't answer the question. I mean, I read the
 
 129
-00:08:37,950 --> 00:08:41,000
+00:08:37.950 --> 00:08:41.000
 post. I don't speak Dutch, so I couldn't read the
 
 130
-00:08:41,010 --> 00:08:45,750
+00:08:41.010 --> 00:08:45.750
 post.
 >> The post lays it out here as one part gin, two parts lemon
 
 131
-00:08:45,760 --> 00:08:50,200
+00:08:45.760 --> 00:08:50.200
 and three parts super drink. So a super drink contains super
 
 132
-00:08:50,200 --> 00:08:52,350
+00:08:50.200 --> 00:08:52.350
 drink. And this is where the recursion in comes
 
 133
-00:08:52,350 --> 00:08:55,220
+00:08:52.350 --> 00:08:55.220
 in
 >> Oh my gosh, my mind is blown.
 
 134
-00:08:55,230 --> 00:08:57,170
+00:08:55.230 --> 00:08:57.170
 >> It's just super drinks all the way down.
 
 135
-00:08:57,340 --> 00:09:02,300
+00:08:57.340 --> 00:09:02.300
 >> Wowsers!
 >> Sure is.
 >> Yeah. I mean, not gonna lie. Missed that this whole time I've
 
 136
-00:09:02,300 --> 00:09:07,240
+00:09:02.300 --> 00:09:07.240
 read this blog post like four times. Still didn't click which I gotta
 
 137
-00:09:07,250 --> 00:09:10,400
+00:09:07.250 --> 00:09:10.400
 slow down and work on my.
 >> Slow
 
 138
-00:09:10,400 --> 00:09:13,550
+00:09:10.400 --> 00:09:13.550
 down, pour yourself a super drink and then understand super
 
 139
-00:09:13,550 --> 00:09:17,870
+00:09:13.550 --> 00:09:17.870
 drinks.
 >> Good stuff. Anyhoo, um
 
 140
-00:09:18,740 --> 00:09:23,550
+00:09:18.740 --> 00:09:23.550
 so last week we talked about deriving right Kowainik
 
 141
-00:09:23,560 --> 00:09:28,440
+00:09:23.560 --> 00:09:28.440
 wrote a blog post in very great detail about it. And we talked about that
 
 142
-00:09:28,450 --> 00:09:32,060
+00:09:28.450 --> 00:09:32.060
 in the previous edition. And, you know,
 
 143
-00:09:32,940 --> 00:09:37,700
+00:09:32.940 --> 00:09:37.700
 we're talking about semigroups and monoids, which are
 
 144
-00:09:37,700 --> 00:09:41,370
+00:09:37.700 --> 00:09:41.370
 type classes in Haskell. And
 
 145
-00:09:42,540 --> 00:09:44,640
+00:09:42.540 --> 00:09:44.640
 could we derive these things?
 
 146
-00:09:44,690 --> 00:09:49,290
+00:09:44.690 --> 00:09:49.290
 >> So sort of. For the semigroup
 
 147
-00:09:49,290 --> 00:09:54,160
+00:09:49.290 --> 00:09:54.160
 instance unfortunately we couldn't because the way that they chose to represent
 
 148
-00:09:54,840 --> 00:09:59,690
+00:09:54.840 --> 00:09:59.690
 ingredients behind the scenes is a map from the particular ingredient,
 
 149
-00:09:59,690 --> 00:10:04,490
+00:09:59.690 --> 00:10:04.490
 like gin to the amount, like one part or two parts. And
 
 150
-00:10:04,490 --> 00:10:09,080
+00:10:04.490 --> 00:10:09.080
 when you want to combine two sets of ingredients, you have to add those together. So if you have one
 
 151
-00:10:09,080 --> 00:10:13,790
+00:10:09.080 --> 00:10:13.790
 cocktail that has one part gin in it and another cocktail that has two parts gin, you want to end up
 
 152
-00:10:13,790 --> 00:10:17,950
+00:10:13.790 --> 00:10:17.950
 with three parts gin. Hopefully, everyone can follow that math. Um,
 
 153
-00:10:18,540 --> 00:10:23,460
+00:10:18.540 --> 00:10:23.460
 but if you use the derived instance for semigroup.
 
 154
-00:10:24,040 --> 00:10:29,010
+00:10:24.040 --> 00:10:29.010
 Since they're using maps behind the scenes maps will just pick one
 
 155
-00:10:29,010 --> 00:10:33,690
+00:10:29.010 --> 00:10:33.690
 of those to win. So if you're one part gin drink was the quote unquote first
 
 156
-00:10:33,690 --> 00:10:38,350
+00:10:33.690 --> 00:10:38.350
 one, then your result would only have one part gin. So you'd be dropping some parts of your cocktail so you
 
 157
-00:10:38,360 --> 00:10:43,130
+00:10:38.360 --> 00:10:43.130
 would not be able to derive that part unfortunately, But the monoid part, you
 
 158
-00:10:43,130 --> 00:10:47,780
+00:10:43.130 --> 00:10:47.780
 could, because the empty cocktail is the same as the empty map. So we're good there.
 >> I
 
 159
-00:10:47,780 --> 00:10:52,380
+00:10:47.780 --> 00:10:52.380
 mean, I think the empty cocktail means give me some more. Isn't this a
 
 160
-00:10:52,380 --> 00:10:54,960
+00:10:52.380 --> 00:10:54.960
 recursive function. Doesn't this never end?
 
 161
-00:10:55,340 --> 00:10:58,280
+00:10:55.340 --> 00:10:58.280
 >> The infinity cocktail? I like it.
 >> Good stuff.
 
 162
-00:10:58,290 --> 00:11:02,050
+00:10:58.290 --> 00:11:02.050
 >> The super drink. It is the infinite cocktail.
 
 163
-00:11:02,060 --> 00:11:05,610
+00:11:02.060 --> 00:11:05.610
 >> Get you that super drank or drunk
 
 164
-00:11:05,620 --> 00:11:07,780
+00:11:05.620 --> 00:11:07.780
 >> Gets you super drunk. Yeah.
 >> It's
 
 165
-00:11:07,780 --> 00:11:12,750
+00:11:07.780 --> 00:11:12.750
 good to remember that empty cocktails are always empty for the mempty, but you have to
 
 166
-00:11:12,750 --> 00:11:16,120
+00:11:12.750 --> 00:11:16.120
 do something special so that you get all the parts of your cocktail together.
 
 167
-00:11:16,130 --> 00:11:21,080
+00:11:16.130 --> 00:11:21.080
 >> Yeah, and and that's a that's a very good thing to point out, because the derived instances are handy,
 
 168
-00:11:21,090 --> 00:11:25,060
+00:11:21.090 --> 00:11:25.060
 but it means you're getting the default behavior. And here we need something other than the default.
 
 169
-00:11:25,240 --> 00:11:30,170
+00:11:25.240 --> 00:11:30.170
 >> So yeah thanks thanks, Taylor, for that information. What about, you know, kind
 
 170
-00:11:30,170 --> 00:11:35,120
+00:11:30.170 --> 00:11:35.120
 of normalizing part of the combination. They talked about this in the blog post. Could you expand a little bit on
 
 171
-00:11:35,120 --> 00:11:39,940
+00:11:35.120 --> 00:11:39.940
 how they resolved it and what they're you know, they had a hypothesis.
 
 172
-00:11:39,950 --> 00:11:42,670
+00:11:39.950 --> 00:11:42.670
 And what what was the result that ended up happening?
 
 173
-00:11:42,680 --> 00:11:47,540
+00:11:42.680 --> 00:11:47.540
 >> When they're talking about normalizing for cocktails, what they're talking about is taking
 
 174
-00:11:47,540 --> 00:11:52,510
+00:11:47.540 --> 00:11:52.510
 a recipe that says something like two parts gin to four parts lemon
 
 175
-00:11:52,760 --> 00:11:57,610
+00:11:52.760 --> 00:11:57.610
 and reducing it into something that's equivalent, but hopefully simpler, like one
 
 176
-00:11:57,610 --> 00:12:02,210
+00:11:57.610 --> 00:12:02.210
 part gin, two parts lemon. Because you probably wouldn't give a recipe to someone that is more
 
 177
-00:12:02,210 --> 00:12:07,210
+00:12:02.210 --> 00:12:07.210
 complicated than it needs to be because they're drinking these super drinks. They're gonna need things to be simple so that
 
 178
-00:12:07,210 --> 00:12:07,760
+00:12:07.210 --> 00:12:07.760
 they can follow
 
 179
-00:12:07,760 --> 00:12:12,750
+00:12:07.760 --> 00:12:12.750
 along.
 >> Well, my margarita mix that I have in the fridge does say two parts.
 
 180
-00:12:13,120 --> 00:12:17,180
+00:12:13.120 --> 00:12:17.180
 Uh, wow.
 >> Tequila.
 >> Tequila, Thank you.
 
 181
-00:12:17,190 --> 00:12:22,150
+00:12:17.190 --> 00:12:22.150
 And four parts mix.
 >> Magrarita mix.
 >> So yeah, so I
 
 182
-00:12:22,150 --> 00:12:26,450
+00:12:22.150 --> 00:12:26.450
 mean, obviously that manufacturer didn't understand that they could
 
 183
-00:12:26,460 --> 00:12:31,250
+00:12:26.460 --> 00:12:31.250
 simplify it, and maybe they didn't want to because of what they
 
 184
-00:12:31,250 --> 00:12:33,070
+00:12:31.250 --> 00:12:33.070
 found out in this blog post.
 
 185
-00:12:33,140 --> 00:12:38,030
+00:12:33.140 --> 00:12:38.030
 >> It turns out that normalizing has some gotchas because we've been talking about combining
 
 186
-00:12:38,030 --> 00:12:42,750
+00:12:38.030 --> 00:12:42.750
 things and in particular being able to combine them in any order you
 
 187
-00:12:42,750 --> 00:12:47,740
+00:12:42.750 --> 00:12:47.740
 can't normalize after you combine because it may change the thing that you get it the end. So if you're
 
 188
-00:12:47,740 --> 00:12:52,650
+00:12:47.740 --> 00:12:52.650
 trying to combine three cocktails together, it will. You'll get a different result if you
 
 189
-00:12:52,650 --> 00:12:57,540
+00:12:52.650 --> 00:12:57.540
 combine the first two and then the third one or the second two and then the first one. And that's because this
 
 190
-00:12:57,540 --> 00:13:02,440
+00:12:57.540 --> 00:13:02.440
 normalization step removes some of that information from these cocktail recipes.
 
 191
-00:13:02,450 --> 00:13:07,300
+00:13:02.450 --> 00:13:07.300
 >> Mmhmm. So it wouldn't get as good of a drink. Well, at least we figured out what a super
 
 192
-00:13:07,300 --> 00:13:12,150
+00:13:07.300 --> 00:13:12.150
 drink is, You know, at the end of this, they've actually ran the function and
 
 193
-00:13:12,640 --> 00:13:16,510
+00:13:12.640 --> 00:13:16.510
 created what is apparently the super drink, which is
 
 194
-00:13:16,540 --> 00:13:21,530
+00:13:16.540 --> 00:13:21.530
 182 parts gin, 121 parts
 
 195
-00:13:21,540 --> 00:13:25,290
+00:13:21.540 --> 00:13:25.290
 lemon and holy cow. That's a lot of
 
 196
-00:13:25,290 --> 00:13:26,750
+00:13:25.290 --> 00:13:26.750
 alcohol.
 
 197
-00:13:27,140 --> 00:13:28,370
+00:13:27.140 --> 00:13:28.370
 >> Enough for a party.
 
 198
-00:13:28,390 --> 00:13:32,980
+00:13:28.390 --> 00:13:32.980
 >> Yeah, we did the math, and, uh, this comes out to about eight
 
 199
-00:13:32,990 --> 00:13:37,970
+00:13:32.990 --> 00:13:37.970
 liters or two gallons of gin. And I don't know about you. I have a relatively well stocked
 
 200
-00:13:37,980 --> 00:13:41,360
+00:13:37.980 --> 00:13:41.360
 bar, but I don't have two gallons of gin in my bar.
 
 201
-00:13:41,370 --> 00:13:43,570
+00:13:41.370 --> 00:13:43.570
 >> You don't just keep two gallons of gin on hand,
 
 202
-00:13:43,580 --> 00:13:44,780
+00:13:43.580 --> 00:13:44.780
 >> Not even around Christmas.
 
 203
-00:13:44,780 --> 00:13:49,580
+00:13:44.780 --> 00:13:49.580
 >> I mean, I don't think you would remember where you put the gin or where you would get gin after
 
 204
-00:13:49,580 --> 00:13:51,940
+00:13:49.580 --> 00:13:51.940
 drinking that much gin, so.
 
 205
-00:13:51,950 --> 00:13:52,900
+00:13:51.950 --> 00:13:52.900
 >> That's very fair.
 
 206
-00:13:52,910 --> 00:13:55,790
+00:13:52.910 --> 00:13:55.790
 >> I think it's a good thing you don't have to gallons of gin laying around.
 
 207
-00:13:55,800 --> 00:14:00,530
+00:13:55.800 --> 00:14:00.530
 >> Sadly, it means I will not be able to create and then sample one of these super
 
 208
-00:14:00,530 --> 00:14:01,070
+00:14:00.530 --> 00:14:01.070
 drinks.
 
 209
-00:14:01,540 --> 00:14:06,370
+00:14:01.540 --> 00:14:06.370
 >> Yeah, we need you at work on Monday, and I think you'd still be out of it if you had a sip. Now,
 
 210
-00:14:06,380 --> 00:14:08,370
+00:14:06.380 --> 00:14:08.370
 I don't think he'll be back for Monday's work.
 
 211
-00:14:08,380 --> 00:14:10,510
+00:14:08.380 --> 00:14:10.510
 >> I agree. I wouldn't be back.
 
 212
-00:14:10,520 --> 00:14:12,800
+00:14:10.520 --> 00:14:12.800
 >> I know what our next engineering hang out should consist
 
 213
-00:14:12,800 --> 00:14:17,780
+00:14:12.800 --> 00:14:17.780
 of, though.
 >> I'm not so sure.
 >> We'll just do a shot of super drink. How about
 
 214
-00:14:17,780 --> 00:14:22,760
+00:14:17.780 --> 00:14:22.760
 that? That way.
 >> Exactly.
 >> You know, we don't have. Yeah, maybe we'll see if we could
 
 215
-00:14:22,760 --> 00:14:27,520
+00:14:22.760 --> 00:14:27.520
 do some simplification here. Doesn't seem like it's gonna be possible, but we'll
 
 216
-00:14:27,520 --> 00:14:32,030
+00:14:27.520 --> 00:14:32.030
 find out. But yeah, so you know. And you know, this is a fun
 
 217
-00:14:32,030 --> 00:14:36,850
+00:14:32.030 --> 00:14:36.850
 contrived example of, you know, semigroup instances and what they
 
 218
-00:14:36,850 --> 00:14:41,790
+00:14:36.850 --> 00:14:41.790
 do and how they work. But for us in our day to day at ITPro. As
 
 219
-00:14:41,800 --> 00:14:46,550
+00:14:41.800 --> 00:14:46.550
 you know, web application developers and API engineers. You know, we do
 
 220
-00:14:46,940 --> 00:14:51,400
+00:14:46.940 --> 00:14:51.400
 deal with us a lot because we have, you know, various metrics that need to be combined.
 
 221
-00:14:51,410 --> 00:14:56,280
+00:14:51.410 --> 00:14:56.280
 So You know, if someone's watching a video at ITProTV, You know, we need to know, you
 
 222
-00:14:56,280 --> 00:15:01,100
+00:14:56.280 --> 00:15:01.100
 know, figure out how to merge two events that have occurred. So they've watched thirty
 
 223
-00:15:01,100 --> 00:15:05,690
+00:15:01.100 --> 00:15:05.690
 seconds and thirty seconds. Oh, they've actually watched a minute of ITProTV. And so, you know, we
 
 224
-00:15:05,690 --> 00:15:10,570
+00:15:05.690 --> 00:15:10.570
 have those, you know, semigroup examples that we. Actually I
 
 225
-00:15:10,570 --> 00:15:14,760
+00:15:10.570 --> 00:15:14.760
 don't think we have any customization, but I could be wrong. Taylor, do we have any customization there?
 
 226
-00:15:15,140 --> 00:15:20,030
+00:15:15.140 --> 00:15:20.030
 >> I don't know that I would call it customization, but these types that we have, like you mentioned for amount of
 
 227
-00:15:20,030 --> 00:15:24,930
+00:15:20.030 --> 00:15:24.930
 time that a user has watched an episode, they're effectively wrappers around integers.
 
 228
-00:15:24,940 --> 00:15:29,910
+00:15:24.940 --> 00:15:29.910
 But integers don't have a semigroup instance, or a monoid instance because there are
 
 229
-00:15:29,910 --> 00:15:34,660
+00:15:29.910 --> 00:15:34.660
 multiple possibilities. You could choose addition or multiplication. So, really, what we're doing is
 
 230
-00:15:34,660 --> 00:15:37,550
+00:15:34.660 --> 00:15:37.550
 choosing addition for these instances and then using that.
 
 231
-00:15:38,140 --> 00:15:43,060
+00:15:38.140 --> 00:15:43.060
 >> Right. So we don't do anything super fancy but it's super practical and helpful for us when
 
 232
-00:15:43,060 --> 00:15:45,260
+00:15:43.060 --> 00:15:45.260
 trying merge these things together. Sweet.
 
 233
-00:15:45,840 --> 00:15:50,600
+00:15:45.840 --> 00:15:50.600
 >> Yeah, and one of the upsides here is that we don't define that many semigroup
 
 234
-00:15:50,600 --> 00:15:55,530
+00:15:50.600 --> 00:15:55.530
 instances in our code base. But we use a lot of functions that
 
 235
-00:15:55,540 --> 00:16:00,530
+00:15:55.540 --> 00:16:00.530
 rely on semigroup instances. So things like, you know, foldMap
 
 236
-00:16:00,540 --> 00:16:05,400
+00:16:00.540 --> 00:16:05.400
 or, uh, that's the only one that immediately comes to mind. But stuff like that where we don't
 
 237
-00:16:05,400 --> 00:16:10,280
+00:16:05.400 --> 00:16:10.280
 have to write all these little utility functions to smush a bunch of these values together, they're already there for us.
 
 238
-00:16:10,290 --> 00:16:14,810
+00:16:10.290 --> 00:16:14.810
 >> Yeah. And, you know, I think that you bring up a good point there about, like, semigroups were great to
 
 239
-00:16:14,810 --> 00:16:19,750
+00:16:14.810 --> 00:16:19.750
 merge generally two things together. But if you have a list of things you probably want to reach for a
 
 240
-00:16:19,750 --> 00:16:24,600
+00:16:19.750 --> 00:16:24.600
 foldable instance, um which, you know will allow you to kind of
 
 241
-00:16:24,600 --> 00:16:28,960
+00:16:24.600 --> 00:16:28.960
 create the same merging, but over a larger list of, um,
 
 242
-00:16:29,440 --> 00:16:30,500
+00:16:29.440 --> 00:16:30.500
 whatever it may be.
 
 243
-00:16:30,510 --> 00:16:35,500
+00:16:30.510 --> 00:16:35.500
 >> Yeah. So if you had a list of cocktails like maybe an entire cocktail recipe book
 
 244
-00:16:35,510 --> 00:16:39,340
+00:16:35.510 --> 00:16:39.340
 and you wanted to combine them all into one cocktail, that's that's where you need foldable.
 
 245
-00:16:39,350 --> 00:16:43,940
+00:16:39.350 --> 00:16:43.940
 >> Yeah, I don't I think I think that would be a legal in the lower 48 states?
 
 246
-00:16:43,950 --> 00:16:48,880
+00:16:43.950 --> 00:16:48.880
 Well, any who, thanks thanks for sharing that stuff. And, you know, we
 
 247
-00:16:48,880 --> 00:16:53,630
+00:16:48.880 --> 00:16:53.630
 want to give you some, you know, real world examples from from a contrived example. Uh,
 
 248
-00:16:53,640 --> 00:16:58,460
+00:16:53.640 --> 00:16:58.460
 and, you know, I think we've got a good idea of what semigroup and monoid are now
 
 249
-00:16:58,470 --> 00:17:03,390
+00:16:58.470 --> 00:17:03.390
 and how to apply them and use them. Um, yeah. I mean, do you have anything else
 
 250
-00:17:03,390 --> 00:17:04,160
+00:17:03.390 --> 00:17:04.160
 to add here, Taylor?
 
 251
-00:17:04,540 --> 00:17:06,840
+00:17:04.540 --> 00:17:06.840
 >> I think that'll about do it for me. How about you, Sara?
 
 252
-00:17:07,340 --> 00:17:12,150
+00:17:07.340 --> 00:17:12.150
 >> Same. This has been very fun. I feel like we've learned a lot about semigroups
 
 253
-00:17:12,150 --> 00:17:16,860
+00:17:12.150 --> 00:17:16.860
 and monoids and also about cocktails. So very informative podcast day
 
 254
-00:17:16,870 --> 00:17:21,770
+00:17:16.870 --> 00:17:21.770
 >> Win win win. All right, y'all. Well, thank you for listening
 
 255
-00:17:21,780 --> 00:17:26,760
+00:17:21.780 --> 00:17:26.760
 to the Haskell Weekly podcast. I've been your host, Taylor Fausak. And with
 
 256
-00:17:26,760 --> 00:17:31,540
+00:17:26.760 --> 00:17:31.540
 me today was Cameron Gera and Sara Lichtenstein. If you're interested
 
 257
-00:17:31,540 --> 00:17:36,330
+00:17:31.540 --> 00:17:36.330
 in learning more about Haskell Weekly, please check out our website, which is HaskellWeekly.News.
 
 258
-00:17:36,330 --> 00:17:40,930
+00:17:36.330 --> 00:17:40.930
 Or you can check us out on social
 
 259
-00:17:40,930 --> 00:17:45,640
+00:17:40.930 --> 00:17:45.640
 media. Our Twitter handle is @HaskellWeekly. Our Reddit user name
 
 260
-00:17:45,650 --> 00:17:50,610
+00:17:45.650 --> 00:17:50.610
 also u/HaskellWeekly. And if you want to contribute to the Haskell weekly
 
 261
-00:17:50,610 --> 00:17:55,130
+00:17:50.610 --> 00:17:55.130
 newsletter or you have a blog post that you'd like us to talk about here on the
 
 262
-00:17:55,130 --> 00:18:00,040
+00:17:55.130 --> 00:18:00.040
 podcast, please let us know on GitHub. And our GitHub user name once
 
 263
-00:18:00,040 --> 00:18:01,560
+00:18:00.040 --> 00:18:01.560
 again, HaskellWeekly.
 
 264
-00:18:02,040 --> 00:18:07,030
+00:18:02.040 --> 00:18:07.030
 >> Nice, awesome. Well, And also, you know, we want to thank our sponsor ITProTV
 
 265
-00:18:07,030 --> 00:18:11,820
+00:18:07.030 --> 00:18:11.820
 for allowing us to create this podcast. And if you're interested in
 
 266
-00:18:11,830 --> 00:18:16,750
+00:18:11.830 --> 00:18:16.750
 learning more about ITProTV and subscribing to the content we have available, we
 
 267
-00:18:16,750 --> 00:18:21,720
+00:18:16.750 --> 00:18:21.720
 would love to offer you a coupon code the coupon code is HaskellWeekly30 which will give you
 
 268
-00:18:21,720 --> 00:18:26,640
+00:18:21.720 --> 00:18:26.640
 30% off all of our memberships, and we'll be able to give you access to an entire
 
 269
-00:18:26,640 --> 00:18:31,390
+00:18:26.640 --> 00:18:31.390
 library of IT content. So please check it out. Free subscription as well, if you'd like
 
 270
-00:18:31,390 --> 00:18:36,370
+00:18:31.390 --> 00:18:36.370
 to kind of sample and see what's available. But we would like to just give a shout out
 
 271
-00:18:36,380 --> 00:18:41,180
+00:18:36.380 --> 00:18:41.180
 to them and all the incredible things they do and we're just so grateful they let us do a
 
 272
-00:18:41,180 --> 00:18:42,260
+00:18:41.180 --> 00:18:42.260
 podcast like this.
 
 273
-00:18:42,270 --> 00:18:47,050
+00:18:42.270 --> 00:18:47.050
 >> Very much so. Thanks again for listening and we'll see you next week.
 
 274
-00:18:47,170 --> 00:18:47,710
+00:18:47.170 --> 00:18:47.710
 >> Peace!
 >> Cheers.
 
 275
-00:18:47,710 --> 00:18:48,280
+00:18:47.710 --> 00:18:48.280
 >> Cheers.

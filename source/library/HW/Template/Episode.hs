@@ -17,6 +17,7 @@ import qualified HW.Type.Route
 import qualified HW.Type.Summary
 import qualified HW.Type.Title
 import qualified Lucid as H
+import qualified Lucid.Base as H
 
 episodeTemplate
   :: HW.Type.BaseUrl.BaseUrl
@@ -48,13 +49,15 @@ episodeTemplate baseUrl episode captions =
             H.toHtml $ date episode
             "."
         H.video_
-            [H.class_ "bg-black h4 w-100", H.controls_ "controls", H.preload_ "metadata"]
-          $ H.source_
+            [H.class_ "bg-black h6 w-100", H.controls_ "controls", H.preload_ "metadata"]
+          $ do
+            H.source_
               [ H.src_
               . HW.Type.Audio.audioToText
               $ HW.Type.Episode.episodeAudio episode
               , H.type_ "audio/mpeg"
               ]
+            H.track_ [H.makeAttribute "default" "", H.src_ . HW.Type.Route.routeToTextWith baseUrl . HW.Type.Route.RouteCaptions $ HW.Type.Episode.episodeNumber episode]
         H.h4_ [H.class_ "f4 mv3"] "Links"
         H.ul_ [H.class_ "lh-copy"]
           . mapM_ articleLink

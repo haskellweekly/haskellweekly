@@ -5,7 +5,7 @@
 -- renderers rather than relying on a fully fledged library.
 module HW.Type.Caption
   ( Caption
-  , parseSrt
+  , parseVtt
   , renderTranscript
   )
 where
@@ -28,17 +28,17 @@ data Caption = Caption
   }
   deriving (Eq, Show)
 
--- | Parses a SubRip Text (SRT) file into a bunch of captions. If parsing
--- fails, this returns nothing. It would be nice to return an informative error
--- message, but the underlying parsing library doesn't easily support that. And
--- since we're dealing with a small set of files added one at a time, it should
--- be easy to identify the problem.
-parseSrt :: Data.Text.Text -> Maybe [Caption]
-parseSrt =
+-- | Parses a Web Video Text Tracks (WebVTT) file into a bunch of captions. If
+-- parsing fails, this returns nothing. It would be nice to return an
+-- informative error message, but the underlying parsing library doesn't easily
+-- support that. And since we're dealing with a small set of files added one at
+-- a time, it should be easy to identify the problem.
+parseVtt :: Data.Text.Text -> Maybe [Caption]
+parseVtt =
   Data.Maybe.listToMaybe
     . fmap fst
     . filter (null . snd)
-    . Text.ParserCombinators.ReadP.readP_to_S srtP
+    . Text.ParserCombinators.ReadP.readP_to_S vttP
     . Data.Text.unpack
 
 -- | Renders a bunch of captions as a transcript. This throws away all of the
@@ -53,12 +53,14 @@ renderTranscript =
 -- typically named @someTypeP@.
 type Parser = Text.ParserCombinators.ReadP.ReadP
 
--- | Parses an SRT file. This only parses a small subset of the features that
--- SRT can express. <https://en.wikipedia.org/wiki/SubRip>
-srtP :: Parser [Caption]
-srtP = Text.ParserCombinators.ReadP.sepBy captionP $ charP '\n'
+-- | Parses a WebVTT file. This only parses a small subset of the features that
+-- WebVTT can express. <https://en.wikipedia.org/wiki/WebVTT>
+vttP :: Parser [Caption]
+vttP = do
+  stringP "WEBVTT\n\n"
+  Text.ParserCombinators.ReadP.sepBy captionP $ charP '\n'
 
--- | Parses a single SRT caption. An SRT file contains a bunch of captions
+-- | Parses a single WebVTT caption. A WebVTT file contains a bunch of captions
 -- separated by newlines. A single caption has a numeric identifier, a time
 -- range, and the text of the caption itself. For example:
 --
@@ -84,15 +86,15 @@ captionP = do
     , captionPayload = payload
     }
 
--- | Parses an SRT identifier, which for our purposes is always a natural
+-- | Parses a WebVTT identifier, which for our purposes is always a natural
 -- number.
 identifierP :: Parser Numeric.Natural.Natural
 identifierP = do
   digits <- Text.ParserCombinators.ReadP.munch1 Data.Char.isDigit
   either fail pure $ Text.Read.readEither digits
 
--- | Parses an SRT timestamp. They use a somewhat strange format of
--- @HH:MM:SS,TTT@, where @HH@ is hours, @MM@ is minutes, @SS@ is seconds, and
+-- | Parses a WebVTT timestamp. They use a somewhat strange format of
+-- @HH:MM:SS.TTT@, where @HH@ is hours, @MM@ is minutes, @SS@ is seconds, and
 -- @TTT@ is milliseconds. Every field is zero padded. This parser makes sure
 -- that both the minutes and seconds are less than 60.
 timestampP :: Parser Data.Time.TimeOfDay
@@ -104,7 +106,7 @@ timestampP = do
   charP ':'
   seconds <- naturalP 2
   Control.Monad.guard $ seconds < 60
-  charP ','
+  charP '.'
   milliseconds <- naturalP 3
   pure
     . Data.Time.timeToTimeOfDay

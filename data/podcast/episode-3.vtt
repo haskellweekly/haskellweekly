@@ -1,1993 +1,1995 @@
+WEBVTT
+
 1
-00:00:00,000 --> 00:00:05,387
+00:00:00.000 --> 00:00:05.387
 [MUSIC]
 
 2
-00:00:05,387 --> 00:00:08,251
+00:00:05.387 --> 00:00:08.251
 Hi, and
 welcome to the Haskell weekly podcast.
 
 3
-00:00:08,251 --> 00:00:12,050
+00:00:08.251 --> 00:00:12.050
 This show is about Haskell,
 a purely functional programming language.
 
 4
-00:00:12,050 --> 00:00:13,840
+00:00:12.050 --> 00:00:13.840
 He's your host, Taylor Fausak.
 
 5
-00:00:13,840 --> 00:00:14,630
+00:00:13.840 --> 00:00:14.630
 >> Hello.
 
 6
-00:00:14,630 --> 00:00:17,330
+00:00:14.630 --> 00:00:17.330
 >> And he's the lead engineer at ITProTV.
 
 7
-00:00:17,330 --> 00:00:20,360
+00:00:17.330 --> 00:00:20.360
 With him today is me, Jason Fry.
 
 8
-00:00:20,360 --> 00:00:26,140
+00:00:20.360 --> 00:00:26.140
 I'm one of the engineers here like a pro
 as well, thanks for me joining you today.
 
 9
-00:00:26,140 --> 00:00:29,250
+00:00:26.140 --> 00:00:29.250
 >> Thanks for joining me Jason and
 for introducing yourself.
 
 10
-00:00:29,250 --> 00:00:32,190
+00:00:29.250 --> 00:00:32.190
 >> Yeah, we think it's fun for
 the host not to introduce himself, so
 
 11
-00:00:32,190 --> 00:00:33,970
+00:00:32.190 --> 00:00:33.970
 what are we talking about today?
 
 12
-00:00:33,970 --> 00:00:38,687
+00:00:33.970 --> 00:00:38.687
 >> Well, I know that last week you were
 asking me a little about the languages
 
 13
-00:00:38,687 --> 00:00:42,736
+00:00:38.687 --> 00:00:42.736
 that we use everyday here at ITPro and
 kind of why we chose them.
 
 14
-00:00:42,736 --> 00:00:47,415
+00:00:42.736 --> 00:00:47.415
 For context the languages that we use
 on the back end is mostly Haskell, and
 
 15
-00:00:47,415 --> 00:00:49,358
+00:00:47.415 --> 00:00:49.358
 on the front end is mostly Elm.
 
 16
-00:00:49,358 --> 00:00:53,199
+00:00:49.358 --> 00:00:53.199
 And there's a lot of choices, especially
 on the front end of which language you
 
 17
-00:00:53,199 --> 00:00:55,695
+00:00:53.199 --> 00:00:55.695
 want to use and
 you were wondering why do we use Elm?
 
 18
-00:00:55,695 --> 00:00:59,815
+00:00:55.695 --> 00:00:59.815
 >> Yeah, I've heard you talk about
 PureScript, talk about it well and
 
 19
-00:00:59,815 --> 00:01:02,645
+00:00:59.815 --> 00:01:02.645
 I am interested in learning
 more about PureScript.
 
 20
-00:01:02,645 --> 00:01:05,275
+00:01:02.645 --> 00:01:05.275
 So I guess the question I asked you was,
 
 21
-00:01:05,275 --> 00:01:09,690
+00:01:05.275 --> 00:01:09.690
 if we were to make this decision
 again today knowing what we know and
 
 22
-00:01:09,690 --> 00:01:14,140
+00:01:09.690 --> 00:01:14.140
 experience we've gained over
 the last year and a half.
 
 23
-00:01:14,140 --> 00:01:15,290
+00:01:14.140 --> 00:01:15.290
 How would the decision change?
 
 24
-00:01:15,290 --> 00:01:19,870
+00:01:15.290 --> 00:01:19.870
 Would we use PureScript on the front and
 backend for simplicity's sake?
 
 25
-00:01:19,870 --> 00:01:21,630
+00:01:19.870 --> 00:01:21.630
 Would we still use Haskell and Elm?
 
 26
-00:01:21,630 --> 00:01:25,825
+00:01:21.630 --> 00:01:25.825
 Would we use Haskell and PureScript or
 just go back to JavaScript.
 
 27
-00:01:25,825 --> 00:01:30,110
+00:01:25.825 --> 00:01:30.110
 >> [LAUGH] I'm pretty sure we
 wouldn't go back to JavaScript.
 
 28
-00:01:30,110 --> 00:01:32,760
+00:01:30.110 --> 00:01:32.760
 Everybody seems to like working with
 Haskell and Elm around here, so
 
 29
-00:01:32,760 --> 00:01:36,000
+00:01:32.760 --> 00:01:36.000
 I don't wanna subject them to
 the horrors of JavaScript.
 
 30
-00:01:36,000 --> 00:01:36,910
+00:01:36.000 --> 00:01:36.910
 >> It's true, it's true.
 
 31
-00:01:38,110 --> 00:01:42,040
+00:01:38.110 --> 00:01:42.040
 >> If we made the decision again today,
 I think we would end up with the same
 
 32
-00:01:42,040 --> 00:01:44,910
+00:01:42.040 --> 00:01:44.910
 choices, Haskell on the back-end and
 Elm on the front-end.
 
 33
-00:01:44,910 --> 00:01:47,900
+00:01:44.910 --> 00:01:47.900
 But I wasn't here when we made
 the decision in the first place.
 
 34
-00:01:47,900 --> 00:01:53,320
+00:01:47.900 --> 00:01:53.320
 So I'm not entirely sure if we
 were still using JavaScript and
 
 35
-00:01:53,320 --> 00:01:56,170
+00:01:53.320 --> 00:01:56.170
 we had to reintroduce some new languages.
 
 36
-00:01:56,170 --> 00:01:59,215
+00:01:56.170 --> 00:01:59.215
 Would these ones gain traction or
 would we end up using something else like
 
 37
-00:01:59,215 --> 00:02:01,620
+00:01:59.215 --> 00:02:01.620
 TypeScript on the front end and
 go on the back end?
 
 38
-00:02:01,620 --> 00:02:02,180
+00:02:01.620 --> 00:02:02.180
 I don't know.
 
 39
-00:02:03,340 --> 00:02:04,690
+00:02:03.340 --> 00:02:04.690
 Obviously I like Haskell, so
 
 40
-00:02:04,690 --> 00:02:07,030
+00:02:04.690 --> 00:02:07.030
 I would really campaign for
 that one on the back end.
 
 41
-00:02:07,030 --> 00:02:11,470
+00:02:07.030 --> 00:02:11.470
 But on the front end, I feel like there's
 not a way to use Haskell on the front end
 
 42
-00:02:11,470 --> 00:02:14,740
+00:02:11.470 --> 00:02:14.740
 or at least not a way that I would want
 to subject everybody on the team to.
 
 43
-00:02:14,740 --> 00:02:18,410
+00:02:14.740 --> 00:02:18.410
 I know that there are tools like GHCJS,
 
 44
-00:02:18,410 --> 00:02:22,880
+00:02:18.410 --> 00:02:22.880
 which let you compile Haskell into
 JavaScript and use it on the front end,
 
 45
-00:02:22,880 --> 00:02:27,390
+00:02:22.880 --> 00:02:27.390
 but they seem to be not
 quite production ready.
 
 46
-00:02:27,390 --> 00:02:32,080
+00:02:27.390 --> 00:02:32.080
 I'm a little hesitant to say that, because
 I know that people are using them for
 
 47
-00:02:32,080 --> 00:02:33,480
+00:02:32.080 --> 00:02:33.480
 real and using them in production.
 
 48
-00:02:34,775 --> 00:02:36,975
+00:02:34.775 --> 00:02:36.975
 I am not ready to make that leap.
 
 49
-00:02:36,975 --> 00:02:41,795
+00:02:36.975 --> 00:02:41.795
 >> So what is not quite there for
 GHCJS in your opinion?
 
 50
-00:02:41,795 --> 00:02:45,935
+00:02:41.795 --> 00:02:45.935
 Because I know very little about it but
 I thought it's been around for
 
 51
-00:02:45,935 --> 00:02:50,765
+00:02:45.935 --> 00:02:50.765
 a little while and
 it theoretically should be usable, but
 
 52
-00:02:50,765 --> 00:02:52,595
+00:02:50.765 --> 00:02:52.595
 you're like, no, we won't do that.
 
 53
-00:02:52,595 --> 00:02:55,340
+00:02:52.595 --> 00:02:55.340
 So what is lacking there in your opinion?
 
 54
-00:02:55,340 --> 00:02:59,680
+00:02:55.340 --> 00:02:59.680
 Yeah, before I get into what's lacking,
 I just wanna do a brief recap or
 
 55
-00:02:59,680 --> 00:03:02,700
+00:02:59.680 --> 00:03:02.700
 a summary of what ghcjs is.
 
 56
-00:03:02,700 --> 00:03:05,410
+00:03:02.700 --> 00:03:05.410
 As the name implies, it is like GHC,
 
 57
-00:03:05,410 --> 00:03:10,360
+00:03:05.410 --> 00:03:10.360
 except it emits JavaScript rather
 than static binaries or binaries.
 
 58
-00:03:10,360 --> 00:03:14,030
+00:03:10.360 --> 00:03:14.030
 And that's a nice thing
 because you can use the exact
 
 59
-00:03:14,030 --> 00:03:17,870
+00:03:14.030 --> 00:03:17.870
 same code on the back end and the front
 end and it'll work in both places.
 
 60
-00:03:17,870 --> 00:03:23,534
+00:03:17.870 --> 00:03:23.534
 One of the project goals for GHCJS is
 to be able to compile all of hackage
 
 61
-00:03:23,534 --> 00:03:29,695
+00:03:23.534 --> 00:03:29.695
 that the Haskell package repository,
 and have it just work on JavaScript.
 
 62
-00:03:29,695 --> 00:03:34,597
+00:03:29.695 --> 00:03:34.597
 That's in comparison to things like
 Haste which are a subset of Haskell
 
 63
-00:03:34,597 --> 00:03:37,304
+00:03:34.597 --> 00:03:37.304
 that you have to specifically target.
 
 64
-00:03:37,304 --> 00:03:41,185
+00:03:37.304 --> 00:03:41.185
 So it is kind of like Haskell and
 you can reuse a lot of the same stuff, but
 
 65
-00:03:41,185 --> 00:03:43,160
+00:03:41.185 --> 00:03:43.160
 not everything.
 
 66
-00:03:43,160 --> 00:03:47,400
+00:03:43.160 --> 00:03:47.400
 So I mentioned that because that's
 kind of the upshot of GHCJS.
 
 67
-00:03:47,400 --> 00:03:50,170
+00:03:47.400 --> 00:03:50.170
 And if that sounds interesting
 to anybody listening to this,
 
 68
-00:03:50,170 --> 00:03:52,340
+00:03:50.170 --> 00:03:52.340
 then I encourage you to go check it out.
 
 69
-00:03:52,340 --> 00:03:57,320
+00:03:52.340 --> 00:03:57.320
 But for me, one of the reasons that
 I'm not excited about using GHCJS
 
 70
-00:03:57,320 --> 00:04:02,420
+00:03:57.320 --> 00:04:02.420
 in production, is that, well,
 it comes down to do two things for me.
 
 71
-00:04:02,420 --> 00:04:06,310
+00:04:02.420 --> 00:04:06.310
 One is that it produces
 very large build artifacts.
 
 72
-00:04:06,310 --> 00:04:11,930
+00:04:06.310 --> 00:04:11.930
 So the amount of JavaScript that it
 produces is very high and the reason for
 
 73
-00:04:11,930 --> 00:04:18,670
+00:04:11.930 --> 00:04:18.670
 that is that it has to emulate the entire
 GHC run time system in JavaScript.
 
 74
-00:04:18,670 --> 00:04:22,690
+00:04:18.670 --> 00:04:22.690
 All of the laziness, all of the multi
 threaded abilities that GHC has,
 
 75
-00:04:22,690 --> 00:04:25,410
+00:04:22.690 --> 00:04:25.410
 it has to pretend to be
 able to do those things or
 
 76
-00:04:25,410 --> 00:04:28,770
+00:04:25.410 --> 00:04:28.770
 actually do those things, in JavaScript,
 which doesn't support them by default.
 
 77
-00:04:30,060 --> 00:04:33,530
+00:04:30.060 --> 00:04:33.530
 That means that a really small
 application, the classic example of
 
 78
-00:04:33,530 --> 00:04:39,450
+00:04:33.530 --> 00:04:39.450
 something that prints hello world,
 ends up being very large in GHCJS.
 
 79
-00:04:39,450 --> 00:04:41,060
+00:04:39.450 --> 00:04:41.060
 Versus if you wrote it
 in plain JavaScript,
 
 80
-00:04:41,060 --> 00:04:43,180
+00:04:41.060 --> 00:04:43.180
 it's literally one line of code.
 
 81
-00:04:43,180 --> 00:04:44,790
+00:04:43.180 --> 00:04:44.790
 >> Okay, that makes sense.
 
 82
-00:04:44,790 --> 00:04:46,220
+00:04:44.790 --> 00:04:46.220
 My understanding though,
 
 83
-00:04:46,220 --> 00:04:50,550
+00:04:46.220 --> 00:04:50.550
 is that Elm produces a lot of
 lines of code in JavaScript.
 
 84
-00:04:50,550 --> 00:04:52,110
+00:04:50.550 --> 00:04:52.110
 So when you're comparing these,
 
 85
-00:04:52,110 --> 00:04:58,010
+00:04:52.110 --> 00:04:58.010
 is it just a lot more with GHCJS even
 though Elm is kind of a lot itself?
 
 86
-00:04:58,010 --> 00:05:00,210
+00:04:58.010 --> 00:05:00.210
 >> It is.
 I wish I had some specific numbers to
 
 87
-00:05:00,210 --> 00:05:04,840
+00:05:00.210 --> 00:05:04.840
 point to, but
 my kind of gut level understanding is that
 
 88
-00:05:04,840 --> 00:05:09,870
+00:05:04.840 --> 00:05:09.870
 GHCJS will produce JavaScript on
 the order of like 1-10 megabytes.
 
 89
-00:05:09,870 --> 00:05:14,570
+00:05:09.870 --> 00:05:14.570
 Whereas ELM I think typically is under
 one megabyte pretty comfortably.
 
 90
-00:05:14,570 --> 00:05:16,665
+00:05:14.570 --> 00:05:16.665
 >> Yeah, wow, that is a lot, okay.
 
 91
-00:05:16,665 --> 00:05:19,580
+00:05:16.665 --> 00:05:19.580
 >> [LAUGH]
 >> And the number in my head for
 
 92
-00:05:19,580 --> 00:05:22,850
+00:05:19.580 --> 00:05:22.850
 Elm is for a small app you're
 talking about kilobytes.
 
 93
-00:05:22,850 --> 00:05:23,600
+00:05:22.850 --> 00:05:23.600
 >> Yeah.
 
 94
-00:05:23,600 --> 00:05:25,660
+00:05:23.600 --> 00:05:25.660
 >> So that is a pretty big difference.
 
 95
-00:05:25,660 --> 00:05:26,577
+00:05:25.660 --> 00:05:26.577
 Okay, that makes sense.
 
 96
-00:05:26,577 --> 00:05:31,043
+00:05:26.577 --> 00:05:31.043
 >> And to touch on that for a second,
 one of the reasons that Elm produces
 
 97
-00:05:31,043 --> 00:05:35,817
+00:05:31.043 --> 00:05:35.817
 a somewhat large JavaScript bundle is
 that it has its own run time to handle
 
 98
-00:05:35,817 --> 00:05:40,754
+00:05:35.817 --> 00:05:40.754
 all the message passing and serializing
 to and from JSON and all that stuff.
 
 99
-00:05:40,754 --> 00:05:45,113
+00:05:40.754 --> 00:05:45.113
 But it tries really hard to match the
 semantics of JavaScript whenever possible,
 
 100
-00:05:45,113 --> 00:05:48,130
+00:05:45.113 --> 00:05:48.130
 so it's strict and it's single threaded.
 
 101
-00:05:48,130 --> 00:05:50,560
+00:05:48.130 --> 00:05:50.560
 So it doesn't have to deal with
 multi threading or laziness or
 
 102
-00:05:50,560 --> 00:05:51,200
+00:05:50.560 --> 00:05:51.200
 anything like that.
 
 103
-00:05:51,200 --> 00:05:53,180
+00:05:51.200 --> 00:05:53.180
 So its run time can be a lot smaller.
 
 104
-00:05:53,180 --> 00:05:55,260
+00:05:53.180 --> 00:05:55.260
 >> So a little more about GHCJS,
 
 105
-00:05:55,260 --> 00:05:57,300
+00:05:55.260 --> 00:05:57.300
 is there anything else that's
 sort of lacking there?
 
 106
-00:05:57,300 --> 00:05:59,230
+00:05:57.300 --> 00:05:59.230
 Or is that just sort of,
 that's basically it?
 
 107
-00:05:59,230 --> 00:06:04,060
+00:05:59.230 --> 00:06:04.060
 >> That's the main one for me, but
 kinda writing on the coattails of that is
 
 108
-00:06:04,060 --> 00:06:06,970
+00:06:04.060 --> 00:06:06.970
 that performance can be
 a problem with GHCJS.
 
 109
-00:06:06,970 --> 00:06:10,090
+00:06:06.970 --> 00:06:10.090
 The GHC runtime,
 the one that you get by default
 
 110
-00:06:10,090 --> 00:06:14,770
+00:06:10.090 --> 00:06:14.770
 just compiling a normal Haskell program,
 has been tuned pretty well over the years.
 
 111
-00:06:14,770 --> 00:06:20,280
+00:06:14.770 --> 00:06:20.280
 Haskell is a surprisingly old language and
 GHC is a surprisingly mature compiler.
 
 112
-00:06:20,280 --> 00:06:23,360
+00:06:20.280 --> 00:06:23.360
 And the stuff that you produce out
 of it will perform really well.
 
 113
-00:06:23,360 --> 00:06:27,390
+00:06:23.360 --> 00:06:27.390
 You don't have to worry like, this is
 tight loop is not gonna perform well.
 
 114
-00:06:27,390 --> 00:06:28,980
+00:06:27.390 --> 00:06:28.980
 You can, if you're interested in it,
 
 115
-00:06:28,980 --> 00:06:33,530
+00:06:28.980 --> 00:06:33.530
 really optimize the performance of stuff,
 but it's a discussion for another time.
 
 116
-00:06:33,530 --> 00:06:38,550
+00:06:33.530 --> 00:06:38.550
 With GAHCJS it is largely
 the work of one person and
 
 117
-00:06:38,550 --> 00:06:41,250
+00:06:38.550 --> 00:06:41.250
 it's seems to me I don't know
 if this is true or not, but
 
 118
-00:06:41,250 --> 00:06:44,150
+00:06:41.250 --> 00:06:44.150
 it seems to be a more of a hobby
 type project for that person.
 
 119
-00:06:44,150 --> 00:06:46,430
+00:06:44.150 --> 00:06:46.430
 It's not the thing they're
 working on full-time.
 
 120
-00:06:46,430 --> 00:06:51,180
+00:06:46.430 --> 00:06:51.180
 So they don't have as many opportunities
 to get these optimizations in there to
 
 121
-00:06:51,180 --> 00:06:53,860
+00:06:51.180 --> 00:06:53.860
 make the program that it produces really,
 really fast.
 
 122
-00:06:55,170 --> 00:06:58,580
+00:06:55.170 --> 00:06:58.580
 However, even if they did have the time
 to do that, it still has the problem of
 
 123
-00:06:58,580 --> 00:07:02,060
+00:06:58.580 --> 00:07:02.060
 basically running the Haskell
 run time inside of JavaScript.
 
 124
-00:07:02,060 --> 00:07:04,960
+00:07:02.060 --> 00:07:04.960
 So you've got a price to pay just for
 doing that.
 
 125
-00:07:04,960 --> 00:07:08,270
+00:07:04.960 --> 00:07:08.270
 So that performance makes me
 kind of shy away from it.
 
 126
-00:07:08,270 --> 00:07:10,840
+00:07:08.270 --> 00:07:10.840
 Again, I wish I had some
 specific numbers for
 
 127
-00:07:10,840 --> 00:07:16,340
+00:07:10.840 --> 00:07:16.340
 how Elm performs versus GHCJS
 versus vanilla JavaScript.
 
 128
-00:07:16,340 --> 00:07:21,280
+00:07:16.340 --> 00:07:21.280
 And it's also my understanding that GHCJS
 has improve quite a bit recently and
 
 129
-00:07:21,280 --> 00:07:23,010
+00:07:21.280 --> 00:07:23.010
 gotten a lot faster.
 
 130
-00:07:23,010 --> 00:07:26,390
+00:07:23.010 --> 00:07:26.390
 But I think it's still slower
 than all of its contemporaries.
 
 131
-00:07:26,390 --> 00:07:29,214
+00:07:26.390 --> 00:07:29.214
 >> Okay, so let's compare those two then.
 
 132
-00:07:29,214 --> 00:07:31,713
+00:07:29.214 --> 00:07:31.713
 If the comparison is no
 longer with Haskell,
 
 133
-00:07:31,713 --> 00:07:34,757
+00:07:31.713 --> 00:07:34.757
 like we're just always using
 Haskell on the back end.
 
 134
-00:07:34,757 --> 00:07:40,448
+00:07:34.757 --> 00:07:40.448
 Then on the front end PeerScript versus
 Elm pros cons, we went with Elm.
 
 135
-00:07:40,448 --> 00:07:44,803
+00:07:40.448 --> 00:07:44.803
 We really like Elm, but I do sometimes
 wonder, because I'm just curious about
 
 136
-00:07:44,803 --> 00:07:48,898
+00:07:44.803 --> 00:07:48.898
 PeerScript if we were just going to
 make the decision differently a year and
 
 137
-00:07:48,898 --> 00:07:49,558
+00:07:48.898 --> 00:07:49.558
 a half ago.
 
 138
-00:07:49,558 --> 00:07:54,160
+00:07:49.558 --> 00:07:54.160
 But you answered that what would we do
 today we probably still use Haskell
 
 139
-00:07:54,160 --> 00:07:54,768
+00:07:54.160 --> 00:07:54.768
 and Elm.
 
 140
-00:07:54,768 --> 00:07:59,611
+00:07:54.768 --> 00:07:59.611
 So lets just compare them, PureScript
 is pretty great you talk highly of it.
 
 141
-00:07:59,611 --> 00:08:01,983
+00:07:59.611 --> 00:08:01.983
 Sure, I really like using Purescript.
 
 142
-00:08:01,983 --> 00:08:05,315
+00:08:01.983 --> 00:08:05.315
 I used it kind of recreationally for
 a while.
 
 143
-00:08:05,315 --> 00:08:09,491
+00:08:05.315 --> 00:08:09.491
 >> [LAUGH]
 >> I've never used Purescript in
 
 144
-00:08:09,491 --> 00:08:12,022
+00:08:09.491 --> 00:08:12.022
 production, but
 I know plenty of people who have, so
 
 145
-00:08:12,022 --> 00:08:14,870
+00:08:12.022 --> 00:08:14.870
 I have confidence in it in that regard.
 
 146
-00:08:14,870 --> 00:08:15,570
+00:08:14.870 --> 00:08:15.570
 Backing up a bit.
 
 147
-00:08:15,570 --> 00:08:20,510
+00:08:15.570 --> 00:08:20.510
 You mentioned that it was around a year
 and a half ago that we started using Elm.
 
 148
-00:08:20,510 --> 00:08:24,980
+00:08:20.510 --> 00:08:24.980
 And it was kind of the entry way for
 us into Haskell.
 
 149
-00:08:24,980 --> 00:08:29,260
+00:08:24.980 --> 00:08:29.260
 Before that the team was largely using
 JavaScript with a smattering of other
 
 150
-00:08:29,260 --> 00:08:33,060
+00:08:29.260 --> 00:08:33.060
 languages, like maybe Go or
 Rust something to that effect, right?
 
 151
-00:08:33,060 --> 00:08:34,420
+00:08:33.060 --> 00:08:34.420
 >> Yeah, I don't think we were using rust.
 
 152
-00:08:34,420 --> 00:08:36,150
+00:08:34.420 --> 00:08:36.150
 We weren't that cool back then.
 
 153
-00:08:36,150 --> 00:08:39,490
+00:08:36.150 --> 00:08:39.490
 But yeah, Angular one point,
 something or other and
 
 154
-00:08:39,490 --> 00:08:44,075
+00:08:39.490 --> 00:08:44.075
 Go and I feel like we have
 a TypeScript file in there somewhere.
 
 155
-00:08:44,075 --> 00:08:47,755
+00:08:44.075 --> 00:08:47.755
 >> [LAUGH].
 
 156
-00:08:47,755 --> 00:08:54,820
+00:08:47.755 --> 00:08:54.820
 >> Elm is nice because it is very simple,
 especially in comparison to Haskell.
 
 157
-00:08:54,820 --> 00:08:56,540
+00:08:54.820 --> 00:08:56.540
 And because of that simplicity,
 
 158
-00:08:56,540 --> 00:09:02,080
+00:08:56.540 --> 00:09:02.080
 it has the ability to produce very
 helpful and illuminating error messages.
 
 159
-00:09:02,080 --> 00:09:05,720
+00:09:02.080 --> 00:09:05.720
 When you do something wrong in Haskell,
 not you specifically, but
 
 160
-00:09:05,720 --> 00:09:11,480
+00:09:05.720 --> 00:09:11.480
 anybody on the team, often the error
 message that it spits out is inscrutable.
 
 161
-00:09:11,480 --> 00:09:12,087
+00:09:11.480 --> 00:09:12.087
 >> Yes.
 
 162
-00:09:12,087 --> 00:09:16,238
+00:09:12.087 --> 00:09:16.238
 >> And I have frequently seen team members
 completely stumped by an error message and
 
 163
-00:09:16,238 --> 00:09:20,387
+00:09:16.238 --> 00:09:20.387
 call me over, and I have to say, well,
 what it's really telling you is this, and
 
 164
-00:09:20,387 --> 00:09:22,150
+00:09:20.387 --> 00:09:22.150
 here's how you may want to fix it.
 
 165
-00:09:23,210 --> 00:09:27,680
+00:09:23.210 --> 00:09:27.680
 Versus when something goes wrong in Elm
 that's almost literally what the Elm
 
 166
-00:09:27,680 --> 00:09:28,860
+00:09:27.680 --> 00:09:28.860
 compiler tells you.
 
 167
-00:09:28,860 --> 00:09:31,050
+00:09:28.860 --> 00:09:31.050
 It says, hey, I saw you did this.
 
 168
-00:09:31,050 --> 00:09:32,220
+00:09:31.050 --> 00:09:32.220
 I was expecting this.
 
 169
-00:09:32,220 --> 00:09:33,800
+00:09:32.220 --> 00:09:33.800
 Here's how you might fix it.
 
 170
-00:09:33,800 --> 00:09:37,180
+00:09:33.800 --> 00:09:37.180
 And that's super useful when so
 many other things are changing,
 
 171
-00:09:37,180 --> 00:09:39,790
+00:09:37.180 --> 00:09:39.790
 because Elm forces you into
 this weird architecture,
 
 172
-00:09:39,790 --> 00:09:44,190
+00:09:39.790 --> 00:09:44.190
 weird from the perspective of an angular
 developer, it's completely foreign.
 
 173
-00:09:44,190 --> 00:09:46,830
+00:09:44.190 --> 00:09:46.830
 And it's a strange syntax, and
 it's a different compiler.
 
 174
-00:09:46,830 --> 00:09:48,500
+00:09:46.830 --> 00:09:48.500
 All of these things changed,
 
 175
-00:09:48,500 --> 00:09:51,930
+00:09:48.500 --> 00:09:51.930
 it's really nice to have that
 helpful compiler there at your side.
 
 176
-00:09:51,930 --> 00:09:52,810
+00:09:51.930 --> 00:09:52.810
 >> Absolutely.
 
 177
-00:09:52,810 --> 00:09:55,750
+00:09:52.810 --> 00:09:55.750
 It's one of the things that we
 really like, and with Elm 19,
 
 178
-00:09:55,750 --> 00:09:58,570
+00:09:55.750 --> 00:09:58.570
 it's an even friendlier compiler.
 
 179
-00:09:58,570 --> 00:09:59,798
+00:09:58.570 --> 00:09:59.798
 Took me out to dinner last night.
 
 180
-00:09:59,798 --> 00:10:03,191
+00:09:59.798 --> 00:10:03.191
 >> [LAUGH]
 >> Complete gentlemen.
 
 181
-00:10:03,191 --> 00:10:06,088
+00:10:03.191 --> 00:10:06.088
 But for when we started Elm a year and
 a half ago,
 
 182
-00:10:06,088 --> 00:10:10,200
+00:10:06.088 --> 00:10:10.200
 it was really helpful to get those
 that sort of helpful feedback.
 
 183
-00:10:10,200 --> 00:10:14,870
+00:10:10.200 --> 00:10:14.870
 But we still were pretty new and
 even with it being a friendly compiler,
 
 184
-00:10:14,870 --> 00:10:18,630
+00:10:14.870 --> 00:10:18.630
 we still were stumped much more often.
 
 185
-00:10:18,630 --> 00:10:22,351
+00:10:18.630 --> 00:10:22.351
 But now we have some more people in
 our company that are coming in and
 
 186
-00:10:22,351 --> 00:10:23,220
+00:10:22.351 --> 00:10:23.220
 learning Elm.
 
 187
-00:10:23,220 --> 00:10:28,120
+00:10:23.220 --> 00:10:28.120
 More of our design team is starting to
 learn Elm and that highlights it even more
 
 188
-00:10:28,120 --> 00:10:34,010
+00:10:28.120 --> 00:10:34.010
 for us, is that they have repeatedly said
 my goodness this compiler is so helpful.
 
 189
-00:10:34,010 --> 00:10:38,210
+00:10:34.010 --> 00:10:38.210
 So that is really cool to hear them
 say that and for us to be reminded.
 
 190
-00:10:38,210 --> 00:10:39,240
+00:10:38.210 --> 00:10:39.240
 Cuz we begin to take it for
 
 191
-00:10:39,240 --> 00:10:43,870
+00:10:39.240 --> 00:10:43.870
 granted and especially because we
 compare it to the Haskell compiler.
 
 192
-00:10:43,870 --> 00:10:47,640
+00:10:43.870 --> 00:10:47.640
 Which just today had
 some issue that I thought
 
 193
-00:10:47,640 --> 00:10:51,718
+00:10:47.640 --> 00:10:51.718
 when we compiled it was going to complain
 because a parens was in the wrong spot and
 
 194
-00:10:51,718 --> 00:10:53,920
+00:10:51.718 --> 00:10:53.920
 it gave some really gnarly output.
 
 195
-00:10:53,920 --> 00:10:57,670
+00:10:53.920 --> 00:10:57.670
 I was like I don't know what you
 were saying, put a parens there and
 
 196
-00:10:57,670 --> 00:11:00,600
+00:10:57.670 --> 00:11:00.600
 my kinda gut just tells that's what is is,
 sure enough that's what it was.
 
 197
-00:11:00,600 --> 00:11:01,140
+00:11:00.600 --> 00:11:01.140
 >> Yeah.
 >> But
 
 198
-00:11:01,140 --> 00:11:04,710
+00:11:01.140 --> 00:11:04.710
 if I had not already suspected I
 was gonna have a parens issue I
 
 199
-00:11:04,710 --> 00:11:08,230
+00:11:04.710 --> 00:11:08.230
 don't know long I would've looked at
 that output not knowing what to do.
 
 200
-00:11:08,230 --> 00:11:12,656
+00:11:08.230 --> 00:11:12.656
 >> Yeah, I often find that the GHT
 compiler is more useful at telling me that
 
 201
-00:11:12,656 --> 00:11:16,080
+00:11:12.656 --> 00:11:16.080
 there is an error rather than
 what exactly the error is.
 
 202
-00:11:16,080 --> 00:11:18,690
+00:11:16.080 --> 00:11:18.690
 Usually I'm like, well,
 I probably know what it is already.
 
 203
-00:11:18,690 --> 00:11:20,800
+00:11:18.690 --> 00:11:20.800
 >> Yeah.
 >> Thanks for letting me know Haskell.
 
 204
-00:11:20,800 --> 00:11:23,050
+00:11:20.800 --> 00:11:23.050
 >> Yeah, so we love Elm's compiler.
 
 205
-00:11:23,050 --> 00:11:27,942
+00:11:23.050 --> 00:11:27.942
 Purescripts' compiler just isn't quite as
 friendly, it sort of as a couple tattoos,
 
 206
-00:11:27,942 --> 00:11:29,570
+00:11:27.942 --> 00:11:29.570
 smokes or something.
 
 207
-00:11:29,570 --> 00:11:31,470
+00:11:29.570 --> 00:11:31.470
 >> Not nearly as friendly.
 
 208
-00:11:31,470 --> 00:11:36,568
+00:11:31.470 --> 00:11:36.568
 In fact, when you compare Elm to Haskell,
 and you see how much better Elam is,
 
 209
-00:11:36,568 --> 00:11:39,968
+00:11:36.568 --> 00:11:39.968
 I feel that when you compare
 Haskell to Purescript,
 
 210
-00:11:39,968 --> 00:11:42,309
+00:11:39.968 --> 00:11:42.309
 you see how much better Haskell is.
 
 211
-00:11:42,309 --> 00:11:44,696
+00:11:42.309 --> 00:11:44.696
 >> So that bad?
 
 212
-00:11:44,696 --> 00:11:45,952
+00:11:44.696 --> 00:11:45.952
 Yeah, granted,
 
 213
-00:11:45,952 --> 00:11:50,870
+00:11:45.952 --> 00:11:50.870
 my perspective of the Purescript
 compiler is woefully out of date.
 
 214
-00:11:50,870 --> 00:11:52,120
+00:11:50.870 --> 00:11:52.120
 I used it maybe two or
 
 215
-00:11:52,120 --> 00:11:57,080
+00:11:52.120 --> 00:11:57.080
 three years ago, and I I am confident that
 in the meantime things have gotten better.
 
 216
-00:11:57,080 --> 00:12:02,220
+00:11:57.080 --> 00:12:02.220
 But it feels a lot like it technically
 tells you what the problem is.
 
 217
-00:12:02,220 --> 00:12:05,400
+00:12:02.220 --> 00:12:05.400
 But it drowns you in a bunch of
 contexts and weird variable names and
 
 218
-00:12:05,400 --> 00:12:07,180
+00:12:05.400 --> 00:12:07.180
 other things and weird terms.
 
 219
-00:12:07,180 --> 00:12:11,220
+00:12:07.180 --> 00:12:11.220
 From my point of view, I wouldn't be super
 comfortable throwing a junior developer in
 
 220
-00:12:11,220 --> 00:12:12,630
+00:12:11.220 --> 00:12:12.630
 front of the Purescript compiler and
 
 221
-00:12:12,630 --> 00:12:14,790
+00:12:12.630 --> 00:12:14.790
 having confidence that they
 could figure things out.
 
 222
-00:12:14,790 --> 00:12:16,910
+00:12:14.790 --> 00:12:16.910
 Or not a junior developer,
 but our front end team.
 
 223
-00:12:16,910 --> 00:12:18,700
+00:12:16.910 --> 00:12:18.700
 If they were working on
 a PureScript application,
 
 224
-00:12:18,700 --> 00:12:21,230
+00:12:18.700 --> 00:12:21.230
 I would expect to be called
 over there frequently,
 
 225
-00:12:21,230 --> 00:12:25,290
+00:12:21.230 --> 00:12:25.290
 having to puzzle out some output
 from the PureScript compiler.
 
 226
-00:12:25,290 --> 00:12:30,440
+00:12:25.290 --> 00:12:30.440
 >> Right, so one of the draws of
 JavaScript on the front end and
 
 227
-00:12:30,440 --> 00:12:32,430
+00:12:30.440 --> 00:12:32.430
 back end is the simplicity.
 
 228
-00:12:32,430 --> 00:12:35,790
+00:12:32.430 --> 00:12:35.790
 Elm is not yet usable on the back end,
 I don't believe.
 
 229
-00:12:35,790 --> 00:12:39,850
+00:12:35.790 --> 00:12:39.850
 Haskell, as we've discussed for us, we're
 not going to use it on the front end.
 
 230
-00:12:39,850 --> 00:12:44,279
+00:12:39.850 --> 00:12:44.279
 So is there still value though in going
 with Purescript because you can use
 
 231
-00:12:44,279 --> 00:12:46,890
+00:12:44.279 --> 00:12:46.890
 it on the front end and the back end?
 
 232
-00:12:46,890 --> 00:12:49,880
+00:12:46.890 --> 00:12:49.880
 Maybe not for
 us because we can do Haskell and
 
 233
-00:12:49,880 --> 00:12:53,820
+00:12:49.880 --> 00:12:53.820
 we think Haskell, as good as
 PureScript is, Haskell is even better.
 
 234
-00:12:53,820 --> 00:12:55,730
+00:12:53.820 --> 00:12:55.730
 But if Haskell wasn't an option for us for
 
 235
-00:12:55,730 --> 00:13:00,700
+00:12:55.730 --> 00:13:00.700
 some reason, does that make more sense
 to go PureScript front and back, or
 
 236
-00:13:00,700 --> 00:13:04,210
+00:13:00.700 --> 00:13:04.210
 Elm front end, Purescript back end,
 or something different?
 
 237
-00:13:05,610 --> 00:13:09,020
+00:13:05.610 --> 00:13:09.020
 >> Given the choice and
 having to exclude Haskell,
 
 238
-00:13:09,020 --> 00:13:12,570
+00:13:09.020 --> 00:13:12.570
 I probably would choose
 Purescript on the back end.
 
 239
-00:13:12,570 --> 00:13:16,690
+00:13:12.570 --> 00:13:16.690
 I may end up choosing
 something even more niche.
 
 240
-00:13:16,690 --> 00:13:19,909
+00:13:16.690 --> 00:13:19.909
 Actually, I don't know that would be
 more niche but something like OCaml or
 
 241
-00:13:19,909 --> 00:13:23,630
+00:13:19.909 --> 00:13:23.630
 ReasonML, all of which can
 compile to JavaScript.
 
 242
-00:13:23,630 --> 00:13:27,650
+00:13:23.630 --> 00:13:27.650
 So for instance, if I had a mandate that
 said you have to run Node JS on the back
 
 243
-00:13:27,650 --> 00:13:30,080
+00:13:27.650 --> 00:13:30.080
 end, I would say, okay,
 I'll do Purescript.
 
 244
-00:13:30,080 --> 00:13:32,670
+00:13:30.080 --> 00:13:32.670
 >> I would say why,
 why do I have this mandate.
 
 245
-00:13:32,670 --> 00:13:34,567
+00:13:32.670 --> 00:13:34.567
 >> Who's making these mandates.
 
 246
-00:13:34,567 --> 00:13:40,147
+00:13:34.567 --> 00:13:40.147
 In those situations I would choose
 something like Purescript or
 
 247
-00:13:40,147 --> 00:13:42,840
+00:13:40.147 --> 00:13:42.840
 OCaml or ReasonML over GFCJS.
 
 248
-00:13:42,840 --> 00:13:45,080
+00:13:42.840 --> 00:13:45.080
 There's plenty of languages
 that compile to JavaScript.
 
 249
-00:13:46,300 --> 00:13:50,180
+00:13:46.300 --> 00:13:50.180
 I think that Purescript in a lot
 of ways is better than Haskell.
 
 250
-00:13:50,180 --> 00:13:54,900
+00:13:50.180 --> 00:13:54.900
 It addresses a lot of the problems with
 Haskell that come from it being a very old
 
 251
-00:13:54,900 --> 00:14:00,980
+00:13:54.900 --> 00:14:00.980
 language that has sort of ossified around
 these strange original design decisions.
 
 252
-00:14:00,980 --> 00:14:03,890
+00:14:00.980 --> 00:14:03.890
 For instance,
 not having anonymous records, so
 
 253
-00:14:03,890 --> 00:14:05,590
+00:14:03.890 --> 00:14:05.590
 every time you wanna
 build a new data type,
 
 254
-00:14:05,590 --> 00:14:09,520
+00:14:05.590 --> 00:14:09.520
 you have to explicitly say these are all
 the names of the fields and their types.
 
 255
-00:14:09,520 --> 00:14:13,530
+00:14:09.520 --> 00:14:13.530
 Versus in Purescript you can just create
 one as easily as you create a tuple or
 
 256
-00:14:13,530 --> 00:14:14,950
+00:14:13.530 --> 00:14:14.950
 a list or whatever.
 
 257
-00:14:14,950 --> 00:14:16,030
+00:14:14.950 --> 00:14:16.030
 >> Nice.
 
 258
-00:14:16,030 --> 00:14:20,680
+00:14:16.030 --> 00:14:20.680
 Similarly, strings in Haskell are
 notoriously a linked list of characters,
 
 259
-00:14:20,680 --> 00:14:24,563
+00:14:20.680 --> 00:14:24.563
 which is one of the worst
 representations you could come up with.
 
 260
-00:14:24,563 --> 00:14:27,250
+00:14:24.563 --> 00:14:27.250
 >> I feel like I could come up
 with a worst one, but sure.
 
 261
-00:14:27,250 --> 00:14:31,700
+00:14:27.250 --> 00:14:31.700
 >> Whereas in Purescript, they're
 basically the same as JavaScript strings.
 
 262
-00:14:31,700 --> 00:14:34,950
+00:14:31.700 --> 00:14:34.950
 Which, given how ubiquitous JavaScript is,
 
 263
-00:14:34,950 --> 00:14:37,370
+00:14:34.950 --> 00:14:37.370
 we have to assume are at
 least somewhat acceptable.
 
 264
-00:14:37,370 --> 00:14:38,400
+00:14:37.370 --> 00:14:38.400
 >> Yeah, yeah.
 Okay, so
 
 265
-00:14:38,400 --> 00:14:44,270
+00:14:38.400 --> 00:14:44.270
 Purescript does the anonymous records,
 which reduces a lot of boiler plate.
 
 266
-00:14:44,270 --> 00:14:50,066
+00:14:44.270 --> 00:14:50.066
 So if you have a user record with a name
 and an age and an occupation, and
 
 267
-00:14:50,066 --> 00:14:55,863
+00:14:50.066 --> 00:14:55.863
 blood type or whatever, sure, and
 you want a subset of that record for
 
 268
-00:14:55,863 --> 00:15:00,306
+00:14:55.863 --> 00:15:00.306
 some other purpose, so
 you have your master record.
 
 269
-00:15:00,306 --> 00:15:02,406
+00:15:00.306 --> 00:15:02.406
 And then you have well here,
 I just want these three fields,
 
 270
-00:15:02,406 --> 00:15:03,920
+00:15:02.406 --> 00:15:03.920
 but there, I want these five fields.
 
 271
-00:15:03,920 --> 00:15:06,040
+00:15:03.920 --> 00:15:06.040
 That's what you're talking
 about with anonymous records?
 
 272
-00:15:06,040 --> 00:15:07,320
+00:15:06.040 --> 00:15:07.320
 >> Exactly.
 
 273
-00:15:07,320 --> 00:15:08,890
+00:15:07.320 --> 00:15:08.890
 As an example from our code base,
 
 274
-00:15:08,890 --> 00:15:13,010
+00:15:08.890 --> 00:15:13.010
 we have the fully fledged user type that
 has those fields you were talking about.
 
 275
-00:15:13,010 --> 00:15:15,110
+00:15:13.010 --> 00:15:15.110
 Not blood type,
 we don't capture that about our users.
 
 276
-00:15:15,110 --> 00:15:16,261
+00:15:15.110 --> 00:15:16.261
 >> Yet.
 
 277
-00:15:16,261 --> 00:15:20,115
+00:15:16.261 --> 00:15:20.115
 >> [LAUGH]
 >> But we also have a minimal user,
 
 278
-00:15:20,115 --> 00:15:25,095
+00:15:20.115 --> 00:15:25.095
 which is useful when we're writing tests,
 or when we want to add a new user, and
 
 279
-00:15:25,095 --> 00:15:26,455
+00:15:25.095 --> 00:15:26.455
 we don't have all of
 their information yet.
 
 280
-00:15:26,455 --> 00:15:29,630
+00:15:26.455 --> 00:15:29.630
 And we don't care, we don't have their
 address or their billing information,
 
 281
-00:15:29,630 --> 00:15:30,480
+00:15:29.630 --> 00:15:30.480
 or any of that stuff.
 
 282
-00:15:30,480 --> 00:15:31,725
+00:15:30.480 --> 00:15:31.725
 >> Their shirt size.
 >> Their shirt size, exactly.
 
 283
-00:15:32,985 --> 00:15:36,215
+00:15:32.985 --> 00:15:36.215
 With Haskell we have to
 explicitly make a user,
 
 284
-00:15:36,215 --> 00:15:38,685
+00:15:36.215 --> 00:15:38.685
 a minimal user,
 a slightly more minimal user,
 
 285
-00:15:38,685 --> 00:15:43,435
+00:15:38.685 --> 00:15:43.435
 a slightly less minimal user, user with
 a bunch of other fields tacked on.
 
 286
-00:15:44,868 --> 00:15:48,616
+00:15:44.868 --> 00:15:48.616
 And in Purescript you can make all
 of those a little more implicitly,
 
 287
-00:15:48,616 --> 00:15:50,109
+00:15:48.616 --> 00:15:50.109
 a little more off the cuff.
 
 288
-00:15:50,109 --> 00:15:51,853
+00:15:50.109 --> 00:15:51.853
 And as we frequently experienc,
 
 289
-00:15:51,853 --> 00:15:56,544
+00:15:51.853 --> 00:15:56.544
 one of the hardest things in day-to-day
 software engineering is naming things.
 
 290
-00:15:56,544 --> 00:15:57,106
+00:15:56.544 --> 00:15:57.106
 >> Yes.
 >> And
 
 291
-00:15:57,106 --> 00:15:59,672
+00:15:57.106 --> 00:15:59.672
 when you have to make new
 Explicit types of everything,
 
 292
-00:15:59,672 --> 00:16:01,155
+00:15:59.672 --> 00:16:01.155
 you have to make names for them.
 
 293
-00:16:01,155 --> 00:16:04,670
+00:16:01.155 --> 00:16:04.670
 And this sounds kind of like a petty
 concern, but it's honestly hard to do.
 
 294
-00:16:04,670 --> 00:16:05,710
+00:16:04.670 --> 00:16:05.710
 Because if you have a user and
 
 295
-00:16:05,710 --> 00:16:10,080
+00:16:05.710 --> 00:16:10.080
 you have a user with two different fields,
 they're both users.
 
 296
-00:16:10,080 --> 00:16:13,410
+00:16:10.080 --> 00:16:13.410
 So which one, you have to call
 one user and one something else.
 
 297
-00:16:13,410 --> 00:16:14,150
+00:16:13.410 --> 00:16:14.150
 It's frustrating.
 
 298
-00:16:14,150 --> 00:16:14,825
+00:16:14.150 --> 00:16:14.825
 >> User prime.
 
 299
-00:16:14,825 --> 00:16:16,150
+00:16:14.825 --> 00:16:16.150
 >> [LAUGH]
 >> User prime prime.
 
 300
-00:16:16,150 --> 00:16:16,790
+00:16:16.150 --> 00:16:16.790
 >> Please don't do that.
 
 301
-00:16:16,790 --> 00:16:17,828
+00:16:16.790 --> 00:16:17.828
 >> User prime prime prime.
 
 302
-00:16:17,828 --> 00:16:20,570
+00:16:17.828 --> 00:16:20.570
 >> [LAUGH]
 >> We don't allow primes here.
 
 303
-00:16:20,570 --> 00:16:21,140
+00:16:20.570 --> 00:16:21.140
 >> No primes.
 
 304
-00:16:21,140 --> 00:16:22,100
+00:16:21.140 --> 00:16:22.100
 >> No primes.
 
 305
-00:16:22,100 --> 00:16:24,900
+00:16:22.100 --> 00:16:24.900
 Yeah, so I like that,
 
 306
-00:16:24,900 --> 00:16:28,890
+00:16:24.900 --> 00:16:28.890
 I can certainly hear someone who prefers
 the Haskell way of doing it, though.
 
 307
-00:16:28,890 --> 00:16:31,380
+00:16:28.890 --> 00:16:31.380
 Because arguably,
 those are different things, and
 
 308
-00:16:31,380 --> 00:16:33,020
+00:16:31.380 --> 00:16:33.020
 different things who have different names.
 
 309
-00:16:33,020 --> 00:16:34,790
+00:16:33.020 --> 00:16:34.790
 >> Very true.
 >> But in the day-to-day,
 
 310
-00:16:34,790 --> 00:16:36,860
+00:16:34.790 --> 00:16:36.860
 it is just kind of inconvenient.
 
 311
-00:16:36,860 --> 00:16:42,610
+00:16:36.860 --> 00:16:42.610
 So is there anything else that comes
 to mind, Purescript being better,
 
 312
-00:16:42,610 --> 00:16:45,750
+00:16:42.610 --> 00:16:45.750
 maybe than Haskell in some way,
 or some other benefits to it?
 
 313
-00:16:46,890 --> 00:16:50,860
+00:16:46.890 --> 00:16:50.860
 I think that it has a lot of well
 thought out type level features.
 
 314
-00:16:50,860 --> 00:16:54,570
+00:16:50.860 --> 00:16:54.570
 This isn't something we typically
 work with in our work at ITPro.
 
 315
-00:16:54,570 --> 00:16:57,270
+00:16:54.570 --> 00:16:57.270
 We try to stay in the value
 level as much as possible.
 
 316
-00:16:57,270 --> 00:17:01,080
+00:16:57.270 --> 00:17:01.080
 But Haskell is moving in this direction
 where it's getting closer and
 
 317
-00:17:01,080 --> 00:17:05,370
+00:17:01.080 --> 00:17:05.370
 closer to having dependent types
 where your type signatures and
 
 318
-00:17:05,370 --> 00:17:08,590
+00:17:05.370 --> 00:17:08.590
 your type computations can
 depend on the values themselves.
 
 319
-00:17:08,590 --> 00:17:12,690
+00:17:08.590 --> 00:17:12.690
 And the classic example of this
 is a list where you know how many
 
 320
-00:17:12,690 --> 00:17:14,000
+00:17:12.690 --> 00:17:14.000
 elements are in that list.
 
 321
-00:17:14,000 --> 00:17:18,063
+00:17:14.000 --> 00:17:18.063
 And so you could group, for
 instance, with a map operation,
 
 322
-00:17:18,063 --> 00:17:21,202
+00:17:18.063 --> 00:17:21.202
 that you don't change
 the number of elements.
 
 323
-00:17:21,202 --> 00:17:23,770
+00:17:21.202 --> 00:17:23.770
 I don't really wanna get
 into dependent types.
 
 324
-00:17:23,770 --> 00:17:28,450
+00:17:23.770 --> 00:17:28.450
 But suffice to say that I think
 Purescript has a has a lot more
 
 325
-00:17:28,450 --> 00:17:32,670
+00:17:28.450 --> 00:17:32.670
 niceties in the type system that,
 to get them done in Haskell,
 
 326
-00:17:32,670 --> 00:17:34,840
+00:17:32.670 --> 00:17:34.840
 you have to turn on a bunch
 of language extensions and
 
 327
-00:17:34,840 --> 00:17:38,500
+00:17:34.840 --> 00:17:38.500
 jump through some weird hoops and do some
 things that aren't very comfortable.
 
 328
-00:17:38,500 --> 00:17:42,560
+00:17:38.500 --> 00:17:42.560
 So to bring it back home,
 I think you original question was, if we
 
 329
-00:17:42,560 --> 00:17:46,460
+00:17:42.560 --> 00:17:46.460
 weren't using Haskell on the back end,
 what would we be using on the back end?
 
 330
-00:17:46,460 --> 00:17:46,970
+00:17:46.460 --> 00:17:46.970
 >> Yeah, yeah.
 
 331
-00:17:46,970 --> 00:17:47,990
+00:17:46.970 --> 00:17:47.990
 Let's talk about that.
 
 332
-00:17:47,990 --> 00:17:52,045
+00:17:47.990 --> 00:17:52.045
 >> So ultimately I think I
 would choose Purescript.
 
 333
-00:17:52,045 --> 00:17:56,470
+00:17:52.045 --> 00:17:56.470
 The reasons that I prefer Haskell
 over Purescript right now are that it
 
 334
-00:17:56,470 --> 00:18:01,690
+00:17:56.470 --> 00:18:01.690
 produces executables, binary executables
 which are a lot easier to deploy.
 
 335
-00:18:01,690 --> 00:18:05,990
+00:18:01.690 --> 00:18:05.990
 In our instance we stuff the executable
 into an empty docker container,
 
 336
-00:18:05,990 --> 00:18:08,130
+00:18:05.990 --> 00:18:08.130
 throw it up in AWS and run it.
 
 337
-00:18:08,130 --> 00:18:12,470
+00:18:08.130 --> 00:18:12.470
 With Purescript we have to stuff
 all of our code in the container,
 
 338
-00:18:12,470 --> 00:18:16,820
+00:18:12.470 --> 00:18:16.820
 along with all of its NPM dependencies and
 all of the power dependencies, and no JS.
 
 339
-00:18:16,820 --> 00:18:21,900
+00:18:16.820 --> 00:18:21.900
 And then throw that up on AWS and it's
 a much bigger container, there's a lot
 
 340
-00:18:21,900 --> 00:18:27,077
+00:18:21.900 --> 00:18:27.077
 more points of failure and lots of
 security, well things that could go wrong.
 
 341
-00:18:27,077 --> 00:18:29,745
+00:18:27.077 --> 00:18:29.745
 Not to say that nothing could go
 wrong with the Haskell thing, but
 
 342
-00:18:29,745 --> 00:18:31,900
+00:18:29.745 --> 00:18:31.900
 it's conceptually simpler to deal with.
 
 343
-00:18:31,900 --> 00:18:34,500
+00:18:31.900 --> 00:18:34.500
 Also Haskell has multi-threading built in.
 
 344
-00:18:34,500 --> 00:18:38,750
+00:18:34.500 --> 00:18:38.750
 So if I want to say, send this email off
 on a separate thread, I can do that.
 
 345
-00:18:38,750 --> 00:18:40,350
+00:18:38.750 --> 00:18:40.350
 And it's built right in.
 
 346
-00:18:40,350 --> 00:18:42,075
+00:18:40.350 --> 00:18:42.075
 Versus doing that in JavaScript or
 
 347
-00:18:42,075 --> 00:18:46,490
+00:18:42.075 --> 00:18:46.490
 Purescript you have to handle that
 with asynchronous and, sorry.
 
 348
-00:18:46,490 --> 00:18:48,400
+00:18:46.490 --> 00:18:48.400
 Asychrony and call backs.
 
 349
-00:18:48,400 --> 00:18:50,760
+00:18:48.400 --> 00:18:50.760
 So you have to say, well, do this.
 
 350
-00:18:50,760 --> 00:18:53,480
+00:18:50.760 --> 00:18:53.480
 But while that thing is executing,
 nothing else can actually happen.
 
 351
-00:18:53,480 --> 00:18:58,030
+00:18:53.480 --> 00:18:58.030
 So if you have some CPU intensive stuff
 that you want to do on a separate thread,
 
 352
-00:18:58,030 --> 00:19:03,020
+00:18:58.030 --> 00:19:03.020
 you can't, you have to rely on a much more
 heavyweight abstraction like a queue.
 
 353
-00:19:03,020 --> 00:19:06,170
+00:19:03.020 --> 00:19:06.170
 So you publish work to the queue and
 then have something else,
 
 354
-00:19:06,170 --> 00:19:09,490
+00:19:06.170 --> 00:19:09.490
 some entirely separate process pull
 it off the queue and do that work.
 
 355
-00:19:09,490 --> 00:19:12,938
+00:19:09.490 --> 00:19:12.938
 So those kind of operational concerns are
 what makes me lean toward Haskell versus
 
 356
-00:19:12,938 --> 00:19:13,970
+00:19:12.938 --> 00:19:13.970
 Purescript right now.
 
 357
-00:19:13,970 --> 00:19:18,470
+00:19:13.970 --> 00:19:18.470
 >> Okay, that multithreading
 constraint sounds pretty significant.
 
 358
-00:19:19,760 --> 00:19:23,730
+00:19:19.760 --> 00:19:23.730
 Because a lot of what a back end is going
 to do at some point, maybe not a lot of
 
 359
-00:19:23,730 --> 00:19:28,010
+00:19:23.730 --> 00:19:28.010
 what it does, but frequently you're
 going to be doing something like that,
 
 360
-00:19:28,010 --> 00:19:31,480
+00:19:28.010 --> 00:19:31.480
 where you're wanting to handle something
 asynchronously send off an email.
 
 361
-00:19:31,480 --> 00:19:32,610
+00:19:31.480 --> 00:19:32.610
 >> Yeah, almost all the time.
 
 362
-00:19:32,610 --> 00:19:33,110
+00:19:32.610 --> 00:19:33.110
 >> Yeah.
 
 363
-00:19:33,110 --> 00:19:35,435
+00:19:33.110 --> 00:19:35.435
 Always sending emails.
 
 364
-00:19:35,435 --> 00:19:37,671
+00:19:35.435 --> 00:19:37.671
 So that makes a lot of sense.
 
 365
-00:19:37,671 --> 00:19:40,159
+00:19:37.671 --> 00:19:40.159
 Purescript sounds great.
 
 366
-00:19:40,159 --> 00:19:44,650
+00:19:40.159 --> 00:19:44.650
 But if you can do, if you can use Haskell,
 it sounds like you should.
 
 367
-00:19:44,650 --> 00:19:45,260
+00:19:44.650 --> 00:19:45.260
 >> You should.
 
 368
-00:19:45,260 --> 00:19:49,527
+00:19:45.260 --> 00:19:49.527
 >> Of course, that's our opinion because
 that's literally what we're doing.
 
 369
-00:19:49,527 --> 00:19:52,860
+00:19:49.527 --> 00:19:52.860
 But I start to see that
 a little bit better now.
 
 370
-00:19:52,860 --> 00:19:53,730
+00:19:52.860 --> 00:19:53.730
 Thank you.
 
 371
-00:19:53,730 --> 00:19:58,450
+00:19:53.730 --> 00:19:58.450
 >> So we're choosing Haskell on
 the back end over Purescript because
 
 372
-00:19:58,450 --> 00:20:04,150
+00:19:58.450 --> 00:20:04.150
 Haskell just has more
 tooling like asynchronicity,
 
 373
-00:20:04,150 --> 00:20:06,760
+00:20:04.150 --> 00:20:06.760
 whereas PureScript is
 a little more complicated.
 
 374
-00:20:06,760 --> 00:20:10,430
+00:20:06.760 --> 00:20:10.430
 It's easier to deploy because Haskell
 just has the binary that you deploy that.
 
 375
-00:20:12,000 --> 00:20:15,180
+00:20:12.000 --> 00:20:15.180
 Whereas PureScript,
 a lot more points of failure there.
 
 376
-00:20:15,180 --> 00:20:18,790
+00:20:15.180 --> 00:20:18.790
 Again these things tend
 to be solved problems but
 
 377
-00:20:18,790 --> 00:20:23,860
+00:20:18.790 --> 00:20:23.860
 there's always cracks in that so
 just nicer, simpler to think about.
 
 378
-00:20:23,860 --> 00:20:24,720
+00:20:23.860 --> 00:20:24.720
 Simpler to handle.
 
 379
-00:20:26,320 --> 00:20:31,190
+00:20:26.320 --> 00:20:31.190
 So that's Haskell versus Purescript
 on the back end just quickly.
 
 380
-00:20:31,190 --> 00:20:33,080
+00:20:31.190 --> 00:20:33.080
 On the-
 >> And to jump in for just a second,
 
 381
-00:20:34,455 --> 00:20:38,045
+00:20:34.455 --> 00:20:38.045
 I would love to use Elm on the back end,
 but it's not currently an option.
 
 382
-00:20:38,045 --> 00:20:41,685
+00:20:38.045 --> 00:20:41.685
 And I feel like Elm is doing very
 well at targeting the front end and
 
 383
-00:20:41,685 --> 00:20:44,725
+00:20:41.685 --> 00:20:44.725
 its particular niche that
 it wants to dominate.
 
 384
-00:20:44,725 --> 00:20:46,765
+00:20:44.725 --> 00:20:46.765
 I'm very happy that they're doing that.
 
 385
-00:20:46,765 --> 00:20:48,292
+00:20:46.765 --> 00:20:48.292
 If I could use it on the back end,
 
 386
-00:20:48,292 --> 00:20:51,242
+00:20:48.292 --> 00:20:51.242
 I would love to, but-
 >> Really?
 
 387
-00:20:51,242 --> 00:20:53,552
+00:20:51.242 --> 00:20:53.552
 That's the first I've heard of this.
 
 388
-00:20:53,552 --> 00:20:56,103
+00:20:53.552 --> 00:20:56.103
 Elm on the back end,
 Haskell on the front end.
 
 389
-00:20:56,103 --> 00:20:57,907
+00:20:56.103 --> 00:20:57.907
 >> [LAUGH] You heard it here first.
 
 390
-00:20:57,907 --> 00:20:59,849
+00:20:57.907 --> 00:20:59.849
 >> Precisely.
 
 391
-00:20:59,849 --> 00:21:05,822
+00:20:59.849 --> 00:21:05.822
 So, Elm over Purescript,
 primarily because of the compiler.
 
 392
-00:21:05,822 --> 00:21:10,515
+00:21:05.822 --> 00:21:10.515
 Purescript has a lot more complexity,
 a lot more robustness in some areas.
 
 393
-00:21:10,515 --> 00:21:13,690
+00:21:10.515 --> 00:21:13.690
 But you don't need those strictly.
 
 394
-00:21:13,690 --> 00:21:15,890
+00:21:13.690 --> 00:21:15.890
 They're really quite
 helpful in some cases, so
 
 395
-00:21:15,890 --> 00:21:18,020
+00:21:15.890 --> 00:21:18.020
 maybe your use case,
 you really do need those things.
 
 396
-00:21:18,020 --> 00:21:24,160
+00:21:18.020 --> 00:21:24.160
 But for most people of of the time,
 Elm totally targets single page apps.
 
 397
-00:21:24,160 --> 00:21:26,900
+00:21:24.160 --> 00:21:26.900
 They are focused on that, and
 they're doing it quite well.
 
 398
-00:21:26,900 --> 00:21:29,460
+00:21:26.900 --> 00:21:29.460
 The compiler makes it
 really easy to pick up
 
 399
-00:21:29,460 --> 00:21:33,160
+00:21:29.460 --> 00:21:33.160
 this new paradigm of functional
 programming, a new syntax.
 
 400
-00:21:33,160 --> 00:21:38,630
+00:21:33.160 --> 00:21:38.630
 It has, we didn't talk about this, but
 something that we like a lot here at ITPro
 
 401
-00:21:38,630 --> 00:21:43,720
+00:21:38.630 --> 00:21:43.720
 is, it has this architecture built
 right in to the language itself.
 
 402
-00:21:43,720 --> 00:21:48,140
+00:21:43.720 --> 00:21:48.140
 And it's nice to not have to think about
 that or worry about that, it's just there.
 
 403
-00:21:48,140 --> 00:21:49,690
+00:21:48.140 --> 00:21:49.690
 >> Right.
 >> The tooling's really good.
 
 404
-00:21:49,690 --> 00:21:53,340
+00:21:49.690 --> 00:21:53.340
 It's an opinionated formatter, so you
 don't have formatting wars or arguments.
 
 405
-00:21:53,340 --> 00:21:56,510
+00:21:53.340 --> 00:21:56.510
 So, those are some of the reasons
 that you mentioned and
 
 406
-00:21:56,510 --> 00:21:59,900
+00:21:56.510 --> 00:21:59.900
 then I just threw on top of
 that of Elm over Purescript.
 
 407
-00:22:01,600 --> 00:22:04,070
+00:22:01.600 --> 00:22:04.070
 It's like Purescript seems really good,
 but
 
 408
-00:22:04,070 --> 00:22:08,182
+00:22:04.070 --> 00:22:08.182
 Haskell might just be a little better than
 it in a lot of cases on the back end and
 
 409
-00:22:08,182 --> 00:22:12,254
+00:22:08.182 --> 00:22:12.254
 Elm might be just a little better than it
 In a lot of the cases in the front end.
 
 410
-00:22:12,254 --> 00:22:15,626
+00:22:12.254 --> 00:22:15.626
 But I just need to use it
 recreational like you used to.
 
 411
-00:22:15,626 --> 00:22:17,285
+00:22:15.626 --> 00:22:17.285
 >> [LAUGH]
 >> Is what I need to do.
 
 412
-00:22:17,285 --> 00:22:19,595
+00:22:17.285 --> 00:22:19.595
 >> Thanks for
 being on the show with me today, Jason.
 
 413
-00:22:19,595 --> 00:22:20,538
+00:22:19.595 --> 00:22:20.538
 >> Thank you.
 
 414
-00:22:20,538 --> 00:22:23,992
+00:22:20.538 --> 00:22:23.992
 >> It was great to have you here
 talking about Haskell versus Elm versus
 
 415
-00:22:23,992 --> 00:22:24,725
+00:22:23.992 --> 00:22:24.725
 Purescript.
 
 416
-00:22:24,725 --> 00:22:25,449
+00:22:24.725 --> 00:22:25.449
 A fight for the ages.
 
 417
-00:22:25,449 --> 00:22:27,082
+00:22:25.449 --> 00:22:27.082
 >> Versus a bunch of other things.
 
 418
-00:22:27,082 --> 00:22:28,450
+00:22:27.082 --> 00:22:28.450
 >> We don't talk about them too much.
 
 419
-00:22:28,450 --> 00:22:33,130
+00:22:28.450 --> 00:22:33.130
 [LAUGH] And thank you for
 listening to the Haskell weekly podcast.
 
 420
-00:22:33,130 --> 00:22:35,070
+00:22:33.130 --> 00:22:35.070
 This has been episode three.
 
 421
-00:22:35,070 --> 00:22:39,550
+00:22:35.070 --> 00:22:39.550
 If you liked our show, find out more
 at our website, haskellweekly.news.
 
 422
-00:22:39,550 --> 00:22:40,791
+00:22:39.550 --> 00:22:40.791
 Thanks again for listening.
 
 423
-00:22:40,791 --> 00:22:44,382
+00:22:40.791 --> 00:22:44.382
 I've been your host Taylor Fausak,
 and we'll see you again next week.
 
 424
-00:22:44,382 --> 00:22:45,527
+00:22:44.382 --> 00:22:45.527
 >> Bye.
 
 425
-00:22:45,527 --> 00:22:51,701
+00:22:45.527 --> 00:22:51.701
 [MUSIC]

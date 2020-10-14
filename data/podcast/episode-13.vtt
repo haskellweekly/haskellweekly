@@ -1,2212 +1,2214 @@
+WEBVTT
+
 1
-00:00:02,943 --> 00:00:03,804
+00:00:02.943 --> 00:00:03.804
 [MUSIC]
 
 2
-00:00:03,804 --> 00:00:06,790
+00:00:03.804 --> 00:00:06.790
 Hello, and
 welcome to the Haskell weekly podcast.
 
 3
-00:00:06,790 --> 00:00:08,870
+00:00:06.790 --> 00:00:08.870
 I'm your host, Taylor Fausak.
 
 4
-00:00:08,870 --> 00:00:11,750
+00:00:08.870 --> 00:00:11.750
 I'm the lead engineer at ITProTV.
 
 5
-00:00:11,750 --> 00:00:15,360
+00:00:11.750 --> 00:00:15.360
 With me today is Cameron Gera,
 one of the engineers on my team.
 
 6
-00:00:15,360 --> 00:00:16,533
+00:00:15.360 --> 00:00:16.533
 Thanks for joining me today, Cam.
 
 7
-00:00:16,533 --> 00:00:17,790
+00:00:16.533 --> 00:00:17.790
 >> Thanks for having me, Taylor.
 
 8
-00:00:17,790 --> 00:00:19,600
+00:00:17.790 --> 00:00:19.600
 >> It's good to have you on the show.
 
 9
-00:00:19,600 --> 00:00:22,890
+00:00:19.600 --> 00:00:22.890
 And on this show, we talk about Haskell,
 no surprise there.
 
 10
-00:00:22,890 --> 00:00:25,350
+00:00:22.890 --> 00:00:25.350
 It's a purely functional
 programming language.
 
 11
-00:00:25,350 --> 00:00:28,052
+00:00:25.350 --> 00:00:28.052
 But what specifically are we going
 to be talking about today, Cam?
 
 12
-00:00:28,052 --> 00:00:29,885
+00:00:28.052 --> 00:00:29.885
 >> We're gonna be talking
 about why Haskell?
 
 13
-00:00:29,885 --> 00:00:30,730
+00:00:29.885 --> 00:00:30.730
 >> Why Haskell?
 
 14
-00:00:30,730 --> 00:00:31,620
+00:00:30.730 --> 00:00:31.620
 What do you mean by that?
 
 15
-00:00:31,620 --> 00:00:37,950
+00:00:31.620 --> 00:00:37.950
 >> Well, there's a blog post by the
 semantic team at GitHub, called Haskell.
 
 16
-00:00:37,950 --> 00:00:42,340
+00:00:37.950 --> 00:00:42.340
 And why they chose Haskell for that
 project, kind of led by Timothy Clem, so.
 
 17
-00:00:43,390 --> 00:00:46,410
+00:00:43.390 --> 00:00:46.410
 >> Okay, so GitHub is using Haskell
 in production, that's awesome.
 
 18
-00:00:46,410 --> 00:00:48,010
+00:00:46.410 --> 00:00:48.010
 >> Yeah, it's a big secret.
 
 19
-00:00:48,010 --> 00:00:50,680
+00:00:48.010 --> 00:00:50.680
 >> We're not the only company
 out there with Haskell code.
 
 20
-00:00:50,680 --> 00:00:52,240
+00:00:50.680 --> 00:00:52.240
 >> No, there's some big time.
 
 21
-00:00:52,240 --> 00:00:55,138
+00:00:52.240 --> 00:00:55.138
 But before we kinda get
 into their article,
 
 22
-00:00:55,138 --> 00:00:58,361
+00:00:55.138 --> 00:00:58.361
 why don't we kinda start
 with what is Semantic?
 
 23
-00:00:58,361 --> 00:01:02,380
+00:00:58.361 --> 00:01:02.380
 And why maybe this Haskell good for them?
 
 24
-00:01:02,380 --> 00:01:08,140
+00:01:02.380 --> 00:01:08.140
 >> Yeah, so Semantic is I guess
 a package or program by the GitHub team,
 
 25
-00:01:08,140 --> 00:01:13,608
+00:01:08.140 --> 00:01:13.608
 and it's what they use to analyze and
 compare source code on their servers.
 
 26
-00:01:13,608 --> 00:01:16,855
+00:01:13.608 --> 00:01:16.855
 So when you submit a portal
 request to GitHub,
 
 27
-00:01:16,855 --> 00:01:21,698
+00:01:16.855 --> 00:01:21.698
 you may notice that in addition to
 being able to break it down by file.
 
 28
-00:01:21,698 --> 00:01:25,724
+00:01:21.698 --> 00:01:25.724
 Jump to this file in the diff, you can
 also jump to specific functions and
 
 29
-00:01:25,724 --> 00:01:28,496
+00:01:25.724 --> 00:01:28.496
 say, show me the changes
 on this function alone,
 
 30
-00:01:28,496 --> 00:01:32,200
+00:01:28.496 --> 00:01:32.200
 and Symantic is a tool on their
 backend that allows that to happen.
 
 31
-00:01:32,200 --> 00:01:35,420
+00:01:32.200 --> 00:01:35.420
 So they can parse the source code of
 JavaScript, or Python, or whatever, and
 
 32
-00:01:35,420 --> 00:01:38,340
+00:01:35.420 --> 00:01:38.340
 figure out, this is a function, and
 something within that function changed.
 
 33
-00:01:39,390 --> 00:01:40,020
+00:01:39.390 --> 00:01:40.020
 >> That's awesome.
 
 34
-00:01:41,480 --> 00:01:44,780
+00:01:41.480 --> 00:01:44.780
 Why is this announcement big news?
 
 35
-00:01:44,780 --> 00:01:48,126
+00:01:44.780 --> 00:01:48.126
 >> This is a big deal because GitHub,
 obviously,
 
 36
-00:01:48,126 --> 00:01:51,480
+00:01:48.126 --> 00:01:51.480
 is a giant force in
 the development community.
 
 37
-00:01:51,480 --> 00:01:54,099
+00:01:51.480 --> 00:01:54.099
 A lot of people use GitHub to
 manage their source code, and
 
 38
-00:01:54,099 --> 00:01:58,370
+00:01:54.099 --> 00:01:58.370
 they're just a huge company, so they've
 got lots of people working for them.
 
 39
-00:01:58,370 --> 00:02:02,184
+00:01:58.370 --> 00:02:02.184
 And this is a big deal because
 Haskell is a pretty small community,
 
 40
-00:02:02,184 --> 00:02:04,568
+00:02:02.184 --> 00:02:04.568
 especially in relation to all of GitHub,
 
 41
-00:02:04,568 --> 00:02:07,991
+00:02:04.568 --> 00:02:07.991
 there aren't too many companies
 out there using Haskell.
 
 42
-00:02:07,991 --> 00:02:12,232
+00:02:07.991 --> 00:02:12.232
 A couple of the big ones that I can think
 of off the top of my head are Facebook and
 
 43
-00:02:12,232 --> 00:02:13,613
+00:02:12.232 --> 00:02:13.613
 Nike, and us of course.
 
 44
-00:02:13,613 --> 00:02:15,600
+00:02:13.613 --> 00:02:15.600
 But ITProTV is not as big as them yet.
 
 45
-00:02:15,600 --> 00:02:17,492
+00:02:15.600 --> 00:02:17.492
 >> We're coming for you, Facebook.
 
 46
-00:02:17,492 --> 00:02:20,550
+00:02:17.492 --> 00:02:20.550
 >> [LAUGH]
 >> ITProTV, the next Facebook in IT world?
 
 47
-00:02:22,260 --> 00:02:25,170
+00:02:22.260 --> 00:02:25.170
 >> But yeah, this is just a big deal,
 cuz GitHub is a big company, and
 
 48
-00:02:25,170 --> 00:02:28,700
+00:02:25.170 --> 00:02:28.700
 Haskell is a small language, and it is
 really interesting to a lot of people.
 
 49
-00:02:28,700 --> 00:02:31,560
+00:02:28.700 --> 00:02:31.560
 >> Yeah,
 it's good to see the community growing,
 
 50
-00:02:31,560 --> 00:02:32,262
+00:02:31.560 --> 00:02:32.262
 and-
 >> Yeah.
 
 51
-00:02:32,262 --> 00:02:36,697
+00:02:32.262 --> 00:02:36.697
 >> The neighboring organizations
 picking up this language allows for
 
 52
-00:02:36,697 --> 00:02:38,960
+00:02:36.697 --> 00:02:38.960
 the community to obviously grow.
 
 53
-00:02:38,960 --> 00:02:41,565
+00:02:38.960 --> 00:02:41.565
 I mean, there's so
 many employees at GitHub, and
 
 54
-00:02:41,565 --> 00:02:44,730
+00:02:41.565 --> 00:02:44.730
 obviously just the Semantic team
 right now is using Haskell.
 
 55
-00:02:44,730 --> 00:02:47,140
+00:02:44.730 --> 00:02:47.140
 But I'm sure it's spreading
 through their organization.
 
 56
-00:02:47,140 --> 00:02:51,747
+00:02:47.140 --> 00:02:51.747
 And it's gonna allow our
 community to continue to grow, and
 
 57
-00:02:51,747 --> 00:02:54,198
+00:02:51.747 --> 00:02:54.198
 have more experts in the field.
 
 58
-00:02:54,198 --> 00:02:54,881
+00:02:54.198 --> 00:02:54.881
 >> Absolutely.
 
 59
-00:02:54,881 --> 00:02:55,779
+00:02:54.881 --> 00:02:55.779
 >> It's really cool.
 
 60
-00:02:55,779 --> 00:02:58,698
+00:02:55.779 --> 00:02:58.698
 >> And even if you're at a smaller
 company, and you're interested in using
 
 61
-00:02:58,698 --> 00:03:01,520
+00:02:58.698 --> 00:03:01.520
 Haskell, this can be really useful,
 because you can point to get up and
 
 62
-00:03:01,520 --> 00:03:03,960
+00:03:01.520 --> 00:03:03.960
 say look, they're using it,
 and it's working for them.
 
 63
-00:03:03,960 --> 00:03:06,060
+00:03:03.960 --> 00:03:06.060
 It can work for us too, right?
 
 64
-00:03:06,060 --> 00:03:10,680
+00:03:06.060 --> 00:03:10.680
 >> And a lot of the articles out
 there about why people choose Haskell
 
 65
-00:03:10,680 --> 00:03:13,520
+00:03:10.680 --> 00:03:13.520
 are pretty normal.
 
 66
-00:03:13,520 --> 00:03:17,520
+00:03:13.520 --> 00:03:17.520
 They're pretty standard like this this and
 this, but
 
 67
-00:03:17,520 --> 00:03:22,440
+00:03:17.520 --> 00:03:22.440
 why do you think you know GitHub
 kinda chose this different path?
 
 68
-00:03:24,350 --> 00:03:26,180
+00:03:24.350 --> 00:03:26.180
 >> This different path to using Haskell?
 
 69
-00:03:26,180 --> 00:03:27,170
+00:03:26.180 --> 00:03:27.170
 >> Right.
 
 70
-00:03:27,170 --> 00:03:27,920
+00:03:27.170 --> 00:03:27.920
 >> Yeah.
 >> So for
 
 71
-00:03:27,920 --> 00:03:31,545
+00:03:27.920 --> 00:03:31.545
 a lot of the blog posts that I've
 read in the past about why companies
 
 72
-00:03:31,545 --> 00:03:36,015
+00:03:31.545 --> 00:03:36.015
 chose Haskell, you sort of see
 the same reasons trotted out.
 
 73
-00:03:36,015 --> 00:03:37,525
+00:03:36.015 --> 00:03:37.525
 Haskell is a pure language,
 
 74
-00:03:37,525 --> 00:03:40,835
+00:03:37.525 --> 00:03:40.835
 so you don't have to worry about side
 effects in weird parts of your code.
 
 75
-00:03:40,835 --> 00:03:43,775
+00:03:40.835 --> 00:03:43.775
 Or it has lazy evaluation, so
 you don't have to worry about things being
 
 76
-00:03:43,775 --> 00:03:45,635
+00:03:43.775 --> 00:03:45.635
 evaluated, even if you
 don't end up using them.
 
 77
-00:03:47,018 --> 00:03:52,410
+00:03:47.018 --> 00:03:52.410
 Or it let's you express complicated
 ideas in a small amount of code.
 
 78
-00:03:52,410 --> 00:03:55,680
+00:03:52.410 --> 00:03:55.680
 And the first time you see that set
 of arguments, it might be compelling.
 
 79
-00:03:55,680 --> 00:03:59,090
+00:03:55.680 --> 00:03:59.090
 But the 5th, or 10th, or 100th time you
 see them, you're like, okay, I get it.
 
 80
-00:03:59,090 --> 00:04:01,110
+00:03:59.090 --> 00:04:01.110
 I know Haskell has those things,
 what else can I do?
 
 81
-00:04:01,110 --> 00:04:02,850
+00:04:01.110 --> 00:04:02.850
 >> No, that's awesome, yeah.
 
 82
-00:04:02,850 --> 00:04:08,000
+00:04:02.850 --> 00:04:08.000
 And I think it's really cool
 that they kinda broke it down.
 
 83
-00:04:08,000 --> 00:04:09,840
+00:04:08.000 --> 00:04:09.840
 They had some different reasons for
 choosing Haskell.
 
 84
-00:04:09,840 --> 00:04:16,060
+00:04:09.840 --> 00:04:16.060
 So do you kind of want to kick off,
 what reasons and why they chose Haskell?
 
 85
-00:04:16,060 --> 00:04:19,420
+00:04:16.060 --> 00:04:19.420
 >> Sure, as I mentioned, there's
 kind of the bog standard reasons for
 
 86
-00:04:19,420 --> 00:04:21,320
+00:04:19.420 --> 00:04:21.320
 why people typically choose Haskell.
 
 87
-00:04:21,320 --> 00:04:24,330
+00:04:21.320 --> 00:04:24.330
 But one thing that I like about this
 article is they didn't dwell on
 
 88
-00:04:24,330 --> 00:04:24,930
+00:04:24.330 --> 00:04:24.930
 that too much.
 
 89
-00:04:24,930 --> 00:04:27,780
+00:04:24.930 --> 00:04:27.780
 They said yeah,
 these are all characteristics of Haskell.
 
 90
-00:04:27,780 --> 00:04:29,590
+00:04:27.780 --> 00:04:29.590
 These are reasons why you
 might wanna choose it.
 
 91
-00:04:29,590 --> 00:04:33,450
+00:04:29.590 --> 00:04:33.450
 But they ended up focusing
 more on what things
 
 92
-00:04:34,520 --> 00:04:38,400
+00:04:34.520 --> 00:04:38.400
 that are only possible, because of those
 kind of fundamental characteristics,
 
 93
-00:04:38,400 --> 00:04:42,080
+00:04:38.400 --> 00:04:42.080
 but more compelling reasons for
 their particular business case.
 
 94
-00:04:42,080 --> 00:04:44,980
+00:04:42.080 --> 00:04:44.980
 And I think the one that they
 start with is control flow, right?
 
 95
-00:04:44,980 --> 00:04:46,180
+00:04:44.980 --> 00:04:46.180
 >> Correct, yep.
 
 96
-00:04:46,180 --> 00:04:51,690
+00:04:46.180 --> 00:04:51.690
 >> And so by control flow, what they mean
 is that in a typical programming language,
 
 97
-00:04:51,690 --> 00:04:54,940
+00:04:51.690 --> 00:04:54.940
 something like Java or C#, or
 
 98
-00:04:54,940 --> 00:04:58,680
+00:04:54.940 --> 00:04:58.680
 go the control flow is built
 into the language itself.
 
 99
-00:04:58,680 --> 00:05:01,450
+00:04:58.680 --> 00:05:01.450
 So if a statement is above another one,
 
 100
-00:05:01,450 --> 00:05:03,575
+00:05:01.450 --> 00:05:03.575
 you know that it's going
 to get executed first.
 
 101
-00:05:03,575 --> 00:05:05,708
+00:05:03.575 --> 00:05:05.708
 So from top to bottom left to right,
 basically.
 
 102
-00:05:05,708 --> 00:05:09,170
+00:05:05.708 --> 00:05:09.170
 And in Haskell,
 that's not necessarily the case.
 
 103
-00:05:09,170 --> 00:05:14,080
+00:05:09.170 --> 00:05:14.080
 You can write code that looks the same,
 but one version of it might be
 
 104
-00:05:14,080 --> 00:05:16,960
+00:05:14.080 --> 00:05:16.960
 synchronous, and another version
 of it might be asynchronous.
 
 105
-00:05:16,960 --> 00:05:21,930
+00:05:16.960 --> 00:05:21.930
 So this comes up in JavaScript all
 the time where the synchronous
 
 106
-00:05:21,930 --> 00:05:25,090
+00:05:21.930 --> 00:05:25.090
 function is really easy to write, but
 you block the main thread for a long time.
 
 107
-00:05:25,090 --> 00:05:27,360
+00:05:25.090 --> 00:05:27.360
 If you're doing something with a web UI,
 
 108
-00:05:27,360 --> 00:05:31,340
+00:05:27.360 --> 00:05:31.340
 then your UI stalls while that
 synchronous thing is happening.
 
 109
-00:05:31,340 --> 00:05:33,590
+00:05:31.340 --> 00:05:33.590
 So you wanna write stuff
 in this a sync fashion.
 
 110
-00:05:33,590 --> 00:05:35,480
+00:05:33.590 --> 00:05:35.480
 But then you have to do
 like nested call backs.
 
 111
-00:05:35,480 --> 00:05:37,850
+00:05:35.480 --> 00:05:37.850
 So you do that a sync await,
 or something like that, right?
 
 112
-00:05:37,850 --> 00:05:41,350
+00:05:37.850 --> 00:05:41.350
 So the syntax, you have to change
 the way that you write your code,
 
 113
-00:05:41,350 --> 00:05:44,030
+00:05:41.350 --> 00:05:44.030
 in order to change how
 the control flow works.
 
 114
-00:05:44,030 --> 00:05:49,078
+00:05:44.030 --> 00:05:49.078
 But with Haskell,
 the code that you write looks the same,
 
 115
-00:05:49,078 --> 00:05:52,386
+00:05:49.078 --> 00:05:52.386
 but you can change how it is executed.
 
 116
-00:05:52,386 --> 00:05:53,112
+00:05:52.386 --> 00:05:53.112
 >> Right, right, right.
 
 117
-00:05:53,112 --> 00:05:58,699
+00:05:53.112 --> 00:05:58.699
 So pretty much higher up in the program is
 where is kind of the deciding factor of,
 
 118
-00:05:58,699 --> 00:06:02,361
+00:05:58.699 --> 00:06:02.361
 does this sync,
 is this asynchronous or synchronous?
 
 119
-00:06:02,361 --> 00:06:03,050
+00:06:02.361 --> 00:06:03.050
 >> Exactly.
 
 120
-00:06:03,050 --> 00:06:06,230
+00:06:03.050 --> 00:06:06.230
 >> And the further you get in to the code,
 it just looks the same.
 
 121
-00:06:06,230 --> 00:06:11,435
+00:06:06.230 --> 00:06:11.435
 You don't have to be worried of,
 am I writing this the right way?
 
 122
-00:06:11,435 --> 00:06:12,220
+00:06:11.435 --> 00:06:12.220
 >> Mm-hm.
 
 123
-00:06:12,220 --> 00:06:14,940
+00:06:12.220 --> 00:06:14.940
 >> Because in the end, I want this result.
 
 124
-00:06:14,940 --> 00:06:19,540
+00:06:14.940 --> 00:06:19.540
 The code you write can be executed
 however you want it to be executed.
 
 125
-00:06:19,540 --> 00:06:22,950
+00:06:19.540 --> 00:06:22.950
 You just tell that once you start
 to write the executable, and
 
 126
-00:06:22,950 --> 00:06:24,490
+00:06:22.950 --> 00:06:24.490
 make that code come true.
 
 127
-00:06:24,490 --> 00:06:28,290
+00:06:24.490 --> 00:06:28.290
 >> Yeah, and that's especially useful for
 the Semantic team,
 
 128
-00:06:28,290 --> 00:06:31,708
+00:06:28.290 --> 00:06:31.708
 because what they're doing is parsing and
 analyzing source code.
 
 129
-00:06:31,708 --> 00:06:36,390
+00:06:31.708 --> 00:06:36.390
 So they wanna be able to parse,
 let's say, a Python file and
 
 130
-00:06:36,390 --> 00:06:40,370
+00:06:36.390 --> 00:06:40.370
 analyze it as if it was executing,
 but not actually execute it.
 
 131
-00:06:40,370 --> 00:06:43,710
+00:06:40.370 --> 00:06:43.710
 And so that becomes really powerful to
 have all these tools that Haskell provides
 
 132
-00:06:43,710 --> 00:06:48,010
+00:06:43.710 --> 00:06:48.010
 to be able to manage the control flow in
 the same way that you manage regular data
 
 133
-00:06:48,010 --> 00:06:49,250
+00:06:48.010 --> 00:06:49.250
 in other languages.
 
 134
-00:06:49,250 --> 00:06:51,620
+00:06:49.250 --> 00:06:51.620
 >> Right, right, no,
 I think that's awesome.
 
 135
-00:06:52,690 --> 00:06:54,730
+00:06:52.690 --> 00:06:54.730
 So the other thing they
 kinda talk about and
 
 136
-00:06:54,730 --> 00:06:58,010
+00:06:54.730 --> 00:06:58.010
 the reason they chose it
 was runtime correctness.
 
 137
-00:06:59,080 --> 00:07:03,160
+00:06:59.080 --> 00:07:03.160
 And they gave a lot of really great
 things we've kinda experienced,
 
 138
-00:07:03,160 --> 00:07:08,220
+00:07:03.160 --> 00:07:08.220
 but what were some of the things you took
 away from that aspect to the article?
 
 139
-00:07:08,220 --> 00:07:10,121
+00:07:08.220 --> 00:07:10.121
 >> I really liked that
 aspect to the article, and
 
 140
-00:07:10,121 --> 00:07:11,550
+00:07:10.121 --> 00:07:11.550
 I'm glad that they brought it up.
 
 141
-00:07:11,550 --> 00:07:14,192
+00:07:11.550 --> 00:07:14.192
 Because when you read about,
 let's say Elm,
 
 142
-00:07:14,192 --> 00:07:16,717
+00:07:14.192 --> 00:07:16.717
 another language that's in the same vein.
 
 143
-00:07:16,717 --> 00:07:20,730
+00:07:16.717 --> 00:07:20.730
 They bring that front and center all
 the time, it's on their home page.
 
 144
-00:07:20,730 --> 00:07:22,830
+00:07:20.730 --> 00:07:22.830
 They say you can write
 programs with confidence, and
 
 145
-00:07:22,830 --> 00:07:24,580
+00:07:22.830 --> 00:07:24.580
 not have to worry about runtime errors.
 
 146
-00:07:24,580 --> 00:07:27,052
+00:07:24.580 --> 00:07:27.052
 And I wish Haskell marketed
 more in that direction,
 
 147
-00:07:27,052 --> 00:07:30,771
+00:07:27.052 --> 00:07:30.771
 because it is really powerful to not have
 to worry about those runtime errors.
 
 148
-00:07:30,771 --> 00:07:34,684
+00:07:30.771 --> 00:07:34.684
 And trust that, when you write
 the program and it compiles,
 
 149
-00:07:34,684 --> 00:07:39,430
+00:07:34.684 --> 00:07:39.430
 it will generally do what you want,
 or what you intended for it to do.
 
 150
-00:07:39,430 --> 00:07:41,120
+00:07:39.430 --> 00:07:41.120
 >> Right.
 >> And you don't have to worry, crap,
 
 151
-00:07:41,120 --> 00:07:43,550
+00:07:41.120 --> 00:07:43.550
 well, I forgot that this
 value could be null.
 
 152
-00:07:43,550 --> 00:07:46,000
+00:07:43.550 --> 00:07:46.000
 So then you get a null pointer
 exception in production, or
 
 153
-00:07:46,000 --> 00:07:49,330
+00:07:46.000 --> 00:07:49.330
 you forgot I changed the name
 of that method last week, and
 
 154
-00:07:49,330 --> 00:07:50,910
+00:07:49.330 --> 00:07:50.910
 I forgot to update it
 here at this call site.
 
 155
-00:07:50,910 --> 00:07:53,800
+00:07:50.910 --> 00:07:53.800
 So now I'm getting a method
 not found error, right?
 
 156
-00:07:53,800 --> 00:07:57,228
+00:07:53.800 --> 00:07:57.228
 It saves you from those really
 tedious kind of rote problems.
 
 157
-00:07:57,228 --> 00:08:01,090
+00:07:57.228 --> 00:08:01.090
 And so that you can focus on developing
 new features, and shipping those out to
 
 158
-00:08:01,090 --> 00:08:05,010
+00:08:01.090 --> 00:08:05.010
 your users, rather than fixing some Bug
 that popped up in your issue tracker for
 
 159
-00:08:05,010 --> 00:08:06,082
+00:08:05.010 --> 00:08:06.082
 the hundredth time.
 
 160
-00:08:06,082 --> 00:08:09,113
+00:08:06.082 --> 00:08:09.113
 >> Yeah,
 one thing I wish Haskell was magical.
 
 161
-00:08:09,113 --> 00:08:12,425
+00:08:09.113 --> 00:08:12.425
 And it can be we just aren't
 necessarily using it right now.
 
 162
-00:08:12,425 --> 00:08:17,332
+00:08:12.425 --> 00:08:17.332
 I like to put TV is that
 kind of a way to get away
 
 163
-00:08:17,332 --> 00:08:21,980
+00:08:17.332 --> 00:08:21.980
 from accidentally like misaligning like
 
 164
-00:08:21,980 --> 00:08:26,912
+00:08:21.980 --> 00:08:26.912
 a value from, JSON or something like that.
 
 165
-00:08:26,912 --> 00:08:31,846
+00:08:26.912 --> 00:08:31.846
 Because we've kind of, some of our
 parsing, for our JSON parsing we
 
 166
-00:08:31,846 --> 00:08:36,695
+00:08:31.846 --> 00:08:36.695
 use the applicative stuff and
 that kind of ensures that like, hey,
 
 167
-00:08:36,695 --> 00:08:42,248
+00:08:36.695 --> 00:08:42.248
 this could end up being different because
 you misalign the keys or whatever.
 
 168
-00:08:42,248 --> 00:08:45,955
+00:08:42.248 --> 00:08:45.955
 So I think as a group of
 developers I would like for
 
 169
-00:08:45,955 --> 00:08:49,032
+00:08:45.955 --> 00:08:49.032
 us to kind of lead lean more into, okay,
 
 170
-00:08:49,032 --> 00:08:54,200
+00:08:49.032 --> 00:08:54.200
 let's not use a plug it in just so
 we can make sure we keep our sanity.
 
 171
-00:08:54,200 --> 00:08:58,488
+00:08:54.200 --> 00:08:58.488
 Because I mean, a few months ago, I was
 just banging my head against the wall
 
 172
-00:08:58,488 --> 00:09:03,245
+00:08:58.488 --> 00:09:03.245
 trying to figure out like, wait a second,
 what's happening here and sure enough,
 
 173
-00:09:03,245 --> 00:09:05,535
+00:09:03.245 --> 00:09:05.535
 it was just a miss of flip-flopped key.
 
 174
-00:09:05,535 --> 00:09:08,791
+00:09:05.535 --> 00:09:08.791
 It was like [SOUND]
 >> That brings up a good point that just
 
 175
-00:09:08,791 --> 00:09:12,030
+00:09:08.791 --> 00:09:12.030
 because Haskell gets rid of
 a large portion of runtime errors,
 
 176
-00:09:12,030 --> 00:09:14,487
+00:09:12.030 --> 00:09:14.487
 it doesn't mean that it
 gets rid of all of them.
 
 177
-00:09:14,487 --> 00:09:18,907
+00:09:14.487 --> 00:09:18.907
 And in fact, it's not even desirable to
 get rid of all of them because you'd have
 
 178
-00:09:18,907 --> 00:09:21,192
+00:09:18.907 --> 00:09:21.192
 to pay so
 much upfront in order to do that.
 
 179
-00:09:21,192 --> 00:09:25,343
+00:09:21.192 --> 00:09:25.343
 But there are somethings like you
 mentioned with the applicative syntax
 
 180
-00:09:25,343 --> 00:09:29,290
+00:09:25.343 --> 00:09:29.290
 where they allow you to sort of
 accidentally introduce problems that
 
 181
-00:09:29,290 --> 00:09:32,711
+00:09:29.290 --> 00:09:32.711
 are very hard to detect and
 there are easy ways around that.
 
 182
-00:09:32,711 --> 00:09:35,845
+00:09:32.711 --> 00:09:35.845
 In our case writing those
 pressures in a more
 
 183
-00:09:35,845 --> 00:09:40,344
+00:09:35.845 --> 00:09:40.344
 monastic style makes it clearer
 which things are going where.
 
 184
-00:09:40,344 --> 00:09:44,541
+00:09:40.344 --> 00:09:44.541
 So you can look at a line and say no,
 we're pulling this field it's named price
 
 185
-00:09:44,541 --> 00:09:48,679
+00:09:44.541 --> 00:09:48.679
 but we're pulling it from object where
 the key we're looking for his name, and
 
 186
-00:09:48,679 --> 00:09:50,490
+00:09:48.679 --> 00:09:50.490
 that obviously doesn't line up.
 
 187
-00:09:50,490 --> 00:09:54,974
+00:09:50.490 --> 00:09:54.974
 >> Right, right, right, yeah, so
 I mean I do think a lot of the things
 
 188
-00:09:54,974 --> 00:09:59,086
+00:09:54.974 --> 00:09:59.086
 that Haskell provides for
 runtime correctness is are great.
 
 189
-00:09:59,086 --> 00:10:02,638
+00:09:59.086 --> 00:10:02.638
 So I'm really glad that they kind of
 echoed that because like you said,
 
 190
-00:10:02,638 --> 00:10:05,015
+00:10:02.638 --> 00:10:05.015
 Elm, that's something
 they boast all about.
 
 191
-00:10:05,015 --> 00:10:05,808
+00:10:05.015 --> 00:10:05.808
 >> Yeah.
 
 192
-00:10:05,808 --> 00:10:08,551
+00:10:05.808 --> 00:10:08.551
 >> But housing you don't really
 hear about that until you're in it.
 
 193
-00:10:08,551 --> 00:10:11,986
+00:10:08.551 --> 00:10:11.986
 And you're like,
 this isn't gonna let me change a function
 
 194
-00:10:11,986 --> 00:10:15,801
+00:10:11.986 --> 00:10:15.801
 name over here without updating all
 the colors, that's not possible.
 
 195
-00:10:15,801 --> 00:10:16,500
+00:10:15.801 --> 00:10:16.500
 >> Yep.
 
 196
-00:10:16,500 --> 00:10:19,293
+00:10:16.500 --> 00:10:19.293
 >> Because that compiler
 will not be happy with you.
 
 197
-00:10:19,293 --> 00:10:21,482
+00:10:19.293 --> 00:10:21.482
 >> [LAUGH]
 >> That's awesome.
 
 198
-00:10:21,482 --> 00:10:25,164
+00:10:21.482 --> 00:10:25.164
 The other thing they kinda touched
 on was kinda the research.
 
 199
-00:10:25,164 --> 00:10:31,169
+00:10:25.164 --> 00:10:31.169
 So academia is kinda leaning more
 towards Haskell as a language that,
 
 200
-00:10:31,169 --> 00:10:37,074
+00:10:31.169 --> 00:10:37.074
 these new research methods are kinda
 written in these algorithms and
 
 201
-00:10:37,074 --> 00:10:39,232
+00:10:37.074 --> 00:10:39.232
 all this various stuff.
 
 202
-00:10:39,232 --> 00:10:44,340
+00:10:39.232 --> 00:10:44.340
 What is that useful for GitHub?
 
 203
-00:10:44,340 --> 00:10:48,801
+00:10:44.340 --> 00:10:48.801
 >> You touched on it a little already in
 that a lot of computer science papers
 
 204
-00:10:48,801 --> 00:10:53,207
+00:10:48.801 --> 00:10:53.207
 are written using Haskell or
 a language that's very close to Haskell.
 
 205
-00:10:53,207 --> 00:10:57,959
+00:10:53.207 --> 00:10:57.959
 But that kind of typical computer science
 paper that you read with the font that
 
 206
-00:10:57,959 --> 00:11:01,643
+00:10:57.959 --> 00:11:01.643
 everybody knows and
 the to column layout and all that stuff.
 
 207
-00:11:01,643 --> 00:11:04,838
+00:11:01.643 --> 00:11:04.838
 The code that you look at in
 those papers is usually Haskell.
 
 208
-00:11:04,838 --> 00:11:10,015
+00:11:04.838 --> 00:11:10.015
 And if you can take that code from
 an established research paper and
 
 209
-00:11:10,015 --> 00:11:15,939
+00:11:10.015 --> 00:11:15.939
 more or less copy paste it into your
 library, and start using it right away.
 
 210
-00:11:15,939 --> 00:11:17,599
+00:11:15.939 --> 00:11:17.599
 That's a huge win versus,
 
 211
-00:11:17,599 --> 00:11:21,942
+00:11:17.599 --> 00:11:21.942
 if you were using basically any other
 language you would have to think.
 
 212
-00:11:21,942 --> 00:11:25,706
+00:11:21.942 --> 00:11:25.706
 Okay, how can I put this behavior that
 I want that they're talking about
 
 213
-00:11:25,706 --> 00:11:28,003
+00:11:25.706 --> 00:11:28.003
 in this paper into
 the language that I have?
 
 214
-00:11:28,003 --> 00:11:31,568
+00:11:28.003 --> 00:11:31.568
 And you have to change the semantics,
 you have to change the actual shape
 
 215
-00:11:31,568 --> 00:11:35,556
+00:11:31.568 --> 00:11:35.556
 of the code itself, you have to make sure
 everything works the way you expected.
 
 216
-00:11:35,556 --> 00:11:37,933
+00:11:35.556 --> 00:11:37.933
 So it's just more difficult to do that.
 
 217
-00:11:37,933 --> 00:11:42,382
+00:11:37.933 --> 00:11:42.382
 Now, that's not a common problem for
 work-all-day programmers like us,
 
 218
-00:11:42,382 --> 00:11:43,895
+00:11:42.382 --> 00:11:43.895
 we're writing web apps.
 
 219
-00:11:43,895 --> 00:11:45,959
+00:11:43.895 --> 00:11:45.959
 >> Right.
 >> We're not looking into research papers
 
 220
-00:11:45,959 --> 00:11:47,847
+00:11:45.959 --> 00:11:47.847
 to figure out, well, how do we parse JSON?
 
 221
-00:11:47,847 --> 00:11:49,860
+00:11:47.847 --> 00:11:49.860
 It's kind of a solved
 problem at this point.
 
 222
-00:11:49,860 --> 00:11:52,952
+00:11:49.860 --> 00:11:52.952
 [LAUGH]
 >> Correct, you're right, which is nice,
 
 223
-00:11:52,952 --> 00:11:57,691
+00:11:52.952 --> 00:11:57.691
 but it is also helpful if yo're trying to
 be on the cutting edge of technology and
 
 224
-00:11:57,691 --> 00:11:59,336
+00:11:57.691 --> 00:11:59.336
 the growth of technology.
 
 225
-00:11:59,336 --> 00:12:03,320
+00:11:59.336 --> 00:12:03.320
 Research papers have Haskell,
 that's where the code is.
 
 226
-00:12:03,320 --> 00:12:04,092
+00:12:03.320 --> 00:12:04.092
 >> Yeah.
 >> That's what it is.
 
 227
-00:12:04,092 --> 00:12:05,742
+00:12:04.092 --> 00:12:05.742
 Those papers are still coming out,
 
 228
-00:12:05,742 --> 00:12:08,166
+00:12:05.742 --> 00:12:08.166
 programming language theory
 is not a solved field.
 
 229
-00:12:08,166 --> 00:12:11,947
+00:12:08.166 --> 00:12:11.947
 And the Semantic team at GitHub Is
 on the cutting edge of this,
 
 230
-00:12:11,947 --> 00:12:14,057
+00:12:11.947 --> 00:12:14.057
 they are analyzing source code for
 
 231
-00:12:14,057 --> 00:12:18,949
+00:12:14.057 --> 00:12:18.949
 millions of software projects across
 many different programming languages.
 
 232
-00:12:18,949 --> 00:12:23,396
+00:12:18.949 --> 00:12:23.396
 And they wanna do it quickly, effectively,
 safely and the research is kinda showing
 
 233
-00:12:23,396 --> 00:12:26,811
+00:12:23.396 --> 00:12:26.811
 them how to do that and
 they're able to crib from it effectively.
 
 234
-00:12:26,811 --> 00:12:28,316
+00:12:26.811 --> 00:12:28.316
 >> And I think that's really awesome.
 
 235
-00:12:28,316 --> 00:12:30,924
+00:12:28.316 --> 00:12:30.924
 So I definitely applaud them for-
 >> Yeah, me too.
 
 236
-00:12:30,924 --> 00:12:32,654
+00:12:30.924 --> 00:12:32.654
 >> This article.
 
 237
-00:12:32,654 --> 00:12:37,138
+00:12:32.654 --> 00:12:37.138
 They also kinda talked about the things
 I didn't like, which is a helpful
 
 238
-00:12:37,138 --> 00:12:41,498
+00:12:37.138 --> 00:12:41.498
 thing when you're analyzing, okay,
 do I jump in and go with Haskell?
 
 239
-00:12:41,498 --> 00:12:47,991
+00:12:41.498 --> 00:12:47.991
 Or do I lean towards the Java or C#,
 or something a little more mainstream?
 
 240
-00:12:47,991 --> 00:12:50,435
+00:12:47.991 --> 00:12:50.435
 >> Yeah, I always like it when
 I see an article like this.
 
 241
-00:12:50,435 --> 00:12:52,365
+00:12:50.435 --> 00:12:52.365
 And they include the stuff
 they didn't like.
 
 242
-00:12:52,365 --> 00:12:55,998
+00:12:52.365 --> 00:12:55.998
 Otherwise, it's really easy to look at it
 and discount it offhand, and think well,
 
 243
-00:12:55,998 --> 00:12:59,637
+00:12:55.998 --> 00:12:59.637
 they just really like this and it's their
 pet language, and they want it to succeed.
 
 244
-00:12:59,637 --> 00:13:01,288
+00:12:59.637 --> 00:13:01.288
 So they're not gonna say
 anything bad about it.
 
 245
-00:13:01,288 --> 00:13:02,151
+00:13:01.288 --> 00:13:02.151
 >> Is it their cat language?
 
 246
-00:13:02,151 --> 00:13:03,218
+00:13:02.151 --> 00:13:03.218
 >> [LAUGH]
 >> Or their dog language?
 
 247
-00:13:03,218 --> 00:13:04,007
+00:13:03.218 --> 00:13:04.007
 >> A cat or dog, right?
 
 248
-00:13:04,007 --> 00:13:05,235
+00:13:04.007 --> 00:13:05.235
 Are they cat or dog people, do you think?
 
 249
-00:13:05,235 --> 00:13:06,837
+00:13:05.235 --> 00:13:06.837
 >> Maybe fish, they could be fish people.
 
 250
-00:13:06,837 --> 00:13:07,959
+00:13:06.837 --> 00:13:07.959
 >> Fish people.
 
 251
-00:13:07,959 --> 00:13:09,317
+00:13:07.959 --> 00:13:09.317
 Lizard people.
 
 252
-00:13:09,317 --> 00:13:12,444
+00:13:09.317 --> 00:13:12.444
 >> The Aquaman.
 
 253
-00:13:12,444 --> 00:13:15,355
+00:13:12.444 --> 00:13:15.355
 [LAUGH]
 >> All right,
 
 254
-00:13:15,355 --> 00:13:20,754
+00:13:15.355 --> 00:13:20.754
 I think it does add credibility
 to this document or blog post.
 
 255
-00:13:20,754 --> 00:13:21,507
+00:13:20.754 --> 00:13:21.507
 >> Yeah, this article.
 
 256
-00:13:21,507 --> 00:13:22,618
+00:13:21.507 --> 00:13:22.618
 >> Very unofficial article.
 
 257
-00:13:22,618 --> 00:13:25,294
+00:13:22.618 --> 00:13:25.294
 >> Yeah. [LAUGH] >> Articles are a very
 good term, I should use that more often.
 
 258
-00:13:25,294 --> 00:13:30,399
+00:13:25.294 --> 00:13:30.399
 But they talk about kind
 of the weak tooling aspect.
 
 259
-00:13:30,399 --> 00:13:36,317
+00:13:30.399 --> 00:13:36.317
 This is something we've come to deal with.
 
 260
-00:13:36,317 --> 00:13:38,476
+00:13:36.317 --> 00:13:38.476
 >> Yeah,
 it's a problem we've definitely run into.
 
 261
-00:13:38,476 --> 00:13:41,993
+00:13:38.476 --> 00:13:41.993
 >> Right, and so do you wanna kinda
 explain what we do to kinda counteract
 
 262
-00:13:41,993 --> 00:13:43,073
+00:13:41.993 --> 00:13:43.073
 this and-
 >> Sure.
 
 263
-00:13:43,073 --> 00:13:44,375
+00:13:43.073 --> 00:13:44.375
 >> Acknowledge it?
 
 264
-00:13:44,375 --> 00:13:46,545
+00:13:44.375 --> 00:13:46.545
 >> First, just kinda for
 a statement of terms.
 
 265
-00:13:46,545 --> 00:13:50,786
+00:13:46.545 --> 00:13:50.786
 I think that when they talk about tooling,
 they're talking about like
 
 266
-00:13:50,786 --> 00:13:54,616
+00:13:50.786 --> 00:13:54.616
 an ID integration,
 something like IntelliJ or Visual Studio.
 
 267
-00:13:54,616 --> 00:13:59,941
+00:13:54.616 --> 00:13:59.941
 Where when you're working on code, you can
 mouse over a certain part and it'll show
 
 268
-00:13:59,941 --> 00:14:04,816
+00:13:59.941 --> 00:14:04.816
 you perhaps the documentation for that
 thing or what parameters it expects or
 
 269
-00:14:04,816 --> 00:14:10,227
+00:14:04.816 --> 00:14:10.227
 where in your code base it's used, stuff
 that isn't earth shattering on it's own.
 
 270
-00:14:10,227 --> 00:14:14,689
+00:14:10.227 --> 00:14:14.689
 But a bunch of small niceties that add
 up to a really positive experience.
 
 271
-00:14:14,689 --> 00:14:18,605
+00:14:14.689 --> 00:14:18.605
 And they're right to say that Haskell
 is kinda weak in this regards,
 
 272
-00:14:18,605 --> 00:14:20,774
+00:14:18.605 --> 00:14:20.774
 there are certainly tools that help.
 
 273
-00:14:20,774 --> 00:14:24,049
+00:14:20.774 --> 00:14:24.049
 The one that we use most often is GHCID.
 
 274
-00:14:24,049 --> 00:14:27,507
+00:14:24.049 --> 00:14:27.507
 >> Another one I was just
 thinking about offhand, so
 
 275
-00:14:27,507 --> 00:14:30,562
+00:14:27.507 --> 00:14:30.562
 I didn't catch you off on this but
 Interro.
 
 276
-00:14:30,562 --> 00:14:32,937
+00:14:30.562 --> 00:14:32.937
 >> Yeah.
 >> Interro offers,
 
 277
-00:14:32,937 --> 00:14:36,274
+00:14:32.937 --> 00:14:36.274
 the awesome IDE experience.
 
 278
-00:14:36,274 --> 00:14:39,937
+00:14:36.274 --> 00:14:39.937
 But it takes over people's machines and
 like, crashes them.
 
 279
-00:14:39,937 --> 00:14:43,966
+00:14:39.937 --> 00:14:43.966
 >> [LAUGH] Yeah and we've run into
 problems with Haskell IDE engine where
 
 280
-00:14:43,966 --> 00:14:46,953
+00:14:43.966 --> 00:14:46.953
 the promise of it is excellent but
 when you run it for
 
 281
-00:14:46,953 --> 00:14:50,930
+00:14:46.953 --> 00:14:50.930
 more than a couple hours it starts
 heating up all the RAM it can find.
 
 282
-00:14:50,930 --> 00:14:51,866
+00:14:50.930 --> 00:14:51.866
 So-
 >> It's hungry.
 
 283
-00:14:51,866 --> 00:14:54,702
+00:14:51.866 --> 00:14:54.702
 >> I think that Haskell is moving
 in the right direction and
 
 284
-00:14:54,702 --> 00:14:57,370
+00:14:54.702 --> 00:14:57.370
 they seem to have landed on
 the same solutions as us.
 
 285
-00:14:57,370 --> 00:15:01,563
+00:14:57.370 --> 00:15:01.563
 Which is you have your editor up maybe
 the left hand side of your screen and
 
 286
-00:15:01,563 --> 00:15:04,107
+00:15:01.563 --> 00:15:04.107
 your compiler output up
 on the right hand and
 
 287
-00:15:04,107 --> 00:15:06,813
+00:15:04.107 --> 00:15:06.813
 you kind of stitch things
 together yourself.
 
 288
-00:15:06,813 --> 00:15:10,239
+00:15:06.813 --> 00:15:10.239
 >> Obviously, not ideal but
 definitely workable.
 
 289
-00:15:10,239 --> 00:15:12,364
+00:15:10.239 --> 00:15:12.364
 And just to kinda color that a bit,
 
 290
-00:15:12,364 --> 00:15:16,833
+00:15:12.364 --> 00:15:16.833
 from my point of view, I think this
 comes down mostly to lack of resources
 
 291
-00:15:16,833 --> 00:15:20,814
+00:15:16.833 --> 00:15:20.814
 because developing all of that
 tooling just takes a lot of work.
 
 292
-00:15:20,814 --> 00:15:24,631
+00:15:20.814 --> 00:15:24.631
 And for these other languages like Java or
 JavaScript, you have millions of people
 
 293
-00:15:24,631 --> 00:15:27,591
+00:15:24.631 --> 00:15:27.591
 working in these languages, and
 that's not true for Haskell.
 
 294
-00:15:27,591 --> 00:15:31,529
+00:15:27.591 --> 00:15:31.529
 So I'm excited to see GitHub talk about
 this because if they get people interested
 
 295
-00:15:31,529 --> 00:15:35,410
+00:15:31.529 --> 00:15:35.410
 and excited about Haskell and working in
 it, then the tooling is naturally gonna
 
 296
-00:15:35,410 --> 00:15:37,829
+00:15:35.410 --> 00:15:37.829
 improve as more people get
 in with the community.
 
 297
-00:15:37,829 --> 00:15:39,370
+00:15:37.829 --> 00:15:39.370
 >> No, I think that's a very good point.
 
 298
-00:15:39,370 --> 00:15:41,818
+00:15:39.370 --> 00:15:41.818
 So way to go, GitHub.
 
 299
-00:15:41,818 --> 00:15:43,196
+00:15:41.818 --> 00:15:43.196
 >> [LAUGH]
 >> Awesome, well,
 
 300
-00:15:43,196 --> 00:15:46,325
+00:15:43.196 --> 00:15:46.325
 they also kind of talk about I
 think that's a very good point.
 
 301
-00:15:46,325 --> 00:15:48,817
+00:15:46.325 --> 00:15:48.817
 [LAUGH] So way to go, github.
 
 302
-00:15:48,817 --> 00:15:51,199
+00:15:48.817 --> 00:15:51.199
 >> No dependent types.
 
 303
-00:15:51,199 --> 00:15:53,280
+00:15:51.199 --> 00:15:53.280
 Why do you think this is an issue for
 them?
 
 304
-00:15:53,280 --> 00:15:56,910
+00:15:53.280 --> 00:15:56.910
 >> So we already talked a little how they
 kinda borrowed from current programming
 
 305
-00:15:56,910 --> 00:15:59,667
+00:15:56.910 --> 00:15:59.667
 language research and apply it,
 to their problem domain.
 
 306
-00:15:59,667 --> 00:16:04,532
+00:15:59.667 --> 00:16:04.532
 So they're already in a kind of
 unusual situation as far as that goes.
 
 307
-00:16:04,532 --> 00:16:09,250
+00:16:04.532 --> 00:16:09.250
 And I think that's why they feel this
 pain from the lack of dependent typing,
 
 308
-00:16:09,250 --> 00:16:14,118
+00:16:09.250 --> 00:16:14.118
 because they're pushing, Haskell's
 type system to its limits and Haskell,
 
 309
-00:16:14,118 --> 00:16:18,258
+00:16:14.118 --> 00:16:18.258
 while it's well-revered for
 having a strong useful type system,
 
 310
-00:16:18,258 --> 00:16:20,390
+00:16:18.258 --> 00:16:20.390
 it does not have dependent types.
 
 311
-00:16:20,390 --> 00:16:23,904
+00:16:20.390 --> 00:16:23.904
 And there's lot of things you can do
 to try to pretend like you have them or
 
 312
-00:16:23,904 --> 00:16:26,726
+00:16:23.904 --> 00:16:26.726
 give you some of the same
 benefits of dependent types, but
 
 313
-00:16:26,726 --> 00:16:28,821
+00:16:26.726 --> 00:16:28.821
 at the end of the day, it doesn't happen.
 
 314
-00:16:28,821 --> 00:16:32,921
+00:16:28.821 --> 00:16:32.921
 And I can't speak personally to this
 cause I haven't run into this particular
 
 315
-00:16:32,921 --> 00:16:35,540
+00:16:32.921 --> 00:16:35.540
 limitation in the type of
 development that we do.
 
 316
-00:16:35,540 --> 00:16:39,389
+00:16:35.540 --> 00:16:39.389
 And I think that most developers would
 not run into this problem, they wouldn't
 
 317
-00:16:39,389 --> 00:16:43,539
+00:16:39.389 --> 00:16:43.539
 think, well, I wish I had dependent types
 here, it doesn't come up that often.
 
 318
-00:16:43,539 --> 00:16:46,743
+00:16:43.539 --> 00:16:46.743
 But for them it does, I don't wanna
 discount their experience here,
 
 319
-00:16:46,743 --> 00:16:49,093
+00:16:46.743 --> 00:16:49.093
 obviously they wish they had this and
 they don't.
 
 320
-00:16:49,093 --> 00:16:53,574
+00:16:49.093 --> 00:16:53.574
 So the you know the only languages that
 do have this they're they're few and
 
 321
-00:16:53,574 --> 00:16:55,895
+00:16:53.574 --> 00:16:55.895
 far between stuff like Okta and Idris.
 
 322
-00:16:55,895 --> 00:16:59,726
+00:16:55.895 --> 00:16:59.726
 They have this but they're they're a
 little less production ready than Haskell
 
 323
-00:16:59,726 --> 00:17:01,542
+00:16:59.726 --> 00:17:01.542
 is they're not used quite as widely.
 
 324
-00:17:01,542 --> 00:17:06,056
+00:17:01.542 --> 00:17:06.056
 >> Right, that's interesting,
 yeah, I don't think we've really
 
 325
-00:17:06,056 --> 00:17:09,950
+00:17:06.056 --> 00:17:09.950
 thought of dependent types has
 never really been a thing.
 
 326
-00:17:09,950 --> 00:17:13,636
+00:17:09.950 --> 00:17:13.636
 >> I think that it's a great idea and
 I'm really interested in it but
 
 327
-00:17:13,636 --> 00:17:17,522
+00:17:13.636 --> 00:17:17.522
 day to day there's not too much
 where I'm like, this would be so
 
 328
-00:17:17,522 --> 00:17:20,151
+00:17:17.522 --> 00:17:20.151
 much easier if I had dependent types,
 drats.
 
 329
-00:17:20,151 --> 00:17:25,860
+00:17:20.151 --> 00:17:25.860
 >> Awesome, well, they also kind of talk
 about kind of the lack of infra glue.
 
 330
-00:17:25,860 --> 00:17:28,633
+00:17:25.860 --> 00:17:28.633
 >> Yeah, I like that terminology
 they used, infra glue,
 
 331
-00:17:28,633 --> 00:17:31,827
+00:17:28.633 --> 00:17:31.827
 it sounds like something you buy
 from a TV channel or something.
 
 332
-00:17:31,827 --> 00:17:36,014
+00:17:31.827 --> 00:17:36.014
 >> Right, here is your infra glu,
 glue, wow, I can't even talk.
 
 333
-00:17:36,014 --> 00:17:39,445
+00:17:36.014 --> 00:17:39.445
 >> But yeah, so they mentioned that for
 the actual meat and
 
 334
-00:17:39,445 --> 00:17:42,809
+00:17:39.445 --> 00:17:42.809
 potatoes of their program,
 Haskell does a great job.
 
 335
-00:17:42,809 --> 00:17:46,620
+00:17:42.809 --> 00:17:46.620
 But for the stuff where they have to worry
 about deploying or making containers or
 
 336
-00:17:46,620 --> 00:17:50,184
+00:17:46.620 --> 00:17:50.184
 stuff like that,
 It's a little more difficult.
 
 337
-00:17:50,184 --> 00:17:55,111
+00:17:50.184 --> 00:17:55.111
 And that's mostly because it's similar to
 the tooling problem where just not as many
 
 338
-00:17:55,111 --> 00:17:56,693
+00:17:55.111 --> 00:17:56.693
 people have been using it.
 
 339
-00:17:56,693 --> 00:18:00,579
+00:17:56.693 --> 00:18:00.579
 So there's not a canned solution but
 I go I want to deploy this to AWS or
 
 340
-00:18:00,579 --> 00:18:02,734
+00:18:00.579 --> 00:18:02.734
 I want to make a container out of this.
 
 341
-00:18:02,734 --> 00:18:06,100
+00:18:02.734 --> 00:18:06.100
 You can definitely do those things but
 you're probably going to have to do them
 
 342
-00:18:06,100 --> 00:18:09,415
+00:18:06.100 --> 00:18:09.415
 yourself rather than just picking
 something off the shelf that says, okay,
 
 343
-00:18:09,415 --> 00:18:11,978
+00:18:09.415 --> 00:18:11.978
 yeah, I'll play this Python
 program to look at whatever.
 
 344
-00:18:11,978 --> 00:18:13,118
+00:18:11.978 --> 00:18:13.118
 >> It's a little more boilerplate.
 
 345
-00:18:13,118 --> 00:18:17,410
+00:18:13.118 --> 00:18:17.410
 >> Yeah, and again not a show stopper and
 not terribly difficult to get around,
 
 346
-00:18:17,410 --> 00:18:19,666
+00:18:17.410 --> 00:18:19.666
 but just annoying that it's not there.
 
 347
-00:18:19,666 --> 00:18:24,829
+00:18:19.666 --> 00:18:24.829
 >> Yeah, that's fair, but
 one of the more interesting
 
 348
-00:18:24,829 --> 00:18:29,647
+00:18:24.829 --> 00:18:29.647
 ones that I feel like we've
 encountered a lot is,
 
 349
-00:18:29,647 --> 00:18:32,990
+00:18:29.647 --> 00:18:32.990
 the issues with lazy evaluation.
 
 350
-00:18:32,990 --> 00:18:35,913
+00:18:32.990 --> 00:18:35.913
 I think for
 us we've had various scripts and
 
 351
-00:18:35,913 --> 00:18:41,139
+00:18:35.913 --> 00:18:41.139
 you know things as you know our code is
 trying to figure out what it's gonna do.
 
 352
-00:18:41,139 --> 00:18:45,043
+00:18:41.139 --> 00:18:45.043
 Until it actually needs to execute
 something it just builds up this giant
 
 353
-00:18:45,043 --> 00:18:47,225
+00:18:45.043 --> 00:18:47.225
 thunk that hangs out all over the place.
 
 354
-00:18:47,225 --> 00:18:51,933
+00:18:47.225 --> 00:18:51.933
 And you're like, everything slows down and
 you're like what's going on?
 
 355
-00:18:51,933 --> 00:18:54,441
+00:18:51.933 --> 00:18:54.441
 >> And then you put one
 exclamation point in one place and
 
 356
-00:18:54,441 --> 00:18:56,121
+00:18:54.441 --> 00:18:56.121
 everything works again, ta-da!
 
 357
-00:18:56,121 --> 00:19:01,063
+00:18:56.121 --> 00:19:01.063
 >> Yeah and they kinda talked about
 their language extension, strict data?
 
 358
-00:19:01,063 --> 00:19:02,269
+00:19:01.063 --> 00:19:02.269
 >> Strict data, I was like, yeah.
 
 359
-00:19:02,269 --> 00:19:03,039
+00:19:02.269 --> 00:19:03.039
 >> Static data, no?
 
 360
-00:19:03,039 --> 00:19:07,433
+00:19:03.039 --> 00:19:07.433
 >> Strict data, yeah, and so
 that's kind of how they interacted it, but
 
 361
-00:19:07,433 --> 00:19:10,670
+00:19:07.433 --> 00:19:10.670
 why do you think for
 them that's kind of a big issue?
 
 362
-00:19:10,670 --> 00:19:14,432
+00:19:10.670 --> 00:19:14.432
 >> I think that lazy evaluation is
 a double edged sword in Haskell for sure.
 
 363
-00:19:14,432 --> 00:19:19,055
+00:19:14.432 --> 00:19:19.055
 And the main reason for that is that
 Haskell is pretty much the only
 
 364
-00:19:19,055 --> 00:19:24,786
+00:19:19.055 --> 00:19:24.786
 programming language that I can think of
 off down my head that is lazy by default.
 
 365
-00:19:24,786 --> 00:19:28,019
+00:19:24.786 --> 00:19:28.019
 Every other programming
 language is strict by default.
 
 366
-00:19:28,019 --> 00:19:32,515
+00:19:28.019 --> 00:19:32.515
 So as programmers,
 we're not used to identifying and solving,
 
 367
-00:19:32,515 --> 00:19:37,434
+00:19:32.515 --> 00:19:37.434
 problems that stem from laziness,
 because we rarely encounter them.
 
 368
-00:19:37,434 --> 00:19:39,318
+00:19:37.434 --> 00:19:39.318
 In other languages,
 you have to explicitly opt in.
 
 369
-00:19:39,318 --> 00:19:41,647
+00:19:39.318 --> 00:19:41.647
 So like in Python,
 you can make a generator, or
 
 370
-00:19:41,647 --> 00:19:45,317
+00:19:41.647 --> 00:19:45.317
 in JavaScript you do all the acing stuff
 to pretend like you have laziness,
 
 371
-00:19:45,317 --> 00:19:47,376
+00:19:45.317 --> 00:19:47.376
 whereas in Haskell, it's everywhere.
 
 372
-00:19:47,376 --> 00:19:51,908
+00:19:47.376 --> 00:19:51.908
 So people just aren't used to looking for
 those types of problems and so
 
 373
-00:19:51,908 --> 00:19:54,789
+00:19:51.908 --> 00:19:54.789
 they're bound to crop up every now and
 then.
 
 374
-00:19:54,789 --> 00:19:59,723
+00:19:54.789 --> 00:19:59.723
 That being said, they're usually
 not terribly hard to diagnose and
 
 375
-00:19:59,723 --> 00:20:02,963
+00:19:59.723 --> 00:20:02.963
 fix once you have a couple
 tricks in your bag.
 
 376
-00:20:02,963 --> 00:20:06,165
+00:20:02.963 --> 00:20:06.165
 But the first time that you run into them,
 they can be completely mystifying
 
 377
-00:20:06,165 --> 00:20:08,779
+00:20:06.165 --> 00:20:08.779
 because you can look at code and
 it looks totally reasonable.
 
 378
-00:20:08,779 --> 00:20:13,936
+00:20:08.779 --> 00:20:13.936
 But for whatever reason, the way that you
 wrote it either generates too many thunks,
 
 379
-00:20:13,936 --> 00:20:18,100
+00:20:13.936 --> 00:20:18.100
 like you mentioned, and
 you don't evaluate them at the right time.
 
 380
-00:20:18,100 --> 00:20:19,595
+00:20:18.100 --> 00:20:19.595
 Or just something like that, I mean,
 
 381
-00:20:19,595 --> 00:20:21,805
+00:20:19.595 --> 00:20:21.805
 can be really difficult to
 figure out what's going on.
 
 382
-00:20:21,805 --> 00:20:26,810
+00:20:21.805 --> 00:20:26.810
 And again, this comes back to the lack of
 tooling, if there was better tooling to
 
 383
-00:20:26,810 --> 00:20:31,685
+00:20:26.810 --> 00:20:31.685
 analyze the laziness of your program this
 could be an easier problem to solve.
 
 384
-00:20:31,685 --> 00:20:34,916
+00:20:31.685 --> 00:20:34.916
 >> So maybe with time,
 maybe with time, maybe with time.
 
 385
-00:20:34,916 --> 00:20:39,427
+00:20:34.916 --> 00:20:39.427
 The last one, this one hits home for
 us is they kinda of said,
 
 386
-00:20:39,427 --> 00:20:44,483
+00:20:39.427 --> 00:20:44.483
 it's gotta a notorious interpretation
 of being too hard to learn.
 
 387
-00:20:44,483 --> 00:20:48,854
+00:20:44.483 --> 00:20:48.854
 As bunch of junior developers
 who just minus you and
 
 388
-00:20:48,854 --> 00:20:53,226
+00:20:48.854 --> 00:20:53.226
 Cody, learning Haskell in
 the last few years it had
 
 389
-00:20:53,226 --> 00:20:57,816
+00:20:53.226 --> 00:20:57.816
 it's a little bit of growing
 pains in the beginning.
 
 390
-00:20:57,816 --> 00:21:02,878
+00:20:57.816 --> 00:21:02.878
 But once you understand the concept and
 the paradigm of functional programming,
 
 391
-00:21:02,878 --> 00:21:06,985
+00:21:02.878 --> 00:21:06.985
 it becomes a lot more attainable
 to really conquer the language and
 
 392
-00:21:06,985 --> 00:21:09,060
+00:21:06.985 --> 00:21:09.060
 have a good understanding of it.
 
 393
-00:21:09,060 --> 00:21:13,697
+00:21:09.060 --> 00:21:13.697
 Without you we're not the deepest
 understanding but you can have a general
 
 394
-00:21:13,697 --> 00:21:17,608
+00:21:13.697 --> 00:21:17.608
 idea what's going on, so
 what did they have to say about that.
 
 395
-00:21:17,608 --> 00:21:22,261
+00:21:17.608 --> 00:21:22.261
 >> I think they say something very similar
 to what we think and hope I've said but
 
 396
-00:21:22,261 --> 00:21:23,335
+00:21:22.261 --> 00:21:23.335
 if we haven't yet
 
 397
-00:21:23,335 --> 00:21:28,366
+00:21:23.335 --> 00:21:28.366
 we'll say now that Haskell does have this
 reputation of being difficult to learn.
 
 398
-00:21:28,366 --> 00:21:29,818
+00:21:28.366 --> 00:21:29.818
 But it's not that difficult and
 
 399
-00:21:29,818 --> 00:21:33,583
+00:21:29.818 --> 00:21:33.583
 it's especially not that difficult to get
 to a working knowledge, where maybe you
 
 400
-00:21:33,583 --> 00:21:36,942
+00:21:33.583 --> 00:21:36.942
 don't have a super duper understanding
 of everything that's going on.
 
 401
-00:21:36,942 --> 00:21:41,678
+00:21:36.942 --> 00:21:41.678
 But you can get worked on and
 you can feel effective and be effective,
 
 402
-00:21:41,678 --> 00:21:44,781
+00:21:41.678 --> 00:21:44.781
 you don't have to learn category theory,
 or
 
 403
-00:21:44,781 --> 00:21:49,941
+00:21:44.781 --> 00:21:49.941
 really understand what is a monad in
 order to program in Haskell day to day.
 
 404
-00:21:49,941 --> 00:21:54,113
+00:21:49.941 --> 00:21:54.113
 And they say,
 especially with some type of, mentor or
 
 405
-00:21:54,113 --> 00:21:59,115
+00:21:54.113 --> 00:21:59.115
 tutor on the team, you can get
 people up to speed really quickly.
 
 406
-00:21:59,115 --> 00:22:01,767
+00:21:59.115 --> 00:22:01.767
 And we've seen that we hired
 somebody a month ago and
 
 407
-00:22:01,767 --> 00:22:04,489
+00:22:01.767 --> 00:22:04.489
 they got up to speed basically
 within the first week.
 
 408
-00:22:04,489 --> 00:22:08,115
+00:22:04.489 --> 00:22:08.115
 Now, granted they obviously don't
 understand all of Haskell, everything,
 
 409
-00:22:08,115 --> 00:22:10,668
+00:22:08.115 --> 00:22:10.668
 I mean, it's a huge language,
 there's a lot to know.
 
 410
-00:22:10,668 --> 00:22:13,498
+00:22:10.668 --> 00:22:13.498
 >> Right.
 >> But they know enough to be effective,
 
 411
-00:22:13,498 --> 00:22:16,841
+00:22:13.498 --> 00:22:16.841
 and write code that works,
 and submit it for PR and
 
 412
-00:22:16,841 --> 00:22:20,759
+00:22:16.841 --> 00:22:20.759
 get it into production within a week or
 two of being hired.
 
 413
-00:22:20,759 --> 00:22:24,601
+00:22:20.759 --> 00:22:24.601
 >> Right.
 >> It's not insurmountable.
 
 414
-00:22:24,601 --> 00:22:27,457
+00:22:24.601 --> 00:22:27.457
 >> Yeah.
 >> And I think another attribute for us,
 
 415
-00:22:27,457 --> 00:22:32,870
+00:22:27.457 --> 00:22:32.870
 attribute to our ability to learn Haskell,
 has been the idea of promiscuous pairing,
 
 416
-00:22:32,870 --> 00:22:37,910
+00:22:32.870 --> 00:22:37.910
 which for those listeners, you guys check
 it out, there's a cool paper on it.
 
 417
-00:22:37,910 --> 00:22:41,169
+00:22:37.910 --> 00:22:41.169
 So we've been doing it for a little
 while now and we find it very effective,
 
 418
-00:22:41,169 --> 00:22:43,158
+00:22:41.169 --> 00:22:43.158
 t allows it knowledge
 transfer really well.
 
 419
-00:22:43,158 --> 00:22:49,394
+00:22:43.158 --> 00:22:49.394
 So I did a shameless plug for Jason,
 [LAUGH] he's all he's all about it.
 
 420
-00:22:49,394 --> 00:22:53,565
+00:22:49.394 --> 00:22:53.565
 >> Yeah, he's all about it and it really
 ties into what this semantic team at
 
 421
-00:22:53,565 --> 00:22:58,276
+00:22:53.565 --> 00:22:58.276
 GitHub said, of having a tutor or somebody
 who knows the loops to show the new person
 
 422
-00:22:58,276 --> 00:23:01,729
+00:22:58.276 --> 00:23:01.729
 promiscuous pairing,
 just forces that every time around.
 
 423
-00:23:01,729 --> 00:23:03,323
+00:23:01.729 --> 00:23:03.323
 >> Everyone must be a learner.
 
 424
-00:23:03,323 --> 00:23:04,431
+00:23:03.323 --> 00:23:04.431
 >> [LAUGH].
 >> A teacher,
 
 425
-00:23:04,431 --> 00:23:06,907
+00:23:04.431 --> 00:23:06.907
 I'm whispering into a microphone.
 
 426
-00:23:06,907 --> 00:23:09,593
+00:23:06.907 --> 00:23:09.593
 >> [LAUGH]
 >> That's kind of weird, all right, and
 
 427
-00:23:09,593 --> 00:23:12,828
+00:23:09.593 --> 00:23:12.828
 obviously, this program
 is pretty large semantic.
 
 428
-00:23:12,828 --> 00:23:18,708
+00:23:12.828 --> 00:23:18.708
 Like as far as the depth of what it can
 do, but it's only 20,000 lines of code.
 
 429
-00:23:18,708 --> 00:23:22,153
+00:23:18.708 --> 00:23:22.153
 Yeah and that's amazing because
 as they point out several times
 
 430
-00:23:22,153 --> 00:23:25,547
+00:23:22.153 --> 00:23:25.547
 in their article if they had
 written this in, let's say Java.
 
 431
-00:23:25,547 --> 00:23:29,260
+00:23:25.547 --> 00:23:29.260
 They may have written 20,000
 lines of just boilerplate,
 
 432
-00:23:29,260 --> 00:23:33,189
+00:23:29.260 --> 00:23:33.189
 whereas the entire Haskell program
 would fit into that same space.
 
 433
-00:23:33,189 --> 00:23:37,429
+00:23:33.189 --> 00:23:37.429
 So yeah, it's phenomenal that they can
 get so much done with so little code.
 
 434
-00:23:37,429 --> 00:23:41,795
+00:23:37.429 --> 00:23:41.795
 >> Yeah, I think it's just incredible, so
 I do think this is a really great article
 
 435
-00:23:41,795 --> 00:23:45,605
+00:23:41.795 --> 00:23:45.605
 and I would definitely encourage all
 of our listeners to check it out.
 
 436
-00:23:45,605 --> 00:23:46,911
+00:23:45.605 --> 00:23:46.911
 >> For sure.
 
 437
-00:23:46,911 --> 00:23:49,575
+00:23:46.911 --> 00:23:49.575
 >> But do you have anything
 else you'd like to add on it?
 
 438
-00:23:49,575 --> 00:23:53,121
+00:23:49.575 --> 00:23:53.121
 >> I don't think so, I just wanna
 reiterate that it's great to see another
 
 439
-00:23:53,121 --> 00:23:55,969
+00:23:53.121 --> 00:23:55.969
 big company like GitHub using
 Haskell in production, and
 
 440
-00:23:55,969 --> 00:23:58,543
+00:23:55.969 --> 00:23:58.543
 generally coming away with
 a positive experience.
 
 441
-00:23:58,543 --> 00:24:02,372
+00:23:58.543 --> 00:24:02.372
 Obviously, they had some things that
 they didn't like too much, but overall,
 
 442
-00:24:02,372 --> 00:24:04,135
+00:24:02.372 --> 00:24:04.135
 they were really positive about it.
 
 443
-00:24:04,135 --> 00:24:06,587
+00:24:04.135 --> 00:24:06.587
 And it seems like if they had
 to choose it again, they would.
 
 444
-00:24:06,587 --> 00:24:11,755
+00:24:06.587 --> 00:24:11.755
 >> Yeah, we'll see the octocat soon
 with some sweet Haskell tattoos.
 
 445
-00:24:11,755 --> 00:24:14,155
+00:24:11.755 --> 00:24:14.155
 >> Yeah, the purely functional octocat.
 
 446
-00:24:14,155 --> 00:24:15,185
+00:24:14.155 --> 00:24:15.185
 >> Yeah.
 
 447
-00:24:15,185 --> 00:24:16,718
+00:24:15.185 --> 00:24:16.718
 >> [LAUGH]
 >> Well, awesome,
 
 448
-00:24:16,718 --> 00:24:19,098
+00:24:16.718 --> 00:24:19.098
 well Taylor it's been really fun talking.
 
 449
-00:24:19,098 --> 00:24:20,619
+00:24:19.098 --> 00:24:20.619
 >> It's been great
 talking with you Kelvin,
 
 450
-00:24:20,619 --> 00:24:21,938
+00:24:20.619 --> 00:24:21.938
 thanks for being on the show with me.
 
 451
-00:24:21,938 --> 00:24:23,567
+00:24:21.938 --> 00:24:23.567
 >> Of course, always, any time.
 
 452
-00:24:23,567 --> 00:24:27,131
+00:24:23.567 --> 00:24:27.131
 >> And thank you for
 listening to the Haskell weekly podcast,
 
 453
-00:24:27,131 --> 00:24:29,277
+00:24:27.131 --> 00:24:29.277
 this has been episode number 13.
 
 454
-00:24:29,277 --> 00:24:33,742
+00:24:29.277 --> 00:24:33.742
 >> If you liked what you heard find out
 more at our website haskellweekly.news.
 
 455
-00:24:33,742 --> 00:24:38,116
+00:24:33.742 --> 00:24:38.116
 Also please take a minute to read and
 review us on iTunes it helps us out a lot.
 
 456
-00:24:38,116 --> 00:24:41,382
+00:24:38.116 --> 00:24:41.382
 I think right now Kelvin and I
 are the only people that have reviewed us.
 
 457
-00:24:42,489 --> 00:24:44,705
+00:24:42.489 --> 00:24:44.705
 >> Out there reviewed.
 
 458
-00:24:44,705 --> 00:24:47,212
+00:24:44.705 --> 00:24:47.212
 >> This episode like all
 the other ones we've done so
 
 459
-00:24:47,212 --> 00:24:50,621
+00:24:47.212 --> 00:24:50.621
 far was actually recorded in our
 own office, the ITProTV studios.
 
 460
-00:24:50,621 --> 00:24:55,761
+00:24:50.621 --> 00:24:55.761
 So I just wanna give a shout out to ITPro
 for recording this whole thing, whoo-hoo.
 
 461
-00:24:55,761 --> 00:24:59,781
+00:24:55.761 --> 00:24:59.781
 >> And at ITPro what we do is provide
 IT training that's both effective and
 
 462
-00:24:59,781 --> 00:25:00,726
+00:24:59.781 --> 00:25:00.726
 entertaining.
 
 463
-00:25:00,726 --> 00:25:05,793
+00:25:00.726 --> 00:25:05.793
 So if that sound interesting to you
 please go find out more at ITPro.TV.
 
 464
-00:25:05,793 --> 00:25:08,751
+00:25:05.793 --> 00:25:08.751
 Thanks again for listening and
 we'll see you next week, bye.
 
 465
-00:25:08,751 --> 00:25:09,630
+00:25:08.751 --> 00:25:09.630
 >> Adios.

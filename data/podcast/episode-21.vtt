@@ -1,771 +1,773 @@
+WEBVTT
+
 1
-00:00:00,030 --> 00:00:05,100
+00:00:00.030 --> 00:00:05.100
 Hi! Welcome to the Haskell Weekly podcast. I'm your host Taylor Fausak. I'm the
 
 2
-00:00:05,100 --> 00:00:10,559
+00:00:05.100 --> 00:00:10.559
 lead engineer at IT Pro TV. With me today is Cody, one of the engineers on my team.
 
 3
-00:00:10,559 --> 00:00:15,719
+00:00:10.559 --> 00:00:15.719
 Thanks for joining me today, Cody.
 >> Yeah, no problem. I'm excited to talk about our topic
 
 4
-00:00:15,719 --> 00:00:20,730
+00:00:15.719 --> 00:00:20.730
 today.
 >> Yeah what topic is that? What are we gonna be talking about today?
 >> We came
 
 5
-00:00:20,730 --> 00:00:26,519
+00:00:20.730 --> 00:00:26.519
 across the "Eventful GHC" blog post and hope to dig into that.
 >> Sounds good to me!
 
 6
-00:00:26,519 --> 00:00:33,090
+00:00:26.519 --> 00:00:33.090
 Let's jump right in. So what is this blog post about, Cody?
 >> It's about the event
 
 7
-00:00:33,090 --> 00:00:41,309
+00:00:33.090 --> 00:00:41.309
 log and how you can use it to get a picture of what GHC is doing not only
 
 8
-00:00:41,309 --> 00:00:45,950
+00:00:41.309 --> 00:00:45.950
 about the events it already throws but adding your own user-defined events to
 
 9
-00:00:45,950 --> 00:00:49,770
+00:00:45.950 --> 00:00:49.770
 get a complete picture of the things that you do care about in terms of time
 
 10
-00:00:49,770 --> 00:00:54,480
+00:00:49.770 --> 00:00:54.480
 and space.
 >> Sounds cool! I think I could probably guess based on context clues
 
 11
-00:00:54,480 --> 00:01:04,350
+00:00:54.480 --> 00:01:04.350
 but what exactly is the event log?
 >> It is just a generic list of events written to
 
 12
-00:01:04,350 --> 00:01:08,700
+00:01:04.350 --> 00:01:08.700
 a file inside of the binary.
 >> Alright so that sounds like a pretty lightweight
 
 13
-00:01:08,700 --> 00:01:13,290
+00:01:08.700 --> 00:01:13.290
 file format. The way that I'm most used to looking at the performance of Haskell
 
 14
-00:01:13,290 --> 00:01:19,470
+00:01:13.290 --> 00:01:19.470
 programs is using profiling,. How does the event log compare with profiling?
 >> So a
 
 15
-00:01:19,470 --> 00:01:25,080
+00:01:19.470 --> 00:01:25.080
 big advantage it has they mentioned it in a different order in the blog post but
 
 16
-00:01:25,080 --> 00:01:31,710
+00:01:25.080 --> 00:01:31.710
 I think the last thing mentioned is: the biggest reason to use it; it has a lot
 
 17
-00:01:31,710 --> 00:01:36,540
+00:01:31.710 --> 00:01:36.540
 less impact on performance and you can keep all your same optimizations you'd
 
 18
-00:01:36,540 --> 00:01:42,329
+00:01:36.540 --> 00:01:42.329
 be running anyway.
 >> That sounds nice.
 >> And get an eye on those.
 >> Yeah because I know that
 
 19
-00:01:42,329 --> 00:01:51,270
+00:01:42.329 --> 00:01:51.270
 with profiling you have to rebuild basically everything, right?
 >> Yeah, and it can really take quite a bit. Then you
 
 20
-00:01:51,270 --> 00:01:54,420
+00:01:51.270 --> 00:01:54.420
 have something that you're uncomfortable without putting in production.
 >> Right
 
 21
-00:01:54,420 --> 00:02:00,570
+00:01:54.420 --> 00:02:00.570
 because we use Haskell here at IT Pro TV and if you try to rebuild our
 
 22
-00:02:00,570 --> 00:02:04,439
+00:02:00.570 --> 00:02:04.439
 project with profiling, I think you're probably going to want to go get a
 
 23
-00:02:04,439 --> 00:02:07,380
+00:02:04.439 --> 00:02:07.380
 coffee, maybe even go get lunch while that happens because it's got to build
 
 24
-00:02:07,380 --> 00:02:09,780
+00:02:07.380 --> 00:02:09.780
 you know two hundred some-odd dependencies and rebuild the whole
 
 25
-00:02:09,780 --> 00:02:13,050
+00:02:09.780 --> 00:02:13.050
 project. It's a lot of work for the compiler to do.
 
 26
-00:02:13,050 --> 00:02:19,170
+00:02:13.050 --> 00:02:19.170
 >> Yeah last time I did it it took at least a good 30 minutes.
 >> And then once
 
 27
-00:02:19,170 --> 00:02:23,040
+00:02:19.170 --> 00:02:23.040
 you've got that built like you said I'm not super comfortable throwing that in
 
 28
-00:02:23,040 --> 00:02:27,600
+00:02:23.040 --> 00:02:27.600
 production because profiling defeats so many of the optimizations that we kind
 
 29
-00:02:27,600 --> 00:02:32,220
+00:02:27.600 --> 00:02:32.220
 of rely on to have a fast service.
 >> Right and if you're defeating those
 
 30
-00:02:32,220 --> 00:02:36,990
+00:02:32.220 --> 00:02:36.990
 optimizations that means you're getting a fuzzier picture of what the
 
 31
-00:02:36,990 --> 00:02:43,230
+00:02:36.990 --> 00:02:43.230
 performance was like anyway. So in that way the event log here let's just have a
 
 32
-00:02:43,230 --> 00:02:48,360
+00:02:43.230 --> 00:02:48.360
 lot more clear look at that and take more clear actions as a result.
 >> Right and
 
 33
-00:02:48,360 --> 00:02:54,300
+00:02:48.360 --> 00:02:54.300
 to put a fine point on that, when you enable profiling you can change the
 
 34
-00:02:54,300 --> 00:02:58,080
+00:02:54.300 --> 00:02:58.080
 behavior in terms of performance of the thing that you're looking at. So you may
 
 35
-00:02:58,080 --> 00:03:01,620
+00:02:58.080 --> 00:03:01.620
 identify some part of your program that's slow and turn on profiling to
 
 36
-00:03:01,620 --> 00:03:05,100
+00:03:01.620 --> 00:03:05.100
 figure out why it's slow and then once you do that some other part of your
 
 37
-00:03:05,100 --> 00:03:09,060
+00:03:05.100 --> 00:03:09.060
 program turns out to be the hot spot with profiling enabled. So the event log
 
 38
-00:03:09,060 --> 00:03:12,540
+00:03:09.060 --> 00:03:12.540
 seems like a good way to avoid that problem but still get a peek into the
 
 39
-00:03:12,540 --> 00:03:19,230
+00:03:12.540 --> 00:03:19.230
 performance characteristics.
 >> Right, and if you do go ahead and need more information
 
 40
-00:03:19,230 --> 00:03:22,740
+00:03:19.230 --> 00:03:22.740
 from profiling and you can keep in mind what you learn from the event log and
 
 41
-00:03:22,740 --> 00:03:28,830
+00:03:22.740 --> 00:03:28.830
 have at least an idea of things that maybe are just noise in the
 
 42
-00:03:28,830 --> 00:03:33,510
+00:03:28.830 --> 00:03:33.510
 profile.
 >> Yeah it's you know by no means one or the other. You can definitely use
 
 43
-00:03:33,510 --> 00:03:40,080
+00:03:33.510 --> 00:03:40.080
 both. So with the event log I think GHC has some custom tooling
 
 44
-00:03:40,080 --> 00:03:44,550
+00:03:40.080 --> 00:03:44.550
 around making events but there's some stuff in Debug.Trace which is a handy
 
 45
-00:03:44,550 --> 00:03:48,990
+00:03:44.550 --> 00:03:48.990
 little module that provides a lot of stuff for like logging out from pure
 
 46
-00:03:48,990 --> 00:03:52,290
+00:03:48.990 --> 00:03:52.290
 functions. That's the way that I most commonly use it. But it seems like it's
 
 47
-00:03:52,290 --> 00:03:56,630
+00:03:52.290 --> 00:03:56.630
 recently gotten some other stuff for logging events, could you talk about that?
 
 48
-00:03:56,630 --> 00:04:05,280
+00:03:56.630 --> 00:04:05.280
 >> Yeah they recently added the withTraceIO function and I believe a couple
 
 49
-00:04:05,280 --> 00:04:11,640
+00:04:05.280 --> 00:04:11.640
 others. Oh sorry it was traceEvent and traceEventIO, traceMarker and
 
 50
-00:04:11,640 --> 00:04:15,720
+00:04:11.640 --> 00:04:15.720
 traceMarkerIO. That lets you have user-defined
 
 51
-00:04:15,720 --> 00:04:21,030
+00:04:15.720 --> 00:04:21.030
 markers and that's really powerful. That lets you see, you know ,when
 
 52
-00:04:21,030 --> 00:04:26,710
+00:04:21.030 --> 00:04:26.710
 that spike in heap usage happens, what marker is it near. What
 
 53
-00:04:26,710 --> 00:04:31,569
+00:04:26.710 --> 00:04:31.569
 logical thing you defined is happening is going on.
 >> Right, so we've been talking
 
 54
-00:04:31,569 --> 00:04:35,680
+00:04:31.569 --> 00:04:35.680
 a lot about events which are you know just kind of ad hoc something happened,
 
 55
-00:04:35,680 --> 00:04:40,090
+00:04:35.680 --> 00:04:40.090
 but a marker it sounds like is a bigger picture than that?
 >> Right.
 
 56
-00:04:40,090 --> 00:04:46,150
+00:04:40.090 --> 00:04:46.150
 This is amongst all those events that are happening, what function just
 
 57
-00:04:46,150 --> 00:04:52,750
+00:04:46.150 --> 00:04:52.750
 happened. Or not even what function but at a higher level what unit of work is
 
 58
-00:04:52,750 --> 00:04:57,759
+00:04:52.750 --> 00:04:57.759
 happening.
 >> Right, so like right now we're in the, you know, collecting dependencies
 
 59
-00:04:57,759 --> 00:05:01,389
+00:04:57.759 --> 00:05:01.389
 part of the job, and then now we're on the optimizing part, and now we're on the
 
 60
-00:05:01,389 --> 00:05:06,940
+00:05:01.389 --> 00:05:06.940
 linking part. Those are those might be markers.
 >> Exactly.
 >> Cool. So Debug.Trace has
 
 61
-00:05:06,940 --> 00:05:11,500
+00:05:06.940 --> 00:05:11.500
 these functions that anybody can use, but GHC itself uses these in kind of a neat
 
 62
-00:05:11,500 --> 00:05:16,389
+00:05:11.500 --> 00:05:16.389
 little way. Could you talk about that a little bit, Cody?
 >> Yeah sure. They have a
 
 63
-00:05:16,389 --> 00:05:21,490
+00:05:16.389 --> 00:05:21.490
 function they use called withTiming now, and they create their own
 
 64
-00:05:21,490 --> 00:05:29,680
+00:05:21.490 --> 00:05:29.680
 user-defined events of systool:linker, CMM pipeline, chasing dependencies, stuff
 
 65
-00:05:29,680 --> 00:05:37,150
+00:05:29.680 --> 00:05:37.150
 like that. And they're gonna be recording these by sampling all of Hackage which
 
 66
-00:05:37,150 --> 00:05:42,280
+00:05:37.150 --> 00:05:42.280
 is amazing.
 >> Yeah, that's a huge data set to work with. You know obviously
 
 67
-00:05:42,280 --> 00:05:46,180
+00:05:42.280 --> 00:05:46.180
 not every Haskell program is on Hackage but a huge subset of them are
 
 68
-00:05:46,180 --> 00:05:49,030
+00:05:46.180 --> 00:05:49.030
 and it seems like a good way to get a peek at the performance characteristics
 
 69
-00:05:49,030 --> 00:05:53,770
+00:05:49.030 --> 00:05:53.770
 of GHC in the real world.
 >> Right and something so exciting to me is I'm
 
 70
-00:05:53,770 --> 00:06:00,159
+00:05:53.770 --> 00:06:00.159
 thinking that is a representative sample.
 >> Yeah, for sure! And I think it's kind of
 
 71
-00:06:00,159 --> 00:06:04,419
+00:06:00.159 --> 00:06:04.419
 in stark contrast to in this blog post they give a little "hello world" program
 
 72
-00:06:04,419 --> 00:06:08,740
+00:06:04.419 --> 00:06:08.740
 as an example and they show the event log for that. And that's the type of
 
 73
-00:06:08,740 --> 00:06:13,090
+00:06:08.740 --> 00:06:13.090
 thing that I'm more used to seeing in like my own personal benchmarks or
 
 74
-00:06:13,090 --> 00:06:17,050
+00:06:13.090 --> 00:06:17.050
 whatever's in GHC. It's a little program that's meant to show either a typical
 
 75
-00:06:17,050 --> 00:06:22,060
+00:06:17.050 --> 00:06:22.060
 use case or like some weird corner case, but not representative of programs at
 
 76
-00:06:22,060 --> 00:06:29,560
+00:06:22.060 --> 00:06:29.560
 large.
 >> Right those have their place but this is gonna give, you know, there's more
 
 77
-00:06:29,560 --> 00:06:35,199
+00:06:29.560 --> 00:06:35.199
 complicated behaviors and gives a chance to get insights on those.
 >> Right which is
 
 78
-00:06:35,199 --> 00:06:38,940
+00:06:35.199 --> 00:06:38.940
 super exciting. And one of the ways that we can
 
 79
-00:06:38,940 --> 00:06:43,410
+00:06:38.940 --> 00:06:43.410
 look at the results of this data set is using a tool they mentioned called
 
 80
-00:06:43,410 --> 00:06:49,170
+00:06:43.410 --> 00:06:49.170
 ghc-events-analyze, which reads that binary event log and spits out a human readable
 
 81
-00:06:49,170 --> 00:06:54,120
+00:06:49.170 --> 00:06:54.120
 kind of table of information along with an SVG chart, so you can visualize where
 
 82
-00:06:54,120 --> 00:06:58,250
+00:06:54.120 --> 00:06:58.250
 things are spending its time. And I think they mentioned a couple other tools,
 
 83
-00:06:58,250 --> 00:07:05,310
+00:06:58.250 --> 00:07:05.310
 could you talk about some of those?
 >> Yeah one of the other ones was eventlog2html, which is like an
 
 84
-00:07:05,310 --> 00:07:11,940
+00:07:05.310 --> 00:07:11.940
 interactive look at your heap, and also when you add those markers in it will it
 
 85
-00:07:11,940 --> 00:07:18,000
+00:07:11.940 --> 00:07:18.000
 will tell you what units of work happened near a particular place and the
 
 86
-00:07:18,000 --> 00:07:22,290
+00:07:18.000 --> 00:07:22.290
 graph you're looking at like a spike or something or a drop.
 >> That sounds super
 
 87
-00:07:22,290 --> 00:07:27,450
+00:07:22.290 --> 00:07:27.450
 useful. So you could use ghc-events-analyze to look at timing information,
 
 88
-00:07:27,450 --> 00:07:33,230
+00:07:27.450 --> 00:07:33.230
 where are we spending our time, and then look at eventlog2html to say are we,
 
 89
-00:07:33,230 --> 00:07:36,960
+00:07:33.230 --> 00:07:36.960
 you know, doing too much garbage collection there, are we allocating too
 
 90
-00:07:36,960 --> 00:07:40,620
+00:07:36.960 --> 00:07:40.620
 much, or is it probably CPU bound instead, or maybe something else, you know maybe it's
 
 91
-00:07:40,620 --> 00:07:45,150
+00:07:40.620 --> 00:07:45.150
 IO bound.
 >> Right and we don't want to leave that threadscope, which will be
 
 92
-00:07:45,150 --> 00:07:51,060
+00:07:45.150 --> 00:07:51.060
 the non web app it's a GTK app. I believe it offers some of the same
 
 93
-00:07:51,060 --> 00:07:56,520
+00:07:51.060 --> 00:07:56.520
 features. If memory serves correctly maybe, a couple more.
 >> Nice, so we've got a
 
 94
-00:07:56,520 --> 00:08:01,590
+00:07:56.520 --> 00:08:01.590
 lot of tools to look at these event logs. And one of the things that I really like
 
 95
-00:08:01,590 --> 00:08:05,070
+00:08:01.590 --> 00:08:05.070
 about these event logs is it sort of separates when you're running the
 
 96
-00:08:05,070 --> 00:08:10,050
+00:08:05.070 --> 00:08:10.050
 program versus when you're analyzing it. So the way that I'm most used to using
 
 97
-00:08:10,050 --> 00:08:13,200
+00:08:10.050 --> 00:08:13.200
 Haskell is with web apps, so typically you want to analyze it while it's
 
 98
-00:08:13,200 --> 00:08:17,850
+00:08:13.200 --> 00:08:17.850
 running, but lots of tools like the GHC compiler itself or a lot of other
 
 99
-00:08:17,850 --> 00:08:22,020
+00:08:17.850 --> 00:08:22.020
 programs you know you run them once and then they're done and you can look at
 
 100
-00:08:22,020 --> 00:08:26,540
+00:08:22.020 --> 00:08:26.540
 this event log to see over the course of running it where did it spend its time.
 
 101
-00:08:26,540 --> 00:08:30,690
+00:08:26.540 --> 00:08:30.690
 Which can be super useful for like a command line tool that you know if you
 
 102
-00:08:30,690 --> 00:08:34,440
+00:08:30.690 --> 00:08:34.440
 wanted to write a grep competitor in Haskell you could do that and run it
 
 103
-00:08:34,440 --> 00:08:37,860
+00:08:34.440 --> 00:08:37.860
 over some data set and then look at the event log and spend some time poking
 
 104
-00:08:37,860 --> 00:08:44,010
+00:08:37.860 --> 00:08:44.010
 around with that. So for GHC they've kind of built this
 
 105
-00:08:44,010 --> 00:08:49,260
+00:08:44.010 --> 00:08:49.260
 in to like you said earlier there withTiming function to give a picture of
 
 106
-00:08:49,260 --> 00:08:52,710
+00:08:49.260 --> 00:08:52.710
 where time is spent. They don't quite have everywhere figured out yet
 
 107
-00:08:52,710 --> 00:08:57,960
+00:08:52.710 --> 00:08:57.960
 still missing a few spots, right?
 >> Yaeh they were missing things like when it's
 
 108
-00:08:57,960 --> 00:09:04,460
+00:08:57.960 --> 00:09:04.460
 parsing information at startup as well as at the end after code generation
 
 109
-00:09:04,460 --> 00:09:09,480
+00:09:04.460 --> 00:09:09.480
 hopefully they'll build that, add those in too, so we can get that full picture, make
 
 110
-00:09:09,480 --> 00:09:12,900
+00:09:09.480 --> 00:09:12.900
 sure we're not missing a hotspot.
 >> Yeah I'd be really nice to have that
 
 111
-00:09:12,900 --> 00:09:17,100
+00:09:12.900 --> 00:09:17.100
 picture, complete end to end you know. From when GHC starts to when it's done
 
 112
-00:09:17,100 --> 00:09:23,970
+00:09:17.100 --> 00:09:23.970
 and everything in between.
 >> I agree.
 >> And looking at this you know kind of sample
 
 113
-00:09:23,970 --> 00:09:28,890
+00:09:23.970 --> 00:09:28.890
 output they have of building a "hello world" program, it was shocking to me
 
 114
-00:09:28,890 --> 00:09:35,820
+00:09:28.890 --> 00:09:35.820
 maybe not shocking but they they sort where it spends all of its time and the
 
 115
-00:09:35,820 --> 00:09:39,840
+00:09:35.820 --> 00:09:39.840
 number one thing is the linker. Because obviously hello world is an executable,
 
 116
-00:09:39,840 --> 00:09:43,530
+00:09:39.840 --> 00:09:43.530
 so you want to run it, so it's got to be linked, and of it's like three and a half
 
 117
-00:09:43,530 --> 00:09:47,370
+00:09:43.530 --> 00:09:47.370
 seconds of total run time, two and a half seconds are spent in the linker. That's
 
 118
-00:09:47,370 --> 00:09:51,720
+00:09:47.370 --> 00:09:51.720
 crazy!
 >> It really is and you know after this I
 
 119
-00:09:51,720 --> 00:09:55,650
+00:09:51.720 --> 00:09:55.650
 remember reading some old Stack Overflows about the gold linker being
 
 120
-00:09:55,650 --> 00:10:02,310
+00:09:55.650 --> 00:10:02.310
 faster. I think you've mentioned lld before. I want to specify those manually
 
 121
-00:10:02,310 --> 00:10:06,780
+00:10:02.310 --> 00:10:06.780
 and benchmark these. That is crazy!
 >> Yeah because if we can save you know 80
 
 122
-00:10:06,780 --> 00:10:10,770
+00:10:06.780 --> 00:10:10.770
 percent of our time on the linking step, that's huge. And I know that here at IT
 
 123
-00:10:10,770 --> 00:10:14,970
+00:10:10.770 --> 00:10:14.970
 Pro we actually changed that we build our executables. We used to we have many
 
 124
-00:10:14,970 --> 00:10:19,320
+00:10:14.970 --> 00:10:19.320
 services, so we used to have an executable for each service, and we would
 
 125
-00:10:19,320 --> 00:10:24,450
+00:10:19.320 --> 00:10:24.450
 spend a huge amount of our build time just linking all of those executables. So
 
 126
-00:10:24,450 --> 00:10:28,320
+00:10:24.450 --> 00:10:28.320
 we actually changed it to where we only have one executable and it has a bunch
 
 127
-00:10:28,320 --> 00:10:32,730
+00:10:28.320 --> 00:10:32.730
 of like quote unquote sub executables, so we only spend that linking, or we only pay
 
 128
-00:10:32,730 --> 00:10:36,870
+00:10:32.730 --> 00:10:36.870
 for that linking thing once, and then we get all of the executables we want out
 
 129
-00:10:36,870 --> 00:10:40,980
+00:10:36.870 --> 00:10:40.980
 of it. So a little hack that hopefully wouldn't be necessary if we could switch
 
 130
-00:10:40,980 --> 00:10:45,810
+00:10:40.980 --> 00:10:45.810
 to something like the gold linker.
 >> Right and then there's there's some
 
 131
-00:10:45,810 --> 00:10:52,980
+00:10:45.810 --> 00:10:52.980
 things I've heard happening like Bazel and adding more advanced Haskell support
 
 132
-00:10:52,980 --> 00:10:58,890
+00:10:52.980 --> 00:10:58.890
 for that, so hopefully we can make some headway in that space.
 >> Yeah it would be a
 
 133
-00:10:58,890 --> 00:11:01,980
+00:10:58.890 --> 00:11:01.980
 huge gain for for everybody that builds executables, which I think is
 
 134
-00:11:01,980 --> 00:11:05,420
+00:11:01.980 --> 00:11:05.420
 most people working with Haskell.
 
 135
-00:11:06,720 --> 00:11:10,080
+00:11:06.720 --> 00:11:10.080
 So yeah you mentioned earlier that one of the things you could do with this
 
 136
-00:11:10,080 --> 00:11:14,280
+00:11:10.080 --> 00:11:14.280
 timing information is build all of Hackage and get an accurate assessment
 
 137
-00:11:14,280 --> 00:11:18,720
+00:11:14.280 --> 00:11:18.720
 for some real-world code. And they talk about doing that in here with
 
 138
-00:11:18,720 --> 00:11:25,680
+00:11:18.720 --> 00:11:25.680
 head.hackage, which is a I guess subset or snapshot a Hackage that is built with
 
 139
-00:11:25,680 --> 00:11:31,740
+00:11:25.680 --> 00:11:31.740
 the current HEAD version, like what's currently on master, for GHC. So that
 
 140
-00:11:31,740 --> 00:11:34,980
+00:11:31.740 --> 00:11:34.980
 would be really cool for identifying, you know, "Oh we made this change that we
 
 141
-00:11:34,980 --> 00:11:37,440
+00:11:34.980 --> 00:11:37.440
 thought was going to be improvement but it didn't actually speed things up in
 
 142
-00:11:37,440 --> 00:11:41,640
+00:11:37.440 --> 00:11:41.640
 Hackage," stuff like that. Anything else we could do with that information?
 
 143
-00:11:41,640 --> 00:11:48,330
+00:11:41.640 --> 00:11:48.330
 >> Yeah we can also track that performance over time and get a fine-grained picture
 
 144
-00:11:48,330 --> 00:11:53,340
+00:11:48.330 --> 00:11:53.340
 at where regressions are happening exactly.
 >> Yeah which could be really
 
 145
-00:11:53,340 --> 00:11:57,270
+00:11:53.340 --> 00:11:57.270
 useful for people working on GHC to say, "oh this commit slowed things down
 
 146
-00:11:57,270 --> 00:12:00,750
+00:11:57.270 --> 00:12:00.750
 unintentionally," or "this performance improvement wasn't as big as we
 
 147
-00:12:00,750 --> 00:12:05,130
+00:12:00.750 --> 00:12:05.130
 thought." But also for people like me who don't hack on GHC all that often we
 
 148
-00:12:05,130 --> 00:12:09,780
+00:12:05.130 --> 00:12:09.780
 could look at you know the big question of is GHC 8.10 faster than 8.8, or
 
 149
-00:12:09,780 --> 00:12:15,180
+00:12:09.780 --> 00:12:15.180
 you know other big markers like that.
 >> Right maybe I maybe I want to skip out
 
 150
-00:12:15,320 --> 00:12:19,280
+00:12:15.320 --> 00:12:19.280
 on 8.10 because it doubles my compile time.
 >> Exactly.
 
 151
-00:12:19,290 --> 00:12:23,790
+00:12:19.290 --> 00:12:23.790
 Hopefully that's not true. We don't have any data to back that up right now.
 >> Yes,
 
 152
-00:12:23,790 --> 00:12:29,910
+00:12:23.790 --> 00:12:29.910
 luckily.
 >> But yeah you know that's a common thing that pops up you know. With
 
 153
-00:12:29,910 --> 00:12:33,030
+00:12:29.910 --> 00:12:33.030
 these new versions of GHC that are adding a bunch of extensions and
 
 154
-00:12:33,030 --> 00:12:36,480
+00:12:33.030 --> 00:12:36.480
 features and fixing a bunch of bugs and stuff, are they slowing things down or
 
 155
-00:12:36,480 --> 00:12:42,300
+00:12:36.480 --> 00:12:42.300
 getting faster? We don't really know right now. Another thing you talked about
 
 156
-00:12:42,300 --> 00:12:46,380
+00:12:42.300 --> 00:12:46.380
 earlier was profiling our own code. So we've been talking about GHC and
 
 157
-00:12:46,380 --> 00:12:51,390
+00:12:46.380 --> 00:12:51.390
 obviously that's for the kind of build step of our pipeline. But if we're
 
 158
-00:12:51,390 --> 00:12:55,830
+00:12:51.390 --> 00:12:55.830
 building stuff and then running it in production, we're interested in how fast
 
 159
-00:12:55,830 --> 00:12:58,590
+00:12:55.830 --> 00:12:58.590
 that stuff is running and which parts are the hot spots there. So could you talk a
 
 160
-00:12:58,590 --> 00:13:04,470
+00:12:58.590 --> 00:13:04.470
 little about using these events to profile your own code.
 >> Right so something
 
 161
-00:13:04,470 --> 00:13:10,130
+00:13:04.470 --> 00:13:10.130
 we recently had an issue with is a
 
 162
-00:13:10,400 --> 00:13:18,530
+00:13:10.400 --> 00:13:18.530
 producer-consumer app that runs across many threads that we call Geoffrey.
 
 163
-00:13:18,600 --> 00:13:26,160
+00:13:18.600 --> 00:13:26.160
 And we were looking at its performance. Something that you can do with the event
 
 164
-00:13:26,160 --> 00:13:32,280
+00:13:26.160 --> 00:13:32.280
 log is to tag each thread ID, you can look at things like is the heap usage
 
 165
-00:13:32,280 --> 00:13:37,500
+00:13:32.280 --> 00:13:37.500
 per thread even, you can get an insight on if you need to do things like apply
 
 166
-00:13:37,500 --> 00:13:45,180
+00:13:37.500 --> 00:13:45.180
 back pressure, or if you know your consumers are getting starved.
 >> Yeah all
 
 167
-00:13:45,180 --> 00:13:48,600
+00:13:45.180 --> 00:13:48.600
 super useful information and hard to gather through other means like
 
 168
-00:13:48,600 --> 00:13:52,260
+00:13:48.600 --> 00:13:52.260
 profiling, so the event log is a great way to get some insight into your
 
 169
-00:13:52,260 --> 00:13:59,490
+00:13:52.260 --> 00:13:59.490
 running code like that.
 >> One hundred percent.
 >> All right well I think that about covers this "Eventful
 
 170
-00:13:59,490 --> 00:14:07,260
+00:13:59.490 --> 00:14:07.260
 GHC" blog post. Any closing thoughts, Cody?
 >> Uh, no. Start using an event log. Watch
 
 171
-00:14:07,260 --> 00:14:14,850
+00:14:07.260 --> 00:14:14.850
 GHC.
 >> It's a great project, that GHC.
 >> Yep. Thank you to the developers. Even though
 
 172
-00:14:14,850 --> 00:14:18,860
+00:14:14.850 --> 00:14:18.860
 we talked about slow compile times, we appreciate all the work. We know it's a
 
 173
-00:14:18,860 --> 00:14:23,520
+00:14:18.860 --> 00:14:23.520
 struggle.
 >> Oh yeah, it's hard. I would not want to write my own GHC. Seems very
 
 174
-00:14:23,520 --> 00:14:29,130
+00:14:23.520 --> 00:14:29.130
 challenging to do. So yes thank you to the GHC devs. And thank you Cody for
 
 175
-00:14:29,130 --> 00:14:31,400
+00:14:29.130 --> 00:14:31.400
 joining me today it's been great talking with you.
 
 176
-00:14:31,400 --> 00:14:35,910
+00:14:31.400 --> 00:14:35.910
 >> Great talking with you too, Taylor. Thank you.
 >> And as always, thank you for
 
 177
-00:14:35,910 --> 00:14:40,830
+00:14:35.910 --> 00:14:40.830
 listening to the Haskell Weekly podcast. Please rate and review us on iTunes, if
 
 178
-00:14:40,830 --> 00:14:44,070
+00:14:40.830 --> 00:14:44.070
 you liked what you heard. If you didn't like what you hear, I don't know hit us
 
 179
-00:14:44,070 --> 00:14:48,680
+00:14:44.070 --> 00:14:48.680
 up on Twitter and we'll try to do better. Thanks again and we'll see you next week.

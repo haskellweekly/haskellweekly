@@ -1,851 +1,853 @@
+WEBVTT
+
 1
-00:00:01,480 --> 00:00:05,150
+00:00:01.480 --> 00:00:05.150
 >> Hello and welcome to the Haskell Weekly
 
 2
-00:00:03,469 --> 00:00:06,680
+00:00:03.469 --> 00:00:06.680
 podcast. As you might have guessed, this
 
 3
-00:00:05,150 --> 00:00:08,029
+00:00:05.150 --> 00:00:08.029
 show is about Haskell, a purely
 
 4
-00:00:06,680 --> 00:00:10,070
+00:00:06.680 --> 00:00:10.070
 functional programming language.
 
 5
-00:00:08,029 --> 00:00:12,410
+00:00:08.029 --> 00:00:12.410
 I'm your host Cameron Gera. I'm an
 
 6
-00:00:10,070 --> 00:00:14,599
+00:00:10.070 --> 00:00:14.599
 engineer here at ITProTV, and with me
 
 7
-00:00:12,410 --> 00:00:16,880
+00:00:12.410 --> 00:00:16.880
 today we have ...
 >> Jose Silvestri. I'm
 
 8
-00:00:14,599 --> 00:00:19,130
+00:00:14.599 --> 00:00:19.130
 an intern at ITProTV.
 >> Woo! We got our
 
 9
-00:00:16,880 --> 00:00:20,930
+00:00:16.880 --> 00:00:20.930
 intern in here. He's pretty witty,
 
 10
-00:00:19,130 --> 00:00:24,199
+00:00:19.130 --> 00:00:24.199
 pretty cool. We're excited to have you on
 
 11
-00:00:20,930 --> 00:00:24,830
+00:00:20.930 --> 00:00:24.830
 the show today, man.
 >> Thank you man, appreciate it.
 >> Jose, what are we
 
 12
-00:00:24,199 --> 00:00:28,250
+00:00:24.199 --> 00:00:28.250
 talking about today?
 
 13
-00:00:24,830 --> 00:00:31,519
+00:00:24.830 --> 00:00:31.519
 >> So we're talking about our Haskell
 
 14
-00:00:28,250 --> 00:00:34,910
+00:00:28.250 --> 00:00:34.910
 survey.
 >> Well it's not OUR Haskell survey,
 
 15
-00:00:31,519 --> 00:00:37,430
+00:00:31.519 --> 00:00:37.430
 it's THE Haskell survey.
 >> THE Haskell survey.
 >> It's big --
 
 16
-00:00:34,910 --> 00:00:40,039
+00:00:34.910 --> 00:00:40.039
 it's big time guys, it's big time. But no,
 
 17
-00:00:37,430 --> 00:00:42,289
+00:00:37.430 --> 00:00:42.289
 Taylor, our -- he was also on this
 
 18
-00:00:40,039 --> 00:00:44,899
+00:00:40.039 --> 00:00:44.899
 podcast a lot. He kind of put together
 
 19
-00:00:42,289 --> 00:00:46,760
+00:00:42.289 --> 00:00:46.760
 this Haskell survey that he does.
 
 20
-00:00:44,899 --> 00:00:49,070
+00:00:44.899 --> 00:00:49.070
 He's done this for two years now, well
 
 21
-00:00:46,760 --> 00:00:50,930
+00:00:46.760 --> 00:00:50.930
 this will be his third year. So kind of
 
 22
-00:00:49,070 --> 00:00:53,660
+00:00:49.070 --> 00:00:53.660
 putting, you know, a survey out to kind of
 
 23
-00:00:50,930 --> 00:00:55,520
+00:00:50.930 --> 00:00:55.520
 get the temperature of, you know, Haskell.
 
 24
-00:00:53,660 --> 00:00:58,070
+00:00:53.660 --> 00:00:58.070
 What the community wants,
 
 25
-00:00:55,520 --> 00:01:00,170
+00:00:55.520 --> 00:01:00.170
 what the community commonly uses, what
 
 26
-00:00:58,070 --> 00:01:04,100
+00:00:58.070 --> 00:01:04.100
 kind of trends and stuff like
 
 27
-00:01:00,170 --> 00:01:05,540
+00:01:00.170 --> 00:01:05.540
 that, you know. What does the Haskell
 
 28
-00:01:04,100 --> 00:01:08,780
+00:01:04.100 --> 00:01:08.780
 -- you know, what did the Haskell
 
 29
-00:01:05,540 --> 00:01:09,860
+00:01:05.540 --> 00:01:09.860
 survey kind of glean for you, as you did
 
 30
-00:01:08,780 --> 00:01:13,130
+00:01:08.780 --> 00:01:13.130
 it?
 >> Yeah
 
 31
-00:01:09,860 --> 00:01:16,100
+00:01:09.860 --> 00:01:16.100
 I really thought -- there's a section
 
 32
-00:01:13,130 --> 00:01:19,460
+00:01:13.130 --> 00:01:19.460
 on it of what would I like to see more
 
 33
-00:01:16,100 --> 00:01:21,530
+00:01:16.100 --> 00:01:21.530
 of content-wise about Haskell, and that
 
 34
-00:01:19,460 --> 00:01:24,520
+00:01:19.460 --> 00:01:24.520
 was a really useful thing to me because
 
 35
-00:01:21,530 --> 00:01:28,820
+00:01:21.530 --> 00:01:28.820
 I feel like there's certain areas of,
 
 36
-00:01:24,520 --> 00:01:32,120
+00:01:24.520 --> 00:01:32.120
 sort of, the Haskell info sphere that
 
 37
-00:01:28,820 --> 00:01:34,160
+00:01:28.820 --> 00:01:34.160
 are very lacking, and I think surveys
 
 38
-00:01:32,120 --> 00:01:36,590
+00:01:32.120 --> 00:01:36.590
 like this are very useful on that
 
 39
-00:01:34,160 --> 00:01:38,510
+00:01:34.160 --> 00:01:38.510
 end, just for people to see what
 
 40
-00:01:36,590 --> 00:01:40,250
+00:01:36.590 --> 00:01:40.250
 the community wants, what's missing, what
 
 41
-00:01:38,510 --> 00:01:43,610
+00:01:38.510 --> 00:01:43.610
 type of content needs to be made and so
 
 42
-00:01:40,250 --> 00:01:46,400
+00:01:40.250 --> 00:01:46.400
 on.
 >> Right, yeah. I think, you know, for me
 
 43
-00:01:43,610 --> 00:01:48,530
+00:01:43.610 --> 00:01:48.530
 taking the survey for the second year,
 
 44
-00:01:46,400 --> 00:01:51,140
+00:01:46.400 --> 00:01:51.140
 you know, looking at it this year, it's
 
 45
-00:01:48,530 --> 00:01:52,430
+00:01:48.530 --> 00:01:52.430
 very, you know, there was, you know, a section
 
 46
-00:01:51,140 --> 00:01:54,260
+00:01:51.140 --> 00:01:54.260
 on community. How do you feel like you
 
 47
-00:01:52,430 --> 00:01:56,360
+00:01:52.430 --> 00:01:56.360
 fit into the community, do you feel like
 
 48
-00:01:54,260 --> 00:01:58,430
+00:01:54.260 --> 00:01:58.430
 it's welcoming, do you feel like you can
 
 49
-00:01:56,360 --> 00:02:00,980
+00:01:56.360 --> 00:02:00.980
 communicate with people. And I think
 
 50
-00:01:58,430 --> 00:02:02,210
+00:01:58.430 --> 00:02:02.210
 that's one thing, you know,
 
 51
-00:02:00,980 --> 00:02:04,400
+00:02:00.980 --> 00:02:04.400
 as I looked at those questions
 
 52
-00:02:02,210 --> 00:02:06,100
+00:02:02.210 --> 00:02:06.100
 was like, I probably haven't plugged in to
 
 53
-00:02:04,400 --> 00:02:09,320
+00:02:04.400 --> 00:02:09.320
 the Haskell community as much as I want to,
 
 54
-00:02:06,100 --> 00:02:10,550
+00:02:06.100 --> 00:02:10.550
 you know. But you kind of use
 
 55
-00:02:09,320 --> 00:02:13,040
+00:02:09.320 --> 00:02:13.040
 all these things that are out there but
 
 56
-00:02:10,550 --> 00:02:15,110
+00:02:10.550 --> 00:02:15.110
 it was kind of a good introspective to
 
 57
-00:02:13,040 --> 00:02:16,640
+00:02:13.040 --> 00:02:16.640
 look at like, oh we should probably be
 
 58
-00:02:15,110 --> 00:02:20,360
+00:02:15.110 --> 00:02:20.360
 in the community a little bit more.
 >> For
 
 59
-00:02:16,640 --> 00:02:22,340
+00:02:16.640 --> 00:02:22.340
 sure. And also it's a good place
 
 60
-00:02:20,360 --> 00:02:24,470
+00:02:20.360 --> 00:02:24.470
 I guess see what avenues of
 
 61
-00:02:22,340 --> 00:02:26,210
+00:02:22.340 --> 00:02:26.210
 communication there are. It's also a really
 
 62
-00:02:24,470 --> 00:02:27,650
+00:02:24.470 --> 00:02:27.650
 nice list just to see what's out there.
 
 63
-00:02:26,210 --> 00:02:30,320
+00:02:26.210 --> 00:02:30.320
 >> Yeah Taylor did a very thorough
 
 64
-00:02:27,650 --> 00:02:31,850
+00:02:27.650 --> 00:02:31.850
 job of making sure you know all the
 
 65
-00:02:30,320 --> 00:02:33,320
+00:02:30.320 --> 00:02:33.320
 stuff's out there. But I'm also you know
 
 66
-00:02:31,850 --> 00:02:35,720
+00:02:31.850 --> 00:02:35.720
 we want you to know: these surveys,
 
 67
-00:02:33,320 --> 00:02:37,100
+00:02:33.320 --> 00:02:37.100
 these are -- there's more surveys like this
 
 68
-00:02:35,720 --> 00:02:39,860
+00:02:35.720 --> 00:02:39.860
 out there, you know. I know Stack Overflow
 
 69
-00:02:37,100 --> 00:02:41,570
+00:02:37.100 --> 00:02:41.570
 does, you know, development for the year
 
 70
-00:02:39,860 --> 00:02:43,100
+00:02:39.860 --> 00:02:43.100
 and kind of, you know, you can see the
 
 71
-00:02:41,570 --> 00:02:44,660
+00:02:41.570 --> 00:02:44.660
 temperature of who's using what
 
 72
-00:02:43,100 --> 00:02:46,730
+00:02:43.100 --> 00:02:46.730
 programming languages, what tools they're
 
 73
-00:02:44,660 --> 00:02:48,350
+00:02:44.660 --> 00:02:48.350
 using, stuff like that. And so I think
 
 74
-00:02:46,730 --> 00:02:50,390
+00:02:46.730 --> 00:02:50.390
 this was really nice to kind of dive in.
 
 75
-00:02:48,350 --> 00:02:53,840
+00:02:48.350 --> 00:02:53.840
 This one specifically to dive into Haskell
 
 76
-00:02:50,390 --> 00:02:55,790
+00:02:50.390 --> 00:02:55.790
 you know being a mostly Haskell
 
 77
-00:02:53,840 --> 00:02:58,880
+00:02:53.840 --> 00:02:58.880
 programmer now. It was
 
 78
-00:02:55,790 --> 00:03:02,720
+00:02:55.790 --> 00:03:02.720
 cool to kind of put in my input.
 >> Yeah for
 
 79
-00:02:58,880 --> 00:03:04,130
+00:02:58.880 --> 00:03:04.130
 sure. I think getting the temperature of
 
 80
-00:03:02,720 --> 00:03:06,080
+00:03:02.720 --> 00:03:06.080
 the Haskell community is particularly
 
 81
-00:03:04,130 --> 00:03:08,390
+00:03:04.130 --> 00:03:08.390
 important for our community.
 >> Right right right.
 
 82
-00:03:06,080 --> 00:03:10,250
+00:03:06.080 --> 00:03:10.250
 We want to -- the Haskell community as
 
 83
-00:03:08,390 --> 00:03:11,630
+00:03:08.390 --> 00:03:11.630
 a whole is kind of, you know, it's there,
 
 84
-00:03:10,250 --> 00:03:14,480
+00:03:10.250 --> 00:03:14.480
 but it's been under the, you know --
 
 85
-00:03:11,630 --> 00:03:17,930
+00:03:11.630 --> 00:03:17.930
 underneath and, you know, there's not
 
 86
-00:03:14,480 --> 00:03:20,090
+00:03:14.480 --> 00:03:20.090
 really a lot of: "Oh, Haskell! Using Haskell, that's
 
 87
-00:03:17,930 --> 00:03:22,610
+00:03:17.930 --> 00:03:22.610
 awesome!" People like: "You're using Haskell,
 
 88
-00:03:20,090 --> 00:03:24,650
+00:03:20.090 --> 00:03:24.650
 what's that?" So getting a
 
 89
-00:03:22,610 --> 00:03:26,870
+00:03:22.610 --> 00:03:26.870
 survey out like this can, you know, kind
 
 90
-00:03:24,650 --> 00:03:28,459
+00:03:24.650 --> 00:03:28.459
 of get, you know -- cause there's I mean
 
 91
-00:03:26,870 --> 00:03:31,190
+00:03:26.870 --> 00:03:31.190
 looking at the survey results from the
 
 92
-00:03:28,459 --> 00:03:33,709
+00:03:28.459 --> 00:03:33.709
 previous years, which will link to in the
 
 93
-00:03:31,190 --> 00:03:35,989
+00:03:31.190 --> 00:03:35.989
 show notes here, but you know there's
 
 94
-00:03:33,709 --> 00:03:37,400
+00:03:33.709 --> 00:03:37.400
 trends you see of like, there's people
 
 95
-00:03:35,989 --> 00:03:39,080
+00:03:35.989 --> 00:03:39.080
 who fill out the survey who have never
 
 96
-00:03:37,400 --> 00:03:41,180
+00:03:37.400 --> 00:03:41.180
 touched Haskell, but they found it.
 
 97
-00:03:39,080 --> 00:03:43,910
+00:03:39.080 --> 00:03:43.910
 And like that's exposure you know. So
 
 98
-00:03:41,180 --> 00:03:45,769
+00:03:41.180 --> 00:03:45.769
 surveys like this kind of open up,
 
 99
-00:03:43,910 --> 00:03:48,560
+00:03:43.910 --> 00:03:48.560
 you know, opportunities for people to
 
 100
-00:03:45,769 --> 00:03:51,140
+00:03:45.769 --> 00:03:51.140
 learn about programming languages. In our
 
 101
-00:03:48,560 --> 00:03:53,930
+00:03:48.560 --> 00:03:53.930
 case, Haskell.
 >> Yeah for sure.
 
 102
-00:03:51,140 --> 00:03:56,840
+00:03:51.140 --> 00:03:56.840
 It's really good to get some feedback on
 
 103
-00:03:53,930 --> 00:03:58,700
+00:03:53.930 --> 00:03:58.700
 the accessibility of our community, not
 
 104
-00:03:56,840 --> 00:04:02,540
+00:03:56.840 --> 00:04:02.540
 only in terms of the people in it, but
 
 105
-00:03:58,700 --> 00:04:04,310
+00:03:58.700 --> 00:04:04.310
 also, we are sort of in a community where
 
 106
-00:04:02,540 --> 00:04:06,440
+00:04:02.540 --> 00:04:06.440
 we have very specific -- a very specific
 
 107
-00:04:04,310 --> 00:04:08,720
+00:04:04.310 --> 00:04:08.720
 language for talking about things, and
 
 108
-00:04:06,440 --> 00:04:13,489
+00:04:06.440 --> 00:04:13.489
 let me be off-putting to a lot of people.
 
 109
-00:04:08,720 --> 00:04:15,440
+00:04:08.720 --> 00:04:15.440
 I feel like maybe getting people's
 
 110
-00:04:13,489 --> 00:04:16,910
+00:04:13.489 --> 00:04:16.910
 feedback on that, that are not part --
 
 111
-00:04:15,440 --> 00:04:19,910
+00:04:15.440 --> 00:04:19.910
 already part of the community, and how
 
 112
-00:04:16,910 --> 00:04:21,829
+00:04:16.910 --> 00:04:21.829
 they sort of internalize this
 
 113
-00:04:19,910 --> 00:04:24,470
+00:04:19.910 --> 00:04:24.470
 language when they first hear it.
 
 114
-00:04:21,829 --> 00:04:25,670
+00:04:21.829 --> 00:04:25.670
 >> It's very interesting.
 >> Yeah, no and I
 
 115
-00:04:24,470 --> 00:04:27,740
+00:04:24.470 --> 00:04:27.740
 think that's ...
 
 116
-00:04:25,670 --> 00:04:29,480
+00:04:25.670 --> 00:04:29.480
 Haskell seems like this
 
 117
-00:04:27,740 --> 00:04:31,880
+00:04:27.740 --> 00:04:31.880
 big bad scary thing, and I think a lot of
 
 118
-00:04:29,480 --> 00:04:33,830
+00:04:29.480 --> 00:04:33.830
 people carry that. And you know this
 
 119
-00:04:31,880 --> 00:04:35,630
+00:04:31.880 --> 00:04:35.630
 survey allows us to kind of get the
 
 120
-00:04:33,830 --> 00:04:38,990
+00:04:33.830 --> 00:04:38.990
 temperature. Is that really the case or
 
 121
-00:04:35,630 --> 00:04:40,880
+00:04:35.630 --> 00:04:40.880
 is that just something we're saying?
 
 122
-00:04:38,990 --> 00:04:43,310
+00:04:38.990 --> 00:04:43.310
 So I'm really excited about this year's
 
 123
-00:04:40,880 --> 00:04:45,380
+00:04:40.880 --> 00:04:45.380
 survey. And you know, because now we'll
 
 124
-00:04:43,310 --> 00:04:47,360
+00:04:43.310 --> 00:04:47.360
 have three years of data, I know we'll
 
 125
-00:04:45,380 --> 00:04:48,890
+00:04:45.380 --> 00:04:48.890
 kind of be analyzing some trends a
 
 126
-00:04:47,360 --> 00:04:51,290
+00:04:47.360 --> 00:04:51.290
 little bit more. I know we want to get
 
 127
-00:04:48,890 --> 00:04:52,700
+00:04:48.890 --> 00:04:52.700
 this data out to the community and out
 
 128
-00:04:51,290 --> 00:04:55,130
+00:04:51.290 --> 00:04:55.130
 to the development community as a whole,
 
 129
-00:04:52,700 --> 00:04:56,360
+00:04:52.700 --> 00:04:56.360
 but also the, you know, more particularly
 
 130
-00:04:55,130 --> 00:04:59,090
+00:04:55.130 --> 00:04:59.090
 the Haskell community, to kind of
 
 131
-00:04:56,360 --> 00:05:01,520
+00:04:56.360 --> 00:05:01.520
 see: "Oh, like ..." You know, "Oh Jose, you use
 
 132
-00:04:59,090 --> 00:05:03,500
+00:04:59.090 --> 00:05:03.500
 Visual Studio, like, oh there's another
 
 133
-00:05:01,520 --> 00:05:05,300
+00:05:01.520 --> 00:05:05.300
 thousand people who also use Visual
 
 134
-00:05:03,500 --> 00:05:07,220
+00:05:03.500 --> 00:05:07.220
 Studio. Maybe I should give it a try and
 
 135
-00:05:05,300 --> 00:05:09,170
+00:05:05.300 --> 00:05:09.170
 see what extensions there are, and you
 
 136
-00:05:07,220 --> 00:05:11,840
+00:05:07.220 --> 00:05:11.840
 know packages that will help me be a
 
 137
-00:05:09,170 --> 00:05:13,730
+00:05:09.170 --> 00:05:13.730
 more effective, you know, developer.
 
 138
-00:05:11,840 --> 00:05:15,890
+00:05:11.840 --> 00:05:15.890
 >> You know, when it comes to
 
 139
-00:05:13,730 --> 00:05:17,150
+00:05:13.730 --> 00:05:17.150
 dealing with Haskell." So you know there's
 
 140
-00:05:15,890 --> 00:05:19,040
+00:05:15.890 --> 00:05:19.040
 a lot of different cool things in there.
 
 141
-00:05:17,150 --> 00:05:20,840
+00:05:17.150 --> 00:05:20.840
 I would definitely recommend all of our
 
 142
-00:05:19,040 --> 00:05:24,320
+00:05:19.040 --> 00:05:24.320
 listeners here to go check it out.
 
 143
-00:05:20,840 --> 00:05:26,690
+00:05:20.840 --> 00:05:26.690
 It takes like, what -- five, ten minutes?
 
 144
-00:05:24,320 --> 00:05:29,020
+00:05:24.320 --> 00:05:29.020
 >> Yeah I literally filled that out while I
 
 145
-00:05:26,690 --> 00:05:31,280
+00:05:26.690 --> 00:05:31.280
 was waiting for my food to come out.
 
 146
-00:05:29,020 --> 00:05:33,350
+00:05:29.020 --> 00:05:33.350
 >> During lunch today he took the survey,
 
 147
-00:05:31,280 --> 00:05:35,480
+00:05:31.280 --> 00:05:35.480
 which is good, you know. We wanted
 
 148
-00:05:33,350 --> 00:05:37,940
+00:05:33.350 --> 00:05:37.940
 to be prepared for this podcast, so we
 
 149
-00:05:35,480 --> 00:05:39,560
+00:05:35.480 --> 00:05:39.560
 both took it today. But yeah I would
 
 150
-00:05:37,940 --> 00:05:41,420
+00:05:37.940 --> 00:05:41.420
 definitely recommend everyone to go
 
 151
-00:05:39,560 --> 00:05:44,780
+00:05:39.560 --> 00:05:44.780
 check it out. It is open until November
 
 152
-00:05:41,420 --> 00:05:46,310
+00:05:41.420 --> 00:05:46.310
 14th 2019, so be sure to fill that out
 
 153
-00:05:44,780 --> 00:05:48,940
+00:05:44.780 --> 00:05:48.940
 quick. The time is running out.
 
 154
-00:05:46,310 --> 00:05:51,680
+00:05:46.310 --> 00:05:51.680
 We have seven days left, so by the time --
 
 155
-00:05:48,940 --> 00:05:53,030
+00:05:48.940 --> 00:05:53.030
 it's just now the 7th, by the time
 
 156
-00:05:51,680 --> 00:05:55,550
+00:05:51.680 --> 00:05:55.550
 you guys get this in your hands, it may
 
 157
-00:05:53,030 --> 00:05:58,880
+00:05:53.030 --> 00:05:58.880
 be close to the deadline. So please,
 
 158
-00:05:55,550 --> 00:06:01,190
+00:05:55.550 --> 00:06:01.190
 please, please go check it out. But
 
 159
-00:05:58,880 --> 00:06:02,720
+00:05:58.880 --> 00:06:02.720
 yeah, you got any other, like -- what has
 
 160
-00:06:01,190 --> 00:06:04,400
+00:06:01.190 --> 00:06:04.400
 been your feedback and experience with
 
 161
-00:06:02,720 --> 00:06:07,580
+00:06:02.720 --> 00:06:07.580
 other surveys. Like how does the Haskell
 
 162
-00:06:04,400 --> 00:06:10,610
+00:06:04.400 --> 00:06:10.610
 survey compare?
 >> I don't take
 
 163
-00:06:07,580 --> 00:06:14,630
+00:06:07.580 --> 00:06:14.630
 that many surveys, honestly. But this one
 
 164
-00:06:10,610 --> 00:06:17,210
+00:06:10.610 --> 00:06:17.210
 was, like -- I took it not only because I
 
 165
-00:06:14,630 --> 00:06:19,520
+00:06:14.630 --> 00:06:19.520
 know Taylor, but also because I do care
 
 166
-00:06:17,210 --> 00:06:22,640
+00:06:17.210 --> 00:06:22.640
 about this language and community, and I
 
 167
-00:06:19,520 --> 00:06:25,400
+00:06:19.520 --> 00:06:25.400
 think it's a very quick and very
 
 168
-00:06:22,640 --> 00:06:29,600
+00:06:22.640 --> 00:06:29.600
 effective way to help out our community.
 
 169
-00:06:25,400 --> 00:06:33,080
+00:06:25.400 --> 00:06:33.080
 And hopefully sort of be a little nudge
 
 170
-00:06:29,600 --> 00:06:34,550
+00:06:29.600 --> 00:06:34.550
 in the right direction.
 >> Right yeah yeah. I
 
 171
-00:06:33,080 --> 00:06:36,770
+00:06:33.080 --> 00:06:36.770
 don't take a lot of surveys either so it
 
 172
-00:06:34,550 --> 00:06:38,900
+00:06:34.550 --> 00:06:38.900
 really was a loaded question, I'm sorry. But
 
 173
-00:06:36,770 --> 00:06:39,620
+00:06:36.770 --> 00:06:39.620
 you know it's one of the things
 
 174
-00:06:38,900 --> 00:06:41,390
+00:06:38.900 --> 00:06:41.390
 that
 
 175
-00:06:39,620 --> 00:06:43,490
+00:06:39.620 --> 00:06:43.490
 nobody has really a lot of time to take
 
 176
-00:06:41,390 --> 00:06:46,070
+00:06:41.390 --> 00:06:46.070
 surveys, but I definitely encourage all
 
 177
-00:06:43,490 --> 00:06:47,570
+00:06:43.490 --> 00:06:47.570
 of you to check it out. But I think we're
 
 178
-00:06:46,070 --> 00:06:50,000
+00:06:46.070 --> 00:06:50.000
 gonna keep this episode short. Was there
 
 179
-00:06:47,570 --> 00:06:52,820
+00:06:47.570 --> 00:06:52.820
 anything else you want to touch on?
 
 180
-00:06:50,000 --> 00:06:54,920
+00:06:50.000 --> 00:06:54.920
 >> Not really but, yeah. We just wanted to
 
 181
-00:06:52,820 --> 00:06:56,810
+00:06:52.820 --> 00:06:56.810
 get the word out about the survey, and
 
 182
-00:06:54,920 --> 00:06:59,080
+00:06:54.920 --> 00:06:59.080
 encourage you guys to, if you're
 
 183
-00:06:56,810 --> 00:07:03,020
+00:06:56.810 --> 00:07:03.020
 listening, to go ahead and fill that out.
 
 184
-00:06:59,080 --> 00:07:04,910
+00:06:59.080 --> 00:07:04.910
 >> Check it out, what what!
 >> Check it out bro!
 >> Awesome. Well
 
 185
-00:07:03,020 --> 00:07:06,290
+00:07:03.020 --> 00:07:06.290
 guys, thank you for joining us.
 
 186
-00:07:04,910 --> 00:07:09,020
+00:07:04.910 --> 00:07:09.020
 Jose, thank you for being on the show
 
 187
-00:07:06,290 --> 00:07:10,790
+00:07:06.290 --> 00:07:10.790
 today man.
 >> Thank you for having me, Cam.
 >> The
 
 188
-00:07:09,020 --> 00:07:12,260
+00:07:09.020 --> 00:07:12.260
 Haskell Weekly Podcast. If you like what
 
 189
-00:07:10,790 --> 00:07:14,750
+00:07:10.790 --> 00:07:14.750
 you heard find out more at our website
 
 190
-00:07:12,260 --> 00:07:16,910
+00:07:12.260 --> 00:07:16.910
 HaskellWeekly.News. And please
 
 191
-00:07:14,750 --> 00:07:18,680
+00:07:14.750 --> 00:07:18.680
 rate us and review us on iTunes. It helps
 
 192
-00:07:16,910 --> 00:07:21,050
+00:07:16.910 --> 00:07:21.050
 a lot. Haskell Weekly is brought to you by
 
 193
-00:07:18,680 --> 00:07:23,630
+00:07:18.680 --> 00:07:23.630
 ITProTV, the tech skills development
 
 194
-00:07:21,050 --> 00:07:26,630
+00:07:21.050 --> 00:07:26.630
 platform for IT professionals.
 >> And also
 
 195
-00:07:23,630 --> 00:07:29,870
+00:07:23.630 --> 00:07:29.870
 our employer.
 >> Yeah, that too. So send your
 
 196
-00:07:26,630 --> 00:07:33,530
+00:07:26.630 --> 00:07:33.530
 sys admins and network admins to www.itpro.tv
 
 197
-00:07:29,870 --> 00:07:35,360
+00:07:29.870 --> 00:07:35.360
 for all their learning needs. And
 
 198
-00:07:33,530 --> 00:07:39,020
+00:07:33.530 --> 00:07:39.020
 give them this promo code which will give
 
 199
-00:07:35,360 --> 00:07:41,000
+00:07:35.360 --> 00:07:41.000
 them 30 percent off: it is HaskellWeekly30. So
 
 200
-00:07:39,020 --> 00:07:42,650
+00:07:39.020 --> 00:07:42.650
 HaskellWeekly30 will give them 30
 
 201
-00:07:41,000 --> 00:07:44,510
+00:07:41.000 --> 00:07:44.510
 percent off an annual or monthly
 
 202
-00:07:42,650 --> 00:07:47,570
+00:07:42.650 --> 00:07:47.570
 subscription, so please please please
 
 203
-00:07:44,510 --> 00:07:49,010
+00:07:44.510 --> 00:07:49.010
 send them our way.
 >> And then they can tell
 
 204
-00:07:47,570 --> 00:07:51,980
+00:07:47.570 --> 00:07:51.980
 you what they think about the people who
 
 205
-00:07:49,010 --> 00:07:56,260
+00:07:49.010 --> 00:07:56.260
 developed it.
 >> That's true. Thanks for
 
 206
-00:07:51,980 --> 00:07:56,260
+00:07:51.980 --> 00:07:56.260
 listening. we'll see you next week.
 
 207
-00:07:56,889 --> 00:07:58,949
+00:07:56.889 --> 00:07:58.949
 Bye!

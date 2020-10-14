@@ -5,7 +5,7 @@ module HaskellWeekly
   ( HW.Episodes.episodes
   , HW.Issues.issues
   , HW.Main.main
-  , HW.Type.Caption.parseSrt
+  , HW.Type.Caption.parseVtt
   , HW.Type.Caption.renderTranscript
   )
 where

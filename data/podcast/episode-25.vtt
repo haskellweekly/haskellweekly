@@ -1,1569 +1,1571 @@
+WEBVTT
+
 1
-00:00:05,440 --> 00:00:11,360
+00:00:05.440 --> 00:00:11.360
 >> Hello and welcome to the Haskell Weekly podcast. As
 you might have guessed this show is about Haskell,
 
 2
-00:00:11,360 --> 00:00:17,360
+00:00:11.360 --> 00:00:17.360
 a purely functional programming language. I'm
 your host Taylor Fausak and with me today
 
 3
-00:00:17,360 --> 00:00:23,280
+00:00:17.360 --> 00:00:23.280
 is Cameron Gera. Welcome Cam. >> Hey how's it
 going man? >> It's going good. It's been a while.
 
 4
-00:00:24,320 --> 00:00:28,400
+00:00:24.320 --> 00:00:28.400
 It has yeah. I was looking and it's been
 about a year since we've done a podcast. So
 
 5
-00:00:28,400 --> 00:00:32,880
+00:00:28.400 --> 00:00:32.880
 really glad to be back with you and
 just give all of our viewers some
 
 6
-00:00:32,880 --> 00:00:38,720
+00:00:32.880 --> 00:00:38.720
 new content to listen to.
 >> So just a little off of our weekly schedule but we're getting there.
 
 7
-00:00:40,400 --> 00:00:47,840
+00:00:40.400 --> 00:00:47.840
 And we're coming back at an exciting time because
 it's October which means it's Hacktoberfest.
 
 8
-00:00:47,840 --> 00:00:55,040
+00:00:47.840 --> 00:00:55.040
 And I understood that you found an interesting
 repo for Haskell Hacktoberfest shenanigans. Can
 
 9
-00:00:55,040 --> 00:01:01,040
+00:00:55.040 --> 00:01:01.040
 you tell us about it? >> Yeah yeah so you know
 Hacktoberfest is an opportunity for us to
 
 10
-00:01:01,040 --> 00:01:07,680
+00:01:01.040 --> 00:01:07.680
 all contribute to the open source world and to
 contribute to public repos and create PRs against
 
 11
-00:01:07,680 --> 00:01:15,840
+00:01:07.680 --> 00:01:15.840
 these public repos. So you put four
 PRs together and get those submitted
 
 12
-00:01:16,640 --> 00:01:21,520
+00:01:16.640 --> 00:01:21.520
 and you're going to get a t-shirt. And so with
 this new project that I'm going to be talking
 
 13
-00:01:21,520 --> 00:01:27,600
+00:01:21.520 --> 00:01:27.600
 about we're going to be able to do that and learn
 Haskell at the same time. So funny enough the name
 
 14
-00:01:27,600 --> 00:01:36,080
+00:01:27.600 --> 00:01:36.080
 is Learn4Haskell. So it's an opportunity to kind of --
 >> With a number four in the middle: Learn4Haskell
 >> Exactly
 
 15
-00:01:36,960 --> 00:01:42,000
+00:01:36.960 --> 00:01:42.000
 4 Haskell yeah. And you know we're gonna provide
 the link for you there's gonna be two places:
 
 16
-00:01:42,000 --> 00:01:48,720
+00:01:42.000 --> 00:01:48.720
 in the show notes you can check that out and also
 on this week's edition of Haskell Weekly which
 
 17
-00:01:48,720 --> 00:01:57,600
+00:01:48.720 --> 00:01:57.600
 Taylor could you remind me what version we're on?
 >> Oh that's a good question. We're on version 232
 
 18
-00:01:57,600 --> 00:02:03,440
+00:01:57.600 --> 00:02:03.440
 I think >> Wow so 232 weeks you've been doing
 this >> Yeah that's a lot of weeks almost four
 
 19
-00:02:03,440 --> 00:02:09,760
+00:02:03.440 --> 00:02:09.760
 years ... four, five years? I can't do math >> Well hey
 we're super thankful you've taken on that
 
 20
-00:02:09,760 --> 00:02:14,560
+00:02:09.760 --> 00:02:14.560
 project and you know now we're spinning it
 out a little bit more doing some more podcasting
 
 21
-00:02:14,560 --> 00:02:19,440
+00:02:14.560 --> 00:02:19.440
 >> Yeah man so yeah look for that link to
 Learn4Haskell in the show notes and if you're
 
 22
-00:02:19,440 --> 00:02:24,240
+00:02:19.440 --> 00:02:24.240
 interested in Hacktoberfest but maybe not
 interested in Haskell then I wonder what are
 
 23
-00:02:24,240 --> 00:02:29,360
+00:02:24.240 --> 00:02:29.360
 you doing listening to this podcast but you can go
 to hacktoberfest.com and read more about it there
 
 24
-00:02:30,800 --> 00:02:36,480
+00:02:30.800 --> 00:02:36.480
 >> Yep awesome man well I mean without further
 ado i think we should kind of dive into our
 
 25
-00:02:36,480 --> 00:02:41,840
+00:02:36.480 --> 00:02:41.840
 subject for the day huh >> I agree and today
 we're going to be looking at a blog post
 
 26
-00:02:41,840 --> 00:02:50,480
+00:02:41.840 --> 00:02:50.480
 called "Strategic Deriving". It comes to us via
 Kowainik and it's authored by Veronika Romashkina
 
 27
-00:02:50,480 --> 00:02:56,800
+00:02:50.480 --> 00:02:56.800
 and Dmitrii Kovanikov and I'm sure I butchered
 their names so I apologize in advance for that.
 
 28
-00:02:56,800 --> 00:03:04,480
+00:02:56.800 --> 00:03:04.480
 But yeah this is a post talking about how deriving
 works in Haskell and why you might want to use it.
 
 29
-00:03:06,880 --> 00:03:10,960
+00:03:06.880 --> 00:03:10.960
 >> Yeah I think that's awesome and
 you know I want to give a shout out to
 
 30
-00:03:11,520 --> 00:03:15,120
+00:03:11.520 --> 00:03:15.120
 these two authors they did a
 very thorough job on this post
 
 31
-00:03:15,680 --> 00:03:22,080
+00:03:15.680 --> 00:03:22.080
 and so you know I'm glad we can kind of you know
 just use it as a jumping off point because there's
 
 32
-00:03:22,080 --> 00:03:26,400
+00:03:22.080 --> 00:03:26.400
 a lot of content in it so you know feel free
 to find the article and check it out yourself.
 
 33
-00:03:27,680 --> 00:03:34,240
+00:03:27.680 --> 00:03:34.240
 But for us yeah we're super excited to talk
 about it. So Taylor what's the big idea?
 
 34
-00:03:35,360 --> 00:03:43,120
+00:03:35.360 --> 00:03:43.120
 >> The big idea is that we can avoid writing
 a bunch of boilerplate and we can have the
 
 35
-00:03:43,120 --> 00:03:50,720
+00:03:43.120 --> 00:03:50.720
 compiler do the work for us and prove that it's
 correct. And this is super convenient because
 
 36
-00:03:50,720 --> 00:03:55,520
+00:03:50.720 --> 00:03:55.520
 it'll save us a bunch of typing and it'll make us
 feel more confident in the code that we produce.
 
 37
-00:03:57,440 --> 00:04:03,920
+00:03:57.440 --> 00:04:03.920
 But as you mentioned this blog
 post is -- it's a giant resource and it's great
 
 38
-00:04:03,920 --> 00:04:07,520
+00:04:03.920 --> 00:04:07.520
 but there's so much here that we're just
 going to start scratching the surface on it and
 
 39
-00:04:07,520 --> 00:04:10,800
+00:04:07.520 --> 00:04:10.800
 if you're listening to this and you think
 it sounds interesting I encourage you to
 
 40
-00:04:10,800 --> 00:04:16,240
+00:04:10.800 --> 00:04:16.240
 go read it. We'll put the link in the show
 notes. It is very thorough, very good resource.
 
 41
-00:04:17,760 --> 00:04:22,960
+00:04:17.760 --> 00:04:22.960
 >> Yeah so you know we're talking about deriving.
 You know we have these type classes in Haskell
 
 42
-00:04:22,960 --> 00:04:29,760
+00:04:22.960 --> 00:04:29.760
 that offer us you know some out of the box
 functions and functionality for different types.
 
 43
-00:04:30,320 --> 00:04:35,280
+00:04:30.320 --> 00:04:35.280
 You know what are some of the pros and cons of
 deriving? I know you kind of mentioned a little bit
 
 44
-00:04:35,840 --> 00:04:42,960
+00:04:35.840 --> 00:04:42.960
 but can you go a little more detail? >> For sure. To
 me the main pro to deriving -- and when we talk about
 
 45
-00:04:42,960 --> 00:04:49,360
+00:04:42.960 --> 00:04:49.360
 pros and cons here we're going to be contrasting
 it with writing these instances by hand -- and for me
 
 46
-00:04:49,360 --> 00:04:54,640
+00:04:49.360 --> 00:04:54.640
 the biggest pro with deriving is that it reduces
 the amount of code that you have to write. It
 
 47
-00:04:54,640 --> 00:05:01,680
+00:04:54.640 --> 00:05:01.680
 reduces boilerplate. So I think the typical example
 is like a show instance where maybe you defined a
 
 48
-00:05:01,680 --> 00:05:05,920
+00:05:01.680 --> 00:05:05.920
 record and it has a bunch of fields on it and
 if you wanted to write a show instance by hand
 
 49
-00:05:06,480 --> 00:05:12,480
+00:05:06.480 --> 00:05:12.480
 you would have to write out all of those field
 names and then write show that field name of
 
 50
-00:05:12,480 --> 00:05:17,680
+00:05:12.480 --> 00:05:17.680
 that record. And if your record has you know
 20 fields on it all of a sudden that becomes
 
 51
-00:05:17,680 --> 00:05:23,360
+00:05:17.680 --> 00:05:23.360
 20 more lines of code that you have to maintain
 and keep in sync with that data type. It's just --
 
 52
-00:05:23,360 --> 00:05:29,200
+00:05:23.360 --> 00:05:29.200
 it's no fun. It's no fun to write that. >> Yeah and
 I know from personal experience we've had some
 
 53
-00:05:29,200 --> 00:05:36,560
+00:05:29.200 --> 00:05:36.560
 of those issues where you know we've added a
 new field to a record and we didn't update a JSON
 
 54
-00:05:36,560 --> 00:05:43,520
+00:05:36.560 --> 00:05:43.520
 instance and you know we went through PR
 and it ended up into production and people were
 
 55
-00:05:43,520 --> 00:05:48,240
+00:05:43.520 --> 00:05:48.240
 like "hey where's this field" you know because
 they were relying on that being there and then it
 
 56
-00:05:48,240 --> 00:05:54,000
+00:05:48.240 --> 00:05:54.000
 would you know create issues for us that we'd
 have to you know jump to resolve >> Right yeah
 
 57
-00:05:54,000 --> 00:06:00,480
+00:05:54.000 --> 00:06:00.480
 it makes our job harder because we can't
 rely on the compiler to tell us that our instance
 
 58
-00:06:01,040 --> 00:06:05,760
+00:06:01.040 --> 00:06:05.760
 matches our type declaration or you know the
 record we're defining. And like you're saying
 
 59
-00:06:05,760 --> 00:06:11,040
+00:06:05.760 --> 00:06:11.040
 leaving out fields is a super common one. And if
 you have a bunch of instances -- you mentioned JSON.
 
 60
-00:06:11,040 --> 00:06:16,800
+00:06:11.040 --> 00:06:16.800
 So like if you define a data type you have
 to define how that thing can be parsed from
 
 61
-00:06:16,800 --> 00:06:22,080
+00:06:16.800 --> 00:06:22.080
 JSON how it can be converted to JSON. And if you
 have other formats that you convert in and out
 
 62
-00:06:22,080 --> 00:06:29,280
+00:06:22.080 --> 00:06:29.280
 of those are listed as well. So like BSON or YAML
 or to the database or you know Protobufs, whatever
 
 63
-00:06:29,280 --> 00:06:33,440
+00:06:29.280 --> 00:06:33.440
 you're using. If you have all of those suddenly you
 have all this code to maintain. So you go update
 
 64
-00:06:33,440 --> 00:06:38,560
+00:06:33.440 --> 00:06:38.560
 one little field and GHC says "yeah I'm happy"
 but you forgot to update it in 10 other places.
 
 65
-00:06:40,160 --> 00:06:47,920
+00:06:40.160 --> 00:06:47.920
 >> Yeah that that's definitely one big downside to
 you know deriving your own instances and not
 
 66
-00:06:47,920 --> 00:06:54,080
+00:06:47.920 --> 00:06:54.080
 using deriving >> Yeah downside to writing them
 by hand upside to deriving sorry yeah upside
 
 67
-00:06:54,080 --> 00:07:01,200
+00:06:54.080 --> 00:07:01.200
 to deriving >> yeah sorry i flipped the pro con list
 there i apologize but yeah so the -- yeah and
 
 68
-00:07:01,200 --> 00:07:07,600
+00:07:01.200 --> 00:07:07.600
 another one that you know I've run into a few
 times and kind of been baffled when you know my
 
 69
-00:07:09,040 --> 00:07:12,560
+00:07:09.040 --> 00:07:12.560
 code crashes and my everything
 kind of freezes on it is because
 
 70
-00:07:13,200 --> 00:07:20,000
+00:07:13.200 --> 00:07:20.000
 i've created a you know infinitely recursive
 instance that's not properly translated and
 
 71
-00:07:20,000 --> 00:07:26,960
+00:07:20.000 --> 00:07:26.960
 the compiler says "yeah you're good" but you
 know it doesn't detect or see that you know
 
 72
-00:07:26,960 --> 00:07:33,120
+00:07:26.960 --> 00:07:33.120
 infinite recursive bit of code >> Yeah and to
 give a kind of more concrete example of this
 
 73
-00:07:33,680 --> 00:07:38,880
+00:07:33.680 --> 00:07:38.880
 if you're defining like a JSON instance
 for something that's a newtype wrapper
 
 74
-00:07:39,920 --> 00:07:47,680
+00:07:39.920 --> 00:07:47.680
 what you probably want to do is remove the
 newtype so like unwrap it and then call toJSON on
 
 75
-00:07:47,680 --> 00:07:53,600
+00:07:47.680 --> 00:07:53.600
 the thing on the inside but what you might
 accidentally do is forget to unwrap it and just
 
 76
-00:07:53,600 --> 00:07:59,680
+00:07:53.600 --> 00:07:59.680
 call toJSON directly and that's actually going
 to type check because you are defining an instance
 
 77
-00:07:59,680 --> 00:08:05,520
+00:07:59.680 --> 00:08:05.520
 for how to convert this thing to JSON but then in
 your instance you're using you're calling itself
 
 78
-00:08:05,520 --> 00:08:10,800
+00:08:05.520 --> 00:08:10.800
 over and over again and GHC won't catch this error
 and you'll be mystified in production like we're
 
 79
-00:08:10,800 --> 00:08:16,640
+00:08:10.800 --> 00:08:16.640
 seeing 100 cpu usage why is that everything passed
 the tests everything pass code review well hopefully
 
 80
-00:08:17,600 --> 00:08:23,520
+00:08:17.600 --> 00:08:23.520
 it doesn't pass the tests but the compiler
 was happy >> Yeah exactly and that's you know
 
 81
-00:08:24,160 --> 00:08:28,640
+00:08:24.160 --> 00:08:28.640
 great thing for tests we can always be
 about plugging tests here at Haskell Weekly
 
 82
-00:08:29,600 --> 00:08:34,480
+00:08:29.600 --> 00:08:34.480
 yeah and you know another nice one and I
 kind of think you've touched on it but like
 
 83
-00:08:34,480 --> 00:08:40,800
+00:08:34.480 --> 00:08:40.800
 you know you've got consistency you know between
 different modules different types there's you
 
 84
-00:08:40,800 --> 00:08:48,880
+00:08:40.800 --> 00:08:48.880
 know a consistent code feel right so you know
 you look at a type and you've seen all the
 
 85
-00:08:48,880 --> 00:08:53,840
+00:08:48.880 --> 00:08:53.840
 record accessors and then you say oh yeah let me
 see what instances it has and it's right there
 
 86
-00:08:54,720 --> 00:08:58,880
+00:08:54.720 --> 00:08:58.880
 easy to see easy to understand so i
 really think that's a nice pro for
 
 87
-00:08:59,840 --> 00:09:05,920
+00:08:59.840 --> 00:09:05.920
 this deriving tool >> I agree i think there are two
 parts to this even where on the one hand you have
 
 88
-00:09:07,200 --> 00:09:17,040
+00:09:07.200 --> 00:09:17.040
 across your code base as people get acclimated to
 it you can look at a data type and just know what
 
 89
-00:09:17,040 --> 00:09:21,840
+00:09:17.040 --> 00:09:21.840
 all of the instances are going to look like so for
 instance again with JSON using it as an example
 
 90
-00:09:22,560 --> 00:09:28,480
+00:09:22.560 --> 00:09:28.480
 maybe for every field you make all the characters
 lowercase and put hyphens between the words
 
 91
-00:09:29,120 --> 00:09:34,800
+00:09:29.120 --> 00:09:34.800
 for the field names and you can just look at the
 record declaration and see oh this field is called
 
 92
-00:09:34,800 --> 00:09:38,880
+00:09:34.800 --> 00:09:38.880
 whatever it is and i know that when it gets
 converted to JSON it's going to look like this
 
 93
-00:09:38,880 --> 00:09:43,440
+00:09:38.880 --> 00:09:43.440
 instead you don't have to actually read through
 the instance to see how it's doing any of those
 
 94
-00:09:43,440 --> 00:09:51,360
+00:09:43.440 --> 00:09:51.360
 conversions and then the other side of this
 is that by using deriving like visually the
 
 95
-00:09:51,360 --> 00:09:57,200
+00:09:51.360 --> 00:09:57.200
 amount of code that you have to parse in order
 to understand which instances are provided
 
 96
-00:09:57,200 --> 00:10:05,680
+00:09:57.200 --> 00:10:05.680
 is very little you can see deriving ToJSON FromJSON
 Show Eq Generic Ord rather than having you know
 
 97
-00:10:05,680 --> 00:10:10,480
+00:10:05.680 --> 00:10:10.480
 50 lines of code with five different instances
 there you can just read it all in one line
 
 98
-00:10:11,840 --> 00:10:17,840
+00:10:11.840 --> 00:10:17.840
 >> Yeah i think that's a super big benefit and
 you know really helps you know just keep that
 
 99
-00:10:18,720 --> 00:10:22,000
+00:10:18.720 --> 00:10:22.000
 code more maintainable I
 mean that's that's the big thing
 
 100
-00:10:22,640 --> 00:10:28,560
+00:10:22.640 --> 00:10:28.560
 yeah so you know we've heard a lot of pros
 you know there is a lot of good reasons
 
 101
-00:10:29,200 --> 00:10:35,440
+00:10:29.200 --> 00:10:35.440
 but to use deriving but there's also you know
 some some drawbacks more cons as you will
 
 102
-00:10:35,440 --> 00:10:41,760
+00:10:35.440 --> 00:10:41.760
 you know so what are some of those >> yeah
 it's not all roses with deriving unfortunately
 
 103
-00:10:42,800 --> 00:10:48,960
+00:10:42.800 --> 00:10:48.960
 one of the the ones that we run into frequently
 and i should probably specify that for you and me
 
 104
-00:10:48,960 --> 00:10:56,800
+00:10:48.960 --> 00:10:56.800
 cam we're working on a Haskell application at ITProTV
 day in day out so most of our experience is
 
 105
-00:10:56,800 --> 00:11:03,760
+00:10:56.800 --> 00:11:03.760
 colored by that we don't maintain many open source
 libraries we mostly focus on this one application
 
 106
-00:11:03,760 --> 00:11:09,440
+00:11:03.760 --> 00:11:09.440
 so some of these things are more applicable to
 apps versus libs but just so everyone knows
 
 107
-00:11:09,440 --> 00:11:16,000
+00:11:09.440 --> 00:11:16.000
 where our biases are but yeah one of the downsides
 for us with deriving is that as soon as you want
 
 108
-00:11:16,000 --> 00:11:22,080
+00:11:16.000 --> 00:11:22.080
 to do something a little bit different then you
 have to kind of scrap all of the deriving stuff
 
 109
-00:11:22,080 --> 00:11:29,760
+00:11:22.080 --> 00:11:29.760
 and go back to doing it completely manually and
 again to keep using JSON as an example here imagine
 
 110
-00:11:29,760 --> 00:11:36,400
+00:11:29.760 --> 00:11:36.400
 that for any API that we get to define we use our
 lowercase letters with hyphens between the words
 
 111
-00:11:36,400 --> 00:11:42,400
+00:11:36.400 --> 00:11:42.400
 scheme but we have to integrate with a third party
 and they wrote their thing in C# and it wants
 
 112
-00:11:42,400 --> 00:11:48,960
+00:11:42.400 --> 00:11:48.960
 camel cased words so when we want to talk to them
 we can't use that derived type anymore we have to
 
 113
-00:11:49,520 --> 00:11:58,480
+00:11:49.520 --> 00:11:58.480
 write it ourselves manually >> Right so that leads
 to that special case right that's that one special
 
 114
-00:11:58,480 --> 00:12:06,480
+00:11:58.480 --> 00:12:06.480
 case that kind of pokes a hole in in easy deriving
 which is definitely a bummer
 
 115
-00:12:07,200 --> 00:12:14,320
+00:12:07.200 --> 00:12:14.320
 yeah and i think another thing too with
 this deriving is that it can be a little
 
 116
-00:12:14,320 --> 00:12:20,400
+00:12:14.320 --> 00:12:20.400
 unclear what an instance does because the
 code's not right there right you you need to go
 
 117
-00:12:20,400 --> 00:12:26,720
+00:12:20.400 --> 00:12:26.720
 to you know Stackage or Hackage or Hoogle and find
 you know what the definition of this type class
 
 118
-00:12:26,720 --> 00:12:34,560
+00:12:26.720 --> 00:12:34.560
 and these functions are >> Yeah and this is where
 you know in a language like Go something that
 
 119
-00:12:34,560 --> 00:12:40,240
+00:12:34.560 --> 00:12:40.240
 proponents of that language go to a lot
 is that you can look at the code and see
 
 120
-00:12:40,240 --> 00:12:43,440
+00:12:40.240 --> 00:12:43.440
 pretty clearly what it's doing there's
 not a whole lot there to surprise you
 
 121
-00:12:44,160 --> 00:12:49,280
+00:12:44.160 --> 00:12:49.280
 but with deriving the whole point is that there's
 nothing there it's all abstracted away so if you
 
 122
-00:12:49,280 --> 00:12:54,640
+00:12:49.280 --> 00:12:54.640
 don't already know what it does there's not really
 anything to guide you into guessing what it does
 
 123
-00:12:56,480 --> 00:13:04,000
+00:12:56.480 --> 00:13:04.000
 >> Right so but I mean in my opinion I don't find
 it that bad to you know oh I'm not sure what this
 
 124
-00:13:04,000 --> 00:13:08,480
+00:13:04.000 --> 00:13:08.480
 you know very specific type classes doing let
 me go check out the functions and see what the
 
 125
-00:13:08,480 --> 00:13:15,280
+00:13:08.480 --> 00:13:15.280
 type definitions are you know i think the
 documentation in Haskell is good enough to check
 
 126
-00:13:15,280 --> 00:13:21,440
+00:13:15.280 --> 00:13:21.440
 that out and figure it out you know >> I agree
 and typically there aren't that many type
 
 127
-00:13:21,440 --> 00:13:26,400
+00:13:21.440 --> 00:13:26.400
 classes that you're working with so as you get
 you know introduced to a code base you're probably
 
 128
-00:13:26,400 --> 00:13:31,040
+00:13:26.400 --> 00:13:31.040
 going to become familiar with those type classes
 and then you'll get a feeling for how they're
 
 129
-00:13:31,040 --> 00:13:41,440
+00:13:31.040 --> 00:13:41.440
 implemented by default >> Right yeah so you know
 what is the performance impact of using this
 
 130
-00:13:43,760 --> 00:13:49,520
+00:13:43.760 --> 00:13:49.520
 abstraction level or abstraction level excuse
 me >> Yeah this is actually something I've spent
 
 131
-00:13:49,520 --> 00:13:54,560
+00:13:49.520 --> 00:13:54.560
 a lot of time looking at and i can leave a
 couple links in the show notes to blog posts
 
 132
-00:13:54,560 --> 00:14:00,800
+00:13:54.560 --> 00:14:00.800
 I've written that look at the performance of
 various methods of dealing with this boilerplate
 
 133
-00:14:00,800 --> 00:14:09,200
+00:14:00.800 --> 00:14:09.200
 but the short version is that deriving
 specifically through generics which is what
 
 134
-00:14:09,200 --> 00:14:15,520
+00:14:09.200 --> 00:14:15.520
 this blog post spends a lot of time talking
 about is one of the slowest methods to compile
 
 135
-00:14:15,520 --> 00:14:20,400
+00:14:15.520 --> 00:14:20.400
 which is unfortunate because it has a lot of other
 really nice benefits and when i say one of the
 
 136
-00:14:20,400 --> 00:14:28,480
+00:14:20.400 --> 00:14:28.480
 slowest what i mean is in comparison to writing
 the instance by hand or deriving it via Template
 
 137
-00:14:28,480 --> 00:14:34,800
+00:14:28.480 --> 00:14:34.800
 Haskell which is essentially code generation at
 compile time using generic deriving is going
 
 138
-00:14:34,800 --> 00:14:40,000
+00:14:34.800 --> 00:14:40.000
 to be slower than either of those methods but
 clearly there are other upsides and so it's up to
 
 139
-00:14:40,880 --> 00:14:48,240
+00:14:40.880 --> 00:14:48.240
 the people writing the code to decide is it worth
 you know taking an extra second per instance
 
 140
-00:14:48,240 --> 00:14:52,400
+00:14:48.240 --> 00:14:52.400
 declaration this is just a fake number I don't
 know how long extra it would be you would have
 
 141
-00:14:52,400 --> 00:14:56,480
+00:14:52.400 --> 00:14:56.480
 to run your own benchmarks but is it
 worth taking a little extra time in order to
 
 142
-00:14:57,120 --> 00:14:59,600
+00:14:57.120 --> 00:14:59.600
 you know get these other pros that we
 talked about at the top of the show
 
 143
-00:15:01,760 --> 00:15:04,480
+00:15:01.760 --> 00:15:04.480
 >> Right yeah yeah i think that's you know
 
 144
-00:15:05,200 --> 00:15:09,120
+00:15:05.200 --> 00:15:09.120
 a good thing to consider when
 you're working within a team and
 
 145
-00:15:09,120 --> 00:15:13,840
+00:15:09.120 --> 00:15:13.840
 you know you're kind of focused on oh hey like
 you know we want to be as performant as possible
 
 146
-00:15:13,840 --> 00:15:19,440
+00:15:13.840 --> 00:15:19.440
 you know we want to keep our compile times down
 like oh this is a side effect of you know deriving
 
 147
-00:15:20,720 --> 00:15:27,520
+00:15:20.720 --> 00:15:27.520
 you know and generic deriving you know so that's
 something to consider for us we're like yeah let's
 
 148
-00:15:27,520 --> 00:15:34,720
+00:15:27.520 --> 00:15:34.720
 do it you know less boilerplate less you
 know yeah I mean as someone who's come from
 
 149
-00:15:34,720 --> 00:15:41,520
+00:15:34.720 --> 00:15:41.520
 using both you know instance deriving and you know
 this deriving feature that you know you can do
 
 150
-00:15:42,640 --> 00:15:49,200
+00:15:42.640 --> 00:15:49.200
 you know we've experienced a lot of the tensions
 of the instance deriving whereas you know and
 
 151
-00:15:49,200 --> 00:15:56,480
+00:15:49.200 --> 00:15:56.480
 we've really been making a concerted effort to
 moving towards you know just regular old deriving
 
 152
-00:15:56,480 --> 00:16:02,800
+00:15:56.480 --> 00:16:02.800
 >> Yeah and there are definitely ways to lessen the
 impact of the performance penalty you take with
 
 153
-00:16:02,800 --> 00:16:08,640
+00:16:02.800 --> 00:16:08.640
 generic deriving Matt Parsons has a good blog
 post talking about how to keep your builds fast
 
 154
-00:16:08,640 --> 00:16:15,920
+00:16:08.640 --> 00:16:15.920
 and for the most part it comes down to keeping
 modules small and putting types in their own
 
 155
-00:16:15,920 --> 00:16:21,840
+00:16:15.920 --> 00:16:21.840
 modules and we've been trying to do that as we
 move to more generic deriving in our code base
 
 156
-00:16:23,040 --> 00:16:31,840
+00:16:23.040 --> 00:16:31.840
 >> Right right you know so we've got one more
 con here you know what's so difficult
 
 157
-00:16:31,840 --> 00:16:38,400
+00:16:31.840 --> 00:16:38.400
 you know about deriving you know a type class
 that allows deriving or writing a type class that
 
 158
-00:16:38,400 --> 00:16:47,520
+00:16:38.400 --> 00:16:47.520
 allows deriving >> Yeah so using JSON as our go to
 example um when you're using a library like Aeson
 
 159
-00:16:47,520 --> 00:16:54,480
+00:16:47.520 --> 00:16:54.480
 it provides this whole mechanism for you so you
 have your choice is to opt into using deriving but
 
 160
-00:16:56,240 --> 00:17:03,440
+00:16:56.240 --> 00:17:03.440
 providing that option to other people can be a
 challenge because you have to rely on the generic
 
 161
-00:17:03,440 --> 00:17:11,040
+00:17:03.440 --> 00:17:11.040
 machinery that GHC provides you and that can be
 a little different or a lot different than your
 
 162
-00:17:11,040 --> 00:17:17,680
+00:17:11.040 --> 00:17:17.680
 day-to-day programming and i feel like it's
 important to contrast this with the alternatives
 
 163
-00:17:17,680 --> 00:17:24,960
+00:17:17.680 --> 00:17:24.960
 so with Template Haskell you could write as
 essentially something that parses a Haskell
 
 164
-00:17:24,960 --> 00:17:32,000
+00:17:24.960 --> 00:17:32.000
 data declaration and produces some instance
 declaration from that which is not actually
 
 165
-00:17:32,000 --> 00:17:36,480
+00:17:32.000 --> 00:17:36.480
 but you could think of it as being a textual
 like search and replace if you see this do this
 
 166
-00:17:37,600 --> 00:17:42,400
+00:17:37.600 --> 00:17:42.400
 or in your documentation you could provide you
 know this is what an instance normally looks like
 
 167
-00:17:42,400 --> 00:17:49,760
+00:17:42.400 --> 00:17:49.760
 copy paste it and change some stuff around to
 do the generic deriving you have to understand
 
 168
-00:17:49,760 --> 00:17:55,760
+00:17:49.760 --> 00:17:55.760
 how generics are represented in you know Haskell
 level values how to connect all these type classes
 
 169
-00:17:55,760 --> 00:18:03,200
+00:17:55.760 --> 00:18:03.200
 together and these things aren't insurmountable
 problems but they are a barrier to clear and I
 
 170
-00:18:03,200 --> 00:18:11,040
+00:18:03.200 --> 00:18:11.040
 think kind of the silver lining here is that it's
 pretty uncommon to define new type classes that
 
 171
-00:18:11,040 --> 00:18:16,880
+00:18:11.040 --> 00:18:16.880
 need generic deriving and if you do need to do
 that there are good resources for doing it either
 
 172
-00:18:16,880 --> 00:18:22,720
+00:18:16.880 --> 00:18:22.720
 you can go crib from another library that does
 it already or there are some recent talks about
 
 173
-00:18:22,720 --> 00:18:29,200
+00:18:22.720 --> 00:18:29.200
 you know how does the generic type representation
 what does it look like and how do you work with it
 
 174
-00:18:30,400 --> 00:18:36,240
+00:18:30.400 --> 00:18:36.240
 >> Right yeah and i think you know reading and
 understanding what was happening in this blog
 
 175
-00:18:36,240 --> 00:18:43,280
+00:18:36.240 --> 00:18:43.280
 post you know you hit you know this section about
 the generics and what it looks like under the
 
 176
-00:18:43,280 --> 00:18:48,480
+00:18:43.280 --> 00:18:48.480
 covers and you're like ah like you just wanna you
 know put those down and you know not look anymore
 
 177
-00:18:48,480 --> 00:18:53,200
+00:18:48.480 --> 00:18:53.200
 because it's just you know there's a lot going
 on there and i think you know it kind of proves
 
 178
-00:18:53,200 --> 00:18:59,520
+00:18:53.200 --> 00:18:59.520
 how powerful you know Haskell can be but it
 obviously takes you know a little bit of you know
 
 179
-00:19:00,080 --> 00:19:04,080
+00:19:00.080 --> 00:19:04.080
 thought and brain power to kind of parse
 those you know what that's actually doing
 
 180
-00:19:06,800 --> 00:19:12,640
+00:19:06.800 --> 00:19:12.640
 well yeah so we've got you know different
 types of deriving correct is that a
 
 181
-00:19:12,640 --> 00:19:18,000
+00:19:12.640 --> 00:19:18.000
 thing i think they're called strategies right
 >> yeah i don't remember which version of GHC
 
 182
-00:19:18,000 --> 00:19:22,720
+00:19:18.000 --> 00:19:22.720
 introduced them but there's this new concept of
 deriving strategies or it's not actually a new
 
 183
-00:19:22,720 --> 00:19:29,680
+00:19:22.720 --> 00:19:29.680
 concept but it used to be implicit and now it's
 explicit and the strategies there are four of
 
 184
-00:19:29,680 --> 00:19:36,720
+00:19:29.680 --> 00:19:36.720
 them one of them is stock and what stock means
 is this is a type class that the Haskell report
 
 185
-00:19:36,720 --> 00:19:42,560
+00:19:36.720 --> 00:19:42.560
 like the spec for the language has defined how
 it should behave so it's only a handful of them
 
 186
-00:19:42,560 --> 00:19:47,200
+00:19:42.560 --> 00:19:47.200
 and they're the stuff that you're familiar with
 like Show and Eq and Read and that kind of stuff
 
 187
-00:19:48,400 --> 00:19:55,760
+00:19:48.400 --> 00:19:55.760
 >> and Ix everybody knows Ix >> Ix can't forget
 Ix and then there's also newtype which
 
 188
-00:19:56,640 --> 00:20:04,880
+00:19:56.640 --> 00:20:04.880
 you may be familiar with through the GeneralizedNewtypeDeriving
 language extension and newtype
 
 189
-00:20:04,880 --> 00:20:13,120
+00:20:04.880 --> 00:20:13.120
 deriving lets you kind of delegate your instance
 to the type that you're wrapping around so for
 
 190
-00:20:13,120 --> 00:20:19,680
+00:20:13.120 --> 00:20:19.680
 instance if you have like a user ID type that is a
 wrapper around an int newtype deriving would just
 
 191
-00:20:19,680 --> 00:20:24,720
+00:20:19.680 --> 00:20:24.720
 effectively just say use the int instance
 for whatever type class I'm deriving here
 
 192
-00:20:26,960 --> 00:20:34,000
+00:20:26.960 --> 00:20:34.000
 and then the last two strategies are anyclass
 and via and any class is the one that
 
 193
-00:20:34,000 --> 00:20:40,560
+00:20:34.000 --> 00:20:40.560
 powers this generic deriving stuff where there is
 typically going to be a default implementation
 
 194
-00:20:40,560 --> 00:20:44,400
+00:20:40.560 --> 00:20:44.400
 of the type class methods and those
 default implementations are going to be
 
 195
-00:20:44,960 --> 00:20:53,440
+00:20:44.960 --> 00:20:53.440
 powered by a generic representation of the type
 and then via kind of piggybacks on the other three
 
 196
-00:20:53,440 --> 00:21:00,320
+00:20:53.440 --> 00:21:00.320
 but what it does is it lets you define your
 type class instance through another type so
 
 197
-00:21:00,320 --> 00:21:04,880
+00:21:00.320 --> 00:21:04.880
 you kind of like conceptually wrap up the
 type you're dealing with in this other
 
 198
-00:21:04,880 --> 00:21:10,160
+00:21:04.880 --> 00:21:10.160
 type that you're deriving via and then the
 instance will be generated based on that one
 
 199
-00:21:11,440 --> 00:21:15,600
+00:21:11.440 --> 00:21:15.600
 i feel like i'm doing a poor job explaining
 exactly what it is but it's a very powerful
 
 200
-00:21:15,600 --> 00:21:21,840
+00:21:15.600 --> 00:21:21.840
 tool very neat you should check it out >> Yeah
 yeah we we've started to use this a little bit
 
 201
-00:21:21,840 --> 00:21:28,080
+00:21:21.840 --> 00:21:28.080
 in our day to day and it's really saved us a lot
 of time and effort from having to write instances
 
 202
-00:21:28,080 --> 00:21:34,400
+00:21:28.080 --> 00:21:34.400
 with you know with Swagger so we you know use
 servant and swagger more recently and that's
 
 203
-00:21:34,400 --> 00:21:40,560
+00:21:34.400 --> 00:21:40.560
 something that you know we Taylor did a lot of
 effort on creating this type that would allow
 
 204
-00:21:40,560 --> 00:21:46,640
+00:21:40.560 --> 00:21:46.640
 us to not have to do so much boilerplate and
 so we're very thankful for that and it kind of
 
 205
-00:21:46,640 --> 00:21:51,680
+00:21:46.640 --> 00:21:51.680
 gave us the opportunity to kind of learn more
 about via >> Yeah and this is a good way to come back
 
 206
-00:21:51,680 --> 00:21:56,480
+00:21:51.680 --> 00:21:56.480
 to the pros we were talking about earlier
 because we've been using JSON as an example
 
 207
-00:21:56,480 --> 00:22:01,680
+00:21:56.480 --> 00:22:01.680
 over and over again and once you bring Swagger
 into the picture which is like automated API
 
 208
-00:22:01,680 --> 00:22:08,640
+00:22:01.680 --> 00:22:08.640
 documentation you're going to want the shape of
 your JSON data as part of that API documentation
 
 209
-00:22:09,280 --> 00:22:17,200
+00:22:09.280 --> 00:22:17.200
 and by using derived instances for this stuff
 you can make sure that your JSON instance and
 
 210
-00:22:17,200 --> 00:22:22,880
+00:22:17.200 --> 00:22:22.880
 the documentation for that JSON instance actually
 match each other rather than writing them by hand
 
 211
-00:22:22,880 --> 00:22:29,200
+00:22:22.880 --> 00:22:29.200
 and potentially having a mismatch there >> Right
 yeah it saves us a ton of time and it's it's great
 
 212
-00:22:29,760 --> 00:22:38,240
+00:22:29.760 --> 00:22:38.240
 question why don't we really see when we're
 deriving like this need to define exactly what
 
 213
-00:22:38,240 --> 00:22:46,080
+00:22:38.240 --> 00:22:46.080
 strategy we're using >> So normally GHC will pick
 a strategy for you and like i said earlier
 
 214
-00:22:48,160 --> 00:22:52,080
+00:22:48.160 --> 00:22:52.080
 in the past it has always
 been implicit and then in some
 
 215
-00:22:52,080 --> 00:22:57,760
+00:22:52.080 --> 00:22:57.760
 relatively recent version of GHC they give you
 the ability to explicitly specify the strategy
 
 216
-00:22:58,400 --> 00:23:04,960
+00:22:58.400 --> 00:23:04.960
 so for instance when you do deriving
 Show that's always going to be stock but
 
 217
-00:23:04,960 --> 00:23:12,080
+00:23:04.960 --> 00:23:12.080
 if you turn on this deriving strategies extension
 you could instead say deriving newtype Show
 
 218
-00:23:12,880 --> 00:23:17,760
+00:23:12.880 --> 00:23:17.760
 and the difference there would be that the you
 know stringified representation of that type
 
 219
-00:23:17,760 --> 00:23:22,720
+00:23:17.760 --> 00:23:22.720
 would no longer include the newtype
 wrapper's name like it normally does
 
 220
-00:23:22,720 --> 00:23:27,440
+00:23:22.720 --> 00:23:27.440
 that would be stripped out because you're going
 to be using the inner types instance directly
 
 221
-00:23:29,120 --> 00:23:36,320
+00:23:29.120 --> 00:23:36.320
 but to answer your question normally it is
 implicit and then you can make it explicit and
 
 222
-00:23:36,320 --> 00:23:41,440
+00:23:36.320 --> 00:23:41.440
 for us the normal way that we make it explicit
 is by using deriving via which is one of the
 
 223
-00:23:41,440 --> 00:23:48,000
+00:23:41.440 --> 00:23:48.000
 strategies >> Right right right yeah I found
 that bit cool when they talked about how
 
 224
-00:23:48,000 --> 00:23:53,360
+00:23:48.000 --> 00:23:53.360
 you can explicitly say yes we're going to use
 newtype deriving here and it's you know for
 
 225
-00:23:53,360 --> 00:23:58,960
+00:23:53.360 --> 00:23:58.960
 the show instance you know it's going to take away
 that type wrapper within the stringified version
 
 226
-00:23:59,840 --> 00:24:02,560
+00:23:59.840 --> 00:24:02.560
 I thought that was pretty neat
 because you know obviously
 
 227
-00:24:03,120 --> 00:24:10,320
+00:24:03.120 --> 00:24:10.320
 you know Show is a great resource and you know
 or a great type class that allows you really to
 
 228
-00:24:10,320 --> 00:24:14,560
+00:24:10.320 --> 00:24:14.560
 debug and understand what's happening in your
 code but sometimes the output can be a little bit
 
 229
-00:24:15,520 --> 00:24:21,120
+00:24:15.520 --> 00:24:21.120
 daunting because it's so you know if you have
 large records or a list of records it's kind of
 
 230
-00:24:21,120 --> 00:24:26,800
+00:24:21.120 --> 00:24:26.800
 hard to parse what's going on and so you
 know being able to like maybe remove some of that
 
 231
-00:24:27,360 --> 00:24:32,560
+00:24:27.360 --> 00:24:32.560
 you know complexity it could be nice >> Yeah
 a good example from our code base is that
 
 232
-00:24:32,560 --> 00:24:39,920
+00:24:32.560 --> 00:24:39.920
 we use UUIDs for some of our unique identifiers
 but we have an internal type that we wrap around
 
 233
-00:24:39,920 --> 00:24:45,760
+00:24:39.920 --> 00:24:45.760
 UUIDs that we call a GUID and then we wrap
 domain specific types around that one so we
 
 234
-00:24:45,760 --> 00:24:50,880
+00:24:45.760 --> 00:24:50.880
 have like a user ID is a wrapper around
 a GUID which is a wrapper around a UUID
 
 235
-00:24:51,440 --> 00:24:58,560
+00:24:51.440 --> 00:24:58.560
 so by default when you show that you'll get the
 literal text user ID parentheses GUID parentheses
 
 236
-00:24:58,560 --> 00:25:04,080
+00:24:58.560 --> 00:25:04.080
 UUID parentheses and then the and then the thing
 you're actually interested in right and by using
 
 237
-00:25:04,080 --> 00:25:08,560
+00:25:04.080 --> 00:25:08.560
 newtype deriving at each step of the way you
 could strip out those things and just get the ID
 
 238
-00:25:10,000 --> 00:25:18,000
+00:25:10.000 --> 00:25:18.000
 >> Yeah I mean I would be curious to see how you know
 our team felt about doing something like that
 
 239
-00:25:18,560 --> 00:25:23,120
+00:25:18.560 --> 00:25:23.120
 you know obviously we don't have to use Show too
 too much but when we do you know that would be a
 
 240
-00:25:23,120 --> 00:25:28,480
+00:25:23.120 --> 00:25:28.480
 really nice thing for the instances where we have
 a very nested type >> Yeah because you can lose kind
 
 241
-00:25:28,480 --> 00:25:33,760
+00:25:28.480 --> 00:25:33.760
 of the overall shape of the data you're looking at
 when there are too many details included like that
 
 242
-00:25:35,120 --> 00:25:39,920
+00:25:35.120 --> 00:25:39.920
 >> Yeah well awesome thank you for you know kind of
 talking about the strategies a little bit you know
 
 243
-00:25:39,920 --> 00:25:43,760
+00:25:39.920 --> 00:25:43.760
 for me it's this has all been
 a learning experience kind of
 
 244
-00:25:43,760 --> 00:25:48,000
+00:25:43.760 --> 00:25:48.000
 you know obviously I've used deriving and
 I've you know derived specific instances but
 
 245
-00:25:48,000 --> 00:25:52,400
+00:25:48.000 --> 00:25:52.400
 you know kind of the mechanics behind it were
 really kind of cool and neat to learn about
 
 246
-00:25:52,400 --> 00:25:59,200
+00:25:52.400 --> 00:25:59.200
 >> Yeah I agree >> Yeah so we've got a couple more minutes here
 and i just want to kind of touch real quick on
 
 247
-00:25:59,200 --> 00:26:04,720
+00:25:59.200 --> 00:26:04.720
 some of the best practices they mentioned
 and then you know we'll wrap it up but
 
 248
-00:26:05,520 --> 00:26:09,600
+00:26:05.520 --> 00:26:09.600
 you know trying to be cognizant of
 our viewers time >> Listeners, maybe they're viewers too
 
 249
-00:26:09,600 --> 00:26:12,640
+00:26:09.600 --> 00:26:12.640
 >> Glad you're on board with us but
 we don't want to bore you to death
 
 250
-00:26:14,720 --> 00:26:20,480
+00:26:14.720 --> 00:26:20.480
 >> But yeah so some of the best practices so the
 one that they touch on first I think you could
 
 251
-00:26:20,480 --> 00:26:26,160
+00:26:20.480 --> 00:26:26.160
 talk about a little about always deriving the
 Show and Eq type classes why do you want
 
 252
-00:26:26,160 --> 00:26:32,720
+00:26:26.160 --> 00:26:32.720
 to do that >> Yeah I mean it helps you know working
 in in the REPL you know if you're trying to
 
 253
-00:26:33,440 --> 00:26:37,840
+00:26:33.440 --> 00:26:37.840
 you know see what an output is going to be you're
 going to need a Show instance so it can display
 
 254
-00:26:38,800 --> 00:26:42,960
+00:26:38.800 --> 00:26:42.960
 you know and also testing you know you're
 generally going to have to kind of see what's
 
 255
-00:26:42,960 --> 00:26:47,760
+00:26:42.960 --> 00:26:47.760
 happening see what the mechanics of your code are
 doing and see what the types are along the way
 
 256
-00:26:48,480 --> 00:26:53,520
+00:26:48.480 --> 00:26:53.520
 so I think that's you know some of the real pros
 to that but one of the cons being you know you
 
 257
-00:26:53,520 --> 00:26:58,240
+00:26:53.520 --> 00:26:58.240
 have to be cognizant of maybe a type that you
 don't want publicly shared like a password or
 
 258
-00:26:58,800 --> 00:27:04,800
+00:26:58.800 --> 00:27:04.800
 you know a token you know and if you do want to
 still have Show instances as well as you just
 
 259
-00:27:04,800 --> 00:27:10,640
+00:27:04.800 --> 00:27:10.640
 be cognizant to make a custom instance for that
 that you know redacts the sensitive information
 
 260
-00:27:10,640 --> 00:27:18,240
+00:27:10.640 --> 00:27:18.240
 >> Yeah and this can be a somewhat tricky decision
 of do I want to provide a show instance that hides
 
 261
-00:27:18,240 --> 00:27:24,080
+00:27:18.240 --> 00:27:24.080
 the information or do I want to not provide a
 show instance at all and for us the way that
 
 262
-00:27:24,080 --> 00:27:30,080
+00:27:24.080 --> 00:27:30.080
 we typically lean is like using password as an
 example let's go ahead and provide an instance
 
 263
-00:27:30,080 --> 00:27:36,800
+00:27:30.080 --> 00:27:36.800
 for it but the only thing that it outputs is
 going to be like the word redacted and that way
 
 264
-00:27:36,800 --> 00:27:41,280
+00:27:36.800 --> 00:27:41.280
 if we have a record that includes a password
 within it we can still show that record
 
 265
-00:27:41,280 --> 00:27:45,440
+00:27:41.280 --> 00:27:45.440
 and see kind of the overall shape of it but we're
 not going to leak any of that sensitive data
 
 266
-00:27:46,400 --> 00:27:51,040
+00:27:46.400 --> 00:27:51.040
 if you go the other way and don't include the
 instance at all then if your user type has
 
 267
-00:27:51,040 --> 00:27:56,880
+00:27:51.040 --> 00:27:56.880
 a password on it you can no longer show
 a user which to us is super frustrating
 
 268
-00:27:58,160 --> 00:28:01,840
+00:27:58.160 --> 00:28:01.840
 >> Yeah and I mean and if you're
 dealing with maybe some smaller types
 
 269
-00:28:02,960 --> 00:28:08,400
+00:28:02.960 --> 00:28:08.400
 you know you can always kind of create your
 own function that turns that type into a string
 
 270
-00:28:08,400 --> 00:28:14,160
+00:28:08.400 --> 00:28:14.160
 that can easily be shown or you know turn it
 into another type that has a show instance but
 
 271
-00:28:15,120 --> 00:28:19,440
+00:28:15.120 --> 00:28:19.440
 you know i think you know what you said about
 kind of creating your own so you can then
 
 272
-00:28:20,800 --> 00:28:25,680
+00:28:20.800 --> 00:28:25.680
 use it in a larger record and and have a show and
 since for the larger record i think it
 
 273
-00:28:25,680 --> 00:28:35,360
+00:28:25.680 --> 00:28:35.360
 makes a big deal yeah so i mean at that point
 you know they kind of talked about you know
 
 274
-00:28:35,360 --> 00:28:40,480
+00:28:35.360 --> 00:28:40.480
 deriving generics do you have anything
 kind of add on that as a best practice
 
 275
-00:28:41,360 --> 00:28:49,600
+00:28:41.360 --> 00:28:49.600
 >> Yeah so as I mentioned we are mostly focused
 on application development so for us the choice of
 
 276
-00:28:49,600 --> 00:28:56,720
+00:28:49.600 --> 00:28:56.720
 do we add a generic instance or not really comes
 down to are we using that generic instance but for
 
 277
-00:28:56,720 --> 00:29:02,560
+00:28:56.720 --> 00:29:02.560
 library authors the question is different because
 whether or not you use it in your code base
 
 278
-00:29:03,760 --> 00:29:09,280
+00:29:03.760 --> 00:29:09.280
 or in your library I should say if any of your
 users are going to need that instance then you
 
 279
-00:29:09,280 --> 00:29:16,560
+00:29:09.280 --> 00:29:16.560
 have to provide it so more often than not
 if you're defining custom data types in your
 
 280
-00:29:16,560 --> 00:29:22,720
+00:29:16.560 --> 00:29:22.720
 library that other people are supposed to use you
 probably should have generic instances on them and
 
 281
-00:29:23,760 --> 00:29:29,120
+00:29:23.760 --> 00:29:29.120
 I just want to touch on earlier I also mentioned
 how generic deriving can be slower than other
 
 282
-00:29:30,400 --> 00:29:37,120
+00:29:30.400 --> 00:29:37.120
 other ways to provide instances and that's
 true but providing a generic instance by itself
 
 283
-00:29:37,120 --> 00:29:42,480
+00:29:37.120 --> 00:29:42.480
 is very quick it's when you start to use it that
 things slow down a little bit so if you're afraid
 
 284
-00:29:42,480 --> 00:29:46,800
+00:29:42.480 --> 00:29:46.800
 of providing generic instances for performance
 reasons I would say don't be afraid of
 
 285
-00:29:46,800 --> 00:29:54,080
+00:29:46.800 --> 00:29:54.080
 that go ahead and provide it >> Persevere and
 go through strong you've got this >> For sure
 
 286
-00:29:54,080 --> 00:29:58,560
+00:29:54.080 --> 00:29:58.560
 >> Well awesome well hey I really appreciate you
 kind of you know talking through this post a
 
 287
-00:29:58,560 --> 00:30:04,560
+00:29:58.560 --> 00:30:04.560
 little bit from you know a high level obviously
 if you want more detail you know go read the post
 
 288
-00:30:05,120 --> 00:30:10,080
+00:30:05.120 --> 00:30:10.080
 kind of dive in because you know you're going to
 really be able to you know kind of walk away with
 
 289
-00:30:10,080 --> 00:30:14,240
+00:30:10.080 --> 00:30:14.240
 you know kind of a new understanding of what's
 happening behind the scenes at least at least I
 
 290
-00:30:14,240 --> 00:30:20,560
+00:30:14.240 --> 00:30:20.560
 did so I mean I think that's about
 it >> Cam thank you for bringing this post you know
 
 291
-00:30:20,560 --> 00:30:26,080
+00:30:20.560 --> 00:30:26.080
 to my attention and really taking the time to
 dig into it it's always nice to get a deeper
 
 292
-00:30:26,080 --> 00:30:31,120
+00:30:26.080 --> 00:30:31.120
 understanding of something that we use day in and
 out but haven't really had the reason to go look
 
 293
-00:30:31,120 --> 00:30:39,600
+00:30:31.120 --> 00:30:39.600
 into the intricacies >> Exactly yeah I mean you're
 welcome you know I I've I'm obviously you know
 
 294
-00:30:39,600 --> 00:30:45,040
+00:30:39.600 --> 00:30:45.040
 honestly just can trying to continue to learn
 you know as an engineer like that's our job
 
 295
-00:30:45,040 --> 00:30:50,160
+00:30:45.040 --> 00:30:50.160
 obviously yes your job is to code but you know
 if you don't learn and adapt and kind of figure
 
 296
-00:30:50,160 --> 00:30:54,640
+00:30:50.160 --> 00:30:54.640
 out something new every day you're gonna you know
 you're gonna get past real quick so you know I'm
 
 297
-00:30:55,440 --> 00:31:00,160
+00:30:55.440 --> 00:31:00.160
 definitely always looking for stuff um you know
 and I would like to actually invite maybe
 
 298
-00:31:00,160 --> 00:31:05,440
+00:31:00.160 --> 00:31:05.440
 some of our viewers if they have a pod you know
 well a podcast if they want but like a blog post
 
 299
-00:31:05,440 --> 00:31:13,120
+00:31:05.440 --> 00:31:13.120
 that they you know really enjoy you know feel
 free to send it to us you know and we would
 
 300
-00:31:13,120 --> 00:31:19,360
+00:31:13.120 --> 00:31:19.360
 love to you know talk about it look at it
 review it you know and spread the word per se
 
 301
-00:31:19,920 --> 00:31:26,000
+00:31:19.920 --> 00:31:26.000
 you know what would be a good way for them
 to send that if they were interested >> So for our
 
 302
-00:31:26,000 --> 00:31:32,160
+00:31:26.000 --> 00:31:32.160
 listeners if they have something that they want
 us to do a deep dive on do a podcast episode on
 
 303
-00:31:32,160 --> 00:31:40,000
+00:31:32.160 --> 00:31:40.000
 you can reach out to Haskell Weekly via email
 which is going to be info@HaskellWeekly.news
 
 304
-00:31:40,800 --> 00:31:48,000
+00:31:40.800 --> 00:31:48.000
 or you can hit us up on Twitter our Twitter handle
 is @HaskellWeekly shouldn't be any surprises there
 
 305
-00:31:48,800 --> 00:31:55,120
+00:31:48.800 --> 00:31:55.120
 or if you find me or Cameron on you know Reddit
 Twitter wherever we can take suggestions there
 
 306
-00:31:55,120 --> 00:32:06,720
+00:31:55.120 --> 00:32:06.720
 as well >> Yep >> Yeah so I think that will do it for
 us today thank you for listening this has
 
 307
-00:32:06,720 --> 00:32:12,560
+00:32:06.720 --> 00:32:12.560
 been a little longer than our normal podcasts but
 this has been you know a really solid resource
 
 308
-00:32:12,560 --> 00:32:18,320
+00:32:12.560 --> 00:32:18.320
 that we've been able to chew through and we
 wanted to do it justice so thank you Cam for
 
 309
-00:32:18,320 --> 00:32:24,080
+00:32:18.320 --> 00:32:24.080
 hanging out with me I appreciate it >> Always
 man always >> And thank you again for listening
 
 310
-00:32:24,720 --> 00:32:31,360
+00:32:24.720 --> 00:32:31.360
 if you would like to find out more about Haskell
 Weekly please go to our website HaskellWeekly.news
 
 311
-00:32:32,000 --> 00:32:37,600
+00:32:32.000 --> 00:32:37.600
 and once you're there you can subscribe to
 the newsletter which goes out every week or
 
 312
-00:32:37,600 --> 00:32:44,160
+00:32:37.600 --> 00:32:44.160
 you can subscribe to this podcast which comes out
 either every week or about once a year depending
 
 313
-00:32:46,320 --> 00:32:52,800
+00:32:46.320 --> 00:32:52.800
 >> Yeah and you know and and also feel free to follow
 us on Twitter you know >> Twitter Reddit
 
 314
-00:32:52,800 --> 00:33:04,880
+00:32:52.800 --> 00:33:04.880
 everywhere >> We are everywhere >> Alright thanks
 so much y'all happy hacking >> Happy hacking

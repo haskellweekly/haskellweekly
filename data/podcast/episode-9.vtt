@@ -1,1907 +1,1909 @@
+WEBVTT
+
 1
-00:00:00,012 --> 00:00:04,481
+00:00:00.012 --> 00:00:04.481
 [MUSIC]
 
 2
-00:00:04,481 --> 00:00:06,722
+00:00:04.481 --> 00:00:06.722
 Welcome to the Haskell weekly podcast.
 
 3
-00:00:06,722 --> 00:00:10,800
+00:00:06.722 --> 00:00:10.800
 This show is about Haskell,
 a purely functional programming language.
 
 4
-00:00:10,800 --> 00:00:13,080
+00:00:10.800 --> 00:00:13.080
 I'm your guest, Jason Fry.
 
 5
-00:00:13,080 --> 00:00:15,830
+00:00:13.080 --> 00:00:15.830
 I'm an engineer here at ITPROTV.
 
 6
-00:00:15,830 --> 00:00:18,770
+00:00:15.830 --> 00:00:18.770
 With me today is your host Cameron Gera.
 
 7
-00:00:18,770 --> 00:00:22,030
+00:00:18.770 --> 00:00:22.030
 He is one of our software
 engineers at ITProTV.
 
 8
-00:00:22,030 --> 00:00:24,530
+00:00:22.030 --> 00:00:24.530
 Thanks for joining me today, Cameron.
 
 9
-00:00:24,530 --> 00:00:25,560
+00:00:24.530 --> 00:00:25.560
 >> How's it going, Jason.
 
 10
-00:00:25,560 --> 00:00:26,370
+00:00:25.560 --> 00:00:26.370
 I'm glad to be here.
 
 11
-00:00:26,370 --> 00:00:28,140
+00:00:26.370 --> 00:00:28.140
 >> It's going really well, thank you.
 
 12
-00:00:28,140 --> 00:00:30,580
+00:00:28.140 --> 00:00:30.580
 >> Yeah, well, what are we doing here?
 
 13
-00:00:30,580 --> 00:00:33,990
+00:00:30.580 --> 00:00:33.990
 I mean I come just to hang out with you
 and you're like, hey, let's do a podcast.
 
 14
-00:00:33,990 --> 00:00:35,580
+00:00:33.990 --> 00:00:35.580
 So what are we doing a podcast about?
 
 15
-00:00:35,580 --> 00:00:36,800
+00:00:35.580 --> 00:00:36.800
 >> Yeah, that's how that worked.
 
 16
-00:00:36,800 --> 00:00:39,550
+00:00:36.800 --> 00:00:39.550
 We're doing a podcast about Haskell,
 Cameron.
 
 17
-00:00:40,870 --> 00:00:43,680
+00:00:40.870 --> 00:00:43.680
 >> Okay.
 There's a lot to talk about Haskell,
 
 18
-00:00:43,680 --> 00:00:45,100
+00:00:43.680 --> 00:00:45.100
 I don't think we have all that time.
 
 19
-00:00:45,100 --> 00:00:45,880
+00:00:45.100 --> 00:00:45.880
 >> Not really.
 
 20
-00:00:45,880 --> 00:00:47,010
+00:00:45.880 --> 00:00:47.010
 >> We're trying to keep
 this to 15 minutes.
 
 21
-00:00:47,010 --> 00:00:48,211
+00:00:47.010 --> 00:00:48.211
 >> Haskell's pretty simple.
 
 22
-00:00:48,211 --> 00:00:50,055
+00:00:48.211 --> 00:00:50.055
 >> Our viewers are very busy,
 busy, busy people.
 
 23
-00:00:50,055 --> 00:00:51,029
+00:00:50.055 --> 00:00:51.029
 >> Not much to do here.
 
 24
-00:00:51,029 --> 00:00:52,500
+00:00:51.029 --> 00:00:52.500
 >> No, okay.
 
 25
-00:00:52,500 --> 00:00:54,038
+00:00:52.500 --> 00:00:54.038
 Hopefully everyone will learn Haskell.
 
 26
-00:00:54,038 --> 00:00:59,200
+00:00:54.038 --> 00:00:59.200
 >> Well, so we were looking through
 Haskell Weekly, as we do most weeks,
 
 27
-00:00:59,200 --> 00:01:03,440
+00:00:59.200 --> 00:01:03.440
 and found an article that you and
 I can talk about and
 
 28
-00:01:03,440 --> 00:01:07,315
+00:01:03.440 --> 00:01:07.315
 maybe springboard off of called
 Four Tweaks to Improve Haskell.
 
 29
-00:01:07,315 --> 00:01:08,480
+00:01:07.315 --> 00:01:08.480
 >> Mm-hm, yeah.
 
 30
-00:01:08,480 --> 00:01:10,390
+00:01:08.480 --> 00:01:10.390
 >> So let's talk through that.
 
 31
-00:01:10,390 --> 00:01:13,020
+00:01:10.390 --> 00:01:13.020
 >> Yeah, it seems pretty interesting.
 
 32
-00:01:13,020 --> 00:01:17,210
+00:01:13.020 --> 00:01:17.210
 Reading through it, looks like
 Digital Assets is the one who wrote this.
 
 33
-00:01:17,210 --> 00:01:19,753
+00:01:17.210 --> 00:01:19.753
 They seem to be pretty big
 in that Haskell community,
 
 34
-00:01:19,753 --> 00:01:22,819
+00:01:19.753 --> 00:01:22.819
 and also kind of in the open source world,
 which is kind of cool.
 
 35
-00:01:22,819 --> 00:01:26,858
+00:01:22.819 --> 00:01:26.858
 And they kind of seem to have some sort
 of idea that there's tweaks in Haskell,
 
 36
-00:01:26,858 --> 00:01:29,700
+00:01:26.858 --> 00:01:29.700
 which every programming
 language has enhancements.
 
 37
-00:01:29,700 --> 00:01:32,774
+00:01:29.700 --> 00:01:32.774
 And I think today we should kind of talk
 about what's good about these tweaks,
 
 38
-00:01:32,774 --> 00:01:34,788
+00:01:32.774 --> 00:01:34.788
 maybe some of our frustrations
 with these tweaks.
 
 39
-00:01:34,788 --> 00:01:37,634
+00:01:34.788 --> 00:01:37.634
 But the first one they mentioned
 is pretty interesting,
 
 40
-00:01:37,634 --> 00:01:41,020
+00:01:37.634 --> 00:01:41.020
 something I'm on board with
 because I'm a lover of Elm.
 
 41
-00:01:41,020 --> 00:01:43,318
+00:01:41.020 --> 00:01:43.318
 They call it the new colon convention.
 
 42
-00:01:43,318 --> 00:01:46,178
+00:01:43.318 --> 00:01:46.178
 Which is quite funny because as you know,
 
 43
-00:01:46,178 --> 00:01:51,030
+00:01:46.178 --> 00:01:51.030
 type declarations for
 functions in Haskell are double colon.
 
 44
-00:01:51,030 --> 00:01:55,833
+00:01:51.030 --> 00:01:55.833
 And they make the joke that Haskell would
 be a much faster language if we just
 
 45
-00:01:55,833 --> 00:01:59,380
+00:01:55.833 --> 00:01:59.380
 took out that double colon,
 made it a single colon.
 
 46
-00:01:59,380 --> 00:02:00,020
+00:01:59.380 --> 00:02:00.020
 >> Yeah.
 
 47
-00:02:00,020 --> 00:02:01,410
+00:02:00.020 --> 00:02:01.410
 >> Like our language of Elm.
 
 48
-00:02:01,410 --> 00:02:04,965
+00:02:01.410 --> 00:02:04.965
 >> Yeah, you mention Elm and we love Elm.
 
 49
-00:02:04,965 --> 00:02:09,423
+00:02:04.965 --> 00:02:09.423
 But what is annoying about Elm is that
 it does the opposite of Haskell here.
 
 50
-00:02:09,423 --> 00:02:12,620
+00:02:09.423 --> 00:02:12.620
 So this convention is just saying,
 no, do what Elm does.
 
 51
-00:02:12,620 --> 00:02:15,346
+00:02:12.620 --> 00:02:15.346
 So when you have the type signature,
 
 52
-00:02:15,346 --> 00:02:17,920
+00:02:15.346 --> 00:02:17.920
 you use a single colon
 instead of double colon.
 
 53
-00:02:17,920 --> 00:02:20,700
+00:02:17.920 --> 00:02:20.700
 And then I guess cons would be two colons.
 
 54
-00:02:20,700 --> 00:02:25,280
+00:02:20.700 --> 00:02:25.280
 And you use cons probably far less
 than you use the type signature,
 
 55
-00:02:25,280 --> 00:02:27,230
+00:02:25.280 --> 00:02:27.230
 the declaration there.
 
 56
-00:02:27,230 --> 00:02:30,840
+00:02:27.230 --> 00:02:30.840
 So yeah, they say Hackage
 would be one megabyte smaller.
 
 57
-00:02:30,840 --> 00:02:33,040
+00:02:30.840 --> 00:02:33.040
 >> Which is pretty
 substantial considering.
 
 58
-00:02:33,040 --> 00:02:33,550
+00:02:33.040 --> 00:02:33.550
 >> That feels like a lot.
 
 59
-00:02:33,550 --> 00:02:35,674
+00:02:33.550 --> 00:02:35.674
 >> Yeah, I mean, that's pretty cool.
 
 60
-00:02:35,674 --> 00:02:39,678
+00:02:35.674 --> 00:02:39.678
 We are Elm users here at ITPro, so
 we are very familiar with the syntax, so
 
 61
-00:02:39,678 --> 00:02:43,052
+00:02:39.678 --> 00:02:43.052
 it would make it pretty easy for
 us to jump right into Haskell.
 
 62
-00:02:43,052 --> 00:02:47,696
+00:02:43.052 --> 00:02:47.696
 Cuz I can't tell you how many times I end
 up typing double colon when I'm in Elm and
 
 63
-00:02:47,696 --> 00:02:50,037
+00:02:47.696 --> 00:02:50.037
 then single colon when I'm in Haskell.
 
 64
-00:02:50,037 --> 00:02:53,118
+00:02:50.037 --> 00:02:53.118
 We do promiscuous pairing here and
 generally my pair is like,
 
 65
-00:02:53,118 --> 00:02:54,905
+00:02:53.118 --> 00:02:54.905
 are you trying to do Haskell or Elm?
 
 66
-00:02:54,905 --> 00:02:56,410
+00:02:54.905 --> 00:02:56.410
 What are you doing here?
 
 67
-00:02:56,410 --> 00:02:59,230
+00:02:56.410 --> 00:02:59.230
 So it would make my life
 a little simpler if we'd just had
 
 68
-00:02:59,230 --> 00:03:02,430
+00:02:59.230 --> 00:03:02.430
 one convention that went across Elm and
 Haskell.
 
 69
-00:03:02,430 --> 00:03:07,880
+00:03:02.430 --> 00:03:07.880
 >> Yes, but one thing I will say against
 this is that the idea with cons is that,
 
 70
-00:03:07,880 --> 00:03:10,451
+00:03:07.880 --> 00:03:10.451
 I'm gonna mess something up here.
 
 71
-00:03:10,451 --> 00:03:16,170
+00:03:10.451 --> 00:03:16.170
 But you're visualizing the spine of
 the list with these single colon,
 
 72
-00:03:16,170 --> 00:03:20,160
+00:03:16.170 --> 00:03:20.160
 which makes a lot of sense theoretically.
 
 73
-00:03:20,160 --> 00:03:24,959
+00:03:20.160 --> 00:03:24.959
 But I think what Evan does with Elm,
 I've heard people say that he does okay
 
 74
-00:03:24,959 --> 00:03:29,847
+00:03:24.959 --> 00:03:29.847
 breaking with convention if it makes
 it more sensible inside the language.
 
 75
-00:03:29,847 --> 00:03:34,685
+00:03:29.847 --> 00:03:34.685
 And I think that's why he's done it that
 way with two colons being cons instead of
 
 76
-00:03:34,685 --> 00:03:35,619
+00:03:34.685 --> 00:03:35.619
 the one colon.
 
 77
-00:03:35,619 --> 00:03:41,861
+00:03:35.619 --> 00:03:41.861
 So while a double colon cons and a single
 colon type declaration would mean less
 
 78
-00:03:41,861 --> 00:03:47,490
+00:03:41.861 --> 00:03:47.490
 typing, less colons, I can see
 like why Haskell did it that way.
 
 79
-00:03:47,490 --> 00:03:49,450
+00:03:47.490 --> 00:03:49.450
 I doubt it will ever change in Haskell,
 
 80
-00:03:49,450 --> 00:03:53,280
+00:03:49.450 --> 00:03:53.280
 but overall I'm on board
 too with this change.
 
 81
-00:03:53,280 --> 00:03:57,010
+00:03:53.280 --> 00:03:57.010
 >> Yeah, and one other thing before
 we move on to the next one is,
 
 82
-00:03:57,010 --> 00:04:01,990
+00:03:57.010 --> 00:04:01.990
 they tend to use the list constructor
 as the type instead of putting brackets
 
 83
-00:04:01,990 --> 00:04:07,860
+00:04:01.990 --> 00:04:07.860
 around their type for a list, which is
 kind of a very Elm-based thing as well.
 
 84
-00:04:07,860 --> 00:04:10,994
+00:04:07.860 --> 00:04:10.994
 So I literally, when I saw this article
 I was like, did they write Elm or
 
 85
-00:04:10,994 --> 00:04:12,101
+00:04:10.994 --> 00:04:12.101
 did they write Haskell?
 
 86
-00:04:12,101 --> 00:04:16,774
+00:04:12.101 --> 00:04:16.774
 Cuz it literally looks like something I'd
 find in our Elm right now if I went into
 
 87
-00:04:16,774 --> 00:04:17,278
+00:04:16.774 --> 00:04:17.278
 there.
 
 88
-00:04:17,278 --> 00:04:18,571
+00:04:17.278 --> 00:04:18.571
 >> Yeah, that's valid Elm.
 
 89
-00:04:18,571 --> 00:04:20,220
+00:04:18.571 --> 00:04:20.220
 >> Yeah, for sure.
 
 90
-00:04:21,250 --> 00:04:24,390
+00:04:21.250 --> 00:04:24.390
 No, I think that's cool, and
 I'm on board with that one as well.
 
 91
-00:04:24,390 --> 00:04:25,900
+00:04:24.390 --> 00:04:25.900
 I think they're onto something,
 but like you said,
 
 92
-00:04:25,900 --> 00:04:28,790
+00:04:25.900 --> 00:04:28.790
 I think Haskell's not gonna change yet,
 and that's okay.
 
 93
-00:04:28,790 --> 00:04:31,415
+00:04:28.790 --> 00:04:31.415
 I know there's been conversations
 preparing for this,
 
 94
-00:04:31,415 --> 00:04:33,195
+00:04:31.415 --> 00:04:33.195
 kinda looking through what was what.
 
 95
-00:04:33,195 --> 00:04:35,280
+00:04:33.195 --> 00:04:35.280
 They're was definitely
 some issues about it and
 
 96
-00:04:35,280 --> 00:04:40,800
+00:04:35.280 --> 00:04:40.800
 there was good conversation about it, but
 the bottom line was nobody else wants it,
 
 97
-00:04:40,800 --> 00:04:43,400
+00:04:40.800 --> 00:04:43.400
 especially if they're not an Elm user.
 
 98
-00:04:43,400 --> 00:04:46,054
+00:04:43.400 --> 00:04:46.054
 They're used to Haskell this way,
 so they're not going to change,
 
 99
-00:04:46,054 --> 00:04:47,770
+00:04:46.054 --> 00:04:47.770
 which is a totally, totally valid reason.
 
 100
-00:04:47,770 --> 00:04:52,110
+00:04:47.770 --> 00:04:52.110
 But the next one they kind of
 talk about is record with syntax,
 
 101
-00:04:52,110 --> 00:04:54,872
+00:04:52.110 --> 00:04:54.872
 which, this kind of confused me a lot.
 
 102
-00:04:54,872 --> 00:04:59,614
+00:04:54.872 --> 00:04:59.614
 And that's probably contradicting
 myself cuz I'm used to Haskell, and so
 
 103
-00:04:59,614 --> 00:05:04,802
+00:04:59.614 --> 00:05:04.802
 it looks weird because it looks more like
 something in Python or something you would
 
 104
-00:05:04,802 --> 00:05:09,270
+00:05:04.802 --> 00:05:09.270
 use in one of the scripting languages,
 it just it seems a little wonky.
 
 105
-00:05:09,270 --> 00:05:11,090
+00:05:09.270 --> 00:05:11.090
 What do you think, Jason?
 
 106
-00:05:11,090 --> 00:05:16,160
+00:05:11.090 --> 00:05:16.160
 Well, I agree with you, however,
 with a big caveat that the authors of
 
 107
-00:05:16,160 --> 00:05:21,570
+00:05:16.160 --> 00:05:21.570
 this post are smarter than me,
 Shane Fletcher and Neil Mitchell.
 
 108
-00:05:21,570 --> 00:05:26,438
+00:05:21.570 --> 00:05:26.438
 Neil Mitchell is probably well known for
 being the author of Google and
 
 109
-00:05:26,438 --> 00:05:31,220
+00:05:26.438 --> 00:05:31.220
 Hlint and GHCID,
 which we use all three of those here.
 
 110
-00:05:31,220 --> 00:05:33,680
+00:05:31.220 --> 00:05:33.680
 So he's smarter than me.
 
 111
-00:05:33,680 --> 00:05:36,880
+00:05:33.680 --> 00:05:36.880
 So either they didn't make
 a good enough case for this, or
 
 112
-00:05:36,880 --> 00:05:41,450
+00:05:36.880 --> 00:05:41.450
 they made a great case and
 I'm a bit slow, or it's just not good.
 
 113
-00:05:41,450 --> 00:05:46,990
+00:05:41.450 --> 00:05:46.990
 What I don't like about the with syntax
 is that it's five characters versus two.
 
 114
-00:05:46,990 --> 00:05:49,470
+00:05:46.990 --> 00:05:49.470
 And with only has four characters in it,
 but
 
 115
-00:05:49,470 --> 00:05:51,400
+00:05:49.470 --> 00:05:51.400
 there's an extra space
 you have to put in there.
 
 116
-00:05:51,400 --> 00:05:57,520
+00:05:51.400 --> 00:05:57.520
 So it's longer, and
 to me it doesn't enclose the record.
 
 117
-00:05:57,520 --> 00:06:01,020
+00:05:57.520 --> 00:06:01.020
 I like the curly brackets
 enclosing the record.
 
 118
-00:06:01,020 --> 00:06:05,595
+00:06:01.020 --> 00:06:05.595
 But this is one of those things that
 people can have holy wars over what is
 
 119
-00:06:05,595 --> 00:06:08,196
+00:06:05.595 --> 00:06:08.196
 essentially completely unimportant.
 
 120
-00:06:08,196 --> 00:06:09,215
+00:06:08.196 --> 00:06:09.215
 But those are my two opinions.
 
 121
-00:06:09,215 --> 00:06:12,697
+00:06:09.215 --> 00:06:12.697
 It's longer to type and
 it doesn't visually enclose the record,
 
 122
-00:06:12,697 --> 00:06:14,448
+00:06:12.697 --> 00:06:14.448
 which I've come to appreciate.
 
 123
-00:06:14,448 --> 00:06:18,199
+00:06:14.448 --> 00:06:18.199
 >> Right, and they have some
 examples of little functions that,
 
 124
-00:06:18,199 --> 00:06:21,858
+00:06:18.199 --> 00:06:21.858
 like setter functions,
 that doesn't really seem to help.
 
 125
-00:06:21,858 --> 00:06:23,570
+00:06:21.858 --> 00:06:23.570
 I can see their reasoning for it,
 
 126
-00:06:23,570 --> 00:06:28,060
+00:06:23.570 --> 00:06:28.060
 because they have a simple function
 that says set this value to two.
 
 127
-00:06:28,060 --> 00:06:32,919
+00:06:28.060 --> 00:06:32.919
 And so the function calls blah
 with 2 equals 2 and says,
 
 128
-00:06:32,919 --> 00:06:37,180
+00:06:32.919 --> 00:06:37.180
 okay, set this record,
 its field through to 2.
 
 129
-00:06:37,180 --> 00:06:41,499
+00:06:37.180 --> 00:06:41.499
 But it just does not,
 it just doesn't feel right.
 
 130
-00:06:41,499 --> 00:06:43,701
+00:06:41.499 --> 00:06:43.701
 I feel like I would rather say,
 
 131
-00:06:43,701 --> 00:06:48,106
+00:06:43.701 --> 00:06:48.106
 at this point I would be able to
 just put that R that's there and
 
 132
-00:06:48,106 --> 00:06:53,730
+00:06:48.106 --> 00:06:53.730
 then use record syntax and put in
 the attribute we're trying to update.
 
 133
-00:06:53,730 --> 00:06:54,463
+00:06:53.730 --> 00:06:54.463
 >> Yeah, and
 
 134
-00:06:54,463 --> 00:06:59,521
+00:06:54.463 --> 00:06:59.521
 that's the thing they say is that its
 impact on readability is profound.
 
 135
-00:06:59,521 --> 00:07:02,858
+00:06:59.521 --> 00:07:02.858
 And I don't know if it's profound, but
 
 136
-00:07:02,858 --> 00:07:08,858
+00:07:02.858 --> 00:07:08.858
 that little function that you say,
 this function is called set foo two.
 
 137
-00:07:08,858 --> 00:07:15,941
+00:07:08.858 --> 00:07:15.941
 So with the record syntax, that means
 r bracket foo equals 2 bracket, right.
 
 138
-00:07:15,941 --> 00:07:20,283
+00:07:15.941 --> 00:07:20.283
 That these, it's awkward to say those
 words, it's awkward to describe that.
 
 139
-00:07:20,283 --> 00:07:22,770
+00:07:20.283 --> 00:07:22.770
 But with the with syntax,
 
 140
-00:07:22,770 --> 00:07:27,983
+00:07:22.770 --> 00:07:27.983
 you would say set foo two r
 equals r with foo equals two.
 
 141
-00:07:27,983 --> 00:07:31,650
+00:07:27.983 --> 00:07:31.650
 That's easy to say in English,
 I'm just reading it off the page.
 
 142
-00:07:31,650 --> 00:07:33,830
+00:07:31.650 --> 00:07:33.830
 It does make sense with that.
 
 143
-00:07:33,830 --> 00:07:40,154
+00:07:33.830 --> 00:07:40.154
 You're saying, okay, this new r is gonna
 be the old r with foo equals 2 now.
 
 144
-00:07:40,154 --> 00:07:43,168
+00:07:40.154 --> 00:07:43.168
 And I get how that readability
 is a little better.
 
 145
-00:07:43,168 --> 00:07:44,849
+00:07:43.168 --> 00:07:44.849
 But I'm not a big fan of this,
 
 146
-00:07:44,849 --> 00:07:49,180
+00:07:44.849 --> 00:07:49.180
 especially when you're using it
 when creating the data type.
 
 147
-00:07:49,180 --> 00:07:51,112
+00:07:49.180 --> 00:07:51.112
 I don't like the with there, and
 
 148
-00:07:51,112 --> 00:07:55,539
+00:07:51.112 --> 00:07:55.539
 I don't know how it would look if you're
 updating multiple things at once.
 
 149
-00:07:55,539 --> 00:08:00,472
+00:07:55.539 --> 00:08:00.472
 So is that r with foo equals
 two comma bar equals three.
 
 150
-00:08:00,472 --> 00:08:04,200
+00:08:00.472 --> 00:08:04.200
 I'm not sure what that would look like,
 but I'm just not a fan.
 
 151
-00:08:04,200 --> 00:08:06,029
+00:08:04.200 --> 00:08:06.029
 >> Yeah, and they brought semicolons back.
 
 152
-00:08:06,029 --> 00:08:09,104
+00:08:06.029 --> 00:08:09.104
 I try to escape JavaScript.
 
 153
-00:08:09,104 --> 00:08:13,989
+00:08:09.104 --> 00:08:13.989
 Like, their inline data declaration for t
 is like separated by colons, and I'm like,
 
 154
-00:08:13,989 --> 00:08:17,234
+00:08:13.989 --> 00:08:17.234
 eh, semicolons,
 I don't really want to deal with that.
 
 155
-00:08:17,234 --> 00:08:21,205
+00:08:17.234 --> 00:08:21.205
 But I get the readability wise,
 like yeah, like, it's very like,
 
 156
-00:08:21,205 --> 00:08:23,620
+00:08:21.205 --> 00:08:23.620
 okay this with this equals this.
 
 157
-00:08:23,620 --> 00:08:27,406
+00:08:23.620 --> 00:08:27.406
 Which is nice, but it also seems like
 they probably, their record extensions.
 
 158
-00:08:27,406 --> 00:08:31,334
+00:08:27.406 --> 00:08:31.334
 Or not their record extensions,
 just their overall Haskell extensions,
 
 159
-00:08:31,334 --> 00:08:34,590
+00:08:31.334 --> 00:08:34.590
 kind of allowed this to be more
 useful than we're used to.
 
 160
-00:08:34,590 --> 00:08:37,560
+00:08:34.590 --> 00:08:37.560
 We have minimal language
 extensions here at ITPRO.
 
 161
-00:08:37,560 --> 00:08:40,790
+00:08:37.560 --> 00:08:40.790
 Overloaded strings,
 come with the basics, nothing crazy.
 
 162
-00:08:40,790 --> 00:08:42,510
+00:08:40.790 --> 00:08:42.510
 And so they're talking about,
 
 163
-00:08:42,510 --> 00:08:46,500
+00:08:42.510 --> 00:08:46.500
 you know, they use record puns and
 record wild cards and.
 
 164
-00:08:46,500 --> 00:08:50,185
+00:08:46.500 --> 00:08:50.185
 That may be helpful for
 these records if they use syntax.
 
 165
-00:08:50,185 --> 00:08:50,761
+00:08:50.185 --> 00:08:50.761
 >> Yeah.
 
 166
-00:08:50,761 --> 00:08:54,830
+00:08:50.761 --> 00:08:54.830
 >> I just don't know enough about
 that to say one way versus the other.
 
 167
-00:08:54,830 --> 00:08:56,804
+00:08:54.830 --> 00:08:56.804
 >> Yeah, and I'm gonna go ahead and
 
 168
-00:08:56,804 --> 00:09:00,058
+00:08:56.804 --> 00:09:00.058
 assume that that is where
 the power of this thing lies.
 
 169
-00:09:00,058 --> 00:09:02,732
+00:09:00.058 --> 00:09:02.732
 Because you're right,
 we don't use those extensions.
 
 170
-00:09:02,732 --> 00:09:06,847
+00:09:02.732 --> 00:09:06.847
 I'm gonna have to assume that,
 again, they're smarter than us, so
 
 171
-00:09:06,847 --> 00:09:08,535
+00:09:06.847 --> 00:09:08.535
 that's why they like that.
 
 172
-00:09:08,535 --> 00:09:09,582
+00:09:08.535 --> 00:09:09.582
 >> Yeah, no, I would say that too.
 
 173
-00:09:09,582 --> 00:09:13,180
+00:09:09.582 --> 00:09:13.180
 Well, yeah, there's another pretty
 cool one that I'm a fan of.
 
 174
-00:09:13,180 --> 00:09:13,870
+00:09:13.180 --> 00:09:13.870
 I'm on board with that.
 
 175
-00:09:13,870 --> 00:09:17,710
+00:09:13.870 --> 00:09:17.710
 I was very confused the first time I saw
 it, but they call it inline functions.
 
 176
-00:09:17,710 --> 00:09:19,940
+00:09:17.710 --> 00:09:19.940
 Inline function return type annotation.
 
 177
-00:09:19,940 --> 00:09:24,168
+00:09:19.940 --> 00:09:24.168
 So pretty much what this is doing is
 giving a function a type declaration
 
 178
-00:09:24,168 --> 00:09:26,570
+00:09:24.168 --> 00:09:26.570
 the same time you declare the function.
 
 179
-00:09:26,570 --> 00:09:29,879
+00:09:26.570 --> 00:09:29.879
 So it reduces line costs, which is nice.
 
 180
-00:09:29,879 --> 00:09:33,487
+00:09:29.879 --> 00:09:33.487
 But it allows you to say,
 okay, we have a function,
 
 181
-00:09:33,487 --> 00:09:36,854
+00:09:33.487 --> 00:09:36.854
 it's gonna take a variable
 with colon the type.
 
 182
-00:09:36,854 --> 00:09:40,570
+00:09:36.854 --> 00:09:40.570
 And then colon the type
 that the function returns.
 
 183
-00:09:40,570 --> 00:09:41,957
+00:09:40.570 --> 00:09:41.957
 Which seems kind of nice.
 
 184
-00:09:41,957 --> 00:09:44,671
+00:09:41.957 --> 00:09:44.671
 Like it doesn't seem terrible,
 especially for
 
 185
-00:09:44,671 --> 00:09:48,251
+00:09:44.671 --> 00:09:48.251
 like quick functions that you're using to,
 just one time use.
 
 186
-00:09:48,251 --> 00:09:52,431
+00:09:48.251 --> 00:09:52.431
 Makes it pretty easy to say, hey, okay,
 let's put this, we know what this type
 
 187
-00:09:52,431 --> 00:09:56,611
+00:09:52.431 --> 00:09:56.611
 needs to be, and it tells Haskell's
 compiler like, hey, this is what type this
 
 188
-00:09:56,611 --> 00:10:01,045
+00:09:56.611 --> 00:10:01.045
 is, without needing necessarily its own
 line to say, this is what this type is.
 
 189
-00:10:01,045 --> 00:10:05,458
+00:10:01.045 --> 00:10:05.458
 >> And I'm certain that there are
 languages that actually have this syntax
 
 190
-00:10:05,458 --> 00:10:09,666
+00:10:05.458 --> 00:10:09.666
 very similar to this, and
 I'm trying to remember which one or ones.
 
 191
-00:10:09,666 --> 00:10:14,616
+00:10:09.666 --> 00:10:14.616
 I'm wanting to say PureScript, TypeScript,
 something like that uses this syntax.
 
 192
-00:10:14,616 --> 00:10:22,020
+00:10:14.616 --> 00:10:22.020
 And at first, yeah, I can get on
 board with this and it's not bad.
 
 193
-00:10:22,020 --> 00:10:25,413
+00:10:22.020 --> 00:10:25.413
 But at first when I thought about this,
 yeah, I was confused.
 
 194
-00:10:25,413 --> 00:10:29,345
+00:10:25.413 --> 00:10:29.345
 And then when I and grokked what was
 going on there, I thought, well,
 
 195
-00:10:29,345 --> 00:10:34,450
+00:10:29.345 --> 00:10:34.450
 what if you have several parameters to
 this function, three or four parameters?
 
 196
-00:10:34,450 --> 00:10:39,900
+00:10:34.450 --> 00:10:39.900
 And the parameter name, because you wanna
 be very clear with what this parameter is,
 
 197
-00:10:39,900 --> 00:10:42,210
+00:10:39.900 --> 00:10:42.210
 it's something that's more
 than just one character.
 
 198
-00:10:42,210 --> 00:10:46,740
+00:10:42.210 --> 00:10:46.740
 So what I'm getting at is that you end up
 with this declaration that's very long,
 
 199
-00:10:46,740 --> 00:10:49,530
+00:10:46.740 --> 00:10:49.530
 and is going to break over
 multiple lines anyway.
 
 200
-00:10:49,530 --> 00:10:54,692
+00:10:49.530 --> 00:10:54.692
 So that's going to not,
 it's not going to help if your intent is
 
 201
-00:10:54,692 --> 00:11:00,730
+00:10:54.692 --> 00:11:00.730
 to take the function definition and
 signature and roll them into one line.
 
 202
-00:11:00,730 --> 00:11:04,022
+00:11:00.730 --> 00:11:04.022
 But I think there's more to it than that,
 but I just want to point that out.
 
 203
-00:11:04,022 --> 00:11:05,250
+00:11:04.022 --> 00:11:05.250
 >> No, yeah, I would agree with that.
 
 204
-00:11:05,250 --> 00:11:09,670
+00:11:05.250 --> 00:11:09.670
 It could definitely make, it could get
 a little hairy if you have more one or
 
 205
-00:11:09,670 --> 00:11:11,335
+00:11:09.670 --> 00:11:11.335
 two arguments to the function.
 
 206
-00:11:11,335 --> 00:11:13,510
+00:11:11.335 --> 00:11:13.510
 So I'm definitely on board with that.
 
 207
-00:11:13,510 --> 00:11:16,010
+00:11:13.510 --> 00:11:16.010
 Looked like, this was a kind
 of interesting fact that they
 
 208
-00:11:16,010 --> 00:11:21,020
+00:11:16.010 --> 00:11:21.020
 had pointed out, was GHC had
 always parsed its signatures but
 
 209
-00:11:21,020 --> 00:11:23,330
+00:11:21.020 --> 00:11:23.330
 would just throw an error
 in a later phase.
 
 210
-00:11:23,330 --> 00:11:24,400
+00:11:23.330 --> 00:11:24.400
 Which is kind of interesting.
 
 211
-00:11:24,400 --> 00:11:28,820
+00:11:24.400 --> 00:11:28.820
 Like, they're like, it's a good sign that
 they're a logical construct in Haskell.
 
 212
-00:11:28,820 --> 00:11:32,822
+00:11:28.820 --> 00:11:32.822
 You know, like allowing that to be
 something that maybe not super difficult
 
 213
-00:11:32,822 --> 00:11:34,646
+00:11:32.822 --> 00:11:34.646
 for Haskell to implement one day.
 
 214
-00:11:34,646 --> 00:11:38,073
+00:11:34.646 --> 00:11:38.073
 But, yeah, I'm still definitely
 on the fence about this one.
 
 215
-00:11:38,073 --> 00:11:42,078
+00:11:38.073 --> 00:11:42.078
 But I definitely feel better about
 it today than I did about yesterday.
 
 216
-00:11:42,078 --> 00:11:45,341
+00:11:42.078 --> 00:11:45.341
 You know, cuz I was like,
 hey, like what's this thing?
 
 217
-00:11:45,341 --> 00:11:48,446
+00:11:45.341 --> 00:11:48.446
 And me, you, and
 Dustin were like, I have no idea.
 
 218
-00:11:48,446 --> 00:11:49,101
+00:11:48.446 --> 00:11:49.101
 >> Yeah, yeah.
 
 219
-00:11:49,101 --> 00:11:51,857
+00:11:49.101 --> 00:11:51.857
 It took us a moment to grok it, for sure.
 
 220
-00:11:51,857 --> 00:11:54,942
+00:11:51.857 --> 00:11:54.942
 And I think that may be telling is that
 yesterday we weren't quite as happy with
 
 221
-00:11:54,942 --> 00:11:57,060
+00:11:54.942 --> 00:11:57.060
 it, but
 today we're a little bit better with it.
 
 222
-00:11:57,060 --> 00:12:00,280
+00:11:57.060 --> 00:12:00.280
 So like most people,
 we don't like that change.
 
 223
-00:12:00,280 --> 00:12:01,890
+00:12:00.280 --> 00:12:01.890
 We don't like change.
 
 224
-00:12:01,890 --> 00:12:03,018
+00:12:01.890 --> 00:12:03.018
 I'm over here Googling,
 
 225
-00:12:03,018 --> 00:12:05,956
+00:12:03.018 --> 00:12:05.956
 trying to figure out which language
 it is that has a similar syntax.
 
 226
-00:12:05,956 --> 00:12:08,700
+00:12:05.956 --> 00:12:08.700
 And I thought it was PureScript,
 but it looks like that is not it.
 
 227
-00:12:08,700 --> 00:12:11,120
+00:12:08.700 --> 00:12:11.120
 But I can't find it, but anyway.
 
 228
-00:12:11,120 --> 00:12:14,337
+00:12:11.120 --> 00:12:14.337
 Yeah, this is interesting
 because it lets you,
 
 229
-00:12:14,337 --> 00:12:19,051
+00:12:14.337 --> 00:12:19.051
 it just puts together the type with
 the named parameter closer so that.
 
 230
-00:12:19,051 --> 00:12:21,529
+00:12:19.051 --> 00:12:21.529
 I mean, I don't think it's much of
 a problem when they're separate,
 
 231
-00:12:21,529 --> 00:12:22,430
+00:12:21.529 --> 00:12:22.430
 but it's just.
 
 232
-00:12:22,430 --> 00:12:24,020
+00:12:22.430 --> 00:12:24.020
 I don't know.
 Maybe a little nicer.
 
 233
-00:12:24,020 --> 00:12:25,460
+00:12:24.020 --> 00:12:25.460
 >> No, I would agree.
 
 234
-00:12:25,460 --> 00:12:29,758
+00:12:25.460 --> 00:12:29.758
 I mean, maybe it could be C++ that
 they're cribbing from over here.
 
 235
-00:12:29,758 --> 00:12:34,561
+00:12:29.758 --> 00:12:34.561
 Yeah, cuz C++ has inline functions
 that tell you that like, inline,
 
 236
-00:12:34,561 --> 00:12:37,970
+00:12:34.561 --> 00:12:37.970
 and then the return type,
 and then the function.
 
 237
-00:12:37,970 --> 00:12:40,210
+00:12:37.970 --> 00:12:40.210
 But I don't know if that's really.
 
 238
-00:12:40,210 --> 00:12:40,730
+00:12:40.210 --> 00:12:40.730
 I don't know.
 
 239
-00:12:40,730 --> 00:12:45,592
+00:12:40.730 --> 00:12:45.592
 I was trying to do some research too just
 to kind of to see if we could figure
 
 240
-00:12:45,592 --> 00:12:46,726
+00:12:45.592 --> 00:12:46.726
 out what it was.
 
 241
-00:12:46,726 --> 00:12:49,119
+00:12:46.726 --> 00:12:49.119
 >> Yeah.
 >> But, I mean, they have a reason for it.
 
 242
-00:12:49,119 --> 00:12:52,510
+00:12:49.119 --> 00:12:52.510
 >> It's more like, here's TypeScript.
 
 243
-00:12:52,510 --> 00:12:56,298
+00:12:52.510 --> 00:12:56.298
 So you have value colon
 string padding colon any.
 
 244
-00:12:56,298 --> 00:12:57,290
+00:12:56.298 --> 00:12:57.290
 And so that's.
 
 245
-00:12:57,290 --> 00:12:59,320
+00:12:57.290 --> 00:12:59.320
 I think it's that,
 that it looks a lot like.
 
 246
-00:12:59,320 --> 00:13:00,800
+00:12:59.320 --> 00:13:00.800
 But you're right, C++, Java,
 
 247
-00:13:00,800 --> 00:13:03,660
+00:13:00.800 --> 00:13:03.660
 they do have a way of telling
 you what the type is in line.
 
 248
-00:13:03,660 --> 00:13:08,144
+00:13:03.660 --> 00:13:08.144
 But I meant the particular syntax
 of parameter, colon, type.
 
 249
-00:13:08,144 --> 00:13:09,369
+00:13:08.144 --> 00:13:09.369
 >> Right.
 >> Parameter, colon, type.
 
 250
-00:13:09,369 --> 00:13:11,820
+00:13:09.369 --> 00:13:11.820
 >> Yeah,
 it does look a lot like TypeScript.
 
 251
-00:13:11,820 --> 00:13:12,710
+00:13:11.820 --> 00:13:12.710
 That's true.
 
 252
-00:13:12,710 --> 00:13:13,790
+00:13:12.710 --> 00:13:13.790
 Should've thought about that.
 
 253
-00:13:13,790 --> 00:13:16,903
+00:13:13.790 --> 00:13:16.903
 We do have one repository here
 at ITPRO that is TypeScript for
 
 254
-00:13:16,903 --> 00:13:18,741
+00:13:16.903 --> 00:13:18.741
 one of our internal applications.
 
 255
-00:13:18,741 --> 00:13:23,799
+00:13:18.741 --> 00:13:23.799
 That I wish we understood the concept of
 functional programming when we wrote that,
 
 256
-00:13:23,799 --> 00:13:26,517
+00:13:23.799 --> 00:13:26.517
 cuz at this point it
 looks like a JavaScript.
 
 257
-00:13:26,517 --> 00:13:27,101
+00:13:26.517 --> 00:13:27.101
 >> [LAUGH]
 >> It's just JavaScript.
 
 258
-00:13:27,101 --> 00:13:28,366
+00:13:27.101 --> 00:13:28.366
 Everything is any, you know?
 
 259
-00:13:28,366 --> 00:13:29,218
+00:13:28.366 --> 00:13:29.218
 >> Yeah, yeah.
 
 260
-00:13:29,218 --> 00:13:32,698
+00:13:29.218 --> 00:13:32.698
 Every time I open it up in VS Code,
 VS Code will say hey,
 
 261
-00:13:32,698 --> 00:13:36,279
+00:13:32.698 --> 00:13:36.279
 I have something to help you
 with this TypeScript file.
 
 262
-00:13:36,279 --> 00:13:39,306
+00:13:36.279 --> 00:13:39.306
 And I'm confused, because I'm like,
 this is a JS file and
 
 263
-00:13:39,306 --> 00:13:42,040
+00:13:39.306 --> 00:13:42.040
 I don't see any TypeScript syntax in here.
 
 264
-00:13:42,040 --> 00:13:43,820
+00:13:42.040 --> 00:13:43.820
 >> Right, yeah.
 >> So there's like one thing in there or
 
 265
-00:13:43,820 --> 00:13:47,160
+00:13:43.820 --> 00:13:47.160
 something that tells that it's a
 TypeScript and otherwise just JavaScript.
 
 266
-00:13:47,160 --> 00:13:48,030
+00:13:47.160 --> 00:13:48.030
 >> Yeah, pretty much.
 
 267
-00:13:48,030 --> 00:13:50,490
+00:13:48.030 --> 00:13:50.490
 Which you know, that is what it is.
 
 268
-00:13:50,490 --> 00:13:53,080
+00:13:50.490 --> 00:13:53.080
 We live and learn, but yeah.
 
 269
-00:13:53,080 --> 00:13:58,476
+00:13:53.080 --> 00:13:58.476
 So obviously that's three of the four
 we've talked about here today.
 
 270
-00:13:58,476 --> 00:14:02,204
+00:13:58.476 --> 00:14:02.204
 And the final one is,
 most of these are all stylistic.
 
 271
-00:14:02,204 --> 00:14:05,032
+00:14:02.204 --> 00:14:05.032
 Obviously, there's no real
 functional changes here.
 
 272
-00:14:05,032 --> 00:14:08,438
+00:14:05.032 --> 00:14:08.438
 But the last one is
 the module qualified syntax.
 
 273
-00:14:08,438 --> 00:14:10,408
+00:14:08.438 --> 00:14:10.408
 So-
 >> I like it.
 
 274
-00:14:10,408 --> 00:14:13,187
+00:14:10.408 --> 00:14:13.187
 >> I do too, to an extent.
 
 275
-00:14:13,187 --> 00:14:18,004
+00:14:13.187 --> 00:14:18.004
 And this is probably my just lack of
 knowledge is that I just wish it could be
 
 276
-00:14:18,004 --> 00:14:21,191
+00:14:18.004 --> 00:14:21.191
 like Elm,
 where you could just import blah, and
 
 277
-00:14:21,191 --> 00:14:26,087
+00:14:21.191 --> 00:14:26.087
 then you could use it as blah dot
 whatever, instead of you importing blah,
 
 278
-00:14:26,087 --> 00:14:30,100
+00:14:26.087 --> 00:14:30.100
 and it just imports
 everything that blah exports.
 
 279
-00:14:30,100 --> 00:14:33,704
+00:14:30.100 --> 00:14:33.704
 Which I understand Elm's
 is different than Haskell.
 
 280
-00:14:33,704 --> 00:14:38,215
+00:14:33.704 --> 00:14:38.215
 But, I do kind of like that rather than
 like always exposing everything that
 
 281
-00:14:38,215 --> 00:14:43,006
+00:14:38.215 --> 00:14:43.006
 a function has, you know, Elm says, you
 have to tell me what you want to expose if
 
 282
-00:14:43,006 --> 00:14:45,270
+00:14:43.006 --> 00:14:45.270
 you're going to expose everything.
 
 283
-00:14:45,270 --> 00:14:49,309
+00:14:45.270 --> 00:14:49.309
 Or you can access it through
 the qualified name, which is kind of,
 
 284
-00:14:49,309 --> 00:14:51,703
+00:14:49.309 --> 00:14:51.703
 I prefer that when I go back and read it.
 
 285
-00:14:51,703 --> 00:14:52,851
+00:14:51.703 --> 00:14:52.851
 But this is an improvement.
 
 286
-00:14:52,851 --> 00:14:56,226
+00:14:52.851 --> 00:14:56.226
 I do agree it helps with,
 like the tab issues.
 
 287
-00:14:56,226 --> 00:14:59,811
+00:14:56.226 --> 00:14:59.811
 You know, where, you know,
 you've got one important statement and
 
 288
-00:14:59,811 --> 00:15:03,535
+00:14:59.811 --> 00:15:03.535
 then you've got a non-imported statement,
 and they just look wonky.
 
 289
-00:15:03,535 --> 00:15:09,024
+00:15:03.535 --> 00:15:09.024
 Especially if you use like, not Brittany,
 indent, indent looks really wonky.
 
 290
-00:15:09,024 --> 00:15:12,579
+00:15:09.024 --> 00:15:12.579
 Which it's like, it looks clean,
 but at the same time, you're like,
 
 291
-00:15:12,579 --> 00:15:13,934
+00:15:12.579 --> 00:15:13.934
 this could just be better.
 
 292
-00:15:13,934 --> 00:15:20,044
+00:15:13.934 --> 00:15:20.044
 So their proposed solution was just
 instead of import qualified M,
 
 293
-00:15:20,044 --> 00:15:23,161
+00:15:20.044 --> 00:15:23.161
 you would use import M qualified.
 
 294
-00:15:23,161 --> 00:15:25,523
+00:15:23.161 --> 00:15:25.523
 Which reads better too, because like,
 
 295
-00:15:25,523 --> 00:15:29,911
+00:15:25.523 --> 00:15:29.911
 okay I'm importing M as qualified
 rather than like, import qualified M.
 
 296
-00:15:29,911 --> 00:15:32,194
+00:15:29.911 --> 00:15:32.194
 Like, it doesn't necessarily read well.
 
 297
-00:15:32,194 --> 00:15:36,590
+00:15:32.194 --> 00:15:36.590
 And it seems a lot like they're very
 much on board with just kind of making
 
 298
-00:15:36,590 --> 00:15:40,065
+00:15:36.590 --> 00:15:40.065
 Haskell easier to read for
 the human, which isn't bad.
 
 299
-00:15:40,065 --> 00:15:42,787
+00:15:40.065 --> 00:15:42.787
 I think it's a good,
 I think it's a noble cause.
 
 300
-00:15:42,787 --> 00:15:47,853
+00:15:42.787 --> 00:15:47.853
 But yeah, I would be on board with this
 one as well if they could just do like,
 
 301
-00:15:47,853 --> 00:15:52,524
+00:15:47.853 --> 00:15:52.524
 not export everything and just
 implicitly have to expose whatever you
 
 302
-00:15:52,524 --> 00:15:56,107
+00:15:52.524 --> 00:15:56.107
 wanna use if you wanna expose
 everything in a module.
 
 303
-00:15:56,107 --> 00:16:01,306
+00:15:56.107 --> 00:16:01.306
 >> Yeah, and I'm more okay with Haskell's
 way of doing things than you are.
 
 304
-00:16:01,306 --> 00:16:02,901
+00:16:01.306 --> 00:16:02.901
 I know it's not a big deal for
 either one of us.
 
 305
-00:16:02,901 --> 00:16:05,401
+00:16:02.901 --> 00:16:05.401
 But the reason I really
 like this Is I mean,
 
 306
-00:16:05,401 --> 00:16:10,190
+00:16:05.401 --> 00:16:10.190
 most of these come down to the way we
 use the language versus somebody else.
 
 307
-00:16:10,190 --> 00:16:15,520
+00:16:10.190 --> 00:16:15.520
 So the way we use Haskell is we
 import everything qualified.
 
 308
-00:16:15,520 --> 00:16:20,464
+00:16:15.520 --> 00:16:20.464
 So Data.Aeson, for instance,
 when working with JSON stuff,
 
 309
-00:16:20,464 --> 00:16:24,300
+00:16:20.464 --> 00:16:24.300
 we import qualified Data.Aeson as Aeson.
 
 310
-00:16:24,300 --> 00:16:28,280
+00:16:24.300 --> 00:16:28.280
 And then we use it,
 Aeson.ToJSON or whatever.
 
 311
-00:16:28,280 --> 00:16:31,330
+00:16:28.280 --> 00:16:31.330
 But there are some weird
 infix operators in there that
 
 312
-00:16:31,330 --> 00:16:34,190
+00:16:31.330 --> 00:16:34.190
 always look really ugly
 whenever you qualify them.
 
 313
-00:16:34,190 --> 00:16:38,710
+00:16:34.190 --> 00:16:38.710
 So you have Aeson dot, what is,
 dot colon, or colon equals or whatever,
 
 314
-00:16:38,710 --> 00:16:40,600
+00:16:38.710 --> 00:16:40.600
 that just looks really weird.
 
 315
-00:16:40,600 --> 00:16:45,380
+00:16:40.600 --> 00:16:45.380
 So we will explicitly import the infix
 operators that we're going to use.
 
 316
-00:16:45,380 --> 00:16:48,911
+00:16:45.380 --> 00:16:48.911
 So we have import qualified
 Data.Aeson as Aeson, and
 
 317
-00:16:48,911 --> 00:16:55,120
+00:16:48.911 --> 00:16:55.120
 then import Data.Aeson parens, and then
 we then we list all the infix operators.
 
 318
-00:16:55,120 --> 00:17:01,980
+00:16:55.120 --> 00:17:01.980
 So no big deal, but in addition,
 we sort our import list alphabetically.
 
 319
-00:17:01,980 --> 00:17:04,490
+00:17:01.980 --> 00:17:04.490
 When you have it that way,
 the import qualified
 
 320
-00:17:05,540 --> 00:17:10,140
+00:17:05.540 --> 00:17:10.140
 comes differently in the order than
 import Data.Aeson infix operators.
 
 321
-00:17:10,140 --> 00:17:13,190
+00:17:10.140 --> 00:17:13.190
 So what I like about this
 is that you have import and
 
 322
-00:17:13,190 --> 00:17:16,430
+00:17:13.190 --> 00:17:16.430
 then the library name and
 then other stuff.
 
 323
-00:17:16,430 --> 00:17:20,410
+00:17:16.430 --> 00:17:20.410
 So you have import Data.Aeson
 qualified as a Aeson.
 
 324
-00:17:20,410 --> 00:17:24,600
+00:17:20.410 --> 00:17:24.600
 That will come right next to
 import Data.Aeson infix operators.
 
 325
-00:17:24,600 --> 00:17:29,418
+00:17:24.600 --> 00:17:29.418
 So that's why I like it, because right
 now I have to sort the import list,
 
 326
-00:17:29,418 --> 00:17:31,767
+00:17:29.418 --> 00:17:31.767
 I have to sort them automatically.
 
 327
-00:17:31,767 --> 00:17:36,174
+00:17:31.767 --> 00:17:36.174
 And then manually re-sort them to get
 those end fix operator imports in
 
 328
-00:17:36,174 --> 00:17:37,209
+00:17:36.174 --> 00:17:37.209
 the right spot.
 
 329
-00:17:37,209 --> 00:17:40,413
+00:17:37.209 --> 00:17:40.413
 And there's some question of, and
 this is silly, but software engineers,
 
 330
-00:17:40,413 --> 00:17:41,700
+00:17:40.413 --> 00:17:41.700
 we're silly bunch.
 
 331
-00:17:41,700 --> 00:17:46,543
+00:17:41.700 --> 00:17:46.543
 Do you do the qualified
 Data.Aeson first or second?
 
 332
-00:17:46,543 --> 00:17:48,830
+00:17:46.543 --> 00:17:48.830
 And where are the infix operators?
 
 333
-00:17:48,830 --> 00:17:50,221
+00:17:48.830 --> 00:17:50.221
 I just don't want to have to
 think about these things.
 
 334
-00:17:50,221 --> 00:17:54,364
+00:17:50.221 --> 00:17:54.364
 [LAUGH] I just want to you know select
 this list, hit colon sort on them,
 
 335
-00:17:54,364 --> 00:17:55,640
+00:17:54.364 --> 00:17:55.640
 and boom it's done.
 
 336
-00:17:57,220 --> 00:17:58,090
+00:17:57.220 --> 00:17:58.090
 That's what I want.
 
 337
-00:17:58,090 --> 00:17:59,880
+00:17:58.090 --> 00:17:59.880
 And this would make that possible.
 
 338
-00:17:59,880 --> 00:18:04,400
+00:17:59.880 --> 00:18:04.400
 But yeah, it's also more readable, it's
 closer to English, at least I should say.
 
 339
-00:18:05,420 --> 00:18:08,440
+00:18:05.420 --> 00:18:08.440
 There's a lot of people writing
 Haskell that don't speak English
 
 340
-00:18:08,440 --> 00:18:09,900
+00:18:08.440 --> 00:18:09.900
 very much or at all.
 
 341
-00:18:09,900 --> 00:18:10,930
+00:18:09.900 --> 00:18:10.930
 So I don't know what it's like for
 
 342
-00:18:10,930 --> 00:18:14,340
+00:18:10.930 --> 00:18:14.340
 them in their language but,
 certainly better for English.
 
 343
-00:18:14,340 --> 00:18:16,050
+00:18:14.340 --> 00:18:16.050
 >> I would agree, yeah.
 
 344
-00:18:16,050 --> 00:18:19,017
+00:18:16.050 --> 00:18:19.017
 There's definitely a few
 perks in this document,
 
 345
-00:18:19,017 --> 00:18:21,850
+00:18:19.017 --> 00:18:21.850
 especially in this bullet
 point of the imports.
 
 346
-00:18:21,850 --> 00:18:26,406
+00:18:21.850 --> 00:18:26.406
 One being readability, the other being
 sorting, which is a little more minor,
 
 347
-00:18:26,406 --> 00:18:29,360
+00:18:26.406 --> 00:18:29.360
 that's not necessarily all that that big.
 
 348
-00:18:29,360 --> 00:18:32,520
+00:18:29.360 --> 00:18:32.520
 But I do really appreciate these
 two authors writing this article,
 
 349
-00:18:32,520 --> 00:18:35,270
+00:18:32.520 --> 00:18:35.270
 I think it was good food for thought.
 
 350
-00:18:35,270 --> 00:18:39,460
+00:18:35.270 --> 00:18:39.460
 It really allowed us to kind of understand
 what maybe some of our opinions and
 
 351
-00:18:39,460 --> 00:18:43,130
+00:18:39.460 --> 00:18:43.130
 solidify some of our opinions about
 Haskell and why we liked Haskell.
 
 352
-00:18:43,130 --> 00:18:44,480
+00:18:43.130 --> 00:18:44.480
 And challenge some of our opinions.
 
 353
-00:18:44,480 --> 00:18:46,540
+00:18:44.480 --> 00:18:46.540
 I mean like okay, why do you like that?
 
 354
-00:18:46,540 --> 00:18:50,793
+00:18:46.540 --> 00:18:50.793
 I think that was really important as we
 an engineering team are getting more and
 
 355
-00:18:50,793 --> 00:18:53,316
+00:18:50.793 --> 00:18:53.316
 more familiar and
 comfortable with Haskell.
 
 356
-00:18:53,316 --> 00:18:55,810
+00:18:53.316 --> 00:18:55.810
 That this allowed us to
 really form an opinion, and
 
 357
-00:18:55,810 --> 00:18:58,888
+00:18:55.810 --> 00:18:58.888
 have a little pride about how
 like what we liked about Haskell.
 
 358
-00:18:58,888 --> 00:18:59,520
+00:18:58.888 --> 00:18:59.520
 You know what I mean?
 
 359
-00:18:59,520 --> 00:19:01,820
+00:18:59.520 --> 00:19:01.820
 >> Yeah, yeah, yeah, I like this article.
 
 360
-00:19:01,820 --> 00:19:06,190
+00:19:01.820 --> 00:19:06.190
 And again, the authors Shane Fletcher and
 Neil Mitchell are smarter than I,
 
 361
-00:19:06,190 --> 00:19:07,280
+00:19:06.190 --> 00:19:07.280
 or-
 >> Agreed.
 
 362
-00:19:07,280 --> 00:19:09,210
+00:19:07.280 --> 00:19:09.210
 >> Or Cam, I can speak for
 Cam on this one.
 
 363
-00:19:09,210 --> 00:19:11,255
+00:19:09.210 --> 00:19:11.255
 >> Ouch, but I agree, I do agree.
 
 364
-00:19:11,255 --> 00:19:15,356
+00:19:11.255 --> 00:19:15.356
 >> So yeah, I said before,
 that their opinions are righter than mine,
 
 365
-00:19:15,356 --> 00:19:17,022
+00:19:15.356 --> 00:19:17.022
 generally speaking.
 
 366
-00:19:17,022 --> 00:19:19,290
+00:19:17.022 --> 00:19:19.290
 So anytime I differ with these folks,
 
 367
-00:19:19,290 --> 00:19:24,220
+00:19:19.290 --> 00:19:24.220
 I want to give that caveat that
 they're certainly smarter than me.
 
 368
-00:19:24,220 --> 00:19:26,070
+00:19:24.220 --> 00:19:26.070
 But, like I said,
 it comes down to, I think,
 
 369
-00:19:26,070 --> 00:19:27,545
+00:19:26.070 --> 00:19:27.545
 largely how do you use the language?
 
 370
-00:19:27,545 --> 00:19:31,582
+00:19:27.545 --> 00:19:31.582
 And we just use it differently than they
 do because they have different extensions
 
 371
-00:19:31,582 --> 00:19:33,280
+00:19:31.582 --> 00:19:33.280
 on or just or whatever.
 
 372
-00:19:33,280 --> 00:19:34,730
+00:19:33.280 --> 00:19:34.730
 And I think that's the main difference.
 
 373
-00:19:34,730 --> 00:19:40,020
+00:19:34.730 --> 00:19:40.020
 >> Right, and I think they're trying to,
 like most Haskell shops around town,
 
 374
-00:19:40,020 --> 00:19:42,790
+00:19:40.020 --> 00:19:42.790
 you're trying to find someone
 to come in and learn Haskell.
 
 375
-00:19:42,790 --> 00:19:45,070
+00:19:42.790 --> 00:19:45.070
 You wanna remove as many
 barriers as possible.
 
 376
-00:19:45,070 --> 00:19:47,540
+00:19:45.070 --> 00:19:47.540
 And so I think they were trying to
 
 377
-00:19:47,540 --> 00:19:51,750
+00:19:47.540 --> 00:19:51.750
 kind of bring Haskell more
 to a point of a TypeScript.
 
 378
-00:19:51,750 --> 00:19:56,860
+00:19:51.750 --> 00:19:56.860
 And cleaning up some of the clutter that
 can kind of trip up people in Haskell.
 
 379
-00:19:56,860 --> 00:19:59,525
+00:19:56.860 --> 00:19:59.525
 Obviously, it just takes a couple
 of times to fully understand and
 
 380
-00:19:59,525 --> 00:20:00,350
+00:19:59.525 --> 00:20:00.350
 grok what's going on.
 
 381
-00:20:00,350 --> 00:20:06,230
+00:20:00.350 --> 00:20:06.230
 But if you can remove those barriers
 before they happen, that's good.
 
 382
-00:20:06,230 --> 00:20:08,778
+00:20:06.230 --> 00:20:08.778
 So I definitely do applaud them for
 that, and
 
 383
-00:20:08,778 --> 00:20:13,510
+00:20:08.778 --> 00:20:13.510
 I do appreciate them taking the time to
 express their feelings on this subject.
 
 384
-00:20:13,510 --> 00:20:16,670
+00:20:13.510 --> 00:20:16.670
 Especially cuz they both
 have different backgrounds.
 
 385
-00:20:16,670 --> 00:20:19,757
+00:20:16.670 --> 00:20:19.757
 Shane very much C++, OCaml kind of style.
 
 386
-00:20:19,757 --> 00:20:26,289
+00:20:19.757 --> 00:20:26.289
 So I'm sure curious what maybe what OCaml
 influenced on this article and on this.
 
 387
-00:20:26,289 --> 00:20:31,030
+00:20:26.289 --> 00:20:31.030
 This kind of sounds like this is their
 style of Haskell for digital asset.
 
 388
-00:20:31,030 --> 00:20:35,270
+00:20:31.030 --> 00:20:35.270
 They kind of have that internal format
 kinda that they write Haskell in.
 
 389
-00:20:35,270 --> 00:20:37,880
+00:20:35.270 --> 00:20:37.880
 So I think this is probably more
 of an internal thing that they
 
 390
-00:20:37,880 --> 00:20:40,660
+00:20:37.880 --> 00:20:40.660
 decided to share externally,
 which is greatly appreciated.
 
 391
-00:20:40,660 --> 00:20:42,700
+00:20:40.660 --> 00:20:42.700
 I would say I learned something from this.
 
 392
-00:20:43,730 --> 00:20:45,090
+00:20:43.730 --> 00:20:45.090
 >> Yeah and that's a good point.
 
 393
-00:20:45,090 --> 00:20:48,810
+00:20:45.090 --> 00:20:48.810
 Shane's experiences in C++,
 which i know a little bit about, and
 
 394
-00:20:48,810 --> 00:20:50,710
+00:20:48.810 --> 00:20:50.710
 OCaml, which I know nothing about.
 
 395
-00:20:50,710 --> 00:20:54,165
+00:20:50.710 --> 00:20:54.165
 And Neil Mitchell, I'm sure he has
 a lot of experience in a lot of things.
 
 396
-00:20:54,165 --> 00:20:59,180
+00:20:54.165 --> 00:20:59.180
 But certainly Haskell is the main one
 from this description, it seems like.
 
 397
-00:20:59,180 --> 00:21:00,510
+00:20:59.180 --> 00:21:00.510
 So yeah, that's a good point.
 
 398
-00:21:00,510 --> 00:21:05,300
+00:21:00.510 --> 00:21:05.300
 Maybe OCaml, there's some similarities
 here with OCaml stuff or something.
 
 399
-00:21:05,300 --> 00:21:07,912
+00:21:05.300 --> 00:21:07.912
 >> Yeah, no, Neil Mitchell,
 he seems like he's a really cool guy.
 
 400
-00:21:07,912 --> 00:21:10,410
+00:21:07.912 --> 00:21:10.410
 He's got a PhD,
 definitely smarter than I am.
 
 401
-00:21:10,410 --> 00:21:13,834
+00:21:10.410 --> 00:21:13.834
 >> Yeah, we use HLint and
 ghcid all the time in Google.
 
 402
-00:21:13,834 --> 00:21:16,940
+00:21:13.834 --> 00:21:16.940
 >> Yeah, so obviously,
 the guy knows what he's doing.
 
 403
-00:21:16,940 --> 00:21:19,930
+00:21:16.940 --> 00:21:19.930
 Well, Jason, I just wanna thank you for
 being on the show today with me.
 
 404
-00:21:19,930 --> 00:21:21,440
+00:21:19.930 --> 00:21:21.440
 >> It's my pleasure.
 
 405
-00:21:21,440 --> 00:21:22,260
+00:21:21.440 --> 00:21:22.260
 >> And thank you guys for
 
 406
-00:21:22,260 --> 00:21:25,690
+00:21:22.260 --> 00:21:25.690
 listening to Haskell Weekly Podcast,
 this has been episode nine.
 
 407
-00:21:25,690 --> 00:21:30,600
+00:21:25.690 --> 00:21:30.600
 If you liked our show, find out more
 at our website, haskellweekly.news.
 
 408
-00:21:30,600 --> 00:21:33,470
+00:21:30.600 --> 00:21:33.470
 Thanks again for listening,
 I've been your host, Cameron Gera.
 
 409
-00:21:33,470 --> 00:21:36,120
+00:21:33.470 --> 00:21:36.120
 We'll see you again next week, bye.
 
 410
-00:21:36,120 --> 00:21:46,120
+00:21:36.120 --> 00:21:46.120
 [MUSIC]
