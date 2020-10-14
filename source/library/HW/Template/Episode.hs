@@ -47,8 +47,8 @@ episodeTemplate baseUrl episode captions =
             " was published on "
             H.toHtml $ date episode
             "."
-        H.audio_
-            [H.class_ "w-100", H.controls_ "controls", H.preload_ "metadata"]
+        H.video_
+            [H.class_ "bg-black h4 w-100", H.controls_ "controls", H.preload_ "metadata"]
           $ H.source_
               [ H.src_
               . HW.Type.Audio.audioToText
