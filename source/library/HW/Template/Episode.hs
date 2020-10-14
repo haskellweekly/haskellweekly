@@ -49,7 +49,7 @@ episodeTemplate baseUrl episode captions =
             H.toHtml $ date episode
             "."
         H.video_
-            [H.class_ "bg-black h6 w-100", H.controls_ "controls", H.preload_ "metadata"]
+            [H.class_ "bg-black mw-100", H.controls_ "controls", H.height_ "432", H.makeAttribute "poster" $ HW.Type.Route.routeToTextWith baseUrl HW.Type.Route.RouteLogo, H.preload_ "metadata", H.width_ "768"]
           $ do
             H.source_
               [ H.src_
