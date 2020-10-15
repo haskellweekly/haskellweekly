@@ -1,14 +1,17 @@
 # https://docs.docker.com/engine/reference/builder/
-FROM haskell:8.10.2
+FROM nixos/nix:2.3
 
   WORKDIR /haskellweekly
   COPY . .
-  RUN stack build --copy-bins --local-bin-path /bin --test
+  RUN nix-shell --packages cabal2nix --pure --run 'cabal2nix .' > haskellweekly.nix
+  RUN nix-build
 
-FROM debian:10.6-slim
+FROM debian:10.1-slim
 
   RUN apt-get update && apt-get install --assume-yes libpq5
-  COPY --from=0 /bin/haskellweekly /bin
+  COPY --from=0 /haskellweekly/result/bin/haskellweekly /bin
   COPY data/ /opt/haskellweekly/
   ENV haskellweekly_datadir /opt/haskellweekly
-  CMD haskellweekly
+
+  # https://unix.stackexchange.com/a/76514
+  CMD /lib64/ld-linux-x86-64.so.2 /bin/haskellweekly
