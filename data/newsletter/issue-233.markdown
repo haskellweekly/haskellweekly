@@ -13,7 +13,7 @@ This is a weekly summary of what's going on in its community.
 - [GHC Generics Cheat Sheet](https://generics.jasperwoudenberg.com) by Jasper Woudenberg
   > This site is intended to help create a fuzzy intuition for Generics, by showing some types and their generics representation side by side.
 
-- [GHC activities report: August–September 2020](https://www.well-typed.com/blog/2020/10/ghc-2020-08-2020-09/) by Well-Typed
+- [GHC activities report: August--September 2020](https://www.well-typed.com/blog/2020/10/ghc-2020-08-2020-09/) by Well-Typed
   > This is the second edition of our new GHC activities report, which is intended to provide regular updates on the work on GHC and related projects that we are doing at Well-Typed.
 
 - [Haskell.org GSoC results for 2020](https://summer.haskell.org/news/2020-10-12-final-results.html) by Jasper Van der Jeugt
@@ -25,8 +25,8 @@ This is a weekly summary of what's going on in its community.
 - [Normal Forms](https://programmable.computer/posts/normal-forms.html) by Travis Whitaker
   > Lazy programs will have live heap objects that are not in normal form. What is "normal form?"
 
-- [@rae: Hello, world!](https://www.youtube.com/watch?v=5vqB0GELyfg) by Richard Eisenberg
-  > An introduction to a new video series by Tweager Richard Eisenberg, where he will blather on about Haskell, share some brain-bending code, debug in public, and generally provide flashes of insight.
+- [Bottlenecked on Haskell's text library](https://tech.channable.com/posts/2020-10-15-bottlenecked-on-haskells-text.html) by Falco Peijnenburg
+  > In one particular feed, we found that processing took much longer than expected. We set out to investigate, and the bottleneck we found came from an unlikely place: the text library.
 
 - [Towards Tactic Metaprogramming in Haskell](https://reasonablypolymorphic.com/blog/towards-tactics/) by Sandy Maguire
   > This blog post describes what a tactics engine is and why you want one, and is a good introduction to how in the hell we can automatically write your code for you.
@@ -66,8 +66,14 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 - [Haskellings 2: Better Configuration](https://mmhaskell.com/blog/2020/10/12/haskellings-2-better-configuration) by Monday Morning Haskell
   > There's a few interesting things we'll learn here around using the directory package. We'll also explore how to use the Seq data structure to implement a quick Bread-First-Search algorithm!
 
+- [@rae: Hello, world!](https://www.youtube.com/watch?v=5vqB0GELyfg) by Richard Eisenberg
+  > An introduction to a new video series by Tweager Richard Eisenberg, where he will blather on about Haskell, share some brain-bending code, debug in public, and generally provide flashes of insight.
+
 - [ScopedTypeVariables to fix type safety flaws](https://lin-techdet.blogspot.com/2020/10/scopedtypevariables-to-fix-type-safety.html) by Alexey Radkov
   > How do I get rid of the explicit type declaration? Why did I put it here after all?
+
+- [Silly job interview questions in Haskell](https://chrispenner.ca/posts/interview) by Chris Penner
+  > Today I thought it'd be fun to take a look at a few common & simple "interview questions" in Haskell.
 
 - [Tutorial: Verify Haskell Programs with hs-to-coq](https://www.cis.upenn.edu/~plclub/blog/2020-10-09-hs-to-coq/) by Li-yao Xia
   > This tutorial shows a glimpse of interactive theorem proving in practice. It is a skill you can pick up like another programming language, and you can start to apply it to verify libraries and programs.
