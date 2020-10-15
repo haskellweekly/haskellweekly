@@ -2,8 +2,8 @@
 *
 
 !/data/
-!/default.nix
 !/haskellweekly.cabal
 !/LICENSE.markdown
 !/README.markdown
 !/src/
+!/stack.yaml
