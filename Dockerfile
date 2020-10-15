@@ -10,5 +10,5 @@ FROM debian:10.6-slim
   RUN apt-get update && apt-get install --assume-yes libpq5
   COPY --from=0 /bin/haskellweekly /bin
   COPY data/ /opt/haskellweekly/
-  ENV DATA_DIRECTORY /opt/haskellweekly
+  ENV haskellweekly_datadir /opt/haskellweekly
   CMD haskellweekly
