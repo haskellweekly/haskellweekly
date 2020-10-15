@@ -1,0 +1,6 @@
+{
+  "image": "haskell:8.10.2",
+  "forwardPorts": [ 8080 ],
+  "extensions": [ "taylorfausak.purple-yolk" ],
+  "settings": { "purple-yolk.ghci.command": "stack ghci --ghc-options -ddump-json --main-is haskellweekly:test --test" }
+}
