@@ -6,8 +6,9 @@ where
 import qualified CMark
 import qualified Control.Exception
 import qualified Control.Monad
+import qualified Data.ByteString
 import qualified Data.Text
-import qualified Data.Text.IO
+import qualified Data.Text.Encoding
 import qualified HaskellWeekly
 import qualified Paths_haskellweekly
 import qualified System.Directory
@@ -30,11 +31,12 @@ main = do
     entries <- System.Directory.listDirectory directory
     Control.Monad.forM_ entries $ \entry -> do
       let file = System.FilePath.combine directory entry
-      contents <- Data.Text.IO.readFile file
+      contents <- Data.ByteString.readFile file
       Control.Monad.void
         . Control.Exception.evaluate
         . Data.Text.length
-        $ CMark.commonmarkToHtml [] contents
+        . CMark.commonmarkToHtml []
+        $ Data.Text.Encoding.decodeUtf8 contents
     putStrLn $ "Parsed " <> pluralize "issue" (length entries) <> "."
   do
     putStrLn "Parsing episodes ..."
@@ -42,8 +44,8 @@ main = do
     entries <- System.Directory.listDirectory directory
     Control.Monad.forM_ entries $ \entry -> do
       let file = System.FilePath.combine directory entry
-      contents <- Data.Text.IO.readFile file
-      case HaskellWeekly.parseVtt contents of
+      contents <- Data.ByteString.readFile file
+      case HaskellWeekly.parseVtt $ Data.Text.Encoding.decodeUtf8 contents of
         Nothing -> fail entry
         Just captions ->
           Control.Monad.void
