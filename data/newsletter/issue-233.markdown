@@ -100,4 +100,6 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 
 ## Call for participation
 
-undefined
+-   [evm-opcodes: Fixpoint algorithm does not use `fix`](https://github.com/sshine/evm-opcodes/issues/1)
+-   [nix-output-monitor: Add little `--help` with a small legend and explanation](https://github.com/maralorn/nix-output-monitor/issues/7)
+-   [wasp: Add command `wasp db ui`](https://github.com/wasp-lang/wasp/issues/80)
