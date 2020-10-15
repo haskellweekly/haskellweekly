@@ -49,7 +49,14 @@ episodeTemplate baseUrl episode captions =
             H.toHtml $ date episode
             "."
         H.video_
-            [H.class_ "bg-black mw-100", H.controls_ "controls", H.height_ "432", H.makeAttribute "poster" $ HW.Type.Route.routeToTextWith baseUrl HW.Type.Route.RouteLogo, H.preload_ "metadata", H.width_ "768"]
+            [ H.class_ "bg-black mw-100"
+            , H.controls_ "controls"
+            , H.height_ "432"
+            , H.makeAttribute "poster"
+            $ HW.Type.Route.routeToTextWith baseUrl HW.Type.Route.RouteLogo
+            , H.preload_ "metadata"
+            , H.width_ "768"
+            ]
           $ do
             H.source_
               [ H.src_
@@ -57,7 +64,16 @@ episodeTemplate baseUrl episode captions =
               $ HW.Type.Episode.episodeAudio episode
               , H.type_ "audio/mpeg"
               ]
-            H.track_ [H.makeAttribute "default" "", H.src_ . HW.Type.Route.routeToTextWith baseUrl . HW.Type.Route.RouteCaptions $ HW.Type.Episode.episodeNumber episode]
+            H.track_
+              [ H.makeAttribute "default" ""
+              , H.makeAttribute "kind" "captions"
+              , H.label_ "English captions"
+              , H.src_
+              . HW.Type.Route.routeToTextWith baseUrl
+              . HW.Type.Route.RouteCaptions
+              $ HW.Type.Episode.episodeNumber episode
+              , H.makeAttribute "srclang" "en-US"
+              ]
         H.h4_ [H.class_ "f4 mv3"] "Links"
         H.ul_ [H.class_ "lh-copy"]
           . mapM_ articleLink
