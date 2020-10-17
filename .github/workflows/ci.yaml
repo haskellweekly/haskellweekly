@@ -38,7 +38,7 @@ jobs:
           registry: docker.pkg.github.com
           username: haskellweekly
           password: ${{ secrets.GITHUB_TOKEN }}
-      - uses: uses: docker/build-push-action@v2
+      - uses: docker/build-push-action@v2
         with:
           context: docker
           push: true
