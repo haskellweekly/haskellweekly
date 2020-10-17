@@ -38,7 +38,7 @@ jobs:
           registry: ghcr.io
           username: ${{ github.repository_owner }}
           password: ${{ secrets.PAT }}
-      - run: cp data docker
+      - run: cp --recursive data docker
       - uses: docker/build-push-action@v2
         with:
           context: docker
