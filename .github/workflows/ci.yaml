@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-18.04
     steps:
       - uses: actions/checkout@v2
-      - id: setup-haskell
+      - id: haskell
         uses: actions/setup-haskell@v1
         with:
           ghc-version: 8.10.2
@@ -18,7 +18,7 @@ jobs:
       - run: cabal freeze
       - uses: actions/cache@v2
         with:
-          path: ${{ steps.setup-haskell.outputs.cabal-store }}
+          path: ${{ steps.haskell.outputs.cabal-store }}
           key: ${{ hashFiles('cabal.project.freeze') }}
       - run: cabal test --test-show-details direct
       - run: cabal install --installdir docker --install-method copy
@@ -33,15 +33,17 @@ jobs:
           path: haskellweekly-*.tar.gz
           name: haskellweekly-${{ github.sha }}.tar.gz
       - uses: docker/setup-buildx-action@v1
-      - uses: docker/login-action@v1
+      - uses: aws-actions/configure-aws-credentials@v1
         with:
-          registry: ghcr.io
-          username: ${{ github.repository_owner }}
-          password: ${{ secrets.PAT }}
+          aws-region: us-east-1
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      - id: ecr
+        uses: aws-actions/amazon-ecr-login@v1
       - run: cp --recursive data docker
       - uses: docker/build-push-action@v2
         with:
           context: docker
           file: docker/Dockerfile
           push: true
-          tags: ghcr.io/${{ github.repository }}:${{ github.sha }}
+          tags: ${{ steps.ecr.outputs.registry }}/haskellweekly:${{ github.sha }}
