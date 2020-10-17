@@ -63,4 +63,4 @@ jobs:
           context: docker
           file: docker/Dockerfile
           push: true
-          tags: ${{ steps.ecr.outputs.registry }}/haskellweekly-repository:${{ github.sha }}
+          tags: ${{ steps.ecr.outputs.registry }}/haskell-weekly-repository:${{ github.sha }}
