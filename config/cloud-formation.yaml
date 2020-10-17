@@ -1,0 +1,247 @@
+# https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/Welcome.html
+
+# Be sure to update the domain's name servers to point to the hosted zone's
+# name servers, otherwise DNS resolution won't work. This step is manual
+# because the domain isn't managed by CloudFormation.
+
+# Certificates require manual validation. After creating a certificate with
+# CloudFormation, you must go to the certificate manager in the AWS console and
+# hit the "Create record in Route 53" button.
+
+AWSTemplateFormatVersion: 2010-09-09
+Description: Haskell Weekly
+
+Parameters:
+
+  DomainName:
+    Type: String
+    Default: haskell-weekly.com
+
+  PortNumber:
+    Type: Number
+    Default: 8080
+
+  TagName:
+    Type: String
+
+Resources:
+
+  ApexBucket:
+    # This bucket is responsible for redirecting from the apex domain
+    # (hw.example) to the www subdomain (www.hw.example).
+    Type: AWS::S3::Bucket
+    Properties:
+      AccessControl: PublicRead
+      BucketName: !Ref DomainName
+      WebsiteConfiguration:
+        RedirectAllRequestsTo:
+          HostName: !Sub www.${DomainName}
+          Protocol: https
+
+  ApexCertificate:
+    Type: AWS::CertificateManager::Certificate
+    Properties:
+      DomainName: !Ref DomainName
+      ValidationMethod: DNS
+
+  ApexDistribution:
+    # This distribution is responsible for redirecting from the insecure apex
+    # domain (http://hw.example) to the secure one (https://hw.example).
+    Type: AWS::CloudFront::Distribution
+    Properties:
+      DistributionConfig:
+        Aliases:
+          - !Ref DomainName
+        DefaultCacheBehavior:
+          ForwardedValues:
+            QueryString: false
+          TargetOriginId: !Ref DomainName
+          ViewerProtocolPolicy: redirect-to-https
+        Enabled: true
+        HttpVersion: http2
+        Origins:
+          - CustomOriginConfig:
+              OriginProtocolPolicy: http-only
+            DomainName: !Select
+              - 1
+              - !Split
+                - //
+                - !GetAtt ApexBucket.WebsiteURL
+            Id: !Ref DomainName
+        ViewerCertificate:
+          AcmCertificateArn: !Ref ApexCertificate
+          MinimumProtocolVersion: TLSv1.2_2018
+          SslSupportMethod: sni-only
+
+  ApexZone:
+    # This hosted zone should really just be called "Zone". Of course it's the
+    # apex -- it's the only one!
+    Type: AWS::Route53::HostedZone
+    Properties:
+      Name: !Ref DomainName
+
+  Cluster:
+    Type: AWS::ECS::Cluster
+    Properties:
+      ClusterName: !Sub ${AWS::StackName}-cluster
+
+  InternetGateway:
+    Type: AWS::EC2::InternetGateway
+
+  Listener:
+    Type: AWS::ElasticLoadBalancingV2::Listener
+    Properties:
+      Certificates:
+        - CertificateArn: !Ref OriginCertificate
+      DefaultActions:
+        - TargetGroupArn: !Ref TargetGroup
+          Type: forward
+      LoadBalancerArn: !Ref LoadBalancer
+      Port: 443
+      Protocol: HTTPS
+
+  LoadBalancer:
+    Type: AWS::ElasticLoadBalancingV2::LoadBalancer
+    Properties:
+      Name: !Sub ${AWS::StackName}-load-balancer
+      SecurityGroups:
+        - !Ref SecurityGroup
+      Subnets:
+        - !Ref Subnet1
+        - !Ref Subnet2
+
+  LogGroup:
+    Type: AWS::Logs::LogGroup
+    Properties:
+      LogGroupName: !Sub ${AWS::StackName}-log-group
+      RetentionInDays: 30
+
+  OriginCertificate:
+    Type: AWS::CertificateManager::Certificate
+    Properties:
+      DomainName: !Sub origin.${DomainName}
+      ValidationMethod: DNS
+
+  Repository:
+    Type: AWS::ECR::Repository
+    Properties:
+      ImageTagMutability: IMMUTABLE
+      RepositoryName: !Sub ${AWS::StackName}-repository
+
+  Route:
+    Type: AWS::EC2::Route
+    Properties:
+      DestinationCidrBlock: 0.0.0.0/0
+      GatewayId: !Ref InternetGateway
+      RouteTableId: !Ref RouteTable
+
+  RouteTable:
+    Type: AWS::EC2::RouteTable
+    Properties:
+      VpcId: !Ref Vpc
+
+  SecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: !Sub security group for ${AWS::StackName} stack
+      GroupName: !Sub ${AWS::StackName}-security-group
+      SecurityGroupEgress:
+        CidrIp: 0.0.0.0/0
+        FromPort: -1
+        IpProtocol: -1
+        ToPort: -1
+      SecurityGroupIngress:
+        CidrIp: 0.0.0.0/0
+        FromPort: -1
+        IpProtocol: -1
+        ToPort: -1
+      VpcId: !Ref Vpc
+
+  Subnet1:
+    Type: AWS::EC2::Subnet
+    Properties:
+      AvailabilityZone: !Select
+        - 0
+        - Fn::GetAZs: !Ref AWS::Region
+      CidrBlock: 10.0.1.0/24
+      MapPublicIpOnLaunch: true
+      VpcId: !Ref Vpc
+
+  Subnet2:
+    Type: AWS::EC2::Subnet
+    Properties:
+      AvailabilityZone: !Select
+        - 1
+        - Fn::GetAZs: !Ref AWS::Region
+      CidrBlock: 10.0.2.0/24
+      MapPublicIpOnLaunch: true
+      VpcId: !Ref Vpc
+
+  TargetGroup:
+    Type: AWS::ElasticLoadBalancingV2::TargetGroup
+    Properties:
+      Name: !Sub ${AWS::StackName}-target-group
+      Port: !Ref PortNumber
+      Protocol: HTTP
+      TargetType: instance
+      VpcId: !Ref Vpc
+
+  # TaskDefinition:
+  #   Type: AWS::ECS::TaskDefinition
+  #   Properties:
+  #     ContainerDefinitions:
+  #       - Environment:
+  #           - Name: PORT
+  #             Value: !Ref PortNumber
+  #         Essential: true
+  #         Image: !Sub ${AWS::AccountId}.dkr.ecr.${AWS::Region}.amazonaws.com/${Repository}:${TagName}
+  #         LogConfiguration:
+  #           LogDriver: awslogs
+  #           Options:
+  #             awslogs-group: !Ref LogGroup
+  #             awslogs-region: !Ref AWS::Region
+  #             awslogs-stream-prefix: !Ref TagName
+  #         Name: !Sub ${AWS::StackName}-container-definition
+  #         PortMappings:
+  #           - ContainerPort: !Ref PortNumber
+  #     Cpu: 256
+  #     ExecutionRoleArn: !Ref TaskRole
+  #     Family: !Sub ${AWS::StackName}-task-definition
+  #     Memory: 512
+  #     NetworkMode: awsvpc
+  #     RequiresCompatibilities:
+  #       - FARGATE
+
+  TaskRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Statement:
+          - Action:
+              - sts:AssumeRole
+            Effect: Allow
+            Principal:
+              Service:
+                - ecs-tasks.amazonaws.com
+        Version: 2012-10-17
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy
+      RoleName: !Sub ${AWS::StackName}-task-role
+
+  Vpc:
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlock: 10.0.0.0/16
+      EnableDnsHostnames: true
+
+  VpcGatewayAttachment:
+    Type: AWS::EC2::VPCGatewayAttachment
+    Properties:
+      InternetGatewayId: !Ref InternetGateway
+      VpcId: !Ref Vpc
+
+  WwwCertificate:
+    Type: AWS::CertificateManager::Certificate
+    Properties:
+      DomainName: !Sub www.${DomainName}
+      ValidationMethod: DNS
