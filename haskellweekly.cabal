@@ -1,4 +1,4 @@
-cabal-version: >= 1.10
+cabal-version: 2.0
 -- https://www.haskell.org/cabal/users-guide/developing-packages.html#package-descriptions
 
 name: haskellweekly
