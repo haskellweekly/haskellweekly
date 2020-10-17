@@ -7,7 +7,15 @@ on:
       - haskellweekly
 jobs:
   build:
-    runs-on: ubuntu-18.04
+    strategy:
+      matrix:
+        os:
+          - ubuntu-18.04
+        ghc:
+          - 8.10.2
+        cabal:
+          - 3.4.0.0
+    runs-on: ${{ matrix.os }}
     steps:
 
       - uses: aws-actions/configure-aws-credentials@v1
@@ -34,7 +42,10 @@ jobs:
       - uses: actions/cache@v2
         with:
           path: ${{ steps.haskell.outputs.cabal-store }}
-          key: ${{ hashFiles('cabal.project.freeze') }}
+          key: ${{ matrix.os }}-${{ matrix.ghc }}-${{ matrix.cabal }}-${{ hashFiles('cabal.project.freeze') }}
+          restore-keys: |
+            ${{ matrix.os }}-${{ matrix.ghc }}-${{ matrix.cabal }}-
+            ${{ matrix.os }}-${{ matrix.ghc }}-
 
       - run: cabal test --test-show-details direct
 
