@@ -1,0 +1,34 @@
+on:
+  pull_request:
+    branches:
+      - haskellweekly
+  push:
+    branches:
+      - haskellweekly
+jobs:
+  build:
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: actions/checkout@v2
+      - id: setup-haskell
+        uses: actions/setup-haskell@v1
+        with:
+          ghc-version: 8.10.2
+          cabal-version: 3.4.0.0
+      - run: cabal freeze
+      - uses: actions/cache@v2
+        with:
+          path: ${{ steps.setup-haskell.outputs.cabal-store }}
+          key: ${{ hashFiles('cabal.project.freeze') }}
+      - run: cabal test --test-show-details direct
+      - run: cabal install --installdir . --install-method copy
+      - uses: actions/upload-artifact@v2
+        with:
+          path: haskellweekly
+          name: haskellweekly-${{ github.sha }}
+      - run: cabal check
+      - run: cabal sdist --output-dir .
+      - uses: actions/upload-artifact@v2
+        with:
+          path: haskellweekly-*.tar.gz
+          name: haskellweekly-${{ github.sha }}.tar.gz
