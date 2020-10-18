@@ -122,6 +122,16 @@ Resources:
       DomainName: !Sub origin.${DomainName}
       ValidationMethod: DNS
 
+  OriginRecordSet:
+    Type: AWS::Route53::RecordSet
+    Properties:
+      AliasTarget:
+        DNSName: !GetAtt LoadBalancer.DNSName
+        HostedZoneId: !GetAtt LoadBalancer.CanonicalHostedZoneID
+      HostedZoneId: !Ref ApexZone
+      Name: !Sub origin.${DomainName}
+      Type: A
+
   Repository:
     Type: AWS::ECR::Repository
     Properties:
@@ -157,6 +167,28 @@ Resources:
         ToPort: -1
       VpcId: !Ref Vpc
 
+  Service:
+    Type: AWS::ECS::Service
+    Properties:
+      Cluster: !Ref Cluster
+      DesiredCount: 0 # TODO
+      LaunchType: FARGATE
+      LoadBalancers:
+        - ContainerName: !Sub ${AWS::StackName}-container-definition
+          ContainerPort: !Ref PortNumber
+          TargetGroupArn: !Ref TargetGroup
+      NetworkConfiguration:
+        AwsvpcConfiguration:
+          AssignPublicIp: ENABLED
+          SecurityGroups:
+            - !Ref SecurityGroup
+          Subnets:
+            - !Ref Subnet1
+            - !Ref Subnet2
+      PlatformVersion: 1.4.0
+      ServiceName: !Sub ${AWS::StackName}-service
+      TaskDefinition: !Ref TaskDefinition
+
   Subnet1:
     Type: AWS::EC2::Subnet
     Properties:
@@ -183,34 +215,34 @@ Resources:
       Name: !Sub ${AWS::StackName}-target-group
       Port: !Ref PortNumber
       Protocol: HTTP
-      TargetType: instance
+      TargetType: ip
       VpcId: !Ref Vpc
 
-  # TaskDefinition:
-  #   Type: AWS::ECS::TaskDefinition
-  #   Properties:
-  #     ContainerDefinitions:
-  #       - Environment:
-  #           - Name: PORT
-  #             Value: !Ref PortNumber
-  #         Essential: true
-  #         Image: !Sub ${AWS::AccountId}.dkr.ecr.${AWS::Region}.amazonaws.com/${Repository}:${TagName}
-  #         LogConfiguration:
-  #           LogDriver: awslogs
-  #           Options:
-  #             awslogs-group: !Ref LogGroup
-  #             awslogs-region: !Ref AWS::Region
-  #             awslogs-stream-prefix: !Ref TagName
-  #         Name: !Sub ${AWS::StackName}-container-definition
-  #         PortMappings:
-  #           - ContainerPort: !Ref PortNumber
-  #     Cpu: 256
-  #     ExecutionRoleArn: !Ref TaskRole
-  #     Family: !Sub ${AWS::StackName}-task-definition
-  #     Memory: 512
-  #     NetworkMode: awsvpc
-  #     RequiresCompatibilities:
-  #       - FARGATE
+  TaskDefinition:
+    Type: AWS::ECS::TaskDefinition
+    Properties:
+      ContainerDefinitions:
+        - Environment:
+            - Name: PORT
+              Value: !Ref PortNumber
+          Essential: true
+          Image: !Sub ${AWS::AccountId}.dkr.ecr.${AWS::Region}.amazonaws.com/${Repository}:${TagName}
+          LogConfiguration:
+            LogDriver: awslogs
+            Options:
+              awslogs-group: !Ref LogGroup
+              awslogs-region: !Ref AWS::Region
+              awslogs-stream-prefix: !Ref TagName
+          Name: !Sub ${AWS::StackName}-container-definition
+          PortMappings:
+            - ContainerPort: !Ref PortNumber
+      Cpu: 256
+      ExecutionRoleArn: !Ref TaskRole
+      Family: !Sub ${AWS::StackName}-task-definition
+      Memory: 512
+      NetworkMode: awsvpc
+      RequiresCompatibilities:
+        - FARGATE
 
   TaskRole:
     Type: AWS::IAM::Role
