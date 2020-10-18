@@ -22,7 +22,6 @@ searchHandler request = do
       "https://duckduckgo.com/" <> Network.HTTP.Types.renderSimpleQuery
         True
         [("q", "site:haskellweekly.news " <> query)]
-  pure $ HW.Handler.Base.textResponse
+  pure $ HW.Handler.Base.statusResponse
     Network.HTTP.Types.found302
     [(Network.HTTP.Types.hLocation, location)]
-    "302 Found"

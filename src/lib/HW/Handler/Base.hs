@@ -3,6 +3,7 @@ module HW.Handler.Base
   , htmlResponse
   , lbsResponse
   , notFoundResponse
+  , statusResponse
   , textResponse
   )
 where
@@ -11,6 +12,7 @@ import qualified Data.ByteString
 import qualified Data.ByteString.Lazy
 import qualified Data.Text
 import qualified Data.Text.Encoding
+import qualified Data.Text.Encoding.Error
 import qualified HW.Type.App
 import qualified Lucid
 import qualified Network.HTTP.Types
@@ -65,7 +67,18 @@ lbsResponse status extraHeaders =
 
 notFoundResponse :: Network.Wai.Response
 notFoundResponse =
-  textResponse Network.HTTP.Types.notFound404 [] "404 Not Found"
+  statusResponse Network.HTTP.Types.notFound404 []
+
+statusResponse
+  :: Network.HTTP.Types.Status
+  -> Network.HTTP.Types.ResponseHeaders
+  -> Network.Wai.Response
+statusResponse status headers = textResponse status headers
+  $ (Data.Text.pack . show $ Network.HTTP.Types.statusCode status)
+  <> " "
+  <> Data.Text.Encoding.decodeUtf8With
+    Data.Text.Encoding.Error.lenientDecode
+    (Network.HTTP.Types.statusMessage status)
 
 textResponse
   :: Network.HTTP.Types.Status

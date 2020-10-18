@@ -14,11 +14,10 @@ redirectHandler
   :: HW.Type.Redirect.Redirect -> HW.Type.App.App Network.Wai.Response
 redirectHandler redirect =
   pure
-    . HW.Handler.Base.textResponse
+    $ HW.Handler.Base.statusResponse
         Network.HTTP.Types.found302
         [ ( Network.HTTP.Types.hLocation
           , Data.Text.Encoding.encodeUtf8
             $ HW.Type.Redirect.redirectToText redirect
           )
         ]
-    $ HW.Type.Redirect.redirectToText redirect

@@ -13,6 +13,7 @@ import qualified Data.Text.Encoding.Error
 import qualified HW.Handler.Advertising
 import qualified HW.Handler.Base
 import qualified HW.Handler.Episode
+import qualified HW.Handler.HealthCheck
 import qualified HW.Handler.Index
 import qualified HW.Handler.Issue
 import qualified HW.Handler.Newsletter
@@ -77,6 +78,7 @@ handle route request = case route of
     HW.Handler.Base.fileResponse "image/x-icon" "favicon.ico"
   HW.Type.Route.RouteGoogleBadge ->
     HW.Handler.Base.fileResponse "image/svg+xml" "google-podcasts.svg"
+  HW.Type.Route.RouteHealthCheck -> HW.Handler.HealthCheck.healthCheckHandler
   HW.Type.Route.RouteIndex -> HW.Handler.Index.indexHandler
   HW.Type.Route.RouteIssue number -> HW.Handler.Issue.issueHandler number
   HW.Type.Route.RouteNewsletterFeed ->

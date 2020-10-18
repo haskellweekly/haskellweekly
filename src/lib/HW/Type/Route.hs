@@ -20,6 +20,7 @@ data Route
   | RouteEpisode HW.Type.Number.Number
   | RouteFavicon
   | RouteGoogleBadge
+  | RouteHealthCheck
   | RouteIndex
   | RouteIssue HW.Type.Number.Number
   | RouteLogo
@@ -52,6 +53,7 @@ routeToText route = case route of
     "/episode/" <> HW.Type.Number.numberToText number <> ".html"
   RouteFavicon -> "/favicon.ico"
   RouteGoogleBadge -> "/google-podcasts.svg"
+  RouteHealthCheck -> "/health-check"
   RouteIndex -> "/"
   RouteIssue number ->
     "/issue/" <> HW.Type.Number.numberToText number <> ".html"
@@ -86,6 +88,7 @@ textToRoute path = case path of
   ["episode", file] -> routeContent "html" RouteEpisode file
   ["favicon.ico"] -> Just RouteFavicon
   ["google-podcasts.svg"] -> Just RouteGoogleBadge
+  ["health-check"] -> Just RouteHealthCheck
   ["issue", file] -> routeContent "html" RouteIssue file
   ["logo.png"] -> Just RouteLogo
   ["newsletter.atom"] -> Just RouteNewsletterFeed

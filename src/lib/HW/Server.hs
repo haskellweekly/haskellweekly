@@ -49,10 +49,9 @@ beforeMainLoop port = putStrLn $ "Listening on port " <> show port <> " ..."
 -- the same response for every exception. No potentially sensitive information
 -- is returned to the client.
 onExceptionResponse :: exception -> Network.Wai.Response
-onExceptionResponse _ = HW.Handler.Base.textResponse
+onExceptionResponse _ = HW.Handler.Base.statusResponse
   Network.HTTP.Types.internalServerError500
   []
-  "500 Internal Server Error"
 
 -- | The server name returned in the "Server" response header. This will be
 -- formatted like @haskellweekly/VERSION@, where @VERSION@ is defined by the
