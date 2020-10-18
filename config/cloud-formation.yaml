@@ -299,6 +299,9 @@ Resources:
       Name: !Sub ${AWS::StackName}-target-group
       Port: !Ref PortNumber
       Protocol: HTTP
+      TargetGroupAttributes:
+        - Key: deregistration_delay.timeout_seconds
+          Value: 30
       TargetType: ip
       VpcId: !Ref Vpc
 
