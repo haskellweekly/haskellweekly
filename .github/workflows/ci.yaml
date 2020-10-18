@@ -6,6 +6,7 @@ on:
     branches:
       - haskellweekly
 jobs:
+
   build:
     strategy:
       matrix:
@@ -64,3 +65,25 @@ jobs:
           file: docker/Dockerfile
           push: true
           tags: ${{ steps.ecr.outputs.registry }}/haskell-weekly-repository:${{ github.sha }}
+
+  deploy:
+    # if: github.ref == 'refs/heads/haskellweekly'
+    needs: build
+    runs-on: ubuntu-18.04
+    steps:
+
+      - uses: actions/checkout@v2
+
+      - uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-region: us-east-1
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
+      - uses: aws-actions/aws-cloudformation-github-deploy@v1
+        with:
+          name: haskell-weekly
+          template: config/cloud-formation.yaml
+          parameter-overrides: TagName=${{ github.sha }}
+          no-fail-on-empty-changeset: '1'
+          capabilities: CAPABILITY_NAMED_IAM
