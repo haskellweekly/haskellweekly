@@ -68,6 +68,7 @@ library
     HW.Handler.Advertising
     HW.Handler.Base
     HW.Handler.Episode
+    HW.Handler.HealthCheck
     HW.Handler.Index
     HW.Handler.Issue
     HW.Handler.Newsletter

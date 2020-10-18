@@ -194,7 +194,7 @@ contentSecurityPolicy = Data.Text.intercalate
   , "form-action https://duckduckgo.com https://news.us10.list-manage.com 'self'"
   , "frame-ancestors 'none'"
   , "img-src data: 'self'"
-  , "media-src https://haskell-weekly-podcast.nyc3.cdn.digitaloceanspaces.com:443 'self'"
+  , "media-src https://d1irmm0k9ptj7n.cloudfront.net https://haskell-weekly-podcast.nyc3.cdn.digitaloceanspaces.com:443 'self'"
   , "script-src 'unsafe-inline'"
   , "style-src 'self'"
   ]
