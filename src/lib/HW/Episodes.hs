@@ -58,6 +58,7 @@ episodes = do
     , episode24
     , episode25
     , episode26
+    , episode27
     ]
   checkGuids validEpisodes Data.Set.empty
   checkNumbers validEpisodes 1
@@ -555,3 +556,18 @@ episode26 = HW.Type.Episode.Episode
   <*> HW.Type.Summary.textToSummary
     "Sara Lichtenstein, Cameron Gera, and Taylor Fausak get recursively drunk on semigroups and monoids."
   <*> HW.Type.Title.textToTitle "Recursive Monoids"
+
+episode27 :: Either String HW.Type.Episode.Episode
+episode27 = HW.Type.Episode.Episode
+  <$> HW.Type.Articles.textsToArticles
+    [ "https://chrispenner.ca/posts/interview"
+    , "https://hacktoberfest.digitalocean.com"
+    , "https://github.com/kowainik/learn4haskell" ]
+  <*> HW.Type.Audio.textToAudio "https://haskell-weekly-podcast.nyc3.cdn.digitaloceanspaces.com/2020-10-19-episode-27.mp3"
+  <*> HW.Type.Date.gregorianToDate 2020 10 19
+  <*> HW.Type.Duration.timestampToDuration 31 33
+  <*> HW.Type.Guid.textToGuid "5417c280-694e-4944-b7e9-f34c82b5f481"
+  <*> HW.Type.Number.naturalToNumber 27
+  <*> HW.Type.Size.naturalToSize 35193073
+  <*> HW.Type.Summary.textToSummary "Learn how to answer common technical interview questions with Haskell. Cameron Gera and Taylor Fausak discuss Chris Penner's blog post."
+  <*> HW.Type.Title.textToTitle "Interview Questions"
