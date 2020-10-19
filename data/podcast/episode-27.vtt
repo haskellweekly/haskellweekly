@@ -1,0 +1,2065 @@
+WEBVTT
+
+00:02.040 --> 00:02.250
+Yeah.
+
+00:04.840 --> 00:07.370
+Hello and welcome to the high school Weekly
+
+00:07.370 --> 00:10.290
+podcast. I'm your host, Taylor Foss. AC. I'm
+
+00:10.290 --> 00:13.150
+the lead engineer at I t Pro TV, which is an
+
+00:13.160 --> 00:16.160
+e learning platform for I t. Professionals with me
+
+00:16.160 --> 00:19.130
+today is one of the engineers on my team. Cameron Gara.
+
+00:19.140 --> 00:22.130
+Welcome camp. Hey, man, how's it going? It's going
+
+00:22.130 --> 00:24.900
+good. Thanks for being on the show today. Of course, man.
+
+00:24.910 --> 00:27.750
+>> Well, you know, it's still October.
+
+00:27.750 --> 00:30.520
+We've been doing this podcast again for three
+
+00:30.520 --> 00:33.470
+weeks, and we're still in October. Which means
+
+00:33.470 --> 00:36.100
+we are still in hack Tober Fest,
+
+00:36.110 --> 00:39.020
+which is an awesome opportunity for us to contribute to the
+
+00:39.020 --> 00:41.680
+open source world and really just make a
+
+00:41.680 --> 00:44.680
+difference in these projects that may not have
+
+00:44.690 --> 00:47.190
+as much dev time going into them. So
+
+00:47.200 --> 00:49.990
+for us, it gives us a chance to learn a swell
+
+00:49.990 --> 00:52.850
+as contribute to these projects. Um, eso won
+
+00:52.850 --> 00:55.620
+awesome project. Just learn for high school, which is put on by
+
+00:55.620 --> 00:58.170
+Kucinich. And it's an opportunity for
+
+00:58.240 --> 01:01.170
+people to be a part of Octoberfest and also learn
+
+01:01.170 --> 01:03.480
+high school at the same time. So if you're
+
+01:03.490 --> 01:06.320
+interested, go check it out at learn for high
+
+01:06.320 --> 01:09.190
+school. I think you can Google that, um you can also check it
+
+01:09.190 --> 01:12.050
+out on quiet Excite. I believe they have
+
+01:12.050 --> 01:14.710
+some links as well, but it's a good opportunity for us
+
+01:14.710 --> 01:17.450
+to, you know, contribute learn high school
+
+01:17.460 --> 01:20.350
+and get a free T shirt. So, you know, we all love free
+
+01:20.350 --> 01:21.370
+T shirts around here.
+
+01:21.640 --> 01:24.460
+>> Sure do. I'm wearing a free T shirt right now, and it feels great.
+
+01:24.640 --> 01:27.550
+>> Yeah, e guess I am. I'm we're gonna work
+
+01:27.550 --> 01:30.180
+t shirt, which is free to me. So that's always
+
+01:30.180 --> 01:33.020
+nice. Yeah, awesome. Well, Taylor, what are we
+
+01:33.020 --> 01:34.120
+talking about today?
+
+01:34.130 --> 01:36.910
+>> Today we are talking about a block post by
+
+01:36.910 --> 01:39.870
+Chris Pinar called Silly Job interview
+
+01:39.870 --> 01:42.750
+Questions in Haskell If you haven't heard of
+
+01:42.750 --> 01:45.350
+him before. Chris Penner is the author of a
+
+01:45.350 --> 01:48.340
+book called Optics by example where he does
+
+01:48.340 --> 01:51.080
+a deep dive on optics and lenses and
+
+01:51.080 --> 01:53.560
+Haskell how to use them. How to get familiar with
+
+01:53.560 --> 01:54.100
+him.
+
+01:54.110 --> 01:56.610
+>> Yeah, so, you know, he kind of talks
+
+01:56.610 --> 01:58.840
+about, you know, the interview
+
+01:58.850 --> 02:01.670
+questions that are part of the interview process
+
+02:01.940 --> 02:04.590
+and in the interview process. If you're looking for any kind of
+
+02:04.590 --> 02:07.350
+job, um, you know, in the tech job in particular,
+
+02:07.360 --> 02:10.000
+you're gonna generally have kind of, ah, general
+
+02:10.000 --> 02:12.930
+interview kind of understanding who you are. You have a culture
+
+02:12.930 --> 02:15.740
+fit interview with kind of the team you're gonna be a part of.
+
+02:15.750 --> 02:18.680
+And then you'll also have a technical interview where
+
+02:18.680 --> 02:21.590
+you can kind of get asked and challenged
+
+02:21.600 --> 02:24.350
+in various ways in the various programming
+
+02:24.350 --> 02:27.260
+language you may be in contact with in that job role.
+
+02:27.440 --> 02:30.420
+Um, and so for a lot of high school jobs, you're gonna come across
+
+02:30.420 --> 02:32.610
+some of these high school
+
+02:32.620 --> 02:35.490
+problems and be able to solve them quickly If you
+
+02:35.490 --> 02:38.320
+kind of reviewed this block post. And, you know, I
+
+02:38.320 --> 02:41.000
+think he does a great job here of,
+
+02:41.010 --> 02:43.620
+you know, kind of giving us the general
+
+02:43.630 --> 02:46.350
+idea behind why he made the
+
+02:46.350 --> 02:49.150
+decisions he made. And a swell is like a good
+
+02:49.140 --> 02:51.870
+variety of the questions that you could be asked
+
+02:52.340 --> 02:55.250
+and yeah, just just to jump
+
+02:55.250 --> 02:57.610
+in the first one was the palindrome,
+
+02:57.610 --> 03:00.400
+which, in high school I mean, can't get any
+
+03:00.400 --> 03:01.560
+easier than that, Right? Taylor,
+
+03:01.570 --> 03:04.450
+>> you sure can't. This is this is so easy
+
+03:04.450 --> 03:07.430
+because all the functions you need are in the prelude, and you don't
+
+03:07.430 --> 03:10.430
+have to string too many of them together to get an answer. But I
+
+03:10.430 --> 03:13.070
+was gonna ask you, Cam, what's your favorite palindrome?
+
+03:13.240 --> 03:16.240
+>> Probably race car, which is, you know, kind of
+
+03:16.240 --> 03:19.190
+the only one I can think of at the moment. But it's in the also in the
+
+03:19.190 --> 03:22.060
+block post, so you know, it's a
+
+03:22.060 --> 03:24.990
+little bit a cop out, but I would say race cars a good one for
+
+03:24.990 --> 03:26.580
+me. What about you?
+
+03:26.590 --> 03:29.240
+>> I like Taco Cat. It's also short to the
+
+03:29.240 --> 03:31.840
+point. I know there are some extremely long
+
+03:31.850 --> 03:34.680
+palindromes, but yeah, that's that's besides the
+
+03:34.680 --> 03:37.660
+point. Um, so Chris shows a
+
+03:37.660 --> 03:40.400
+solution for the palindrome question here, which
+
+03:40.410 --> 03:43.280
+I guess if you're not familiar with the Palindrome, it's something that has
+
+03:43.280 --> 03:46.260
+the same order of letters, forwards and backwards. So
+
+03:46.260 --> 03:49.000
+like racecar as an example r a c
+
+03:49.000 --> 03:51.470
+e c a r. That goes the same forwards and
+
+03:51.470 --> 03:53.930
+backwards. So the way that he,
+
+03:53.940 --> 03:56.620
+uh, solves this problem is by
+
+03:56.630 --> 03:59.350
+comparing the original string with the reversed
+
+03:59.350 --> 04:02.120
+version of the string. And if they're equal, then it's the same forwards and
+
+04:02.120 --> 04:03.380
+backwards Super easy.
+
+04:03.390 --> 04:05.890
+>> Yep. Yep. I think that was Ah. Ah, great
+
+04:05.890 --> 04:08.600
+solution. Very straight to the point. Um,
+
+04:08.600 --> 04:11.050
+and you know, it's not bad when you could get one line of
+
+04:11.050 --> 04:13.540
+code solve, you know, quote unquote. The
+
+04:13.540 --> 04:14.850
+technical interview,
+
+04:14.840 --> 04:17.760
+>> Yeah, especially if you're answering this on like a white board. You know,
+
+04:17.770 --> 04:20.490
+if your handwriting's really bad, this one's an easy one to knock out.
+
+04:20.500 --> 04:23.180
+>> Yeah, and I think it does provide
+
+04:23.190 --> 04:25.840
+for a good ability to explain it to
+
+04:25.850 --> 04:28.830
+write. Uh, that's kind of the point of these technical interviews
+
+04:28.830 --> 04:31.680
+will be coming across, and for those who have come across it,
+
+04:31.690 --> 04:34.520
+you already know it's just about kind of giving your
+
+04:34.520 --> 04:37.450
+verbal processing out and allowing you know, the team that you're
+
+04:37.450 --> 04:40.350
+gonna be joining to kind of hear and understand and see how you
+
+04:40.350 --> 04:43.180
+solve a problem. So he kind of talks and starts
+
+04:43.180 --> 04:46.120
+with, you know, the easy one of the palindrome on, and then it kind
+
+04:46.120 --> 04:48.650
+of takes another step forward, right?
+
+04:48.660 --> 04:50.350
+What's the next one that he talks about?
+
+04:50.740 --> 04:53.710
+>> The next question is fizz buzz, and I'm sure a
+
+04:53.710 --> 04:56.670
+lot of people are already nodding along because they're familiar with this
+
+04:56.670 --> 04:59.010
+one. But if you haven't haven't heard of it
+
+04:59.010 --> 05:01.730
+before, the question is where the problem is to
+
+05:01.730 --> 05:04.350
+print out the 1st 100 numbers, so one through
+
+05:04.350 --> 05:07.290
+100. But if the number is divisible by
+
+05:07.290 --> 05:09.970
+three, you print out the string fizz,
+
+05:10.150 --> 05:13.050
+and if it's divisible by five, you print out buzz.
+
+05:13.440 --> 05:16.300
+And if it's divisible by both you print out fizz
+
+05:16.300 --> 05:18.910
+buzz. So pretty simple problem.
+
+05:18.910 --> 05:21.370
+But a surprising number of candidates
+
+05:21.380 --> 05:24.160
+can't answer this one. So it's good to see a Haskell solution
+
+05:24.160 --> 05:24.450
+here.
+
+05:24.940 --> 05:27.920
+>> Yeah, it definitely like when you hear the explanation. It kind of can
+
+05:27.920 --> 05:30.830
+make you squirm a little bit. But if you really listen
+
+05:30.830 --> 05:33.770
+to the problem, what it's asking, it's not too bad.
+
+05:33.770 --> 05:36.690
+And you just gotta, I think with every big problem you got
+
+05:36.690 --> 05:39.450
+to solve or any problem you have to solve, you know, you just gotta take one
+
+05:39.450 --> 05:42.370
+step at a time, you know, figure out all right, what do I need to
+
+05:42.370 --> 05:45.320
+do first? And then you can build on that, And I think high school
+
+05:46.140 --> 05:49.050
+kind of allows you to do that pretty well on day for
+
+05:49.050 --> 05:51.560
+his solution. He actually takes some time to use
+
+05:51.560 --> 05:54.560
+guards, which, if you aren't familiar with guards, you know,
+
+05:54.560 --> 05:57.310
+they're kind of a, you know, in line pattern matching per
+
+05:57.310 --> 06:00.220
+se, um, and that allow you to,
+
+06:00.230 --> 06:02.820
+you know, do some comparison check.
+
+06:02.830 --> 06:05.220
+And, you know, if it equals
+
+06:05.230 --> 06:07.850
+true, then you about you go
+
+06:07.860 --> 06:10.740
+proceed to that line of code. Um, and so here
+
+06:10.740 --> 06:13.690
+he kind of, you know, goes one step at a time with, you
+
+06:13.690 --> 06:16.510
+know, some sort of secondary function that he's gonna iterate over.
+
+06:16.520 --> 06:19.190
+You know, this list of 1 to 100 with that? He
+
+06:19.190 --> 06:22.180
+does, you know, a check of, you know, the number of
+
+06:22.180 --> 06:24.900
+mod three. And number five. If those both equals
+
+06:24.900 --> 06:27.780
+zero, then he prints out fizz buzz. If not, you know,
+
+06:27.780 --> 06:30.650
+he goes the next case, which the next case, he's doing the
+
+06:30.840 --> 06:33.720
+mod three check. So if mod three of that number
+
+06:33.720 --> 06:36.270
+equals zero, then it's gonna print out fizz.
+
+06:36.840 --> 06:39.380
+Same with five when he's gonna print out Buzz.
+
+06:39.390 --> 06:41.670
+So you know, he's got these
+
+06:41.680 --> 06:44.340
+cases that if they
+
+06:44.340 --> 06:47.280
+evaluated, true that, that's what is returned. If
+
+06:47.280 --> 06:50.140
+not, none of those cases returned. True, he's just gonna
+
+06:50.140 --> 06:52.860
+print out that number. And so it's
+
+06:52.860 --> 06:55.720
+pretty straightforward. Um, one interesting thing, though
+
+06:55.720 --> 06:58.600
+Taylor is that he decided to use for
+
+06:58.600 --> 07:01.380
+underscore from data dot foldable. Where? For
+
+07:01.380 --> 07:04.110
+me? I would have probably used just map out of
+
+07:04.110 --> 07:07.060
+Prelude. Um, that doesn't you know, it's
+
+07:07.060 --> 07:09.570
+pretty much the same as four underscore, but with
+
+07:09.680 --> 07:11.860
+reversed arguments, right?
+
+07:12.440 --> 07:15.140
+>> Yeah, In fact, four is defined as
+
+07:15.140 --> 07:17.980
+flip map. So the fact that he reached for
+
+07:17.980 --> 07:20.860
+four here suggests to me that he's trying to reach out to
+
+07:20.860 --> 07:23.460
+an audience that may not be familiar with Haskell to write code that
+
+07:23.460 --> 07:26.160
+looks a little more imperative, even though, really, behind the
+
+07:26.160 --> 07:29.100
+scenes. It's still that functional goodness that we we
+
+07:29.100 --> 07:32.040
+all know and love, Um, and a quick note on what you were talking about
+
+07:32.040 --> 07:34.370
+with the guards. One of things that's really great about them is they
+
+07:34.370 --> 07:37.030
+match top to bottom. So, like you were saying, you
+
+07:37.030 --> 07:39.970
+can process thes and you add
+
+07:39.970 --> 07:42.920
+the cases that you go by and you can think, Okay, I'll start with mod
+
+07:42.920 --> 07:45.890
+three and then mod 50 wait. I forgot about mod three and five, So
+
+07:45.890 --> 07:48.800
+I'll go put that one at the top. So it's just like an if else chain
+
+07:48.810 --> 07:50.870
+in a regular imperative programming language.
+
+07:51.240 --> 07:54.240
+>> Yep. And I think a lot of these functions, you know, as we
+
+07:54.240 --> 07:56.970
+continue to talk about them, you know, would be good for
+
+07:56.970 --> 07:59.940
+people to kind of go and reason about yourself and try to solve
+
+07:59.940 --> 08:02.750
+it. Uh, maybe even before reading this black post
+
+08:02.750 --> 08:05.540
+to just kind of see if you can solve it. Obviously, we're
+
+08:05.540 --> 08:08.100
+talking about it here. So you have a general idea of maybe what? To
+
+08:08.100 --> 08:10.940
+dio, But it could be good to kind of just put that
+
+08:10.940 --> 08:13.870
+into practice, Um, and just kind of create that
+
+08:13.880 --> 08:16.840
+quick little solution, um, that you can kind
+
+08:16.840 --> 08:19.800
+of just have in your back pocket. So he then
+
+08:19.800 --> 08:22.680
+moves on, obviously to, um, something
+
+08:22.680 --> 08:25.650
+else, Something else. Even more complicated. And he
+
+08:25.660 --> 08:28.330
+it's called some up to end numbers,
+
+08:28.340 --> 08:31.270
+which when I first passed over
+
+08:31.270 --> 08:34.270
+it, I was like, Okay, like, I get that. I wasn't
+
+08:34.270 --> 08:37.270
+sure how he reasoned about, You know, obviously, I
+
+08:37.270 --> 08:39.930
+have to read the full question. That's part of solving these
+
+08:39.930 --> 08:42.650
+problems. You know, you have to read the full question.
+
+08:42.660 --> 08:45.560
+Um, after my second passed, I realized,
+
+08:45.570 --> 08:48.550
+you know, it's always just a combination of three letters or
+
+08:48.560 --> 08:51.150
+no letters. Numbers. I mean, numbers,
+
+08:51.540 --> 08:54.270
+right. And that is
+
+08:54.640 --> 08:57.640
+I was like, OK, cool. I'm gonna be taking a list of numbers
+
+08:57.650 --> 09:00.450
+and trying to find a combination of three numbers
+
+09:00.450 --> 09:02.830
+that equal some total, some
+
+09:02.830 --> 09:05.300
+specific total. Um, And
+
+09:05.300 --> 09:08.050
+so you know, if I'm gonna kind of attack this
+
+09:08.050 --> 09:10.880
+problem before we move on to the solution like I'm gonna think.
+
+09:10.890 --> 09:13.860
+Okay, I've got a list of numbers
+
+09:14.240 --> 09:17.070
+and I need to find all the combinations
+
+09:17.080 --> 09:19.990
+of all combinations of
+
+09:19.990 --> 09:22.730
+these numbers that include three, right.
+
+09:22.740 --> 09:25.510
+So I need to chunk them into groups of three
+
+09:25.520 --> 09:28.430
+and every combination of that. And so
+
+09:28.430 --> 09:31.020
+that's kind of what I would attack first,
+
+09:31.030 --> 09:33.570
+Which I think he actually ended up tackling us
+
+09:33.570 --> 09:36.520
+Well, on, then I would have come back and, you know,
+
+09:36.520 --> 09:39.460
+tried toe iterating over that new list
+
+09:39.470 --> 09:42.290
+of list and fine, you know, find the sum of
+
+09:42.290 --> 09:45.010
+each list and see if it equals the total which
+
+09:45.010 --> 09:47.560
+actually ends up being what he he does.
+
+09:47.570 --> 09:50.530
+Eso it sounds like I'm just copping out here
+
+09:50.530 --> 09:53.340
+and, you know, using his solution. But when I first read the
+
+09:53.340 --> 09:55.940
+problem, I didn't look at the solution, and that's kind of my
+
+09:55.940 --> 09:58.790
+process, uh, that I was would have proceeded
+
+09:58.790 --> 10:01.780
+with, but obviously he has a solution right there. So
+
+10:01.780 --> 10:04.260
+I just kept reading. And there it waas.
+
+10:04.270 --> 10:07.130
+>> Yeah, that's a good solution to this problem because you're breaking it
+
+10:07.130 --> 10:09.640
+down into components, and I think that's
+
+10:09.640 --> 10:12.310
+starting with the more complicated component.
+
+10:12.320 --> 10:15.280
+Namely, coming up with the combinations of the elements of the
+
+10:15.280 --> 10:18.150
+input list is a good way to go because the second part
+
+10:18.340 --> 10:21.330
+of figuring out if a list sums to
+
+10:21.330 --> 10:24.320
+some particular number and then including or excluding it based
+
+10:24.320 --> 10:27.270
+on that is pretty easy. So, you know, once you've
+
+10:27.270 --> 10:29.940
+got that nice head of steam built up from doing this
+
+10:29.940 --> 10:32.800
+hard combination stuff, then you finish it off
+
+10:32.800 --> 10:35.790
+with a nice and easy desert of just figuring out if these add up to the right
+
+10:35.790 --> 10:36.100
+thing.
+
+10:36.110 --> 10:38.940
+>> Yeah, an interesting thing. And, you know, high school
+
+10:38.940 --> 10:41.240
+is there is something called
+
+10:41.240 --> 10:43.580
+permutations, um, a function called
+
+10:43.580 --> 10:46.480
+permutations that will take a list and give you all of its
+
+10:46.480 --> 10:48.580
+permutations. But that's not quite the
+
+10:48.580 --> 10:51.470
+combinations. And, you know, if you look
+
+10:51.480 --> 10:53.980
+in package or Google for
+
+10:53.980 --> 10:56.780
+combinations, you're probably not gonna find one
+
+10:56.790 --> 10:59.650
+in, you know, a standard library. You may find one in
+
+10:59.650 --> 11:02.460
+some specialized package, but you know
+
+11:02.460 --> 11:05.270
+there's not going to generally be an easy
+
+11:05.280 --> 11:08.080
+combinations function you could reach for. And so he
+
+11:08.080 --> 11:10.930
+takes the time here and kind of explains and
+
+11:10.940 --> 11:13.780
+how he would have created a combinations
+
+11:13.780 --> 11:16.430
+function. Uh, you know, obviously, Rikers in is a
+
+11:16.430 --> 11:19.200
+big thing, you know, functions calling themselves
+
+11:19.200 --> 11:22.140
+until they find the solution and then returning that solution. It
+
+11:22.140 --> 11:25.090
+was nice to see all these. You know, this solution. He has very good
+
+11:25.090 --> 11:28.070
+comments and stuff like that. Uh, but could
+
+11:28.070 --> 11:30.930
+you kind of explain a little bit more on, like, what's happening in
+
+11:30.930 --> 11:32.810
+this combinations function?
+
+11:32.820 --> 11:35.750
+>> Sure. So this whole problem is
+
+11:35.750 --> 11:38.380
+quite a bit more complicated than the fizz buzz one and the
+
+11:38.380 --> 11:41.150
+combinations. Part of it, like I mentioned earlier, is definitely the
+
+11:41.150 --> 11:43.360
+more complicated sub problem.
+
+11:43.840 --> 11:46.610
+But when you break it down into the
+
+11:46.620 --> 11:49.600
+three kind of base cases you have to cover,
+
+11:49.610 --> 11:52.450
+it turns out to be surprisingly simple. So
+
+11:52.940 --> 11:55.850
+the combinations function as he's given it
+
+11:55.860 --> 11:58.630
+gives you, or it takes a number
+
+11:58.640 --> 12:01.270
+as of like, how many things to
+
+12:01.270 --> 12:04.270
+include per group. And then it takes your input list with
+
+12:04.270 --> 12:07.120
+all of the things in it, and you output a list of lists. So a
+
+12:07.120 --> 12:09.860
+list of combinations of things. And,
+
+12:10.240 --> 12:13.170
+as is typical with implementing recursive
+
+12:13.170 --> 12:16.090
+functions, you start with the base case. So the base cases you're asking
+
+12:16.090 --> 12:19.000
+for zero things. There's exactly one way
+
+12:19.000 --> 12:21.960
+to give you zero things. So you return a list
+
+12:21.970 --> 12:24.150
+with the empty list as it's only element,
+
+12:25.440 --> 12:28.340
+and then we'll gloss over the recursive call for right
+
+12:28.340 --> 12:31.320
+now. But the other base case is where
+
+12:31.330 --> 12:34.030
+you're asking for a combination of some
+
+12:34.030 --> 12:36.770
+number of things. But your input list is
+
+12:36.770 --> 12:39.300
+empty, and in that case you cannot provide any
+
+12:39.300 --> 12:42.300
+combination. So you return the empty list. So those
+
+12:42.300 --> 12:45.280
+two base cases under our belt it's pretty easy then, to
+
+12:45.280 --> 12:47.850
+go on to the, um, recursive
+
+12:47.850 --> 12:50.440
+step where what you're doing is
+
+12:50.450 --> 12:53.360
+grabbing one element off the front of that
+
+12:53.360 --> 12:56.250
+list and cons
+
+12:56.250 --> 12:58.770
+ing it. So like making it the first element of,
+
+12:59.340 --> 13:02.280
+uh, the recursive call onto the rest of the
+
+13:02.280 --> 13:05.110
+list for one less elements. So let's say you're looking
+
+13:05.110 --> 13:07.930
+out to a list of two elements, and you grab the first
+
+13:07.930 --> 13:10.890
+one and then for every other element, enlist you
+
+13:10.900 --> 13:13.850
+or every other combination of the list. Rather, you add that element
+
+13:13.850 --> 13:16.790
+onto the front, um, and then in
+
+13:16.790 --> 13:19.730
+addition to that, you do another recursive call.
+
+13:19.730 --> 13:22.550
+So this combinations function every
+
+13:22.550 --> 13:25.500
+step. It calls itself twice. So it's
+
+13:25.510 --> 13:28.150
+very recursive. Um, yeah,
+
+13:28.160 --> 13:31.150
+it's It's a little difficult to just explain without looking at the
+
+13:31.150 --> 13:33.930
+code. But again, with recursive
+
+13:33.930 --> 13:36.660
+functions, it's important to focus on those base cases. And
+
+13:36.660 --> 13:39.590
+then, uh, the recursive step will hopefully be clearer
+
+13:39.590 --> 13:41.460
+because you want to get to those base cases.
+
+13:42.140 --> 13:45.130
+>> Nice. Awesome. Well, I appreciate you taking that time. Yeah. Like like you
+
+13:45.130 --> 13:47.920
+said, it's a little hard to explain code that's
+
+13:47.920 --> 13:50.810
+written because, you know, it's a little easier just to
+
+13:50.810 --> 13:53.450
+see it and kind of process that way. But,
+
+13:53.940 --> 13:56.910
+you know, a classic thing that happens in
+
+13:56.910 --> 13:59.760
+these technical interviews is they say
+
+13:59.770 --> 14:02.560
+Okay, well, now this part's gonna change
+
+14:02.940 --> 14:05.820
+and, you know, say, for this function, we want
+
+14:05.830 --> 14:08.730
+all combinations of any length which some
+
+14:08.740 --> 14:10.980
+to the target number, you know?
+
+14:10.990 --> 14:13.890
+What are you going to do there? What? What's gonna have to
+
+14:13.890 --> 14:16.870
+change in our current implementation to make
+
+14:16.870 --> 14:19.780
+this work right? I mean, we're in high school. So is there something
+
+14:19.790 --> 14:22.520
+fun and easy and quick we can do to make this work?
+
+14:22.530 --> 14:25.450
+>> I don't know. If it were me, I would probably be scrambling in the
+
+14:25.450 --> 14:28.160
+interview. And I would just say, Take the length of the input
+
+14:28.160 --> 14:30.770
+list and call combinations for each
+
+14:30.780 --> 14:33.200
+zero up to that length. And then, boom, you've got all the
+
+14:33.200 --> 14:36.190
+combinations. Did you have something else in mind? No,
+
+14:36.190 --> 14:39.100
+that's perfect, because that's the answer. Alright. I
+
+14:39.100 --> 14:39.650
+passed
+
+14:40.340 --> 14:43.240
+>> nice through that one through that one at you, man. You
+
+14:43.240 --> 14:46.120
+weren't quite ready for it. But, you know, I think you figured you could handle it.
+
+14:46.130 --> 14:47.270
+You're pretty. Live in your feet.
+
+14:47.740 --> 14:50.710
+>> I think we've got a good handle on that question. Should we move on to the
+
+14:50.710 --> 14:51.340
+next one?
+
+14:51.350 --> 14:54.060
+>> I'd say so. Yeah. Why not? So we've
+
+14:54.060 --> 14:56.340
+got check if two strings
+
+14:56.350 --> 14:58.060
+are anagrams.
+
+14:58.940 --> 15:00.930
+Oh, anagrams.
+
+15:00.940 --> 15:02.470
+>> And what is an anagram? I
+
+15:02.470 --> 15:03.470
+>> don't know. What's an anagram?
+
+15:04.240 --> 15:06.850
+Actually, I believe it's
+
+15:06.860 --> 15:09.500
+two words that have the same
+
+15:09.500 --> 15:11.790
+letters. Um, I right. Or am I right?
+
+15:11.800 --> 15:14.170
+>> I think you're right. But there's
+
+15:14.170 --> 15:16.900
+additional wrinkle there where they have to have the same
+
+15:16.900 --> 15:19.790
+number of the same letters. So, like, you know, if
+
+15:19.800 --> 15:22.660
+it has to s is in it, you gotta have two s is you can't just
+
+15:22.660 --> 15:23.650
+have an s
+
+15:23.840 --> 15:26.810
+>> see Okay. Yeah, that that definitely is a little bit
+
+15:26.810 --> 15:29.780
+of a wrinkle. But yet again, Haskell
+
+15:29.780 --> 15:32.680
+comes to the rescue. In my opinion, I think it's,
+
+15:32.680 --> 15:35.680
+ah, quite a pleasant solution.
+
+15:35.680 --> 15:38.650
+They're here. They're here that he created that actually ended
+
+15:38.650 --> 15:41.650
+up only being two lines of code A type signature
+
+15:42.040 --> 15:43.570
+and a function definition.
+
+15:44.140 --> 15:47.090
+>> Yeah, it's very short. And it's similar to the palindrome
+
+15:47.090 --> 15:49.570
+question. You know, the first one. Because
+
+15:49.580 --> 15:52.460
+everything we need Well, we could solve this
+
+15:52.460 --> 15:55.420
+using just the prelude, but he actually reaches for this
+
+15:55.420 --> 15:58.370
+nice higher order function that's available from the data
+
+15:58.370 --> 16:00.920
+dot function module. And the function is called
+
+16:00.930 --> 16:03.880
+on, and it lets you take a binary
+
+16:03.880 --> 16:06.050
+function in this case equals
+
+16:06.440 --> 16:09.270
+and apply it by first applying another
+
+16:09.270 --> 16:12.270
+function to both arguments and then applying that operator. So in
+
+16:12.270 --> 16:15.240
+this case, we're calling equals. But before we do that, we wanna call
+
+16:15.240 --> 16:18.210
+sort on both of our arguments. And why is it that we wanna
+
+16:18.210 --> 16:19.190
+call sort camp?
+
+16:19.200 --> 16:21.970
+>> Well, because obviously we want to get those
+
+16:21.980 --> 16:24.190
+letters to be in the same order and then do a
+
+16:24.190 --> 16:26.500
+comparison of those lists,
+
+16:26.740 --> 16:29.720
+right? And if those lister equal we returned
+
+16:29.720 --> 16:32.460
+true. If not, we bail out. And the
+
+16:32.470 --> 16:35.380
+awesome thing about high school, too, is that because it's
+
+16:35.380 --> 16:38.380
+lazy, as soon as it finds a case where it's no longer
+
+16:38.380 --> 16:41.310
+equal, these two lists are no longer equal. It bails
+
+16:41.310 --> 16:44.080
+out, so that saves you a little bit on. You know,
+
+16:44.090 --> 16:46.990
+the performance issue on Do you know this
+
+16:46.990 --> 16:49.430
+isn't necessarily the most performance code
+
+16:49.440 --> 16:52.370
+anyone's ever written, but it definitely will solve
+
+16:52.370 --> 16:55.110
+the problem in a pinch. Um, you know,
+
+16:55.110 --> 16:58.090
+because obviously, sorting a list isn't
+
+16:58.090 --> 17:00.460
+the most effective
+
+17:00.840 --> 17:03.700
+way too well. It's in a very
+
+17:03.700 --> 17:06.410
+effective way to do comparisons of something,
+
+17:06.410 --> 17:09.350
+something that can be considered a list. But it also
+
+17:09.360 --> 17:12.220
+has a bigger notation of in
+
+17:12.220 --> 17:14.890
+log, in which it's a little longer
+
+17:14.890 --> 17:16.770
+than you know some people want to deal with.
+
+17:17.240 --> 17:20.120
+>> This is something people often point to as a upside of
+
+17:20.120 --> 17:22.590
+laziness by default, where you can have
+
+17:22.600 --> 17:25.500
+a sort function that lazily produces
+
+17:25.500 --> 17:27.790
+its output and some other function that
+
+17:27.790 --> 17:30.530
+lazily consumes its input,
+
+17:30.540 --> 17:33.460
+and the sort function is only going to do as much
+
+17:33.460 --> 17:36.240
+work as is required to give
+
+17:36.240 --> 17:39.050
+enough stuff to that other function to use. So in this
+
+17:39.050 --> 17:41.770
+case, equals is the function that's consuming the output of
+
+17:41.770 --> 17:44.730
+sort. So if on the very first letter equals says,
+
+17:44.730 --> 17:47.700
+well, these aren't the same, then we're not an anagram. So I'm just going
+
+17:47.700 --> 17:50.700
+to stop there. Sort isn't gonna bother sorting
+
+17:50.700 --> 17:53.670
+the entire rest of the list. Uh, it
+
+17:53.670 --> 17:56.370
+might, depending on the shape of the input list and everything, but in
+
+17:56.370 --> 17:59.240
+general, it probably won't. So that that's super nice. You don't have to
+
+17:59.240 --> 18:02.160
+do any fancy, like early return type stuff or anything like
+
+18:02.160 --> 18:03.460
+that. It just It just does it.
+
+18:04.340 --> 18:07.160
+>> So nice. So nice. Um, well, yeah.
+
+18:07.170 --> 18:09.960
+Cool. Well, the solution that he kind of
+
+18:09.960 --> 18:12.800
+links to that was the inspiration for this question.
+
+18:12.810 --> 18:15.770
+Yeah, some java solution. That was
+
+18:16.240 --> 18:18.990
+ah, lot of lines of code. Um, you know,
+
+18:18.990 --> 18:21.480
+and and, you know, he mentions here. He doesn't
+
+18:21.480 --> 18:24.320
+know which ones faster. Um, you know, he
+
+18:24.320 --> 18:26.940
+imagines the Java ones probably faster because of some of the
+
+18:26.940 --> 18:29.660
+considerations they did, but he's didn't
+
+18:29.670 --> 18:31.970
+benchmark them, so he doesn't really know.
+
+18:31.980 --> 18:34.780
+Um, so I mean, could be curious to
+
+18:34.780 --> 18:37.380
+see if lazy high school
+
+18:37.380 --> 18:39.980
+evaluation, you know, allows for the
+
+18:39.980 --> 18:42.910
+same benchmarks. Um, that
+
+18:42.910 --> 18:45.540
+he you know, he that would come from this job. A solution
+
+18:45.540 --> 18:47.870
+that is mentioned. Um
+
+18:48.540 --> 18:51.230
+well, cool. Yeah, I think that kind of wraps up anagram
+
+18:51.230 --> 18:53.850
+problem pretty, pretty cleanly
+
+18:54.240 --> 18:56.160
+and allows us to, you know,
+
+18:56.840 --> 18:59.580
+know how toe Do some quick
+
+18:59.580 --> 19:02.400
+comparisons. Um, you know, obviously the
+
+19:02.410 --> 19:05.370
+reverse. You know, the palindrome is another kind of
+
+19:05.380 --> 19:08.170
+string comparison, and then that these anagram wants to string
+
+19:08.170 --> 19:10.930
+comparison. So, you know, these things in
+
+19:10.930 --> 19:13.920
+high school aren't too difficult to deal with because of, you know,
+
+19:13.930 --> 19:16.350
+the built in functionality, the laziness, the,
+
+19:16.740 --> 19:19.280
+uh, just general ease of
+
+19:19.280 --> 19:22.150
+composition, even, you know, allows us not to have to
+
+19:22.150 --> 19:24.990
+have too much boilerplate and, uh, too
+
+19:24.990 --> 19:27.500
+much code, but yeah, so I think that's
+
+19:27.500 --> 19:30.220
+cool. Then they have one more that we're gonna
+
+19:30.220 --> 19:33.220
+quickly talk on. No, we have
+
+19:33.230 --> 19:35.210
+two more that we were quickly talking.
+
+19:35.220 --> 19:37.260
+Apologize. Um,
+
+19:37.640 --> 19:40.520
+we're gonna touch quickly on them. So just not
+
+19:40.520 --> 19:43.320
+too long. Because I would love for us to kind of get a little work, you
+
+19:43.320 --> 19:46.260
+know, chat about our experience and maybe some
+
+19:46.260 --> 19:49.000
+other things you could do to practice, um, high school
+
+19:49.000 --> 19:51.990
+and be able to be prepared for an interview like this. But
+
+19:51.990 --> 19:54.940
+there's a Min max problem. And then he
+
+19:54.940 --> 19:57.610
+also talks about the word frequency
+
+19:57.610 --> 20:00.370
+problem. So, Taylor, would you
+
+20:00.380 --> 20:03.270
+give us a quick synopsis of one
+
+20:03.270 --> 20:04.470
+or both of these?
+
+20:04.480 --> 20:07.210
+>> I'd be happy to. So the Min and Max problem
+
+20:07.220 --> 20:09.910
+is given a list of things that can be
+
+20:09.910 --> 20:12.520
+compared. Return me a couple with the
+
+20:12.520 --> 20:15.380
+greatest element in them and the least element in them, or
+
+20:15.380 --> 20:18.350
+the minimum and the maximum. The immediate solution that
+
+20:18.350 --> 20:20.880
+comes to mind is the one he goes for first year, which is
+
+20:21.640 --> 20:24.270
+make a double call minimum on one of them and
+
+20:24.270 --> 20:27.220
+maximum sorry minimum on the input list and maximum on the input
+
+20:27.220 --> 20:30.220
+list. And that works great, has some downsides.
+
+20:30.230 --> 20:33.130
+In particular, it will walk over the list
+
+20:33.140 --> 20:35.670
+twice, wants to look for the men and wants to look for the max.
+
+20:35.680 --> 20:38.560
+And if your input list is empty, it's gonna explode.
+
+20:38.540 --> 20:41.540
+So he spends some time fixing
+
+20:41.540 --> 20:44.180
+up some of those issues, which I think is great, and
+
+20:44.640 --> 20:47.550
+it's worth pointing out that he's able to use fold
+
+20:47.550 --> 20:49.890
+map here in some of the interim solutions
+
+20:49.890 --> 20:52.550
+because there's actually mongoloids for expressing the
+
+20:52.550 --> 20:55.430
+minimum or maximum element. And so, if you wrap everything
+
+20:55.430 --> 20:58.350
+up in those you can fold map everything together. If you want to
+
+20:58.360 --> 21:01.190
+learn more about monologues, go listen to our previous podcast, where
+
+21:01.200 --> 21:04.170
+we get drunk on mongoloids. Hmm. And then
+
+21:04.170 --> 21:06.650
+the other final problem is about word
+
+21:06.650 --> 21:09.420
+frequency, and this one, like the
+
+21:09.420 --> 21:12.410
+sum up Thio in Problem is a little more complicated. There's
+
+21:12.410 --> 21:15.000
+more moving pieces involved, but
+
+21:15.000 --> 21:17.740
+fortunately again, high school kind of saves us here. It's not in the
+
+21:17.740 --> 21:20.630
+prelude. It's not in the base library, but it isn't a boot
+
+21:20.630 --> 21:23.430
+library called containers. And in there there's
+
+21:23.430 --> 21:26.080
+a data structure for maps. And that's what he reaches for here
+
+21:26.080 --> 21:28.910
+to take an input list and then
+
+21:28.910 --> 21:31.820
+build a map where the key is a word in
+
+21:31.820 --> 21:34.560
+there, and the value is how often it shows up.
+
+21:35.240 --> 21:37.670
+And this is something that we do so
+
+21:37.670 --> 21:40.610
+often in, you know, interview code in riel
+
+21:40.610 --> 21:43.320
+code. I'm kind of surprised there's not a functioning containers
+
+21:43.320 --> 21:46.240
+already to do this, not specifically for strings, but just for
+
+21:46.240 --> 21:49.220
+anything to count up the frequencies. So maybe I'll open a p R.
+
+21:49.220 --> 21:51.350
+And get some credit toward Octoberfest for doing that.
+
+21:51.840 --> 21:54.830
+Hmm. That could be cool. Yeah, on
+
+21:54.830 --> 21:57.770
+Ben, really? The only other thing to point out about this
+
+21:57.770 --> 22:00.750
+word frequency things since we're blazing through it right now. Is
+
+22:00.750 --> 22:03.400
+that last week we talked about how maps When the
+
+22:03.400 --> 22:06.200
+union together, they're left biased.
+
+22:06.200 --> 22:09.200
+So it will just drop the value from the right one. And that's why
+
+22:09.200 --> 22:11.770
+here he has to use this union with
+
+22:11.770 --> 22:14.730
+function to say no. Don't just drop one of those values. In
+
+22:14.730 --> 22:17.690
+fact, combine them together and use addition to combine them together. So we're
+
+22:17.690 --> 22:19.460
+counting how often this shows up.
+
+22:20.040 --> 22:22.980
+>> Yeah, And I looked at this code and I was like, I feel
+
+22:22.980 --> 22:25.550
+like I've written this for, you know, at some
+
+22:25.550 --> 22:27.990
+point whether it be in our actual code
+
+22:27.990 --> 22:30.180
+or, you know, when I personally been
+
+22:30.180 --> 22:33.030
+practicing my high school knowledge, which, you
+
+22:33.030 --> 22:35.910
+know, um, I think, actually, the great segue into our
+
+22:35.910 --> 22:38.700
+next kind of topic, which is, you know, some other tools to
+
+22:38.700 --> 22:41.270
+practice with for us and me
+
+22:41.270 --> 22:44.140
+personally, I've used, you know, code wars
+
+22:44.150 --> 22:46.990
+and extra schism and advent of
+
+22:46.990 --> 22:49.490
+code to kind of, you know,
+
+22:49.490 --> 22:52.270
+solve various problems in high school. Uh, the
+
+22:52.270 --> 22:55.090
+cool thing about these platforms is that you can,
+
+22:55.100 --> 22:57.940
+you know, choose a language maybe you're more familiar with.
+
+22:57.950 --> 23:00.560
+There's a lot of languages and
+
+23:00.540 --> 23:03.530
+these and even avenue code. You can pick whatever language you want.
+
+23:03.540 --> 23:06.260
+You could do it and then expressed spreadsheet. If you could figure out the
+
+23:06.260 --> 23:09.240
+logic for that. And you know, I think that's
+
+23:09.250 --> 23:12.220
+really nice toe have because then you
+
+23:12.220 --> 23:15.030
+know you can reason a reason in
+
+23:15.030 --> 23:17.950
+a in a way you already understand. And then you
+
+23:17.950 --> 23:20.830
+can, you know, go to the language you're learning
+
+23:20.840 --> 23:23.810
+and apply it the knowledge you know there and see
+
+23:23.810 --> 23:26.210
+how they compare. And, you know,
+
+23:26.220 --> 23:29.190
+there all the questions there's wide
+
+23:29.190 --> 23:32.110
+range code wars is what we're using
+
+23:32.120 --> 23:34.940
+more recently where you know, there's, you know,
+
+23:34.950 --> 23:37.440
+won t eight ky you with one being the most
+
+23:37.440 --> 23:40.300
+difficult and eight being, you know, relatively
+
+23:40.300 --> 23:43.230
+simple. But it allows you to kind of get your feet
+
+23:43.230 --> 23:45.960
+wet and reason about problems
+
+23:46.640 --> 23:49.380
+kind of quickly. And then once you've kind of created a
+
+23:49.380 --> 23:52.350
+solution, even if it might be a man, I'll be perfect.
+
+23:52.350 --> 23:55.300
+You can submit it and see other people solutions,
+
+23:55.300 --> 23:58.200
+and you can kind of see like Okay, yeah, that makes sense.
+
+23:58.200 --> 24:00.990
+I see where they did this a little bit
+
+24:00.990 --> 24:03.560
+better on Ben. You can,
+
+24:03.940 --> 24:06.870
+you know, edit it, or you can comment on other people's You can
+
+24:06.880 --> 24:09.260
+up both. There's, you know, say, Oh, yeah, That was really
+
+24:09.260 --> 24:12.240
+clever. Andi. People can give you feedback on yours as well.
+
+24:12.240 --> 24:15.180
+So I think for us, that's been a really good
+
+24:15.180 --> 24:18.060
+one. Um, but I think Taylor, I would love for you to talk a
+
+24:18.060 --> 24:20.930
+little bit more about avenue of code because I know you've done that
+
+24:20.930 --> 24:23.720
+for quite a few years now, E
+
+24:23.730 --> 24:26.380
+get through, like, five days, and I'm like, I can't
+
+24:26.380 --> 24:28.960
+spend four hours on solving this problem.
+
+24:29.340 --> 24:32.310
+>> Advent of code is a ton of fun for those that haven't
+
+24:32.310 --> 24:35.120
+heard of it before. It is a yearly programming
+
+24:35.120 --> 24:37.890
+challenge leading up to Christmas, where you get a
+
+24:37.890 --> 24:40.870
+new problem every day and I forget
+
+24:40.870 --> 24:43.840
+when exactly they drop. It's something, uh, not very
+
+24:43.840 --> 24:46.740
+convenient for us here on the east coast of the U. S. It's
+
+24:46.740 --> 24:49.530
+like midnight UTC or something. So I'm not waking up at 4
+
+24:49.530 --> 24:52.430
+a.m. To go to a programming puzzle because they have
+
+24:52.430 --> 24:55.400
+a leader board where you can compete against everyone else in the world to see
+
+24:55.400 --> 24:58.310
+who does it the quickest. I'm not really in it for the
+
+24:58.320 --> 25:01.290
+competition side of it, but it's a good,
+
+25:01.300 --> 25:04.200
+interesting mix of problems that build on each
+
+25:04.200 --> 25:07.140
+other so often, even if it's not actually
+
+25:07.140 --> 25:09.580
+like you use part of the solution for the next solution. They're
+
+25:09.580 --> 25:12.260
+thematically related, where they use similar
+
+25:12.270 --> 25:15.230
+concepts for solutions. But
+
+25:15.230 --> 25:17.990
+there's a very big community around it. And for all of the
+
+25:17.990 --> 25:20.840
+problems, the solution that you submit is
+
+25:20.850 --> 25:23.600
+some simple text value, so you can solve it with
+
+25:23.610 --> 25:26.550
+anything that you want. Like you mentioned Cam. You could do an Excel
+
+25:26.550 --> 25:29.420
+spreadsheet or with pencil and paper. And this is
+
+25:29.420 --> 25:32.180
+really nice because it gives you the flexibility to say, Well,
+
+25:32.190 --> 25:35.140
+maybe I don't know how to solve this in Haskell yet, but I
+
+25:35.140 --> 25:38.040
+do know how I would solve it in Java or Python or
+
+25:38.040 --> 25:41.040
+whatever language I used before. So I'm going to do it there and
+
+25:41.040 --> 25:43.770
+then show that I can come up with the right
+
+25:43.770 --> 25:46.510
+solution and then figure out how to convert it over or
+
+25:46.520 --> 25:49.180
+just go look at other people's solutions and
+
+25:49.190 --> 25:52.130
+try to understand them and see what they're doing. Because maybe I wouldn't have been
+
+25:52.130 --> 25:54.910
+able to get there myself. Um, but yeah.
+
+25:54.910 --> 25:56.690
+Advent of code, super fun.
+
+25:56.700 --> 25:59.540
+>> You know, I was gonna say, I think I'm gonna start submitting
+
+25:59.540 --> 26:02.460
+some, uh, Excel spreadsheets as PR's into our code
+
+26:02.460 --> 26:05.450
+base. So e mean, it solves the problem,
+
+26:05.450 --> 26:05.920
+right?
+
+26:05.930 --> 26:08.810
+>> It does. You can submit those, but be ready for
+
+26:08.810 --> 26:09.690
+them to be rejected.
+
+26:09.700 --> 26:12.490
+>> Okay, that's understandable, but
+
+26:12.490 --> 26:15.240
+yeah, I think I think those air other tools that we can
+
+26:15.240 --> 26:18.090
+use to prepare for, you know, thinking
+
+26:18.090 --> 26:21.080
+quick on our feet because that's kind of what the interview process is all
+
+26:21.080 --> 26:23.910
+about is alright. I'm throwing a issue. How
+
+26:23.910 --> 26:26.690
+doe I create some resemblance off a
+
+26:26.690 --> 26:29.260
+solution in a five minute window.
+
+26:29.640 --> 26:32.160
+And the more you expose yourself to
+
+26:32.160 --> 26:34.750
+difficult problems and have to reason about difficult
+
+26:34.750 --> 26:37.410
+things, the quicker you are to find that
+
+26:37.410 --> 26:39.900
+solution or find a solution that at least solves a
+
+26:39.900 --> 26:42.900
+problem. Um, I think this week we were
+
+26:42.900 --> 26:45.860
+talking to one of our other engineer friends, Cody, and
+
+26:45.860 --> 26:48.590
+he was kind of talking and brought up. This proposition of, like,
+
+26:48.600 --> 26:51.540
+better is better or worse, is better in the programming
+
+26:51.540 --> 26:54.320
+world. And, you know, we could spend a lot of time and
+
+26:54.330 --> 26:57.250
+architect the perfect solution and, you know, be better
+
+26:57.250 --> 27:00.030
+is better. But if we're not able to
+
+27:00.040 --> 27:03.020
+get a solution out there and and get something in front
+
+27:03.020 --> 27:05.960
+of a customer or in front of whoever the
+
+27:05.960 --> 27:08.850
+stakeholder is like, what are we doing? So kind
+
+27:08.850 --> 27:11.530
+of worse is sometimes better because it's there,
+
+27:11.540 --> 27:14.130
+it's usable. They know how to deal with it
+
+27:14.140 --> 27:16.970
+on DSo. Like getting that practice
+
+27:16.970 --> 27:19.970
+with these, you know, coding challenges and things
+
+27:20.120 --> 27:22.580
+is gonna help you for different
+
+27:22.590 --> 27:25.420
+interviews as you progress in your career
+
+27:25.430 --> 27:27.620
+on move from place to place.
+
+27:27.630 --> 27:30.630
+Uh, but yeah, you know. And the funny thing
+
+27:30.630 --> 27:33.070
+is, like, Taylor, you and I have very different
+
+27:33.440 --> 27:35.790
+work experience. Mine
+
+27:35.800 --> 27:38.330
+is an intern turned
+
+27:38.340 --> 27:40.590
+engineer still working for the same place
+
+27:40.600 --> 27:43.520
+for, you know, almost going on five
+
+27:43.520 --> 27:46.180
+years now. So that's my experience.
+
+27:46.180 --> 27:49.100
+I have done some of these interview questions
+
+27:49.100 --> 27:52.010
+and stuff before, but it was right out of
+
+27:52.010 --> 27:54.750
+college, which for me, that was really hard to
+
+27:54.750 --> 27:57.720
+reason about. Like I had data structures. I had, you
+
+27:57.720 --> 28:00.490
+know, all these courses. But I hadn't had any
+
+28:00.490 --> 28:03.460
+practice. So for me, it was really difficult to like
+
+28:03.470 --> 28:05.670
+put those words into actions. Um,
+
+28:06.440 --> 28:09.060
+but luckily, you know, had
+
+28:09.060 --> 28:11.840
+opportunities here at pro Aunt had actually a
+
+28:11.840 --> 28:14.440
+couple of other opportunities. And they really
+
+28:14.440 --> 28:17.390
+value just the ability to verbalize
+
+28:17.400 --> 28:20.300
+what you're trying to dio. And so I
+
+28:20.300 --> 28:22.710
+would maybe even suggest that you do various
+
+28:22.710 --> 28:25.010
+challenges, maybe verbalize and
+
+28:25.010 --> 28:27.990
+say I'm doing this solution because
+
+28:28.000 --> 28:30.870
+even if it's just you in your room, I still
+
+28:30.870 --> 28:33.850
+think that's valuable for you. Moving forward. Yeah,
+
+28:33.850 --> 28:36.790
+>> I think that's a good way to get comfortable in
+
+28:36.790 --> 28:39.780
+that type of scenario, because clearly an interview coding
+
+28:39.780 --> 28:42.760
+challenge isn't exactly the same as your day job. Normally, you're
+
+28:42.760 --> 28:45.260
+not in front of a white board or explaining your problem
+
+28:45.260 --> 28:47.800
+solution as you're working through it. But
+
+28:47.800 --> 28:50.650
+one interesting way to work
+
+28:50.650 --> 28:53.290
+on these that I think has become more realistic
+
+28:53.290 --> 28:56.110
+recently is to stream your solution or
+
+28:56.120 --> 28:59.120
+maybe not stream it, but pretend like you are where Okay, if
+
+28:59.120 --> 29:02.120
+I was sitting here and I had my window open and there was a camera on me and I
+
+29:02.120 --> 29:04.710
+was streaming on YouTube, how would I
+
+29:04.710 --> 29:07.700
+explain to the people watching what it is that I'm doing and why
+
+29:07.700 --> 29:10.600
+I'm doing it? Because as someone who has conducted a
+
+29:10.600 --> 29:13.220
+fair amount of technical interviews.
+
+29:13.230 --> 29:15.870
+That's ultimately what I'm more interested in rather
+
+29:15.870 --> 29:18.730
+than can they solve this problem? So if I ask
+
+29:18.730 --> 29:21.710
+someone, can you solve the fizz buzz problem? And they say, yes, they
+
+29:21.710 --> 29:24.610
+quickly write it on the on the board. That's good. But I would
+
+29:24.610 --> 29:27.470
+prefer to hear you know, how they're working through how they're
+
+29:27.470 --> 29:29.400
+thinking how they like to approach problems.
+
+29:29.410 --> 29:32.320
+>> Yeah, I think the two point back to
+
+29:32.320 --> 29:35.160
+the article, I think he does a good job explaining of why he
+
+29:35.160 --> 29:38.050
+did what he did and some kind of as you read
+
+29:38.050 --> 29:41.000
+through the block post, you have the ability to kind
+
+29:41.000 --> 29:43.930
+of see how he reasoned about the problem. Um,
+
+29:43.940 --> 29:46.750
+you know, and obviously you hear how how we would reason and
+
+29:46.750 --> 29:49.400
+verbalize it, you know, through the podcast.
+
+29:49.410 --> 29:52.180
+But yeah, overall, I think this is a great block block
+
+29:52.180 --> 29:55.100
+post, and I really think we had a great time today on this On
+
+29:55.100 --> 29:56.800
+the on the podcast.
+
+29:56.810 --> 29:59.610
+>> Yeah, I sure did. I hope you all had a good
+
+29:59.610 --> 30:02.170
+time listening on. I think that will do it for us
+
+30:02.170 --> 30:04.630
+today. This has been the high School Weekly
+
+30:04.630 --> 30:07.560
+podcast. I'm your host, Taylor Foss AC. And with me
+
+30:07.560 --> 30:10.380
+today was Cameron Gara. If you'd like to learn
+
+30:10.380 --> 30:13.380
+more about the podcast or our newsletter, please
+
+30:13.380 --> 30:16.170
+visit our website Haskell weekly dot News
+
+30:16.440 --> 30:19.060
+Or you can catch us on social Media. Our Twitter
+
+30:19.060 --> 30:21.990
+handle is Haskell Weekly. Were on Reddit as High School Weekly
+
+30:21.990 --> 30:24.900
+were on Git Hub is high school weekly pretty much everywhere we're
+
+30:24.900 --> 30:27.800
+asking weekly. Also, if you could take a
+
+30:27.800 --> 30:30.290
+minute to go rate and review us on apple
+
+30:30.290 --> 30:33.020
+podcasts. We currently have a five star rating
+
+30:33.030 --> 30:35.960
+with 16 ratings. So that's 80 stars that people have given us.
+
+30:35.970 --> 30:38.910
+And if you want to give us some more, that's great. If you think we suck, let
+
+30:38.910 --> 30:40.640
+us know and we'll try to get better. You
+
+30:40.640 --> 30:43.480
+>> know, Haskell Weekly podcast is brought to you by I t. Pro
+
+30:43.480 --> 30:46.390
+TV, an e learning platform for I
+
+30:46.390 --> 30:49.140
+t professionals and also our employer.
+
+30:49.150 --> 30:51.700
+But, you know, we would love toe
+
+30:51.710 --> 30:54.280
+extend an offer if you're interested in an I t
+
+30:54.280 --> 30:56.980
+content, um, to you with a
+
+30:56.990 --> 30:59.520
+promo code of high school weekly
+
+30:59.530 --> 31:02.080
+30. That is high school
+
+31:02.090 --> 31:04.640
+weekly 30 All one word.
+
+31:04.650 --> 31:07.330
+Um and if you want to check it
+
+31:07.330 --> 31:09.550
+out. You know? Obviously have a free membership. Us. Well,
+
+31:09.550 --> 31:12.480
+so come over. I t pro TV. You
+
+31:12.480 --> 31:15.440
+know, it's I t pro dot tv. Easy to find.
+
+31:15.450 --> 31:18.240
+Easy to see. Um, come check out our great content
+
+31:18.250 --> 31:21.170
+and keep hanging out. We really love doing this. And
+
+31:21.170 --> 31:23.720
+we really are thankful that I t pro lets us do this.
+
+31:23.720 --> 31:26.040
+So it's been a good day, man.
+
+31:26.050 --> 31:28.550
+>> Sure has. I'll see you all next week
+
+31:28.780 --> 31:29.870
+piece by.
