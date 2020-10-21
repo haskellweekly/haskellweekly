@@ -563,7 +563,7 @@ episode27 = HW.Type.Episode.Episode
     [ "https://chrispenner.ca/posts/interview"
     , "https://hacktoberfest.digitalocean.com"
     , "https://github.com/kowainik/learn4haskell" ]
-  <*> HW.Type.Audio.textToAudio "https://haskell-weekly-podcast.nyc3.cdn.digitaloceanspaces.com/2020-10-19-episode-27.mp3"
+  <*> HW.Type.Audio.textToAudio "https://media.haskell-weekly.com/2020-10-19-episode-27.mp3"
   <*> HW.Type.Date.gregorianToDate 2020 10 19
   <*> HW.Type.Duration.timestampToDuration 31 33
   <*> HW.Type.Guid.textToGuid "5417c280-694e-4944-b7e9-f34c82b5f481"
