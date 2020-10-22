@@ -4,7 +4,7 @@ module HW.Handler.Podcast
 where
 
 import qualified Data.List
-import qualified Data.Map
+import qualified Data.Map as Map
 import qualified Data.Ord
 import qualified HW.Handler.Base
 import qualified HW.Template.Podcast
@@ -27,5 +27,5 @@ podcastHandler = do
       $ HW.Type.State.stateConfig state
       )
     . Data.List.sortOn (Data.Ord.Down . HW.Type.Episode.episodeDate)
-    . Data.Map.elems
+    . Map.elems
     $ HW.Type.State.stateEpisodes state

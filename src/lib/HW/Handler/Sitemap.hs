@@ -3,8 +3,8 @@ module HW.Handler.Sitemap
   )
 where
 
-import qualified Data.Map
-import qualified Data.Text
+import qualified Data.Map as Map
+import qualified Data.Text as Text
 import qualified HW.Handler.Base
 import qualified HW.Type.App
 import qualified HW.Type.Config
@@ -20,7 +20,7 @@ sitemapHandler = do
     . HW.Handler.Base.textResponse
         Network.HTTP.Types.ok200
         [(Network.HTTP.Types.hCacheControl, "public, max-age=900")]
-    . Data.Text.unlines
+    . Text.unlines
     . fmap
         (HW.Type.Route.routeToTextWith
         . HW.Type.Config.configBaseUrl
@@ -51,8 +51,8 @@ normalRoutes =
 
 episodeRoutes :: HW.Type.State.State -> [HW.Type.Route.Route]
 episodeRoutes =
-  fmap HW.Type.Route.RouteEpisode . Data.Map.keys . HW.Type.State.stateEpisodes
+  fmap HW.Type.Route.RouteEpisode . Map.keys . HW.Type.State.stateEpisodes
 
 issueRoutes :: HW.Type.State.State -> [HW.Type.Route.Route]
 issueRoutes =
-  fmap HW.Type.Route.RouteIssue . Data.Map.keys . HW.Type.State.stateIssues
+  fmap HW.Type.Route.RouteIssue . Map.keys . HW.Type.State.stateIssues

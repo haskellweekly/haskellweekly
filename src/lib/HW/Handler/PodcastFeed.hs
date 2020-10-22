@@ -4,7 +4,7 @@ module HW.Handler.PodcastFeed
 where
 
 import qualified Data.List
-import qualified Data.Map
+import qualified Data.Map as Map
 import qualified Data.Ord
 import qualified HW.Handler.Base
 import qualified HW.Template.PodcastFeed
@@ -23,7 +23,7 @@ podcastFeedHandler = do
     baseUrl = HW.Type.Config.configBaseUrl $ HW.Type.State.stateConfig state
     episodes =
       Data.List.sortOn (Data.Ord.Down . HW.Type.Episode.episodeDate)
-        . Data.Map.elems
+        . Map.elems
         $ HW.Type.State.stateEpisodes state
   pure
     . HW.Handler.Base.lbsResponse

@@ -3,7 +3,7 @@ module HW.Template.Episode
   )
 where
 
-import qualified Data.Text
+import qualified Data.Text as Text
 import qualified HW.Template.Base
 import qualified HW.Template.Podcast
 import qualified HW.Type.Article
@@ -83,16 +83,16 @@ episodeTemplate baseUrl episode captions =
           . mapM_ (H.p_ . H.toHtml)
           $ HW.Type.Caption.renderTranscript captions
 
-number :: HW.Type.Episode.Episode -> Data.Text.Text
+number :: HW.Type.Episode.Episode -> Text.Text
 number =
   mappend "Episode "
     . HW.Type.Number.numberToText
     . HW.Type.Episode.episodeNumber
 
-title :: HW.Type.Episode.Episode -> Data.Text.Text
+title :: HW.Type.Episode.Episode -> Text.Text
 title = HW.Type.Title.titleToText . HW.Type.Episode.episodeTitle
 
-date :: HW.Type.Episode.Episode -> Data.Text.Text
+date :: HW.Type.Episode.Episode -> Text.Text
 date = HW.Type.Date.dateToShortText . HW.Type.Episode.episodeDate
 
 articleLink :: HW.Type.Article.Article -> H.Html ()

@@ -12,7 +12,7 @@ module HW.Type.Number
   )
 where
 
-import qualified Data.Text
+import qualified Data.Text as Text
 import qualified Numeric.Natural
 import qualified Text.Read
 
@@ -34,12 +34,12 @@ numberToNatural (Number natural) = natural
 
 -- | Converts a number into text. This is a lot like 'show' except that the
 -- output is just the number without any constructors or anything.
-numberToText :: Number -> Data.Text.Text
-numberToText = Data.Text.pack . show . numberToNatural
+numberToText :: Number -> Text.Text
+numberToText = Text.pack . show . numberToNatural
 
 -- | Parses text into a number. This first parses the string as a natural
 -- number and then hands things off to 'numberToNatural'.
-textToNumber :: Data.Text.Text -> Either String Number
-textToNumber text = case Text.Read.readMaybe (Data.Text.unpack text) of
+textToNumber :: Text.Text -> Either String Number
+textToNumber text = case Text.Read.readMaybe (Text.unpack text) of
   Nothing -> Left $ "invalid Number: " <> show text
   Just natural -> naturalToNumber natural

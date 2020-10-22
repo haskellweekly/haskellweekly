@@ -13,19 +13,19 @@ module HW.Type.Audio
 where
 
 import qualified Data.Char
-import qualified Data.Text
+import qualified Data.Text as Text
 
 newtype Audio =
-  Audio Data.Text.Text
+  Audio Text.Text
   deriving (Eq, Show)
 
 -- | Unwraps an audio URL and gives you back the underlying text.
-audioToText :: Audio -> Data.Text.Text
+audioToText :: Audio -> Text.Text
 audioToText (Audio text) = text
 
 -- | Converts a string into an audio URL. If the string is all blank spaces,
 -- this will fail.
-textToAudio :: Data.Text.Text -> Either String Audio
-textToAudio text = if Data.Text.all Data.Char.isSpace text
+textToAudio :: Text.Text -> Either String Audio
+textToAudio text = if Text.all Data.Char.isSpace text
   then Left $ "invalid Audio: " <> show text
   else Right $ Audio text

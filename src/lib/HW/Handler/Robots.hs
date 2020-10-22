@@ -3,7 +3,7 @@ module HW.Handler.Robots
   )
 where
 
-import qualified Data.Text
+import qualified Data.Text as Text
 import qualified HW.Handler.Base
 import qualified HW.Type.App
 import qualified HW.Type.Config
@@ -18,7 +18,7 @@ robotsHandler = do
     . HW.Handler.Base.textResponse
         Network.HTTP.Types.ok200
         [(Network.HTTP.Types.hCacheControl, "public, max-age=86400")]
-    $ Data.Text.unlines
+    $ Text.unlines
         [ "User-agent: *"
         , "Allow: /"
         , "Sitemap: "

@@ -7,17 +7,17 @@ where
 
 import qualified Control.Monad
 import qualified Crypto.Hash.SHA1
-import qualified Data.ByteString
+import qualified Data.ByteString as ByteString
 import qualified Data.ByteString.Base64
 import qualified Data.ByteString.Builder
 import qualified Data.ByteString.Lazy
 import qualified Data.CaseInsensitive
-import qualified Data.IORef
+import qualified Data.IORef as IORef
 import qualified Data.Int
-import qualified Data.Map
-import qualified Data.Text
-import qualified Data.Text.Encoding
-import qualified Data.Text.Encoding.Error
+import qualified Data.Map as Map
+import qualified Data.Text as Text
+import qualified Data.Text.Encoding as Text
+import qualified Data.Text.Encoding.Error as Text
 import qualified Data.Time
 import qualified Data.Word
 import qualified GHC.Clock
@@ -33,7 +33,7 @@ import qualified Text.Printf
 
 -- | All of the middlewares are wrapped up in this single one so that you only
 -- have to apply one.
-middleware :: Data.IORef.IORef HW.Type.State.State -> Network.Wai.Middleware
+middleware :: IORef.IORef HW.Type.State.State -> Network.Wai.Middleware
 middleware ref =
   Network.Wai.Middleware.Gzip.gzip Network.Wai.Middleware.Gzip.def
     . addLogging
@@ -42,14 +42,14 @@ middleware ref =
     . addSecurityHeaders
     . Network.Wai.Middleware.Autohead.autohead
 
-addCaching :: Data.IORef.IORef HW.Type.State.State -> Network.Wai.Middleware
+addCaching :: IORef.IORef HW.Type.State.State -> Network.Wai.Middleware
 addCaching ref application request respond = do
   let
     method = requestMethod request
     key = (method, requestPath request)
-  cache <- fmap HW.Type.State.stateResponseCache $ Data.IORef.readIORef ref
+  cache <- fmap HW.Type.State.stateResponseCache $ IORef.readIORef ref
   now <- Data.Time.getCurrentTime
-  case Data.Map.lookup key cache of
+  case Map.lookup key cache of
     Just (expires, response) | expires >= now -> respond response
     _ -> application request $ \response -> do
       let
@@ -59,7 +59,7 @@ addCaching ref application request respond = do
         . HW.Type.State.modifyState ref
         $ \state -> state
             { HW.Type.State.stateResponseCache =
-              Data.Map.insert key (expires, response)
+              Map.insert key (expires, response)
                 $ HW.Type.State.stateResponseCache state
             }
       respond response
@@ -101,23 +101,23 @@ addLogging application request respond = do
       (allocation a1 a2)
     respond response
 
-iso8601 :: Data.Time.UTCTime -> Data.Text.Text
-iso8601 = Data.Text.pack
+iso8601 :: Data.Time.UTCTime -> Text.Text
+iso8601 = Text.pack
   . Data.Time.formatTime Data.Time.defaultTimeLocale "%Y-%m-%dT%H:%M:%S%3QZ"
 
-requestMethod :: Network.Wai.Request -> Data.Text.Text
+requestMethod :: Network.Wai.Request -> Text.Text
 requestMethod =
-  Data.Text.Encoding.decodeUtf8With Data.Text.Encoding.Error.lenientDecode
+  Text.decodeUtf8With Text.lenientDecode
     . Network.Wai.requestMethod
 
-requestPath :: Network.Wai.Request -> Data.Text.Text
+requestPath :: Network.Wai.Request -> Text.Text
 requestPath =
-  Data.Text.Encoding.decodeUtf8With Data.Text.Encoding.Error.lenientDecode
+  Text.decodeUtf8With Text.lenientDecode
     . Network.Wai.rawPathInfo
 
-requestQuery :: Network.Wai.Request -> Data.Text.Text
+requestQuery :: Network.Wai.Request -> Text.Text
 requestQuery =
-  Data.Text.Encoding.decodeUtf8With Data.Text.Encoding.Error.lenientDecode
+  Text.decodeUtf8With Text.lenientDecode
     . Network.Wai.rawQueryString
 
 responseStatus :: Network.Wai.Response -> Int
@@ -155,19 +155,19 @@ addEntityTagHeader application request respond =
       _ -> respond response
 
 -- | Gets an ETag from the @If-None-Match@ header on a request.
-getEntityTag :: Network.Wai.Request -> Maybe Data.ByteString.ByteString
+getEntityTag :: Network.Wai.Request -> Maybe ByteString.ByteString
 getEntityTag =
   lookup Network.HTTP.Types.Header.hIfNoneMatch . Network.Wai.requestHeaders
 
 -- | Makes an ETag for the @ETag@ header on a response.
-makeEntityTag :: Network.Wai.Response -> Maybe Data.ByteString.ByteString
+makeEntityTag :: Network.Wai.Response -> Maybe ByteString.ByteString
 makeEntityTag response = case response of
   Network.Wai.Internal.ResponseBuilder _ _ builder -> Just $ mconcat
-    [ Data.ByteString.pack [0x57, 0x2f, 0x22]
+    [ ByteString.pack [0x57, 0x2f, 0x22]
     , Data.ByteString.Base64.encode
     . Crypto.Hash.SHA1.hashlazy
     $ Data.ByteString.Builder.toLazyByteString builder
-    , Data.ByteString.singleton 0x22
+    , ByteString.singleton 0x22
     ]
   _ -> Nothing
 
@@ -186,8 +186,8 @@ addSecurityHeaders =
 -- | The value of the @Content-Security-Policy@ header.
 -- <https://scotthelme.co.uk/content-security-policy-an-introduction/>
 -- <https://www.ctrl.blog/entry/safari-csp-media-controls.html>
-contentSecurityPolicy :: Data.Text.Text
-contentSecurityPolicy = Data.Text.intercalate
+contentSecurityPolicy :: Text.Text
+contentSecurityPolicy = Text.intercalate
   "; "
   [ "base-uri 'none'"
   , "default-src 'none'"
@@ -201,8 +201,8 @@ contentSecurityPolicy = Data.Text.intercalate
 
 -- | The value of the @Feature-Policy@ header.
 -- <https://scotthelme.co.uk/a-new-security-header-feature-policy/>
-featurePolicy :: Data.Text.Text
-featurePolicy = Data.Text.intercalate
+featurePolicy :: Text.Text
+featurePolicy = Text.intercalate
   "; "
   [ "camera 'none'"
   , "fullscreen 'none'"
@@ -222,16 +222,16 @@ featurePolicy = Data.Text.intercalate
 -- | Adds a header to a response. This doesn't remove any existing headers with
 -- the same name, so it's possible to end up with duplicates.
 addHeader
-  :: Data.Text.Text
-  -> Data.Text.Text
+  :: Text.Text
+  -> Text.Text
   -> Network.HTTP.Types.ResponseHeaders
   -> Network.HTTP.Types.ResponseHeaders
 addHeader name value headers = makeHeader name value : headers
 
 -- | Makes a single header value. This function is mostly for convenience
 -- because turning strings into the proper name/value types is annoying.
-makeHeader :: Data.Text.Text -> Data.Text.Text -> Network.HTTP.Types.Header
+makeHeader :: Text.Text -> Text.Text -> Network.HTTP.Types.Header
 makeHeader name value =
-  ( Data.CaseInsensitive.mk $ Data.Text.Encoding.encodeUtf8 name
-  , Data.Text.Encoding.encodeUtf8 value
+  ( Data.CaseInsensitive.mk $ Text.encodeUtf8 name
+  , Text.encodeUtf8 value
   )

@@ -4,8 +4,8 @@ module HW.Template.PodcastFeed
 where
 
 import qualified Data.List.NonEmpty
-import qualified Data.Map
-import qualified Data.Text
+import qualified Data.Map as Map
+import qualified Data.Text as Text
 import qualified HW.Type.Article
 import qualified HW.Type.Audio
 import qualified HW.Type.BaseUrl
@@ -25,7 +25,7 @@ podcastFeedTemplate
 podcastFeedTemplate baseUrl episodes =
   let
     element name attributes =
-      Text.XML.Element name (Data.Map.fromList attributes)
+      Text.XML.Element name (Map.fromList attributes)
     node name attributes = Text.XML.NodeElement . element name attributes
     text = Text.XML.NodeContent
     itemTitle =
@@ -38,7 +38,7 @@ podcastFeedTemplate baseUrl episodes =
     itemDescription =
       text . HW.Type.Summary.summaryToText . HW.Type.Episode.episodeSummary
     itemEnclosureLength =
-      Data.Text.pack
+      Text.pack
         . show
         . HW.Type.Size.sizeToInteger
         . HW.Type.Episode.episodeSize
@@ -77,7 +77,7 @@ podcastFeedTemplate baseUrl episodes =
       ]
     channelLink =
       text $ HW.Type.Route.routeToTextWith baseUrl HW.Type.Route.RoutePodcast
-    channelDescription = text $ Data.Text.unwords
+    channelDescription = text $ Text.unwords
       [ "Haskell Weekly covers the Haskell progamming language. Listen to"
       , "professional software developers discuss using functional programming to"
       , "solve real-world business problems. Each episode uses a conversational"

@@ -8,7 +8,7 @@ module HW.Type.Route
   )
 where
 
-import qualified Data.Text
+import qualified Data.Text as Text
 import qualified HW.Type.BaseUrl
 import qualified HW.Type.Number
 import qualified HW.Type.Redirect
@@ -43,7 +43,7 @@ isRedirect route = case route of
   _ -> False
 
 -- | Renders a route as text.
-routeToText :: Route -> Data.Text.Text
+routeToText :: Route -> Text.Text
 routeToText route = case route of
   RouteAdvertising -> "/advertising.html"
   RouteAppleBadge -> "/apple-podcasts.svg"
@@ -72,14 +72,14 @@ routeToText route = case route of
 
 -- | Renders a route as text with the given base URL. Redirects are not
 -- affected by the base URL, but everything else is.
-routeToTextWith :: HW.Type.BaseUrl.BaseUrl -> Route -> Data.Text.Text
+routeToTextWith :: HW.Type.BaseUrl.BaseUrl -> Route -> Text.Text
 routeToTextWith baseUrl route = if isRedirect route
   then routeToText route
   else mappend (HW.Type.BaseUrl.baseUrlToText baseUrl) $ routeToText route
 
 -- | Parses a list of strings as a route. Note that some lists of strings go to
 -- the same place, so this isn't necessarily a one to one mapping.
-textToRoute :: [Data.Text.Text] -> Maybe Route
+textToRoute :: [Text.Text] -> Maybe Route
 textToRoute path = case path of
   [] -> Just RouteIndex
   ["advertising.html"] -> Just RouteAdvertising
@@ -103,7 +103,7 @@ textToRoute path = case path of
   _ -> textToRedirect path
 
 -- | Handles routing all redirect routes.
-textToRedirect :: [Data.Text.Text] -> Maybe Route
+textToRedirect :: [Text.Text] -> Maybe Route
 textToRedirect path = fmap routeToRedirect $ case path of
   ["haskell-weekly.atom"] -> Just RouteNewsletterFeed
   ["haskell-weekly.rss"] -> Just RouteNewsletterFeed
@@ -125,12 +125,12 @@ textToRedirect path = fmap routeToRedirect $ case path of
 -- | Handles routing content by stripping the given extension, parsing what's
 -- left of the path, and wrapping the result in a route.
 routeContent
-  :: Data.Text.Text
+  :: Text.Text
   -> (HW.Type.Number.Number -> HW.Type.Route.Route)
-  -> Data.Text.Text
+  -> Text.Text
   -> Maybe HW.Type.Route.Route
 routeContent extension route file =
-  case Data.Text.stripSuffix ("." <> extension) file of
+  case Text.stripSuffix ("." <> extension) file of
     Nothing -> Nothing
     Just text -> case HW.Type.Number.textToNumber text of
       Left _ -> Nothing

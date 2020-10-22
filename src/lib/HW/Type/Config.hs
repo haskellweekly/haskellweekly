@@ -6,7 +6,7 @@ module HW.Type.Config
   )
 where
 
-import qualified Data.Text
+import qualified Data.Text as Text
 import qualified HW.Type.BaseUrl
 import qualified Network.Wai.Handler.Warp
 import qualified Paths_haskellweekly
@@ -16,7 +16,7 @@ import qualified Text.Read
 data Config = Config
   { configBaseUrl :: HW.Type.BaseUrl.BaseUrl
   , configDataDirectory :: FilePath
-  , configGoogleSiteVerification :: Maybe Data.Text.Text
+  , configGoogleSiteVerification :: Maybe Text.Text
   , configPort :: Network.Wai.Handler.Warp.Port
   }
   deriving (Eq, Show)
@@ -43,15 +43,15 @@ getConfig = do
 -- something.
 getBaseUrl :: IO HW.Type.BaseUrl.BaseUrl
 getBaseUrl =
-  fmap (HW.Type.BaseUrl.textToBaseUrl . maybe Data.Text.empty Data.Text.pack)
+  fmap (HW.Type.BaseUrl.textToBaseUrl . maybe Text.empty Text.pack)
     $ System.Environment.lookupEnv "BASE_URL"
 
 -- | This is used to verify that I actually own the website as far as Google is
 -- concerned. The verification is useful for Google's webmaster tools.
-getGoogleSiteVerification :: IO (Maybe Data.Text.Text)
+getGoogleSiteVerification :: IO (Maybe Text.Text)
 getGoogleSiteVerification = do
   maybeString <- System.Environment.lookupEnv "GOOGLE_SITE_VERIFICATION"
-  pure $ fmap Data.Text.pack maybeString
+  pure $ fmap Text.pack maybeString
 
 -- | Gets the port that the server should run on. By default this is @8080@.
 getPort :: IO Network.Wai.Handler.Warp.Port

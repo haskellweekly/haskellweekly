@@ -9,7 +9,7 @@ module HW.Type.Duration
   )
 where
 
-import qualified Data.Text
+import qualified Data.Text as Text
 import qualified Numeric.Natural
 import qualified Text.Printf
 
@@ -25,10 +25,10 @@ durationToNatural (Duration natural) = natural
 -- | Converts a duration into text. Uses the format @MM:SS@. The minutes will
 -- always be there, even if they're zero. The seconds will be zero padded to
 -- two places. There will never be any hours.
-durationToText :: Duration -> Data.Text.Text
+durationToText :: Duration -> Text.Text
 durationToText duration =
   let (minutes, seconds) = quotRem (durationToNatural duration) 60
-  in Data.Text.pack $ Text.Printf.printf "%d:%02d" minutes seconds
+  in Text.pack $ Text.Printf.printf "%d:%02d" minutes seconds
 
 -- | Converts a natural number of seconds into a duration. This can fail if the
 -- duration is zero seconds, because what's the point of having an empty

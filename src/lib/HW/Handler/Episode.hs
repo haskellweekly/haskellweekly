@@ -3,9 +3,9 @@ module HW.Handler.Episode
   )
 where
 
-import qualified Data.Map
-import qualified Data.Text
-import qualified Data.Text.Encoding
+import qualified Data.Map as Map
+import qualified Data.Text as Text
+import qualified Data.Text.Encoding as Text
 import qualified HW.Handler.Base
 import qualified HW.Template.Episode
 import qualified HW.Type.App
@@ -15,13 +15,13 @@ import qualified HW.Type.Number
 import qualified HW.Type.State
 import qualified Network.HTTP.Types
 import qualified Network.Wai
-import qualified System.FilePath
+import qualified System.FilePath as FilePath
 
 episodeHandler :: HW.Type.Number.Number -> HW.Type.App.App Network.Wai.Response
 episodeHandler number = do
   state <- HW.Type.App.getState
   let episodes = HW.Type.State.stateEpisodes state
-  case Data.Map.lookup number episodes of
+  case Map.lookup number episodes of
     Nothing -> pure HW.Handler.Base.notFoundResponse
     Just episode -> do
       captions <- readCaptionFile number
@@ -41,10 +41,10 @@ readCaptionFile
 readCaptionFile number = do
   let
     name = "episode-" <> HW.Type.Number.numberToText number
-    file = System.FilePath.addExtension (Data.Text.unpack name) "vtt"
-    path = System.FilePath.combine "podcast" file
+    file = FilePath.addExtension (Text.unpack name) "vtt"
+    path = FilePath.combine "podcast" file
   byteString <- HW.Type.App.readDataFile path
-  text <- case Data.Text.Encoding.decodeUtf8' byteString of
+  text <- case Text.decodeUtf8' byteString of
     Left exception -> fail $ show exception
     Right text -> pure text
   case HW.Type.Caption.parseVtt text of

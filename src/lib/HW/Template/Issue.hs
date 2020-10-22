@@ -4,7 +4,7 @@ module HW.Template.Issue
 where
 
 import qualified CMark
-import qualified Data.Text
+import qualified Data.Text as Text
 import qualified HW.Template.Base
 import qualified HW.Template.Newsletter
 import qualified HW.Type.BaseUrl
@@ -36,9 +36,9 @@ issueTemplate baseUrl issue node =
         HW.Template.Newsletter.newsletterActionTemplate baseUrl
         H.div_ [H.class_ "lh-copy"] . H.toHtmlRaw $ CMark.nodeToHtml [] node
 
-title :: HW.Type.Issue.Issue -> Data.Text.Text
+title :: HW.Type.Issue.Issue -> Text.Text
 title =
   mappend "Issue " . HW.Type.Number.numberToText . HW.Type.Issue.issueNumber
 
-date :: HW.Type.Issue.Issue -> Data.Text.Text
+date :: HW.Type.Issue.Issue -> Text.Text
 date = HW.Type.Date.dateToShortText . HW.Type.Issue.issueDate

@@ -4,7 +4,7 @@ module HW.Handler.Index
 where
 
 import qualified Data.List
-import qualified Data.Map
+import qualified Data.Map as Map
 import qualified Data.Maybe
 import qualified Data.Ord
 import qualified HW.Handler.Base
@@ -23,12 +23,12 @@ indexHandler = do
     maybeIssue =
       Data.Maybe.listToMaybe
         . Data.List.sortOn (Data.Ord.Down . HW.Type.Issue.issueDate)
-        . Data.Map.elems
+        . Map.elems
         $ HW.Type.State.stateIssues state
     maybeEpisode =
       Data.Maybe.listToMaybe
         . Data.List.sortOn (Data.Ord.Down . HW.Type.Episode.episodeDate)
-        . Data.Map.elems
+        . Map.elems
         $ HW.Type.State.stateEpisodes state
   pure
     . HW.Handler.Base.htmlResponse

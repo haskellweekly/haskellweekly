@@ -6,7 +6,7 @@ module HW.Main
   )
 where
 
-import qualified Data.IORef
+import qualified Data.IORef as IORef
 import qualified Data.Version
 import qualified HW.Server
 import qualified HW.Type.Config
@@ -24,5 +24,5 @@ main = do
     <> " ..."
   config <- HW.Type.Config.getConfig
   state <- HW.Type.State.configToState config
-  stateRef <- Data.IORef.newIORef state
+  stateRef <- IORef.newIORef state
   HW.Server.server stateRef

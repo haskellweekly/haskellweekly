@@ -4,7 +4,7 @@ module HW.Template.Base
   )
 where
 
-import qualified Data.Text
+import qualified Data.Text as Text
 import qualified HW.Type.BaseUrl
 import qualified HW.Type.Route
 import qualified Lucid as H
@@ -12,7 +12,7 @@ import qualified Lucid.Base as H
 
 baseTemplate
   :: HW.Type.BaseUrl.BaseUrl
-  -> Data.Text.Text
+  -> Text.Text
   -> H.Html ()
   -> H.Html ()
   -> H.Html ()
@@ -92,10 +92,10 @@ baseTemplate baseUrl title head_ body = do
                   "on GitHub"
                 "."
 
-metaOpenGraph :: Data.Text.Text -> Data.Text.Text -> H.Html ()
+metaOpenGraph :: Text.Text -> Text.Text -> H.Html ()
 metaOpenGraph property content =
   H.meta_ [H.content_ content, H.makeAttribute "property" $ "og:" <> property]
 
-metaTwitter :: Data.Text.Text -> Data.Text.Text -> H.Html ()
+metaTwitter :: Text.Text -> Text.Text -> H.Html ()
 metaTwitter name content =
   H.meta_ [H.content_ content, H.name_ $ "twitter:" <> name]

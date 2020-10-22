@@ -8,14 +8,14 @@ module HW.Issues
 where
 
 import qualified Data.Bool
-import qualified Data.Map
+import qualified Data.Map as Map
 import qualified Data.Traversable
 import qualified HW.Type.Date
 import qualified HW.Type.Issue
 import qualified HW.Type.Number
 
 -- | Convenient type alias for a map of issues by number.
-type Issues = Data.Map.Map HW.Type.Number.Number HW.Type.Issue.Issue
+type Issues = Map.Map HW.Type.Number.Number HW.Type.Issue.Issue
 
 -- | All of the published issues. Note that this is wrapper in 'Either' to
 -- handle any of the issues being invalid or the entire collection being
@@ -260,7 +260,7 @@ issues = do
     , issue234
     ]
   checkNumbers validIssues
-  pure $ foldr insertIssue Data.Map.empty validIssues
+  pure $ foldr insertIssue Map.empty validIssues
 
 -- | Checks to make sure that all of the issue numbers are increasing without
 -- gaps starting from one.
@@ -275,7 +275,7 @@ checkNumbers =
 -- already exists with this issue's number, the existing issue will be
 -- overwritten with the new one.
 insertIssue :: HW.Type.Issue.Issue -> Issues -> Issues
-insertIssue issue = Data.Map.insert (HW.Type.Issue.issueNumber issue) issue
+insertIssue issue = Map.insert (HW.Type.Issue.issueNumber issue) issue
 
 issue1 :: Either String HW.Type.Issue.Issue
 issue1 =

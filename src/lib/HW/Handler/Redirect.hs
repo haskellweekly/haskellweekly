@@ -3,7 +3,7 @@ module HW.Handler.Redirect
   )
 where
 
-import qualified Data.Text.Encoding
+import qualified Data.Text.Encoding as Text
 import qualified HW.Handler.Base
 import qualified HW.Type.App
 import qualified HW.Type.Redirect
@@ -17,7 +17,7 @@ redirectHandler redirect =
     $ HW.Handler.Base.statusResponse
         Network.HTTP.Types.found302
         [ ( Network.HTTP.Types.hLocation
-          , Data.Text.Encoding.encodeUtf8
+          , Text.encodeUtf8
             $ HW.Type.Redirect.redirectToText redirect
           )
         ]

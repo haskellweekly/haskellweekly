@@ -14,7 +14,7 @@ import qualified Control.Monad
 import qualified Data.Char
 import qualified Data.List.NonEmpty
 import qualified Data.Maybe
-import qualified Data.Text
+import qualified Data.Text as Text
 import qualified Data.Time
 import qualified Numeric.Natural
 import qualified Text.ParserCombinators.ReadP
@@ -24,7 +24,7 @@ data Caption = Caption
   { captionIdentifier :: Numeric.Natural.Natural
   , captionStart :: Data.Time.TimeOfDay
   , captionEnd :: Data.Time.TimeOfDay
-  , captionPayload :: Data.List.NonEmpty.NonEmpty Data.Text.Text
+  , captionPayload :: Data.List.NonEmpty.NonEmpty Text.Text
   }
   deriving (Eq, Show)
 
@@ -33,18 +33,18 @@ data Caption = Caption
 -- informative error message, but the underlying parsing library doesn't easily
 -- support that. And since we're dealing with a small set of files added one at
 -- a time, it should be easy to identify the problem.
-parseVtt :: Data.Text.Text -> Maybe [Caption]
+parseVtt :: Text.Text -> Maybe [Caption]
 parseVtt =
   Data.Maybe.listToMaybe
     . fmap fst
     . filter (null . snd)
     . Text.ParserCombinators.ReadP.readP_to_S vttP
-    . Data.Text.unpack
+    . Text.unpack
 
 -- | Renders a bunch of captions as a transcript. This throws away all of the
 -- information that isn't text. Each element of the result list is a line from
 -- one person. Lines of dialogue start with @">> "@.
-renderTranscript :: [Caption] -> [Data.Text.Text]
+renderTranscript :: [Caption] -> [Text.Text]
 renderTranscript =
   renderCaptionPayload . concatMap (Data.List.NonEmpty.toList . captionPayload)
 
@@ -115,11 +115,11 @@ timestampP = do
 
 -- | Parses a single line of text in a caption. This requires Unix style line
 -- endings (newline only, no carriage return).
-lineP :: Parser Data.Text.Text
+lineP :: Parser Text.Text
 lineP = do
   line <- Text.ParserCombinators.ReadP.munch1 (/= '\n')
   charP '\n'
-  pure $ Data.Text.pack line
+  pure $ Text.pack line
 
 -- | Parses a single character and throws it away.
 charP :: Char -> Parser ()
@@ -140,9 +140,9 @@ nonEmptyP p =
   (Data.List.NonEmpty.:|) <$> p <*> Text.ParserCombinators.ReadP.many p
 
 -- | Parses a string and throws it away.
-stringP :: Data.Text.Text -> Parser ()
+stringP :: Text.Text -> Parser ()
 stringP =
-  Control.Monad.void . Text.ParserCombinators.ReadP.string . Data.Text.unpack
+  Control.Monad.void . Text.ParserCombinators.ReadP.string . Text.unpack
 
 -- | Converts a timestamp (hours, minutes, seconds, milliseconds) into an
 -- integral number of picoseconds. This is mainly useful for conversion into
@@ -190,16 +190,16 @@ millisecondsToPicoseconds milliseconds = milliseconds * 1000000000
 --
 -- > >> We've been sent good weather.
 -- > >> Praise be.
-renderCaptionPayload :: [Data.Text.Text] -> [Data.Text.Text]
+renderCaptionPayload :: [Text.Text] -> [Text.Text]
 renderCaptionPayload =
-  fmap Data.Text.unwords
+  fmap Text.unwords
     . filter (not . null)
     . uncurry (:)
     . foldr
-        (\text (buffer, list) -> if text == Data.Text.pack ">>"
+        (\text (buffer, list) -> if text == Text.pack ">>"
           then ([], (text : buffer) : list)
           else (text : buffer, list)
         )
         ([], [])
-    . Data.Text.words
-    . Data.Text.unwords
+    . Text.words
+    . Text.unwords

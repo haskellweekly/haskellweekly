@@ -7,7 +7,7 @@ module HW.Episodes
   )
 where
 
-import qualified Data.Map
+import qualified Data.Map as Map
 import qualified Data.Set
 import qualified Data.Traversable
 import qualified HW.Type.Articles
@@ -23,7 +23,7 @@ import qualified HW.Type.Title
 import qualified Numeric.Natural
 
 -- | Convenient type alias for a map of episodes by number.
-type Episodes = Data.Map.Map HW.Type.Number.Number HW.Type.Episode.Episode
+type Episodes = Map.Map HW.Type.Number.Number HW.Type.Episode.Episode
 
 -- | All of the published episodes. Note that this is wrapper in 'Either' to
 -- handle any of the episodes being invalid or the entire collection being
@@ -62,7 +62,7 @@ episodes = do
     ]
   checkGuids validEpisodes Data.Set.empty
   checkNumbers validEpisodes 1
-  pure $ foldr insertEpisode Data.Map.empty validEpisodes
+  pure $ foldr insertEpisode Map.empty validEpisodes
 
 -- | Checks to make sure that none of the episode GUIDs have been used more
 -- than once.
@@ -97,7 +97,7 @@ checkNumbers es current = case es of
 -- of keys being overwritten.
 insertEpisode :: HW.Type.Episode.Episode -> Episodes -> Episodes
 insertEpisode episode =
-  Data.Map.insert (HW.Type.Episode.episodeNumber episode) episode
+  Map.insert (HW.Type.Episode.episodeNumber episode) episode
 
 episode1 :: Either String HW.Type.Episode.Episode
 episode1 =

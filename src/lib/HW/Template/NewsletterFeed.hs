@@ -5,7 +5,7 @@ where
 
 import qualified CMark
 import qualified Data.List
-import qualified Data.Map
+import qualified Data.Map as Map
 import qualified Data.Maybe
 import qualified Data.Ord
 import qualified HW.Type.BaseUrl
@@ -22,7 +22,7 @@ newsletterFeedTemplate
 newsletterFeedTemplate baseUrl issues =
   let
     element name attributes =
-      Text.XML.Element name (Data.Map.fromList attributes)
+      Text.XML.Element name (Map.fromList attributes)
     node name attributes = Text.XML.NodeElement . element name attributes
     text = Text.XML.NodeContent
     entryLink =

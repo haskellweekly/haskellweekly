@@ -4,10 +4,10 @@ module HW.Server
   )
 where
 
-import qualified Data.ByteString
-import qualified Data.IORef
-import qualified Data.Text
-import qualified Data.Text.Encoding
+import qualified Data.ByteString as ByteString
+import qualified Data.IORef as IORef
+import qualified Data.Text as Text
+import qualified Data.Text.Encoding as Text
 import qualified Data.Version
 import qualified HW.Application
 import qualified HW.Handler.Base
@@ -20,9 +20,9 @@ import qualified Network.Wai.Handler.Warp
 import qualified Paths_haskellweekly
 
 -- | Starts up the server. This function never returns.
-server :: Data.IORef.IORef HW.Type.State.State -> IO ()
+server :: IORef.IORef HW.Type.State.State -> IO ()
 server ref = do
-  state <- Data.IORef.readIORef ref
+  state <- IORef.readIORef ref
   let config = HW.Type.State.stateConfig state
   Network.Wai.Handler.Warp.runSettings (configToSettings config)
     . HW.Middleware.middleware ref
@@ -56,9 +56,9 @@ onExceptionResponse _ = HW.Handler.Base.statusResponse
 -- | The server name returned in the "Server" response header. This will be
 -- formatted like @haskellweekly/VERSION@, where @VERSION@ is defined by the
 -- package. Having this available as a header makes debugging things easier.
-serverName :: Data.ByteString.ByteString
+serverName :: ByteString.ByteString
 serverName =
-  Data.Text.Encoding.encodeUtf8
-    . Data.Text.pack
+  Text.encodeUtf8
+    . Text.pack
     $ "haskellweekly/"
     <> Data.Version.showVersion Paths_haskellweekly.version

@@ -8,11 +8,11 @@ module HW.Handler.Base
   )
 where
 
-import qualified Data.ByteString
+import qualified Data.ByteString as ByteString
 import qualified Data.ByteString.Lazy
-import qualified Data.Text
-import qualified Data.Text.Encoding
-import qualified Data.Text.Encoding.Error
+import qualified Data.Text as Text
+import qualified Data.Text.Encoding as Text
+import qualified Data.Text.Encoding.Error as Text
 import qualified HW.Type.App
 import qualified Lucid
 import qualified Network.HTTP.Types
@@ -21,22 +21,22 @@ import qualified Network.Wai
 bsResponse
   :: Network.HTTP.Types.Status
   -> Network.HTTP.Types.ResponseHeaders
-  -> Data.ByteString.ByteString
+  -> ByteString.ByteString
   -> Network.Wai.Response
 bsResponse status extraHeaders body =
   let
     contentLength =
-      Data.Text.Encoding.encodeUtf8
-        . Data.Text.pack
+      Text.encodeUtf8
+        . Text.pack
         . show
-        $ Data.ByteString.length body
+        $ ByteString.length body
     headers =
       (Network.HTTP.Types.hContentLength, contentLength) : extraHeaders
   in Network.Wai.responseLBS status headers
     $ Data.ByteString.Lazy.fromStrict body
 
 fileResponse
-  :: Data.Text.Text -> FilePath -> HW.Type.App.App Network.Wai.Response
+  :: Text.Text -> FilePath -> HW.Type.App.App Network.Wai.Response
 fileResponse mime file = do
   let
     status = Network.HTTP.Types.ok200
@@ -74,27 +74,27 @@ statusResponse
   -> Network.HTTP.Types.ResponseHeaders
   -> Network.Wai.Response
 statusResponse status headers = textResponse status headers
-  $ (Data.Text.pack . show $ Network.HTTP.Types.statusCode status)
+  $ (Text.pack . show $ Network.HTTP.Types.statusCode status)
   <> " "
-  <> Data.Text.Encoding.decodeUtf8With
-    Data.Text.Encoding.Error.lenientDecode
+  <> Text.decodeUtf8With
+    Text.lenientDecode
     (Network.HTTP.Types.statusMessage status)
 
 textResponse
   :: Network.HTTP.Types.Status
   -> Network.HTTP.Types.ResponseHeaders
-  -> Data.Text.Text
+  -> Text.Text
   -> Network.Wai.Response
 textResponse status extraHeaders text =
   let
-    body = Data.Text.Encoding.encodeUtf8 text
+    body = Text.encodeUtf8 text
     headers = withContentType "text/plain; charset=utf-8" extraHeaders
   in bsResponse status headers body
 
 withContentType
-  :: Data.Text.Text
+  :: Text.Text
   -> Network.HTTP.Types.ResponseHeaders
   -> Network.HTTP.Types.ResponseHeaders
 withContentType mime headers =
-  (Network.HTTP.Types.hContentType, Data.Text.Encoding.encodeUtf8 mime)
+  (Network.HTTP.Types.hContentType, Text.encodeUtf8 mime)
     : headers

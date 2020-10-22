@@ -7,10 +7,10 @@ module HW.Type.State
   )
 where
 
-import qualified Data.ByteString
-import qualified Data.IORef
-import qualified Data.Map
-import qualified Data.Text
+import qualified Data.ByteString as ByteString
+import qualified Data.IORef as IORef
+import qualified Data.Map as Map
+import qualified Data.Text as Text
 import qualified Data.Time
 import qualified HW.Episodes
 import qualified HW.Issues
@@ -20,11 +20,11 @@ import qualified Network.Wai
 data State = State
   { stateConfig :: HW.Type.Config.Config
   , stateEpisodes :: HW.Episodes.Episodes
-  , stateFileCache :: Data.Map.Map FilePath Data.ByteString.ByteString
+  , stateFileCache :: Map.Map FilePath ByteString.ByteString
   , stateIssues :: HW.Issues.Issues
   , stateResponseCache
-      :: Data.Map.Map
-        (Data.Text.Text, Data.Text.Text)
+      :: Map.Map
+        (Text.Text, Text.Text)
         (Data.Time.UTCTime, Network.Wai.Response)
   }
 
@@ -37,11 +37,11 @@ configToState config = do
   pure State
     { stateConfig = config
     , stateEpisodes = episodes
-    , stateFileCache = Data.Map.empty
+    , stateFileCache = Map.empty
     , stateIssues = issues
-    , stateResponseCache = Data.Map.empty
+    , stateResponseCache = Map.empty
     }
 
-modifyState :: Data.IORef.IORef State -> (State -> State) -> IO ()
+modifyState :: IORef.IORef State -> (State -> State) -> IO ()
 modifyState ref modify =
-  Data.IORef.atomicModifyIORef' ref $ \state -> (modify state, ())
+  IORef.atomicModifyIORef' ref $ \state -> (modify state, ())

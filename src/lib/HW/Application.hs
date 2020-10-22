@@ -5,11 +5,11 @@ module HW.Application
   )
 where
 
-import qualified Control.Monad.Trans.Reader
-import qualified Data.IORef
-import qualified Data.Text
-import qualified Data.Text.Encoding
-import qualified Data.Text.Encoding.Error
+import qualified Control.Monad.Trans.Reader as Reader
+import qualified Data.IORef as IORef
+import qualified Data.Text as Text
+import qualified Data.Text.Encoding as Text
+import qualified Data.Text.Encoding.Error as Text
 import qualified HW.Handler.Advertising
 import qualified HW.Handler.Base
 import qualified HW.Handler.Episode
@@ -34,11 +34,11 @@ import qualified Network.Wai
 -- | The whole application. From a high level, this is responsible for checking
 -- the request method and path. If those route to an appropriate handler, this
 -- calls that handler and returns the response.
-application :: Data.IORef.IORef HW.Type.State.State -> Network.Wai.Application
+application :: IORef.IORef HW.Type.State.State -> Network.Wai.Application
 application ref request respond =
   case (requestMethod request, requestRoute request) of
     ("GET", Just route) -> do
-      response <- Control.Monad.Trans.Reader.runReaderT
+      response <- Reader.runReaderT
         (handle route request)
         ref
       respond response
@@ -47,9 +47,9 @@ application ref request respond =
 -- | Gets the request method as a string. This is convenient because request
 -- methods are technically byte strings, but almost always they can be thought
 -- of as plain ASCII strings.
-requestMethod :: Network.Wai.Request -> Data.Text.Text
+requestMethod :: Network.Wai.Request -> Text.Text
 requestMethod =
-  Data.Text.Encoding.decodeUtf8With Data.Text.Encoding.Error.lenientDecode
+  Text.decodeUtf8With Text.lenientDecode
     . Network.Wai.requestMethod
 
 -- | Gets the route out of the request. If the request's path doesn't match
@@ -70,7 +70,7 @@ handle route request = case route of
   HW.Type.Route.RouteCaptions number ->
     HW.Handler.Base.fileResponse "text/vtt"
       $ "podcast/episode-"
-      <> Data.Text.unpack (HW.Type.Number.numberToText number)
+      <> Text.unpack (HW.Type.Number.numberToText number)
       <> ".vtt"
   HW.Type.Route.RouteEpisode number ->
     HW.Handler.Episode.episodeHandler number

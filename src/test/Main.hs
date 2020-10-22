@@ -6,12 +6,12 @@ where
 import qualified CMark
 import qualified Control.Exception
 import qualified Control.Monad
-import qualified Data.ByteString
-import qualified Data.Text
-import qualified Data.Text.Encoding
+import qualified Data.ByteString as ByteString
+import qualified Data.Text as Text
+import qualified Data.Text.Encoding as Text
 import qualified HaskellWeekly
 import qualified System.Directory
-import qualified System.FilePath
+import qualified System.FilePath as FilePath
 
 main :: IO ()
 main = do
@@ -26,30 +26,30 @@ main = do
   dataDirectory <- HaskellWeekly.getDataDir
   do
     putStrLn "Parsing issues ..."
-    let directory = System.FilePath.combine dataDirectory "newsletter"
+    let directory = FilePath.combine dataDirectory "newsletter"
     entries <- System.Directory.listDirectory directory
     Control.Monad.forM_ entries $ \entry -> do
-      let file = System.FilePath.combine directory entry
-      contents <- Data.ByteString.readFile file
+      let file = FilePath.combine directory entry
+      contents <- ByteString.readFile file
       Control.Monad.void
         . Control.Exception.evaluate
-        . Data.Text.length
+        . Text.length
         . CMark.commonmarkToHtml []
-        $ Data.Text.Encoding.decodeUtf8 contents
+        $ Text.decodeUtf8 contents
     putStrLn $ "Parsed " <> pluralize "issue" (length entries) <> "."
   do
     putStrLn "Parsing episodes ..."
-    let directory = System.FilePath.combine dataDirectory "podcast"
+    let directory = FilePath.combine dataDirectory "podcast"
     entries <- System.Directory.listDirectory directory
     Control.Monad.forM_ entries $ \entry -> do
-      let file = System.FilePath.combine directory entry
-      contents <- Data.ByteString.readFile file
-      case HaskellWeekly.parseVtt $ Data.Text.Encoding.decodeUtf8 contents of
+      let file = FilePath.combine directory entry
+      contents <- ByteString.readFile file
+      case HaskellWeekly.parseVtt $ Text.decodeUtf8 contents of
         Nothing -> fail entry
         Just captions ->
           Control.Monad.void
             . Control.Exception.evaluate
-            . Data.Text.length
+            . Text.length
             . mconcat
             $ HaskellWeekly.renderTranscript captions
     putStrLn $ "Parsed " <> pluralize "episode" (length entries) <> "."
