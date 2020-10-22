@@ -53,4 +53,5 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 
 ## Call for participation
 
-undefined
+-   [inline-java: Don't write on stderr each time an Exception occurs](https://github.com/tweag/inline-java/issues/166)
+-   [restyled.io: Clarify that restyled-fork PRs are outside contributions](https://github.com/restyled-io/restyled.io/issues/220)
