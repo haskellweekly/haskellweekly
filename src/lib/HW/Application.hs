@@ -27,6 +27,7 @@ import qualified HW.Handler.Sitemap as Sitemap
 import qualified HW.Handler.Survey as Survey
 import qualified HW.Type.App as App
 import qualified HW.Type.Number as Number
+import qualified HW.Type.Redirect as Redirect
 import qualified HW.Type.Route as Route
 import qualified HW.Type.State as State
 import qualified Network.Wai as Wai
@@ -37,8 +38,8 @@ import qualified Network.Wai as Wai
 application :: IORef.IORef State.State -> Wai.Application
 application ref request respond =
   case (requestMethod request, requestRoute request) of
-    ("GET", Just route) -> do
-      response <- Reader.runReaderT (handle route request) ref
+    ("GET", Just routeOrRedirect) -> do
+      response <- Reader.runReaderT (handle routeOrRedirect request) ref
       respond response
     _ -> respond Common.notFound
 
@@ -50,34 +51,39 @@ requestMethod = Text.decodeUtf8With Text.lenientDecode . Wai.requestMethod
 
 -- | Gets the route out of the request. If the request's path doesn't match
 -- any known routes, returns 'Nothing'.
-requestRoute :: Wai.Request -> Maybe Route.Route
-requestRoute = Route.fromText . Wai.pathInfo
+requestRoute :: Wai.Request -> Maybe (Either Redirect.Redirect Route.Route)
+requestRoute request =
+  let path = Wai.pathInfo request
+  in case Route.fromText path of
+    Just route -> Just $ Right route
+    Nothing -> fmap Left $ Redirect.fromText path
 
 -- | Handles a particular route by calling the appropriate handler and
 -- returning the response.
-handle :: Route.Route -> Wai.Request -> App.App Wai.Response
-handle route request = case route of
-  Route.Advertising -> Advertising.handler
-  Route.AppleBadge -> Common.file "image/svg+xml" "apple-podcasts.svg"
-  Route.Captions number ->
-    Common.file "text/vtt"
-      $ "podcast/episode-"
-      <> Text.unpack (Number.toText number)
-      <> ".vtt"
-  Route.Episode number -> Episode.handler number
-  Route.Favicon -> Common.file "image/x-icon" "favicon.ico"
-  Route.GoogleBadge -> Common.file "image/svg+xml" "google-podcasts.svg"
-  Route.HealthCheck -> HealthCheck.handler
-  Route.Index -> Index.handler
-  Route.Issue number -> Issue.handler number
-  Route.NewsletterFeed -> NewsletterFeed.handler
-  Route.Newsletter -> Newsletter.handler
-  Route.PodcastFeed -> PodcastFeed.handler
-  Route.Podcast -> Podcast.handler
-  Route.Logo -> Common.file "image/png" "logo.png"
-  Route.Redirect redirect -> Redirect.handler redirect
-  Route.Robots -> Robots.handler
-  Route.Search -> Search.handler request
-  Route.Sitemap -> Sitemap.handler
-  Route.Survey number -> Survey.handler number
-  Route.Tachyons -> Common.file "text/css; charset=utf-8" "tachyons.css"
+handle :: Either Redirect.Redirect Route.Route -> Wai.Request -> App.App Wai.Response
+handle routeOrRedirect request = case routeOrRedirect of
+  Left redirect -> Redirect.handler redirect
+  Right route -> case route of
+    Route.Advertising -> Advertising.handler
+    Route.AppleBadge -> Common.file "image/svg+xml" "apple-podcasts.svg"
+    Route.Captions number ->
+      Common.file "text/vtt"
+        $ "podcast/episode-"
+        <> Text.unpack (Number.toText number)
+        <> ".vtt"
+    Route.Episode number -> Episode.handler number
+    Route.Favicon -> Common.file "image/x-icon" "favicon.ico"
+    Route.GoogleBadge -> Common.file "image/svg+xml" "google-podcasts.svg"
+    Route.HealthCheck -> HealthCheck.handler
+    Route.Index -> Index.handler
+    Route.Issue number -> Issue.handler number
+    Route.NewsletterFeed -> NewsletterFeed.handler
+    Route.Newsletter -> Newsletter.handler
+    Route.PodcastFeed -> PodcastFeed.handler
+    Route.Podcast -> Podcast.handler
+    Route.Logo -> Common.file "image/png" "logo.png"
+    Route.Robots -> Robots.handler
+    Route.Search -> Search.handler request
+    Route.Sitemap -> Sitemap.handler
+    Route.Survey number -> Survey.handler number
+    Route.Tachyons -> Common.file "text/css; charset=utf-8" "tachyons.css"
