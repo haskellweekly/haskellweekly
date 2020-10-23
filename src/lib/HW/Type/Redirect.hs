@@ -33,7 +33,8 @@ fromText path = fmap Redirect $ case path of
   ["index.html"] -> Just Route.Index
   ["issues", file] -> Route.routeContent "html" Route.Issue file
   ["podcast", "apple-badge.svg"] -> Just Route.AppleBadge
-  ["podcast", "episodes", file] -> Route.routeContent "html" Route.Episode file
+  ["podcast", "episodes", file] ->
+    Route.routeContent "html" Route.Episode file
   ["podcast", "feed.rss"] -> Just Route.PodcastFeed
   ["podcast", "google-badge.svg"] -> Just Route.GoogleBadge
   ["podcast", "index.html"] -> Just Route.Podcast

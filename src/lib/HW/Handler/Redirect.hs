@@ -17,4 +17,9 @@ handler redirect = do
   config <- App.getConfig
   pure $ Common.status
     Http.found302
-    [(Http.hLocation, Text.encodeUtf8 . Route.toText (Config.baseUrl config) $ Redirect.toRoute redirect)]
+    [ ( Http.hLocation
+      , Text.encodeUtf8
+      . Route.toText (Config.baseUrl config)
+      $ Redirect.toRoute redirect
+      )
+    ]

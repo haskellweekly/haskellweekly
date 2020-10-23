@@ -54,13 +54,17 @@ requestMethod = Text.decodeUtf8With Text.lenientDecode . Wai.requestMethod
 requestRoute :: Wai.Request -> Maybe (Either Redirect.Redirect Route.Route)
 requestRoute request =
   let path = Wai.pathInfo request
-  in case Route.fromText path of
-    Just route -> Just $ Right route
-    Nothing -> fmap Left $ Redirect.fromText path
+  in
+    case Route.fromText path of
+      Just route -> Just $ Right route
+      Nothing -> fmap Left $ Redirect.fromText path
 
 -- | Handles a particular route by calling the appropriate handler and
 -- returning the response.
-handle :: Either Redirect.Redirect Route.Route -> Wai.Request -> App.App Wai.Response
+handle
+  :: Either Redirect.Redirect Route.Route
+  -> Wai.Request
+  -> App.App Wai.Response
 handle routeOrRedirect request = case routeOrRedirect of
   Left redirect -> Redirect.handler redirect
   Right route -> case route of
