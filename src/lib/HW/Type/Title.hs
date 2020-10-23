@@ -6,7 +6,7 @@ module HW.Type.Title
   )
 where
 
-import qualified Data.Char
+import qualified Data.Char as Char
 import qualified Data.Text as Text
 
 newtype Title =
@@ -16,7 +16,7 @@ newtype Title =
 -- | Converts text into a title. Titles require at least one non-space
 -- character in them.
 textToTitle :: Text.Text -> Either String Title
-textToTitle text = if Text.all Data.Char.isSpace text
+textToTitle text = if Text.all Char.isSpace text
   then Left $ "invalid Title: " <> show text
   else Right $ Title text
 

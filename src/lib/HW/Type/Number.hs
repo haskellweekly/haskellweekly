@@ -13,23 +13,23 @@ module HW.Type.Number
 where
 
 import qualified Data.Text as Text
-import qualified Numeric.Natural
-import qualified Text.Read
+import qualified Numeric.Natural as Natural
+import qualified Text.Read as Read
 
 newtype Number =
-  Number Numeric.Natural.Natural
+  Number Natural.Natural
   deriving (Eq, Ord, Show)
 
 -- | Converts a natural number into a number. Since numbering starts at one but
 -- the naturals start at zero, there's an opportunity for things to go wrong.
-naturalToNumber :: Numeric.Natural.Natural -> Either String Number
+naturalToNumber :: Natural.Natural -> Either String Number
 naturalToNumber natural = if natural < 1
   then Left $ "invalid Number: " <> show natural
   else Right $ Number natural
 
 -- | Converts a number into a natural number. This is the opposite of
 -- 'naturalToNumber'.
-numberToNatural :: Number -> Numeric.Natural.Natural
+numberToNatural :: Number -> Natural.Natural
 numberToNatural (Number natural) = natural
 
 -- | Converts a number into text. This is a lot like 'show' except that the
@@ -40,6 +40,6 @@ numberToText = Text.pack . show . numberToNatural
 -- | Parses text into a number. This first parses the string as a natural
 -- number and then hands things off to 'numberToNatural'.
 textToNumber :: Text.Text -> Either String Number
-textToNumber text = case Text.Read.readMaybe (Text.unpack text) of
+textToNumber text = case Read.readMaybe (Text.unpack text) of
   Nothing -> Left $ "invalid Number: " <> show text
   Just natural -> naturalToNumber natural

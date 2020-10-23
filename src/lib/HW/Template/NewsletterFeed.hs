@@ -3,28 +3,28 @@ module HW.Template.NewsletterFeed
   )
 where
 
-import qualified CMark
-import qualified Data.List
+import qualified CMark as Mark
+import qualified Data.List as List
 import qualified Data.Map as Map
-import qualified Data.Maybe
-import qualified Data.Ord
+import qualified Data.Maybe as Maybe
+import qualified Data.Ord as Ord
 import qualified HW.Type.BaseUrl
 import qualified HW.Type.Date
 import qualified HW.Type.Issue
 import qualified HW.Type.Number
 import qualified HW.Type.Route
-import qualified Text.XML
+import qualified Text.XML as Xml
 
 newsletterFeedTemplate
   :: HW.Type.BaseUrl.BaseUrl
-  -> [(HW.Type.Issue.Issue, CMark.Node)]
-  -> Text.XML.Document
+  -> [(HW.Type.Issue.Issue, Mark.Node)]
+  -> Xml.Document
 newsletterFeedTemplate baseUrl issues =
   let
     element name attributes =
-      Text.XML.Element name (Map.fromList attributes)
-    node name attributes = Text.XML.NodeElement . element name attributes
-    text = Text.XML.NodeContent
+      Xml.Element name (Map.fromList attributes)
+    node name attributes = Xml.NodeElement . element name attributes
+    text = Xml.NodeContent
     entryLink =
       HW.Type.Route.routeToTextWith baseUrl
         . HW.Type.Route.RouteIssue
@@ -49,15 +49,15 @@ newsletterFeedTemplate baseUrl issues =
         [ node "name" [] [text "Haskell Weekly"]
         , node "email" [] [text "info@haskellweekly.news"]
         ]
-      , node "content" [("type", "html")] [text $ CMark.nodeToHtml [] content]
+      , node "content" [("type", "html")] [text $ Mark.nodeToHtml [] content]
       ]
     feedId =
       HW.Type.Route.routeToTextWith baseUrl HW.Type.Route.RouteNewsletterFeed
     feedUpdated =
       text
         . maybe "2001-01-01T12:00:00Z" HW.Type.Date.dateToLongText
-        . Data.Maybe.listToMaybe
-        . Data.List.sortOn Data.Ord.Down
+        . Maybe.listToMaybe
+        . List.sortOn Ord.Down
         $ fmap (HW.Type.Issue.issueDate . fst) issues
     feed = element
       "feed"
@@ -75,4 +75,4 @@ newsletterFeedTemplate baseUrl issues =
           []
       : fmap entry issues
       )
-  in Text.XML.Document (Text.XML.Prologue [] Nothing []) feed []
+  in Xml.Document (Xml.Prologue [] Nothing []) feed []

@@ -3,37 +3,37 @@ module HW.Handler.Index
   )
 where
 
-import qualified Data.List
+import qualified Data.List as List
 import qualified Data.Map as Map
-import qualified Data.Maybe
-import qualified Data.Ord
+import qualified Data.Maybe as Maybe
+import qualified Data.Ord as Ord
 import qualified HW.Handler.Base
 import qualified HW.Template.Index
 import qualified HW.Type.App
 import qualified HW.Type.Episode
 import qualified HW.Type.Issue
 import qualified HW.Type.State
-import qualified Network.HTTP.Types
-import qualified Network.Wai
+import qualified Network.HTTP.Types as Http
+import qualified Network.Wai as Wai
 
-indexHandler :: HW.Type.App.App Network.Wai.Response
+indexHandler :: HW.Type.App.App Wai.Response
 indexHandler = do
   state <- HW.Type.App.getState
   let
     maybeIssue =
-      Data.Maybe.listToMaybe
-        . Data.List.sortOn (Data.Ord.Down . HW.Type.Issue.issueDate)
+      Maybe.listToMaybe
+        . List.sortOn (Ord.Down . HW.Type.Issue.issueDate)
         . Map.elems
         $ HW.Type.State.stateIssues state
     maybeEpisode =
-      Data.Maybe.listToMaybe
-        . Data.List.sortOn (Data.Ord.Down . HW.Type.Episode.episodeDate)
+      Maybe.listToMaybe
+        . List.sortOn (Ord.Down . HW.Type.Episode.episodeDate)
         . Map.elems
         $ HW.Type.State.stateEpisodes state
   pure
     . HW.Handler.Base.htmlResponse
-        Network.HTTP.Types.ok200
-        [(Network.HTTP.Types.hCacheControl, "public, max-age=900")]
+        Http.ok200
+        [(Http.hCacheControl, "public, max-age=900")]
     $ HW.Template.Index.indexTemplate
         (HW.Type.State.stateConfig state)
         maybeIssue

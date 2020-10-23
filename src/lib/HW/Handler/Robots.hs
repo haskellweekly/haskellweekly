@@ -8,16 +8,16 @@ import qualified HW.Handler.Base
 import qualified HW.Type.App
 import qualified HW.Type.Config
 import qualified HW.Type.Route
-import qualified Network.HTTP.Types
-import qualified Network.Wai
+import qualified Network.HTTP.Types as Http
+import qualified Network.Wai as Wai
 
-robotsHandler :: HW.Type.App.App Network.Wai.Response
+robotsHandler :: HW.Type.App.App Wai.Response
 robotsHandler = do
   config <- HW.Type.App.getConfig
   pure
     . HW.Handler.Base.textResponse
-        Network.HTTP.Types.ok200
-        [(Network.HTTP.Types.hCacheControl, "public, max-age=86400")]
+        Http.ok200
+        [(Http.hCacheControl, "public, max-age=86400")]
     $ Text.unlines
         [ "User-agent: *"
         , "Allow: /"

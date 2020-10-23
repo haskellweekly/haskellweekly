@@ -3,14 +3,14 @@ module Main
   )
 where
 
-import qualified CMark
+import qualified CMark as Mark
 import qualified Control.Exception
-import qualified Control.Monad
+import qualified Control.Monad as Monad
 import qualified Data.ByteString as ByteString
 import qualified Data.Text as Text
 import qualified Data.Text.Encoding as Text
 import qualified HaskellWeekly
-import qualified System.Directory
+import qualified System.Directory as Directory
 import qualified System.FilePath as FilePath
 
 main :: IO ()
@@ -27,27 +27,27 @@ main = do
   do
     putStrLn "Parsing issues ..."
     let directory = FilePath.combine dataDirectory "newsletter"
-    entries <- System.Directory.listDirectory directory
-    Control.Monad.forM_ entries $ \entry -> do
+    entries <- Directory.listDirectory directory
+    Monad.forM_ entries $ \entry -> do
       let file = FilePath.combine directory entry
       contents <- ByteString.readFile file
-      Control.Monad.void
+      Monad.void
         . Control.Exception.evaluate
         . Text.length
-        . CMark.commonmarkToHtml []
+        . Mark.commonmarkToHtml []
         $ Text.decodeUtf8 contents
     putStrLn $ "Parsed " <> pluralize "issue" (length entries) <> "."
   do
     putStrLn "Parsing episodes ..."
     let directory = FilePath.combine dataDirectory "podcast"
-    entries <- System.Directory.listDirectory directory
-    Control.Monad.forM_ entries $ \entry -> do
+    entries <- Directory.listDirectory directory
+    Monad.forM_ entries $ \entry -> do
       let file = FilePath.combine directory entry
       contents <- ByteString.readFile file
       case HaskellWeekly.parseVtt $ Text.decodeUtf8 contents of
         Nothing -> fail entry
         Just captions ->
-          Control.Monad.void
+          Monad.void
             . Control.Exception.evaluate
             . Text.length
             . mconcat

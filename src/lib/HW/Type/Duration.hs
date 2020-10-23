@@ -10,16 +10,16 @@ module HW.Type.Duration
 where
 
 import qualified Data.Text as Text
-import qualified Numeric.Natural
-import qualified Text.Printf
+import qualified Numeric.Natural as Natural
+import qualified Text.Printf as Printf
 
 newtype Duration =
-  Duration Numeric.Natural.Natural
+  Duration Natural.Natural
   deriving (Eq, Show)
 
 -- | Unwraps a duration and gives back the underlying natural number of seconds
 -- that it represents.
-durationToNatural :: Duration -> Numeric.Natural.Natural
+durationToNatural :: Duration -> Natural.Natural
 durationToNatural (Duration natural) = natural
 
 -- | Converts a duration into text. Uses the format @MM:SS@. The minutes will
@@ -28,12 +28,12 @@ durationToNatural (Duration natural) = natural
 durationToText :: Duration -> Text.Text
 durationToText duration =
   let (minutes, seconds) = quotRem (durationToNatural duration) 60
-  in Text.pack $ Text.Printf.printf "%d:%02d" minutes seconds
+  in Text.pack $ Printf.printf "%d:%02d" minutes seconds
 
 -- | Converts a natural number of seconds into a duration. This can fail if the
 -- duration is zero seconds, because what's the point of having an empty
 -- duration?
-naturalToDuration :: Numeric.Natural.Natural -> Either String Duration
+naturalToDuration :: Natural.Natural -> Either String Duration
 naturalToDuration seconds = if seconds < 1
   then Left $ "invalid Duration: " <> show seconds
   else Right $ Duration seconds
@@ -44,8 +44,8 @@ naturalToDuration seconds = if seconds < 1
 -- seconds. This can fail if the seconds is greater than 59; they don't roll
 -- over into minutes.
 timestampToDuration
-  :: Numeric.Natural.Natural
-  -> Numeric.Natural.Natural
+  :: Natural.Natural
+  -> Natural.Natural
   -> Either String Duration
 timestampToDuration minutes seconds = if seconds >= 60
   then Left $ "invalid Duration: " <> show (minutes, seconds)

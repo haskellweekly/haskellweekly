@@ -12,14 +12,14 @@ module HW.Type.Date
 where
 
 import qualified Data.Text as Text
-import qualified Data.Time
+import qualified Data.Time as Time
 
 newtype Date =
-  Date Data.Time.Day
+  Date Time.Day
   deriving (Eq, Ord, Show)
 
 -- | Unwraps a date to get at the day on the inside.
-dateToDay :: Date -> Data.Time.Day
+dateToDay :: Date -> Time.Day
 dateToDay (Date day) = day
 
 -- | Formats a date along with a time. The time is arbitrarily chosen to be
@@ -43,8 +43,8 @@ dateToShortText = formatDate "%Y-%m-%d"
 formatDate :: Text.Text -> Date -> Text.Text
 formatDate format =
   Text.pack
-    . Data.Time.formatTime
-        Data.Time.defaultTimeLocale
+    . Time.formatTime
+        Time.defaultTimeLocale
         (Text.unpack format)
     . dateToDay
 
@@ -52,6 +52,6 @@ formatDate format =
 -- validates the date rather than clamping or overflowing. So you can't produce
 -- a date for February 30th. Sorry.
 gregorianToDate :: Integer -> Int -> Int -> Either String Date
-gregorianToDate y m d = case Data.Time.fromGregorianValid y m d of
+gregorianToDate y m d = case Time.fromGregorianValid y m d of
   Nothing -> Left $ "invalid Date: " <> show (y, m, d)
   Just day -> Right $ Date day

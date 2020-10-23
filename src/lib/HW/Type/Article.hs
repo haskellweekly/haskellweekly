@@ -9,10 +9,10 @@ module HW.Type.Article
 where
 
 import qualified Data.Text as Text
-import qualified Network.URI
+import qualified Network.URI as Uri
 
 newtype Article =
-  Article Network.URI.URI
+  Article Uri.URI
   deriving (Eq, Show)
 
 -- | Converts an article URL into text.
@@ -20,17 +20,17 @@ articleToText :: Article -> Text.Text
 articleToText = uriToText . articleToUri
 
 -- | Unwraps an article into a URL.
-articleToUri :: Article -> Network.URI.URI
+articleToUri :: Article -> Uri.URI
 articleToUri (Article uri) = uri
 
 -- | Parses a string as an article. The string must be an absolute URL. In the
 -- future this may check for HTTP as well.
 textToArticle :: Text.Text -> Either String Article
-textToArticle text = case Network.URI.parseURI $ Text.unpack text of
+textToArticle text = case Uri.parseURI $ Text.unpack text of
   Nothing -> Left $ "invalid Article: " <> show text
   Just uri -> Right $ Article uri
 
 -- | Converts a URL into text. This is only necessary because the regular
 -- way of doing this is annoyingly complicated.
-uriToText :: Network.URI.URI -> Text.Text
-uriToText uri = Text.pack $ Network.URI.uriToString id uri ""
+uriToText :: Uri.URI -> Text.Text
+uriToText uri = Text.pack $ Uri.uriToString id uri ""

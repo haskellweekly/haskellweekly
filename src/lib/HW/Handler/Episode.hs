@@ -13,11 +13,11 @@ import qualified HW.Type.Caption
 import qualified HW.Type.Config
 import qualified HW.Type.Number
 import qualified HW.Type.State
-import qualified Network.HTTP.Types
-import qualified Network.Wai
+import qualified Network.HTTP.Types as Http
+import qualified Network.Wai as Wai
 import qualified System.FilePath as FilePath
 
-episodeHandler :: HW.Type.Number.Number -> HW.Type.App.App Network.Wai.Response
+episodeHandler :: HW.Type.Number.Number -> HW.Type.App.App Wai.Response
 episodeHandler number = do
   state <- HW.Type.App.getState
   let episodes = HW.Type.State.stateEpisodes state
@@ -27,8 +27,8 @@ episodeHandler number = do
       captions <- readCaptionFile number
       pure
         . HW.Handler.Base.htmlResponse
-            Network.HTTP.Types.ok200
-            [(Network.HTTP.Types.hCacheControl, "public, max-age=900")]
+            Http.ok200
+            [(Http.hCacheControl, "public, max-age=900")]
         $ HW.Template.Episode.episodeTemplate
             (HW.Type.Config.configBaseUrl $ HW.Type.State.stateConfig state)
             episode

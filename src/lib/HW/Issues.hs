@@ -7,9 +7,9 @@ module HW.Issues
   )
 where
 
-import qualified Data.Bool
+import qualified Data.Bool as Bool
 import qualified Data.Map as Map
-import qualified Data.Traversable
+import qualified Data.Traversable as Traversable
 import qualified HW.Type.Date
 import qualified HW.Type.Issue
 import qualified HW.Type.Number
@@ -23,7 +23,7 @@ type Issues = Map.Map HW.Type.Number.Number HW.Type.Issue.Issue
 -- reasonably sure that no 'Left's have snuck in.
 issues :: Either String Issues
 issues = do
-  validIssues <- Data.Traversable.sequenceA
+  validIssues <- Traversable.sequenceA
     [ issue1
     , issue2
     , issue3
@@ -266,7 +266,7 @@ issues = do
 -- gaps starting from one.
 checkNumbers :: [HW.Type.Issue.Issue] -> Either String ()
 checkNumbers =
-  Data.Bool.bool (Left "invalid issue numbers") (Right ())
+  Bool.bool (Left "invalid issue numbers") (Right ())
     . all (uncurry (==))
     . zip [1 ..]
     . fmap (HW.Type.Number.numberToNatural . HW.Type.Issue.issueNumber)

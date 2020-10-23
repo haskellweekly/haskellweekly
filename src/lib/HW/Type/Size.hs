@@ -11,15 +11,15 @@ module HW.Type.Size
   )
 where
 
-import qualified Numeric.Natural
+import qualified Numeric.Natural as Natural
 
 newtype Size =
-  Size Numeric.Natural.Natural
+  Size Natural.Natural
   deriving (Eq, Show)
 
 -- | Converts a natural number of bytes into a file size. The number of bytes
 -- must be greater than zero otherwise this will fail.
-naturalToSize :: Numeric.Natural.Natural -> Either String Size
+naturalToSize :: Natural.Natural -> Either String Size
 naturalToSize natural = if natural < 1
   then Left $ "invalid Size: " <> show natural
   else Right $ Size natural
@@ -30,5 +30,5 @@ sizeToInteger = fromIntegral . sizeToNatural
 
 -- | Unwraps a file size and gives you back the underlying number of bytes as a
 -- natural number.
-sizeToNatural :: Size -> Numeric.Natural.Natural
+sizeToNatural :: Size -> Natural.Natural
 sizeToNatural (Size natural) = natural

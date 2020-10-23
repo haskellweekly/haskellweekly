@@ -3,7 +3,7 @@ module HW.Template.PodcastFeed
   )
 where
 
-import qualified Data.List.NonEmpty
+import qualified Data.List.NonEmpty as NonEmpty
 import qualified Data.Map as Map
 import qualified Data.Text as Text
 import qualified HW.Type.Article
@@ -18,16 +18,16 @@ import qualified HW.Type.Route
 import qualified HW.Type.Size
 import qualified HW.Type.Summary
 import qualified HW.Type.Title
-import qualified Text.XML
+import qualified Text.XML as Xml
 
 podcastFeedTemplate
-  :: HW.Type.BaseUrl.BaseUrl -> [HW.Type.Episode.Episode] -> Text.XML.Document
+  :: HW.Type.BaseUrl.BaseUrl -> [HW.Type.Episode.Episode] -> Xml.Document
 podcastFeedTemplate baseUrl episodes =
   let
     element name attributes =
-      Text.XML.Element name (Map.fromList attributes)
-    node name attributes = Text.XML.NodeElement . element name attributes
-    text = Text.XML.NodeContent
+      Xml.Element name (Map.fromList attributes)
+    node name attributes = Xml.NodeElement . element name attributes
+    text = Xml.NodeContent
     itemTitle =
       text . HW.Type.Title.titleToText . HW.Type.Episode.episodeTitle
     itemLink =
@@ -51,7 +51,7 @@ podcastFeedTemplate baseUrl episodes =
       text . HW.Type.Duration.durationToText . HW.Type.Episode.episodeDuration
     itemEpisode =
       text . HW.Type.Number.numberToText . HW.Type.Episode.episodeNumber
-    articles = Data.List.NonEmpty.toList . HW.Type.Episode.episodeArticles
+    articles = NonEmpty.toList . HW.Type.Episode.episodeArticles
     articleToNode = text . mappend "\n- " . HW.Type.Article.articleToText
     item episode = node
       "item"
@@ -128,4 +128,4 @@ podcastFeedTemplate baseUrl episodes =
       , ("xmlns:itunes", "http://www.itunes.com/dtds/podcast-1.0.dtd")
       ]
       [channel]
-  in Text.XML.Document (Text.XML.Prologue [] Nothing []) rss []
+  in Xml.Document (Xml.Prologue [] Nothing []) rss []

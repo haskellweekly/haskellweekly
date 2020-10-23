@@ -11,11 +11,11 @@ import qualified Data.ByteString as ByteString
 import qualified Data.IORef as IORef
 import qualified Data.Map as Map
 import qualified Data.Text as Text
-import qualified Data.Time
+import qualified Data.Time as Time
 import qualified HW.Episodes
 import qualified HW.Issues
 import qualified HW.Type.Config
-import qualified Network.Wai
+import qualified Network.Wai as Wai
 
 data State = State
   { stateConfig :: HW.Type.Config.Config
@@ -25,7 +25,7 @@ data State = State
   , stateResponseCache
       :: Map.Map
         (Text.Text, Text.Text)
-        (Data.Time.UTCTime, Network.Wai.Response)
+        (Time.UTCTime, Wai.Response)
   }
 
 -- | Builds up the state using the given config. If anything goes wrong, this

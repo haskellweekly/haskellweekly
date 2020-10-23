@@ -7,20 +7,20 @@ module HW.Main
 where
 
 import qualified Data.IORef as IORef
-import qualified Data.Version
+import qualified Data.Version as Version
 import qualified HW.Server
 import qualified HW.Type.Config
 import qualified HW.Type.State
-import qualified Paths_haskellweekly
-import qualified System.IO
+import qualified Paths_haskellweekly as Package
+import qualified System.IO as IO
 
 -- | Runs the main Haskell Weekly server. This function never returns.
 main :: IO ()
 main = do
-  System.IO.hSetBuffering System.IO.stdout System.IO.LineBuffering
+  IO.hSetBuffering IO.stdout IO.LineBuffering
   putStrLn
     $ "Starting Haskell Weekly version "
-    <> Data.Version.showVersion Paths_haskellweekly.version
+    <> Version.showVersion Package.version
     <> " ..."
   config <- HW.Type.Config.getConfig
   state <- HW.Type.State.configToState config

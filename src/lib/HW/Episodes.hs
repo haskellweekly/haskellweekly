@@ -8,8 +8,8 @@ module HW.Episodes
 where
 
 import qualified Data.Map as Map
-import qualified Data.Set
-import qualified Data.Traversable
+import qualified Data.Set as Set
+import qualified Data.Traversable as Traversable
 import qualified HW.Type.Articles
 import qualified HW.Type.Audio
 import qualified HW.Type.Date
@@ -20,7 +20,7 @@ import qualified HW.Type.Number
 import qualified HW.Type.Size
 import qualified HW.Type.Summary
 import qualified HW.Type.Title
-import qualified Numeric.Natural
+import qualified Numeric.Natural as Natural
 
 -- | Convenient type alias for a map of episodes by number.
 type Episodes = Map.Map HW.Type.Number.Number HW.Type.Episode.Episode
@@ -31,7 +31,7 @@ type Episodes = Map.Map HW.Type.Number.Number HW.Type.Episode.Episode
 -- reasonably sure that no 'Left's have snuck in.
 episodes :: Either String Episodes
 episodes = do
-  validEpisodes <- Data.Traversable.sequenceA
+  validEpisodes <- Traversable.sequenceA
     [ episode1
     , episode2
     , episode3
@@ -60,7 +60,7 @@ episodes = do
     , episode26
     , episode27
     ]
-  checkGuids validEpisodes Data.Set.empty
+  checkGuids validEpisodes Set.empty
   checkNumbers validEpisodes 1
   pure $ foldr insertEpisode Map.empty validEpisodes
 
@@ -68,21 +68,21 @@ episodes = do
 -- than once.
 checkGuids
   :: [HW.Type.Episode.Episode]
-  -> Data.Set.Set HW.Type.Guid.Guid
+  -> Set.Set HW.Type.Guid.Guid
   -> Either String ()
 checkGuids es guids = case es of
   [] -> Right ()
   episode : rest ->
     let guid = HW.Type.Episode.episodeGuid episode
     in
-      if Data.Set.member guid guids
+      if Set.member guid guids
         then Left $ "duplicate Guid: " <> show guid
-        else checkGuids rest $ Data.Set.insert guid guids
+        else checkGuids rest $ Set.insert guid guids
 
 -- | Checks to make sure that all of the episode numbers are increasing without
 -- gaps starting from one.
 checkNumbers
-  :: [HW.Type.Episode.Episode] -> Numeric.Natural.Natural -> Either String ()
+  :: [HW.Type.Episode.Episode] -> Natural.Natural -> Either String ()
 checkNumbers es current = case es of
   [] -> Right ()
   episode : rest ->

@@ -12,7 +12,7 @@ module HW.Type.Audio
   )
 where
 
-import qualified Data.Char
+import qualified Data.Char as Char
 import qualified Data.Text as Text
 
 newtype Audio =
@@ -26,6 +26,6 @@ audioToText (Audio text) = text
 -- | Converts a string into an audio URL. If the string is all blank spaces,
 -- this will fail.
 textToAudio :: Text.Text -> Either String Audio
-textToAudio text = if Text.all Data.Char.isSpace text
+textToAudio text = if Text.all Char.isSpace text
   then Left $ "invalid Audio: " <> show text
   else Right $ Audio text

@@ -8,7 +8,7 @@ module HW.Type.Summary
   )
 where
 
-import qualified Data.Char
+import qualified Data.Char as Char
 import qualified Data.Text as Text
 
 newtype Summary =
@@ -19,7 +19,7 @@ newtype Summary =
 -- string isn't completely blank. In the future it might put some limits on the
 -- length of the summary too.
 textToSummary :: Text.Text -> Either String Summary
-textToSummary text = if Text.all Data.Char.isSpace text
+textToSummary text = if Text.all Char.isSpace text
   then Left $ "invalid Summary: " <> show text
   else Right $ Summary text
 

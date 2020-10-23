@@ -10,16 +10,16 @@ import qualified HW.Type.App
 import qualified HW.Type.Config
 import qualified HW.Type.Route
 import qualified HW.Type.State
-import qualified Network.HTTP.Types
-import qualified Network.Wai
+import qualified Network.HTTP.Types as Http
+import qualified Network.Wai as Wai
 
-sitemapHandler :: HW.Type.App.App Network.Wai.Response
+sitemapHandler :: HW.Type.App.App Wai.Response
 sitemapHandler = do
   state <- HW.Type.App.getState
   pure
     . HW.Handler.Base.textResponse
-        Network.HTTP.Types.ok200
-        [(Network.HTTP.Types.hCacheControl, "public, max-age=900")]
+        Http.ok200
+        [(Http.hCacheControl, "public, max-age=900")]
     . Text.unlines
     . fmap
         (HW.Type.Route.routeToTextWith

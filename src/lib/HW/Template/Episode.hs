@@ -16,71 +16,71 @@ import qualified HW.Type.Number
 import qualified HW.Type.Route
 import qualified HW.Type.Summary
 import qualified HW.Type.Title
-import qualified Lucid as H
-import qualified Lucid.Base as H
+import qualified Lucid as Html
+import qualified Lucid.Base as Html
 
 episodeTemplate
   :: HW.Type.BaseUrl.BaseUrl
   -> HW.Type.Episode.Episode
   -> [HW.Type.Caption.Caption]
-  -> H.Html ()
+  -> Html.Html ()
 episodeTemplate baseUrl episode captions =
   HW.Template.Base.baseTemplate
       baseUrl
       (title episode <> " :: Haskell Weekly Podcast")
       (HW.Template.Podcast.podcastHead baseUrl $ Just episode)
     $ do
-        H.h2_ [H.class_ "f2 mv3 tracked-tight"] $ H.a_
-          [ H.class_ "no-underline purple"
-          , H.href_
+        Html.h2_ [Html.class_ "f2 mv3 tracked-tight"] $ Html.a_
+          [ Html.class_ "no-underline purple"
+          , Html.href_
             $ HW.Type.Route.routeToTextWith baseUrl HW.Type.Route.RoutePodcast
           ]
           "Podcast"
-        H.h3_ [H.class_ "f3 mv3 tracked-tight"] . H.toHtml $ title episode
+        Html.h3_ [Html.class_ "f3 mv3 tracked-tight"] . Html.toHtml $ title episode
         HW.Template.Podcast.podcastActionTemplate baseUrl
-        H.p_ [H.class_ "lh-copy"] $ do
-          H.toHtml
+        Html.p_ [Html.class_ "lh-copy"] $ do
+          Html.toHtml
             . HW.Type.Summary.summaryToText
             $ HW.Type.Episode.episodeSummary episode
           " "
-          H.span_ [H.class_ "mid-gray"] $ do
-            H.toHtml $ number episode
+          Html.span_ [Html.class_ "mid-gray"] $ do
+            Html.toHtml $ number episode
             " was published on "
-            H.toHtml $ date episode
+            Html.toHtml $ date episode
             "."
-        H.video_
-            [ H.class_ "bg-black mw-100"
-            , H.controls_ "controls"
-            , H.height_ "432"
-            , H.makeAttribute "poster"
+        Html.video_
+            [ Html.class_ "bg-black mw-100"
+            , Html.controls_ "controls"
+            , Html.height_ "432"
+            , Html.makeAttribute "poster"
             $ HW.Type.Route.routeToTextWith baseUrl HW.Type.Route.RouteLogo
-            , H.preload_ "metadata"
-            , H.width_ "768"
+            , Html.preload_ "metadata"
+            , Html.width_ "768"
             ]
           $ do
-            H.source_
-              [ H.src_
+            Html.source_
+              [ Html.src_
               . HW.Type.Audio.audioToText
               $ HW.Type.Episode.episodeAudio episode
-              , H.type_ "audio/mpeg"
+              , Html.type_ "audio/mpeg"
               ]
-            H.track_
-              [ H.makeAttribute "default" ""
-              , H.makeAttribute "kind" "captions"
-              , H.label_ "English captions"
-              , H.src_
+            Html.track_
+              [ Html.makeAttribute "default" ""
+              , Html.makeAttribute "kind" "captions"
+              , Html.label_ "English captions"
+              , Html.src_
               . HW.Type.Route.routeToTextWith baseUrl
               . HW.Type.Route.RouteCaptions
               $ HW.Type.Episode.episodeNumber episode
-              , H.makeAttribute "srclang" "en-US"
+              , Html.makeAttribute "srclang" "en-US"
               ]
-        H.h4_ [H.class_ "f4 mv3"] "Links"
-        H.ul_ [H.class_ "lh-copy"]
+        Html.h4_ [Html.class_ "f4 mv3"] "Links"
+        Html.ul_ [Html.class_ "lh-copy"]
           . mapM_ articleLink
           $ HW.Type.Episode.episodeArticles episode
-        H.h4_ [H.class_ "f4 mv3"] "Transcript"
-        H.div_ [H.class_ "lh-copy"]
-          . mapM_ (H.p_ . H.toHtml)
+        Html.h4_ [Html.class_ "f4 mv3"] "Transcript"
+        Html.div_ [Html.class_ "lh-copy"]
+          . mapM_ (Html.p_ . Html.toHtml)
           $ HW.Type.Caption.renderTranscript captions
 
 number :: HW.Type.Episode.Episode -> Text.Text
@@ -95,7 +95,7 @@ title = HW.Type.Title.titleToText . HW.Type.Episode.episodeTitle
 date :: HW.Type.Episode.Episode -> Text.Text
 date = HW.Type.Date.dateToShortText . HW.Type.Episode.episodeDate
 
-articleLink :: HW.Type.Article.Article -> H.Html ()
+articleLink :: HW.Type.Article.Article -> Html.Html ()
 articleLink article =
   let text = HW.Type.Article.articleToText article
-  in H.li_ . H.a_ [H.href_ text] $ H.toHtml text
+  in Html.li_ . Html.a_ [Html.href_ text] $ Html.toHtml text

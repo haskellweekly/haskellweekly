@@ -14,15 +14,15 @@ import qualified Data.Text as Text
 import qualified Data.Text.Encoding as Text
 import qualified Data.Text.Encoding.Error as Text
 import qualified HW.Type.App
-import qualified Lucid
-import qualified Network.HTTP.Types
-import qualified Network.Wai
+import qualified Lucid as Html
+import qualified Network.HTTP.Types as Http
+import qualified Network.Wai as Wai
 
 bsResponse
-  :: Network.HTTP.Types.Status
-  -> Network.HTTP.Types.ResponseHeaders
+  :: Http.Status
+  -> Http.ResponseHeaders
   -> ByteString.ByteString
-  -> Network.Wai.Response
+  -> Wai.Response
 bsResponse status extraHeaders body =
   let
     contentLength =
@@ -31,60 +31,60 @@ bsResponse status extraHeaders body =
         . show
         $ ByteString.length body
     headers =
-      (Network.HTTP.Types.hContentLength, contentLength) : extraHeaders
-  in Network.Wai.responseLBS status headers
+      (Http.hContentLength, contentLength) : extraHeaders
+  in Wai.responseLBS status headers
     $ Data.ByteString.Lazy.fromStrict body
 
 fileResponse
-  :: Text.Text -> FilePath -> HW.Type.App.App Network.Wai.Response
+  :: Text.Text -> FilePath -> HW.Type.App.App Wai.Response
 fileResponse mime file = do
   let
-    status = Network.HTTP.Types.ok200
+    status = Http.ok200
     headers = withContentType
       mime
-      [(Network.HTTP.Types.hCacheControl, "public, max-age=86400")]
+      [(Http.hCacheControl, "public, max-age=86400")]
   body <- HW.Type.App.readDataFile file
   pure $ bsResponse status headers body
 
 htmlResponse
-  :: Network.HTTP.Types.Status
-  -> Network.HTTP.Types.ResponseHeaders
-  -> Lucid.Html a
-  -> Network.Wai.Response
+  :: Http.Status
+  -> Http.ResponseHeaders
+  -> Html.Html a
+  -> Wai.Response
 htmlResponse status extraHeaders html =
   let
-    body = Lucid.renderBS html
+    body = Html.renderBS html
     headers = withContentType "text/html; charset=utf-8" extraHeaders
   in lbsResponse status headers body
 
 lbsResponse
-  :: Network.HTTP.Types.Status
-  -> Network.HTTP.Types.ResponseHeaders
+  :: Http.Status
+  -> Http.ResponseHeaders
   -> Data.ByteString.Lazy.ByteString
-  -> Network.Wai.Response
+  -> Wai.Response
 lbsResponse status extraHeaders =
   bsResponse status extraHeaders . Data.ByteString.Lazy.toStrict
 
-notFoundResponse :: Network.Wai.Response
+notFoundResponse :: Wai.Response
 notFoundResponse =
-  statusResponse Network.HTTP.Types.notFound404 []
+  statusResponse Http.notFound404 []
 
 statusResponse
-  :: Network.HTTP.Types.Status
-  -> Network.HTTP.Types.ResponseHeaders
-  -> Network.Wai.Response
+  :: Http.Status
+  -> Http.ResponseHeaders
+  -> Wai.Response
 statusResponse status headers = textResponse status headers
-  $ (Text.pack . show $ Network.HTTP.Types.statusCode status)
+  $ (Text.pack . show $ Http.statusCode status)
   <> " "
   <> Text.decodeUtf8With
     Text.lenientDecode
-    (Network.HTTP.Types.statusMessage status)
+    (Http.statusMessage status)
 
 textResponse
-  :: Network.HTTP.Types.Status
-  -> Network.HTTP.Types.ResponseHeaders
+  :: Http.Status
+  -> Http.ResponseHeaders
   -> Text.Text
-  -> Network.Wai.Response
+  -> Wai.Response
 textResponse status extraHeaders text =
   let
     body = Text.encodeUtf8 text
@@ -93,8 +93,8 @@ textResponse status extraHeaders text =
 
 withContentType
   :: Text.Text
-  -> Network.HTTP.Types.ResponseHeaders
-  -> Network.HTTP.Types.ResponseHeaders
+  -> Http.ResponseHeaders
+  -> Http.ResponseHeaders
 withContentType mime headers =
-  (Network.HTTP.Types.hContentType, Text.encodeUtf8 mime)
+  (Http.hContentType, Text.encodeUtf8 mime)
     : headers

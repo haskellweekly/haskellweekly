@@ -10,21 +10,21 @@ module HW.Type.Caption
   )
 where
 
-import qualified Control.Monad
-import qualified Data.Char
-import qualified Data.List.NonEmpty
-import qualified Data.Maybe
+import qualified Control.Monad as Monad
+import qualified Data.Char as Char
+import qualified Data.List.NonEmpty as NonEmpty
+import qualified Data.Maybe as Maybe
 import qualified Data.Text as Text
-import qualified Data.Time
-import qualified Numeric.Natural
-import qualified Text.ParserCombinators.ReadP
-import qualified Text.Read
+import qualified Data.Time as Time
+import qualified Numeric.Natural as Natural
+import qualified Text.ParserCombinators.ReadP as ReadP
+import qualified Text.Read as Read
 
 data Caption = Caption
-  { captionIdentifier :: Numeric.Natural.Natural
-  , captionStart :: Data.Time.TimeOfDay
-  , captionEnd :: Data.Time.TimeOfDay
-  , captionPayload :: Data.List.NonEmpty.NonEmpty Text.Text
+  { captionIdentifier :: Natural.Natural
+  , captionStart :: Time.TimeOfDay
+  , captionEnd :: Time.TimeOfDay
+  , captionPayload :: NonEmpty.NonEmpty Text.Text
   }
   deriving (Eq, Show)
 
@@ -35,10 +35,10 @@ data Caption = Caption
 -- a time, it should be easy to identify the problem.
 parseVtt :: Text.Text -> Maybe [Caption]
 parseVtt =
-  Data.Maybe.listToMaybe
+  Maybe.listToMaybe
     . fmap fst
     . filter (null . snd)
-    . Text.ParserCombinators.ReadP.readP_to_S vttP
+    . ReadP.readP_to_S vttP
     . Text.unpack
 
 -- | Renders a bunch of captions as a transcript. This throws away all of the
@@ -46,19 +46,19 @@ parseVtt =
 -- one person. Lines of dialogue start with @">> "@.
 renderTranscript :: [Caption] -> [Text.Text]
 renderTranscript =
-  renderCaptionPayload . concatMap (Data.List.NonEmpty.toList . captionPayload)
+  renderCaptionPayload . concatMap (NonEmpty.toList . captionPayload)
 
 -- | This type alias is just provided for convenience. Typing out the whole
 -- qualified name every time is no fun. Note that a @Parser SomeType@ is
 -- typically named @someTypeP@.
-type Parser = Text.ParserCombinators.ReadP.ReadP
+type Parser = ReadP.ReadP
 
 -- | Parses a WebVTT file. This only parses a small subset of the features that
 -- WebVTT can express. <https://en.wikipedia.org/wiki/WebVTT>
 vttP :: Parser [Caption]
 vttP = do
   stringP "WEBVTT\n\n"
-  Text.ParserCombinators.ReadP.sepBy captionP $ charP '\n'
+  ReadP.sepBy captionP $ charP '\n'
 
 -- | Parses a single WebVTT caption. A WebVTT file contains a bunch of captions
 -- separated by newlines. A single caption has a numeric identifier, a time
@@ -77,7 +77,7 @@ captionP = do
   stringP " --> "
   end <- timestampP
   charP '\n'
-  Control.Monad.guard $ start < end
+  Monad.guard $ start < end
   payload <- nonEmptyP lineP
   pure Caption
     { captionIdentifier = identifier
@@ -88,70 +88,70 @@ captionP = do
 
 -- | Parses a WebVTT identifier, which for our purposes is always a natural
 -- number.
-identifierP :: Parser Numeric.Natural.Natural
+identifierP :: Parser Natural.Natural
 identifierP = do
-  digits <- Text.ParserCombinators.ReadP.munch1 Data.Char.isDigit
-  either fail pure $ Text.Read.readEither digits
+  digits <- ReadP.munch1 Char.isDigit
+  either fail pure $ Read.readEither digits
 
 -- | Parses a WebVTT timestamp. They use a somewhat strange format of
 -- @HH:MM:SS.TTT@, where @HH@ is hours, @MM@ is minutes, @SS@ is seconds, and
 -- @TTT@ is milliseconds. Every field is zero padded. This parser makes sure
 -- that both the minutes and seconds are less than 60.
-timestampP :: Parser Data.Time.TimeOfDay
+timestampP :: Parser Time.TimeOfDay
 timestampP = do
   hours <- naturalP 2
   charP ':'
   minutes <- naturalP 2
-  Control.Monad.guard $ minutes < 60
+  Monad.guard $ minutes < 60
   charP ':'
   seconds <- naturalP 2
-  Control.Monad.guard $ seconds < 60
+  Monad.guard $ seconds < 60
   charP '.'
   milliseconds <- naturalP 3
   pure
-    . Data.Time.timeToTimeOfDay
-    . Data.Time.picosecondsToDiffTime
+    . Time.timeToTimeOfDay
+    . Time.picosecondsToDiffTime
     $ timestampToPicoseconds hours minutes seconds milliseconds
 
 -- | Parses a single line of text in a caption. This requires Unix style line
 -- endings (newline only, no carriage return).
 lineP :: Parser Text.Text
 lineP = do
-  line <- Text.ParserCombinators.ReadP.munch1 (/= '\n')
+  line <- ReadP.munch1 (/= '\n')
   charP '\n'
   pure $ Text.pack line
 
 -- | Parses a single character and throws it away.
 charP :: Char -> Parser ()
-charP = Control.Monad.void . Text.ParserCombinators.ReadP.char
+charP = Monad.void . ReadP.char
 
 -- | Parses a natural number with the specified number of digits.
-naturalP :: Int -> Parser Numeric.Natural.Natural
+naturalP :: Int -> Parser Natural.Natural
 naturalP count = do
-  digits <- Text.ParserCombinators.ReadP.count count
-    $ Text.ParserCombinators.ReadP.satisfy Data.Char.isDigit
-  either fail pure $ Text.Read.readEither digits
+  digits <- ReadP.count count
+    $ ReadP.satisfy Char.isDigit
+  either fail pure $ Read.readEither digits
 
 -- | Given a parser, gets it one or more times. This is like @many1@ except
 -- that the return type (@NonEmpty@) actually expresses the fact that there's
 -- at least one element.
-nonEmptyP :: Parser a -> Parser (Data.List.NonEmpty.NonEmpty a)
+nonEmptyP :: Parser a -> Parser (NonEmpty.NonEmpty a)
 nonEmptyP p =
-  (Data.List.NonEmpty.:|) <$> p <*> Text.ParserCombinators.ReadP.many p
+  (NonEmpty.:|) <$> p <*> ReadP.many p
 
 -- | Parses a string and throws it away.
 stringP :: Text.Text -> Parser ()
 stringP =
-  Control.Monad.void . Text.ParserCombinators.ReadP.string . Text.unpack
+  Monad.void . ReadP.string . Text.unpack
 
 -- | Converts a timestamp (hours, minutes, seconds, milliseconds) into an
 -- integral number of picoseconds. This is mainly useful for conversion into
 -- other time types.
 timestampToPicoseconds
-  :: Numeric.Natural.Natural
-  -> Numeric.Natural.Natural
-  -> Numeric.Natural.Natural
-  -> Numeric.Natural.Natural
+  :: Natural.Natural
+  -> Natural.Natural
+  -> Natural.Natural
+  -> Natural.Natural
   -> Integer
 timestampToPicoseconds hours minutes seconds milliseconds =
   toInteger
@@ -162,19 +162,19 @@ timestampToPicoseconds hours minutes seconds milliseconds =
     + milliseconds
 
 -- | Converts hours into milliseconds.
-hoursToMilliseconds :: Numeric.Natural.Natural -> Numeric.Natural.Natural
+hoursToMilliseconds :: Natural.Natural -> Natural.Natural
 hoursToMilliseconds hours = minutesToMilliseconds $ hours * 60
 
 -- | Converts minutes into milliseconds.
-minutesToMilliseconds :: Numeric.Natural.Natural -> Numeric.Natural.Natural
+minutesToMilliseconds :: Natural.Natural -> Natural.Natural
 minutesToMilliseconds minutes = secondsToMilliseconds $ minutes * 60
 
 -- | Converts seconds into milliseconds.
-secondsToMilliseconds :: Numeric.Natural.Natural -> Numeric.Natural.Natural
+secondsToMilliseconds :: Natural.Natural -> Natural.Natural
 secondsToMilliseconds seconds = seconds * 1000
 
 -- | Converts milliseconds into picoseconds.
-millisecondsToPicoseconds :: Numeric.Natural.Natural -> Numeric.Natural.Natural
+millisecondsToPicoseconds :: Natural.Natural -> Natural.Natural
 millisecondsToPicoseconds milliseconds = milliseconds * 1000000000
 
 -- | Renders the payload (text) part of a caption. This is a little trickier

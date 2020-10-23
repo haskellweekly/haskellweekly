@@ -12,32 +12,32 @@ import qualified HW.Type.Episode
 import qualified HW.Type.Route
 import qualified HW.Type.Summary
 import qualified HW.Type.Title
-import qualified Lucid as H
+import qualified Lucid as Html
 
 podcastTemplate
-  :: HW.Type.BaseUrl.BaseUrl -> [HW.Type.Episode.Episode] -> H.Html ()
+  :: HW.Type.BaseUrl.BaseUrl -> [HW.Type.Episode.Episode] -> Html.Html ()
 podcastTemplate baseUrl episodes =
   HW.Template.Base.baseTemplate
       baseUrl
       "Haskell Weekly Podcast"
       (podcastHead baseUrl Nothing)
     $ do
-        H.h2_ [H.class_ "f2 mv3 tracked-tight"] "Podcast"
-        H.p_ [H.class_ "lh-copy"] $ do
+        Html.h2_ [Html.class_ "f2 mv3 tracked-tight"] "Podcast"
+        Html.p_ [Html.class_ "lh-copy"] $ do
           "The Haskell Weekly Podcast covers the Haskell programming language. "
           "Listen to professional software developers discuss using functional programming to solve real-world business problems. "
           "Each episode uses a conversational two-host format and runs for about 15 minutes."
         podcastActionTemplate baseUrl
-        H.ul_ [H.class_ "lh-copy"] $ mapM_ (episodeTemplate baseUrl) episodes
+        Html.ul_ [Html.class_ "lh-copy"] $ mapM_ (episodeTemplate baseUrl) episodes
 
 podcastHead
-  :: HW.Type.BaseUrl.BaseUrl -> Maybe HW.Type.Episode.Episode -> H.Html ()
+  :: HW.Type.BaseUrl.BaseUrl -> Maybe HW.Type.Episode.Episode -> Html.Html ()
 podcastHead baseUrl maybeEpisode = do
-  H.link_
-    [ H.href_
+  Html.link_
+    [ Html.href_
       $ HW.Type.Route.routeToTextWith baseUrl HW.Type.Route.RoutePodcastFeed
-    , H.rel_ "alternate"
-    , H.type_ "application/rss+xml"
+    , Html.rel_ "alternate"
+    , Html.type_ "application/rss+xml"
     ]
   case maybeEpisode of
     Nothing -> pure ()
@@ -53,67 +53,67 @@ podcastHead baseUrl maybeEpisode = do
         . HW.Type.Route.RouteEpisode
         $ HW.Type.Episode.episodeNumber episode
 
-podcastActionTemplate :: HW.Type.BaseUrl.BaseUrl -> H.Html ()
+podcastActionTemplate :: HW.Type.BaseUrl.BaseUrl -> Html.Html ()
 podcastActionTemplate baseUrl =
-  H.div_ [H.class_ "ba b--yellow bg-washed-yellow center mw6 pa3 tc"] $ do
-    H.a_
-        [ H.href_
+  Html.div_ [Html.class_ "ba b--yellow bg-washed-yellow center mw6 pa3 tc"] $ do
+    Html.a_
+        [ Html.href_
             "https://itunes.apple.com/us/podcast/haskell-weekly/id1456545040?mt=2&app=podcast"
         ]
-      $ H.img_
-          [ H.alt_ "Listen on Apple Podcasts"
-          , H.class_ "dib w-40-ns"
-          , H.src_
+      $ Html.img_
+          [ Html.alt_ "Listen on Apple Podcasts"
+          , Html.class_ "dib w-40-ns"
+          , Html.src_
           . HW.Type.Route.routeToTextWith baseUrl
           $ HW.Type.Route.RouteAppleBadge
           ]
-    H.div_ [H.class_ "dib w-10-ns"] ""
-    H.a_
-        [ H.href_
+    Html.div_ [Html.class_ "dib w-10-ns"] ""
+    Html.a_
+        [ Html.href_
             "https://podcasts.google.com/?feed=aHR0cHM6Ly9oYXNrZWxsd2Vla2x5Lm5ld3MvcG9kY2FzdC9mZWVkLnJzcw=="
         ]
-      $ H.img_
-          [ H.alt_ "Listen on Google Podcasts"
-          , H.class_ "dib w-40-ns"
-          , H.src_
+      $ Html.img_
+          [ Html.alt_ "Listen on Google Podcasts"
+          , Html.class_ "dib w-40-ns"
+          , Html.src_
           . HW.Type.Route.routeToTextWith baseUrl
           $ HW.Type.Route.RouteGoogleBadge
           ]
-    H.p_ [H.class_ "lh-copy mb0"] $ do
+    Html.p_ [Html.class_ "lh-copy mb0"] $ do
       "You can also follow us "
-      H.a_ [H.href_ "https://twitter.com/haskellweekly"] "on Twitter"
+      Html.a_ [Html.href_ "https://twitter.com/haskellweekly"] "on Twitter"
       " or with "
-      H.a_
-        [ H.href_
+      Html.a_
+        [ Html.href_
           . HW.Type.Route.routeToTextWith baseUrl
           $ HW.Type.Route.RoutePodcastFeed
         ]
         "our feed"
       ". Listen to more episodes in "
-      H.a_
-        [ H.href_
+      Html.a_
+        [ Html.href_
             $ HW.Type.Route.routeToTextWith baseUrl HW.Type.Route.RoutePodcast
         ]
         "the archives"
       "."
 
 episodeTemplate
-  :: HW.Type.BaseUrl.BaseUrl -> HW.Type.Episode.Episode -> H.Html ()
-episodeTemplate baseUrl episode = H.li_ . H.p_ $ do
-  H.a_
-      [ H.href_
+  :: HW.Type.BaseUrl.BaseUrl -> HW.Type.Episode.Episode -> Html.Html ()
+episodeTemplate baseUrl episode = Html.li_ . Html.p_ $ do
+  Html.a_
+      [ Html.href_
         . HW.Type.Route.routeToTextWith baseUrl
         . HW.Type.Route.RouteEpisode
         $ HW.Type.Episode.episodeNumber episode
       ]
-    . H.toHtml
+    . Html.toHtml
     . HW.Type.Title.titleToText
     $ HW.Type.Episode.episodeTitle episode
   ": "
-  H.toHtml . HW.Type.Summary.summaryToText $ HW.Type.Episode.episodeSummary
+  Html.toHtml . HW.Type.Summary.summaryToText $ HW.Type.Episode.episodeSummary
     episode
   " "
-  H.span_ [H.class_ "mid-gray"]
-    . H.toHtml
+  Html.span_ [Html.class_ "mid-gray"]
+    . Html.toHtml
     . HW.Type.Date.dateToShortText
     $ HW.Type.Episode.episodeDate episode

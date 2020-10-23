@@ -29,12 +29,12 @@ import qualified HW.Type.App
 import qualified HW.Type.Number
 import qualified HW.Type.Route
 import qualified HW.Type.State
-import qualified Network.Wai
+import qualified Network.Wai as Wai
 
 -- | The whole application. From a high level, this is responsible for checking
 -- the request method and path. If those route to an appropriate handler, this
 -- calls that handler and returns the response.
-application :: IORef.IORef HW.Type.State.State -> Network.Wai.Application
+application :: IORef.IORef HW.Type.State.State -> Wai.Application
 application ref request respond =
   case (requestMethod request, requestRoute request) of
     ("GET", Just route) -> do
@@ -47,22 +47,22 @@ application ref request respond =
 -- | Gets the request method as a string. This is convenient because request
 -- methods are technically byte strings, but almost always they can be thought
 -- of as plain ASCII strings.
-requestMethod :: Network.Wai.Request -> Text.Text
+requestMethod :: Wai.Request -> Text.Text
 requestMethod =
   Text.decodeUtf8With Text.lenientDecode
-    . Network.Wai.requestMethod
+    . Wai.requestMethod
 
 -- | Gets the route out of the request. If the request's path doesn't match
 -- any known routes, returns 'Nothing'.
-requestRoute :: Network.Wai.Request -> Maybe HW.Type.Route.Route
-requestRoute = HW.Type.Route.textToRoute . Network.Wai.pathInfo
+requestRoute :: Wai.Request -> Maybe HW.Type.Route.Route
+requestRoute = HW.Type.Route.textToRoute . Wai.pathInfo
 
 -- | Handles a particular route by calling the appropriate handler and
 -- returning the response.
 handle
   :: HW.Type.Route.Route
-  -> Network.Wai.Request
-  -> HW.Type.App.App Network.Wai.Response
+  -> Wai.Request
+  -> HW.Type.App.App Wai.Response
 handle route request = case route of
   HW.Type.Route.RouteAdvertising -> HW.Handler.Advertising.advertisingHandler
   HW.Type.Route.RouteAppleBadge ->

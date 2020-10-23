@@ -8,16 +8,16 @@ where
 
 import qualified Data.Text as Text
 import qualified HW.Type.BaseUrl
-import qualified Network.Wai.Handler.Warp
-import qualified Paths_haskellweekly
-import qualified System.Environment
-import qualified Text.Read
+import qualified Network.Wai.Handler.Warp as Warp
+import qualified Paths_haskellweekly as Package
+import qualified System.Environment as Environment
+import qualified Text.Read as Read
 
 data Config = Config
   { configBaseUrl :: HW.Type.BaseUrl.BaseUrl
   , configDataDirectory :: FilePath
   , configGoogleSiteVerification :: Maybe Text.Text
-  , configPort :: Network.Wai.Handler.Warp.Port
+  , configPort :: Warp.Port
   }
   deriving (Eq, Show)
 
@@ -27,7 +27,7 @@ data Config = Config
 -- actually exist.
 getConfig :: IO Config
 getConfig = do
-  dataDirectory <- Paths_haskellweekly.getDataDir
+  dataDirectory <- Package.getDataDir
   googleSiteVerification <- getGoogleSiteVerification
   port <- getPort
   baseUrl <- getBaseUrl
@@ -44,21 +44,21 @@ getConfig = do
 getBaseUrl :: IO HW.Type.BaseUrl.BaseUrl
 getBaseUrl =
   fmap (HW.Type.BaseUrl.textToBaseUrl . maybe Text.empty Text.pack)
-    $ System.Environment.lookupEnv "BASE_URL"
+    $ Environment.lookupEnv "BASE_URL"
 
 -- | This is used to verify that I actually own the website as far as Google is
 -- concerned. The verification is useful for Google's webmaster tools.
 getGoogleSiteVerification :: IO (Maybe Text.Text)
 getGoogleSiteVerification = do
-  maybeString <- System.Environment.lookupEnv "GOOGLE_SITE_VERIFICATION"
+  maybeString <- Environment.lookupEnv "GOOGLE_SITE_VERIFICATION"
   pure $ fmap Text.pack maybeString
 
 -- | Gets the port that the server should run on. By default this is @8080@.
-getPort :: IO Network.Wai.Handler.Warp.Port
+getPort :: IO Warp.Port
 getPort = do
-  maybeString <- System.Environment.lookupEnv "PORT"
+  maybeString <- Environment.lookupEnv "PORT"
   case maybeString of
     Nothing -> pure 8080
-    Just string -> case Text.Read.readMaybe string of
+    Just string -> case Read.readMaybe string of
       Nothing -> fail $ "invalid PORT: " <> show string
       Just port -> pure port

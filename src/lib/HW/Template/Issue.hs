@@ -3,7 +3,7 @@ module HW.Template.Issue
   )
 where
 
-import qualified CMark
+import qualified CMark as Mark
 import qualified Data.Text as Text
 import qualified HW.Template.Base
 import qualified HW.Template.Newsletter
@@ -12,29 +12,29 @@ import qualified HW.Type.Date
 import qualified HW.Type.Issue
 import qualified HW.Type.Number
 import qualified HW.Type.Route
-import qualified Lucid as H
+import qualified Lucid as Html
 
 issueTemplate
-  :: HW.Type.BaseUrl.BaseUrl -> HW.Type.Issue.Issue -> CMark.Node -> H.Html ()
+  :: HW.Type.BaseUrl.BaseUrl -> HW.Type.Issue.Issue -> Mark.Node -> Html.Html ()
 issueTemplate baseUrl issue node =
   HW.Template.Base.baseTemplate
       baseUrl
       (title issue <> " :: Haskell Weekly Newsletter")
       (HW.Template.Newsletter.newsletterHead baseUrl $ Just issue)
     $ do
-        H.h2_ [H.class_ "f2 mv3 tracked-tight"] $ H.a_
-          [ H.class_ "no-underline purple"
-          , H.href_ $ HW.Type.Route.routeToTextWith
+        Html.h2_ [Html.class_ "f2 mv3 tracked-tight"] $ Html.a_
+          [ Html.class_ "no-underline purple"
+          , Html.href_ $ HW.Type.Route.routeToTextWith
             baseUrl
             HW.Type.Route.RouteNewsletter
           ]
           "Newsletter"
-        H.h3_ [H.class_ "f3 mv3 tracked-tight"] $ do
-          H.toHtml $ title issue
+        Html.h3_ [Html.class_ "f3 mv3 tracked-tight"] $ do
+          Html.toHtml $ title issue
           " "
-          H.span_ [H.class_ "mid-gray"] . H.toHtml $ date issue
+          Html.span_ [Html.class_ "mid-gray"] . Html.toHtml $ date issue
         HW.Template.Newsletter.newsletterActionTemplate baseUrl
-        H.div_ [H.class_ "lh-copy"] . H.toHtmlRaw $ CMark.nodeToHtml [] node
+        Html.div_ [Html.class_ "lh-copy"] . Html.toHtmlRaw $ Mark.nodeToHtml [] node
 
 title :: HW.Type.Issue.Issue -> Text.Text
 title =
