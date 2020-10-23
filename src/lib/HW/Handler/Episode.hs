@@ -1,12 +1,12 @@
 module HW.Handler.Episode
-  ( episodeHandler
+  ( handler
   )
 where
 
 import qualified Data.Map as Map
 import qualified Data.Text as Text
 import qualified Data.Text.Encoding as Text
-import qualified HW.Handler.Base
+import qualified HW.Handler.Common as Common
 import qualified HW.Template.Episode as Episode
 import qualified HW.Type.App as App
 import qualified HW.Type.Caption as Caption
@@ -17,16 +17,16 @@ import qualified Network.HTTP.Types as Http
 import qualified Network.Wai as Wai
 import qualified System.FilePath as FilePath
 
-episodeHandler :: Number.Number -> App.App Wai.Response
-episodeHandler number = do
+handler :: Number.Number -> App.App Wai.Response
+handler number = do
   state <- App.getState
   let episodes = State.episodes state
   case Map.lookup number episodes of
-    Nothing -> pure HW.Handler.Base.notFoundResponse
+    Nothing -> pure Common.notFound
     Just episode -> do
       captions <- readCaptionFile number
       pure
-        . HW.Handler.Base.htmlResponse
+        . Common.html
             Http.ok200
             [(Http.hCacheControl, "public, max-age=900")]
         $ Episode.template

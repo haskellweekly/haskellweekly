@@ -10,7 +10,7 @@ import qualified Data.Text as Text
 import qualified Data.Text.Encoding as Text
 import qualified Data.Version as Version
 import qualified HW.Application as Application
-import qualified HW.Handler.Base
+import qualified HW.Handler.Common as Common
 import qualified HW.Middleware as Middleware
 import qualified HW.Type.Config as Config
 import qualified HW.Type.State as State
@@ -49,7 +49,7 @@ beforeMainLoop port = putStrLn $ "Listening on port " <> show port <> " ..."
 -- the same response for every exception. No potentially sensitive information
 -- is returned to the client.
 onExceptionResponse :: exception -> Wai.Response
-onExceptionResponse _ = HW.Handler.Base.statusResponse
+onExceptionResponse _ = Common.status
   Http.internalServerError500
   []
 

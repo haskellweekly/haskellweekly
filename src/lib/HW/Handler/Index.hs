@@ -1,5 +1,5 @@
 module HW.Handler.Index
-  ( indexHandler
+  ( handler
   )
 where
 
@@ -7,7 +7,7 @@ import qualified Data.List as List
 import qualified Data.Map as Map
 import qualified Data.Maybe as Maybe
 import qualified Data.Ord as Ord
-import qualified HW.Handler.Base
+import qualified HW.Handler.Common as Common
 import qualified HW.Template.Index as Index
 import qualified HW.Type.App as App
 import qualified HW.Type.Episode as Episode
@@ -16,8 +16,8 @@ import qualified HW.Type.State as State
 import qualified Network.HTTP.Types as Http
 import qualified Network.Wai as Wai
 
-indexHandler :: App.App Wai.Response
-indexHandler = do
+handler :: App.App Wai.Response
+handler = do
   state <- App.getState
   let
     maybeIssue =
@@ -31,7 +31,7 @@ indexHandler = do
         . Map.elems
         $ State.episodes state
   pure
-    . HW.Handler.Base.htmlResponse
+    . Common.html
         Http.ok200
         [(Http.hCacheControl, "public, max-age=900")]
     $ Index.template

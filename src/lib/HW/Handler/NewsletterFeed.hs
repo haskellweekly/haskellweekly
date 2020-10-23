@@ -1,13 +1,13 @@
 module HW.Handler.NewsletterFeed
-  ( newsletterFeedHandler
+  ( handler
   )
 where
 
 import qualified Data.List as List
 import qualified Data.Map as Map
 import qualified Data.Ord as Ord
-import qualified HW.Handler.Base
-import qualified HW.Handler.Issue
+import qualified HW.Handler.Common as Common
+import qualified HW.Handler.Issue as Issue
 import qualified HW.Template.NewsletterFeed as NewsletterFeed
 import qualified HW.Type.App as App
 import qualified HW.Type.Config as Config
@@ -17,14 +17,14 @@ import qualified Network.HTTP.Types as Http
 import qualified Network.Wai as Wai
 import qualified Text.XML as Xml
 
-newsletterFeedHandler :: App.App Wai.Response
-newsletterFeedHandler = do
+handler :: App.App Wai.Response
+handler = do
   state <- App.getState
   let baseUrl = Config.baseUrl $ State.config state
   issues <-
     mapM
       (\issue -> do
-        node <- HW.Handler.Issue.readIssueFile
+        node <- Issue.readIssueFile
           $ Issue.issueNumber issue
         pure (issue, node)
       )
@@ -33,7 +33,7 @@ newsletterFeedHandler = do
     . Map.elems
     $ State.issues state
   pure
-    . HW.Handler.Base.lbsResponse
+    . Common.lbs
         Http.ok200
         [ (Http.hCacheControl, "public, max-age=900")
         , ( Http.hContentType

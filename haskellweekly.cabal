@@ -68,7 +68,7 @@ library
     HW.Application
     HW.Episodes
     HW.Handler.Advertising
-    HW.Handler.Base
+    HW.Handler.Common
     HW.Handler.Episode
     HW.Handler.HealthCheck
     HW.Handler.Index

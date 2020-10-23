@@ -10,21 +10,21 @@ import qualified Data.IORef as IORef
 import qualified Data.Text as Text
 import qualified Data.Text.Encoding as Text
 import qualified Data.Text.Encoding.Error as Text
-import qualified HW.Handler.Advertising
-import qualified HW.Handler.Base
-import qualified HW.Handler.Episode
-import qualified HW.Handler.HealthCheck
-import qualified HW.Handler.Index
-import qualified HW.Handler.Issue
-import qualified HW.Handler.Newsletter
-import qualified HW.Handler.NewsletterFeed
-import qualified HW.Handler.Podcast
-import qualified HW.Handler.PodcastFeed
-import qualified HW.Handler.Redirect
-import qualified HW.Handler.Robots
-import qualified HW.Handler.Search
-import qualified HW.Handler.Sitemap
-import qualified HW.Handler.Survey
+import qualified HW.Handler.Advertising as Advertising
+import qualified HW.Handler.Common as Common
+import qualified HW.Handler.Episode as Episode
+import qualified HW.Handler.HealthCheck as HealthCheck
+import qualified HW.Handler.Index as Index
+import qualified HW.Handler.Issue as Issue
+import qualified HW.Handler.Newsletter as Newsletter
+import qualified HW.Handler.NewsletterFeed as NewsletterFeed
+import qualified HW.Handler.Podcast as Podcast
+import qualified HW.Handler.PodcastFeed as PodcastFeed
+import qualified HW.Handler.Redirect as Redirect
+import qualified HW.Handler.Robots as Robots
+import qualified HW.Handler.Search as Search
+import qualified HW.Handler.Sitemap as Sitemap
+import qualified HW.Handler.Survey as Survey
 import qualified HW.Type.App as App
 import qualified HW.Type.Number as Number
 import qualified HW.Type.Route as Route
@@ -42,7 +42,7 @@ application ref request respond =
         (handle route request)
         ref
       respond response
-    _ -> respond HW.Handler.Base.notFoundResponse
+    _ -> respond Common.notFound
 
 -- | Gets the request method as a string. This is convenient because request
 -- methods are technically byte strings, but almost always they can be thought
@@ -64,35 +64,35 @@ handle
   -> Wai.Request
   -> App.App Wai.Response
 handle route request = case route of
-  Route.Advertising -> HW.Handler.Advertising.advertisingHandler
+  Route.Advertising -> Advertising.handler
   Route.AppleBadge ->
-    HW.Handler.Base.fileResponse "image/svg+xml" "apple-podcasts.svg"
+    Common.file "image/svg+xml" "apple-podcasts.svg"
   Route.Captions number ->
-    HW.Handler.Base.fileResponse "text/vtt"
+    Common.file "text/vtt"
       $ "podcast/episode-"
       <> Text.unpack (Number.toText number)
       <> ".vtt"
   Route.Episode number ->
-    HW.Handler.Episode.episodeHandler number
+    Episode.handler number
   Route.Favicon ->
-    HW.Handler.Base.fileResponse "image/x-icon" "favicon.ico"
+    Common.file "image/x-icon" "favicon.ico"
   Route.GoogleBadge ->
-    HW.Handler.Base.fileResponse "image/svg+xml" "google-podcasts.svg"
-  Route.HealthCheck -> HW.Handler.HealthCheck.healthCheckHandler
-  Route.Index -> HW.Handler.Index.indexHandler
-  Route.Issue number -> HW.Handler.Issue.issueHandler number
+    Common.file "image/svg+xml" "google-podcasts.svg"
+  Route.HealthCheck -> HealthCheck.handler
+  Route.Index -> Index.handler
+  Route.Issue number -> Issue.handler number
   Route.NewsletterFeed ->
-    HW.Handler.NewsletterFeed.newsletterFeedHandler
-  Route.Newsletter -> HW.Handler.Newsletter.newsletterHandler
-  Route.PodcastFeed -> HW.Handler.PodcastFeed.podcastFeedHandler
-  Route.Podcast -> HW.Handler.Podcast.podcastHandler
+    NewsletterFeed.handler
+  Route.Newsletter -> Newsletter.handler
+  Route.PodcastFeed -> PodcastFeed.handler
+  Route.Podcast -> Podcast.handler
   Route.Logo ->
-    HW.Handler.Base.fileResponse "image/png" "logo.png"
+    Common.file "image/png" "logo.png"
   Route.Redirect redirect ->
-    HW.Handler.Redirect.redirectHandler redirect
-  Route.Robots -> HW.Handler.Robots.robotsHandler
-  Route.Search -> HW.Handler.Search.searchHandler request
-  Route.Sitemap -> HW.Handler.Sitemap.sitemapHandler
-  Route.Survey number -> HW.Handler.Survey.surveyHandler number
+    Redirect.handler redirect
+  Route.Robots -> Robots.handler
+  Route.Search -> Search.handler request
+  Route.Sitemap -> Sitemap.handler
+  Route.Survey number -> Survey.handler number
   Route.Tachyons ->
-    HW.Handler.Base.fileResponse "text/css; charset=utf-8" "tachyons.css"
+    Common.file "text/css; charset=utf-8" "tachyons.css"

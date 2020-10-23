@@ -1,20 +1,20 @@
 module HW.Handler.Redirect
-  ( redirectHandler
+  ( handler
   )
 where
 
 import qualified Data.Text.Encoding as Text
-import qualified HW.Handler.Base
+import qualified HW.Handler.Common as Common
 import qualified HW.Type.App as App
 import qualified HW.Type.Redirect as Redirect
 import qualified Network.HTTP.Types as Http
 import qualified Network.Wai as Wai
 
-redirectHandler
+handler
   :: Redirect.Redirect -> App.App Wai.Response
-redirectHandler redirect =
+handler redirect =
   pure
-    $ HW.Handler.Base.statusResponse
+    $ Common.status
         Http.found302
         [ ( Http.hLocation
           , Text.encodeUtf8

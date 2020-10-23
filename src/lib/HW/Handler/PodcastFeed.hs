@@ -1,12 +1,12 @@
 module HW.Handler.PodcastFeed
-  ( podcastFeedHandler
+  ( handler
   )
 where
 
 import qualified Data.List as List
 import qualified Data.Map as Map
 import qualified Data.Ord as Ord
-import qualified HW.Handler.Base
+import qualified HW.Handler.Common as Common
 import qualified HW.Template.PodcastFeed as PodcastFeed
 import qualified HW.Type.App as App
 import qualified HW.Type.Config as Config
@@ -16,8 +16,8 @@ import qualified Network.HTTP.Types as Http
 import qualified Network.Wai as Wai
 import qualified Text.XML as Xml
 
-podcastFeedHandler :: App.App Wai.Response
-podcastFeedHandler = do
+handler :: App.App Wai.Response
+handler = do
   state <- App.getState
   let
     baseUrl = Config.baseUrl $ State.config state
@@ -26,7 +26,7 @@ podcastFeedHandler = do
         . Map.elems
         $ State.episodes state
   pure
-    . HW.Handler.Base.lbsResponse
+    . Common.lbs
         Http.ok200
         [ (Http.hCacheControl, "public, max-age=900")
         , ( Http.hContentType

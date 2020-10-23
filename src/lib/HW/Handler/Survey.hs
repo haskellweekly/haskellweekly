@@ -1,9 +1,9 @@
 module HW.Handler.Survey
-  ( surveyHandler
+  ( handler
   )
 where
 
-import qualified HW.Handler.Base
+import qualified HW.Handler.Common as Common
 import qualified HW.Template.Survey2017 as Survey2017
 import qualified HW.Template.Survey2018 as Survey2018
 import qualified HW.Template.Survey2019 as Survey2019
@@ -15,8 +15,8 @@ import qualified Lucid as Html
 import qualified Network.HTTP.Types as Http
 import qualified Network.Wai as Wai
 
-surveyHandler :: Number.Number -> App.App Wai.Response
-surveyHandler number = do
+handler :: Number.Number -> App.App Wai.Response
+handler number = do
   state <- App.getState
   let baseUrl = Config.baseUrl $ State.config state
   case Number.toNatural number of
@@ -35,7 +35,7 @@ surveyHandler number = do
           Http.ok200
           [(Http.hCacheControl, "public, max-age=900")]
         $ Survey2019.template baseUrl
-    _ -> pure HW.Handler.Base.notFoundResponse
+    _ -> pure Common.notFound
 
 respondWith
   :: Http.Status
@@ -43,4 +43,4 @@ respondWith
   -> Html.Html ()
   -> App.App Wai.Response
 respondWith status headers =
-  pure . HW.Handler.Base.htmlResponse status headers
+  pure . Common.html status headers
