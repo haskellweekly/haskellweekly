@@ -1,15 +1,15 @@
 module HW.Template.Survey2017
-  ( survey2017Template
+  ( template
   )
 where
 
-import qualified HW.Template.Base
+import qualified HW.Template.Base as Base
 import qualified HW.Type.BaseUrl as BaseUrl
 import qualified Lucid as Html
 
-survey2017Template :: BaseUrl.BaseUrl -> Html.Html ()
-survey2017Template baseUrl =
-  HW.Template.Base.baseTemplate baseUrl "2017 Survey :: Haskell Weekly" mempty
+template :: BaseUrl.BaseUrl -> Html.Html ()
+template baseUrl =
+  Base.template baseUrl "2017 Survey :: Haskell Weekly" mempty
     $ do
         Html.h2_ [Html.class_ "f2 mv3 tracked-tight"] "2017 Survey"
         Html.p_ [Html.class_ "lh-copy"] $ do

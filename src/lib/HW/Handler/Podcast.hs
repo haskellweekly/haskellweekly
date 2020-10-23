@@ -7,7 +7,7 @@ import qualified Data.List as List
 import qualified Data.Map as Map
 import qualified Data.Ord as Ord
 import qualified HW.Handler.Base
-import qualified HW.Template.Podcast
+import qualified HW.Template.Podcast as Podcast
 import qualified HW.Type.App as App
 import qualified HW.Type.Config as Config
 import qualified HW.Type.Episode as Episode
@@ -22,7 +22,7 @@ podcastHandler = do
     . HW.Handler.Base.htmlResponse
         Http.ok200
         [(Http.hCacheControl, "public, max-age=900")]
-    . (HW.Template.Podcast.podcastTemplate
+    . (Podcast.template
       . Config.baseUrl
       $ State.config state
       )

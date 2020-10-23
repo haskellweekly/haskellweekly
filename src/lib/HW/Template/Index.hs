@@ -1,11 +1,11 @@
 module HW.Template.Index
-  ( indexTemplate
+  ( template
   )
 where
 
-import qualified HW.Template.Base
-import qualified HW.Template.Newsletter
-import qualified HW.Template.Podcast
+import qualified HW.Template.Base as Base
+import qualified HW.Template.Newsletter as Newsletter
+import qualified HW.Template.Podcast as Podcast
 import qualified HW.Type.BaseUrl as BaseUrl
 import qualified HW.Type.Config as Config
 import qualified HW.Type.Date as Date
@@ -15,12 +15,12 @@ import qualified HW.Type.Number as Number
 import qualified HW.Type.Route as Route
 import qualified Lucid as Html
 
-indexTemplate
+template
   :: Config.Config
   -> Maybe Issue.Issue
   -> Maybe Episode.Episode
   -> Html.Html ()
-indexTemplate config maybeIssue maybeEpisode = do
+template config maybeIssue maybeEpisode = do
   let
     baseUrl = Config.baseUrl config
     head_ :: Html.Html ()
@@ -31,7 +31,7 @@ indexTemplate config maybeIssue maybeEpisode = do
           [ Html.name_ "google-site-verification"
           , Html.content_ googleSiteVerification
           ]
-  HW.Template.Base.baseTemplate baseUrl "Haskell Weekly" head_ $ do
+  Base.template baseUrl "Haskell Weekly" head_ $ do
     Html.h2_ [Html.class_ "f2 mv3 tracked-tight"] $ Html.a_
       [ Html.class_ "no-underline purple"
       , Html.href_
@@ -44,7 +44,7 @@ indexTemplate config maybeIssue maybeEpisode = do
     case maybeIssue of
       Nothing -> pure ()
       Just issue -> issueTemplate baseUrl issue
-    HW.Template.Newsletter.newsletterActionTemplate baseUrl
+    Newsletter.callToAction baseUrl
     Html.h2_ [Html.class_ "f2 mv3 tracked-tight"] $ Html.a_
       [ Html.class_ "no-underline purple"
       , Html.href_
@@ -58,7 +58,7 @@ indexTemplate config maybeIssue maybeEpisode = do
     case maybeEpisode of
       Nothing -> pure ()
       Just episode -> episodeTemplate baseUrl episode
-    HW.Template.Podcast.podcastActionTemplate baseUrl
+    Podcast.callToAction baseUrl
     Html.h2_ [Html.class_ "f2 mv3 tracked-tight"] "Survey"
     Html.p_ [Html.class_ "lh-copy"] $ do
       "The State of Haskell Survey is a yearly survey of the Haskell community. "

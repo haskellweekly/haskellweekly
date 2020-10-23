@@ -1,5 +1,5 @@
 module HW.Template.PodcastFeed
-  ( podcastFeedTemplate
+  ( template
   )
 where
 
@@ -20,9 +20,9 @@ import qualified HW.Type.Summary as Summary
 import qualified HW.Type.Title as Title
 import qualified Text.XML as Xml
 
-podcastFeedTemplate
+template
   :: BaseUrl.BaseUrl -> [Episode.Episode] -> Xml.Document
-podcastFeedTemplate baseUrl episodes =
+template baseUrl episodes =
   let
     element name attributes =
       Xml.Element name (Map.fromList attributes)

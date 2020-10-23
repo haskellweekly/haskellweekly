@@ -1,11 +1,11 @@
 module HW.Template.Episode
-  ( episodeTemplate
+  ( template
   )
 where
 
 import qualified Data.Text as Text
-import qualified HW.Template.Base
-import qualified HW.Template.Podcast
+import qualified HW.Template.Base as Base
+import qualified HW.Template.Podcast as Podcast
 import qualified HW.Type.Article as Article
 import qualified HW.Type.Audio as Audio
 import qualified HW.Type.BaseUrl as BaseUrl
@@ -19,16 +19,16 @@ import qualified HW.Type.Title as Title
 import qualified Lucid as Html
 import qualified Lucid.Base as Html
 
-episodeTemplate
+template
   :: BaseUrl.BaseUrl
   -> Episode.Episode
   -> [Caption.Caption]
   -> Html.Html ()
-episodeTemplate baseUrl episode captions =
-  HW.Template.Base.baseTemplate
+template baseUrl episode captions =
+  Base.template
       baseUrl
       (title episode <> " :: Haskell Weekly Podcast")
-      (HW.Template.Podcast.podcastHead baseUrl $ Just episode)
+      (Podcast.header baseUrl $ Just episode)
     $ do
         Html.h2_ [Html.class_ "f2 mv3 tracked-tight"] $ Html.a_
           [ Html.class_ "no-underline purple"
@@ -37,7 +37,7 @@ episodeTemplate baseUrl episode captions =
           ]
           "Podcast"
         Html.h3_ [Html.class_ "f3 mv3 tracked-tight"] . Html.toHtml $ title episode
-        HW.Template.Podcast.podcastActionTemplate baseUrl
+        Podcast.callToAction baseUrl
         Html.p_ [Html.class_ "lh-copy"] $ do
           Html.toHtml
             . Summary.toText

@@ -1,11 +1,12 @@
 module HW.Template.Newsletter
-  ( newsletterTemplate
-  , newsletterActionTemplate
-  , newsletterHead
+  ( template
+  , callToAction
+  , header
   )
 where
 
-import qualified HW.Template.Base
+import qualified HW.Template.Base as Base
+import qualified HW.Template.Common as Common
 import qualified HW.Type.BaseUrl as BaseUrl
 import qualified HW.Type.Date as Date
 import qualified HW.Type.Issue as Issue
@@ -14,24 +15,24 @@ import qualified HW.Type.Route as Route
 import qualified Lucid as Html
 import qualified Lucid.Base as Html
 
-newsletterTemplate
+template
   :: BaseUrl.BaseUrl -> [Issue.Issue] -> Html.Html ()
-newsletterTemplate baseUrl issues =
-  HW.Template.Base.baseTemplate
+template baseUrl issues =
+  Base.template
       baseUrl
       "Haskell Weekly Newsletter"
-      (newsletterHead baseUrl Nothing)
+      (header baseUrl Nothing)
     $ do
         Html.h2_ [Html.class_ "f2 mv3 tracked-tight"] "Newsletter"
         Html.p_ [Html.class_ "lh-copy"] $ do
           "The Haskell Weekly Newsletter covers the Haskell programming language. "
           "Each issue features several hand-picked links to interesting content about Haskell from around the web."
-        newsletterActionTemplate baseUrl
+        callToAction baseUrl
         Html.ul_ [Html.class_ "lh-copy"] $ mapM_ (issueTemplate baseUrl) issues
 
-newsletterHead
+header
   :: BaseUrl.BaseUrl -> Maybe Issue.Issue -> Html.Html ()
-newsletterHead baseUrl maybeIssue = do
+header baseUrl maybeIssue = do
   Html.link_
     [ Html.href_
       $ Route.toText baseUrl Route.NewsletterFeed
@@ -41,21 +42,21 @@ newsletterHead baseUrl maybeIssue = do
   case maybeIssue of
     Nothing -> pure ()
     Just issue -> do
-      HW.Template.Base.metaOpenGraph "description"
+      Common.openGraph "description"
         $ "News about the Haskell programming language from "
         <> Date.toShortText (Issue.issueDate issue)
         <> "."
-      HW.Template.Base.metaOpenGraph "title"
+      Common.openGraph "title"
         . mappend "Issue "
         . Number.toText
         $ Issue.issueNumber issue
-      HW.Template.Base.metaOpenGraph "url"
+      Common.openGraph "url"
         . Route.toText baseUrl
         . Route.Issue
         $ Issue.issueNumber issue
 
-newsletterActionTemplate :: BaseUrl.BaseUrl -> Html.Html ()
-newsletterActionTemplate baseUrl =
+callToAction :: BaseUrl.BaseUrl -> Html.Html ()
+callToAction baseUrl =
   Html.div_ [Html.class_ "ba b--yellow bg-washed-yellow center mw6 pa3"] $ do
     Html.p_ [Html.class_ "lh-copy mt0"] $ do
       "Subscribe now! "

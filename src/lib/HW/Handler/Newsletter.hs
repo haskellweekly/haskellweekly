@@ -7,7 +7,7 @@ import qualified Data.List as List
 import qualified Data.Map as Map
 import qualified Data.Ord as Ord
 import qualified HW.Handler.Base
-import qualified HW.Template.Newsletter
+import qualified HW.Template.Newsletter as Newsletter
 import qualified HW.Type.App as App
 import qualified HW.Type.Config as Config
 import qualified HW.Type.Issue as Issue
@@ -28,4 +28,4 @@ newsletterHandler = do
     . HW.Handler.Base.htmlResponse
         Http.ok200
         [(Http.hCacheControl, "public, max-age=900")]
-    $ HW.Template.Newsletter.newsletterTemplate baseUrl issues
+    $ Newsletter.template baseUrl issues

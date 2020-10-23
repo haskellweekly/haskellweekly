@@ -4,7 +4,7 @@ module HW.Handler.Advertising
 where
 
 import qualified HW.Handler.Base
-import qualified HW.Template.Advertising
+import qualified HW.Template.Advertising as Advertising
 import qualified HW.Type.App as App
 import qualified HW.Type.Config as Config
 import qualified Network.HTTP.Types as Http
@@ -17,5 +17,5 @@ advertisingHandler = do
     . HW.Handler.Base.htmlResponse
         Http.ok200
         [(Http.hCacheControl, "public, max-age=900")]
-    . HW.Template.Advertising.advertisingTemplate
+    . Advertising.template
     $ Config.baseUrl config

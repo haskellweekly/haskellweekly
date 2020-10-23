@@ -1,5 +1,5 @@
 module HW.Template.NewsletterFeed
-  ( newsletterFeedTemplate
+  ( template
   )
 where
 
@@ -15,11 +15,11 @@ import qualified HW.Type.Number as Number
 import qualified HW.Type.Route as Route
 import qualified Text.XML as Xml
 
-newsletterFeedTemplate
+template
   :: BaseUrl.BaseUrl
   -> [(Issue.Issue, Mark.Node)]
   -> Xml.Document
-newsletterFeedTemplate baseUrl issues =
+template baseUrl issues =
   let
     element name attributes =
       Xml.Element name (Map.fromList attributes)

@@ -88,6 +88,7 @@ library
     HW.Server
     HW.Template.Advertising
     HW.Template.Base
+    HW.Template.Common
     HW.Template.Episode
     HW.Template.Index
     HW.Template.Issue

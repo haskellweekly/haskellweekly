@@ -4,9 +4,9 @@ module HW.Handler.Survey
 where
 
 import qualified HW.Handler.Base
-import qualified HW.Template.Survey2017
-import qualified HW.Template.Survey2018
-import qualified HW.Template.Survey2019
+import qualified HW.Template.Survey2017 as Survey2017
+import qualified HW.Template.Survey2018 as Survey2018
+import qualified HW.Template.Survey2019 as Survey2019
 import qualified HW.Type.App as App
 import qualified HW.Type.Config as Config
 import qualified HW.Type.Number as Number
@@ -24,17 +24,17 @@ surveyHandler number = do
       respondWith
           Http.ok200
           [(Http.hCacheControl, "public, max-age=900")]
-        $ HW.Template.Survey2017.survey2017Template baseUrl
+        $ Survey2017.template baseUrl
     2018 ->
       respondWith
           Http.ok200
           [(Http.hCacheControl, "public, max-age=900")]
-        $ HW.Template.Survey2018.survey2018Template baseUrl
+        $ Survey2018.template baseUrl
     2019 ->
       respondWith
           Http.ok200
           [(Http.hCacheControl, "public, max-age=900")]
-        $ HW.Template.Survey2019.survey2019Template baseUrl
+        $ Survey2019.template baseUrl
     _ -> pure HW.Handler.Base.notFoundResponse
 
 respondWith

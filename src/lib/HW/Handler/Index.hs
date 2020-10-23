@@ -8,7 +8,7 @@ import qualified Data.Map as Map
 import qualified Data.Maybe as Maybe
 import qualified Data.Ord as Ord
 import qualified HW.Handler.Base
-import qualified HW.Template.Index
+import qualified HW.Template.Index as Index
 import qualified HW.Type.App as App
 import qualified HW.Type.Episode as Episode
 import qualified HW.Type.Issue as Issue
@@ -34,7 +34,7 @@ indexHandler = do
     . HW.Handler.Base.htmlResponse
         Http.ok200
         [(Http.hCacheControl, "public, max-age=900")]
-    $ HW.Template.Index.indexTemplate
+    $ Index.template
         (State.config state)
         maybeIssue
         maybeEpisode

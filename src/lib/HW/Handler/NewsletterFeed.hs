@@ -8,7 +8,7 @@ import qualified Data.Map as Map
 import qualified Data.Ord as Ord
 import qualified HW.Handler.Base
 import qualified HW.Handler.Issue
-import qualified HW.Template.NewsletterFeed
+import qualified HW.Template.NewsletterFeed as NewsletterFeed
 import qualified HW.Type.App as App
 import qualified HW.Type.Config as Config
 import qualified HW.Type.Issue as Issue
@@ -41,4 +41,4 @@ newsletterFeedHandler = do
           )
         ]
     . Xml.renderLBS Xml.def
-    $ HW.Template.NewsletterFeed.newsletterFeedTemplate baseUrl issues
+    $ NewsletterFeed.template baseUrl issues

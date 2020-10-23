@@ -1,22 +1,21 @@
 module HW.Template.Base
-  ( baseTemplate
-  , metaOpenGraph
+  ( template
   )
 where
 
 import qualified Data.Text as Text
+import qualified HW.Template.Common as Common
 import qualified HW.Type.BaseUrl as BaseUrl
 import qualified HW.Type.Route as Route
 import qualified Lucid as Html
-import qualified Lucid.Base as Html
 
-baseTemplate
+template
   :: BaseUrl.BaseUrl
   -> Text.Text
   -> Html.Html ()
   -> Html.Html ()
   -> Html.Html ()
-baseTemplate baseUrl title head_ body = do
+template baseUrl title head_ body = do
   Html.doctype_
   Html.html_ [Html.class_ "b--purple bt bw3", Html.lang_ "en-US"] $ do
     Html.head_ $ do
@@ -36,15 +35,15 @@ baseTemplate baseUrl title head_ body = do
           $ Route.toText baseUrl Route.Logo
         , Html.rel_ "apple-touch-icon"
         ]
-      metaOpenGraph "image"
+      Common.openGraph "image"
         $ Route.toText baseUrl Route.Logo
-      metaOpenGraph "site_name" "Haskell Weekly"
-      metaOpenGraph "type" "website"
-      metaTwitter "card" "summary"
-      metaTwitter "creator" "@haskellweekly"
-      metaTwitter "image"
+      Common.openGraph "site_name" "Haskell Weekly"
+      Common.openGraph "type" "website"
+      Common.twitter "card" "summary"
+      Common.twitter "creator" "@haskellweekly"
+      Common.twitter "image"
         $ Route.toText baseUrl Route.Logo
-      metaTwitter "site" "@haskellweekly"
+      Common.twitter "site" "@haskellweekly"
       head_
     Html.body_ [Html.class_ "bg-white black flex justify-center mh3 sans-serif"]
       . Html.div_ [Html.class_ "mw7 w-100"]
@@ -91,11 +90,3 @@ baseTemplate baseUrl title head_ body = do
                   ]
                   "on GitHub"
                 "."
-
-metaOpenGraph :: Text.Text -> Text.Text -> Html.Html ()
-metaOpenGraph property content =
-  Html.meta_ [Html.content_ content, Html.makeAttribute "property" $ "og:" <> property]
-
-metaTwitter :: Text.Text -> Text.Text -> Html.Html ()
-metaTwitter name content =
-  Html.meta_ [Html.content_ content, Html.name_ $ "twitter:" <> name]

@@ -9,7 +9,7 @@ import qualified Data.Map as Map
 import qualified Data.Text as Text
 import qualified Data.Text.Encoding as Text
 import qualified HW.Handler.Base
-import qualified HW.Template.Issue
+import qualified HW.Template.Issue as Issue
 import qualified HW.Type.App as App
 import qualified HW.Type.Config as Config
 import qualified HW.Type.Number as Number
@@ -33,7 +33,7 @@ issueHandler number = do
         . HW.Handler.Base.htmlResponse
             Http.ok200
             [(Http.hCacheControl, "public, max-age=900")]
-        $ HW.Template.Issue.issueTemplate baseUrl issue node
+        $ Issue.template baseUrl issue node
 
 readIssueFile :: Number.Number -> App.App Mark.Node
 readIssueFile number = do

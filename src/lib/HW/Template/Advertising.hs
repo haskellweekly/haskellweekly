@@ -1,16 +1,16 @@
 module HW.Template.Advertising
-  ( advertisingTemplate
+  ( template
   )
 where
 
-import qualified HW.Template.Base
+import qualified HW.Template.Base as Base
 import qualified HW.Type.BaseUrl as BaseUrl
 import qualified HW.Type.Route as Route
 import qualified Lucid as Html
 
-advertisingTemplate :: BaseUrl.BaseUrl -> Html.Html ()
-advertisingTemplate baseUrl =
-  HW.Template.Base.baseTemplate baseUrl "Advertising :: Haskell Weekly" mempty
+template :: BaseUrl.BaseUrl -> Html.Html ()
+template baseUrl =
+  Base.template baseUrl "Advertising :: Haskell Weekly" mempty
     $ do
         Html.h2_ [Html.class_ "f2 mv3 tracked-tight"] "Advertising"
         Html.h3_ [Html.class_ "f3 mv3 tracked-tight"] "Newsletter"

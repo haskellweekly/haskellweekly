@@ -7,7 +7,7 @@ import qualified Data.List as List
 import qualified Data.Map as Map
 import qualified Data.Ord as Ord
 import qualified HW.Handler.Base
-import qualified HW.Template.PodcastFeed
+import qualified HW.Template.PodcastFeed as PodcastFeed
 import qualified HW.Type.App as App
 import qualified HW.Type.Config as Config
 import qualified HW.Type.Episode as Episode
@@ -34,4 +34,4 @@ podcastFeedHandler = do
           )
         ]
     . Xml.renderLBS Xml.def
-    $ HW.Template.PodcastFeed.podcastFeedTemplate baseUrl episodes
+    $ PodcastFeed.template baseUrl episodes
