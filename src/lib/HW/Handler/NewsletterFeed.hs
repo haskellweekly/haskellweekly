@@ -24,8 +24,7 @@ handler = do
   issues <-
     mapM
       (\issue -> do
-        node <- Issue.readIssueFile
-          $ Issue.issueNumber issue
+        node <- Issue.readIssueFile $ Issue.issueNumber issue
         pure (issue, node)
       )
     . take 13
@@ -36,9 +35,7 @@ handler = do
     . Common.lbs
         Http.ok200
         [ (Http.hCacheControl, "public, max-age=900")
-        , ( Http.hContentType
-          , "application/atom+xml; charset=utf-8"
-          )
+        , (Http.hContentType, "application/atom+xml; charset=utf-8")
         ]
     . Xml.renderLBS Xml.def
     $ NewsletterFeed.template baseUrl issues

@@ -26,40 +26,33 @@ template baseUrl title head_ body = do
         ]
       Html.title_ $ Html.toHtml title
       Html.link_
-        [ Html.href_
-          $ Route.toText baseUrl Route.Tachyons
+        [ Html.href_ $ Route.toText baseUrl Route.Tachyons
         , Html.rel_ "stylesheet"
         ]
       Html.link_
-        [ Html.href_
-          $ Route.toText baseUrl Route.Logo
+        [ Html.href_ $ Route.toText baseUrl Route.Logo
         , Html.rel_ "apple-touch-icon"
         ]
-      Common.openGraph "image"
-        $ Route.toText baseUrl Route.Logo
+      Common.openGraph "image" $ Route.toText baseUrl Route.Logo
       Common.openGraph "site_name" "Haskell Weekly"
       Common.openGraph "type" "website"
       Common.twitter "card" "summary"
       Common.twitter "creator" "@haskellweekly"
-      Common.twitter "image"
-        $ Route.toText baseUrl Route.Logo
+      Common.twitter "image" $ Route.toText baseUrl Route.Logo
       Common.twitter "site" "@haskellweekly"
       head_
-    Html.body_ [Html.class_ "bg-white black flex justify-center mh3 sans-serif"]
+    Html.body_
+        [Html.class_ "bg-white black flex justify-center mh3 sans-serif"]
       . Html.div_ [Html.class_ "mw7 w-100"]
       $ do
           Html.header_ [Html.class_ "mv3"] $ do
             Html.h1_ [Html.class_ "f1 mv3 tracked-tight"] $ Html.a_
               [ Html.class_ "no-underline purple"
-              , Html.href_ $ Route.toText
-                baseUrl
-                Route.Index
+              , Html.href_ $ Route.toText baseUrl Route.Index
               ]
               "Haskell Weekly"
             Html.form_
-                [ Html.action_ $ Route.toText
-                  baseUrl
-                  Route.Search
+                [ Html.action_ $ Route.toText baseUrl Route.Search
                 , Html.class_ "ba b--silver center flex mw6"
                 ]
               $ do

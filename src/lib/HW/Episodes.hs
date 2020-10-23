@@ -66,10 +66,7 @@ episodes = do
 
 -- | Checks to make sure that none of the episode GUIDs have been used more
 -- than once.
-checkGuids
-  :: [Episode.Episode]
-  -> Set.Set Guid.Guid
-  -> Either String ()
+checkGuids :: [Episode.Episode] -> Set.Set Guid.Guid -> Either String ()
 checkGuids es guids = case es of
   [] -> Right ()
   episode : rest ->
@@ -81,8 +78,7 @@ checkGuids es guids = case es of
 
 -- | Checks to make sure that all of the episode numbers are increasing without
 -- gaps starting from one.
-checkNumbers
-  :: [Episode.Episode] -> Natural.Natural -> Either String ()
+checkNumbers :: [Episode.Episode] -> Natural.Natural -> Either String ()
 checkNumbers es current = case es of
   [] -> Right ()
   episode : rest ->
@@ -96,14 +92,12 @@ checkNumbers es current = case es of
 -- 'checkNumbers' has already been called on the episodes, so there's no danger
 -- of keys being overwritten.
 insertEpisode :: Episode.Episode -> Episodes -> Episodes
-insertEpisode episode =
-  Map.insert (Episode.number episode) episode
+insertEpisode episode = Map.insert (Episode.number episode) episode
 
 episode1 :: Either String Episode.Episode
 episode1 =
   Episode.Episode
-    <$> Articles.fromList
-          ["https://markkarpov.com/tutorial/exceptions.html"]
+    <$> Articles.fromList ["https://markkarpov.com/tutorial/exceptions.html"]
     <*> Audio.fromText
           "https://media.haskell-weekly.com/2019-03-11-episode-1.mp3"
     <*> Date.fromGregorian 2019 3 11
@@ -267,8 +261,7 @@ episode10 =
 episode11 :: Either String Episode.Episode
 episode11 =
   Episode.Episode
-    <$> Articles.fromList
-          ["https://blog.jez.io/profiling-in-haskell/"]
+    <$> Articles.fromList ["https://blog.jez.io/profiling-in-haskell/"]
     <*> Audio.fromText
           "https://media.haskell-weekly.com/2019-05-27-episode-11.mp3"
     <*> Date.fromGregorian 2019 5 27
@@ -283,8 +276,7 @@ episode11 =
 episode12 :: Either String Episode.Episode
 episode12 =
   Episode.Episode
-    <$> Articles.fromList
-          ["https://www.tweag.io/posts/2019-05-27-ormolu.html"]
+    <$> Articles.fromList ["https://www.tweag.io/posts/2019-05-27-ormolu.html"]
     <*> Audio.fromText
           "https://media.haskell-weekly.com/2019-06-03-episode-12.mp3"
     <*> Date.fromGregorian 2019 6 3
@@ -383,8 +375,7 @@ episode16 =
 episode17 :: Either String Episode.Episode
 episode17 =
   Episode.Episode
-    <$> Articles.fromList
-          ["https://typeclasses.com/news/2019-07-phrasebook"]
+    <$> Articles.fromList ["https://typeclasses.com/news/2019-07-phrasebook"]
     <*> Audio.fromText
           "https://media.haskell-weekly.com/2019-08-06-episode-17.mp3"
     <*> Date.fromGregorian 2019 8 6
@@ -399,8 +390,7 @@ episode17 =
 episode18 :: Either String Episode.Episode
 episode18 =
   Episode.Episode
-    <$> Articles.fromList
-          ["https://blog.kabir.sh/posts/inventing-monads.html"]
+    <$> Articles.fromList ["https://blog.kabir.sh/posts/inventing-monads.html"]
     <*> Audio.fromText
           "https://media.haskell-weekly.com/2019-08-13-episode-18.mp3"
     <*> Date.fromGregorian 2019 8 13
@@ -432,8 +422,7 @@ episode19 =
 episode20 :: Either String Episode.Episode
 episode20 =
   Episode.Episode
-    <$> Articles.fromList
-          ["https://typeclasses.com/featured/rounding"]
+    <$> Articles.fromList ["https://typeclasses.com/featured/rounding"]
     <*> Audio.fromText
           "https://media.haskell-weekly.com/2019-09-13-episode-20.mp3"
     <*> Date.fromGregorian 2019 9 13
@@ -542,32 +531,36 @@ episode25 =
     <*> Title.fromText "Strategic Deriving"
 
 episode26 :: Either String Episode.Episode
-episode26 = Episode.Episode
-  <$> Articles.fromList
-    [ "https://dev.to/sshine/getting-recursively-drunk-with-monoids-2jek"
-    ]
-  <*> Audio.fromText
-    "https://media.haskell-weekly.com/2020-10-13-episode-26.mp3"
-  <*> Date.fromGregorian 2020 10 13
-  <*> Duration.fromTimestamp 18 51
-  <*> Guid.fromText "4b9f812e-8a9f-45c2-b221-f2b8f8d5270c"
-  <*> Number.fromNatural 26
-  <*> Size.fromNatural 20277774
-  <*> Summary.fromText
-    "Sara Lichtenstein, Cameron Gera, and Taylor Fausak get recursively drunk on semigroups and monoids."
-  <*> Title.fromText "Recursive Monoids"
+episode26 =
+  Episode.Episode
+    <$> Articles.fromList
+          ["https://dev.to/sshine/getting-recursively-drunk-with-monoids-2jek"]
+    <*> Audio.fromText
+          "https://media.haskell-weekly.com/2020-10-13-episode-26.mp3"
+    <*> Date.fromGregorian 2020 10 13
+    <*> Duration.fromTimestamp 18 51
+    <*> Guid.fromText "4b9f812e-8a9f-45c2-b221-f2b8f8d5270c"
+    <*> Number.fromNatural 26
+    <*> Size.fromNatural 20277774
+    <*> Summary.fromText
+          "Sara Lichtenstein, Cameron Gera, and Taylor Fausak get recursively drunk on semigroups and monoids."
+    <*> Title.fromText "Recursive Monoids"
 
 episode27 :: Either String Episode.Episode
-episode27 = Episode.Episode
-  <$> Articles.fromList
-    [ "https://chrispenner.ca/posts/interview"
-    , "https://hacktoberfest.digitalocean.com"
-    , "https://github.com/kowainik/learn4haskell" ]
-  <*> Audio.fromText "https://media.haskell-weekly.com/2020-10-19-episode-27.mp3"
-  <*> Date.fromGregorian 2020 10 19
-  <*> Duration.fromTimestamp 31 33
-  <*> Guid.fromText "5417c280-694e-4944-b7e9-f34c82b5f481"
-  <*> Number.fromNatural 27
-  <*> Size.fromNatural 35193073
-  <*> Summary.fromText "Learn how to answer common technical interview questions with Haskell. Cameron Gera and Taylor Fausak discuss Chris Penner's blog post."
-  <*> Title.fromText "Interview Questions"
+episode27 =
+  Episode.Episode
+    <$> Articles.fromList
+          [ "https://chrispenner.ca/posts/interview"
+          , "https://hacktoberfest.digitalocean.com"
+          , "https://github.com/kowainik/learn4haskell"
+          ]
+    <*> Audio.fromText
+          "https://media.haskell-weekly.com/2020-10-19-episode-27.mp3"
+    <*> Date.fromGregorian 2020 10 19
+    <*> Duration.fromTimestamp 31 33
+    <*> Guid.fromText "5417c280-694e-4944-b7e9-f34c82b5f481"
+    <*> Number.fromNatural 27
+    <*> Size.fromNatural 35193073
+    <*> Summary.fromText
+          "Learn how to answer common technical interview questions with Haskell. Cameron Gera and Taylor Fausak discuss Chris Penner's blog post."
+    <*> Title.fromText "Interview Questions"

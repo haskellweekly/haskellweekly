@@ -21,19 +21,13 @@ handler number = do
   let baseUrl = Config.baseUrl $ State.config state
   case Number.toNatural number of
     2017 ->
-      respondWith
-          Http.ok200
-          [(Http.hCacheControl, "public, max-age=900")]
+      respondWith Http.ok200 [(Http.hCacheControl, "public, max-age=900")]
         $ Survey2017.template baseUrl
     2018 ->
-      respondWith
-          Http.ok200
-          [(Http.hCacheControl, "public, max-age=900")]
+      respondWith Http.ok200 [(Http.hCacheControl, "public, max-age=900")]
         $ Survey2018.template baseUrl
     2019 ->
-      respondWith
-          Http.ok200
-          [(Http.hCacheControl, "public, max-age=900")]
+      respondWith Http.ok200 [(Http.hCacheControl, "public, max-age=900")]
         $ Survey2019.template baseUrl
     _ -> pure Common.notFound
 
@@ -42,5 +36,4 @@ respondWith
   -> Http.ResponseHeaders
   -> Html.Html ()
   -> App.App Wai.Response
-respondWith status headers =
-  pure . Common.html status headers
+respondWith status headers = pure . Common.html status headers

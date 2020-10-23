@@ -15,10 +15,7 @@ import qualified HW.Type.Config as Config
 import qualified HW.Type.State as State
 import qualified System.FilePath as FilePath
 
-type App
-  = Reader.ReaderT
-      (IORef.IORef State.State)
-      IO
+type App = Reader.ReaderT (IORef.IORef State.State) IO
 
 getConfig :: App Config.Config
 getConfig = fmap State.config getState
@@ -39,12 +36,9 @@ readDataFile file = do
     Nothing -> do
       contents <- readDataFileWithoutCache file
       stateRef <- Reader.ask
-      IO.liftIO
-        . State.modifyState stateRef
-        $ \oldState -> oldState
-            { State.fileCache = Map.insert file contents
-              $ State.fileCache oldState
-            }
+      IO.liftIO . State.modifyState stateRef $ \oldState -> oldState
+        { State.fileCache = Map.insert file contents $ State.fileCache oldState
+        }
       pure contents
 
 readDataFileWithoutCache :: FilePath -> App ByteString.ByteString

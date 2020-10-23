@@ -79,12 +79,7 @@ captionP = do
   charP '\n'
   Monad.guard $ start < end
   payload <- nonEmptyP lineP
-  pure Caption
-    { identifier
-    , start
-    , end
-    , payload
-    }
+  pure Caption { identifier, start, end, payload }
 
 -- | Parses a WebVTT identifier, which for our purposes is always a natural
 -- number.
@@ -128,21 +123,18 @@ charP = Monad.void . ReadP.char
 -- | Parses a natural number with the specified number of digits.
 naturalP :: Int -> Parser Natural.Natural
 naturalP count = do
-  digits <- ReadP.count count
-    $ ReadP.satisfy Char.isDigit
+  digits <- ReadP.count count $ ReadP.satisfy Char.isDigit
   either fail pure $ Read.readEither digits
 
 -- | Given a parser, gets it one or more times. This is like @many1@ except
 -- that the return type (@NonEmpty@) actually expresses the fact that there's
 -- at least one element.
 nonEmptyP :: Parser a -> Parser (NonEmpty.NonEmpty a)
-nonEmptyP p =
-  (NonEmpty.:|) <$> p <*> ReadP.many p
+nonEmptyP p = (NonEmpty.:|) <$> p <*> ReadP.many p
 
 -- | Parses a string and throws it away.
 stringP :: Text.Text -> Parser ()
-stringP =
-  Monad.void . ReadP.string . Text.unpack
+stringP = Monad.void . ReadP.string . Text.unpack
 
 -- | Converts a timestamp (hours, minutes, seconds, milliseconds) into an
 -- integral number of picoseconds. This is mainly useful for conversion into

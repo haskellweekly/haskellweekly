@@ -47,16 +47,13 @@ toTextRelative :: Route -> Text.Text
 toTextRelative route = case route of
   Advertising -> "/advertising.html"
   AppleBadge -> "/apple-podcasts.svg"
-  Captions number ->
-    "/captions/" <> Number.toText number <> ".vtt"
-  Episode number ->
-    "/episode/" <> Number.toText number <> ".html"
+  Captions number -> "/captions/" <> Number.toText number <> ".vtt"
+  Episode number -> "/episode/" <> Number.toText number <> ".html"
   Favicon -> "/favicon.ico"
   GoogleBadge -> "/google-podcasts.svg"
   HealthCheck -> "/health-check"
   Index -> "/"
-  Issue number ->
-    "/issue/" <> Number.toText number <> ".html"
+  Issue number -> "/issue/" <> Number.toText number <> ".html"
   Logo -> "/logo.png"
   NewsletterFeed -> "/newsletter.atom"
   Newsletter -> "/newsletter.html"
@@ -66,8 +63,7 @@ toTextRelative route = case route of
   Robots -> "/robots.txt"
   Search -> "/search"
   Sitemap -> "/sitemap.txt"
-  Survey number ->
-    "/survey/" <> Number.toText number <> ".html"
+  Survey number -> "/survey/" <> Number.toText number <> ".html"
   Tachyons -> "/tachyons.css"
 
 -- | Renders a route as text with the given base URL. Redirects are not
@@ -125,10 +121,7 @@ textToRedirect path = fmap routeToRedirect $ case path of
 -- | Handles routing content by stripping the given extension, parsing what's
 -- left of the path, and wrapping the result in a route.
 routeContent
-  :: Text.Text
-  -> (Number.Number -> Route)
-  -> Text.Text
-  -> Maybe Route
+  :: Text.Text -> (Number.Number -> Route) -> Text.Text -> Maybe Route
 routeContent extension route file =
   case Text.stripSuffix ("." <> extension) file of
     Nothing -> Nothing

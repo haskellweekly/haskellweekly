@@ -21,11 +21,8 @@ handler = do
   let
     baseUrl = Config.baseUrl $ State.config state
     issues =
-      List.sortOn (Ord.Down . Issue.issueNumber)
-        . Map.elems
-        $ State.issues state
+      List.sortOn (Ord.Down . Issue.issueNumber) . Map.elems $ State.issues
+        state
   pure
-    . Common.html
-        Http.ok200
-        [(Http.hCacheControl, "public, max-age=900")]
+    . Common.html Http.ok200 [(Http.hCacheControl, "public, max-age=900")]
     $ Newsletter.template baseUrl issues

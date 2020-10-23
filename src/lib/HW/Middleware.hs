@@ -58,9 +58,8 @@ addCaching ref application request respond = do
       Monad.when (method == "GET" && responseStatus response == 200)
         . State.modifyState ref
         $ \state -> state
-            { State.responseCache =
-              Map.insert key (expires, response)
-                $ State.responseCache state
+            { State.responseCache = Map.insert key (expires, response)
+              $ State.responseCache state
             }
       respond response
 
@@ -102,23 +101,17 @@ addLogging application request respond = do
     respond response
 
 iso8601 :: Time.UTCTime -> Text.Text
-iso8601 = Text.pack
-  . Time.formatTime Time.defaultTimeLocale "%Y-%m-%dT%H:%M:%S%3QZ"
+iso8601 =
+  Text.pack . Time.formatTime Time.defaultTimeLocale "%Y-%m-%dT%H:%M:%S%3QZ"
 
 requestMethod :: Wai.Request -> Text.Text
-requestMethod =
-  Text.decodeUtf8With Text.lenientDecode
-    . Wai.requestMethod
+requestMethod = Text.decodeUtf8With Text.lenientDecode . Wai.requestMethod
 
 requestPath :: Wai.Request -> Text.Text
-requestPath =
-  Text.decodeUtf8With Text.lenientDecode
-    . Wai.rawPathInfo
+requestPath = Text.decodeUtf8With Text.lenientDecode . Wai.rawPathInfo
 
 requestQuery :: Wai.Request -> Text.Text
-requestQuery =
-  Text.decodeUtf8With Text.lenientDecode
-    . Wai.rawQueryString
+requestQuery = Text.decodeUtf8With Text.lenientDecode . Wai.rawQueryString
 
 responseStatus :: Wai.Response -> Int
 responseStatus = Http.statusCode . Wai.responseStatus
@@ -126,8 +119,7 @@ responseStatus = Http.statusCode . Wai.responseStatus
 responseSize :: Wai.Response -> Int.Int64
 responseSize response = case response of
   Wai.ResponseBuilder _ _ builder ->
-    LazyByteString.length
-      $ Builder.toLazyByteString builder
+    LazyByteString.length $ Builder.toLazyByteString builder
   _ -> -1
 
 duration :: Word.Word64 -> Word.Word64 -> Word.Word64
@@ -145,28 +137,21 @@ addEntityTagHeader application request respond =
   application request $ \response ->
     case (getEntityTag request, makeEntityTag response) of
       (Just expected, Just actual) | expected == actual ->
-        respond $ Wai.responseLBS
-          Http.notModified304
-          []
-          LazyByteString.empty
-      (_, Just entityTag) -> respond $ Wai.mapResponseHeaders
-        ((Http.hETag, entityTag) :)
-        response
+        respond $ Wai.responseLBS Http.notModified304 [] LazyByteString.empty
+      (_, Just entityTag) ->
+        respond $ Wai.mapResponseHeaders ((Http.hETag, entityTag) :) response
       _ -> respond response
 
 -- | Gets an ETag from the @If-None-Match@ header on a request.
 getEntityTag :: Wai.Request -> Maybe ByteString.ByteString
-getEntityTag =
-  lookup Http.hIfNoneMatch . Wai.requestHeaders
+getEntityTag = lookup Http.hIfNoneMatch . Wai.requestHeaders
 
 -- | Makes an ETag for the @ETag@ header on a response.
 makeEntityTag :: Wai.Response -> Maybe ByteString.ByteString
 makeEntityTag response = case response of
   Wai.ResponseBuilder _ _ builder -> Just $ mconcat
     [ ByteString.pack [0x57, 0x2f, 0x22]
-    , Base64.encode
-    . Sha1.hashlazy
-    $ Builder.toLazyByteString builder
+    , Base64.encode . Sha1.hashlazy $ Builder.toLazyByteString builder
     , ByteString.singleton 0x22
     ]
   _ -> Nothing
@@ -222,16 +207,10 @@ featurePolicy = Text.intercalate
 -- | Adds a header to a response. This doesn't remove any existing headers with
 -- the same name, so it's possible to end up with duplicates.
 addHeader
-  :: Text.Text
-  -> Text.Text
-  -> Http.ResponseHeaders
-  -> Http.ResponseHeaders
+  :: Text.Text -> Text.Text -> Http.ResponseHeaders -> Http.ResponseHeaders
 addHeader name value headers = makeHeader name value : headers
 
 -- | Makes a single header value. This function is mostly for convenience
 -- because turning strings into the proper name/value types is annoying.
 makeHeader :: Text.Text -> Text.Text -> Http.Header
-makeHeader name value =
-  ( CI.mk $ Text.encodeUtf8 name
-  , Text.encodeUtf8 value
-  )
+makeHeader name value = (CI.mk $ Text.encodeUtf8 name, Text.encodeUtf8 value)

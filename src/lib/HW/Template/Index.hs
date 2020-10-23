@@ -26,16 +26,14 @@ template config maybeIssue maybeEpisode = do
     head_ :: Html.Html ()
     head_ = case Config.googleSiteVerification config of
       Nothing -> mempty
-      Just googleSiteVerification ->
-        Html.meta_
-          [ Html.name_ "google-site-verification"
-          , Html.content_ googleSiteVerification
-          ]
+      Just googleSiteVerification -> Html.meta_
+        [ Html.name_ "google-site-verification"
+        , Html.content_ googleSiteVerification
+        ]
   Base.template baseUrl "Haskell Weekly" head_ $ do
     Html.h2_ [Html.class_ "f2 mv3 tracked-tight"] $ Html.a_
       [ Html.class_ "no-underline purple"
-      , Html.href_
-        $ Route.toText baseUrl Route.Newsletter
+      , Html.href_ $ Route.toText baseUrl Route.Newsletter
       ]
       "Newsletter"
     Html.p_ [Html.class_ "lh-copy"] $ do
@@ -47,8 +45,7 @@ template config maybeIssue maybeEpisode = do
     Newsletter.callToAction baseUrl
     Html.h2_ [Html.class_ "f2 mv3 tracked-tight"] $ Html.a_
       [ Html.class_ "no-underline purple"
-      , Html.href_
-        $ Route.toText baseUrl Route.Podcast
+      , Html.href_ $ Route.toText baseUrl Route.Podcast
       ]
       "Podcast"
     Html.p_ [Html.class_ "lh-copy"] $ do
@@ -66,7 +63,9 @@ template config maybeIssue maybeEpisode = do
       "You can view the results of previous surveys:"
     Html.ul_ [Html.class_ "lh-copy"] $ do
       Html.li_ $ Html.a_
-        [Html.href_ "https://taylor.fausak.me/2019/11/16/haskell-survey-results/"]
+        [ Html.href_
+            "https://taylor.fausak.me/2019/11/16/haskell-survey-results/"
+        ]
         "2019 State of Haskell Survey results"
       Html.li_ $ Html.a_
         [ Html.href_
@@ -85,58 +84,38 @@ template config maybeIssue maybeEpisode = do
         [Html.href_ "https://github.com/haskellweekly/haskellweekly"]
         "on GitHub"
       " or send an email to "
-      Html.a_ [Html.href_ "mailto:info@haskellweekly.news"] "info@haskellweekly.news"
+      Html.a_
+        [Html.href_ "mailto:info@haskellweekly.news"]
+        "info@haskellweekly.news"
       "."
     Html.h2_ [Html.class_ "f2 mv3 tracked-tight"] "Advertising"
     Html.p_ [Html.class_ "lh-copy"] $ do
       "If you would like to advertise with Haskell Weekly, please consult our "
       Html.a_
-        [ Html.href_ $ Route.toText
-            baseUrl
-            Route.Advertising
-        ]
+        [Html.href_ $ Route.toText baseUrl Route.Advertising]
         "advertising page"
       "."
 
-episodeTemplate
-  :: BaseUrl.BaseUrl -> Episode.Episode -> Html.Html ()
+episodeTemplate :: BaseUrl.BaseUrl -> Episode.Episode -> Html.Html ()
 episodeTemplate baseUrl episode = Html.p_ $ do
   let number = Episode.number episode
-  Html.a_
-      [ Html.href_
-        . Route.toText baseUrl
-        $ Route.Episode number
-      ]
-    $ do
-        "Episode "
-        Html.toHtml $ Number.toText number
+  Html.a_ [Html.href_ . Route.toText baseUrl $ Route.Episode number] $ do
+    "Episode "
+    Html.toHtml $ Number.toText number
   " of the podcast was published on "
   Html.toHtml . Date.toShortText $ Episode.date episode
   ". Browse "
-  Html.a_
-    [ Html.href_
-        $ Route.toText baseUrl Route.Podcast
-    ]
-    "the archives"
+  Html.a_ [Html.href_ $ Route.toText baseUrl Route.Podcast] "the archives"
   " for older episodes."
 
 issueTemplate :: BaseUrl.BaseUrl -> Issue.Issue -> Html.Html ()
 issueTemplate baseUrl issue = Html.p_ $ do
   let number = Issue.issueNumber issue
-  Html.a_
-      [ Html.href_
-        . Route.toText baseUrl
-        $ Route.Issue number
-      ]
-    $ do
-        "Issue "
-        Html.toHtml $ Number.toText number
+  Html.a_ [Html.href_ . Route.toText baseUrl $ Route.Issue number] $ do
+    "Issue "
+    Html.toHtml $ Number.toText number
   " of the newsletter was published on "
   Html.toHtml . Date.toShortText $ Issue.issueDate issue
   ". Browse "
-  Html.a_
-    [ Html.href_
-        $ Route.toText baseUrl Route.Newsletter
-    ]
-    "the archives"
+  Html.a_ [Html.href_ $ Route.toText baseUrl Route.Newsletter] "the archives"
   " for older issues."

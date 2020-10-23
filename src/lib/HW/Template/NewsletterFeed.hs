@@ -15,27 +15,15 @@ import qualified HW.Type.Number as Number
 import qualified HW.Type.Route as Route
 import qualified Text.XML as Xml
 
-template
-  :: BaseUrl.BaseUrl
-  -> [(Issue.Issue, Mark.Node)]
-  -> Xml.Document
+template :: BaseUrl.BaseUrl -> [(Issue.Issue, Mark.Node)] -> Xml.Document
 template baseUrl issues =
   let
-    element name attributes =
-      Xml.Element name (Map.fromList attributes)
+    element name attributes = Xml.Element name (Map.fromList attributes)
     node name attributes = Xml.NodeElement . element name attributes
     text = Xml.NodeContent
-    entryLink =
-      Route.toText baseUrl
-        . Route.Issue
-        . Issue.issueNumber
-    entryTitle =
-      text
-        . mappend "Issue "
-        . Number.toText
-        . Issue.issueNumber
-    entryUpdated =
-      text . Date.toLongText . Issue.issueDate
+    entryLink = Route.toText baseUrl . Route.Issue . Issue.issueNumber
+    entryTitle = text . mappend "Issue " . Number.toText . Issue.issueNumber
+    entryUpdated = text . Date.toLongText . Issue.issueDate
     entry (issue, content) = node
       "entry"
       []
@@ -51,8 +39,7 @@ template baseUrl issues =
         ]
       , node "content" [("type", "html")] [text $ Mark.nodeToHtml [] content]
       ]
-    feedId =
-      Route.toText baseUrl Route.NewsletterFeed
+    feedId = Route.toText baseUrl Route.NewsletterFeed
     feedUpdated =
       text
         . maybe "2001-01-01T12:00:00Z" Date.toLongText
@@ -66,13 +53,7 @@ template baseUrl issues =
       : node "id" [] [text feedId]
       : node "updated" [] [feedUpdated]
       : node "link" [("rel", "self"), ("href", feedId)] []
-      : node
-          "link"
-          [ ( "href"
-            , Route.toText baseUrl Route.Index
-            )
-          ]
-          []
+      : node "link" [("href", Route.toText baseUrl Route.Index)] []
       : fmap entry issues
       )
   in Xml.Document (Xml.Prologue [] Nothing []) feed []

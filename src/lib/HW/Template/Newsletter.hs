@@ -15,13 +15,9 @@ import qualified HW.Type.Route as Route
 import qualified Lucid as Html
 import qualified Lucid.Base as Html
 
-template
-  :: BaseUrl.BaseUrl -> [Issue.Issue] -> Html.Html ()
+template :: BaseUrl.BaseUrl -> [Issue.Issue] -> Html.Html ()
 template baseUrl issues =
-  Base.template
-      baseUrl
-      "Haskell Weekly Newsletter"
-      (header baseUrl Nothing)
+  Base.template baseUrl "Haskell Weekly Newsletter" (header baseUrl Nothing)
     $ do
         Html.h2_ [Html.class_ "f2 mv3 tracked-tight"] "Newsletter"
         Html.p_ [Html.class_ "lh-copy"] $ do
@@ -30,12 +26,10 @@ template baseUrl issues =
         callToAction baseUrl
         Html.ul_ [Html.class_ "lh-copy"] $ mapM_ (issueTemplate baseUrl) issues
 
-header
-  :: BaseUrl.BaseUrl -> Maybe Issue.Issue -> Html.Html ()
+header :: BaseUrl.BaseUrl -> Maybe Issue.Issue -> Html.Html ()
 header baseUrl maybeIssue = do
   Html.link_
-    [ Html.href_
-      $ Route.toText baseUrl Route.NewsletterFeed
+    [ Html.href_ $ Route.toText baseUrl Route.NewsletterFeed
     , Html.rel_ "alternate"
     , Html.type_ "application/atom+xml"
     ]
@@ -65,17 +59,11 @@ callToAction baseUrl =
       Html.a_ [Html.href_ "https://twitter.com/haskellweekly"] "on Twitter"
       " or with "
       Html.a_
-        [ Html.href_ $ Route.toText
-            baseUrl
-            Route.NewsletterFeed
-        ]
+        [Html.href_ $ Route.toText baseUrl Route.NewsletterFeed]
         "our feed"
       ". Read more issues in "
       Html.a_
-        [ Html.href_ $ Route.toText
-            baseUrl
-            Route.Newsletter
-        ]
+        [Html.href_ $ Route.toText baseUrl Route.Newsletter]
         "the archives"
       "."
     Html.form_
@@ -112,15 +100,12 @@ callToAction baseUrl =
 issueTemplate :: BaseUrl.BaseUrl -> Issue.Issue -> Html.Html ()
 issueTemplate baseUrl issue = Html.li_ $ do
   Html.a_
-      [ Html.href_
-        . Route.toText baseUrl
-        . Route.Issue
-        $ Issue.issueNumber issue
+      [ Html.href_ . Route.toText baseUrl . Route.Issue $ Issue.issueNumber
+          issue
       ]
     $ do
         "Issue "
-        Html.toHtml . Number.toText $ Issue.issueNumber
-          issue
+        Html.toHtml . Number.toText $ Issue.issueNumber issue
   " "
   Html.span_ [Html.class_ "mid-gray"]
     . Html.toHtml

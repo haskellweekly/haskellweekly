@@ -43,9 +43,7 @@ toShortText = formatDate "%Y-%m-%d"
 formatDate :: Text.Text -> Date -> Text.Text
 formatDate format =
   Text.pack
-    . Time.formatTime
-        Time.defaultTimeLocale
-        (Text.unpack format)
+    . Time.formatTime Time.defaultTimeLocale (Text.unpack format)
     . dateToDay
 
 -- | Converts a typical Gregorian year-month-day into a date. Note that this

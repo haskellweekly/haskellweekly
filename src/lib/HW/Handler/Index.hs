@@ -31,10 +31,5 @@ handler = do
         . Map.elems
         $ State.episodes state
   pure
-    . Common.html
-        Http.ok200
-        [(Http.hCacheControl, "public, max-age=900")]
-    $ Index.template
-        (State.config state)
-        maybeIssue
-        maybeEpisode
+    . Common.html Http.ok200 [(Http.hCacheControl, "public, max-age=900")]
+    $ Index.template (State.config state) maybeIssue maybeEpisode

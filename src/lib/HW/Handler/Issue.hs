@@ -26,13 +26,9 @@ handler number = do
     Nothing -> pure Common.notFound
     Just issue -> do
       node <- readIssueFile number
-      let
-        baseUrl =
-          Config.baseUrl $ State.config state
+      let baseUrl = Config.baseUrl $ State.config state
       pure
-        . Common.html
-            Http.ok200
-            [(Http.hCacheControl, "public, max-age=900")]
+        . Common.html Http.ok200 [(Http.hCacheControl, "public, max-age=900")]
         $ Issue.template baseUrl issue node
 
 readIssueFile :: Number.Number -> App.App Mark.Node

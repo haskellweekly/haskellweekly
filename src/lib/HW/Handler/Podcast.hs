@@ -19,13 +19,8 @@ handler :: App.App Wai.Response
 handler = do
   state <- App.getState
   pure
-    . Common.html
-        Http.ok200
-        [(Http.hCacheControl, "public, max-age=900")]
-    . (Podcast.template
-      . Config.baseUrl
-      $ State.config state
-      )
+    . Common.html Http.ok200 [(Http.hCacheControl, "public, max-age=900")]
+    . (Podcast.template . Config.baseUrl $ State.config state)
     . List.sortOn (Ord.Down . Episode.date)
     . Map.elems
     $ State.episodes state

@@ -22,16 +22,12 @@ handler = do
   let
     baseUrl = Config.baseUrl $ State.config state
     episodes =
-      List.sortOn (Ord.Down . Episode.date)
-        . Map.elems
-        $ State.episodes state
+      List.sortOn (Ord.Down . Episode.date) . Map.elems $ State.episodes state
   pure
     . Common.lbs
         Http.ok200
         [ (Http.hCacheControl, "public, max-age=900")
-        , ( Http.hContentType
-          , "application/rss+xml; charset=utf-8"
-          )
+        , (Http.hContentType, "application/rss+xml; charset=utf-8")
         ]
     . Xml.renderLBS Xml.def
     $ PodcastFeed.template baseUrl episodes

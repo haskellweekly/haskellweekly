@@ -31,8 +31,7 @@ server ref = do
 -- | Converts a Haskell Weekly config into Warp server settings.
 configToSettings :: Config.Config -> Warp.Settings
 configToSettings config =
-  Warp.setBeforeMainLoop
-      (beforeMainLoop $ Config.port config)
+  Warp.setBeforeMainLoop (beforeMainLoop $ Config.port config)
     . Warp.setOnExceptionResponse onExceptionResponse
     . Warp.setPort (Config.port config)
     . Warp.setServerName serverName
@@ -49,9 +48,7 @@ beforeMainLoop port = putStrLn $ "Listening on port " <> show port <> " ..."
 -- the same response for every exception. No potentially sensitive information
 -- is returned to the client.
 onExceptionResponse :: exception -> Wai.Response
-onExceptionResponse _ = Common.status
-  Http.internalServerError500
-  []
+onExceptionResponse _ = Common.status Http.internalServerError500 []
 
 -- | The server name returned in the "Server" response header. This will be
 -- formatted like @haskellweekly/VERSION@, where @VERSION@ is defined by the

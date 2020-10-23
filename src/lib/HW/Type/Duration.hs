@@ -43,10 +43,7 @@ naturalToDuration seconds = if seconds < 1
 -- The first argument is the number of minutes and the second is the number of
 -- seconds. This can fail if the seconds is greater than 59; they don't roll
 -- over into minutes.
-fromTimestamp
-  :: Natural.Natural
-  -> Natural.Natural
-  -> Either String Duration
+fromTimestamp :: Natural.Natural -> Natural.Natural -> Either String Duration
 fromTimestamp minutes seconds = if seconds >= 60
   then Left $ "invalid Duration: " <> show (minutes, seconds)
   else naturalToDuration $ (minutes * 60) + seconds

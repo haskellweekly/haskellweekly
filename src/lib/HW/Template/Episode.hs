@@ -20,10 +20,7 @@ import qualified Lucid as Html
 import qualified Lucid.Base as Html
 
 template
-  :: BaseUrl.BaseUrl
-  -> Episode.Episode
-  -> [Caption.Caption]
-  -> Html.Html ()
+  :: BaseUrl.BaseUrl -> Episode.Episode -> [Caption.Caption] -> Html.Html ()
 template baseUrl episode captions =
   Base.template
       baseUrl
@@ -32,16 +29,14 @@ template baseUrl episode captions =
     $ do
         Html.h2_ [Html.class_ "f2 mv3 tracked-tight"] $ Html.a_
           [ Html.class_ "no-underline purple"
-          , Html.href_
-            $ Route.toText baseUrl Route.Podcast
+          , Html.href_ $ Route.toText baseUrl Route.Podcast
           ]
           "Podcast"
-        Html.h3_ [Html.class_ "f3 mv3 tracked-tight"] . Html.toHtml $ title episode
+        Html.h3_ [Html.class_ "f3 mv3 tracked-tight"] . Html.toHtml $ title
+          episode
         Podcast.callToAction baseUrl
         Html.p_ [Html.class_ "lh-copy"] $ do
-          Html.toHtml
-            . Summary.toText
-            $ Episode.summary episode
+          Html.toHtml . Summary.toText $ Episode.summary episode
           " "
           Html.span_ [Html.class_ "mid-gray"] $ do
             Html.toHtml $ number episode
@@ -52,42 +47,35 @@ template baseUrl episode captions =
             [ Html.class_ "bg-black mw-100"
             , Html.controls_ "controls"
             , Html.height_ "432"
-            , Html.makeAttribute "poster"
-            $ Route.toText baseUrl Route.Logo
+            , Html.makeAttribute "poster" $ Route.toText baseUrl Route.Logo
             , Html.preload_ "metadata"
             , Html.width_ "768"
             ]
           $ do
-            Html.source_
-              [ Html.src_
-              . Audio.toText
-              $ Episode.audio episode
-              , Html.type_ "audio/mpeg"
-              ]
-            Html.track_
-              [ Html.makeAttribute "default" ""
-              , Html.makeAttribute "kind" "captions"
-              , Html.label_ "English captions"
-              , Html.src_
-              . Route.toText baseUrl
-              . Route.Captions
-              $ Episode.number episode
-              , Html.makeAttribute "srclang" "en-US"
-              ]
+              Html.source_
+                [ Html.src_ . Audio.toText $ Episode.audio episode
+                , Html.type_ "audio/mpeg"
+                ]
+              Html.track_
+                [ Html.makeAttribute "default" ""
+                , Html.makeAttribute "kind" "captions"
+                , Html.label_ "English captions"
+                , Html.src_
+                . Route.toText baseUrl
+                . Route.Captions
+                $ Episode.number episode
+                , Html.makeAttribute "srclang" "en-US"
+                ]
         Html.h4_ [Html.class_ "f4 mv3"] "Links"
-        Html.ul_ [Html.class_ "lh-copy"]
-          . mapM_ articleLink
-          $ Episode.articles episode
+        Html.ul_ [Html.class_ "lh-copy"] . mapM_ articleLink $ Episode.articles
+          episode
         Html.h4_ [Html.class_ "f4 mv3"] "Transcript"
         Html.div_ [Html.class_ "lh-copy"]
           . mapM_ (Html.p_ . Html.toHtml)
           $ Caption.renderTranscript captions
 
 number :: Episode.Episode -> Text.Text
-number =
-  mappend "Episode "
-    . Number.toText
-    . Episode.number
+number = mappend "Episode " . Number.toText . Episode.number
 
 title :: Episode.Episode -> Text.Text
 title = Title.toText . Episode.title

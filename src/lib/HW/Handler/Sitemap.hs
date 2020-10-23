@@ -17,15 +17,9 @@ handler :: App.App Wai.Response
 handler = do
   state <- App.getState
   pure
-    . Common.text
-        Http.ok200
-        [(Http.hCacheControl, "public, max-age=900")]
+    . Common.text Http.ok200 [(Http.hCacheControl, "public, max-age=900")]
     . Text.unlines
-    . fmap
-        (Route.toText
-        . Config.baseUrl
-        $ State.config state
-        )
+    . fmap (Route.toText . Config.baseUrl $ State.config state)
     $ allRoutes state
 
 allRoutes :: State.State -> [Route.Route]
@@ -50,9 +44,7 @@ normalRoutes =
   ]
 
 episodeRoutes :: State.State -> [Route.Route]
-episodeRoutes =
-  fmap Route.Episode . Map.keys . State.episodes
+episodeRoutes = fmap Route.Episode . Map.keys . State.episodes
 
 issueRoutes :: State.State -> [Route.Route]
-issueRoutes =
-  fmap Route.Issue . Map.keys . State.issues
+issueRoutes = fmap Route.Issue . Map.keys . State.issues

@@ -26,9 +26,7 @@ handler number = do
     Just episode -> do
       captions <- readCaptionFile number
       pure
-        . Common.html
-            Http.ok200
-            [(Http.hCacheControl, "public, max-age=900")]
+        . Common.html Http.ok200 [(Http.hCacheControl, "public, max-age=900")]
         $ Episode.template
             (Config.baseUrl $ State.config state)
             episode
@@ -36,8 +34,7 @@ handler number = do
 
 -- | Reads a caption file and parses it as WebVTT. This will return nothing if
 -- the file doesn't exist. If parsing fails, this will raise an exception.
-readCaptionFile
-  :: Number.Number -> App.App [Caption.Caption]
+readCaptionFile :: Number.Number -> App.App [Caption.Caption]
 readCaptionFile number = do
   let
     name = "episode-" <> Number.toText number

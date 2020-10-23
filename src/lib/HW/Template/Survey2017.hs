@@ -9,16 +9,15 @@ import qualified Lucid as Html
 
 template :: BaseUrl.BaseUrl -> Html.Html ()
 template baseUrl =
-  Base.template baseUrl "2017 Survey :: Haskell Weekly" mempty
-    $ do
-        Html.h2_ [Html.class_ "f2 mv3 tracked-tight"] "2017 Survey"
-        Html.p_ [Html.class_ "lh-copy"] $ do
-          "Thank you for your submissions! "
-          "This survey is now closed. "
-          "You can "
-          Html.a_
-            [ Html.href_
-                "https://taylor.fausak.me/2017/11/15/2017-state-of-haskell-survey-results/"
-            ]
-            "view the results"
-          "."
+  Base.template baseUrl "2017 Survey :: Haskell Weekly" mempty $ do
+    Html.h2_ [Html.class_ "f2 mv3 tracked-tight"] "2017 Survey"
+    Html.p_ [Html.class_ "lh-copy"] $ do
+      "Thank you for your submissions! "
+      "This survey is now closed. "
+      "You can "
+      Html.a_
+        [ Html.href_
+            "https://taylor.fausak.me/2017/11/15/2017-state-of-haskell-survey-results/"
+        ]
+        "view the results"
+      "."

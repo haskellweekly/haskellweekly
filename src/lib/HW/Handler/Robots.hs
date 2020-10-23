@@ -15,14 +15,9 @@ handler :: App.App Wai.Response
 handler = do
   config <- App.getConfig
   pure
-    . Common.text
-        Http.ok200
-        [(Http.hCacheControl, "public, max-age=86400")]
+    . Common.text Http.ok200 [(Http.hCacheControl, "public, max-age=86400")]
     $ Text.unlines
         [ "User-agent: *"
         , "Allow: /"
-        , "Sitemap: "
-          <> Route.toText
-               (Config.baseUrl config)
-               Route.Sitemap
+        , "Sitemap: " <> Route.toText (Config.baseUrl config) Route.Sitemap
         ]

@@ -14,8 +14,6 @@ handler :: App.App Wai.Response
 handler = do
   config <- App.getConfig
   pure
-    . Common.html
-        Http.ok200
-        [(Http.hCacheControl, "public, max-age=900")]
+    . Common.html Http.ok200 [(Http.hCacheControl, "public, max-age=900")]
     . Advertising.template
     $ Config.baseUrl config

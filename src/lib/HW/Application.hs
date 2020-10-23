@@ -38,9 +38,7 @@ application :: IORef.IORef State.State -> Wai.Application
 application ref request respond =
   case (requestMethod request, requestRoute request) of
     ("GET", Just route) -> do
-      response <- Reader.runReaderT
-        (handle route request)
-        ref
+      response <- Reader.runReaderT (handle route request) ref
       respond response
     _ -> respond Common.notFound
 
@@ -48,9 +46,7 @@ application ref request respond =
 -- methods are technically byte strings, but almost always they can be thought
 -- of as plain ASCII strings.
 requestMethod :: Wai.Request -> Text.Text
-requestMethod =
-  Text.decodeUtf8With Text.lenientDecode
-    . Wai.requestMethod
+requestMethod = Text.decodeUtf8With Text.lenientDecode . Wai.requestMethod
 
 -- | Gets the route out of the request. If the request's path doesn't match
 -- any known routes, returns 'Nothing'.
@@ -59,40 +55,29 @@ requestRoute = Route.fromText . Wai.pathInfo
 
 -- | Handles a particular route by calling the appropriate handler and
 -- returning the response.
-handle
-  :: Route.Route
-  -> Wai.Request
-  -> App.App Wai.Response
+handle :: Route.Route -> Wai.Request -> App.App Wai.Response
 handle route request = case route of
   Route.Advertising -> Advertising.handler
-  Route.AppleBadge ->
-    Common.file "image/svg+xml" "apple-podcasts.svg"
+  Route.AppleBadge -> Common.file "image/svg+xml" "apple-podcasts.svg"
   Route.Captions number ->
     Common.file "text/vtt"
       $ "podcast/episode-"
       <> Text.unpack (Number.toText number)
       <> ".vtt"
-  Route.Episode number ->
-    Episode.handler number
-  Route.Favicon ->
-    Common.file "image/x-icon" "favicon.ico"
-  Route.GoogleBadge ->
-    Common.file "image/svg+xml" "google-podcasts.svg"
+  Route.Episode number -> Episode.handler number
+  Route.Favicon -> Common.file "image/x-icon" "favicon.ico"
+  Route.GoogleBadge -> Common.file "image/svg+xml" "google-podcasts.svg"
   Route.HealthCheck -> HealthCheck.handler
   Route.Index -> Index.handler
   Route.Issue number -> Issue.handler number
-  Route.NewsletterFeed ->
-    NewsletterFeed.handler
+  Route.NewsletterFeed -> NewsletterFeed.handler
   Route.Newsletter -> Newsletter.handler
   Route.PodcastFeed -> PodcastFeed.handler
   Route.Podcast -> Podcast.handler
-  Route.Logo ->
-    Common.file "image/png" "logo.png"
-  Route.Redirect redirect ->
-    Redirect.handler redirect
+  Route.Logo -> Common.file "image/png" "logo.png"
+  Route.Redirect redirect -> Redirect.handler redirect
   Route.Robots -> Robots.handler
   Route.Search -> Search.handler request
   Route.Sitemap -> Sitemap.handler
   Route.Survey number -> Survey.handler number
-  Route.Tachyons ->
-    Common.file "text/css; charset=utf-8" "tachyons.css"
+  Route.Tachyons -> Common.file "text/css; charset=utf-8" "tachyons.css"

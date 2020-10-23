@@ -20,37 +20,21 @@ import qualified HW.Type.Summary as Summary
 import qualified HW.Type.Title as Title
 import qualified Text.XML as Xml
 
-template
-  :: BaseUrl.BaseUrl -> [Episode.Episode] -> Xml.Document
+template :: BaseUrl.BaseUrl -> [Episode.Episode] -> Xml.Document
 template baseUrl episodes =
   let
-    element name attributes =
-      Xml.Element name (Map.fromList attributes)
+    element name attributes = Xml.Element name (Map.fromList attributes)
     node name attributes = Xml.NodeElement . element name attributes
     text = Xml.NodeContent
-    itemTitle =
-      text . Title.toText . Episode.title
-    itemLink =
-      text
-        . Route.toText baseUrl
-        . Route.Episode
-        . Episode.number
-    itemDescription =
-      text . Summary.toText . Episode.summary
-    itemEnclosureLength =
-      Text.pack
-        . show
-        . Size.toNatural
-        . Episode.size
-    itemEnclosureUrl =
-      Audio.toText . Episode.audio
+    itemTitle = text . Title.toText . Episode.title
+    itemLink = text . Route.toText baseUrl . Route.Episode . Episode.number
+    itemDescription = text . Summary.toText . Episode.summary
+    itemEnclosureLength = Text.pack . show . Size.toNatural . Episode.size
+    itemEnclosureUrl = Audio.toText . Episode.audio
     itemGuid = text . Guid.toText . Episode.guid
-    itemPubDate =
-      text . Date.toRfc2822 . Episode.date
-    itemDuration =
-      text . Duration.toText . Episode.duration
-    itemEpisode =
-      text . Number.toText . Episode.number
+    itemPubDate = text . Date.toRfc2822 . Episode.date
+    itemDuration = text . Duration.toText . Episode.duration
+    itemEpisode = text . Number.toText . Episode.number
     articles = NonEmpty.toList . Episode.articles
     articleToNode = text . mappend "\n- " . Article.toText
     item episode = node
@@ -58,9 +42,9 @@ template baseUrl episodes =
       []
       [ node "title" [] [itemTitle episode]
       , node "link" [] [itemLink episode]
-      , node "description" []
-        $ itemDescription episode
-        : fmap articleToNode (articles episode)
+      , node "description" [] $ itemDescription episode : fmap
+        articleToNode
+        (articles episode)
       , node
         "enclosure"
         [ ("length", itemEnclosureLength episode)
@@ -75,18 +59,15 @@ template baseUrl episodes =
       , node "itunes:episode" [] [itemEpisode episode]
       , node "itunes:summary" [] [itemDescription episode]
       ]
-    channelLink =
-      text $ Route.toText baseUrl Route.Podcast
+    channelLink = text $ Route.toText baseUrl Route.Podcast
     channelDescription = text $ Text.unwords
       [ "Haskell Weekly covers the Haskell progamming language. Listen to"
       , "professional software developers discuss using functional programming to"
       , "solve real-world business problems. Each episode uses a conversational"
       , "two-host format and runs for about 15 minutes."
       ]
-    channelImageUrl =
-      Route.toText baseUrl Route.Logo
-    channelSelfLink =
-      Route.toText baseUrl Route.PodcastFeed
+    channelImageUrl = Route.toText baseUrl Route.Logo
+    channelSelfLink = Route.toText baseUrl Route.PodcastFeed
     channel = node
       "channel"
       []
