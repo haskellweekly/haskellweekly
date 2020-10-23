@@ -9,11 +9,11 @@ module HW.Handler.Base
 where
 
 import qualified Data.ByteString as ByteString
-import qualified Data.ByteString.Lazy
+import qualified Data.ByteString.Lazy as LazyByteString
 import qualified Data.Text as Text
 import qualified Data.Text.Encoding as Text
 import qualified Data.Text.Encoding.Error as Text
-import qualified HW.Type.App
+import qualified HW.Type.App as App
 import qualified Lucid as Html
 import qualified Network.HTTP.Types as Http
 import qualified Network.Wai as Wai
@@ -33,17 +33,17 @@ bsResponse status extraHeaders body =
     headers =
       (Http.hContentLength, contentLength) : extraHeaders
   in Wai.responseLBS status headers
-    $ Data.ByteString.Lazy.fromStrict body
+    $ LazyByteString.fromStrict body
 
 fileResponse
-  :: Text.Text -> FilePath -> HW.Type.App.App Wai.Response
+  :: Text.Text -> FilePath -> App.App Wai.Response
 fileResponse mime file = do
   let
     status = Http.ok200
     headers = withContentType
       mime
       [(Http.hCacheControl, "public, max-age=86400")]
-  body <- HW.Type.App.readDataFile file
+  body <- App.readDataFile file
   pure $ bsResponse status headers body
 
 htmlResponse
@@ -60,10 +60,10 @@ htmlResponse status extraHeaders html =
 lbsResponse
   :: Http.Status
   -> Http.ResponseHeaders
-  -> Data.ByteString.Lazy.ByteString
+  -> LazyByteString.ByteString
   -> Wai.Response
 lbsResponse status extraHeaders =
-  bsResponse status extraHeaders . Data.ByteString.Lazy.toStrict
+  bsResponse status extraHeaders . LazyByteString.toStrict
 
 notFoundResponse :: Wai.Response
 notFoundResponse =

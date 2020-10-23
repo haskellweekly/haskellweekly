@@ -7,8 +7,8 @@
 -- get mysterious failures.
 module HW.Type.Audio
   ( Audio
-  , audioToText
-  , textToAudio
+  , toText
+  , fromText
   )
 where
 
@@ -20,12 +20,12 @@ newtype Audio =
   deriving (Eq, Show)
 
 -- | Unwraps an audio URL and gives you back the underlying text.
-audioToText :: Audio -> Text.Text
-audioToText (Audio text) = text
+toText :: Audio -> Text.Text
+toText (Audio text) = text
 
 -- | Converts a string into an audio URL. If the string is all blank spaces,
 -- this will fail.
-textToAudio :: Text.Text -> Either String Audio
-textToAudio text = if Text.all Char.isSpace text
+fromText :: Text.Text -> Either String Audio
+fromText text = if Text.all Char.isSpace text
   then Left $ "invalid Audio: " <> show text
   else Right $ Audio text

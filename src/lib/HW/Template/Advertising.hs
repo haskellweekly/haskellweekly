@@ -4,11 +4,11 @@ module HW.Template.Advertising
 where
 
 import qualified HW.Template.Base
-import qualified HW.Type.BaseUrl
-import qualified HW.Type.Route
+import qualified HW.Type.BaseUrl as BaseUrl
+import qualified HW.Type.Route as Route
 import qualified Lucid as Html
 
-advertisingTemplate :: HW.Type.BaseUrl.BaseUrl -> Html.Html ()
+advertisingTemplate :: BaseUrl.BaseUrl -> Html.Html ()
 advertisingTemplate baseUrl =
   HW.Template.Base.baseTemplate baseUrl "Advertising :: Haskell Weekly" mempty
     $ do
@@ -21,9 +21,9 @@ advertisingTemplate baseUrl =
         Html.ul_ . Html.li_ $ do
           Html.p_ $ do
             Html.a_
-              [ Html.href_ $ HW.Type.Route.routeToTextWith
+              [ Html.href_ $ Route.toText
                   baseUrl
-                  HW.Type.Route.RouteAdvertising
+                  Route.Advertising
               ]
               "Reach an engaged audience by advertising with Haskell Weekly!"
             " (ad)"

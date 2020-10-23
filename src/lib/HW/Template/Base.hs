@@ -5,13 +5,13 @@ module HW.Template.Base
 where
 
 import qualified Data.Text as Text
-import qualified HW.Type.BaseUrl
-import qualified HW.Type.Route
+import qualified HW.Type.BaseUrl as BaseUrl
+import qualified HW.Type.Route as Route
 import qualified Lucid as Html
 import qualified Lucid.Base as Html
 
 baseTemplate
-  :: HW.Type.BaseUrl.BaseUrl
+  :: BaseUrl.BaseUrl
   -> Text.Text
   -> Html.Html ()
   -> Html.Html ()
@@ -28,22 +28,22 @@ baseTemplate baseUrl title head_ body = do
       Html.title_ $ Html.toHtml title
       Html.link_
         [ Html.href_
-          $ HW.Type.Route.routeToTextWith baseUrl HW.Type.Route.RouteTachyons
+          $ Route.toText baseUrl Route.Tachyons
         , Html.rel_ "stylesheet"
         ]
       Html.link_
         [ Html.href_
-          $ HW.Type.Route.routeToTextWith baseUrl HW.Type.Route.RouteLogo
+          $ Route.toText baseUrl Route.Logo
         , Html.rel_ "apple-touch-icon"
         ]
       metaOpenGraph "image"
-        $ HW.Type.Route.routeToTextWith baseUrl HW.Type.Route.RouteLogo
+        $ Route.toText baseUrl Route.Logo
       metaOpenGraph "site_name" "Haskell Weekly"
       metaOpenGraph "type" "website"
       metaTwitter "card" "summary"
       metaTwitter "creator" "@haskellweekly"
       metaTwitter "image"
-        $ HW.Type.Route.routeToTextWith baseUrl HW.Type.Route.RouteLogo
+        $ Route.toText baseUrl Route.Logo
       metaTwitter "site" "@haskellweekly"
       head_
     Html.body_ [Html.class_ "bg-white black flex justify-center mh3 sans-serif"]
@@ -52,15 +52,15 @@ baseTemplate baseUrl title head_ body = do
           Html.header_ [Html.class_ "mv3"] $ do
             Html.h1_ [Html.class_ "f1 mv3 tracked-tight"] $ Html.a_
               [ Html.class_ "no-underline purple"
-              , Html.href_ $ HW.Type.Route.routeToTextWith
+              , Html.href_ $ Route.toText
                 baseUrl
-                HW.Type.Route.RouteIndex
+                Route.Index
               ]
               "Haskell Weekly"
             Html.form_
-                [ Html.action_ $ HW.Type.Route.routeToTextWith
+                [ Html.action_ $ Route.toText
                   baseUrl
-                  HW.Type.Route.RouteSearch
+                  Route.Search
                 , Html.class_ "ba b--silver center flex mw6"
                 ]
               $ do

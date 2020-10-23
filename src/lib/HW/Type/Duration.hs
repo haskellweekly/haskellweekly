@@ -4,8 +4,8 @@
 -- having to ask the source audio files.
 module HW.Type.Duration
   ( Duration
-  , durationToText
-  , timestampToDuration
+  , toText
+  , fromTimestamp
   )
 where
 
@@ -25,8 +25,8 @@ durationToNatural (Duration natural) = natural
 -- | Converts a duration into text. Uses the format @MM:SS@. The minutes will
 -- always be there, even if they're zero. The seconds will be zero padded to
 -- two places. There will never be any hours.
-durationToText :: Duration -> Text.Text
-durationToText duration =
+toText :: Duration -> Text.Text
+toText duration =
   let (minutes, seconds) = quotRem (durationToNatural duration) 60
   in Text.pack $ Printf.printf "%d:%02d" minutes seconds
 
@@ -39,14 +39,14 @@ naturalToDuration seconds = if seconds < 1
   else Right $ Duration seconds
 
 -- | Converts a timestamp into a duration. This is kind of the opposite of
--- 'durationToText' except that it takes in two numbers rather than one string.
+-- 'toText' except that it takes in two numbers rather than one string.
 -- The first argument is the number of minutes and the second is the number of
 -- seconds. This can fail if the seconds is greater than 59; they don't roll
 -- over into minutes.
-timestampToDuration
+fromTimestamp
   :: Natural.Natural
   -> Natural.Natural
   -> Either String Duration
-timestampToDuration minutes seconds = if seconds >= 60
+fromTimestamp minutes seconds = if seconds >= 60
   then Left $ "invalid Duration: " <> show (minutes, seconds)
   else naturalToDuration $ (minutes * 60) + seconds

@@ -25,16 +25,16 @@ import qualified HW.Handler.Robots
 import qualified HW.Handler.Search
 import qualified HW.Handler.Sitemap
 import qualified HW.Handler.Survey
-import qualified HW.Type.App
-import qualified HW.Type.Number
-import qualified HW.Type.Route
-import qualified HW.Type.State
+import qualified HW.Type.App as App
+import qualified HW.Type.Number as Number
+import qualified HW.Type.Route as Route
+import qualified HW.Type.State as State
 import qualified Network.Wai as Wai
 
 -- | The whole application. From a high level, this is responsible for checking
 -- the request method and path. If those route to an appropriate handler, this
 -- calls that handler and returns the response.
-application :: IORef.IORef HW.Type.State.State -> Wai.Application
+application :: IORef.IORef State.State -> Wai.Application
 application ref request respond =
   case (requestMethod request, requestRoute request) of
     ("GET", Just route) -> do
@@ -54,45 +54,45 @@ requestMethod =
 
 -- | Gets the route out of the request. If the request's path doesn't match
 -- any known routes, returns 'Nothing'.
-requestRoute :: Wai.Request -> Maybe HW.Type.Route.Route
-requestRoute = HW.Type.Route.textToRoute . Wai.pathInfo
+requestRoute :: Wai.Request -> Maybe Route.Route
+requestRoute = Route.fromText . Wai.pathInfo
 
 -- | Handles a particular route by calling the appropriate handler and
 -- returning the response.
 handle
-  :: HW.Type.Route.Route
+  :: Route.Route
   -> Wai.Request
-  -> HW.Type.App.App Wai.Response
+  -> App.App Wai.Response
 handle route request = case route of
-  HW.Type.Route.RouteAdvertising -> HW.Handler.Advertising.advertisingHandler
-  HW.Type.Route.RouteAppleBadge ->
+  Route.Advertising -> HW.Handler.Advertising.advertisingHandler
+  Route.AppleBadge ->
     HW.Handler.Base.fileResponse "image/svg+xml" "apple-podcasts.svg"
-  HW.Type.Route.RouteCaptions number ->
+  Route.Captions number ->
     HW.Handler.Base.fileResponse "text/vtt"
       $ "podcast/episode-"
-      <> Text.unpack (HW.Type.Number.numberToText number)
+      <> Text.unpack (Number.toText number)
       <> ".vtt"
-  HW.Type.Route.RouteEpisode number ->
+  Route.Episode number ->
     HW.Handler.Episode.episodeHandler number
-  HW.Type.Route.RouteFavicon ->
+  Route.Favicon ->
     HW.Handler.Base.fileResponse "image/x-icon" "favicon.ico"
-  HW.Type.Route.RouteGoogleBadge ->
+  Route.GoogleBadge ->
     HW.Handler.Base.fileResponse "image/svg+xml" "google-podcasts.svg"
-  HW.Type.Route.RouteHealthCheck -> HW.Handler.HealthCheck.healthCheckHandler
-  HW.Type.Route.RouteIndex -> HW.Handler.Index.indexHandler
-  HW.Type.Route.RouteIssue number -> HW.Handler.Issue.issueHandler number
-  HW.Type.Route.RouteNewsletterFeed ->
+  Route.HealthCheck -> HW.Handler.HealthCheck.healthCheckHandler
+  Route.Index -> HW.Handler.Index.indexHandler
+  Route.Issue number -> HW.Handler.Issue.issueHandler number
+  Route.NewsletterFeed ->
     HW.Handler.NewsletterFeed.newsletterFeedHandler
-  HW.Type.Route.RouteNewsletter -> HW.Handler.Newsletter.newsletterHandler
-  HW.Type.Route.RoutePodcastFeed -> HW.Handler.PodcastFeed.podcastFeedHandler
-  HW.Type.Route.RoutePodcast -> HW.Handler.Podcast.podcastHandler
-  HW.Type.Route.RouteLogo ->
+  Route.Newsletter -> HW.Handler.Newsletter.newsletterHandler
+  Route.PodcastFeed -> HW.Handler.PodcastFeed.podcastFeedHandler
+  Route.Podcast -> HW.Handler.Podcast.podcastHandler
+  Route.Logo ->
     HW.Handler.Base.fileResponse "image/png" "logo.png"
-  HW.Type.Route.RouteRedirect redirect ->
+  Route.Redirect redirect ->
     HW.Handler.Redirect.redirectHandler redirect
-  HW.Type.Route.RouteRobots -> HW.Handler.Robots.robotsHandler
-  HW.Type.Route.RouteSearch -> HW.Handler.Search.searchHandler request
-  HW.Type.Route.RouteSitemap -> HW.Handler.Sitemap.sitemapHandler
-  HW.Type.Route.RouteSurvey number -> HW.Handler.Survey.surveyHandler number
-  HW.Type.Route.RouteTachyons ->
+  Route.Robots -> HW.Handler.Robots.robotsHandler
+  Route.Search -> HW.Handler.Search.searchHandler request
+  Route.Sitemap -> HW.Handler.Sitemap.sitemapHandler
+  Route.Survey number -> HW.Handler.Survey.surveyHandler number
+  Route.Tachyons ->
     HW.Handler.Base.fileResponse "text/css; charset=utf-8" "tachyons.css"

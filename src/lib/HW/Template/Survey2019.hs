@@ -4,10 +4,10 @@ module HW.Template.Survey2019
 where
 
 import qualified HW.Template.Base
-import qualified HW.Type.BaseUrl
+import qualified HW.Type.BaseUrl as BaseUrl
 import qualified Lucid as Html
 
-survey2019Template :: HW.Type.BaseUrl.BaseUrl -> Html.Html ()
+survey2019Template :: BaseUrl.BaseUrl -> Html.Html ()
 survey2019Template baseUrl =
   HW.Template.Base.baseTemplate baseUrl "2019 Survey :: Haskell Weekly" mempty
     $ do

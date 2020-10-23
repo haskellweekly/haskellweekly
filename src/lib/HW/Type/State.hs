@@ -12,17 +12,17 @@ import qualified Data.IORef as IORef
 import qualified Data.Map as Map
 import qualified Data.Text as Text
 import qualified Data.Time as Time
-import qualified HW.Episodes
-import qualified HW.Issues
-import qualified HW.Type.Config
+import qualified HW.Episodes as Episodes
+import qualified HW.Issues as Issues
+import qualified HW.Type.Config as Config
 import qualified Network.Wai as Wai
 
 data State = State
-  { stateConfig :: HW.Type.Config.Config
-  , stateEpisodes :: HW.Episodes.Episodes
-  , stateFileCache :: Map.Map FilePath ByteString.ByteString
-  , stateIssues :: HW.Issues.Issues
-  , stateResponseCache
+  { config :: Config.Config
+  , episodes :: Episodes.Episodes
+  , fileCache :: Map.Map FilePath ByteString.ByteString
+  , issues :: Issues.Issues
+  , responseCache
       :: Map.Map
         (Text.Text, Text.Text)
         (Time.UTCTime, Wai.Response)
@@ -30,16 +30,16 @@ data State = State
 
 -- | Builds up the state using the given config. If anything goes wrong, this
 -- will fail.
-configToState :: HW.Type.Config.Config -> IO State
+configToState :: Config.Config -> IO State
 configToState config = do
-  episodes <- either fail pure HW.Episodes.episodes
-  issues <- either fail pure HW.Issues.issues
+  episodes <- either fail pure Episodes.episodes
+  issues <- either fail pure Issues.issues
   pure State
-    { stateConfig = config
-    , stateEpisodes = episodes
-    , stateFileCache = Map.empty
-    , stateIssues = issues
-    , stateResponseCache = Map.empty
+    { config
+    , episodes
+    , fileCache = Map.empty
+    , issues
+    , responseCache = Map.empty
     }
 
 modifyState :: IORef.IORef State -> (State -> State) -> IO ()

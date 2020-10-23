@@ -6,16 +6,16 @@ module HW.Template.Podcast
 where
 
 import qualified HW.Template.Base
-import qualified HW.Type.BaseUrl
-import qualified HW.Type.Date
-import qualified HW.Type.Episode
-import qualified HW.Type.Route
-import qualified HW.Type.Summary
-import qualified HW.Type.Title
+import qualified HW.Type.BaseUrl as BaseUrl
+import qualified HW.Type.Date as Date
+import qualified HW.Type.Episode as Episode
+import qualified HW.Type.Route as Route
+import qualified HW.Type.Summary as Summary
+import qualified HW.Type.Title as Title
 import qualified Lucid as Html
 
 podcastTemplate
-  :: HW.Type.BaseUrl.BaseUrl -> [HW.Type.Episode.Episode] -> Html.Html ()
+  :: BaseUrl.BaseUrl -> [Episode.Episode] -> Html.Html ()
 podcastTemplate baseUrl episodes =
   HW.Template.Base.baseTemplate
       baseUrl
@@ -31,11 +31,11 @@ podcastTemplate baseUrl episodes =
         Html.ul_ [Html.class_ "lh-copy"] $ mapM_ (episodeTemplate baseUrl) episodes
 
 podcastHead
-  :: HW.Type.BaseUrl.BaseUrl -> Maybe HW.Type.Episode.Episode -> Html.Html ()
+  :: BaseUrl.BaseUrl -> Maybe Episode.Episode -> Html.Html ()
 podcastHead baseUrl maybeEpisode = do
   Html.link_
     [ Html.href_
-      $ HW.Type.Route.routeToTextWith baseUrl HW.Type.Route.RoutePodcastFeed
+      $ Route.toText baseUrl Route.PodcastFeed
     , Html.rel_ "alternate"
     , Html.type_ "application/rss+xml"
     ]
@@ -43,17 +43,17 @@ podcastHead baseUrl maybeEpisode = do
     Nothing -> pure ()
     Just episode -> do
       HW.Template.Base.metaOpenGraph "description"
-        . HW.Type.Summary.summaryToText
-        $ HW.Type.Episode.episodeSummary episode
+        . Summary.toText
+        $ Episode.summary episode
       HW.Template.Base.metaOpenGraph "title"
-        . HW.Type.Title.titleToText
-        $ HW.Type.Episode.episodeTitle episode
+        . Title.toText
+        $ Episode.title episode
       HW.Template.Base.metaOpenGraph "url"
-        . HW.Type.Route.routeToTextWith baseUrl
-        . HW.Type.Route.RouteEpisode
-        $ HW.Type.Episode.episodeNumber episode
+        . Route.toText baseUrl
+        . Route.Episode
+        $ Episode.number episode
 
-podcastActionTemplate :: HW.Type.BaseUrl.BaseUrl -> Html.Html ()
+podcastActionTemplate :: BaseUrl.BaseUrl -> Html.Html ()
 podcastActionTemplate baseUrl =
   Html.div_ [Html.class_ "ba b--yellow bg-washed-yellow center mw6 pa3 tc"] $ do
     Html.a_
@@ -64,8 +64,8 @@ podcastActionTemplate baseUrl =
           [ Html.alt_ "Listen on Apple Podcasts"
           , Html.class_ "dib w-40-ns"
           , Html.src_
-          . HW.Type.Route.routeToTextWith baseUrl
-          $ HW.Type.Route.RouteAppleBadge
+          . Route.toText baseUrl
+          $ Route.AppleBadge
           ]
     Html.div_ [Html.class_ "dib w-10-ns"] ""
     Html.a_
@@ -76,8 +76,8 @@ podcastActionTemplate baseUrl =
           [ Html.alt_ "Listen on Google Podcasts"
           , Html.class_ "dib w-40-ns"
           , Html.src_
-          . HW.Type.Route.routeToTextWith baseUrl
-          $ HW.Type.Route.RouteGoogleBadge
+          . Route.toText baseUrl
+          $ Route.GoogleBadge
           ]
     Html.p_ [Html.class_ "lh-copy mb0"] $ do
       "You can also follow us "
@@ -85,35 +85,35 @@ podcastActionTemplate baseUrl =
       " or with "
       Html.a_
         [ Html.href_
-          . HW.Type.Route.routeToTextWith baseUrl
-          $ HW.Type.Route.RoutePodcastFeed
+          . Route.toText baseUrl
+          $ Route.PodcastFeed
         ]
         "our feed"
       ". Listen to more episodes in "
       Html.a_
         [ Html.href_
-            $ HW.Type.Route.routeToTextWith baseUrl HW.Type.Route.RoutePodcast
+            $ Route.toText baseUrl Route.Podcast
         ]
         "the archives"
       "."
 
 episodeTemplate
-  :: HW.Type.BaseUrl.BaseUrl -> HW.Type.Episode.Episode -> Html.Html ()
+  :: BaseUrl.BaseUrl -> Episode.Episode -> Html.Html ()
 episodeTemplate baseUrl episode = Html.li_ . Html.p_ $ do
   Html.a_
       [ Html.href_
-        . HW.Type.Route.routeToTextWith baseUrl
-        . HW.Type.Route.RouteEpisode
-        $ HW.Type.Episode.episodeNumber episode
+        . Route.toText baseUrl
+        . Route.Episode
+        $ Episode.number episode
       ]
     . Html.toHtml
-    . HW.Type.Title.titleToText
-    $ HW.Type.Episode.episodeTitle episode
+    . Title.toText
+    $ Episode.title episode
   ": "
-  Html.toHtml . HW.Type.Summary.summaryToText $ HW.Type.Episode.episodeSummary
+  Html.toHtml . Summary.toText $ Episode.summary
     episode
   " "
   Html.span_ [Html.class_ "mid-gray"]
     . Html.toHtml
-    . HW.Type.Date.dateToShortText
-    $ HW.Type.Episode.episodeDate episode
+    . Date.toShortText
+    $ Episode.date episode

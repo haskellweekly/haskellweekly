@@ -2,17 +2,17 @@
 -- isn't actually published on Hackage, the exposed API is deliberately
 -- minimal. For local development with GHCi, all modules are available anyway.
 module HaskellWeekly
-  ( HW.Episodes.episodes
-  , HW.Issues.issues
-  , HW.Main.main
-  , HW.Type.Caption.parseVtt
-  , HW.Type.Caption.renderTranscript
+  ( Episodes.episodes
+  , Issues.issues
+  , Main.main
+  , Caption.parseVtt
+  , Caption.renderTranscript
   , Package.getDataDir
   )
 where
 
-import qualified HW.Episodes
-import qualified HW.Issues
-import qualified HW.Main
-import qualified HW.Type.Caption
+import qualified HW.Episodes as Episodes
+import qualified HW.Issues as Issues
+import qualified HW.Main as Main
+import qualified HW.Type.Caption as Caption
 import qualified Paths_haskellweekly as Package

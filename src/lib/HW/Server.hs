@@ -9,32 +9,32 @@ import qualified Data.IORef as IORef
 import qualified Data.Text as Text
 import qualified Data.Text.Encoding as Text
 import qualified Data.Version as Version
-import qualified HW.Application
+import qualified HW.Application as Application
 import qualified HW.Handler.Base
-import qualified HW.Middleware
-import qualified HW.Type.Config
-import qualified HW.Type.State
+import qualified HW.Middleware as Middleware
+import qualified HW.Type.Config as Config
+import qualified HW.Type.State as State
 import qualified Network.HTTP.Types as Http
 import qualified Network.Wai as Wai
 import qualified Network.Wai.Handler.Warp as Warp
 import qualified Paths_haskellweekly as Package
 
 -- | Starts up the server. This function never returns.
-server :: IORef.IORef HW.Type.State.State -> IO ()
+server :: IORef.IORef State.State -> IO ()
 server ref = do
   state <- IORef.readIORef ref
-  let config = HW.Type.State.stateConfig state
+  let config = State.config state
   Warp.runSettings (configToSettings config)
-    . HW.Middleware.middleware ref
-    $ HW.Application.application ref
+    . Middleware.middleware ref
+    $ Application.application ref
 
 -- | Converts a Haskell Weekly config into Warp server settings.
-configToSettings :: HW.Type.Config.Config -> Warp.Settings
+configToSettings :: Config.Config -> Warp.Settings
 configToSettings config =
   Warp.setBeforeMainLoop
-      (beforeMainLoop $ HW.Type.Config.configPort config)
+      (beforeMainLoop $ Config.port config)
     . Warp.setOnExceptionResponse onExceptionResponse
-    . Warp.setPort (HW.Type.Config.configPort config)
+    . Warp.setPort (Config.port config)
     . Warp.setServerName serverName
     $ Warp.defaultSettings
 

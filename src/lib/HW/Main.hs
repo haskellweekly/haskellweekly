@@ -8,9 +8,9 @@ where
 
 import qualified Data.IORef as IORef
 import qualified Data.Version as Version
-import qualified HW.Server
-import qualified HW.Type.Config
-import qualified HW.Type.State
+import qualified HW.Server as Server
+import qualified HW.Type.Config as Config
+import qualified HW.Type.State as State
 import qualified Paths_haskellweekly as Package
 import qualified System.IO as IO
 
@@ -22,7 +22,7 @@ main = do
     $ "Starting Haskell Weekly version "
     <> Version.showVersion Package.version
     <> " ..."
-  config <- HW.Type.Config.getConfig
-  state <- HW.Type.State.configToState config
+  config <- Config.getConfig
+  state <- State.configToState config
   stateRef <- IORef.newIORef state
-  HW.Server.server stateRef
+  Server.server stateRef

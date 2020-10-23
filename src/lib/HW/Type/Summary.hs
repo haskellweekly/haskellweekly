@@ -3,8 +3,8 @@
 -- with metadata, like a podcast feed or a link on Twitter.
 module HW.Type.Summary
   ( Summary
-  , textToSummary
-  , summaryToText
+  , fromText
+  , toText
   )
 where
 
@@ -18,11 +18,11 @@ newtype Summary =
 -- | Converts text into a summary. Currently this makes sure that the
 -- string isn't completely blank. In the future it might put some limits on the
 -- length of the summary too.
-textToSummary :: Text.Text -> Either String Summary
-textToSummary text = if Text.all Char.isSpace text
+fromText :: Text.Text -> Either String Summary
+fromText text = if Text.all Char.isSpace text
   then Left $ "invalid Summary: " <> show text
   else Right $ Summary text
 
 -- | Unwraps a summary and returns the text inside.
-summaryToText :: Summary -> Text.Text
-summaryToText (Summary text) = text
+toText :: Summary -> Text.Text
+toText (Summary text) = text

@@ -7,15 +7,15 @@ import qualified CMark as Mark
 import qualified Data.Text as Text
 import qualified HW.Template.Base
 import qualified HW.Template.Newsletter
-import qualified HW.Type.BaseUrl
-import qualified HW.Type.Date
-import qualified HW.Type.Issue
-import qualified HW.Type.Number
-import qualified HW.Type.Route
+import qualified HW.Type.BaseUrl as BaseUrl
+import qualified HW.Type.Date as Date
+import qualified HW.Type.Issue as Issue
+import qualified HW.Type.Number as Number
+import qualified HW.Type.Route as Route
 import qualified Lucid as Html
 
 issueTemplate
-  :: HW.Type.BaseUrl.BaseUrl -> HW.Type.Issue.Issue -> Mark.Node -> Html.Html ()
+  :: BaseUrl.BaseUrl -> Issue.Issue -> Mark.Node -> Html.Html ()
 issueTemplate baseUrl issue node =
   HW.Template.Base.baseTemplate
       baseUrl
@@ -24,9 +24,9 @@ issueTemplate baseUrl issue node =
     $ do
         Html.h2_ [Html.class_ "f2 mv3 tracked-tight"] $ Html.a_
           [ Html.class_ "no-underline purple"
-          , Html.href_ $ HW.Type.Route.routeToTextWith
+          , Html.href_ $ Route.toText
             baseUrl
-            HW.Type.Route.RouteNewsletter
+            Route.Newsletter
           ]
           "Newsletter"
         Html.h3_ [Html.class_ "f3 mv3 tracked-tight"] $ do
@@ -36,9 +36,9 @@ issueTemplate baseUrl issue node =
         HW.Template.Newsletter.newsletterActionTemplate baseUrl
         Html.div_ [Html.class_ "lh-copy"] . Html.toHtmlRaw $ Mark.nodeToHtml [] node
 
-title :: HW.Type.Issue.Issue -> Text.Text
+title :: Issue.Issue -> Text.Text
 title =
-  mappend "Issue " . HW.Type.Number.numberToText . HW.Type.Issue.issueNumber
+  mappend "Issue " . Number.toText . Issue.issueNumber
 
-date :: HW.Type.Issue.Issue -> Text.Text
-date = HW.Type.Date.dateToShortText . HW.Type.Issue.issueDate
+date :: Issue.Issue -> Text.Text
+date = Date.toShortText . Issue.issueDate

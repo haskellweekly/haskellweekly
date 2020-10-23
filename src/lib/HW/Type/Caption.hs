@@ -21,10 +21,10 @@ import qualified Text.ParserCombinators.ReadP as ReadP
 import qualified Text.Read as Read
 
 data Caption = Caption
-  { captionIdentifier :: Natural.Natural
-  , captionStart :: Time.TimeOfDay
-  , captionEnd :: Time.TimeOfDay
-  , captionPayload :: NonEmpty.NonEmpty Text.Text
+  { identifier :: Natural.Natural
+  , start :: Time.TimeOfDay
+  , end :: Time.TimeOfDay
+  , payload :: NonEmpty.NonEmpty Text.Text
   }
   deriving (Eq, Show)
 
@@ -46,7 +46,7 @@ parseVtt =
 -- one person. Lines of dialogue start with @">> "@.
 renderTranscript :: [Caption] -> [Text.Text]
 renderTranscript =
-  renderCaptionPayload . concatMap (NonEmpty.toList . captionPayload)
+  renderCaptionPayload . concatMap (NonEmpty.toList . payload)
 
 -- | This type alias is just provided for convenience. Typing out the whole
 -- qualified name every time is no fun. Note that a @Parser SomeType@ is
@@ -80,10 +80,10 @@ captionP = do
   Monad.guard $ start < end
   payload <- nonEmptyP lineP
   pure Caption
-    { captionIdentifier = identifier
-    , captionStart = start
-    , captionEnd = end
-    , captionPayload = payload
+    { identifier
+    , start
+    , end
+    , payload
     }
 
 -- | Parses a WebVTT identifier, which for our purposes is always a natural

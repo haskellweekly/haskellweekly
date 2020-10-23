@@ -9,32 +9,32 @@ import qualified Data.Maybe as Maybe
 import qualified Data.Ord as Ord
 import qualified HW.Handler.Base
 import qualified HW.Template.Index
-import qualified HW.Type.App
-import qualified HW.Type.Episode
-import qualified HW.Type.Issue
-import qualified HW.Type.State
+import qualified HW.Type.App as App
+import qualified HW.Type.Episode as Episode
+import qualified HW.Type.Issue as Issue
+import qualified HW.Type.State as State
 import qualified Network.HTTP.Types as Http
 import qualified Network.Wai as Wai
 
-indexHandler :: HW.Type.App.App Wai.Response
+indexHandler :: App.App Wai.Response
 indexHandler = do
-  state <- HW.Type.App.getState
+  state <- App.getState
   let
     maybeIssue =
       Maybe.listToMaybe
-        . List.sortOn (Ord.Down . HW.Type.Issue.issueDate)
+        . List.sortOn (Ord.Down . Issue.issueDate)
         . Map.elems
-        $ HW.Type.State.stateIssues state
+        $ State.issues state
     maybeEpisode =
       Maybe.listToMaybe
-        . List.sortOn (Ord.Down . HW.Type.Episode.episodeDate)
+        . List.sortOn (Ord.Down . Episode.date)
         . Map.elems
-        $ HW.Type.State.stateEpisodes state
+        $ State.episodes state
   pure
     . HW.Handler.Base.htmlResponse
         Http.ok200
         [(Http.hCacheControl, "public, max-age=900")]
     $ HW.Template.Index.indexTemplate
-        (HW.Type.State.stateConfig state)
+        (State.config state)
         maybeIssue
         maybeEpisode

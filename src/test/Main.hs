@@ -4,7 +4,7 @@ module Main
 where
 
 import qualified CMark as Mark
-import qualified Control.Exception
+import qualified Control.Exception as Exception
 import qualified Control.Monad as Monad
 import qualified Data.ByteString as ByteString
 import qualified Data.Text as Text
@@ -32,7 +32,7 @@ main = do
       let file = FilePath.combine directory entry
       contents <- ByteString.readFile file
       Monad.void
-        . Control.Exception.evaluate
+        . Exception.evaluate
         . Text.length
         . Mark.commonmarkToHtml []
         $ Text.decodeUtf8 contents
@@ -48,7 +48,7 @@ main = do
         Nothing -> fail entry
         Just captions ->
           Monad.void
-            . Control.Exception.evaluate
+            . Exception.evaluate
             . Text.length
             . mconcat
             $ HaskellWeekly.renderTranscript captions

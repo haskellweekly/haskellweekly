@@ -6,11 +6,11 @@ where
 import qualified Control.Monad as Monad
 import qualified Data.Maybe as Maybe
 import qualified HW.Handler.Base
-import qualified HW.Type.App
+import qualified HW.Type.App as App
 import qualified Network.HTTP.Types as Http
 import qualified Network.Wai as Wai
 
-searchHandler :: Wai.Request -> HW.Type.App.App Wai.Response
+searchHandler :: Wai.Request -> App.App Wai.Response
 searchHandler request = do
   let
     query =

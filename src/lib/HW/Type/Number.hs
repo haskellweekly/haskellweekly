@@ -5,10 +5,10 @@
 -- issue) instead.
 module HW.Type.Number
   ( Number
-  , naturalToNumber
-  , numberToNatural
-  , numberToText
-  , textToNumber
+  , fromNatural
+  , toNatural
+  , toText
+  , fromText
   )
 where
 
@@ -22,24 +22,24 @@ newtype Number =
 
 -- | Converts a natural number into a number. Since numbering starts at one but
 -- the naturals start at zero, there's an opportunity for things to go wrong.
-naturalToNumber :: Natural.Natural -> Either String Number
-naturalToNumber natural = if natural < 1
+fromNatural :: Natural.Natural -> Either String Number
+fromNatural natural = if natural < 1
   then Left $ "invalid Number: " <> show natural
   else Right $ Number natural
 
 -- | Converts a number into a natural number. This is the opposite of
--- 'naturalToNumber'.
-numberToNatural :: Number -> Natural.Natural
-numberToNatural (Number natural) = natural
+-- 'fromNatural'.
+toNatural :: Number -> Natural.Natural
+toNatural (Number natural) = natural
 
 -- | Converts a number into text. This is a lot like 'show' except that the
 -- output is just the number without any constructors or anything.
-numberToText :: Number -> Text.Text
-numberToText = Text.pack . show . numberToNatural
+toText :: Number -> Text.Text
+toText = Text.pack . show . toNatural
 
 -- | Parses text into a number. This first parses the string as a natural
--- number and then hands things off to 'numberToNatural'.
-textToNumber :: Text.Text -> Either String Number
-textToNumber text = case Read.readMaybe (Text.unpack text) of
+-- number and then hands things off to 'toNatural'.
+fromText :: Text.Text -> Either String Number
+fromText text = case Read.readMaybe (Text.unpack text) of
   Nothing -> Left $ "invalid Number: " <> show text
-  Just natural -> naturalToNumber natural
+  Just natural -> fromNatural natural

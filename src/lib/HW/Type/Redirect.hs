@@ -1,8 +1,8 @@
 -- | This module defines a type for handling HTTP redirects.
 module HW.Type.Redirect
   ( Redirect
-  , redirectToText
-  , textToRedirect
+  , toText
+  , fromText
   )
 where
 
@@ -14,10 +14,10 @@ newtype Redirect =
 
 -- | Converts a redirect into text so that it can be used somewhere like an
 -- HTTP header.
-redirectToText :: Redirect -> Text.Text
-redirectToText (Redirect text) = text
+toText :: Redirect -> Text.Text
+toText (Redirect text) = text
 
 -- | Converts text into a redirect. This is intentionally permissive so
 -- that you can redirect to paths like @/re@ as well as URLs like @http://...@.
-textToRedirect :: Text.Text -> Redirect
-textToRedirect = Redirect
+fromText :: Text.Text -> Redirect
+fromText = Redirect

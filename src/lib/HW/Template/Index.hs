@@ -6,25 +6,25 @@ where
 import qualified HW.Template.Base
 import qualified HW.Template.Newsletter
 import qualified HW.Template.Podcast
-import qualified HW.Type.BaseUrl
-import qualified HW.Type.Config
-import qualified HW.Type.Date
-import qualified HW.Type.Episode
-import qualified HW.Type.Issue
-import qualified HW.Type.Number
-import qualified HW.Type.Route
+import qualified HW.Type.BaseUrl as BaseUrl
+import qualified HW.Type.Config as Config
+import qualified HW.Type.Date as Date
+import qualified HW.Type.Episode as Episode
+import qualified HW.Type.Issue as Issue
+import qualified HW.Type.Number as Number
+import qualified HW.Type.Route as Route
 import qualified Lucid as Html
 
 indexTemplate
-  :: HW.Type.Config.Config
-  -> Maybe HW.Type.Issue.Issue
-  -> Maybe HW.Type.Episode.Episode
+  :: Config.Config
+  -> Maybe Issue.Issue
+  -> Maybe Episode.Episode
   -> Html.Html ()
 indexTemplate config maybeIssue maybeEpisode = do
   let
-    baseUrl = HW.Type.Config.configBaseUrl config
+    baseUrl = Config.baseUrl config
     head_ :: Html.Html ()
-    head_ = case HW.Type.Config.configGoogleSiteVerification config of
+    head_ = case Config.googleSiteVerification config of
       Nothing -> mempty
       Just googleSiteVerification ->
         Html.meta_
@@ -35,7 +35,7 @@ indexTemplate config maybeIssue maybeEpisode = do
     Html.h2_ [Html.class_ "f2 mv3 tracked-tight"] $ Html.a_
       [ Html.class_ "no-underline purple"
       , Html.href_
-        $ HW.Type.Route.routeToTextWith baseUrl HW.Type.Route.RouteNewsletter
+        $ Route.toText baseUrl Route.Newsletter
       ]
       "Newsletter"
     Html.p_ [Html.class_ "lh-copy"] $ do
@@ -48,7 +48,7 @@ indexTemplate config maybeIssue maybeEpisode = do
     Html.h2_ [Html.class_ "f2 mv3 tracked-tight"] $ Html.a_
       [ Html.class_ "no-underline purple"
       , Html.href_
-        $ HW.Type.Route.routeToTextWith baseUrl HW.Type.Route.RoutePodcast
+        $ Route.toText baseUrl Route.Podcast
       ]
       "Podcast"
     Html.p_ [Html.class_ "lh-copy"] $ do
@@ -91,52 +91,52 @@ indexTemplate config maybeIssue maybeEpisode = do
     Html.p_ [Html.class_ "lh-copy"] $ do
       "If you would like to advertise with Haskell Weekly, please consult our "
       Html.a_
-        [ Html.href_ $ HW.Type.Route.routeToTextWith
+        [ Html.href_ $ Route.toText
             baseUrl
-            HW.Type.Route.RouteAdvertising
+            Route.Advertising
         ]
         "advertising page"
       "."
 
 episodeTemplate
-  :: HW.Type.BaseUrl.BaseUrl -> HW.Type.Episode.Episode -> Html.Html ()
+  :: BaseUrl.BaseUrl -> Episode.Episode -> Html.Html ()
 episodeTemplate baseUrl episode = Html.p_ $ do
-  let number = HW.Type.Episode.episodeNumber episode
+  let number = Episode.number episode
   Html.a_
       [ Html.href_
-        . HW.Type.Route.routeToTextWith baseUrl
-        $ HW.Type.Route.RouteEpisode number
+        . Route.toText baseUrl
+        $ Route.Episode number
       ]
     $ do
         "Episode "
-        Html.toHtml $ HW.Type.Number.numberToText number
+        Html.toHtml $ Number.toText number
   " of the podcast was published on "
-  Html.toHtml . HW.Type.Date.dateToShortText $ HW.Type.Episode.episodeDate episode
+  Html.toHtml . Date.toShortText $ Episode.date episode
   ". Browse "
   Html.a_
     [ Html.href_
-        $ HW.Type.Route.routeToTextWith baseUrl HW.Type.Route.RoutePodcast
+        $ Route.toText baseUrl Route.Podcast
     ]
     "the archives"
   " for older episodes."
 
-issueTemplate :: HW.Type.BaseUrl.BaseUrl -> HW.Type.Issue.Issue -> Html.Html ()
+issueTemplate :: BaseUrl.BaseUrl -> Issue.Issue -> Html.Html ()
 issueTemplate baseUrl issue = Html.p_ $ do
-  let number = HW.Type.Issue.issueNumber issue
+  let number = Issue.issueNumber issue
   Html.a_
       [ Html.href_
-        . HW.Type.Route.routeToTextWith baseUrl
-        $ HW.Type.Route.RouteIssue number
+        . Route.toText baseUrl
+        $ Route.Issue number
       ]
     $ do
         "Issue "
-        Html.toHtml $ HW.Type.Number.numberToText number
+        Html.toHtml $ Number.toText number
   " of the newsletter was published on "
-  Html.toHtml . HW.Type.Date.dateToShortText $ HW.Type.Issue.issueDate issue
+  Html.toHtml . Date.toShortText $ Issue.issueDate issue
   ". Browse "
   Html.a_
     [ Html.href_
-        $ HW.Type.Route.routeToTextWith baseUrl HW.Type.Route.RouteNewsletter
+        $ Route.toText baseUrl Route.Newsletter
     ]
     "the archives"
   " for older issues."

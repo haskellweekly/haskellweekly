@@ -6,16 +6,16 @@ module HW.Template.Newsletter
 where
 
 import qualified HW.Template.Base
-import qualified HW.Type.BaseUrl
-import qualified HW.Type.Date
-import qualified HW.Type.Issue
-import qualified HW.Type.Number
-import qualified HW.Type.Route
+import qualified HW.Type.BaseUrl as BaseUrl
+import qualified HW.Type.Date as Date
+import qualified HW.Type.Issue as Issue
+import qualified HW.Type.Number as Number
+import qualified HW.Type.Route as Route
 import qualified Lucid as Html
 import qualified Lucid.Base as Html
 
 newsletterTemplate
-  :: HW.Type.BaseUrl.BaseUrl -> [HW.Type.Issue.Issue] -> Html.Html ()
+  :: BaseUrl.BaseUrl -> [Issue.Issue] -> Html.Html ()
 newsletterTemplate baseUrl issues =
   HW.Template.Base.baseTemplate
       baseUrl
@@ -30,11 +30,11 @@ newsletterTemplate baseUrl issues =
         Html.ul_ [Html.class_ "lh-copy"] $ mapM_ (issueTemplate baseUrl) issues
 
 newsletterHead
-  :: HW.Type.BaseUrl.BaseUrl -> Maybe HW.Type.Issue.Issue -> Html.Html ()
+  :: BaseUrl.BaseUrl -> Maybe Issue.Issue -> Html.Html ()
 newsletterHead baseUrl maybeIssue = do
   Html.link_
     [ Html.href_
-      $ HW.Type.Route.routeToTextWith baseUrl HW.Type.Route.RouteNewsletterFeed
+      $ Route.toText baseUrl Route.NewsletterFeed
     , Html.rel_ "alternate"
     , Html.type_ "application/atom+xml"
     ]
@@ -43,18 +43,18 @@ newsletterHead baseUrl maybeIssue = do
     Just issue -> do
       HW.Template.Base.metaOpenGraph "description"
         $ "News about the Haskell programming language from "
-        <> HW.Type.Date.dateToShortText (HW.Type.Issue.issueDate issue)
+        <> Date.toShortText (Issue.issueDate issue)
         <> "."
       HW.Template.Base.metaOpenGraph "title"
         . mappend "Issue "
-        . HW.Type.Number.numberToText
-        $ HW.Type.Issue.issueNumber issue
+        . Number.toText
+        $ Issue.issueNumber issue
       HW.Template.Base.metaOpenGraph "url"
-        . HW.Type.Route.routeToTextWith baseUrl
-        . HW.Type.Route.RouteIssue
-        $ HW.Type.Issue.issueNumber issue
+        . Route.toText baseUrl
+        . Route.Issue
+        $ Issue.issueNumber issue
 
-newsletterActionTemplate :: HW.Type.BaseUrl.BaseUrl -> Html.Html ()
+newsletterActionTemplate :: BaseUrl.BaseUrl -> Html.Html ()
 newsletterActionTemplate baseUrl =
   Html.div_ [Html.class_ "ba b--yellow bg-washed-yellow center mw6 pa3"] $ do
     Html.p_ [Html.class_ "lh-copy mt0"] $ do
@@ -64,16 +64,16 @@ newsletterActionTemplate baseUrl =
       Html.a_ [Html.href_ "https://twitter.com/haskellweekly"] "on Twitter"
       " or with "
       Html.a_
-        [ Html.href_ $ HW.Type.Route.routeToTextWith
+        [ Html.href_ $ Route.toText
             baseUrl
-            HW.Type.Route.RouteNewsletterFeed
+            Route.NewsletterFeed
         ]
         "our feed"
       ". Read more issues in "
       Html.a_
-        [ Html.href_ $ HW.Type.Route.routeToTextWith
+        [ Html.href_ $ Route.toText
             baseUrl
-            HW.Type.Route.RouteNewsletter
+            Route.Newsletter
         ]
         "the archives"
       "."
@@ -108,20 +108,20 @@ newsletterActionTemplate baseUrl =
             ]
             "Subscribe"
 
-issueTemplate :: HW.Type.BaseUrl.BaseUrl -> HW.Type.Issue.Issue -> Html.Html ()
+issueTemplate :: BaseUrl.BaseUrl -> Issue.Issue -> Html.Html ()
 issueTemplate baseUrl issue = Html.li_ $ do
   Html.a_
       [ Html.href_
-        . HW.Type.Route.routeToTextWith baseUrl
-        . HW.Type.Route.RouteIssue
-        $ HW.Type.Issue.issueNumber issue
+        . Route.toText baseUrl
+        . Route.Issue
+        $ Issue.issueNumber issue
       ]
     $ do
         "Issue "
-        Html.toHtml . HW.Type.Number.numberToText $ HW.Type.Issue.issueNumber
+        Html.toHtml . Number.toText $ Issue.issueNumber
           issue
   " "
   Html.span_ [Html.class_ "mid-gray"]
     . Html.toHtml
-    . HW.Type.Date.dateToShortText
-    $ HW.Type.Issue.issueDate issue
+    . Date.toShortText
+    $ Issue.issueDate issue

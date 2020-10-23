@@ -6,22 +6,22 @@ where
 import qualified Data.List.NonEmpty as NonEmpty
 import qualified Data.Map as Map
 import qualified Data.Text as Text
-import qualified HW.Type.Article
-import qualified HW.Type.Audio
-import qualified HW.Type.BaseUrl
-import qualified HW.Type.Date
-import qualified HW.Type.Duration
-import qualified HW.Type.Episode
-import qualified HW.Type.Guid
-import qualified HW.Type.Number
-import qualified HW.Type.Route
-import qualified HW.Type.Size
-import qualified HW.Type.Summary
-import qualified HW.Type.Title
+import qualified HW.Type.Article as Article
+import qualified HW.Type.Audio as Audio
+import qualified HW.Type.BaseUrl as BaseUrl
+import qualified HW.Type.Date as Date
+import qualified HW.Type.Duration as Duration
+import qualified HW.Type.Episode as Episode
+import qualified HW.Type.Guid as Guid
+import qualified HW.Type.Number as Number
+import qualified HW.Type.Route as Route
+import qualified HW.Type.Size as Size
+import qualified HW.Type.Summary as Summary
+import qualified HW.Type.Title as Title
 import qualified Text.XML as Xml
 
 podcastFeedTemplate
-  :: HW.Type.BaseUrl.BaseUrl -> [HW.Type.Episode.Episode] -> Xml.Document
+  :: BaseUrl.BaseUrl -> [Episode.Episode] -> Xml.Document
 podcastFeedTemplate baseUrl episodes =
   let
     element name attributes =
@@ -29,30 +29,30 @@ podcastFeedTemplate baseUrl episodes =
     node name attributes = Xml.NodeElement . element name attributes
     text = Xml.NodeContent
     itemTitle =
-      text . HW.Type.Title.titleToText . HW.Type.Episode.episodeTitle
+      text . Title.toText . Episode.title
     itemLink =
       text
-        . HW.Type.Route.routeToTextWith baseUrl
-        . HW.Type.Route.RouteEpisode
-        . HW.Type.Episode.episodeNumber
+        . Route.toText baseUrl
+        . Route.Episode
+        . Episode.number
     itemDescription =
-      text . HW.Type.Summary.summaryToText . HW.Type.Episode.episodeSummary
+      text . Summary.toText . Episode.summary
     itemEnclosureLength =
       Text.pack
         . show
-        . HW.Type.Size.sizeToInteger
-        . HW.Type.Episode.episodeSize
+        . Size.toNatural
+        . Episode.size
     itemEnclosureUrl =
-      HW.Type.Audio.audioToText . HW.Type.Episode.episodeAudio
-    itemGuid = text . HW.Type.Guid.guidToText . HW.Type.Episode.episodeGuid
+      Audio.toText . Episode.audio
+    itemGuid = text . Guid.toText . Episode.guid
     itemPubDate =
-      text . HW.Type.Date.dateToRfc2822 . HW.Type.Episode.episodeDate
+      text . Date.toRfc2822 . Episode.date
     itemDuration =
-      text . HW.Type.Duration.durationToText . HW.Type.Episode.episodeDuration
+      text . Duration.toText . Episode.duration
     itemEpisode =
-      text . HW.Type.Number.numberToText . HW.Type.Episode.episodeNumber
-    articles = NonEmpty.toList . HW.Type.Episode.episodeArticles
-    articleToNode = text . mappend "\n- " . HW.Type.Article.articleToText
+      text . Number.toText . Episode.number
+    articles = NonEmpty.toList . Episode.articles
+    articleToNode = text . mappend "\n- " . Article.toText
     item episode = node
       "item"
       []
@@ -76,7 +76,7 @@ podcastFeedTemplate baseUrl episodes =
       , node "itunes:summary" [] [itemDescription episode]
       ]
     channelLink =
-      text $ HW.Type.Route.routeToTextWith baseUrl HW.Type.Route.RoutePodcast
+      text $ Route.toText baseUrl Route.Podcast
     channelDescription = text $ Text.unwords
       [ "Haskell Weekly covers the Haskell progamming language. Listen to"
       , "professional software developers discuss using functional programming to"
@@ -84,9 +84,9 @@ podcastFeedTemplate baseUrl episodes =
       , "two-host format and runs for about 15 minutes."
       ]
     channelImageUrl =
-      HW.Type.Route.routeToTextWith baseUrl HW.Type.Route.RouteLogo
+      Route.toText baseUrl Route.Logo
     channelSelfLink =
-      HW.Type.Route.routeToTextWith baseUrl HW.Type.Route.RoutePodcastFeed
+      Route.toText baseUrl Route.PodcastFeed
     channel = node
       "channel"
       []

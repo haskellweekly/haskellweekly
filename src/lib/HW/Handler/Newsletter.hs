@@ -8,22 +8,22 @@ import qualified Data.Map as Map
 import qualified Data.Ord as Ord
 import qualified HW.Handler.Base
 import qualified HW.Template.Newsletter
-import qualified HW.Type.App
-import qualified HW.Type.Config
-import qualified HW.Type.Issue
-import qualified HW.Type.State
+import qualified HW.Type.App as App
+import qualified HW.Type.Config as Config
+import qualified HW.Type.Issue as Issue
+import qualified HW.Type.State as State
 import qualified Network.HTTP.Types as Http
 import qualified Network.Wai as Wai
 
-newsletterHandler :: HW.Type.App.App Wai.Response
+newsletterHandler :: App.App Wai.Response
 newsletterHandler = do
-  state <- HW.Type.App.getState
+  state <- App.getState
   let
-    baseUrl = HW.Type.Config.configBaseUrl $ HW.Type.State.stateConfig state
+    baseUrl = Config.baseUrl $ State.config state
     issues =
-      List.sortOn (Ord.Down . HW.Type.Issue.issueNumber)
+      List.sortOn (Ord.Down . Issue.issueNumber)
         . Map.elems
-        $ HW.Type.State.stateIssues state
+        $ State.issues state
   pure
     . HW.Handler.Base.htmlResponse
         Http.ok200

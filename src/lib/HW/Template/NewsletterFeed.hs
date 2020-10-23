@@ -8,16 +8,16 @@ import qualified Data.List as List
 import qualified Data.Map as Map
 import qualified Data.Maybe as Maybe
 import qualified Data.Ord as Ord
-import qualified HW.Type.BaseUrl
-import qualified HW.Type.Date
-import qualified HW.Type.Issue
-import qualified HW.Type.Number
-import qualified HW.Type.Route
+import qualified HW.Type.BaseUrl as BaseUrl
+import qualified HW.Type.Date as Date
+import qualified HW.Type.Issue as Issue
+import qualified HW.Type.Number as Number
+import qualified HW.Type.Route as Route
 import qualified Text.XML as Xml
 
 newsletterFeedTemplate
-  :: HW.Type.BaseUrl.BaseUrl
-  -> [(HW.Type.Issue.Issue, Mark.Node)]
+  :: BaseUrl.BaseUrl
+  -> [(Issue.Issue, Mark.Node)]
   -> Xml.Document
 newsletterFeedTemplate baseUrl issues =
   let
@@ -26,16 +26,16 @@ newsletterFeedTemplate baseUrl issues =
     node name attributes = Xml.NodeElement . element name attributes
     text = Xml.NodeContent
     entryLink =
-      HW.Type.Route.routeToTextWith baseUrl
-        . HW.Type.Route.RouteIssue
-        . HW.Type.Issue.issueNumber
+      Route.toText baseUrl
+        . Route.Issue
+        . Issue.issueNumber
     entryTitle =
       text
         . mappend "Issue "
-        . HW.Type.Number.numberToText
-        . HW.Type.Issue.issueNumber
+        . Number.toText
+        . Issue.issueNumber
     entryUpdated =
-      text . HW.Type.Date.dateToLongText . HW.Type.Issue.issueDate
+      text . Date.toLongText . Issue.issueDate
     entry (issue, content) = node
       "entry"
       []
@@ -52,13 +52,13 @@ newsletterFeedTemplate baseUrl issues =
       , node "content" [("type", "html")] [text $ Mark.nodeToHtml [] content]
       ]
     feedId =
-      HW.Type.Route.routeToTextWith baseUrl HW.Type.Route.RouteNewsletterFeed
+      Route.toText baseUrl Route.NewsletterFeed
     feedUpdated =
       text
-        . maybe "2001-01-01T12:00:00Z" HW.Type.Date.dateToLongText
+        . maybe "2001-01-01T12:00:00Z" Date.toLongText
         . Maybe.listToMaybe
         . List.sortOn Ord.Down
-        $ fmap (HW.Type.Issue.issueDate . fst) issues
+        $ fmap (Issue.issueDate . fst) issues
     feed = element
       "feed"
       [("xmlns", "http://www.w3.org/2005/Atom")]
@@ -69,7 +69,7 @@ newsletterFeedTemplate baseUrl issues =
       : node
           "link"
           [ ( "href"
-            , HW.Type.Route.routeToTextWith baseUrl HW.Type.Route.RouteIndex
+            , Route.toText baseUrl Route.Index
             )
           ]
           []

@@ -3,8 +3,8 @@
 -- linked content rather than all outbound links.
 module HW.Type.Article
   ( Article
-  , articleToText
-  , textToArticle
+  , toText
+  , fromText
   )
 where
 
@@ -16,17 +16,17 @@ newtype Article =
   deriving (Eq, Show)
 
 -- | Converts an article URL into text.
-articleToText :: Article -> Text.Text
-articleToText = uriToText . articleToUri
+toText :: Article -> Text.Text
+toText = uriToText . toUri
 
 -- | Unwraps an article into a URL.
-articleToUri :: Article -> Uri.URI
-articleToUri (Article uri) = uri
+toUri :: Article -> Uri.URI
+toUri (Article uri) = uri
 
 -- | Parses a string as an article. The string must be an absolute URL. In the
 -- future this may check for HTTP as well.
-textToArticle :: Text.Text -> Either String Article
-textToArticle text = case Uri.parseURI $ Text.unpack text of
+fromText :: Text.Text -> Either String Article
+fromText text = case Uri.parseURI $ Text.unpack text of
   Nothing -> Left $ "invalid Article: " <> show text
   Just uri -> Right $ Article uri
 
