@@ -37,7 +37,7 @@ Resources:
     Properties:
       DistributionConfig:
         Aliases:
-          - !Ref ${DomainName}
+          - !Ref DomainName
         DefaultCacheBehavior:
           AllowedMethods:
             - DELETE
