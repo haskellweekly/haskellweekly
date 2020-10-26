@@ -59,6 +59,7 @@ episodes = do
     , episode25
     , episode26
     , episode27
+    , episode28
     ]
   checkGuids validEpisodes Set.empty
   checkNumbers validEpisodes 1
@@ -564,3 +565,23 @@ episode27 =
     <*> Summary.fromText
           "Learn how to answer common technical interview questions with Haskell. Cameron Gera and Taylor Fausak discuss Chris Penner's blog post."
     <*> Title.fromText "Interview Questions"
+
+episode28 :: Either String Episode.Episode
+episode28 =
+  Episode.Episode
+    <$> Articles.fromList
+          [ "https://np.reddit.com/r/haskell/comments/je1t82/does_the_idea_of_xghc2021_excite_you/"
+          , "https://github.com/ghc-proposals/ghc-proposals/pull/372"
+          , "https://hacktoberfest.digitalocean.com"
+          , "https://github.com/kowainik/learn4haskell"
+          ]
+    <*> Audio.fromText
+          "https://media.haskellweekly.news/2020-10-26-episode-28.mp3"
+    <*> Date.fromGregorian 2020 10 26
+    <*> Duration.fromTimestamp 22 16
+    <*> Guid.fromText "603912c0-3793-4396-a558-6cf0c924d9fe"
+    <*> Number.fromNatural 28
+    <*> Size.fromNatural 24194568
+    <*> Summary.fromText
+          "Does the idea of -XGHC2021 excite you? Cameron Gera and Taylor Fausak work through this proposed set of language extensions."
+    <*> Title.fromText "GHC 2021"
