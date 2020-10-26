@@ -57,8 +57,19 @@ type Parser = ReadP.ReadP
 -- WebVTT can express. <https://en.wikipedia.org/wiki/WebVTT>
 vttP :: Parser [Caption]
 vttP = do
-  stringP "WEBVTT\n\n"
-  ReadP.sepBy captionP $ charP '\n'
+  stringP "WEBVTT"
+  newlineP
+  newlineP
+  ReadP.sepBy captionP newlineP
+
+newlineP :: Parser ()
+newlineP = stringP "\r\n" ReadP.<++ charP '\n'
+
+isNewline :: Char -> Bool
+isNewline c = case c of
+  '\n' -> True
+  '\r' -> True
+  _ -> False
 
 -- | Parses a single WebVTT caption. A WebVTT file contains a bunch of captions
 -- separated by newlines. A single caption has a numeric identifier, a time
@@ -72,11 +83,11 @@ vttP = do
 captionP :: Parser Caption
 captionP = do
   identifier <- identifierP
-  charP '\n'
+  newlineP
   start <- timestampP
   stringP " --> "
   end <- timestampP
-  charP '\n'
+  newlineP
   Monad.guard $ start < end
   payload <- nonEmptyP lineP
   pure Caption { identifier, start, end, payload }
@@ -112,8 +123,8 @@ timestampP = do
 -- endings (newline only, no carriage return).
 lineP :: Parser Text.Text
 lineP = do
-  line <- ReadP.munch1 (/= '\n')
-  charP '\n'
+  line <- ReadP.munch1 $ not . isNewline
+  newlineP
   pure $ Text.pack line
 
 -- | Parses a single character and throws it away.
