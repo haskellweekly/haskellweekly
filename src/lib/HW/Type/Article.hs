@@ -3,34 +3,34 @@
 -- linked content rather than all outbound links.
 module HW.Type.Article
   ( Article
-  , articleToText
-  , textToArticle
+  , toText
+  , fromText
   )
 where
 
-import qualified Data.Text
-import qualified Network.URI
+import qualified Data.Text as Text
+import qualified Network.URI as Uri
 
 newtype Article =
-  Article Network.URI.URI
+  Article Uri.URI
   deriving (Eq, Show)
 
 -- | Converts an article URL into text.
-articleToText :: Article -> Data.Text.Text
-articleToText = uriToText . articleToUri
+toText :: Article -> Text.Text
+toText = uriToText . toUri
 
 -- | Unwraps an article into a URL.
-articleToUri :: Article -> Network.URI.URI
-articleToUri (Article uri) = uri
+toUri :: Article -> Uri.URI
+toUri (Article uri) = uri
 
 -- | Parses a string as an article. The string must be an absolute URL. In the
 -- future this may check for HTTP as well.
-textToArticle :: Data.Text.Text -> Either String Article
-textToArticle text = case Network.URI.parseURI $ Data.Text.unpack text of
+fromText :: Text.Text -> Either String Article
+fromText text = case Uri.parseURI $ Text.unpack text of
   Nothing -> Left $ "invalid Article: " <> show text
   Just uri -> Right $ Article uri
 
 -- | Converts a URL into text. This is only necessary because the regular
 -- way of doing this is annoyingly complicated.
-uriToText :: Network.URI.URI -> Data.Text.Text
-uriToText uri = Data.Text.pack $ Network.URI.uriToString id uri ""
+uriToText :: Uri.URI -> Text.Text
+uriToText uri = Text.pack $ Uri.uriToString id uri ""

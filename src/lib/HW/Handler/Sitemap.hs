@@ -1,58 +1,50 @@
 module HW.Handler.Sitemap
-  ( sitemapHandler
+  ( handler
   )
 where
 
-import qualified Data.Map
-import qualified Data.Text
-import qualified HW.Handler.Base
-import qualified HW.Type.App
-import qualified HW.Type.Config
-import qualified HW.Type.Route
-import qualified HW.Type.State
-import qualified Network.HTTP.Types
-import qualified Network.Wai
+import qualified Data.Map as Map
+import qualified Data.Text as Text
+import qualified HW.Handler.Common as Common
+import qualified HW.Type.App as App
+import qualified HW.Type.Config as Config
+import qualified HW.Type.Route as Route
+import qualified HW.Type.State as State
+import qualified Network.HTTP.Types as Http
+import qualified Network.Wai as Wai
 
-sitemapHandler :: HW.Type.App.App Network.Wai.Response
-sitemapHandler = do
-  state <- HW.Type.App.getState
+handler :: App.App Wai.Response
+handler = do
+  state <- App.getState
   pure
-    . HW.Handler.Base.textResponse
-        Network.HTTP.Types.ok200
-        [(Network.HTTP.Types.hCacheControl, "public, max-age=900")]
-    . Data.Text.unlines
-    . fmap
-        (HW.Type.Route.routeToTextWith
-        . HW.Type.Config.configBaseUrl
-        $ HW.Type.State.stateConfig state
-        )
+    . Common.text Http.ok200 [(Http.hCacheControl, "public, max-age=900")]
+    . Text.unlines
+    . fmap (Route.toText . Config.baseUrl $ State.config state)
     $ allRoutes state
 
-allRoutes :: HW.Type.State.State -> [HW.Type.Route.Route]
+allRoutes :: State.State -> [Route.Route]
 allRoutes state =
   mconcat [normalRoutes, episodeRoutes state, issueRoutes state]
 
-normalRoutes :: [HW.Type.Route.Route]
+normalRoutes :: [Route.Route]
 normalRoutes =
-  [ HW.Type.Route.RouteAdvertising
-  , HW.Type.Route.RouteAppleBadge
-  , HW.Type.Route.RouteFavicon
-  , HW.Type.Route.RouteGoogleBadge
-  , HW.Type.Route.RouteIndex
-  , HW.Type.Route.RouteLogo
-  , HW.Type.Route.RouteNewsletter
-  , HW.Type.Route.RouteNewsletterFeed
-  , HW.Type.Route.RoutePodcast
-  , HW.Type.Route.RoutePodcastFeed
-  , HW.Type.Route.RouteRobots
-  , HW.Type.Route.RouteSitemap
-  , HW.Type.Route.RouteTachyons
+  [ Route.Advertising
+  , Route.AppleBadge
+  , Route.Favicon
+  , Route.GoogleBadge
+  , Route.Index
+  , Route.Logo
+  , Route.Newsletter
+  , Route.NewsletterFeed
+  , Route.Podcast
+  , Route.PodcastFeed
+  , Route.Robots
+  , Route.Sitemap
+  , Route.Tachyons
   ]
 
-episodeRoutes :: HW.Type.State.State -> [HW.Type.Route.Route]
-episodeRoutes =
-  fmap HW.Type.Route.RouteEpisode . Data.Map.keys . HW.Type.State.stateEpisodes
+episodeRoutes :: State.State -> [Route.Route]
+episodeRoutes = fmap Route.Episode . Map.keys . State.episodes
 
-issueRoutes :: HW.Type.State.State -> [HW.Type.Route.Route]
-issueRoutes =
-  fmap HW.Type.Route.RouteIssue . Data.Map.keys . HW.Type.State.stateIssues
+issueRoutes :: State.State -> [Route.Route]
+issueRoutes = fmap Route.Issue . Map.keys . State.issues

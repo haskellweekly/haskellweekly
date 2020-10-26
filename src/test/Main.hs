@@ -3,15 +3,15 @@ module Main
   )
 where
 
-import qualified CMark
-import qualified Control.Exception
-import qualified Control.Monad
-import qualified Data.ByteString
-import qualified Data.Text
-import qualified Data.Text.Encoding
+import qualified CMark as Mark
+import qualified Control.Exception as Exception
+import qualified Control.Monad as Monad
+import qualified Data.ByteString as ByteString
+import qualified Data.Text as Text
+import qualified Data.Text.Encoding as Text
 import qualified HaskellWeekly
-import qualified System.Directory
-import qualified System.FilePath
+import qualified System.Directory as Directory
+import qualified System.FilePath as FilePath
 
 main :: IO ()
 main = do
@@ -26,30 +26,30 @@ main = do
   dataDirectory <- HaskellWeekly.getDataDir
   do
     putStrLn "Parsing issues ..."
-    let directory = System.FilePath.combine dataDirectory "newsletter"
-    entries <- System.Directory.listDirectory directory
-    Control.Monad.forM_ entries $ \entry -> do
-      let file = System.FilePath.combine directory entry
-      contents <- Data.ByteString.readFile file
-      Control.Monad.void
-        . Control.Exception.evaluate
-        . Data.Text.length
-        . CMark.commonmarkToHtml []
-        $ Data.Text.Encoding.decodeUtf8 contents
+    let directory = FilePath.combine dataDirectory "newsletter"
+    entries <- Directory.listDirectory directory
+    Monad.forM_ entries $ \entry -> do
+      let file = FilePath.combine directory entry
+      contents <- ByteString.readFile file
+      Monad.void
+        . Exception.evaluate
+        . Text.length
+        . Mark.commonmarkToHtml []
+        $ Text.decodeUtf8 contents
     putStrLn $ "Parsed " <> pluralize "issue" (length entries) <> "."
   do
     putStrLn "Parsing episodes ..."
-    let directory = System.FilePath.combine dataDirectory "podcast"
-    entries <- System.Directory.listDirectory directory
-    Control.Monad.forM_ entries $ \entry -> do
-      let file = System.FilePath.combine directory entry
-      contents <- Data.ByteString.readFile file
-      case HaskellWeekly.parseVtt $ Data.Text.Encoding.decodeUtf8 contents of
+    let directory = FilePath.combine dataDirectory "podcast"
+    entries <- Directory.listDirectory directory
+    Monad.forM_ entries $ \entry -> do
+      let file = FilePath.combine directory entry
+      contents <- ByteString.readFile file
+      case HaskellWeekly.parseVtt $ Text.decodeUtf8 contents of
         Nothing -> fail entry
         Just captions ->
-          Control.Monad.void
-            . Control.Exception.evaluate
-            . Data.Text.length
+          Monad.void
+            . Exception.evaluate
+            . Text.length
             . mconcat
             $ HaskellWeekly.renderTranscript captions
     putStrLn $ "Parsed " <> pluralize "episode" (length entries) <> "."

@@ -1,27 +1,21 @@
 module HW.Handler.Search
-  ( searchHandler
+  ( handler
   )
 where
 
-import qualified Control.Monad
-import qualified Data.Maybe
-import qualified HW.Handler.Base
-import qualified HW.Type.App
-import qualified Network.HTTP.Types
-import qualified Network.Wai
+import qualified Control.Monad as Monad
+import qualified Data.Maybe as Maybe
+import qualified HW.Handler.Common as Common
+import qualified HW.Type.App as App
+import qualified Network.HTTP.Types as Http
+import qualified Network.Wai as Wai
 
-searchHandler :: Network.Wai.Request -> HW.Type.App.App Network.Wai.Response
-searchHandler request = do
+handler :: Wai.Request -> App.App Wai.Response
+handler request = do
   let
-    query =
-      Data.Maybe.fromMaybe ""
-        . Control.Monad.join
-        . lookup "query"
-        $ Network.Wai.queryString request
-    location =
-      "https://duckduckgo.com/" <> Network.HTTP.Types.renderSimpleQuery
-        True
-        [("q", "site:haskellweekly.news " <> query)]
-  pure $ HW.Handler.Base.statusResponse
-    Network.HTTP.Types.found302
-    [(Network.HTTP.Types.hLocation, location)]
+    query = Maybe.fromMaybe "" . Monad.join . lookup "query" $ Wai.queryString
+      request
+    location = "https://duckduckgo.com/" <> Http.renderSimpleQuery
+      True
+      [("q", "site:haskellweekly.news " <> query)]
+  pure $ Common.status Http.found302 [(Http.hLocation, location)]

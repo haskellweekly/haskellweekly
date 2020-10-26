@@ -1,52 +1,49 @@
 module HW.Handler.Episode
-  ( episodeHandler
+  ( handler
   )
 where
 
-import qualified Data.Map
-import qualified Data.Text
-import qualified Data.Text.Encoding
-import qualified HW.Handler.Base
-import qualified HW.Template.Episode
-import qualified HW.Type.App
-import qualified HW.Type.Caption
-import qualified HW.Type.Config
-import qualified HW.Type.Number
-import qualified HW.Type.State
-import qualified Network.HTTP.Types
-import qualified Network.Wai
-import qualified System.FilePath
+import qualified Data.Map as Map
+import qualified Data.Text as Text
+import qualified Data.Text.Encoding as Text
+import qualified HW.Handler.Common as Common
+import qualified HW.Template.Episode as Episode
+import qualified HW.Type.App as App
+import qualified HW.Type.Caption as Caption
+import qualified HW.Type.Config as Config
+import qualified HW.Type.Number as Number
+import qualified HW.Type.State as State
+import qualified Network.HTTP.Types as Http
+import qualified Network.Wai as Wai
+import qualified System.FilePath as FilePath
 
-episodeHandler :: HW.Type.Number.Number -> HW.Type.App.App Network.Wai.Response
-episodeHandler number = do
-  state <- HW.Type.App.getState
-  let episodes = HW.Type.State.stateEpisodes state
-  case Data.Map.lookup number episodes of
-    Nothing -> pure HW.Handler.Base.notFoundResponse
+handler :: Number.Number -> App.App Wai.Response
+handler number = do
+  state <- App.getState
+  let episodes = State.episodes state
+  case Map.lookup number episodes of
+    Nothing -> pure Common.notFound
     Just episode -> do
       captions <- readCaptionFile number
       pure
-        . HW.Handler.Base.htmlResponse
-            Network.HTTP.Types.ok200
-            [(Network.HTTP.Types.hCacheControl, "public, max-age=900")]
-        $ HW.Template.Episode.episodeTemplate
-            (HW.Type.Config.configBaseUrl $ HW.Type.State.stateConfig state)
+        . Common.html Http.ok200 [(Http.hCacheControl, "public, max-age=900")]
+        $ Episode.template
+            (Config.baseUrl $ State.config state)
             episode
             captions
 
 -- | Reads a caption file and parses it as WebVTT. This will return nothing if
 -- the file doesn't exist. If parsing fails, this will raise an exception.
-readCaptionFile
-  :: HW.Type.Number.Number -> HW.Type.App.App [HW.Type.Caption.Caption]
+readCaptionFile :: Number.Number -> App.App [Caption.Caption]
 readCaptionFile number = do
   let
-    name = "episode-" <> HW.Type.Number.numberToText number
-    file = System.FilePath.addExtension (Data.Text.unpack name) "vtt"
-    path = System.FilePath.combine "podcast" file
-  byteString <- HW.Type.App.readDataFile path
-  text <- case Data.Text.Encoding.decodeUtf8' byteString of
+    name = "episode-" <> Number.toText number
+    file = FilePath.addExtension (Text.unpack name) "vtt"
+    path = FilePath.combine "podcast" file
+  byteString <- App.readDataFile path
+  text <- case Text.decodeUtf8' byteString of
     Left exception -> fail $ show exception
     Right text -> pure text
-  case HW.Type.Caption.parseVtt text of
+  case Caption.parseVtt text of
     Nothing -> fail $ "failed to parse caption file: " <> show path
     Just captions -> pure captions

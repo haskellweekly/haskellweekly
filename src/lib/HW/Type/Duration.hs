@@ -4,49 +4,46 @@
 -- having to ask the source audio files.
 module HW.Type.Duration
   ( Duration
-  , durationToText
-  , timestampToDuration
+  , toText
+  , fromTimestamp
   )
 where
 
-import qualified Data.Text
-import qualified Numeric.Natural
-import qualified Text.Printf
+import qualified Data.Text as Text
+import qualified Numeric.Natural as Natural
+import qualified Text.Printf as Printf
 
 newtype Duration =
-  Duration Numeric.Natural.Natural
+  Duration Natural.Natural
   deriving (Eq, Show)
 
 -- | Unwraps a duration and gives back the underlying natural number of seconds
 -- that it represents.
-durationToNatural :: Duration -> Numeric.Natural.Natural
+durationToNatural :: Duration -> Natural.Natural
 durationToNatural (Duration natural) = natural
 
 -- | Converts a duration into text. Uses the format @MM:SS@. The minutes will
 -- always be there, even if they're zero. The seconds will be zero padded to
 -- two places. There will never be any hours.
-durationToText :: Duration -> Data.Text.Text
-durationToText duration =
+toText :: Duration -> Text.Text
+toText duration =
   let (minutes, seconds) = quotRem (durationToNatural duration) 60
-  in Data.Text.pack $ Text.Printf.printf "%d:%02d" minutes seconds
+  in Text.pack $ Printf.printf "%d:%02d" minutes seconds
 
 -- | Converts a natural number of seconds into a duration. This can fail if the
 -- duration is zero seconds, because what's the point of having an empty
 -- duration?
-naturalToDuration :: Numeric.Natural.Natural -> Either String Duration
+naturalToDuration :: Natural.Natural -> Either String Duration
 naturalToDuration seconds = if seconds < 1
   then Left $ "invalid Duration: " <> show seconds
   else Right $ Duration seconds
 
 -- | Converts a timestamp into a duration. This is kind of the opposite of
--- 'durationToText' except that it takes in two numbers rather than one string.
+-- 'toText' except that it takes in two numbers rather than one string.
 -- The first argument is the number of minutes and the second is the number of
 -- seconds. This can fail if the seconds is greater than 59; they don't roll
 -- over into minutes.
-timestampToDuration
-  :: Numeric.Natural.Natural
-  -> Numeric.Natural.Natural
-  -> Either String Duration
-timestampToDuration minutes seconds = if seconds >= 60
+fromTimestamp :: Natural.Natural -> Natural.Natural -> Either String Duration
+fromTimestamp minutes seconds = if seconds >= 60
   then Left $ "invalid Duration: " <> show (minutes, seconds)
   else naturalToDuration $ (minutes * 60) + seconds

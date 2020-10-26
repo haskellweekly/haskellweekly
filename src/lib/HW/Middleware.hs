@@ -5,62 +5,61 @@ module HW.Middleware
   )
 where
 
-import qualified Control.Monad
-import qualified Crypto.Hash.SHA1
-import qualified Data.ByteString
-import qualified Data.ByteString.Base64
-import qualified Data.ByteString.Builder
-import qualified Data.ByteString.Lazy
-import qualified Data.CaseInsensitive
-import qualified Data.IORef
-import qualified Data.Int
-import qualified Data.Map
-import qualified Data.Text
-import qualified Data.Text.Encoding
-import qualified Data.Text.Encoding.Error
-import qualified Data.Time
-import qualified Data.Word
-import qualified GHC.Clock
-import qualified HW.Type.State
-import qualified Network.HTTP.Types
-import qualified Network.HTTP.Types.Header
-import qualified Network.Wai
-import qualified Network.Wai.Internal
-import qualified Network.Wai.Middleware.Autohead
-import qualified Network.Wai.Middleware.Gzip
-import qualified System.Mem
-import qualified Text.Printf
+import qualified Control.Monad as Monad
+import qualified Crypto.Hash.SHA1 as Sha1
+import qualified Data.ByteString as ByteString
+import qualified Data.ByteString.Base64 as Base64
+import qualified Data.ByteString.Builder as Builder
+import qualified Data.ByteString.Lazy as LazyByteString
+import qualified Data.CaseInsensitive as CI
+import qualified Data.IORef as IORef
+import qualified Data.Int as Int
+import qualified Data.Map as Map
+import qualified Data.Text as Text
+import qualified Data.Text.Encoding as Text
+import qualified Data.Text.Encoding.Error as Text
+import qualified Data.Time as Time
+import qualified Data.Word as Word
+import qualified GHC.Clock as Clock
+import qualified HW.Type.State as State
+import qualified Network.HTTP.Types as Http
+import qualified Network.HTTP.Types.Header as Http
+import qualified Network.Wai as Wai
+import qualified Network.Wai.Internal as Wai
+import qualified Network.Wai.Middleware.Autohead as Middleware
+import qualified Network.Wai.Middleware.Gzip as Middleware
+import qualified System.Mem as Mem
+import qualified Text.Printf as Printf
 
 -- | All of the middlewares are wrapped up in this single one so that you only
 -- have to apply one.
-middleware :: Data.IORef.IORef HW.Type.State.State -> Network.Wai.Middleware
+middleware :: IORef.IORef State.State -> Wai.Middleware
 middleware ref =
-  Network.Wai.Middleware.Gzip.gzip Network.Wai.Middleware.Gzip.def
+  Middleware.gzip Middleware.def
     . addLogging
     . addEntityTagHeader
     . addCaching ref
     . addSecurityHeaders
-    . Network.Wai.Middleware.Autohead.autohead
+    . Middleware.autohead
 
-addCaching :: Data.IORef.IORef HW.Type.State.State -> Network.Wai.Middleware
+addCaching :: IORef.IORef State.State -> Wai.Middleware
 addCaching ref application request respond = do
   let
     method = requestMethod request
     key = (method, requestPath request)
-  cache <- fmap HW.Type.State.stateResponseCache $ Data.IORef.readIORef ref
-  now <- Data.Time.getCurrentTime
-  case Data.Map.lookup key cache of
+  cache <- fmap State.responseCache $ IORef.readIORef ref
+  now <- Time.getCurrentTime
+  case Map.lookup key cache of
     Just (expires, response) | expires >= now -> respond response
     _ -> application request $ \response -> do
       let
-        fifteenMinutes = 900 :: Data.Time.NominalDiffTime
-        expires = Data.Time.addUTCTime fifteenMinutes now
-      Control.Monad.when (method == "GET" && responseStatus response == 200)
-        . HW.Type.State.modifyState ref
+        fifteenMinutes = 900 :: Time.NominalDiffTime
+        expires = Time.addUTCTime fifteenMinutes now
+      Monad.when (method == "GET" && responseStatus response == 200)
+        . State.modifyState ref
         $ \state -> state
-            { HW.Type.State.stateResponseCache =
-              Data.Map.insert key (expires, response)
-                $ HW.Type.State.stateResponseCache state
+            { State.responseCache = Map.insert key (expires, response)
+              $ State.responseCache state
             }
       respond response
 
@@ -74,15 +73,15 @@ addCaching ref application request respond = do
 -- - bytes: The content length of the response body in bytes.
 -- - ns: The amount of time in nanoseconds spent processing the request.
 -- - alloc: The number of bytes allocated while processing the request.
-addLogging :: Network.Wai.Middleware
+addLogging :: Wai.Middleware
 addLogging application request respond = do
-  now <- Data.Time.getCurrentTime
-  a1 <- System.Mem.getAllocationCounter
-  t1 <- GHC.Clock.getMonotonicTimeNSec
+  now <- Time.getCurrentTime
+  a1 <- Mem.getAllocationCounter
+  t1 <- Clock.getMonotonicTimeNSec
   application request $ \response -> do
-    t2 <- GHC.Clock.getMonotonicTimeNSec
-    a2 <- System.Mem.getAllocationCounter
-    Text.Printf.printf
+    t2 <- Clock.getMonotonicTimeNSec
+    a2 <- Mem.getAllocationCounter
+    Printf.printf
       "{ \"time\": \"%s\"\
       \, \"method\": \"%s\"\
       \, \"path\": \"%s%s\"\
@@ -101,81 +100,67 @@ addLogging application request respond = do
       (allocation a1 a2)
     respond response
 
-iso8601 :: Data.Time.UTCTime -> Data.Text.Text
-iso8601 = Data.Text.pack
-  . Data.Time.formatTime Data.Time.defaultTimeLocale "%Y-%m-%dT%H:%M:%S%3QZ"
+iso8601 :: Time.UTCTime -> Text.Text
+iso8601 =
+  Text.pack . Time.formatTime Time.defaultTimeLocale "%Y-%m-%dT%H:%M:%S%3QZ"
 
-requestMethod :: Network.Wai.Request -> Data.Text.Text
-requestMethod =
-  Data.Text.Encoding.decodeUtf8With Data.Text.Encoding.Error.lenientDecode
-    . Network.Wai.requestMethod
+requestMethod :: Wai.Request -> Text.Text
+requestMethod = Text.decodeUtf8With Text.lenientDecode . Wai.requestMethod
 
-requestPath :: Network.Wai.Request -> Data.Text.Text
-requestPath =
-  Data.Text.Encoding.decodeUtf8With Data.Text.Encoding.Error.lenientDecode
-    . Network.Wai.rawPathInfo
+requestPath :: Wai.Request -> Text.Text
+requestPath = Text.decodeUtf8With Text.lenientDecode . Wai.rawPathInfo
 
-requestQuery :: Network.Wai.Request -> Data.Text.Text
-requestQuery =
-  Data.Text.Encoding.decodeUtf8With Data.Text.Encoding.Error.lenientDecode
-    . Network.Wai.rawQueryString
+requestQuery :: Wai.Request -> Text.Text
+requestQuery = Text.decodeUtf8With Text.lenientDecode . Wai.rawQueryString
 
-responseStatus :: Network.Wai.Response -> Int
-responseStatus = Network.HTTP.Types.statusCode . Network.Wai.responseStatus
+responseStatus :: Wai.Response -> Int
+responseStatus = Http.statusCode . Wai.responseStatus
 
-responseSize :: Network.Wai.Response -> Data.Int.Int64
+responseSize :: Wai.Response -> Int.Int64
 responseSize response = case response of
-  Network.Wai.Internal.ResponseBuilder _ _ builder ->
-    Data.ByteString.Lazy.length
-      $ Data.ByteString.Builder.toLazyByteString builder
+  Wai.ResponseBuilder _ _ builder ->
+    LazyByteString.length $ Builder.toLazyByteString builder
   _ -> -1
 
-duration :: Data.Word.Word64 -> Data.Word.Word64 -> Data.Word.Word64
+duration :: Word.Word64 -> Word.Word64 -> Word.Word64
 duration before after = after - before
 
-allocation :: Data.Int.Int64 -> Data.Int.Int64 -> Data.Int.Int64
+allocation :: Int.Int64 -> Int.Int64 -> Int.Int64
 allocation before after = before - after
 
 -- | Add the @ETag@ header to responses and check for the @If-None-Match@
 -- header on requests. Note that this does not perform caching. It merely
 -- returns an HTTP 304 if the ETag values match. Also it only works with
 -- "builder" responses, not streaming or file responses.
-addEntityTagHeader :: Network.Wai.Middleware
+addEntityTagHeader :: Wai.Middleware
 addEntityTagHeader application request respond =
   application request $ \response ->
     case (getEntityTag request, makeEntityTag response) of
       (Just expected, Just actual) | expected == actual ->
-        respond $ Network.Wai.responseLBS
-          Network.HTTP.Types.notModified304
-          []
-          Data.ByteString.Lazy.empty
-      (_, Just entityTag) -> respond $ Network.Wai.mapResponseHeaders
-        ((Network.HTTP.Types.Header.hETag, entityTag) :)
-        response
+        respond $ Wai.responseLBS Http.notModified304 [] LazyByteString.empty
+      (_, Just entityTag) ->
+        respond $ Wai.mapResponseHeaders ((Http.hETag, entityTag) :) response
       _ -> respond response
 
 -- | Gets an ETag from the @If-None-Match@ header on a request.
-getEntityTag :: Network.Wai.Request -> Maybe Data.ByteString.ByteString
-getEntityTag =
-  lookup Network.HTTP.Types.Header.hIfNoneMatch . Network.Wai.requestHeaders
+getEntityTag :: Wai.Request -> Maybe ByteString.ByteString
+getEntityTag = lookup Http.hIfNoneMatch . Wai.requestHeaders
 
 -- | Makes an ETag for the @ETag@ header on a response.
-makeEntityTag :: Network.Wai.Response -> Maybe Data.ByteString.ByteString
+makeEntityTag :: Wai.Response -> Maybe ByteString.ByteString
 makeEntityTag response = case response of
-  Network.Wai.Internal.ResponseBuilder _ _ builder -> Just $ mconcat
-    [ Data.ByteString.pack [0x57, 0x2f, 0x22]
-    , Data.ByteString.Base64.encode
-    . Crypto.Hash.SHA1.hashlazy
-    $ Data.ByteString.Builder.toLazyByteString builder
-    , Data.ByteString.singleton 0x22
+  Wai.ResponseBuilder _ _ builder -> Just $ mconcat
+    [ ByteString.pack [0x57, 0x2f, 0x22]
+    , Base64.encode . Sha1.hashlazy $ Builder.toLazyByteString builder
+    , ByteString.singleton 0x22
     ]
   _ -> Nothing
 
 -- | Adds security headers as recommended by <https://securityheaders.com>.
-addSecurityHeaders :: Network.Wai.Middleware
+addSecurityHeaders :: Wai.Middleware
 addSecurityHeaders =
-  Network.Wai.modifyResponse
-    . Network.Wai.mapResponseHeaders
+  Wai.modifyResponse
+    . Wai.mapResponseHeaders
     $ addHeader "Content-Security-Policy" contentSecurityPolicy
     . addHeader "Feature-Policy" featurePolicy
     . addHeader "Referrer-Policy" "no-referrer"
@@ -186,8 +171,8 @@ addSecurityHeaders =
 -- | The value of the @Content-Security-Policy@ header.
 -- <https://scotthelme.co.uk/content-security-policy-an-introduction/>
 -- <https://www.ctrl.blog/entry/safari-csp-media-controls.html>
-contentSecurityPolicy :: Data.Text.Text
-contentSecurityPolicy = Data.Text.intercalate
+contentSecurityPolicy :: Text.Text
+contentSecurityPolicy = Text.intercalate
   "; "
   [ "base-uri 'none'"
   , "default-src 'none'"
@@ -201,8 +186,8 @@ contentSecurityPolicy = Data.Text.intercalate
 
 -- | The value of the @Feature-Policy@ header.
 -- <https://scotthelme.co.uk/a-new-security-header-feature-policy/>
-featurePolicy :: Data.Text.Text
-featurePolicy = Data.Text.intercalate
+featurePolicy :: Text.Text
+featurePolicy = Text.intercalate
   "; "
   [ "camera 'none'"
   , "fullscreen 'none'"
@@ -222,16 +207,10 @@ featurePolicy = Data.Text.intercalate
 -- | Adds a header to a response. This doesn't remove any existing headers with
 -- the same name, so it's possible to end up with duplicates.
 addHeader
-  :: Data.Text.Text
-  -> Data.Text.Text
-  -> Network.HTTP.Types.ResponseHeaders
-  -> Network.HTTP.Types.ResponseHeaders
+  :: Text.Text -> Text.Text -> Http.ResponseHeaders -> Http.ResponseHeaders
 addHeader name value headers = makeHeader name value : headers
 
 -- | Makes a single header value. This function is mostly for convenience
 -- because turning strings into the proper name/value types is annoying.
-makeHeader :: Data.Text.Text -> Data.Text.Text -> Network.HTTP.Types.Header
-makeHeader name value =
-  ( Data.CaseInsensitive.mk $ Data.Text.Encoding.encodeUtf8 name
-  , Data.Text.Encoding.encodeUtf8 value
-  )
+makeHeader :: Text.Text -> Text.Text -> Http.Header
+makeHeader name value = (CI.mk $ Text.encodeUtf8 name, Text.encodeUtf8 value)
