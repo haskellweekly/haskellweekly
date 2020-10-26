@@ -64,7 +64,7 @@ jobs:
           context: docker
           file: docker/Dockerfile
           push: true
-          tags: ${{ steps.ecr.outputs.registry }}/haskell-weekly-repository:${{ github.sha }}
+          tags: ${{ steps.ecr.outputs.registry }}/haskellweekly-repository:${{ github.sha }}
 
   deploy:
     # if: github.ref == 'refs/heads/haskellweekly'
@@ -82,7 +82,7 @@ jobs:
 
       - uses: aws-actions/aws-cloudformation-github-deploy@v1
         with:
-          name: haskell-weekly
+          name: haskellweekly
           template: config/cloud-formation.yaml
           parameter-overrides: TagName=${{ github.sha }}
           no-fail-on-empty-changeset: '1'

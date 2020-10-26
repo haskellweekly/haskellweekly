@@ -179,7 +179,7 @@ contentSecurityPolicy = Text.intercalate
   , "form-action https://duckduckgo.com https://news.us10.list-manage.com 'self'"
   , "frame-ancestors 'none'"
   , "img-src data: 'self'"
-  , "media-src https://media.haskell-weekly.com 'self'"
+  , "media-src https://media.haskellweekly.news 'self'"
   , "script-src 'unsafe-inline'"
   , "style-src 'self'"
   ]
