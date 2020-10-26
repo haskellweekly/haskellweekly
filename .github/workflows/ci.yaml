@@ -67,7 +67,7 @@ jobs:
           tags: ${{ steps.ecr.outputs.registry }}/haskellweekly-repository:${{ github.sha }}
 
   deploy:
-    # if: github.ref == 'refs/heads/haskellweekly'
+    if: github.ref == 'refs/heads/haskellweekly'
     needs: build
     runs-on: ubuntu-18.04
     steps:
