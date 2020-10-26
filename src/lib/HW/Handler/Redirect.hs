@@ -1,24 +1,25 @@
 module HW.Handler.Redirect
-  ( redirectHandler
+  ( handler
   )
 where
 
-import qualified Data.Text.Encoding
-import qualified HW.Handler.Base
-import qualified HW.Type.App
-import qualified HW.Type.Redirect
-import qualified Network.HTTP.Types
-import qualified Network.Wai
+import qualified Data.Text.Encoding as Text
+import qualified HW.Handler.Common as Common
+import qualified HW.Type.App as App
+import qualified HW.Type.Config as Config
+import qualified HW.Type.Redirect as Redirect
+import qualified HW.Type.Route as Route
+import qualified Network.HTTP.Types as Http
+import qualified Network.Wai as Wai
 
-redirectHandler
-  :: HW.Type.Redirect.Redirect -> HW.Type.App.App Network.Wai.Response
-redirectHandler redirect =
-  pure
-    . HW.Handler.Base.textResponse
-        Network.HTTP.Types.found302
-        [ ( Network.HTTP.Types.hLocation
-          , Data.Text.Encoding.encodeUtf8
-            $ HW.Type.Redirect.redirectToText redirect
-          )
-        ]
-    $ HW.Type.Redirect.redirectToText redirect
+handler :: Redirect.Redirect -> App.App Wai.Response
+handler redirect = do
+  config <- App.getConfig
+  pure $ Common.status
+    Http.found302
+    [ ( Http.hLocation
+      , Text.encodeUtf8
+      . Route.toText (Config.baseUrl config)
+      $ Redirect.toRoute redirect
+      )
+    ]

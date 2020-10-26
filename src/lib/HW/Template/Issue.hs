@@ -1,44 +1,42 @@
 module HW.Template.Issue
-  ( issueTemplate
+  ( template
   )
 where
 
-import qualified CMark
-import qualified Data.Text
-import qualified HW.Template.Base
-import qualified HW.Template.Newsletter
-import qualified HW.Type.BaseUrl
-import qualified HW.Type.Date
-import qualified HW.Type.Issue
-import qualified HW.Type.Number
-import qualified HW.Type.Route
-import qualified Lucid as H
+import qualified CMark as Mark
+import qualified Data.Text as Text
+import qualified HW.Template.Base as Base
+import qualified HW.Template.Newsletter as Newsletter
+import qualified HW.Type.BaseUrl as BaseUrl
+import qualified HW.Type.Date as Date
+import qualified HW.Type.Issue as Issue
+import qualified HW.Type.Number as Number
+import qualified HW.Type.Route as Route
+import qualified Lucid as Html
 
-issueTemplate
-  :: HW.Type.BaseUrl.BaseUrl -> HW.Type.Issue.Issue -> CMark.Node -> H.Html ()
-issueTemplate baseUrl issue node =
-  HW.Template.Base.baseTemplate
+template :: BaseUrl.BaseUrl -> Issue.Issue -> Mark.Node -> Html.Html ()
+template baseUrl issue node =
+  Base.template
       baseUrl
       (title issue <> " :: Haskell Weekly Newsletter")
-      (HW.Template.Newsletter.newsletterHead baseUrl $ Just issue)
+      (Newsletter.header baseUrl $ Just issue)
     $ do
-        H.h2_ [H.class_ "f2 mv3 tracked-tight"] $ H.a_
-          [ H.class_ "no-underline purple"
-          , H.href_ $ HW.Type.Route.routeToTextWith
-            baseUrl
-            HW.Type.Route.RouteNewsletter
+        Html.h2_ [Html.class_ "f2 mv3 tracked-tight"] $ Html.a_
+          [ Html.class_ "no-underline purple"
+          , Html.href_ $ Route.toText baseUrl Route.Newsletter
           ]
           "Newsletter"
-        H.h3_ [H.class_ "f3 mv3 tracked-tight"] $ do
-          H.toHtml $ title issue
+        Html.h3_ [Html.class_ "f3 mv3 tracked-tight"] $ do
+          Html.toHtml $ title issue
           " "
-          H.span_ [H.class_ "mid-gray"] . H.toHtml $ date issue
-        HW.Template.Newsletter.newsletterActionTemplate baseUrl
-        H.div_ [H.class_ "lh-copy"] . H.toHtmlRaw $ CMark.nodeToHtml [] node
+          Html.span_ [Html.class_ "mid-gray"] . Html.toHtml $ date issue
+        Newsletter.callToAction baseUrl
+        Html.div_ [Html.class_ "lh-copy"] . Html.toHtmlRaw $ Mark.nodeToHtml
+          []
+          node
 
-title :: HW.Type.Issue.Issue -> Data.Text.Text
-title =
-  mappend "Issue " . HW.Type.Number.numberToText . HW.Type.Issue.issueNumber
+title :: Issue.Issue -> Text.Text
+title = mappend "Issue " . Number.toText . Issue.issueNumber
 
-date :: HW.Type.Issue.Issue -> Data.Text.Text
-date = HW.Type.Date.dateToShortText . HW.Type.Issue.issueDate
+date :: Issue.Issue -> Text.Text
+date = Date.toShortText . Issue.issueDate

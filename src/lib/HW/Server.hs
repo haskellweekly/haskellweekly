@@ -4,62 +4,58 @@ module HW.Server
   )
 where
 
-import qualified Data.ByteString
-import qualified Data.IORef
-import qualified Data.Text
-import qualified Data.Text.Encoding
-import qualified Data.Version
-import qualified HW.Application
-import qualified HW.Handler.Base
-import qualified HW.Middleware
-import qualified HW.Type.Config
-import qualified HW.Type.State
-import qualified Network.HTTP.Types
-import qualified Network.Wai
-import qualified Network.Wai.Handler.Warp
-import qualified Paths_haskellweekly
+import qualified Data.ByteString as ByteString
+import qualified Data.IORef as IORef
+import qualified Data.Text as Text
+import qualified Data.Text.Encoding as Text
+import qualified Data.Version as Version
+import qualified HW.Application as Application
+import qualified HW.Handler.Common as Common
+import qualified HW.Middleware as Middleware
+import qualified HW.Type.Config as Config
+import qualified HW.Type.State as State
+import qualified Network.HTTP.Types as Http
+import qualified Network.Wai as Wai
+import qualified Network.Wai.Handler.Warp as Warp
+import qualified Paths_haskellweekly as Package
 
 -- | Starts up the server. This function never returns.
-server :: Data.IORef.IORef HW.Type.State.State -> IO ()
+server :: IORef.IORef State.State -> IO ()
 server ref = do
-  state <- Data.IORef.readIORef ref
-  let config = HW.Type.State.stateConfig state
-  Network.Wai.Handler.Warp.runSettings (configToSettings config)
-    . HW.Middleware.middleware ref
-    $ HW.Application.application ref
+  state <- IORef.readIORef ref
+  let config = State.config state
+  Warp.runSettings (configToSettings config)
+    . Middleware.middleware ref
+    $ Application.application ref
 
 -- | Converts a Haskell Weekly config into Warp server settings.
-configToSettings :: HW.Type.Config.Config -> Network.Wai.Handler.Warp.Settings
+configToSettings :: Config.Config -> Warp.Settings
 configToSettings config =
-  Network.Wai.Handler.Warp.setBeforeMainLoop
-      (beforeMainLoop $ HW.Type.Config.configPort config)
-    . Network.Wai.Handler.Warp.setOnExceptionResponse onExceptionResponse
-    . Network.Wai.Handler.Warp.setPort (HW.Type.Config.configPort config)
-    . Network.Wai.Handler.Warp.setServerName serverName
-    $ Network.Wai.Handler.Warp.defaultSettings
+  Warp.setBeforeMainLoop (beforeMainLoop $ Config.port config)
+    . Warp.setOnExceptionResponse onExceptionResponse
+    . Warp.setPort (Config.port config)
+    . Warp.setServerName serverName
+    $ Warp.defaultSettings
 
 -- | This gets called as the server starts up. This is convenient to see when
 -- the server is ready to accept connections, rather than just when the
 -- executable has been started.
-beforeMainLoop :: Network.Wai.Handler.Warp.Port -> IO ()
+beforeMainLoop :: Warp.Port -> IO ()
 beforeMainLoop port = putStrLn $ "Listening on port " <> show port <> " ..."
 
 -- | This function defines what the response looks like when an exception
 -- occurs. Although this function takes an exception as an argument, it returns
 -- the same response for every exception. No potentially sensitive information
 -- is returned to the client.
-onExceptionResponse :: exception -> Network.Wai.Response
-onExceptionResponse _ = HW.Handler.Base.textResponse
-  Network.HTTP.Types.internalServerError500
-  []
-  "500 Internal Server Error"
+onExceptionResponse :: exception -> Wai.Response
+onExceptionResponse _ = Common.status Http.internalServerError500 []
 
 -- | The server name returned in the "Server" response header. This will be
 -- formatted like @haskellweekly/VERSION@, where @VERSION@ is defined by the
 -- package. Having this available as a header makes debugging things easier.
-serverName :: Data.ByteString.ByteString
+serverName :: ByteString.ByteString
 serverName =
-  Data.Text.Encoding.encodeUtf8
-    . Data.Text.pack
+  Text.encodeUtf8
+    . Text.pack
     $ "haskellweekly/"
-    <> Data.Version.showVersion Paths_haskellweekly.version
+    <> Version.showVersion Package.version

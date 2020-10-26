@@ -1,31 +1,26 @@
 module HW.Handler.Podcast
-  ( podcastHandler
+  ( handler
   )
 where
 
-import qualified Data.List
-import qualified Data.Map
-import qualified Data.Ord
-import qualified HW.Handler.Base
-import qualified HW.Template.Podcast
-import qualified HW.Type.App
-import qualified HW.Type.Config
-import qualified HW.Type.Episode
-import qualified HW.Type.State
-import qualified Network.HTTP.Types
-import qualified Network.Wai
+import qualified Data.List as List
+import qualified Data.Map as Map
+import qualified Data.Ord as Ord
+import qualified HW.Handler.Common as Common
+import qualified HW.Template.Podcast as Podcast
+import qualified HW.Type.App as App
+import qualified HW.Type.Config as Config
+import qualified HW.Type.Episode as Episode
+import qualified HW.Type.State as State
+import qualified Network.HTTP.Types as Http
+import qualified Network.Wai as Wai
 
-podcastHandler :: HW.Type.App.App Network.Wai.Response
-podcastHandler = do
-  state <- HW.Type.App.getState
+handler :: App.App Wai.Response
+handler = do
+  state <- App.getState
   pure
-    . HW.Handler.Base.htmlResponse
-        Network.HTTP.Types.ok200
-        [(Network.HTTP.Types.hCacheControl, "public, max-age=900")]
-    . (HW.Template.Podcast.podcastTemplate
-      . HW.Type.Config.configBaseUrl
-      $ HW.Type.State.stateConfig state
-      )
-    . Data.List.sortOn (Data.Ord.Down . HW.Type.Episode.episodeDate)
-    . Data.Map.elems
-    $ HW.Type.State.stateEpisodes state
+    . Common.html Http.ok200 [(Http.hCacheControl, "public, max-age=900")]
+    . (Podcast.template . Config.baseUrl $ State.config state)
+    . List.sortOn (Ord.Down . Episode.date)
+    . Map.elems
+    $ State.episodes state

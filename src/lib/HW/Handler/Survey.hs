@@ -1,46 +1,39 @@
 module HW.Handler.Survey
-  ( surveyHandler
+  ( handler
   )
 where
 
-import qualified HW.Handler.Base
-import qualified HW.Template.Survey2017
-import qualified HW.Template.Survey2018
-import qualified HW.Template.Survey2019
-import qualified HW.Type.App
-import qualified HW.Type.Config
-import qualified HW.Type.Number
-import qualified HW.Type.State
-import qualified Lucid
-import qualified Network.HTTP.Types
-import qualified Network.Wai
+import qualified HW.Handler.Common as Common
+import qualified HW.Template.Survey2017 as Survey2017
+import qualified HW.Template.Survey2018 as Survey2018
+import qualified HW.Template.Survey2019 as Survey2019
+import qualified HW.Type.App as App
+import qualified HW.Type.Config as Config
+import qualified HW.Type.Number as Number
+import qualified HW.Type.State as State
+import qualified Lucid as Html
+import qualified Network.HTTP.Types as Http
+import qualified Network.Wai as Wai
 
-surveyHandler :: HW.Type.Number.Number -> HW.Type.App.App Network.Wai.Response
-surveyHandler number = do
-  state <- HW.Type.App.getState
-  let baseUrl = HW.Type.Config.configBaseUrl $ HW.Type.State.stateConfig state
-  case HW.Type.Number.numberToNatural number of
+handler :: Number.Number -> App.App Wai.Response
+handler number = do
+  state <- App.getState
+  let baseUrl = Config.baseUrl $ State.config state
+  case Number.toNatural number of
     2017 ->
-      respondWith
-          Network.HTTP.Types.ok200
-          [(Network.HTTP.Types.hCacheControl, "public, max-age=900")]
-        $ HW.Template.Survey2017.survey2017Template baseUrl
+      respondWith Http.ok200 [(Http.hCacheControl, "public, max-age=900")]
+        $ Survey2017.template baseUrl
     2018 ->
-      respondWith
-          Network.HTTP.Types.ok200
-          [(Network.HTTP.Types.hCacheControl, "public, max-age=900")]
-        $ HW.Template.Survey2018.survey2018Template baseUrl
+      respondWith Http.ok200 [(Http.hCacheControl, "public, max-age=900")]
+        $ Survey2018.template baseUrl
     2019 ->
-      respondWith
-          Network.HTTP.Types.ok200
-          [(Network.HTTP.Types.hCacheControl, "public, max-age=900")]
-        $ HW.Template.Survey2019.survey2019Template baseUrl
-    _ -> pure HW.Handler.Base.notFoundResponse
+      respondWith Http.ok200 [(Http.hCacheControl, "public, max-age=900")]
+        $ Survey2019.template baseUrl
+    _ -> pure Common.notFound
 
 respondWith
-  :: Network.HTTP.Types.Status
-  -> Network.HTTP.Types.ResponseHeaders
-  -> Lucid.Html ()
-  -> HW.Type.App.App Network.Wai.Response
-respondWith status headers =
-  pure . HW.Handler.Base.htmlResponse status headers
+  :: Http.Status
+  -> Http.ResponseHeaders
+  -> Html.Html ()
+  -> App.App Wai.Response
+respondWith status headers = pure . Common.html status headers

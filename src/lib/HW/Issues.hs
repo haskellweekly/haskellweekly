@@ -7,15 +7,15 @@ module HW.Issues
   )
 where
 
-import qualified Data.Bool
-import qualified Data.Map
-import qualified Data.Traversable
-import qualified HW.Type.Date
-import qualified HW.Type.Issue
-import qualified HW.Type.Number
+import qualified Data.Bool as Bool
+import qualified Data.Map as Map
+import qualified Data.Traversable as Traversable
+import qualified HW.Type.Date as Date
+import qualified HW.Type.Issue as Issue
+import qualified HW.Type.Number as Number
 
 -- | Convenient type alias for a map of issues by number.
-type Issues = Data.Map.Map HW.Type.Number.Number HW.Type.Issue.Issue
+type Issues = Map.Map Number.Number Issue.Issue
 
 -- | All of the published issues. Note that this is wrapper in 'Either' to
 -- handle any of the issues being invalid or the entire collection being
@@ -23,7 +23,7 @@ type Issues = Data.Map.Map HW.Type.Number.Number HW.Type.Issue.Issue
 -- reasonably sure that no 'Left's have snuck in.
 issues :: Either String Issues
 issues = do
-  validIssues <- Data.Traversable.sequenceA
+  validIssues <- Traversable.sequenceA
     [ issue1
     , issue2
     , issue3
@@ -260,1423 +260,946 @@ issues = do
     , issue234
     ]
   checkNumbers validIssues
-  pure $ foldr insertIssue Data.Map.empty validIssues
+  pure $ foldr insertIssue Map.empty validIssues
 
 -- | Checks to make sure that all of the issue numbers are increasing without
 -- gaps starting from one.
-checkNumbers :: [HW.Type.Issue.Issue] -> Either String ()
+checkNumbers :: [Issue.Issue] -> Either String ()
 checkNumbers =
-  Data.Bool.bool (Left "invalid issue numbers") (Right ())
+  Bool.bool (Left "invalid issue numbers") (Right ())
     . all (uncurry (==))
     . zip [1 ..]
-    . fmap (HW.Type.Number.numberToNatural . HW.Type.Issue.issueNumber)
+    . fmap (Number.toNatural . Issue.issueNumber)
 
 -- | Inserts a single issue into the map of issues. If for some reason an issue
 -- already exists with this issue's number, the existing issue will be
 -- overwritten with the new one.
-insertIssue :: HW.Type.Issue.Issue -> Issues -> Issues
-insertIssue issue = Data.Map.insert (HW.Type.Issue.issueNumber issue) issue
+insertIssue :: Issue.Issue -> Issues -> Issues
+insertIssue issue = Map.insert (Issue.issueNumber issue) issue
 
-issue1 :: Either String HW.Type.Issue.Issue
-issue1 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2016 5 5
-    <*> HW.Type.Number.naturalToNumber 1
+issue1 :: Either String Issue.Issue
+issue1 = Issue.Issue <$> Date.fromGregorian 2016 5 5 <*> Number.fromNatural 1
 
-issue2 :: Either String HW.Type.Issue.Issue
-issue2 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2016 5 12
-    <*> HW.Type.Number.naturalToNumber 2
+issue2 :: Either String Issue.Issue
+issue2 = Issue.Issue <$> Date.fromGregorian 2016 5 12 <*> Number.fromNatural 2
 
-issue3 :: Either String HW.Type.Issue.Issue
-issue3 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2016 5 19
-    <*> HW.Type.Number.naturalToNumber 3
+issue3 :: Either String Issue.Issue
+issue3 = Issue.Issue <$> Date.fromGregorian 2016 5 19 <*> Number.fromNatural 3
 
-issue4 :: Either String HW.Type.Issue.Issue
-issue4 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2016 5 26
-    <*> HW.Type.Number.naturalToNumber 4
+issue4 :: Either String Issue.Issue
+issue4 = Issue.Issue <$> Date.fromGregorian 2016 5 26 <*> Number.fromNatural 4
 
-issue5 :: Either String HW.Type.Issue.Issue
-issue5 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2016 6 2
-    <*> HW.Type.Number.naturalToNumber 5
+issue5 :: Either String Issue.Issue
+issue5 = Issue.Issue <$> Date.fromGregorian 2016 6 2 <*> Number.fromNatural 5
 
-issue6 :: Either String HW.Type.Issue.Issue
-issue6 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2016 6 9
-    <*> HW.Type.Number.naturalToNumber 6
+issue6 :: Either String Issue.Issue
+issue6 = Issue.Issue <$> Date.fromGregorian 2016 6 9 <*> Number.fromNatural 6
 
-issue7 :: Either String HW.Type.Issue.Issue
-issue7 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2016 6 16
-    <*> HW.Type.Number.naturalToNumber 7
+issue7 :: Either String Issue.Issue
+issue7 = Issue.Issue <$> Date.fromGregorian 2016 6 16 <*> Number.fromNatural 7
 
-issue8 :: Either String HW.Type.Issue.Issue
-issue8 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2016 6 23
-    <*> HW.Type.Number.naturalToNumber 8
+issue8 :: Either String Issue.Issue
+issue8 = Issue.Issue <$> Date.fromGregorian 2016 6 23 <*> Number.fromNatural 8
 
-issue9 :: Either String HW.Type.Issue.Issue
-issue9 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2016 6 30
-    <*> HW.Type.Number.naturalToNumber 9
+issue9 :: Either String Issue.Issue
+issue9 = Issue.Issue <$> Date.fromGregorian 2016 6 30 <*> Number.fromNatural 9
 
-issue10 :: Either String HW.Type.Issue.Issue
+issue10 :: Either String Issue.Issue
 issue10 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2016 7 7
-    <*> HW.Type.Number.naturalToNumber 10
+  Issue.Issue <$> Date.fromGregorian 2016 7 7 <*> Number.fromNatural 10
 
-issue11 :: Either String HW.Type.Issue.Issue
+issue11 :: Either String Issue.Issue
 issue11 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2016 7 14
-    <*> HW.Type.Number.naturalToNumber 11
+  Issue.Issue <$> Date.fromGregorian 2016 7 14 <*> Number.fromNatural 11
 
-issue12 :: Either String HW.Type.Issue.Issue
+issue12 :: Either String Issue.Issue
 issue12 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2016 7 21
-    <*> HW.Type.Number.naturalToNumber 12
+  Issue.Issue <$> Date.fromGregorian 2016 7 21 <*> Number.fromNatural 12
 
-issue13 :: Either String HW.Type.Issue.Issue
+issue13 :: Either String Issue.Issue
 issue13 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2016 7 28
-    <*> HW.Type.Number.naturalToNumber 13
+  Issue.Issue <$> Date.fromGregorian 2016 7 28 <*> Number.fromNatural 13
 
-issue14 :: Either String HW.Type.Issue.Issue
+issue14 :: Either String Issue.Issue
 issue14 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2016 8 4
-    <*> HW.Type.Number.naturalToNumber 14
+  Issue.Issue <$> Date.fromGregorian 2016 8 4 <*> Number.fromNatural 14
 
-issue15 :: Either String HW.Type.Issue.Issue
+issue15 :: Either String Issue.Issue
 issue15 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2016 8 11
-    <*> HW.Type.Number.naturalToNumber 15
+  Issue.Issue <$> Date.fromGregorian 2016 8 11 <*> Number.fromNatural 15
 
-issue16 :: Either String HW.Type.Issue.Issue
+issue16 :: Either String Issue.Issue
 issue16 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2016 8 18
-    <*> HW.Type.Number.naturalToNumber 16
+  Issue.Issue <$> Date.fromGregorian 2016 8 18 <*> Number.fromNatural 16
 
-issue17 :: Either String HW.Type.Issue.Issue
+issue17 :: Either String Issue.Issue
 issue17 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2016 8 25
-    <*> HW.Type.Number.naturalToNumber 17
+  Issue.Issue <$> Date.fromGregorian 2016 8 25 <*> Number.fromNatural 17
 
-issue18 :: Either String HW.Type.Issue.Issue
+issue18 :: Either String Issue.Issue
 issue18 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2016 9 1
-    <*> HW.Type.Number.naturalToNumber 18
+  Issue.Issue <$> Date.fromGregorian 2016 9 1 <*> Number.fromNatural 18
 
-issue19 :: Either String HW.Type.Issue.Issue
+issue19 :: Either String Issue.Issue
 issue19 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2016 9 8
-    <*> HW.Type.Number.naturalToNumber 19
+  Issue.Issue <$> Date.fromGregorian 2016 9 8 <*> Number.fromNatural 19
 
-issue20 :: Either String HW.Type.Issue.Issue
+issue20 :: Either String Issue.Issue
 issue20 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2016 9 15
-    <*> HW.Type.Number.naturalToNumber 20
+  Issue.Issue <$> Date.fromGregorian 2016 9 15 <*> Number.fromNatural 20
 
-issue21 :: Either String HW.Type.Issue.Issue
+issue21 :: Either String Issue.Issue
 issue21 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2016 9 22
-    <*> HW.Type.Number.naturalToNumber 21
+  Issue.Issue <$> Date.fromGregorian 2016 9 22 <*> Number.fromNatural 21
 
-issue22 :: Either String HW.Type.Issue.Issue
+issue22 :: Either String Issue.Issue
 issue22 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2016 9 29
-    <*> HW.Type.Number.naturalToNumber 22
+  Issue.Issue <$> Date.fromGregorian 2016 9 29 <*> Number.fromNatural 22
 
-issue23 :: Either String HW.Type.Issue.Issue
+issue23 :: Either String Issue.Issue
 issue23 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2016 10 6
-    <*> HW.Type.Number.naturalToNumber 23
+  Issue.Issue <$> Date.fromGregorian 2016 10 6 <*> Number.fromNatural 23
 
-issue24 :: Either String HW.Type.Issue.Issue
+issue24 :: Either String Issue.Issue
 issue24 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2016 10 13
-    <*> HW.Type.Number.naturalToNumber 24
+  Issue.Issue <$> Date.fromGregorian 2016 10 13 <*> Number.fromNatural 24
 
-issue25 :: Either String HW.Type.Issue.Issue
+issue25 :: Either String Issue.Issue
 issue25 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2016 10 20
-    <*> HW.Type.Number.naturalToNumber 25
+  Issue.Issue <$> Date.fromGregorian 2016 10 20 <*> Number.fromNatural 25
 
-issue26 :: Either String HW.Type.Issue.Issue
+issue26 :: Either String Issue.Issue
 issue26 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2016 10 27
-    <*> HW.Type.Number.naturalToNumber 26
+  Issue.Issue <$> Date.fromGregorian 2016 10 27 <*> Number.fromNatural 26
 
-issue27 :: Either String HW.Type.Issue.Issue
+issue27 :: Either String Issue.Issue
 issue27 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2016 11 3
-    <*> HW.Type.Number.naturalToNumber 27
+  Issue.Issue <$> Date.fromGregorian 2016 11 3 <*> Number.fromNatural 27
 
-issue28 :: Either String HW.Type.Issue.Issue
+issue28 :: Either String Issue.Issue
 issue28 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2016 11 10
-    <*> HW.Type.Number.naturalToNumber 28
+  Issue.Issue <$> Date.fromGregorian 2016 11 10 <*> Number.fromNatural 28
 
-issue29 :: Either String HW.Type.Issue.Issue
+issue29 :: Either String Issue.Issue
 issue29 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2016 11 17
-    <*> HW.Type.Number.naturalToNumber 29
+  Issue.Issue <$> Date.fromGregorian 2016 11 17 <*> Number.fromNatural 29
 
-issue30 :: Either String HW.Type.Issue.Issue
+issue30 :: Either String Issue.Issue
 issue30 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2016 11 24
-    <*> HW.Type.Number.naturalToNumber 30
+  Issue.Issue <$> Date.fromGregorian 2016 11 24 <*> Number.fromNatural 30
 
-issue31 :: Either String HW.Type.Issue.Issue
+issue31 :: Either String Issue.Issue
 issue31 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2016 12 1
-    <*> HW.Type.Number.naturalToNumber 31
+  Issue.Issue <$> Date.fromGregorian 2016 12 1 <*> Number.fromNatural 31
 
-issue32 :: Either String HW.Type.Issue.Issue
+issue32 :: Either String Issue.Issue
 issue32 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2016 12 8
-    <*> HW.Type.Number.naturalToNumber 32
+  Issue.Issue <$> Date.fromGregorian 2016 12 8 <*> Number.fromNatural 32
 
-issue33 :: Either String HW.Type.Issue.Issue
+issue33 :: Either String Issue.Issue
 issue33 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2016 12 15
-    <*> HW.Type.Number.naturalToNumber 33
+  Issue.Issue <$> Date.fromGregorian 2016 12 15 <*> Number.fromNatural 33
 
-issue34 :: Either String HW.Type.Issue.Issue
+issue34 :: Either String Issue.Issue
 issue34 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2016 12 22
-    <*> HW.Type.Number.naturalToNumber 34
+  Issue.Issue <$> Date.fromGregorian 2016 12 22 <*> Number.fromNatural 34
 
-issue35 :: Either String HW.Type.Issue.Issue
+issue35 :: Either String Issue.Issue
 issue35 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2016 12 29
-    <*> HW.Type.Number.naturalToNumber 35
+  Issue.Issue <$> Date.fromGregorian 2016 12 29 <*> Number.fromNatural 35
 
-issue36 :: Either String HW.Type.Issue.Issue
+issue36 :: Either String Issue.Issue
 issue36 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2017 1 5
-    <*> HW.Type.Number.naturalToNumber 36
+  Issue.Issue <$> Date.fromGregorian 2017 1 5 <*> Number.fromNatural 36
 
-issue37 :: Either String HW.Type.Issue.Issue
+issue37 :: Either String Issue.Issue
 issue37 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2017 1 12
-    <*> HW.Type.Number.naturalToNumber 37
+  Issue.Issue <$> Date.fromGregorian 2017 1 12 <*> Number.fromNatural 37
 
-issue38 :: Either String HW.Type.Issue.Issue
+issue38 :: Either String Issue.Issue
 issue38 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2017 1 19
-    <*> HW.Type.Number.naturalToNumber 38
+  Issue.Issue <$> Date.fromGregorian 2017 1 19 <*> Number.fromNatural 38
 
-issue39 :: Either String HW.Type.Issue.Issue
+issue39 :: Either String Issue.Issue
 issue39 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2017 1 26
-    <*> HW.Type.Number.naturalToNumber 39
+  Issue.Issue <$> Date.fromGregorian 2017 1 26 <*> Number.fromNatural 39
 
-issue40 :: Either String HW.Type.Issue.Issue
+issue40 :: Either String Issue.Issue
 issue40 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2017 2 2
-    <*> HW.Type.Number.naturalToNumber 40
+  Issue.Issue <$> Date.fromGregorian 2017 2 2 <*> Number.fromNatural 40
 
-issue41 :: Either String HW.Type.Issue.Issue
+issue41 :: Either String Issue.Issue
 issue41 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2017 2 9
-    <*> HW.Type.Number.naturalToNumber 41
+  Issue.Issue <$> Date.fromGregorian 2017 2 9 <*> Number.fromNatural 41
 
-issue42 :: Either String HW.Type.Issue.Issue
+issue42 :: Either String Issue.Issue
 issue42 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2017 2 16
-    <*> HW.Type.Number.naturalToNumber 42
+  Issue.Issue <$> Date.fromGregorian 2017 2 16 <*> Number.fromNatural 42
 
-issue43 :: Either String HW.Type.Issue.Issue
+issue43 :: Either String Issue.Issue
 issue43 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2017 2 23
-    <*> HW.Type.Number.naturalToNumber 43
+  Issue.Issue <$> Date.fromGregorian 2017 2 23 <*> Number.fromNatural 43
 
-issue44 :: Either String HW.Type.Issue.Issue
+issue44 :: Either String Issue.Issue
 issue44 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2017 3 2
-    <*> HW.Type.Number.naturalToNumber 44
+  Issue.Issue <$> Date.fromGregorian 2017 3 2 <*> Number.fromNatural 44
 
-issue45 :: Either String HW.Type.Issue.Issue
+issue45 :: Either String Issue.Issue
 issue45 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2017 3 9
-    <*> HW.Type.Number.naturalToNumber 45
+  Issue.Issue <$> Date.fromGregorian 2017 3 9 <*> Number.fromNatural 45
 
-issue46 :: Either String HW.Type.Issue.Issue
+issue46 :: Either String Issue.Issue
 issue46 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2017 3 16
-    <*> HW.Type.Number.naturalToNumber 46
+  Issue.Issue <$> Date.fromGregorian 2017 3 16 <*> Number.fromNatural 46
 
-issue47 :: Either String HW.Type.Issue.Issue
+issue47 :: Either String Issue.Issue
 issue47 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2017 3 23
-    <*> HW.Type.Number.naturalToNumber 47
+  Issue.Issue <$> Date.fromGregorian 2017 3 23 <*> Number.fromNatural 47
 
-issue48 :: Either String HW.Type.Issue.Issue
+issue48 :: Either String Issue.Issue
 issue48 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2017 3 30
-    <*> HW.Type.Number.naturalToNumber 48
+  Issue.Issue <$> Date.fromGregorian 2017 3 30 <*> Number.fromNatural 48
 
-issue49 :: Either String HW.Type.Issue.Issue
+issue49 :: Either String Issue.Issue
 issue49 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2017 4 6
-    <*> HW.Type.Number.naturalToNumber 49
+  Issue.Issue <$> Date.fromGregorian 2017 4 6 <*> Number.fromNatural 49
 
-issue50 :: Either String HW.Type.Issue.Issue
+issue50 :: Either String Issue.Issue
 issue50 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2017 4 13
-    <*> HW.Type.Number.naturalToNumber 50
+  Issue.Issue <$> Date.fromGregorian 2017 4 13 <*> Number.fromNatural 50
 
-issue51 :: Either String HW.Type.Issue.Issue
+issue51 :: Either String Issue.Issue
 issue51 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2017 4 20
-    <*> HW.Type.Number.naturalToNumber 51
+  Issue.Issue <$> Date.fromGregorian 2017 4 20 <*> Number.fromNatural 51
 
-issue52 :: Either String HW.Type.Issue.Issue
+issue52 :: Either String Issue.Issue
 issue52 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2017 4 27
-    <*> HW.Type.Number.naturalToNumber 52
+  Issue.Issue <$> Date.fromGregorian 2017 4 27 <*> Number.fromNatural 52
 
-issue53 :: Either String HW.Type.Issue.Issue
+issue53 :: Either String Issue.Issue
 issue53 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2017 5 4
-    <*> HW.Type.Number.naturalToNumber 53
+  Issue.Issue <$> Date.fromGregorian 2017 5 4 <*> Number.fromNatural 53
 
-issue54 :: Either String HW.Type.Issue.Issue
+issue54 :: Either String Issue.Issue
 issue54 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2017 5 11
-    <*> HW.Type.Number.naturalToNumber 54
+  Issue.Issue <$> Date.fromGregorian 2017 5 11 <*> Number.fromNatural 54
 
-issue55 :: Either String HW.Type.Issue.Issue
+issue55 :: Either String Issue.Issue
 issue55 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2017 5 18
-    <*> HW.Type.Number.naturalToNumber 55
+  Issue.Issue <$> Date.fromGregorian 2017 5 18 <*> Number.fromNatural 55
 
-issue56 :: Either String HW.Type.Issue.Issue
+issue56 :: Either String Issue.Issue
 issue56 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2017 5 25
-    <*> HW.Type.Number.naturalToNumber 56
+  Issue.Issue <$> Date.fromGregorian 2017 5 25 <*> Number.fromNatural 56
 
-issue57 :: Either String HW.Type.Issue.Issue
+issue57 :: Either String Issue.Issue
 issue57 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2017 6 1
-    <*> HW.Type.Number.naturalToNumber 57
+  Issue.Issue <$> Date.fromGregorian 2017 6 1 <*> Number.fromNatural 57
 
-issue58 :: Either String HW.Type.Issue.Issue
+issue58 :: Either String Issue.Issue
 issue58 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2017 6 8
-    <*> HW.Type.Number.naturalToNumber 58
+  Issue.Issue <$> Date.fromGregorian 2017 6 8 <*> Number.fromNatural 58
 
-issue59 :: Either String HW.Type.Issue.Issue
+issue59 :: Either String Issue.Issue
 issue59 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2017 6 15
-    <*> HW.Type.Number.naturalToNumber 59
+  Issue.Issue <$> Date.fromGregorian 2017 6 15 <*> Number.fromNatural 59
 
-issue60 :: Either String HW.Type.Issue.Issue
+issue60 :: Either String Issue.Issue
 issue60 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2017 6 22
-    <*> HW.Type.Number.naturalToNumber 60
+  Issue.Issue <$> Date.fromGregorian 2017 6 22 <*> Number.fromNatural 60
 
-issue61 :: Either String HW.Type.Issue.Issue
+issue61 :: Either String Issue.Issue
 issue61 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2017 6 29
-    <*> HW.Type.Number.naturalToNumber 61
+  Issue.Issue <$> Date.fromGregorian 2017 6 29 <*> Number.fromNatural 61
 
-issue62 :: Either String HW.Type.Issue.Issue
+issue62 :: Either String Issue.Issue
 issue62 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2017 7 6
-    <*> HW.Type.Number.naturalToNumber 62
+  Issue.Issue <$> Date.fromGregorian 2017 7 6 <*> Number.fromNatural 62
 
-issue63 :: Either String HW.Type.Issue.Issue
+issue63 :: Either String Issue.Issue
 issue63 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2017 7 13
-    <*> HW.Type.Number.naturalToNumber 63
+  Issue.Issue <$> Date.fromGregorian 2017 7 13 <*> Number.fromNatural 63
 
-issue64 :: Either String HW.Type.Issue.Issue
+issue64 :: Either String Issue.Issue
 issue64 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2017 7 20
-    <*> HW.Type.Number.naturalToNumber 64
+  Issue.Issue <$> Date.fromGregorian 2017 7 20 <*> Number.fromNatural 64
 
-issue65 :: Either String HW.Type.Issue.Issue
+issue65 :: Either String Issue.Issue
 issue65 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2017 7 27
-    <*> HW.Type.Number.naturalToNumber 65
+  Issue.Issue <$> Date.fromGregorian 2017 7 27 <*> Number.fromNatural 65
 
-issue66 :: Either String HW.Type.Issue.Issue
+issue66 :: Either String Issue.Issue
 issue66 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2017 8 3
-    <*> HW.Type.Number.naturalToNumber 66
+  Issue.Issue <$> Date.fromGregorian 2017 8 3 <*> Number.fromNatural 66
 
-issue67 :: Either String HW.Type.Issue.Issue
+issue67 :: Either String Issue.Issue
 issue67 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2017 8 10
-    <*> HW.Type.Number.naturalToNumber 67
+  Issue.Issue <$> Date.fromGregorian 2017 8 10 <*> Number.fromNatural 67
 
-issue68 :: Either String HW.Type.Issue.Issue
+issue68 :: Either String Issue.Issue
 issue68 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2017 8 17
-    <*> HW.Type.Number.naturalToNumber 68
+  Issue.Issue <$> Date.fromGregorian 2017 8 17 <*> Number.fromNatural 68
 
-issue69 :: Either String HW.Type.Issue.Issue
+issue69 :: Either String Issue.Issue
 issue69 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2017 8 24
-    <*> HW.Type.Number.naturalToNumber 69
+  Issue.Issue <$> Date.fromGregorian 2017 8 24 <*> Number.fromNatural 69
 
-issue70 :: Either String HW.Type.Issue.Issue
+issue70 :: Either String Issue.Issue
 issue70 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2017 8 31
-    <*> HW.Type.Number.naturalToNumber 70
+  Issue.Issue <$> Date.fromGregorian 2017 8 31 <*> Number.fromNatural 70
 
-issue71 :: Either String HW.Type.Issue.Issue
+issue71 :: Either String Issue.Issue
 issue71 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2017 9 7
-    <*> HW.Type.Number.naturalToNumber 71
+  Issue.Issue <$> Date.fromGregorian 2017 9 7 <*> Number.fromNatural 71
 
-issue72 :: Either String HW.Type.Issue.Issue
+issue72 :: Either String Issue.Issue
 issue72 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2017 9 14
-    <*> HW.Type.Number.naturalToNumber 72
+  Issue.Issue <$> Date.fromGregorian 2017 9 14 <*> Number.fromNatural 72
 
-issue73 :: Either String HW.Type.Issue.Issue
+issue73 :: Either String Issue.Issue
 issue73 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2017 9 21
-    <*> HW.Type.Number.naturalToNumber 73
+  Issue.Issue <$> Date.fromGregorian 2017 9 21 <*> Number.fromNatural 73
 
-issue74 :: Either String HW.Type.Issue.Issue
+issue74 :: Either String Issue.Issue
 issue74 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2017 9 28
-    <*> HW.Type.Number.naturalToNumber 74
+  Issue.Issue <$> Date.fromGregorian 2017 9 28 <*> Number.fromNatural 74
 
-issue75 :: Either String HW.Type.Issue.Issue
+issue75 :: Either String Issue.Issue
 issue75 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2017 10 5
-    <*> HW.Type.Number.naturalToNumber 75
+  Issue.Issue <$> Date.fromGregorian 2017 10 5 <*> Number.fromNatural 75
 
-issue76 :: Either String HW.Type.Issue.Issue
+issue76 :: Either String Issue.Issue
 issue76 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2017 10 12
-    <*> HW.Type.Number.naturalToNumber 76
+  Issue.Issue <$> Date.fromGregorian 2017 10 12 <*> Number.fromNatural 76
 
-issue77 :: Either String HW.Type.Issue.Issue
+issue77 :: Either String Issue.Issue
 issue77 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2017 10 19
-    <*> HW.Type.Number.naturalToNumber 77
+  Issue.Issue <$> Date.fromGregorian 2017 10 19 <*> Number.fromNatural 77
 
-issue78 :: Either String HW.Type.Issue.Issue
+issue78 :: Either String Issue.Issue
 issue78 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2017 10 26
-    <*> HW.Type.Number.naturalToNumber 78
+  Issue.Issue <$> Date.fromGregorian 2017 10 26 <*> Number.fromNatural 78
 
-issue79 :: Either String HW.Type.Issue.Issue
+issue79 :: Either String Issue.Issue
 issue79 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2017 11 2
-    <*> HW.Type.Number.naturalToNumber 79
+  Issue.Issue <$> Date.fromGregorian 2017 11 2 <*> Number.fromNatural 79
 
-issue80 :: Either String HW.Type.Issue.Issue
+issue80 :: Either String Issue.Issue
 issue80 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2017 11 9
-    <*> HW.Type.Number.naturalToNumber 80
+  Issue.Issue <$> Date.fromGregorian 2017 11 9 <*> Number.fromNatural 80
 
-issue81 :: Either String HW.Type.Issue.Issue
+issue81 :: Either String Issue.Issue
 issue81 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2017 11 16
-    <*> HW.Type.Number.naturalToNumber 81
+  Issue.Issue <$> Date.fromGregorian 2017 11 16 <*> Number.fromNatural 81
 
-issue82 :: Either String HW.Type.Issue.Issue
+issue82 :: Either String Issue.Issue
 issue82 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2017 11 23
-    <*> HW.Type.Number.naturalToNumber 82
+  Issue.Issue <$> Date.fromGregorian 2017 11 23 <*> Number.fromNatural 82
 
-issue83 :: Either String HW.Type.Issue.Issue
+issue83 :: Either String Issue.Issue
 issue83 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2017 11 30
-    <*> HW.Type.Number.naturalToNumber 83
+  Issue.Issue <$> Date.fromGregorian 2017 11 30 <*> Number.fromNatural 83
 
-issue84 :: Either String HW.Type.Issue.Issue
+issue84 :: Either String Issue.Issue
 issue84 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2017 12 7
-    <*> HW.Type.Number.naturalToNumber 84
+  Issue.Issue <$> Date.fromGregorian 2017 12 7 <*> Number.fromNatural 84
 
-issue85 :: Either String HW.Type.Issue.Issue
+issue85 :: Either String Issue.Issue
 issue85 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2017 12 14
-    <*> HW.Type.Number.naturalToNumber 85
+  Issue.Issue <$> Date.fromGregorian 2017 12 14 <*> Number.fromNatural 85
 
-issue86 :: Either String HW.Type.Issue.Issue
+issue86 :: Either String Issue.Issue
 issue86 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2017 12 21
-    <*> HW.Type.Number.naturalToNumber 86
+  Issue.Issue <$> Date.fromGregorian 2017 12 21 <*> Number.fromNatural 86
 
-issue87 :: Either String HW.Type.Issue.Issue
+issue87 :: Either String Issue.Issue
 issue87 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2017 12 28
-    <*> HW.Type.Number.naturalToNumber 87
+  Issue.Issue <$> Date.fromGregorian 2017 12 28 <*> Number.fromNatural 87
 
-issue88 :: Either String HW.Type.Issue.Issue
+issue88 :: Either String Issue.Issue
 issue88 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2018 1 4
-    <*> HW.Type.Number.naturalToNumber 88
+  Issue.Issue <$> Date.fromGregorian 2018 1 4 <*> Number.fromNatural 88
 
-issue89 :: Either String HW.Type.Issue.Issue
+issue89 :: Either String Issue.Issue
 issue89 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2018 1 11
-    <*> HW.Type.Number.naturalToNumber 89
+  Issue.Issue <$> Date.fromGregorian 2018 1 11 <*> Number.fromNatural 89
 
-issue90 :: Either String HW.Type.Issue.Issue
+issue90 :: Either String Issue.Issue
 issue90 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2018 1 18
-    <*> HW.Type.Number.naturalToNumber 90
+  Issue.Issue <$> Date.fromGregorian 2018 1 18 <*> Number.fromNatural 90
 
-issue91 :: Either String HW.Type.Issue.Issue
+issue91 :: Either String Issue.Issue
 issue91 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2018 1 25
-    <*> HW.Type.Number.naturalToNumber 91
+  Issue.Issue <$> Date.fromGregorian 2018 1 25 <*> Number.fromNatural 91
 
-issue92 :: Either String HW.Type.Issue.Issue
+issue92 :: Either String Issue.Issue
 issue92 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2018 2 1
-    <*> HW.Type.Number.naturalToNumber 92
+  Issue.Issue <$> Date.fromGregorian 2018 2 1 <*> Number.fromNatural 92
 
-issue93 :: Either String HW.Type.Issue.Issue
+issue93 :: Either String Issue.Issue
 issue93 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2018 2 8
-    <*> HW.Type.Number.naturalToNumber 93
+  Issue.Issue <$> Date.fromGregorian 2018 2 8 <*> Number.fromNatural 93
 
-issue94 :: Either String HW.Type.Issue.Issue
+issue94 :: Either String Issue.Issue
 issue94 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2018 2 15
-    <*> HW.Type.Number.naturalToNumber 94
+  Issue.Issue <$> Date.fromGregorian 2018 2 15 <*> Number.fromNatural 94
 
-issue95 :: Either String HW.Type.Issue.Issue
+issue95 :: Either String Issue.Issue
 issue95 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2018 2 22
-    <*> HW.Type.Number.naturalToNumber 95
+  Issue.Issue <$> Date.fromGregorian 2018 2 22 <*> Number.fromNatural 95
 
-issue96 :: Either String HW.Type.Issue.Issue
+issue96 :: Either String Issue.Issue
 issue96 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2018 3 1
-    <*> HW.Type.Number.naturalToNumber 96
+  Issue.Issue <$> Date.fromGregorian 2018 3 1 <*> Number.fromNatural 96
 
-issue97 :: Either String HW.Type.Issue.Issue
+issue97 :: Either String Issue.Issue
 issue97 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2018 3 8
-    <*> HW.Type.Number.naturalToNumber 97
+  Issue.Issue <$> Date.fromGregorian 2018 3 8 <*> Number.fromNatural 97
 
-issue98 :: Either String HW.Type.Issue.Issue
+issue98 :: Either String Issue.Issue
 issue98 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2018 3 15
-    <*> HW.Type.Number.naturalToNumber 98
+  Issue.Issue <$> Date.fromGregorian 2018 3 15 <*> Number.fromNatural 98
 
-issue99 :: Either String HW.Type.Issue.Issue
+issue99 :: Either String Issue.Issue
 issue99 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2018 3 22
-    <*> HW.Type.Number.naturalToNumber 99
+  Issue.Issue <$> Date.fromGregorian 2018 3 22 <*> Number.fromNatural 99
 
-issue100 :: Either String HW.Type.Issue.Issue
+issue100 :: Either String Issue.Issue
 issue100 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2018 3 29
-    <*> HW.Type.Number.naturalToNumber 100
+  Issue.Issue <$> Date.fromGregorian 2018 3 29 <*> Number.fromNatural 100
 
-issue101 :: Either String HW.Type.Issue.Issue
+issue101 :: Either String Issue.Issue
 issue101 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2018 4 5
-    <*> HW.Type.Number.naturalToNumber 101
+  Issue.Issue <$> Date.fromGregorian 2018 4 5 <*> Number.fromNatural 101
 
-issue102 :: Either String HW.Type.Issue.Issue
+issue102 :: Either String Issue.Issue
 issue102 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2018 4 12
-    <*> HW.Type.Number.naturalToNumber 102
+  Issue.Issue <$> Date.fromGregorian 2018 4 12 <*> Number.fromNatural 102
 
-issue103 :: Either String HW.Type.Issue.Issue
+issue103 :: Either String Issue.Issue
 issue103 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2018 4 19
-    <*> HW.Type.Number.naturalToNumber 103
+  Issue.Issue <$> Date.fromGregorian 2018 4 19 <*> Number.fromNatural 103
 
-issue104 :: Either String HW.Type.Issue.Issue
+issue104 :: Either String Issue.Issue
 issue104 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2018 4 26
-    <*> HW.Type.Number.naturalToNumber 104
+  Issue.Issue <$> Date.fromGregorian 2018 4 26 <*> Number.fromNatural 104
 
-issue105 :: Either String HW.Type.Issue.Issue
+issue105 :: Either String Issue.Issue
 issue105 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2018 5 3
-    <*> HW.Type.Number.naturalToNumber 105
+  Issue.Issue <$> Date.fromGregorian 2018 5 3 <*> Number.fromNatural 105
 
-issue106 :: Either String HW.Type.Issue.Issue
+issue106 :: Either String Issue.Issue
 issue106 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2018 5 10
-    <*> HW.Type.Number.naturalToNumber 106
+  Issue.Issue <$> Date.fromGregorian 2018 5 10 <*> Number.fromNatural 106
 
-issue107 :: Either String HW.Type.Issue.Issue
+issue107 :: Either String Issue.Issue
 issue107 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2018 5 17
-    <*> HW.Type.Number.naturalToNumber 107
+  Issue.Issue <$> Date.fromGregorian 2018 5 17 <*> Number.fromNatural 107
 
-issue108 :: Either String HW.Type.Issue.Issue
+issue108 :: Either String Issue.Issue
 issue108 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2018 5 24
-    <*> HW.Type.Number.naturalToNumber 108
+  Issue.Issue <$> Date.fromGregorian 2018 5 24 <*> Number.fromNatural 108
 
-issue109 :: Either String HW.Type.Issue.Issue
+issue109 :: Either String Issue.Issue
 issue109 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2018 5 31
-    <*> HW.Type.Number.naturalToNumber 109
+  Issue.Issue <$> Date.fromGregorian 2018 5 31 <*> Number.fromNatural 109
 
-issue110 :: Either String HW.Type.Issue.Issue
+issue110 :: Either String Issue.Issue
 issue110 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2018 6 7
-    <*> HW.Type.Number.naturalToNumber 110
+  Issue.Issue <$> Date.fromGregorian 2018 6 7 <*> Number.fromNatural 110
 
-issue111 :: Either String HW.Type.Issue.Issue
+issue111 :: Either String Issue.Issue
 issue111 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2018 6 14
-    <*> HW.Type.Number.naturalToNumber 111
+  Issue.Issue <$> Date.fromGregorian 2018 6 14 <*> Number.fromNatural 111
 
-issue112 :: Either String HW.Type.Issue.Issue
+issue112 :: Either String Issue.Issue
 issue112 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2018 6 21
-    <*> HW.Type.Number.naturalToNumber 112
+  Issue.Issue <$> Date.fromGregorian 2018 6 21 <*> Number.fromNatural 112
 
-issue113 :: Either String HW.Type.Issue.Issue
+issue113 :: Either String Issue.Issue
 issue113 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2018 6 28
-    <*> HW.Type.Number.naturalToNumber 113
+  Issue.Issue <$> Date.fromGregorian 2018 6 28 <*> Number.fromNatural 113
 
-issue114 :: Either String HW.Type.Issue.Issue
+issue114 :: Either String Issue.Issue
 issue114 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2018 7 5
-    <*> HW.Type.Number.naturalToNumber 114
+  Issue.Issue <$> Date.fromGregorian 2018 7 5 <*> Number.fromNatural 114
 
-issue115 :: Either String HW.Type.Issue.Issue
+issue115 :: Either String Issue.Issue
 issue115 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2018 7 12
-    <*> HW.Type.Number.naturalToNumber 115
+  Issue.Issue <$> Date.fromGregorian 2018 7 12 <*> Number.fromNatural 115
 
-issue116 :: Either String HW.Type.Issue.Issue
+issue116 :: Either String Issue.Issue
 issue116 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2018 7 19
-    <*> HW.Type.Number.naturalToNumber 116
+  Issue.Issue <$> Date.fromGregorian 2018 7 19 <*> Number.fromNatural 116
 
-issue117 :: Either String HW.Type.Issue.Issue
+issue117 :: Either String Issue.Issue
 issue117 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2018 7 26
-    <*> HW.Type.Number.naturalToNumber 117
+  Issue.Issue <$> Date.fromGregorian 2018 7 26 <*> Number.fromNatural 117
 
-issue118 :: Either String HW.Type.Issue.Issue
+issue118 :: Either String Issue.Issue
 issue118 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2018 8 2
-    <*> HW.Type.Number.naturalToNumber 118
+  Issue.Issue <$> Date.fromGregorian 2018 8 2 <*> Number.fromNatural 118
 
-issue119 :: Either String HW.Type.Issue.Issue
+issue119 :: Either String Issue.Issue
 issue119 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2018 8 9
-    <*> HW.Type.Number.naturalToNumber 119
+  Issue.Issue <$> Date.fromGregorian 2018 8 9 <*> Number.fromNatural 119
 
-issue120 :: Either String HW.Type.Issue.Issue
+issue120 :: Either String Issue.Issue
 issue120 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2018 8 16
-    <*> HW.Type.Number.naturalToNumber 120
+  Issue.Issue <$> Date.fromGregorian 2018 8 16 <*> Number.fromNatural 120
 
-issue121 :: Either String HW.Type.Issue.Issue
+issue121 :: Either String Issue.Issue
 issue121 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2018 8 23
-    <*> HW.Type.Number.naturalToNumber 121
+  Issue.Issue <$> Date.fromGregorian 2018 8 23 <*> Number.fromNatural 121
 
-issue122 :: Either String HW.Type.Issue.Issue
+issue122 :: Either String Issue.Issue
 issue122 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2018 8 30
-    <*> HW.Type.Number.naturalToNumber 122
+  Issue.Issue <$> Date.fromGregorian 2018 8 30 <*> Number.fromNatural 122
 
-issue123 :: Either String HW.Type.Issue.Issue
+issue123 :: Either String Issue.Issue
 issue123 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2018 9 6
-    <*> HW.Type.Number.naturalToNumber 123
+  Issue.Issue <$> Date.fromGregorian 2018 9 6 <*> Number.fromNatural 123
 
-issue124 :: Either String HW.Type.Issue.Issue
+issue124 :: Either String Issue.Issue
 issue124 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2018 9 13
-    <*> HW.Type.Number.naturalToNumber 124
+  Issue.Issue <$> Date.fromGregorian 2018 9 13 <*> Number.fromNatural 124
 
-issue125 :: Either String HW.Type.Issue.Issue
+issue125 :: Either String Issue.Issue
 issue125 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2018 9 20
-    <*> HW.Type.Number.naturalToNumber 125
+  Issue.Issue <$> Date.fromGregorian 2018 9 20 <*> Number.fromNatural 125
 
-issue126 :: Either String HW.Type.Issue.Issue
+issue126 :: Either String Issue.Issue
 issue126 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2018 9 27
-    <*> HW.Type.Number.naturalToNumber 126
+  Issue.Issue <$> Date.fromGregorian 2018 9 27 <*> Number.fromNatural 126
 
-issue127 :: Either String HW.Type.Issue.Issue
+issue127 :: Either String Issue.Issue
 issue127 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2018 10 4
-    <*> HW.Type.Number.naturalToNumber 127
+  Issue.Issue <$> Date.fromGregorian 2018 10 4 <*> Number.fromNatural 127
 
-issue128 :: Either String HW.Type.Issue.Issue
+issue128 :: Either String Issue.Issue
 issue128 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2018 10 11
-    <*> HW.Type.Number.naturalToNumber 128
+  Issue.Issue <$> Date.fromGregorian 2018 10 11 <*> Number.fromNatural 128
 
-issue129 :: Either String HW.Type.Issue.Issue
+issue129 :: Either String Issue.Issue
 issue129 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2018 10 18
-    <*> HW.Type.Number.naturalToNumber 129
+  Issue.Issue <$> Date.fromGregorian 2018 10 18 <*> Number.fromNatural 129
 
-issue130 :: Either String HW.Type.Issue.Issue
+issue130 :: Either String Issue.Issue
 issue130 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2018 10 25
-    <*> HW.Type.Number.naturalToNumber 130
+  Issue.Issue <$> Date.fromGregorian 2018 10 25 <*> Number.fromNatural 130
 
-issue131 :: Either String HW.Type.Issue.Issue
+issue131 :: Either String Issue.Issue
 issue131 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2018 11 1
-    <*> HW.Type.Number.naturalToNumber 131
+  Issue.Issue <$> Date.fromGregorian 2018 11 1 <*> Number.fromNatural 131
 
-issue132 :: Either String HW.Type.Issue.Issue
+issue132 :: Either String Issue.Issue
 issue132 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2018 11 8
-    <*> HW.Type.Number.naturalToNumber 132
+  Issue.Issue <$> Date.fromGregorian 2018 11 8 <*> Number.fromNatural 132
 
-issue133 :: Either String HW.Type.Issue.Issue
+issue133 :: Either String Issue.Issue
 issue133 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2018 11 15
-    <*> HW.Type.Number.naturalToNumber 133
+  Issue.Issue <$> Date.fromGregorian 2018 11 15 <*> Number.fromNatural 133
 
-issue134 :: Either String HW.Type.Issue.Issue
+issue134 :: Either String Issue.Issue
 issue134 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2018 11 22
-    <*> HW.Type.Number.naturalToNumber 134
+  Issue.Issue <$> Date.fromGregorian 2018 11 22 <*> Number.fromNatural 134
 
-issue135 :: Either String HW.Type.Issue.Issue
+issue135 :: Either String Issue.Issue
 issue135 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2018 11 29
-    <*> HW.Type.Number.naturalToNumber 135
+  Issue.Issue <$> Date.fromGregorian 2018 11 29 <*> Number.fromNatural 135
 
-issue136 :: Either String HW.Type.Issue.Issue
+issue136 :: Either String Issue.Issue
 issue136 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2018 12 6
-    <*> HW.Type.Number.naturalToNumber 136
+  Issue.Issue <$> Date.fromGregorian 2018 12 6 <*> Number.fromNatural 136
 
-issue137 :: Either String HW.Type.Issue.Issue
+issue137 :: Either String Issue.Issue
 issue137 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2018 12 13
-    <*> HW.Type.Number.naturalToNumber 137
+  Issue.Issue <$> Date.fromGregorian 2018 12 13 <*> Number.fromNatural 137
 
-issue138 :: Either String HW.Type.Issue.Issue
+issue138 :: Either String Issue.Issue
 issue138 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2018 12 20
-    <*> HW.Type.Number.naturalToNumber 138
+  Issue.Issue <$> Date.fromGregorian 2018 12 20 <*> Number.fromNatural 138
 
-issue139 :: Either String HW.Type.Issue.Issue
+issue139 :: Either String Issue.Issue
 issue139 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2018 12 27
-    <*> HW.Type.Number.naturalToNumber 139
+  Issue.Issue <$> Date.fromGregorian 2018 12 27 <*> Number.fromNatural 139
 
-issue140 :: Either String HW.Type.Issue.Issue
+issue140 :: Either String Issue.Issue
 issue140 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2019 1 3
-    <*> HW.Type.Number.naturalToNumber 140
+  Issue.Issue <$> Date.fromGregorian 2019 1 3 <*> Number.fromNatural 140
 
-issue141 :: Either String HW.Type.Issue.Issue
+issue141 :: Either String Issue.Issue
 issue141 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2019 1 10
-    <*> HW.Type.Number.naturalToNumber 141
+  Issue.Issue <$> Date.fromGregorian 2019 1 10 <*> Number.fromNatural 141
 
-issue142 :: Either String HW.Type.Issue.Issue
+issue142 :: Either String Issue.Issue
 issue142 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2019 1 17
-    <*> HW.Type.Number.naturalToNumber 142
+  Issue.Issue <$> Date.fromGregorian 2019 1 17 <*> Number.fromNatural 142
 
-issue143 :: Either String HW.Type.Issue.Issue
+issue143 :: Either String Issue.Issue
 issue143 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2019 1 24
-    <*> HW.Type.Number.naturalToNumber 143
+  Issue.Issue <$> Date.fromGregorian 2019 1 24 <*> Number.fromNatural 143
 
-issue144 :: Either String HW.Type.Issue.Issue
+issue144 :: Either String Issue.Issue
 issue144 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2019 1 31
-    <*> HW.Type.Number.naturalToNumber 144
+  Issue.Issue <$> Date.fromGregorian 2019 1 31 <*> Number.fromNatural 144
 
-issue145 :: Either String HW.Type.Issue.Issue
+issue145 :: Either String Issue.Issue
 issue145 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2019 2 7
-    <*> HW.Type.Number.naturalToNumber 145
+  Issue.Issue <$> Date.fromGregorian 2019 2 7 <*> Number.fromNatural 145
 
-issue146 :: Either String HW.Type.Issue.Issue
+issue146 :: Either String Issue.Issue
 issue146 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2019 2 14
-    <*> HW.Type.Number.naturalToNumber 146
+  Issue.Issue <$> Date.fromGregorian 2019 2 14 <*> Number.fromNatural 146
 
-issue147 :: Either String HW.Type.Issue.Issue
+issue147 :: Either String Issue.Issue
 issue147 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2019 2 21
-    <*> HW.Type.Number.naturalToNumber 147
+  Issue.Issue <$> Date.fromGregorian 2019 2 21 <*> Number.fromNatural 147
 
-issue148 :: Either String HW.Type.Issue.Issue
+issue148 :: Either String Issue.Issue
 issue148 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2019 2 28
-    <*> HW.Type.Number.naturalToNumber 148
+  Issue.Issue <$> Date.fromGregorian 2019 2 28 <*> Number.fromNatural 148
 
-issue149 :: Either String HW.Type.Issue.Issue
+issue149 :: Either String Issue.Issue
 issue149 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2019 3 7
-    <*> HW.Type.Number.naturalToNumber 149
+  Issue.Issue <$> Date.fromGregorian 2019 3 7 <*> Number.fromNatural 149
 
-issue150 :: Either String HW.Type.Issue.Issue
+issue150 :: Either String Issue.Issue
 issue150 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2019 3 14
-    <*> HW.Type.Number.naturalToNumber 150
+  Issue.Issue <$> Date.fromGregorian 2019 3 14 <*> Number.fromNatural 150
 
-issue151 :: Either String HW.Type.Issue.Issue
+issue151 :: Either String Issue.Issue
 issue151 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2019 3 21
-    <*> HW.Type.Number.naturalToNumber 151
+  Issue.Issue <$> Date.fromGregorian 2019 3 21 <*> Number.fromNatural 151
 
-issue152 :: Either String HW.Type.Issue.Issue
+issue152 :: Either String Issue.Issue
 issue152 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2019 3 28
-    <*> HW.Type.Number.naturalToNumber 152
+  Issue.Issue <$> Date.fromGregorian 2019 3 28 <*> Number.fromNatural 152
 
-issue153 :: Either String HW.Type.Issue.Issue
+issue153 :: Either String Issue.Issue
 issue153 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2019 4 4
-    <*> HW.Type.Number.naturalToNumber 153
+  Issue.Issue <$> Date.fromGregorian 2019 4 4 <*> Number.fromNatural 153
 
-issue154 :: Either String HW.Type.Issue.Issue
+issue154 :: Either String Issue.Issue
 issue154 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2019 4 11
-    <*> HW.Type.Number.naturalToNumber 154
+  Issue.Issue <$> Date.fromGregorian 2019 4 11 <*> Number.fromNatural 154
 
-issue155 :: Either String HW.Type.Issue.Issue
+issue155 :: Either String Issue.Issue
 issue155 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2019 4 18
-    <*> HW.Type.Number.naturalToNumber 155
+  Issue.Issue <$> Date.fromGregorian 2019 4 18 <*> Number.fromNatural 155
 
-issue156 :: Either String HW.Type.Issue.Issue
+issue156 :: Either String Issue.Issue
 issue156 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2019 4 25
-    <*> HW.Type.Number.naturalToNumber 156
+  Issue.Issue <$> Date.fromGregorian 2019 4 25 <*> Number.fromNatural 156
 
-issue157 :: Either String HW.Type.Issue.Issue
+issue157 :: Either String Issue.Issue
 issue157 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2019 5 2
-    <*> HW.Type.Number.naturalToNumber 157
+  Issue.Issue <$> Date.fromGregorian 2019 5 2 <*> Number.fromNatural 157
 
-issue158 :: Either String HW.Type.Issue.Issue
+issue158 :: Either String Issue.Issue
 issue158 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2019 5 9
-    <*> HW.Type.Number.naturalToNumber 158
+  Issue.Issue <$> Date.fromGregorian 2019 5 9 <*> Number.fromNatural 158
 
-issue159 :: Either String HW.Type.Issue.Issue
+issue159 :: Either String Issue.Issue
 issue159 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2019 5 16
-    <*> HW.Type.Number.naturalToNumber 159
+  Issue.Issue <$> Date.fromGregorian 2019 5 16 <*> Number.fromNatural 159
 
-issue160 :: Either String HW.Type.Issue.Issue
+issue160 :: Either String Issue.Issue
 issue160 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2019 5 23
-    <*> HW.Type.Number.naturalToNumber 160
+  Issue.Issue <$> Date.fromGregorian 2019 5 23 <*> Number.fromNatural 160
 
-issue161 :: Either String HW.Type.Issue.Issue
+issue161 :: Either String Issue.Issue
 issue161 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2019 5 30
-    <*> HW.Type.Number.naturalToNumber 161
+  Issue.Issue <$> Date.fromGregorian 2019 5 30 <*> Number.fromNatural 161
 
-issue162 :: Either String HW.Type.Issue.Issue
+issue162 :: Either String Issue.Issue
 issue162 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2019 6 6
-    <*> HW.Type.Number.naturalToNumber 162
+  Issue.Issue <$> Date.fromGregorian 2019 6 6 <*> Number.fromNatural 162
 
-issue163 :: Either String HW.Type.Issue.Issue
+issue163 :: Either String Issue.Issue
 issue163 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2019 6 13
-    <*> HW.Type.Number.naturalToNumber 163
+  Issue.Issue <$> Date.fromGregorian 2019 6 13 <*> Number.fromNatural 163
 
-issue164 :: Either String HW.Type.Issue.Issue
+issue164 :: Either String Issue.Issue
 issue164 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2019 6 20
-    <*> HW.Type.Number.naturalToNumber 164
+  Issue.Issue <$> Date.fromGregorian 2019 6 20 <*> Number.fromNatural 164
 
-issue165 :: Either String HW.Type.Issue.Issue
+issue165 :: Either String Issue.Issue
 issue165 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2019 6 27
-    <*> HW.Type.Number.naturalToNumber 165
+  Issue.Issue <$> Date.fromGregorian 2019 6 27 <*> Number.fromNatural 165
 
-issue166 :: Either String HW.Type.Issue.Issue
+issue166 :: Either String Issue.Issue
 issue166 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2019 7 4
-    <*> HW.Type.Number.naturalToNumber 166
+  Issue.Issue <$> Date.fromGregorian 2019 7 4 <*> Number.fromNatural 166
 
-issue167 :: Either String HW.Type.Issue.Issue
+issue167 :: Either String Issue.Issue
 issue167 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2019 7 11
-    <*> HW.Type.Number.naturalToNumber 167
+  Issue.Issue <$> Date.fromGregorian 2019 7 11 <*> Number.fromNatural 167
 
-issue168 :: Either String HW.Type.Issue.Issue
+issue168 :: Either String Issue.Issue
 issue168 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2019 7 18
-    <*> HW.Type.Number.naturalToNumber 168
+  Issue.Issue <$> Date.fromGregorian 2019 7 18 <*> Number.fromNatural 168
 
-issue169 :: Either String HW.Type.Issue.Issue
+issue169 :: Either String Issue.Issue
 issue169 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2019 7 25
-    <*> HW.Type.Number.naturalToNumber 169
+  Issue.Issue <$> Date.fromGregorian 2019 7 25 <*> Number.fromNatural 169
 
-issue170 :: Either String HW.Type.Issue.Issue
+issue170 :: Either String Issue.Issue
 issue170 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2019 8 1
-    <*> HW.Type.Number.naturalToNumber 170
+  Issue.Issue <$> Date.fromGregorian 2019 8 1 <*> Number.fromNatural 170
 
-issue171 :: Either String HW.Type.Issue.Issue
+issue171 :: Either String Issue.Issue
 issue171 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2019 8 8
-    <*> HW.Type.Number.naturalToNumber 171
+  Issue.Issue <$> Date.fromGregorian 2019 8 8 <*> Number.fromNatural 171
 
-issue172 :: Either String HW.Type.Issue.Issue
+issue172 :: Either String Issue.Issue
 issue172 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2019 8 15
-    <*> HW.Type.Number.naturalToNumber 172
+  Issue.Issue <$> Date.fromGregorian 2019 8 15 <*> Number.fromNatural 172
 
-issue173 :: Either String HW.Type.Issue.Issue
+issue173 :: Either String Issue.Issue
 issue173 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2019 8 22
-    <*> HW.Type.Number.naturalToNumber 173
+  Issue.Issue <$> Date.fromGregorian 2019 8 22 <*> Number.fromNatural 173
 
-issue174 :: Either String HW.Type.Issue.Issue
+issue174 :: Either String Issue.Issue
 issue174 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2019 8 29
-    <*> HW.Type.Number.naturalToNumber 174
+  Issue.Issue <$> Date.fromGregorian 2019 8 29 <*> Number.fromNatural 174
 
-issue175 :: Either String HW.Type.Issue.Issue
+issue175 :: Either String Issue.Issue
 issue175 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2019 9 5
-    <*> HW.Type.Number.naturalToNumber 175
+  Issue.Issue <$> Date.fromGregorian 2019 9 5 <*> Number.fromNatural 175
 
-issue176 :: Either String HW.Type.Issue.Issue
+issue176 :: Either String Issue.Issue
 issue176 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2019 9 12
-    <*> HW.Type.Number.naturalToNumber 176
+  Issue.Issue <$> Date.fromGregorian 2019 9 12 <*> Number.fromNatural 176
 
-issue177 :: Either String HW.Type.Issue.Issue
+issue177 :: Either String Issue.Issue
 issue177 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2019 9 19
-    <*> HW.Type.Number.naturalToNumber 177
+  Issue.Issue <$> Date.fromGregorian 2019 9 19 <*> Number.fromNatural 177
 
-issue178 :: Either String HW.Type.Issue.Issue
+issue178 :: Either String Issue.Issue
 issue178 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2019 9 26
-    <*> HW.Type.Number.naturalToNumber 178
+  Issue.Issue <$> Date.fromGregorian 2019 9 26 <*> Number.fromNatural 178
 
-issue179 :: Either String HW.Type.Issue.Issue
+issue179 :: Either String Issue.Issue
 issue179 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2019 10 3
-    <*> HW.Type.Number.naturalToNumber 179
+  Issue.Issue <$> Date.fromGregorian 2019 10 3 <*> Number.fromNatural 179
 
-issue180 :: Either String HW.Type.Issue.Issue
+issue180 :: Either String Issue.Issue
 issue180 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2019 10 10
-    <*> HW.Type.Number.naturalToNumber 180
+  Issue.Issue <$> Date.fromGregorian 2019 10 10 <*> Number.fromNatural 180
 
-issue181 :: Either String HW.Type.Issue.Issue
+issue181 :: Either String Issue.Issue
 issue181 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2019 10 17
-    <*> HW.Type.Number.naturalToNumber 181
+  Issue.Issue <$> Date.fromGregorian 2019 10 17 <*> Number.fromNatural 181
 
-issue182 :: Either String HW.Type.Issue.Issue
+issue182 :: Either String Issue.Issue
 issue182 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2019 10 24
-    <*> HW.Type.Number.naturalToNumber 182
+  Issue.Issue <$> Date.fromGregorian 2019 10 24 <*> Number.fromNatural 182
 
-issue183 :: Either String HW.Type.Issue.Issue
+issue183 :: Either String Issue.Issue
 issue183 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2019 10 31
-    <*> HW.Type.Number.naturalToNumber 183
+  Issue.Issue <$> Date.fromGregorian 2019 10 31 <*> Number.fromNatural 183
 
-issue184 :: Either String HW.Type.Issue.Issue
+issue184 :: Either String Issue.Issue
 issue184 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2019 11 7
-    <*> HW.Type.Number.naturalToNumber 184
+  Issue.Issue <$> Date.fromGregorian 2019 11 7 <*> Number.fromNatural 184
 
-issue185 :: Either String HW.Type.Issue.Issue
+issue185 :: Either String Issue.Issue
 issue185 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2019 11 14
-    <*> HW.Type.Number.naturalToNumber 185
+  Issue.Issue <$> Date.fromGregorian 2019 11 14 <*> Number.fromNatural 185
 
-issue186 :: Either String HW.Type.Issue.Issue
+issue186 :: Either String Issue.Issue
 issue186 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2019 11 21
-    <*> HW.Type.Number.naturalToNumber 186
+  Issue.Issue <$> Date.fromGregorian 2019 11 21 <*> Number.fromNatural 186
 
-issue187 :: Either String HW.Type.Issue.Issue
+issue187 :: Either String Issue.Issue
 issue187 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2019 11 28
-    <*> HW.Type.Number.naturalToNumber 187
+  Issue.Issue <$> Date.fromGregorian 2019 11 28 <*> Number.fromNatural 187
 
-issue188 :: Either String HW.Type.Issue.Issue
+issue188 :: Either String Issue.Issue
 issue188 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2019 12 5
-    <*> HW.Type.Number.naturalToNumber 188
+  Issue.Issue <$> Date.fromGregorian 2019 12 5 <*> Number.fromNatural 188
 
-issue189 :: Either String HW.Type.Issue.Issue
+issue189 :: Either String Issue.Issue
 issue189 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2019 12 12
-    <*> HW.Type.Number.naturalToNumber 189
+  Issue.Issue <$> Date.fromGregorian 2019 12 12 <*> Number.fromNatural 189
 
-issue190 :: Either String HW.Type.Issue.Issue
+issue190 :: Either String Issue.Issue
 issue190 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2019 12 19
-    <*> HW.Type.Number.naturalToNumber 190
+  Issue.Issue <$> Date.fromGregorian 2019 12 19 <*> Number.fromNatural 190
 
-issue191 :: Either String HW.Type.Issue.Issue
+issue191 :: Either String Issue.Issue
 issue191 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2019 12 26
-    <*> HW.Type.Number.naturalToNumber 191
+  Issue.Issue <$> Date.fromGregorian 2019 12 26 <*> Number.fromNatural 191
 
-issue192 :: Either String HW.Type.Issue.Issue
+issue192 :: Either String Issue.Issue
 issue192 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2020 1 2
-    <*> HW.Type.Number.naturalToNumber 192
+  Issue.Issue <$> Date.fromGregorian 2020 1 2 <*> Number.fromNatural 192
 
-issue193 :: Either String HW.Type.Issue.Issue
+issue193 :: Either String Issue.Issue
 issue193 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2020 1 9
-    <*> HW.Type.Number.naturalToNumber 193
+  Issue.Issue <$> Date.fromGregorian 2020 1 9 <*> Number.fromNatural 193
 
-issue194 :: Either String HW.Type.Issue.Issue
+issue194 :: Either String Issue.Issue
 issue194 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2020 1 16
-    <*> HW.Type.Number.naturalToNumber 194
+  Issue.Issue <$> Date.fromGregorian 2020 1 16 <*> Number.fromNatural 194
 
-issue195 :: Either String HW.Type.Issue.Issue
+issue195 :: Either String Issue.Issue
 issue195 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2020 1 23
-    <*> HW.Type.Number.naturalToNumber 195
+  Issue.Issue <$> Date.fromGregorian 2020 1 23 <*> Number.fromNatural 195
 
-issue196 :: Either String HW.Type.Issue.Issue
+issue196 :: Either String Issue.Issue
 issue196 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2020 1 30
-    <*> HW.Type.Number.naturalToNumber 196
+  Issue.Issue <$> Date.fromGregorian 2020 1 30 <*> Number.fromNatural 196
 
-issue197 :: Either String HW.Type.Issue.Issue
+issue197 :: Either String Issue.Issue
 issue197 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2020 2 6
-    <*> HW.Type.Number.naturalToNumber 197
+  Issue.Issue <$> Date.fromGregorian 2020 2 6 <*> Number.fromNatural 197
 
-issue198 :: Either String HW.Type.Issue.Issue
+issue198 :: Either String Issue.Issue
 issue198 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2020 2 13
-    <*> HW.Type.Number.naturalToNumber 198
+  Issue.Issue <$> Date.fromGregorian 2020 2 13 <*> Number.fromNatural 198
 
-issue199 :: Either String HW.Type.Issue.Issue
+issue199 :: Either String Issue.Issue
 issue199 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2020 2 20
-    <*> HW.Type.Number.naturalToNumber 199
+  Issue.Issue <$> Date.fromGregorian 2020 2 20 <*> Number.fromNatural 199
 
-issue200 :: Either String HW.Type.Issue.Issue
+issue200 :: Either String Issue.Issue
 issue200 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2020 2 27
-    <*> HW.Type.Number.naturalToNumber 200
+  Issue.Issue <$> Date.fromGregorian 2020 2 27 <*> Number.fromNatural 200
 
-issue201 :: Either String HW.Type.Issue.Issue
+issue201 :: Either String Issue.Issue
 issue201 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2020 3 5
-    <*> HW.Type.Number.naturalToNumber 201
+  Issue.Issue <$> Date.fromGregorian 2020 3 5 <*> Number.fromNatural 201
 
-issue202 :: Either String HW.Type.Issue.Issue
+issue202 :: Either String Issue.Issue
 issue202 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2020 3 12
-    <*> HW.Type.Number.naturalToNumber 202
+  Issue.Issue <$> Date.fromGregorian 2020 3 12 <*> Number.fromNatural 202
 
-issue203 :: Either String HW.Type.Issue.Issue
+issue203 :: Either String Issue.Issue
 issue203 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2020 3 19
-    <*> HW.Type.Number.naturalToNumber 203
+  Issue.Issue <$> Date.fromGregorian 2020 3 19 <*> Number.fromNatural 203
 
-issue204 :: Either String HW.Type.Issue.Issue
+issue204 :: Either String Issue.Issue
 issue204 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2020 3 26
-    <*> HW.Type.Number.naturalToNumber 204
+  Issue.Issue <$> Date.fromGregorian 2020 3 26 <*> Number.fromNatural 204
 
-issue205 :: Either String HW.Type.Issue.Issue
+issue205 :: Either String Issue.Issue
 issue205 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2020 4 2
-    <*> HW.Type.Number.naturalToNumber 205
+  Issue.Issue <$> Date.fromGregorian 2020 4 2 <*> Number.fromNatural 205
 
-issue206 :: Either String HW.Type.Issue.Issue
+issue206 :: Either String Issue.Issue
 issue206 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2020 4 9
-    <*> HW.Type.Number.naturalToNumber 206
+  Issue.Issue <$> Date.fromGregorian 2020 4 9 <*> Number.fromNatural 206
 
-issue207 :: Either String HW.Type.Issue.Issue
+issue207 :: Either String Issue.Issue
 issue207 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2020 4 16
-    <*> HW.Type.Number.naturalToNumber 207
+  Issue.Issue <$> Date.fromGregorian 2020 4 16 <*> Number.fromNatural 207
 
-issue208 :: Either String HW.Type.Issue.Issue
+issue208 :: Either String Issue.Issue
 issue208 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2020 4 23
-    <*> HW.Type.Number.naturalToNumber 208
+  Issue.Issue <$> Date.fromGregorian 2020 4 23 <*> Number.fromNatural 208
 
-issue209 :: Either String HW.Type.Issue.Issue
+issue209 :: Either String Issue.Issue
 issue209 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2020 4 30
-    <*> HW.Type.Number.naturalToNumber 209
+  Issue.Issue <$> Date.fromGregorian 2020 4 30 <*> Number.fromNatural 209
 
-issue210 :: Either String HW.Type.Issue.Issue
+issue210 :: Either String Issue.Issue
 issue210 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2020 5 7
-    <*> HW.Type.Number.naturalToNumber 210
+  Issue.Issue <$> Date.fromGregorian 2020 5 7 <*> Number.fromNatural 210
 
-issue211 :: Either String HW.Type.Issue.Issue
+issue211 :: Either String Issue.Issue
 issue211 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2020 5 14
-    <*> HW.Type.Number.naturalToNumber 211
+  Issue.Issue <$> Date.fromGregorian 2020 5 14 <*> Number.fromNatural 211
 
-issue212 :: Either String HW.Type.Issue.Issue
+issue212 :: Either String Issue.Issue
 issue212 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2020 5 21
-    <*> HW.Type.Number.naturalToNumber 212
+  Issue.Issue <$> Date.fromGregorian 2020 5 21 <*> Number.fromNatural 212
 
-issue213 :: Either String HW.Type.Issue.Issue
+issue213 :: Either String Issue.Issue
 issue213 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2020 5 28
-    <*> HW.Type.Number.naturalToNumber 213
+  Issue.Issue <$> Date.fromGregorian 2020 5 28 <*> Number.fromNatural 213
 
-issue214 :: Either String HW.Type.Issue.Issue
+issue214 :: Either String Issue.Issue
 issue214 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2020 6 4
-    <*> HW.Type.Number.naturalToNumber 214
+  Issue.Issue <$> Date.fromGregorian 2020 6 4 <*> Number.fromNatural 214
 
-issue215 :: Either String HW.Type.Issue.Issue
+issue215 :: Either String Issue.Issue
 issue215 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2020 6 11
-    <*> HW.Type.Number.naturalToNumber 215
+  Issue.Issue <$> Date.fromGregorian 2020 6 11 <*> Number.fromNatural 215
 
-issue216 :: Either String HW.Type.Issue.Issue
+issue216 :: Either String Issue.Issue
 issue216 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2020 6 18
-    <*> HW.Type.Number.naturalToNumber 216
+  Issue.Issue <$> Date.fromGregorian 2020 6 18 <*> Number.fromNatural 216
 
-issue217 :: Either String HW.Type.Issue.Issue
+issue217 :: Either String Issue.Issue
 issue217 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2020 6 25
-    <*> HW.Type.Number.naturalToNumber 217
+  Issue.Issue <$> Date.fromGregorian 2020 6 25 <*> Number.fromNatural 217
 
-issue218 :: Either String HW.Type.Issue.Issue
+issue218 :: Either String Issue.Issue
 issue218 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2020 7 2
-    <*> HW.Type.Number.naturalToNumber 218
+  Issue.Issue <$> Date.fromGregorian 2020 7 2 <*> Number.fromNatural 218
 
-issue219 :: Either String HW.Type.Issue.Issue
+issue219 :: Either String Issue.Issue
 issue219 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2020 7 9
-    <*> HW.Type.Number.naturalToNumber 219
+  Issue.Issue <$> Date.fromGregorian 2020 7 9 <*> Number.fromNatural 219
 
-issue220 :: Either String HW.Type.Issue.Issue
+issue220 :: Either String Issue.Issue
 issue220 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2020 7 16
-    <*> HW.Type.Number.naturalToNumber 220
+  Issue.Issue <$> Date.fromGregorian 2020 7 16 <*> Number.fromNatural 220
 
-issue221 :: Either String HW.Type.Issue.Issue
+issue221 :: Either String Issue.Issue
 issue221 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2020 7 23
-    <*> HW.Type.Number.naturalToNumber 221
+  Issue.Issue <$> Date.fromGregorian 2020 7 23 <*> Number.fromNatural 221
 
-issue222 :: Either String HW.Type.Issue.Issue
+issue222 :: Either String Issue.Issue
 issue222 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2020 7 30
-    <*> HW.Type.Number.naturalToNumber 222
+  Issue.Issue <$> Date.fromGregorian 2020 7 30 <*> Number.fromNatural 222
 
-issue223 :: Either String HW.Type.Issue.Issue
+issue223 :: Either String Issue.Issue
 issue223 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2020 8 6
-    <*> HW.Type.Number.naturalToNumber 223
+  Issue.Issue <$> Date.fromGregorian 2020 8 6 <*> Number.fromNatural 223
 
-issue224 :: Either String HW.Type.Issue.Issue
+issue224 :: Either String Issue.Issue
 issue224 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2020 8 13
-    <*> HW.Type.Number.naturalToNumber 224
+  Issue.Issue <$> Date.fromGregorian 2020 8 13 <*> Number.fromNatural 224
 
-issue225 :: Either String HW.Type.Issue.Issue
+issue225 :: Either String Issue.Issue
 issue225 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2020 8 20
-    <*> HW.Type.Number.naturalToNumber 225
+  Issue.Issue <$> Date.fromGregorian 2020 8 20 <*> Number.fromNatural 225
 
-issue226 :: Either String HW.Type.Issue.Issue
+issue226 :: Either String Issue.Issue
 issue226 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2020 8 27
-    <*> HW.Type.Number.naturalToNumber 226
+  Issue.Issue <$> Date.fromGregorian 2020 8 27 <*> Number.fromNatural 226
 
-issue227 :: Either String HW.Type.Issue.Issue
+issue227 :: Either String Issue.Issue
 issue227 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2020 9 3
-    <*> HW.Type.Number.naturalToNumber 227
+  Issue.Issue <$> Date.fromGregorian 2020 9 3 <*> Number.fromNatural 227
 
-issue228 :: Either String HW.Type.Issue.Issue
+issue228 :: Either String Issue.Issue
 issue228 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2020 9 10
-    <*> HW.Type.Number.naturalToNumber 228
+  Issue.Issue <$> Date.fromGregorian 2020 9 10 <*> Number.fromNatural 228
 
-issue229 :: Either String HW.Type.Issue.Issue
+issue229 :: Either String Issue.Issue
 issue229 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2020 9 17
-    <*> HW.Type.Number.naturalToNumber 229
+  Issue.Issue <$> Date.fromGregorian 2020 9 17 <*> Number.fromNatural 229
 
-issue230 :: Either String HW.Type.Issue.Issue
+issue230 :: Either String Issue.Issue
 issue230 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2020 9 24
-    <*> HW.Type.Number.naturalToNumber 230
+  Issue.Issue <$> Date.fromGregorian 2020 9 24 <*> Number.fromNatural 230
 
-issue231 :: Either String HW.Type.Issue.Issue
+issue231 :: Either String Issue.Issue
 issue231 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2020 10 1
-    <*> HW.Type.Number.naturalToNumber 231
+  Issue.Issue <$> Date.fromGregorian 2020 10 1 <*> Number.fromNatural 231
 
-issue232 :: Either String HW.Type.Issue.Issue
+issue232 :: Either String Issue.Issue
 issue232 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2020 10 8
-    <*> HW.Type.Number.naturalToNumber 232
+  Issue.Issue <$> Date.fromGregorian 2020 10 8 <*> Number.fromNatural 232
 
-issue233 :: Either String HW.Type.Issue.Issue
+issue233 :: Either String Issue.Issue
 issue233 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2020 10 15
-    <*> HW.Type.Number.naturalToNumber 233
+  Issue.Issue <$> Date.fromGregorian 2020 10 15 <*> Number.fromNatural 233
 
-issue234 :: Either String HW.Type.Issue.Issue
+issue234 :: Either String Issue.Issue
 issue234 =
-  HW.Type.Issue.Issue
-    <$> HW.Type.Date.gregorianToDate 2020 10 22
-    <*> HW.Type.Number.naturalToNumber 234
+  Issue.Issue <$> Date.fromGregorian 2020 10 22 <*> Number.fromNatural 234

@@ -1,37 +1,33 @@
 module HW.Handler.PodcastFeed
-  ( podcastFeedHandler
+  ( handler
   )
 where
 
-import qualified Data.List
-import qualified Data.Map
-import qualified Data.Ord
-import qualified HW.Handler.Base
-import qualified HW.Template.PodcastFeed
-import qualified HW.Type.App
-import qualified HW.Type.Config
-import qualified HW.Type.Episode
-import qualified HW.Type.State
-import qualified Network.HTTP.Types
-import qualified Network.Wai
-import qualified Text.XML
+import qualified Data.List as List
+import qualified Data.Map as Map
+import qualified Data.Ord as Ord
+import qualified HW.Handler.Common as Common
+import qualified HW.Template.PodcastFeed as PodcastFeed
+import qualified HW.Type.App as App
+import qualified HW.Type.Config as Config
+import qualified HW.Type.Episode as Episode
+import qualified HW.Type.State as State
+import qualified Network.HTTP.Types as Http
+import qualified Network.Wai as Wai
+import qualified Text.XML as Xml
 
-podcastFeedHandler :: HW.Type.App.App Network.Wai.Response
-podcastFeedHandler = do
-  state <- HW.Type.App.getState
+handler :: App.App Wai.Response
+handler = do
+  state <- App.getState
   let
-    baseUrl = HW.Type.Config.configBaseUrl $ HW.Type.State.stateConfig state
+    baseUrl = Config.baseUrl $ State.config state
     episodes =
-      Data.List.sortOn (Data.Ord.Down . HW.Type.Episode.episodeDate)
-        . Data.Map.elems
-        $ HW.Type.State.stateEpisodes state
+      List.sortOn (Ord.Down . Episode.date) . Map.elems $ State.episodes state
   pure
-    . HW.Handler.Base.lbsResponse
-        Network.HTTP.Types.ok200
-        [ (Network.HTTP.Types.hCacheControl, "public, max-age=900")
-        , ( Network.HTTP.Types.hContentType
-          , "application/rss+xml; charset=utf-8"
-          )
+    . Common.lbs
+        Http.ok200
+        [ (Http.hCacheControl, "public, max-age=900")
+        , (Http.hContentType, "application/rss+xml; charset=utf-8")
         ]
-    . Text.XML.renderLBS Text.XML.def
-    $ HW.Template.PodcastFeed.podcastFeedTemplate baseUrl episodes
+    . Xml.renderLBS Xml.def
+    $ PodcastFeed.template baseUrl episodes

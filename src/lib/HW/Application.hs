@@ -5,92 +5,89 @@ module HW.Application
   )
 where
 
-import qualified Control.Monad.Trans.Reader
-import qualified Data.IORef
-import qualified Data.Text
-import qualified Data.Text.Encoding
-import qualified Data.Text.Encoding.Error
-import qualified HW.Handler.Advertising
-import qualified HW.Handler.Base
-import qualified HW.Handler.Episode
-import qualified HW.Handler.Index
-import qualified HW.Handler.Issue
-import qualified HW.Handler.Newsletter
-import qualified HW.Handler.NewsletterFeed
-import qualified HW.Handler.Podcast
-import qualified HW.Handler.PodcastFeed
-import qualified HW.Handler.Redirect
-import qualified HW.Handler.Robots
-import qualified HW.Handler.Search
-import qualified HW.Handler.Sitemap
-import qualified HW.Handler.Survey
-import qualified HW.Type.App
-import qualified HW.Type.Number
-import qualified HW.Type.Route
-import qualified HW.Type.State
-import qualified Network.Wai
+import qualified Control.Monad.Trans.Reader as Reader
+import qualified Data.IORef as IORef
+import qualified Data.Text as Text
+import qualified Data.Text.Encoding as Text
+import qualified Data.Text.Encoding.Error as Text
+import qualified HW.Handler.Advertising as Advertising
+import qualified HW.Handler.Common as Common
+import qualified HW.Handler.Episode as Episode
+import qualified HW.Handler.HealthCheck as HealthCheck
+import qualified HW.Handler.Index as Index
+import qualified HW.Handler.Issue as Issue
+import qualified HW.Handler.Newsletter as Newsletter
+import qualified HW.Handler.NewsletterFeed as NewsletterFeed
+import qualified HW.Handler.Podcast as Podcast
+import qualified HW.Handler.PodcastFeed as PodcastFeed
+import qualified HW.Handler.Redirect as Redirect
+import qualified HW.Handler.Robots as Robots
+import qualified HW.Handler.Search as Search
+import qualified HW.Handler.Sitemap as Sitemap
+import qualified HW.Handler.Survey as Survey
+import qualified HW.Type.App as App
+import qualified HW.Type.Number as Number
+import qualified HW.Type.Redirect as Redirect
+import qualified HW.Type.Route as Route
+import qualified HW.Type.State as State
+import qualified Network.Wai as Wai
 
 -- | The whole application. From a high level, this is responsible for checking
 -- the request method and path. If those route to an appropriate handler, this
 -- calls that handler and returns the response.
-application :: Data.IORef.IORef HW.Type.State.State -> Network.Wai.Application
+application :: IORef.IORef State.State -> Wai.Application
 application ref request respond =
   case (requestMethod request, requestRoute request) of
-    ("GET", Just route) -> do
-      response <- Control.Monad.Trans.Reader.runReaderT
-        (handle route request)
-        ref
+    ("GET", Just routeOrRedirect) -> do
+      response <- Reader.runReaderT (handle routeOrRedirect request) ref
       respond response
-    _ -> respond HW.Handler.Base.notFoundResponse
+    _ -> respond Common.notFound
 
 -- | Gets the request method as a string. This is convenient because request
 -- methods are technically byte strings, but almost always they can be thought
 -- of as plain ASCII strings.
-requestMethod :: Network.Wai.Request -> Data.Text.Text
-requestMethod =
-  Data.Text.Encoding.decodeUtf8With Data.Text.Encoding.Error.lenientDecode
-    . Network.Wai.requestMethod
+requestMethod :: Wai.Request -> Text.Text
+requestMethod = Text.decodeUtf8With Text.lenientDecode . Wai.requestMethod
 
 -- | Gets the route out of the request. If the request's path doesn't match
 -- any known routes, returns 'Nothing'.
-requestRoute :: Network.Wai.Request -> Maybe HW.Type.Route.Route
-requestRoute = HW.Type.Route.textToRoute . Network.Wai.pathInfo
+requestRoute :: Wai.Request -> Maybe (Either Redirect.Redirect Route.Route)
+requestRoute request =
+  let path = Wai.pathInfo request
+  in
+    case Route.fromText path of
+      Just route -> Just $ Right route
+      Nothing -> fmap Left $ Redirect.fromText path
 
 -- | Handles a particular route by calling the appropriate handler and
 -- returning the response.
 handle
-  :: HW.Type.Route.Route
-  -> Network.Wai.Request
-  -> HW.Type.App.App Network.Wai.Response
-handle route request = case route of
-  HW.Type.Route.RouteAdvertising -> HW.Handler.Advertising.advertisingHandler
-  HW.Type.Route.RouteAppleBadge ->
-    HW.Handler.Base.fileResponse "image/svg+xml" "apple-podcasts.svg"
-  HW.Type.Route.RouteCaptions number ->
-    HW.Handler.Base.fileResponse "text/vtt"
-      $ "podcast/episode-"
-      <> Data.Text.unpack (HW.Type.Number.numberToText number)
-      <> ".vtt"
-  HW.Type.Route.RouteEpisode number ->
-    HW.Handler.Episode.episodeHandler number
-  HW.Type.Route.RouteFavicon ->
-    HW.Handler.Base.fileResponse "image/x-icon" "favicon.ico"
-  HW.Type.Route.RouteGoogleBadge ->
-    HW.Handler.Base.fileResponse "image/svg+xml" "google-podcasts.svg"
-  HW.Type.Route.RouteIndex -> HW.Handler.Index.indexHandler
-  HW.Type.Route.RouteIssue number -> HW.Handler.Issue.issueHandler number
-  HW.Type.Route.RouteNewsletterFeed ->
-    HW.Handler.NewsletterFeed.newsletterFeedHandler
-  HW.Type.Route.RouteNewsletter -> HW.Handler.Newsletter.newsletterHandler
-  HW.Type.Route.RoutePodcastFeed -> HW.Handler.PodcastFeed.podcastFeedHandler
-  HW.Type.Route.RoutePodcast -> HW.Handler.Podcast.podcastHandler
-  HW.Type.Route.RouteLogo ->
-    HW.Handler.Base.fileResponse "image/png" "logo.png"
-  HW.Type.Route.RouteRedirect redirect ->
-    HW.Handler.Redirect.redirectHandler redirect
-  HW.Type.Route.RouteRobots -> HW.Handler.Robots.robotsHandler
-  HW.Type.Route.RouteSearch -> HW.Handler.Search.searchHandler request
-  HW.Type.Route.RouteSitemap -> HW.Handler.Sitemap.sitemapHandler
-  HW.Type.Route.RouteSurvey number -> HW.Handler.Survey.surveyHandler number
-  HW.Type.Route.RouteTachyons ->
-    HW.Handler.Base.fileResponse "text/css; charset=utf-8" "tachyons.css"
+  :: Either Redirect.Redirect Route.Route
+  -> Wai.Request
+  -> App.App Wai.Response
+handle routeOrRedirect request = case routeOrRedirect of
+  Left redirect -> Redirect.handler redirect
+  Right route -> case route of
+    Route.Advertising -> Advertising.handler
+    Route.AppleBadge -> Common.file "image/svg+xml" "apple-podcasts.svg"
+    Route.Captions number ->
+      Common.file "text/vtt"
+        $ "podcast/episode-"
+        <> Text.unpack (Number.toText number)
+        <> ".vtt"
+    Route.Episode number -> Episode.handler number
+    Route.Favicon -> Common.file "image/x-icon" "favicon.ico"
+    Route.GoogleBadge -> Common.file "image/svg+xml" "google-podcasts.svg"
+    Route.HealthCheck -> HealthCheck.handler
+    Route.Index -> Index.handler
+    Route.Issue number -> Issue.handler number
+    Route.NewsletterFeed -> NewsletterFeed.handler
+    Route.Newsletter -> Newsletter.handler
+    Route.PodcastFeed -> PodcastFeed.handler
+    Route.Podcast -> Podcast.handler
+    Route.Logo -> Common.file "image/png" "logo.png"
+    Route.Robots -> Robots.handler
+    Route.Search -> Search.handler request
+    Route.Sitemap -> Sitemap.handler
+    Route.Survey number -> Survey.handler number
+    Route.Tachyons -> Common.file "text/css; charset=utf-8" "tachyons.css"

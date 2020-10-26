@@ -1,40 +1,35 @@
 module HW.Handler.Index
-  ( indexHandler
+  ( handler
   )
 where
 
-import qualified Data.List
-import qualified Data.Map
-import qualified Data.Maybe
-import qualified Data.Ord
-import qualified HW.Handler.Base
-import qualified HW.Template.Index
-import qualified HW.Type.App
-import qualified HW.Type.Episode
-import qualified HW.Type.Issue
-import qualified HW.Type.State
-import qualified Network.HTTP.Types
-import qualified Network.Wai
+import qualified Data.List as List
+import qualified Data.Map as Map
+import qualified Data.Maybe as Maybe
+import qualified Data.Ord as Ord
+import qualified HW.Handler.Common as Common
+import qualified HW.Template.Index as Index
+import qualified HW.Type.App as App
+import qualified HW.Type.Episode as Episode
+import qualified HW.Type.Issue as Issue
+import qualified HW.Type.State as State
+import qualified Network.HTTP.Types as Http
+import qualified Network.Wai as Wai
 
-indexHandler :: HW.Type.App.App Network.Wai.Response
-indexHandler = do
-  state <- HW.Type.App.getState
+handler :: App.App Wai.Response
+handler = do
+  state <- App.getState
   let
     maybeIssue =
-      Data.Maybe.listToMaybe
-        . Data.List.sortOn (Data.Ord.Down . HW.Type.Issue.issueDate)
-        . Data.Map.elems
-        $ HW.Type.State.stateIssues state
+      Maybe.listToMaybe
+        . List.sortOn (Ord.Down . Issue.issueDate)
+        . Map.elems
+        $ State.issues state
     maybeEpisode =
-      Data.Maybe.listToMaybe
-        . Data.List.sortOn (Data.Ord.Down . HW.Type.Episode.episodeDate)
-        . Data.Map.elems
-        $ HW.Type.State.stateEpisodes state
+      Maybe.listToMaybe
+        . List.sortOn (Ord.Down . Episode.date)
+        . Map.elems
+        $ State.episodes state
   pure
-    . HW.Handler.Base.htmlResponse
-        Network.HTTP.Types.ok200
-        [(Network.HTTP.Types.hCacheControl, "public, max-age=900")]
-    $ HW.Template.Index.indexTemplate
-        (HW.Type.State.stateConfig state)
-        maybeIssue
-        maybeEpisode
+    . Common.html Http.ok200 [(Http.hCacheControl, "public, max-age=900")]
+    $ Index.template (State.config state) maybeIssue maybeEpisode

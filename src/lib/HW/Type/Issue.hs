@@ -4,11 +4,11 @@ module HW.Type.Issue
   )
 where
 
-import qualified HW.Type.Date
-import qualified HW.Type.Number
+import qualified HW.Type.Date as Date
+import qualified HW.Type.Number as Number
 
 data Issue = Issue
-  { issueDate :: HW.Type.Date.Date
-  , issueNumber :: HW.Type.Number.Number
+  { issueDate :: Date.Date
+  , issueNumber :: Number.Number
   }
   deriving (Eq, Show)

@@ -1,127 +1,113 @@
 module HW.Template.Newsletter
-  ( newsletterTemplate
-  , newsletterActionTemplate
-  , newsletterHead
+  ( template
+  , callToAction
+  , header
   )
 where
 
-import qualified HW.Template.Base
-import qualified HW.Type.BaseUrl
-import qualified HW.Type.Date
-import qualified HW.Type.Issue
-import qualified HW.Type.Number
-import qualified HW.Type.Route
-import qualified Lucid as H
-import qualified Lucid.Base as H
+import qualified HW.Template.Base as Base
+import qualified HW.Template.Common as Common
+import qualified HW.Type.BaseUrl as BaseUrl
+import qualified HW.Type.Date as Date
+import qualified HW.Type.Issue as Issue
+import qualified HW.Type.Number as Number
+import qualified HW.Type.Route as Route
+import qualified Lucid as Html
+import qualified Lucid.Base as Html
 
-newsletterTemplate
-  :: HW.Type.BaseUrl.BaseUrl -> [HW.Type.Issue.Issue] -> H.Html ()
-newsletterTemplate baseUrl issues =
-  HW.Template.Base.baseTemplate
-      baseUrl
-      "Haskell Weekly Newsletter"
-      (newsletterHead baseUrl Nothing)
+template :: BaseUrl.BaseUrl -> [Issue.Issue] -> Html.Html ()
+template baseUrl issues =
+  Base.template baseUrl "Haskell Weekly Newsletter" (header baseUrl Nothing)
     $ do
-        H.h2_ [H.class_ "f2 mv3 tracked-tight"] "Newsletter"
-        H.p_ [H.class_ "lh-copy"] $ do
+        Html.h2_ [Html.class_ "f2 mv3 tracked-tight"] "Newsletter"
+        Html.p_ [Html.class_ "lh-copy"] $ do
           "The Haskell Weekly Newsletter covers the Haskell programming language. "
           "Each issue features several hand-picked links to interesting content about Haskell from around the web."
-        newsletterActionTemplate baseUrl
-        H.ul_ [H.class_ "lh-copy"] $ mapM_ (issueTemplate baseUrl) issues
+        callToAction baseUrl
+        Html.ul_ [Html.class_ "lh-copy"] $ mapM_ (issueTemplate baseUrl) issues
 
-newsletterHead
-  :: HW.Type.BaseUrl.BaseUrl -> Maybe HW.Type.Issue.Issue -> H.Html ()
-newsletterHead baseUrl maybeIssue = do
-  H.link_
-    [ H.href_
-      $ HW.Type.Route.routeToTextWith baseUrl HW.Type.Route.RouteNewsletterFeed
-    , H.rel_ "alternate"
-    , H.type_ "application/atom+xml"
+header :: BaseUrl.BaseUrl -> Maybe Issue.Issue -> Html.Html ()
+header baseUrl maybeIssue = do
+  Html.link_
+    [ Html.href_ $ Route.toText baseUrl Route.NewsletterFeed
+    , Html.rel_ "alternate"
+    , Html.type_ "application/atom+xml"
     ]
   case maybeIssue of
     Nothing -> pure ()
     Just issue -> do
-      HW.Template.Base.metaOpenGraph "description"
+      Common.openGraph "description"
         $ "News about the Haskell programming language from "
-        <> HW.Type.Date.dateToShortText (HW.Type.Issue.issueDate issue)
+        <> Date.toShortText (Issue.issueDate issue)
         <> "."
-      HW.Template.Base.metaOpenGraph "title"
+      Common.openGraph "title"
         . mappend "Issue "
-        . HW.Type.Number.numberToText
-        $ HW.Type.Issue.issueNumber issue
-      HW.Template.Base.metaOpenGraph "url"
-        . HW.Type.Route.routeToTextWith baseUrl
-        . HW.Type.Route.RouteIssue
-        $ HW.Type.Issue.issueNumber issue
+        . Number.toText
+        $ Issue.issueNumber issue
+      Common.openGraph "url"
+        . Route.toText baseUrl
+        . Route.Issue
+        $ Issue.issueNumber issue
 
-newsletterActionTemplate :: HW.Type.BaseUrl.BaseUrl -> H.Html ()
-newsletterActionTemplate baseUrl =
-  H.div_ [H.class_ "ba b--yellow bg-washed-yellow center mw6 pa3"] $ do
-    H.p_ [H.class_ "lh-copy mt0"] $ do
+callToAction :: BaseUrl.BaseUrl -> Html.Html ()
+callToAction baseUrl =
+  Html.div_ [Html.class_ "ba b--yellow bg-washed-yellow center mw6 pa3"] $ do
+    Html.p_ [Html.class_ "lh-copy mt0"] $ do
       "Subscribe now! "
       "We'll never send you spam. "
       "You can also follow us "
-      H.a_ [H.href_ "https://twitter.com/haskellweekly"] "on Twitter"
+      Html.a_ [Html.href_ "https://twitter.com/haskellweekly"] "on Twitter"
       " or with "
-      H.a_
-        [ H.href_ $ HW.Type.Route.routeToTextWith
-            baseUrl
-            HW.Type.Route.RouteNewsletterFeed
-        ]
+      Html.a_
+        [Html.href_ $ Route.toText baseUrl Route.NewsletterFeed]
         "our feed"
       ". Read more issues in "
-      H.a_
-        [ H.href_ $ HW.Type.Route.routeToTextWith
-            baseUrl
-            HW.Type.Route.RouteNewsletter
-        ]
+      Html.a_
+        [Html.href_ $ Route.toText baseUrl Route.Newsletter]
         "the archives"
       "."
-    H.form_
-        [ H.action_
+    Html.form_
+        [ Html.action_
           "https://news.us10.list-manage.com/subscribe/post?u=49a6a2e17b12be2c5c4dcb232&id=ffbbbbd930"
-        , H.class_ "flex"
-        , H.method_ "post"
+        , Html.class_ "flex"
+        , Html.method_ "post"
         ]
       $ do
-          H.div_
-              [ H.makeAttribute "aria-hidden" "true"
-              , H.class_ "absolute f7 top--2"
+          Html.div_
+              [ Html.makeAttribute "aria-hidden" "true"
+              , Html.class_ "absolute f7 top--2"
               ]
-            $ H.input_
-                [ H.name_ "b_49a6a2e17b12be2c5c4dcb232_ffbbbbd930"
-                , H.tabindex_ "-1"
-                , H.type_ "text"
-                , H.value_ ""
+            $ Html.input_
+                [ Html.name_ "b_49a6a2e17b12be2c5c4dcb232_ffbbbbd930"
+                , Html.tabindex_ "-1"
+                , Html.type_ "text"
+                , Html.value_ ""
                 ]
-          H.input_
-            [ H.makeAttribute "aria-label" "Email address"
-            , H.class_ "ba br0 b--silver input-reset pa3 flex-auto"
-            , H.name_ "EMAIL"
-            , H.placeholder_ "you@example.com"
-            , H.required_ "required"
-            , H.type_ "email"
+          Html.input_
+            [ Html.makeAttribute "aria-label" "Email address"
+            , Html.class_ "ba br0 b--silver input-reset pa3 flex-auto"
+            , Html.name_ "EMAIL"
+            , Html.placeholder_ "you@example.com"
+            , Html.required_ "required"
+            , Html.type_ "email"
             ]
-          H.button_
-            [ H.class_ "b bn bg-dark-blue input-reset pa3 pointer white"
-            , H.type_ "submit"
+          Html.button_
+            [ Html.class_ "b bn bg-dark-blue input-reset pa3 pointer white"
+            , Html.type_ "submit"
             ]
             "Subscribe"
 
-issueTemplate :: HW.Type.BaseUrl.BaseUrl -> HW.Type.Issue.Issue -> H.Html ()
-issueTemplate baseUrl issue = H.li_ $ do
-  H.a_
-      [ H.href_
-        . HW.Type.Route.routeToTextWith baseUrl
-        . HW.Type.Route.RouteIssue
-        $ HW.Type.Issue.issueNumber issue
+issueTemplate :: BaseUrl.BaseUrl -> Issue.Issue -> Html.Html ()
+issueTemplate baseUrl issue = Html.li_ $ do
+  Html.a_
+      [ Html.href_ . Route.toText baseUrl . Route.Issue $ Issue.issueNumber
+          issue
       ]
     $ do
         "Issue "
-        H.toHtml . HW.Type.Number.numberToText $ HW.Type.Issue.issueNumber
-          issue
+        Html.toHtml . Number.toText $ Issue.issueNumber issue
   " "
-  H.span_ [H.class_ "mid-gray"]
-    . H.toHtml
-    . HW.Type.Date.dateToShortText
-    $ HW.Type.Issue.issueDate issue
+  Html.span_ [Html.class_ "mid-gray"]
+    . Html.toHtml
+    . Date.toShortText
+    $ Issue.issueDate issue

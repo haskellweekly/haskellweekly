@@ -7,41 +7,41 @@ module HW.Type.State
   )
 where
 
-import qualified Data.ByteString
-import qualified Data.IORef
-import qualified Data.Map
-import qualified Data.Text
-import qualified Data.Time
-import qualified HW.Episodes
-import qualified HW.Issues
-import qualified HW.Type.Config
-import qualified Network.Wai
+import qualified Data.ByteString as ByteString
+import qualified Data.IORef as IORef
+import qualified Data.Map as Map
+import qualified Data.Text as Text
+import qualified Data.Time as Time
+import qualified HW.Episodes as Episodes
+import qualified HW.Issues as Issues
+import qualified HW.Type.Config as Config
+import qualified Network.Wai as Wai
 
 data State = State
-  { stateConfig :: HW.Type.Config.Config
-  , stateEpisodes :: HW.Episodes.Episodes
-  , stateFileCache :: Data.Map.Map FilePath Data.ByteString.ByteString
-  , stateIssues :: HW.Issues.Issues
-  , stateResponseCache
-      :: Data.Map.Map
-        (Data.Text.Text, Data.Text.Text)
-        (Data.Time.UTCTime, Network.Wai.Response)
+  { config :: Config.Config
+  , episodes :: Episodes.Episodes
+  , fileCache :: Map.Map FilePath ByteString.ByteString
+  , issues :: Issues.Issues
+  , responseCache
+      :: Map.Map
+        (Text.Text, Text.Text)
+        (Time.UTCTime, Wai.Response)
   }
 
 -- | Builds up the state using the given config. If anything goes wrong, this
 -- will fail.
-configToState :: HW.Type.Config.Config -> IO State
+configToState :: Config.Config -> IO State
 configToState config = do
-  episodes <- either fail pure HW.Episodes.episodes
-  issues <- either fail pure HW.Issues.issues
+  episodes <- either fail pure Episodes.episodes
+  issues <- either fail pure Issues.issues
   pure State
-    { stateConfig = config
-    , stateEpisodes = episodes
-    , stateFileCache = Data.Map.empty
-    , stateIssues = issues
-    , stateResponseCache = Data.Map.empty
+    { config
+    , episodes
+    , fileCache = Map.empty
+    , issues
+    , responseCache = Map.empty
     }
 
-modifyState :: Data.IORef.IORef State -> (State -> State) -> IO ()
+modifyState :: IORef.IORef State -> (State -> State) -> IO ()
 modifyState ref modify =
-  Data.IORef.atomicModifyIORef' ref $ \state -> (modify state, ())
+  IORef.atomicModifyIORef' ref $ \state -> (modify state, ())

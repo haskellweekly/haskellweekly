@@ -1,4 +1,4 @@
-cabal-version: >= 1.10
+cabal-version: 2.0
 -- https://www.haskell.org/cabal/users-guide/developing-packages.html#package-descriptions
 
 name: haskellweekly
@@ -50,7 +50,9 @@ library
     , wai-extra >= 3.0.24 && < 3.2
     , warp >= 3.2.25 && < 3.4
     , xml-conduit >= 1.8.0 && < 1.10
-  default-extensions: OverloadedStrings
+  default-extensions:
+    NamedFieldPuns
+    OverloadedStrings
   default-language: Haskell2010
   exposed-modules: HaskellWeekly
   ghc-options:
@@ -66,8 +68,9 @@ library
     HW.Application
     HW.Episodes
     HW.Handler.Advertising
-    HW.Handler.Base
+    HW.Handler.Common
     HW.Handler.Episode
+    HW.Handler.HealthCheck
     HW.Handler.Index
     HW.Handler.Issue
     HW.Handler.Newsletter
@@ -85,6 +88,7 @@ library
     HW.Server
     HW.Template.Advertising
     HW.Template.Base
+    HW.Template.Common
     HW.Template.Episode
     HW.Template.Index
     HW.Template.Issue

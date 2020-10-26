@@ -1,9 +1,0 @@
-# https://docs.docker.com/engine/reference/builder/#dockerignore-file
-*
-
-!/data/
-!/default.nix
-!/haskellweekly.cabal
-!/LICENSE.markdown
-!/README.markdown
-!/src/

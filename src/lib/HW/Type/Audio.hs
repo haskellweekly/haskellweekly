@@ -7,25 +7,25 @@
 -- get mysterious failures.
 module HW.Type.Audio
   ( Audio
-  , audioToText
-  , textToAudio
+  , toText
+  , fromText
   )
 where
 
-import qualified Data.Char
-import qualified Data.Text
+import qualified Data.Char as Char
+import qualified Data.Text as Text
 
 newtype Audio =
-  Audio Data.Text.Text
+  Audio Text.Text
   deriving (Eq, Show)
 
 -- | Unwraps an audio URL and gives you back the underlying text.
-audioToText :: Audio -> Data.Text.Text
-audioToText (Audio text) = text
+toText :: Audio -> Text.Text
+toText (Audio text) = text
 
 -- | Converts a string into an audio URL. If the string is all blank spaces,
 -- this will fail.
-textToAudio :: Data.Text.Text -> Either String Audio
-textToAudio text = if Data.Text.all Data.Char.isSpace text
+fromText :: Text.Text -> Either String Audio
+fromText text = if Text.all Char.isSpace text
   then Left $ "invalid Audio: " <> show text
   else Right $ Audio text

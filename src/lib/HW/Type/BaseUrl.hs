@@ -1,18 +1,18 @@
 module HW.Type.BaseUrl
   ( BaseUrl
-  , baseUrlToText
-  , textToBaseUrl
+  , toText
+  , fromText
   )
 where
 
-import qualified Data.Text
+import qualified Data.Text as Text
 
 newtype BaseUrl =
-  BaseUrl Data.Text.Text
+  BaseUrl Text.Text
   deriving (Eq, Show)
 
-baseUrlToText :: BaseUrl -> Data.Text.Text
-baseUrlToText (BaseUrl text) = text
+toText :: BaseUrl -> Text.Text
+toText (BaseUrl text) = text
 
-textToBaseUrl :: Data.Text.Text -> BaseUrl
-textToBaseUrl = BaseUrl
+fromText :: Text.Text -> BaseUrl
+fromText = BaseUrl

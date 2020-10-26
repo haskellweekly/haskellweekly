@@ -6,18 +6,18 @@ module HW.Type.Config
   )
 where
 
-import qualified Data.Text
-import qualified HW.Type.BaseUrl
-import qualified Network.Wai.Handler.Warp
-import qualified Paths_haskellweekly
-import qualified System.Environment
-import qualified Text.Read
+import qualified Data.Text as Text
+import qualified HW.Type.BaseUrl as BaseUrl
+import qualified Network.Wai.Handler.Warp as Warp
+import qualified Paths_haskellweekly as Package
+import qualified System.Environment as Environment
+import qualified Text.Read as Read
 
 data Config = Config
-  { configBaseUrl :: HW.Type.BaseUrl.BaseUrl
-  , configDataDirectory :: FilePath
-  , configGoogleSiteVerification :: Maybe Data.Text.Text
-  , configPort :: Network.Wai.Handler.Warp.Port
+  { baseUrl :: BaseUrl.BaseUrl
+  , dataDirectory :: FilePath
+  , googleSiteVerification :: Maybe Text.Text
+  , port :: Warp.Port
   }
   deriving (Eq, Show)
 
@@ -27,38 +27,32 @@ data Config = Config
 -- actually exist.
 getConfig :: IO Config
 getConfig = do
-  dataDirectory <- Paths_haskellweekly.getDataDir
+  dataDirectory <- Package.getDataDir
   googleSiteVerification <- getGoogleSiteVerification
   port <- getPort
   baseUrl <- getBaseUrl
-  pure Config
-    { configBaseUrl = baseUrl
-    , configDataDirectory = dataDirectory
-    , configGoogleSiteVerification = googleSiteVerification
-    , configPort = port
-    }
+  pure Config { baseUrl, dataDirectory, googleSiteVerification, port }
 
 -- | Gets the base URL that the server will be available at. This is necessary
 -- because the server could be behind a reverse proxy or in a container or
 -- something.
-getBaseUrl :: IO HW.Type.BaseUrl.BaseUrl
-getBaseUrl =
-  fmap (HW.Type.BaseUrl.textToBaseUrl . maybe Data.Text.empty Data.Text.pack)
-    $ System.Environment.lookupEnv "BASE_URL"
+getBaseUrl :: IO BaseUrl.BaseUrl
+getBaseUrl = fmap (BaseUrl.fromText . maybe Text.empty Text.pack)
+  $ Environment.lookupEnv "BASE_URL"
 
 -- | This is used to verify that I actually own the website as far as Google is
 -- concerned. The verification is useful for Google's webmaster tools.
-getGoogleSiteVerification :: IO (Maybe Data.Text.Text)
+getGoogleSiteVerification :: IO (Maybe Text.Text)
 getGoogleSiteVerification = do
-  maybeString <- System.Environment.lookupEnv "GOOGLE_SITE_VERIFICATION"
-  pure $ fmap Data.Text.pack maybeString
+  maybeString <- Environment.lookupEnv "GOOGLE_SITE_VERIFICATION"
+  pure $ fmap Text.pack maybeString
 
 -- | Gets the port that the server should run on. By default this is @8080@.
-getPort :: IO Network.Wai.Handler.Warp.Port
+getPort :: IO Warp.Port
 getPort = do
-  maybeString <- System.Environment.lookupEnv "PORT"
+  maybeString <- Environment.lookupEnv "PORT"
   case maybeString of
     Nothing -> pure 8080
-    Just string -> case Text.Read.readMaybe string of
+    Just string -> case Read.readMaybe string of
       Nothing -> fail $ "invalid PORT: " <> show string
       Just port -> pure port

@@ -1,21 +1,19 @@
 module HW.Handler.Advertising
-  ( advertisingHandler
+  ( handler
   )
 where
 
-import qualified HW.Handler.Base
-import qualified HW.Template.Advertising
-import qualified HW.Type.App
-import qualified HW.Type.Config
-import qualified Network.HTTP.Types
-import qualified Network.Wai
+import qualified HW.Handler.Common as Common
+import qualified HW.Template.Advertising as Advertising
+import qualified HW.Type.App as App
+import qualified HW.Type.Config as Config
+import qualified Network.HTTP.Types as Http
+import qualified Network.Wai as Wai
 
-advertisingHandler :: HW.Type.App.App Network.Wai.Response
-advertisingHandler = do
-  config <- HW.Type.App.getConfig
+handler :: App.App Wai.Response
+handler = do
+  config <- App.getConfig
   pure
-    . HW.Handler.Base.htmlResponse
-        Network.HTTP.Types.ok200
-        [(Network.HTTP.Types.hCacheControl, "public, max-age=900")]
-    . HW.Template.Advertising.advertisingTemplate
-    $ HW.Type.Config.configBaseUrl config
+    . Common.html Http.ok200 [(Http.hCacheControl, "public, max-age=900")]
+    . Advertising.template
+    $ Config.baseUrl config
