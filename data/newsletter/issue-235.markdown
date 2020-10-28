@@ -4,7 +4,8 @@ This is a weekly summary of what's going on in its community.
 
 ## Featured
 
-undefined
+  - [Quicksort in Haskell](https://qnikst.github.io/posts/2020-10-18-quicksort.html) by Alexander Vershilov
+    > Making beautiful quicksort real with rewriting rules.
 
 ## Jobs
 
