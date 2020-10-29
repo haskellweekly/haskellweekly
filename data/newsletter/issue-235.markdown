@@ -66,4 +66,7 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 
 ## Call for participation
 
-undefined
+-   [esqueleto: Refactor test suite](https://github.com/bitemyapp/esqueleto/issues/217)
+-   [ihp: File uploads should have cloud storage option](https://github.com/digitallyinduced/ihp/issues/516)
+-   [persistent: `derivePersistField` phantom type support](https://github.com/yesodweb/persistent/issues/1137)
+-   [wasp: Wasp (CLI) should print its version](https://github.com/wasp-lang/wasp/issues/102)
