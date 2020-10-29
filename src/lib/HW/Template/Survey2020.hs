@@ -5,6 +5,7 @@ module HW.Template.Survey2020
 where
 
 import qualified Control.Monad as Monad
+import qualified Data.String as String
 import qualified Data.Text as Text
 import qualified HW.Template.Base as Base
 import qualified HW.Type.BaseUrl as BaseUrl
@@ -53,7 +54,7 @@ template baseUrl =
       , "  document.querySelector('#survey').classList.remove('dn');"
       , "  document.querySelectorAll('input').forEach(function (input) {"
       , "    input.addEventListener('input', (event) => {"
-      , "      const selector = '[name=\"' + event.target.name + ' (time)\"]';"
+      , "      const selector = '[name=\"' + event.target.name + 't\"]';"
       , "      const now = new Date().toISOString();"
       , "      document.querySelector(selector).value = now;"
       , "    });"
@@ -61,8 +62,8 @@ template baseUrl =
       , "}());"
       ]
 
-sections :: [Section]
-sections =
+sections :: [(Int, Section)]
+sections = withIndex
   [ haskellUsageSection
   , projectsSection
   , compilersSection
@@ -75,8 +76,11 @@ sections =
   , freeResponseSection
   ]
 
+withIndex :: [a] -> [(Int, a)]
+withIndex = zip [0 ..]
+
 haskellUsageSection :: Section
-haskellUsageSection = Section
+haskellUsageSection = makeSection
   "Haskell usage"
   [ Question "What is your email address?" Email
   , Question "Do you use Haskell?"
@@ -204,7 +208,7 @@ haskellUsageSection = Section
   ]
 
 projectsSection :: Section
-projectsSection = Section
+projectsSection = makeSection
   "Projects"
   [ Question "How many Haskell projects do you contribute to?" $ SingleResponse
   ["0", "1", "2", "3", "4", "5", "6 to 10", "11 to 20", "More than 20"]
@@ -224,7 +228,7 @@ projectsSection = Section
   ]
 
 compilersSection :: Section
-compilersSection = Section
+compilersSection = makeSection
   "Compilers"
   [ Question "Which Haskell compilers do you use?"
   $ MultiResponse AllowOther ["GHC", "GHCJS", "Eta"]
@@ -378,7 +382,7 @@ compilersSection = Section
   ]
 
 toolingSection :: Section
-toolingSection = Section
+toolingSection = makeSection
   "Tooling"
   [ Question "Which build tools do you use for Haskell?" $ MultiResponse
   AllowOther
@@ -414,7 +418,7 @@ toolingSection = Section
   ]
 
 infrastructureSection :: Section
-infrastructureSection = Section
+infrastructureSection = makeSection
   "Infrastructure"
   [ Question "Which tools do you use to deploy Haskell applications?"
   $ MultiResponse
@@ -436,7 +440,7 @@ infrastructureSection = Section
   ]
 
 communitySection :: Section
-communitySection = Section
+communitySection = makeSection
   "Community"
   [ Question "Where do you interact with the Haskell community?"
   $ MultiResponse
@@ -486,7 +490,7 @@ communitySection = Section
   ]
 
 feelingsSection :: Section
-feelingsSection = Section
+feelingsSection = makeSection
   "Feelings"
   [ likert "I feel welcome in the Haskell community."
   , likert "I am satisfied with Haskell as a language."
@@ -519,7 +523,7 @@ feelingsSection = Section
   ]
 
 demographicsSection :: Section
-demographicsSection = Section
+demographicsSection = makeSection
   "Demographics"
   [ Question "Which country do you live in?" $ SingleResponse
   [ "Afghanistan"
@@ -845,7 +849,7 @@ demographicsSection = Section
   ]
 
 metaSection :: Section
-metaSection = Section
+metaSection = makeSection
   "Meta"
   [ Question "Did you take any previous surveys?"
   $ MultiResponse RejectOther ["2018", "2017"]
@@ -870,7 +874,7 @@ metaSection = Section
   ]
 
 freeResponseSection :: Section
-freeResponseSection = Section
+freeResponseSection = makeSection
   "Free response"
   [ Question
   "If you wanted to convince someone to use Haskell, what would you say?"
@@ -883,9 +887,12 @@ freeResponseSection = Section
 data Section =
   Section
   { sectionTitle :: Text.Text
-  , sectionQuestions :: [Question]
+  , sectionQuestions :: [(Int, Question)]
   }
   deriving (Eq, Show)
+
+makeSection :: Text.Text -> [Question] -> Section
+makeSection title = Section title . withIndex
 
 data Question =
   Question
@@ -910,20 +917,24 @@ data Other
   | RejectOther
   deriving (Eq, Show)
 
-renderSections :: [Section] -> H.Html ()
+renderSections :: [(Int, Section)] -> H.Html ()
 renderSections = mapM_ renderSection
 
-renderSection :: Section -> H.Html ()
-renderSection section = do
+renderSection :: (Int, Section) -> H.Html ()
+renderSection (s, section) = do
   H.h3_ [H.class_ "f3 mv3 tracked-tight"] . H.toHtml $ sectionTitle section
-  renderQuestions $ sectionQuestions section
+  renderQuestions s $ sectionQuestions section
 
-renderQuestions :: [Question] -> H.Html ()
-renderQuestions = H.ol_ . mapM_ renderQuestion
+renderQuestions :: Int -> [(Int, Question)] -> H.Html ()
+renderQuestions s = H.ol_ . mapM_ (renderQuestion s)
 
-renderQuestion :: Question -> H.Html ()
-renderQuestion question = H.li_ $ do
-  let name = questionPrompt question
+genericShow :: (Show a, String.IsString string) => a -> string
+genericShow = String.fromString . show
+
+renderQuestion :: Int -> (Int, Question) -> H.Html ()
+renderQuestion s (q, question) = H.li_ $ do
+  let name = Text.concat ["s", genericShow s, "q", genericShow q]
+  H.input_ [H.name_ $ name <> "p", H.type_ "hidden", H.value_ $ questionPrompt question]
   H.p_ $ do
     H.strong_ . H.toHtml $ questionPrompt question
     " (optional)"
@@ -956,7 +967,7 @@ renderQuestion question = H.li_ $ do
             "Other: "
             H.input_ [H.name_ name]
       FreeResponse -> H.textarea_ [H.class_ "db h4 mv3 w-100", H.name_ name] ""
-    H.input_ [H.name_ $ name <> " (time)", H.type_ "hidden"]
+    H.input_ [H.name_ $ name <> "t", H.type_ "hidden"]
 
 callToAction :: BaseUrl.BaseUrl -> Html.Html ()
 callToAction baseUrl = Monad.when False $ do -- TODO
