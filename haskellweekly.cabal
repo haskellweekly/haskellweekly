@@ -1,10 +1,8 @@
-cabal-version: 2.0
--- https://www.haskell.org/cabal/users-guide/developing-packages.html#package-descriptions
-
 name: haskellweekly
-version: 0.2020.10.22
+version: 0.2020.10.29
 
 build-type: Simple
+cabal-version: >= 1.10
 category: Web
 description:
   Haskell Weekly publishes curated news about the Haskell programming language.
