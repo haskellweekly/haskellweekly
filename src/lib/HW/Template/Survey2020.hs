@@ -117,14 +117,19 @@ haskellUsageSection = makeSection
   , "4 years to 5 years"
   , "5 years to 6 years"
   , "6 years to 7 years"
-  , "More than 7 years"
+  , "7 years to 8 years"
+  , "8 years to 9 years"
+  , "9 years to 10 years"
+  , "10 years to 15 years"
+  , "15 years to 20 years"
+  , "More than 20 years"
   ]
   , Question "How frequently do you use Haskell?"
   $ SingleResponse ["Daily", "Weekly", "Monthly", "Yearly", "Rarely"]
   , Question "How would you rate your proficiency in Haskell?" $ SingleResponse
   ["Beginner", "Intermediate", "Advanced", "Expert", "Master"]
   , Question "Where do you use Haskell?"
-  $ MultiResponse RejectOther ["Home", "School", "Work"]
+  $ MultiResponse RejectOther ["Academia", "Home", "Industry", "School"]
   , Question "Do you use Haskell at work?" $ SingleResponse
   [ "Yes, most of the time"
   , "Yes, some of the time"
@@ -195,14 +200,17 @@ haskellUsageSection = makeSection
       ]
   , Question "Which industries do you use Haskell in?" $ MultiResponse
   AllowOther
-  [ "Banking or finance"
+  [ "Academia"
+  , "Banking or finance"
   , "Commerce or retail"
+  , "Cryptocurrency"
   , "Education"
   , "Embedded"
   , "Gaming"
   , "Government"
   , "Healthcare or medical"
   , "Mobile"
+  , "Science"
   , "Web"
   ]
   ]
@@ -231,7 +239,7 @@ compilersSection :: Section
 compilersSection = makeSection
   "Compilers"
   [ Question "Which Haskell compilers do you use?"
-  $ MultiResponse AllowOther ["GHC", "GHCJS", "Eta"]
+  $ MultiResponse AllowOther ["GHC", "GHCJS"]
   , Question "Which installation methods do you use for your Haskell compiler?"
   $ MultiResponse
       AllowOther
@@ -259,7 +267,8 @@ compilersSection = makeSection
       ]
   , Question "Which versions of GHC do you use?" $ MultiResponse
   RejectOther
-  ["HEAD", "8.8.x", "8.6.x", "8.4.x", "8.2.x", "8.0.x", "7.x"]
+  ["Newer", "8.10.x", "8.8.x", "8.6.x", "8.4.x", "8.2.x", "8.0.x", "Older"]
+  -- TODO: upvote/downvote
   , Question
     "Which language extensions would you like to be enabled by default?"
   $ MultiResponse
@@ -390,11 +399,11 @@ toolingSection = makeSection
   , Question "Which editors do you use for Haskell?" $ MultiResponse
   AllowOther
   [ "Atom"
-  , "Emacs"
+  , "Emacs family"
   , "IntelliJ IDEA"
   , "Notepad++"
   , "Sublime Text"
-  , "Vi"
+  , "Vi family"
   , "Visual Studio Code"
   ]
   , Question "Which version control systems do you use for Haskell?"
@@ -852,7 +861,7 @@ metaSection :: Section
 metaSection = makeSection
   "Meta"
   [ Question "Did you take any previous surveys?"
-  $ MultiResponse RejectOther ["2018", "2017"]
+  $ MultiResponse RejectOther ["2019", "2018", "2017"]
   , Question "How did you hear about this survey?" $ SingleResponse
   [ "Discord"
   , "Discourse"
