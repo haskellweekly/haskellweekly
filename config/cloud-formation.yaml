@@ -13,6 +13,9 @@ Description: Haskell Weekly
 
 Parameters:
 
+  AccessKeyId:
+    Type: String
+
   DomainName:
     Type: String
     Default: haskellweekly.news
@@ -20,6 +23,9 @@ Parameters:
   PortNumber:
     Type: Number
     Default: 8080
+
+  SecretAccessKey:
+    Type: String
 
   TagName:
     Type: String
@@ -332,6 +338,12 @@ Resources:
     Properties:
       ContainerDefinitions:
         - Environment:
+            - Name: AWS_ACCESS_KEY_ID
+              Value: !Ref AccessKeyId
+            - Name: AWS_REGION
+              Value: !Ref AWS::Region
+            - Name: AWS_SECRET_ACCESS_KEY
+              Value: !Ref SecretAccessKey
             - Name: BASE_URL
               Value: !Sub https://${DomainName}
             - Name: PORT
