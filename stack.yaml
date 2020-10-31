@@ -1,2 +1,6 @@
 allow-different-user: true
 resolver: nightly-2020-10-27
+extra-deps:
+  - amazonka-1.6.1
+  - unliftio-core-0.1.2.0
+allow-newer: true

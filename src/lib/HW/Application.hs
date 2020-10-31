@@ -25,6 +25,7 @@ import qualified HW.Handler.Robots as Robots
 import qualified HW.Handler.Search as Search
 import qualified HW.Handler.Sitemap as Sitemap
 import qualified HW.Handler.Survey as Survey
+import qualified HW.S3 as S3
 import qualified HW.Type.App as App
 import qualified HW.Type.Number as Number
 import qualified HW.Type.Redirect as Redirect
@@ -38,6 +39,11 @@ import qualified Network.Wai as Wai
 application :: IORef.IORef State.State -> Wai.Application
 application ref request respond =
   case (requestMethod request, requestRoute request) of
+    ("POST", Just (Right (Route.Survey year))) | Number.toNatural year == 2020 -> do
+      body <- Wai.strictRequestBody request
+      S3.upload body
+      response <- Reader.runReaderT (Redirect.handler $ Redirect.fromRoute Route.Index) ref
+      respond response
     ("GET", Just routeOrRedirect) -> do
       response <- Reader.runReaderT (handle routeOrRedirect request) ref
       respond response

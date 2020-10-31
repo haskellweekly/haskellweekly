@@ -967,7 +967,7 @@ renderQuestion s (q, question) = H.li_ $ do
     Email -> H.div_ $ do
       H.input_
         [H.name_ name
-        , H.placeholder_ "someone@example.com"
+        , H.placeholder_ "you@example.com"
         , H.type_ "email"
         ]
     SingleResponse choices -> Monad.forM_ choices $ \choice -> H.div_ $ do
@@ -992,7 +992,7 @@ renderQuestion s (q, question) = H.li_ $ do
         H.label_ [H.class_ "ba bg-washed-red ph1 pointer red"] $ do
           "No "
           H.input_ [H.class_ "pointer", H.name_ n, H.type_ "radio", H.value_ "no"]
-        H.input_ [H.checked_, H.class_ "mh1 pointer", H.name_ n, H.type_ "radio"]
+        H.input_ [H.checked_, H.class_ "mh1 pointer", H.name_ n, H.type_ "radio", H.value_ ""]
         H.label_ [H.class_ "ba bg-washed-green green ph1 pointer"] $ do
           H.input_ [H.class_ "pointer", H.name_ n, H.type_ "radio", H.value_ "yes"]
           " Yes"

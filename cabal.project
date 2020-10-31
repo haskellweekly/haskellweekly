@@ -1,0 +1,4 @@
+allow-newer: unliftio-core:base
+jobs: $ncpus
+packages: .
+tests: True

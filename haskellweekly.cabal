@@ -31,16 +31,21 @@ library
   autogen-modules: Paths_haskellweekly
   build-depends:
     base ^>= 4.14.0
-    , base64-bytestring ^>= 1.1.0
+    , aeson ^>= 1.5.4
+    , amazonka ^>= 1.6.1
+    , amazonka-s3 ^>= 1.6.1
     , bytestring ^>= 0.10.10
     , case-insensitive ^>= 1.2.1
     , cmark ^>= 0.6
+    , conduit ^>= 1.3.3
     , containers ^>= 0.6.2
-    , cryptohash-sha1 ^>= 0.11.100
+    , cryptonite ^>= 0.27
     , filepath ^>= 1.4.2
     , http-types ^>= 0.12.3
     , lucid ^>= 2.9.12
+    , memory ^>= 0.15.0
     , network-uri ^>= 2.6.3
+    , random ^>= 1.1
     , text ^>= 1.2.3
     , time ^>= 1.9.3
     , transformers ^>= 0.5.6
@@ -84,6 +89,7 @@ library
     HW.Issues
     HW.Main
     HW.Middleware
+    HW.S3
     HW.Server
     HW.Template.Advertising
     HW.Template.Base
