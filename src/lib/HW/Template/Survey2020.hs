@@ -267,12 +267,10 @@ compilersSection = makeSection
       ]
   , Question "Which versions of GHC do you use?" $ MultiResponse
   RejectOther
-  ["Newer", "8.10.x", "8.8.x", "8.6.x", "8.4.x", "8.2.x", "8.0.x", "Older"]
-  -- TODO: upvote/downvote
+  ["> 8.10", "8.10.x", "8.8.x", "8.6.x", "8.4.x", "8.2.x", "8.0.x", "< 8.0"]
   , Question
     "Which language extensions would you like to be enabled by default?"
-  $ MultiResponse
-      AllowOther
+  $ ExtensionResponse
       [ "AllowAmbiguousTypes"
       , "ApplicativeDo"
       , "Arrows"
@@ -914,6 +912,7 @@ data Response
   = Email
   | SingleResponse [Text.Text]
   | MultiResponse Other [Text.Text]
+  | ExtensionResponse [Text.Text]
   | FreeResponse
   deriving (Eq, Show)
 
@@ -935,7 +934,7 @@ renderSection (s, section) = do
   renderQuestions s $ sectionQuestions section
 
 renderQuestions :: Int -> [(Int, Question)] -> H.Html ()
-renderQuestions s = H.ol_ . mapM_ (renderQuestion s)
+renderQuestions s = H.ol_ [H.class_ "pl3"] . mapM_ (renderQuestion s)
 
 genericShow :: (Show a, String.IsString string) => a -> string
 genericShow = String.fromString . show
@@ -961,12 +960,12 @@ renderQuestion s (q, question) = H.li_ $ do
         , H.type_ "email"
         ]
       SingleResponse choices -> Monad.forM_ choices $ \choice ->
-        H.label_ [H.class_ "db"] $ do
+        H.label_ [H.class_ "db pointer"] $ do
           H.input_ [H.name_ name, H.type_ "radio", H.value_ choice]
           " "
           H.toHtml choice
       MultiResponse other choices -> do
-        Monad.forM_ choices $ \choice -> H.label_ [H.class_ "db"] $ do
+        Monad.forM_ choices $ \choice -> H.label_ [H.class_ "db pointer"] $ do
           H.input_ [H.name_ name, H.type_ "checkbox", H.value_ choice]
           " "
           H.toHtml choice
@@ -975,6 +974,19 @@ renderQuestion s (q, question) = H.li_ $ do
           AllowOther -> H.label_ [H.class_ "db"] $ do
             "Other: "
             H.input_ [H.name_ name]
+      ExtensionResponse choices -> do
+        Monad.forM_ (withIndex choices) $ \(c, choice) -> H.div_ $ do
+          let n = name <> "c" <> genericShow c
+          H.input_ [H.name_ $ n <> "p", H.type_ "hidden", H.value_ choice]
+          H.label_ [H.class_ "ba bg-washed-red ph1 pointer red"] $ do
+            "No "
+            H.input_ [H.name_ n, H.type_ "radio", H.value_ "no"]
+          H.input_ [H.checked_, H.class_ "mh1 pointer", H.name_ n, H.type_ "radio"]
+          H.label_ [H.class_ "ba bg-washed-green green ph1 pointer"] $ do
+            H.input_ [H.name_ n, H.type_ "radio", H.value_ "yes"]
+            " Yes"
+          " "
+          H.toHtml choice
       FreeResponse -> H.textarea_ [H.class_ "db h4 mv3 w-100", H.name_ name] ""
     H.input_ [H.name_ $ name <> "t", H.type_ "hidden"]
 
