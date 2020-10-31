@@ -18,28 +18,39 @@ template :: BaseUrl.BaseUrl -> Html.Html ()
 template baseUrl =
   Base.template baseUrl "2020 Survey :: Haskell Weekly" mempty $ do
     Html.h2_ [Html.class_ "f2 mv3 tracked-tight"] "2020 Survey"
-    H.div_ [H.class_ "dn lh-copy", H.id_ "survey"] $ do
+    H.div_ [H.class_ "lh-copy"] $ do
       H.p_ [H.class_ "red"] $ do
         H.strong_ "WARNING: "
         "This survey is not yet active. "
         "Do not fill it out yet. "
-        "If you do, your submission will be discarded."
+        "If you do, your submission will be discarded!"
       H.p_ $ do
         "Welcome to the 2020 State of Haskell Survey! "
         "This survey opens on November 1st and closes on the 15th. "
+        "After the survey closes, anonymized survey results will be made publicly available under the "
+        H.a_
+          [H.href_ "https://opendatacommons.org/licenses/odbl/"]
+          "Open Database License"
+        "."
       H.p_ $ do
         "The goal of this survey is to better understand what people think of the Haskell programming language, together with its ecosystem and community. "
         "Whether you have never used Haskell or you use it every day, we want to hear from you!"
       H.p_ $ do
-        "Most questions are optional. "
-        "If you do not feel comfortable answering a question, skip it!"
-      H.p_ $ do
-        "When the survey closes, anonymized survey results will be made publicly available under the "
-        H.a_
-          [H.href_ "https://opendatacommons.org/licenses/odbl/index.html"]
-          "ODbL 1.0"
-        " license."
-      H.form_ [H.method_ "post"] $ do
+        "Every question is optional. "
+        "If you do not feel comfortable answering a question, skip it! "
+        "The survey may look long, but most people fill it out in just a few minutes. "
+        "Thank you for giving us your feedback!"
+      H.form_ [H.class_ "dn", H.id_ "survey", H.method_ "post"] $ do
+        H.input_
+          [ H.id_ "started-at"
+          , H.name_ "started-at"
+          , H.type_ "hidden"
+          ]
+        H.input_
+          [ H.id_ "finished-at"
+          , H.name_ "finished-at"
+          , H.type_ "hidden"
+          ]
         renderSections sections
         H.input_
           [ H.class_ "b bn bg-dark-blue input-reset pa3 pointer white"
@@ -49,18 +60,17 @@ template baseUrl =
     H.noscript_ . H.p_ [H.class_ "lh-copy"] $ do
       "JavaScript is required to fill out this survey. "
       "Please enable JavaScript to continue."
-    H.script_ $ Text.unlines
-      [ "(function () {"
-      , "  document.querySelector('#survey').classList.remove('dn');"
-      , "  document.querySelectorAll('input').forEach(function (input) {"
-      , "    input.addEventListener('input', (event) => {"
-      , "      const selector = '[name=\"' + event.target.name + 't\"]';"
-      , "      const now = new Date().toISOString();"
-      , "      document.querySelector(selector).value = now;"
-      , "    });"
-      , "  });"
-      , "}());"
-      ]
+    H.script_
+      "(function () {\
+        \document.querySelector('#survey').classList.remove('dn');\
+        \document.querySelector('#started-at').value = new Date().toISOString();\
+        \document.querySelector('#survey').addEventListener('submit', function () {\
+          \document.querySelector('#finished-at').value = new Date().toISOString();\
+        \});\
+        \document.querySelector('#survey').addEventListener('input', function (event) {\
+          \document.querySelector('#' + event.target.name + '-time').value = performance.now();\
+        \});\
+      \}());"
 
 sections :: [(Int, Section)]
 sections = withIndex
@@ -941,8 +951,6 @@ genericShow = String.fromString . show
 
 renderQuestion :: Int -> (Int, Question) -> H.Html ()
 renderQuestion s (q, question) = H.li_ $ do
-  let name = Text.concat ["s", genericShow s, "q", genericShow q]
-  H.input_ [H.name_ $ name <> "p", H.type_ "hidden", H.value_ $ questionPrompt question]
   H.p_ $ do
     H.strong_ . H.toHtml $ questionPrompt question
     " (optional)"
@@ -953,42 +961,48 @@ renderQuestion s (q, question) = H.li_ $ do
         "We will never share your email address with anyone. "
         "We may use your email address to follow up on survey responses."
       _ -> pure ()
-    case questionResponse question of
-      Email -> H.input_
-        [ H.name_ name
+  let name = Text.concat ["section-", genericShow s, "-question-", genericShow q]
+  H.input_ [H.name_ $ name <> "-prompt", H.type_ "hidden", H.value_ $ questionPrompt question]
+  case questionResponse question of
+    Email -> H.div_ $ do
+      H.input_
+        [H.name_ name
         , H.placeholder_ "someone@example.com"
         , H.type_ "email"
         ]
-      SingleResponse choices -> Monad.forM_ choices $ \choice ->
-        H.label_ [H.class_ "db pointer"] $ do
-          H.input_ [H.name_ name, H.type_ "radio", H.value_ choice]
-          " "
-          H.toHtml choice
-      MultiResponse other choices -> do
-        Monad.forM_ choices $ \choice -> H.label_ [H.class_ "db pointer"] $ do
-          H.input_ [H.name_ name, H.type_ "checkbox", H.value_ choice]
-          " "
-          H.toHtml choice
-        case other of
-          RejectOther -> pure ()
-          AllowOther -> H.label_ [H.class_ "db"] $ do
-            "Other: "
-            H.input_ [H.name_ name]
-      ExtensionResponse choices -> do
-        Monad.forM_ (withIndex choices) $ \(c, choice) -> H.div_ $ do
-          let n = name <> "c" <> genericShow c
-          H.input_ [H.name_ $ n <> "p", H.type_ "hidden", H.value_ choice]
-          H.label_ [H.class_ "ba bg-washed-red ph1 pointer red"] $ do
-            "No "
-            H.input_ [H.name_ n, H.type_ "radio", H.value_ "no"]
-          H.input_ [H.checked_, H.class_ "mh1 pointer", H.name_ n, H.type_ "radio"]
-          H.label_ [H.class_ "ba bg-washed-green green ph1 pointer"] $ do
-            H.input_ [H.name_ n, H.type_ "radio", H.value_ "yes"]
-            " Yes"
-          " "
-          H.toHtml choice
-      FreeResponse -> H.textarea_ [H.class_ "db h4 mv3 w-100", H.name_ name] ""
-    H.input_ [H.name_ $ name <> "t", H.type_ "hidden"]
+    SingleResponse choices -> Monad.forM_ choices $ \choice -> H.div_ $ do
+      H.label_ [H.class_ "pointer"] $ do
+        H.input_ [H.class_ "pointer", H.name_ name, H.type_ "radio", H.value_ choice]
+        " "
+        H.toHtml choice
+    MultiResponse other choices -> do
+      Monad.forM_ choices $ \choice -> H.div_ . H.label_ [H.class_ "pointer"] $ do
+        H.input_ [H.class_ "pointer", H.name_ name, H.type_ "checkbox", H.value_ choice]
+        " "
+        H.toHtml choice
+      case other of
+        RejectOther -> pure ()
+        AllowOther -> H.div_ . H.label_ [H.class_ "pointer"] $ do
+          "Other: "
+          H.input_ [H.name_ name]
+    ExtensionResponse choices -> do
+      Monad.forM_ (withIndex choices) $ \(c, choice) -> H.div_ $ do
+        let n = name <> "-choice-" <> genericShow c
+        H.input_ [H.name_ $ n <> "-value", H.type_ "hidden", H.value_ choice]
+        H.label_ [H.class_ "ba bg-washed-red ph1 pointer red"] $ do
+          "No "
+          H.input_ [H.class_ "pointer", H.name_ n, H.type_ "radio", H.value_ "no"]
+        H.input_ [H.checked_, H.class_ "mh1 pointer", H.name_ n, H.type_ "radio"]
+        H.label_ [H.class_ "ba bg-washed-green green ph1 pointer"] $ do
+          H.input_ [H.class_ "pointer", H.name_ n, H.type_ "radio", H.value_ "yes"]
+          " Yes"
+        " "
+        H.toHtml choice
+        let t = n <> "-time"
+        H.input_ [H.id_ t, H.name_ t, H.type_ "hidden"]
+    FreeResponse -> H.textarea_ [H.class_ "db h4 mv3 w-100", H.name_ name] ""
+  let t = name <> "-time"
+  H.input_ [H.id_ t, H.name_ t, H.type_ "hidden"]
 
 callToAction :: BaseUrl.BaseUrl -> Html.Html ()
 callToAction baseUrl = Monad.when False $ do -- TODO
