@@ -6,6 +6,7 @@ where
 import qualified Data.Text as Text
 import qualified HW.Template.Base as Base
 import qualified HW.Template.Podcast as Podcast
+import qualified HW.Template.Survey2020 as Survey2020
 import qualified HW.Type.Article as Article
 import qualified HW.Type.Audio as Audio
 import qualified HW.Type.BaseUrl as BaseUrl
@@ -27,6 +28,7 @@ template baseUrl episode captions =
       (title episode <> " :: Haskell Weekly Podcast")
       (Podcast.header baseUrl $ Just episode)
     $ do
+        Survey2020.callToAction baseUrl
         Html.h2_ [Html.class_ "f2 mv3 tracked-tight"] $ Html.a_
           [ Html.class_ "no-underline purple"
           , Html.href_ $ Route.toText baseUrl Route.Podcast

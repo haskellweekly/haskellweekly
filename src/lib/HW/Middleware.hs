@@ -6,14 +6,15 @@ module HW.Middleware
 where
 
 import qualified Control.Monad as Monad
-import qualified Crypto.Hash.SHA1 as Sha1
+import qualified Crypto.Hash as Crypto
+import qualified Data.ByteArray as ByteArray
+import qualified Data.ByteArray.Encoding as ByteArray
 import qualified Data.ByteString as ByteString
-import qualified Data.ByteString.Base64 as Base64
 import qualified Data.ByteString.Builder as Builder
 import qualified Data.ByteString.Lazy as LazyByteString
 import qualified Data.CaseInsensitive as CI
-import qualified Data.IORef as IORef
 import qualified Data.Int as Int
+import qualified Data.IORef as IORef
 import qualified Data.Map as Map
 import qualified Data.Text as Text
 import qualified Data.Text.Encoding as Text
@@ -151,10 +152,16 @@ makeEntityTag :: Wai.Response -> Maybe ByteString.ByteString
 makeEntityTag response = case response of
   Wai.ResponseBuilder _ _ builder -> Just $ mconcat
     [ ByteString.pack [0x57, 0x2f, 0x22]
-    , Base64.encode . Sha1.hashlazy $ Builder.toLazyByteString builder
+    , base64 . sha1 $ Builder.toLazyByteString builder
     , ByteString.singleton 0x22
     ]
   _ -> Nothing
+
+base64 :: (ByteArray.ByteArrayAccess a, ByteArray.ByteArray b) => a -> b
+base64 = ByteArray.convertToBase ByteArray.Base64
+
+sha1 :: LazyByteString.ByteString -> Crypto.Digest Crypto.SHA1
+sha1 = Crypto.hashlazy
 
 -- | Adds security headers as recommended by <https://securityheaders.com>.
 addSecurityHeaders :: Wai.Middleware

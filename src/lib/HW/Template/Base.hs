@@ -4,10 +4,12 @@ module HW.Template.Base
 where
 
 import qualified Data.Text as Text
+import qualified Data.Version as Version
 import qualified HW.Template.Common as Common
 import qualified HW.Type.BaseUrl as BaseUrl
 import qualified HW.Type.Route as Route
 import qualified Lucid as Html
+import qualified Paths_haskellweekly as Package
 
 template
   :: BaseUrl.BaseUrl
@@ -82,4 +84,6 @@ template baseUrl title head_ body = do
                   , Html.href_ "https://github.com/haskellweekly/haskellweekly"
                   ]
                   "on GitHub"
+                ". Powered by version "
+                Html.toHtml $ Version.showVersion Package.version
                 "."
