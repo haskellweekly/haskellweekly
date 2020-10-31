@@ -84,6 +84,9 @@ jobs:
         with:
           name: haskellweekly
           template: config/cloud-formation.yaml
-          parameter-overrides: TagName=${{ github.sha }}
+          parameter-overrides:
+            AccessKeyId=${{ secrets.AWS_ACCESS_KEY_ID }}
+            TagName=${{ github.sha }}
+            SecretAccessKey=${{ secrets.AWS_SECRET_ACCESS_KEY }}
           no-fail-on-empty-changeset: '1'
           capabilities: CAPABILITY_NAMED_IAM
