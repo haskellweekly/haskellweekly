@@ -717,6 +717,7 @@ demographicsSection = makeSection
   , "Oman"
   , "Pakistan"
   , "Palau"
+  , "Palestine"
   , "Panama"
   , "Papua New Guinea"
   , "Paracel Islands"
