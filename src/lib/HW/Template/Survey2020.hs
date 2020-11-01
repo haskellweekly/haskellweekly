@@ -19,11 +19,6 @@ template baseUrl =
   Base.template baseUrl "2020 Survey :: Haskell Weekly" mempty $ do
     Html.h2_ [Html.class_ "f2 mv3 tracked-tight"] "2020 Survey"
     H.div_ [H.class_ "lh-copy"] $ do
-      H.p_ [H.class_ "red"] $ do
-        H.strong_ "WARNING: "
-        "This survey is not yet active. "
-        "Do not fill it out yet. "
-        "If you do, your submission will be discarded!"
       H.p_ $ do
         "Welcome to the 2020 State of Haskell Survey! "
         "This survey opens on November 1st and closes on the 15th. "
@@ -1005,7 +1000,7 @@ renderQuestion s (q, question) = H.li_ $ do
   H.input_ [H.id_ t, H.name_ t, H.type_ "hidden"]
 
 callToAction :: BaseUrl.BaseUrl -> Html.Html ()
-callToAction baseUrl = Monad.when False $ do -- TODO
+callToAction baseUrl = do
   let year = unsafeFromRight $ Number.fromNatural 2020
   Html.div_ [Html.class_ "ba b--green bg-washed-green center mw6 pa3 tc"] $ do
     Html.p_ [Html.class_ "lh-copy mv0"] $ do
