@@ -314,6 +314,7 @@ compilersSection = makeSection
       , "GeneralizedNewtypeDeriving"
       , "HexFloatLiterals"
       , "ImplicitParams"
+      , "ImportQualifiedPost"
       , "ImpredicativeTypes"
       , "IncoherentInstances"
       , "InstanceSigs"
@@ -360,6 +361,7 @@ compilersSection = makeSection
       , "RoleAnnotations"
       , "ScopedTypeVariables"
       , "StandaloneDeriving"
+      , "StandaloneKindSignatures"
       , "StaticPointers"
       , "Strict"
       , "StrictData"
@@ -379,6 +381,7 @@ compilersSection = makeSection
       , "UndecidableInstances"
       , "UndecidableSuperClasses"
       , "UnicodeSyntax"
+      , "UnliftedNewtypes"
       , "Unsafe"
       , "ViewPatterns"
       ]
