@@ -4,6 +4,8 @@ Haskell Weekly publishes curated news about the Haskell programming
 language. It is both a newsletter and a podcast. Find out more at
 [haskellweekly.news](https://haskellweekly.news).
 
+Haskell Weekly is run by [Taylor Fausak](https://taylor.fausak.me).
+
 ## Contributing content
 
 We appreciate all contributions, from issues to pull requests. Nothing
@@ -45,46 +47,22 @@ things to keep in mind:
     whether that's Stack, Cabal, Nix, or something else.
 
 -   Most small changes probably don't require running things
-    locally. Assuming everything still builds, Heroku will spin up a
-    whole new app with your changes when you open a pull request. So
-    please, hack away!
-
--   The easiest way to get everything up and running locally is to use
-    Docker Compose:
-
-    ``` sh
-    docker-compose up
-    ```
-
-    Then go to <http://localhost:8080>.
+    locally. We have continuous integration (CI) set up and will help
+    you work through any potential build errors.
 
 ## Architecture
 
 For the most part Haskell Weekly is just this repository, which is
-a single Haskell web service. However it relies on a large number of
-external services:
+a single Haskell web service. However it relies on some external services:
 
-- [Name.com](https://www.name.com):
-  Handles domain name registration.
-
-- [Cloudflare](https://www.cloudflare.com):
-  Serves DNS queries and proxies the site behind their CDN.
-
-- [DigitalOcean](https://www.digitalocean.com):
-  Hosts audio files for podcast episodes.
-
-- [YouTube](https://www.youtube.com):
-  Hosts video files for podcast episodes, which are used to generate
-  transcripts.
-
-- [GitHub](https://mailchimp.com):
+- [GitHub](https://github.com):
   Hosts source code.
-
-- [Heroku](https://www.heroku.com):
-  Builds container image and run sweb service.
 
 - [Mailchimp](https://mailchimp.com):
   Manages subscriber information and sends weekly emails.
 
 - [Square](https://squareup.com):
   Accepts payments for advertisements.
+
+- [Amazon Web Services](https://aws.amazon.com):
+  Does everything else.
