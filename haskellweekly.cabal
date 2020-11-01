@@ -1,7 +1,7 @@
 cabal-version: 2.0
 
 name: haskellweekly
-version: 0.2020.10.29
+version: 0.2020.11.1
 
 build-type: Simple
 category: Web
@@ -148,7 +148,7 @@ test-suite test
     base
     , bytestring
     , cmark
-    , directory >= 1.3.1 && < 1.4
+    , directory ^>= 1.3.1
     , filepath
     , haskellweekly
     , text
