@@ -60,6 +60,7 @@ episodes = do
     , episode26
     , episode27
     , episode28
+    , episode29
     ]
   checkGuids validEpisodes Set.empty
   checkNumbers validEpisodes 1
@@ -585,3 +586,21 @@ episode28 =
     <*> Summary.fromText
           "Does the idea of -XGHC2021 excite you? Cameron Gera and Taylor Fausak work through this proposed set of language extensions."
     <*> Title.fromText "GHC 2021"
+
+episode29 :: Either String Episode.Episode
+episode29 =
+  Episode.Episode
+    <$> Articles.fromList
+          [ "https://www.snoyman.com/blog/2020/10/haskell-bad-parts-1"
+          , "https://haskellweekly.news/survey/2020.html"
+          ]
+    <*> Audio.fromText
+          "https://media.haskellweekly.news/2020-11-02-episode-29.mp3"
+    <*> Date.fromGregorian 2020 11 2
+    <*> Duration.fromTimestamp 21 12
+    <*> Guid.fromText "71b4ee91-64a1-4afa-9950-40516b58f3ea"
+    <*> Number.fromNatural 29
+    <*> Size.fromNatural 22874388
+    <*> Summary.fromText
+          "Even well-designed languages have rough edges. Cameron Gera and Taylor Fausak review some of the bad parts of Haskell."
+    <*> Title.fromText "Bad Parts"
