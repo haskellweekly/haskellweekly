@@ -43,10 +43,10 @@ makeObjectKey = do
 toRqBody :: LazyByteString.ByteString -> Aws.RqBody
 toRqBody = Aws.toBody
   . Aeson.encode
-  . Map.fromList
+  . Map.fromListWith (<>)
   . Maybe.mapMaybe (\ (key, maybeValue) -> do
     value <- maybeValue
     Monad.guard . not $ Text.null value
-    pure (key, value))
+    pure (key, [value]))
   . Http.parseQueryText
   . LazyByteString.toStrict
