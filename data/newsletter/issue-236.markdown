@@ -19,7 +19,8 @@ undefined
 
 ## Show & tell
 
-undefined
+- [wai-feature-flags](https://hackage.haskell.org/package/wai-feature-flags)
+  > A small library that adds feature flags to a WAI application.
 
 ## Call for participation
 
