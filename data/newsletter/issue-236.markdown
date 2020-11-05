@@ -23,4 +23,4 @@ undefined
 
 ## Call for participation
 
-undefined
+-   [haskell-language-server: Tactics plugin cannot derive program under certain constraints and bindings](https://github.com/haskell/haskell-language-server/issues/563)
