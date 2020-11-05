@@ -1,5 +1,1869 @@
 WEBVTT
 
 1
-00:00:00.000 --> 00:00:05.000
-[No captions for this episode yet.]
+00:00:04.540 --> 00:00:07.330
+>> Hello and welcome to the Haskell
+
+2
+00:00:07.330 --> 00:00:10.230
+Weekly podcast. I'm your host, Taylor Fausak.
+
+3
+00:00:10.240 --> 00:00:13.210
+I'm the lead engineer at ITProTV. With
+
+4
+00:00:13.210 --> 00:00:16.200
+me today is one of the engineers on my team, Cameron Gera.
+
+5
+00:00:16.210 --> 00:00:17.980
+Thanks for joining me today, Cam.
+
+6
+00:00:17.990 --> 00:00:20.870
+>> Hey, Taylor. Glad to be here. Excited. It
+
+7
+00:00:20.870 --> 00:00:23.710
+is a new month. It is November, which is
+
+8
+00:00:23.710 --> 00:00:26.580
+going to be a great month. It's also my birthday month, so
+
+9
+00:00:26.590 --> 00:00:29.390
+I'm a little biased towards that. But October was
+
+10
+00:00:29.390 --> 00:00:31.960
+Hacktoberfest. That's behind us. We're moving on.
+
+11
+00:00:32.040 --> 00:00:34.840
+Thanks for all of you guys who participated. You know, it's
+
+12
+00:00:34.840 --> 00:00:37.300
+good to get that open source community some
+
+13
+00:00:37.300 --> 00:00:40.290
+love. And I am just glad that we all got
+
+14
+00:00:40.290 --> 00:00:42.990
+to participate. But this month is
+
+15
+00:00:42.990 --> 00:00:45.640
+even more exciting. We have the State of
+
+16
+00:00:45.640 --> 00:00:48.170
+Haskell survey that is out. It is
+
+17
+00:00:48.170 --> 00:00:50.980
+live. It lives in this week's edition of
+
+18
+00:00:50.980 --> 00:00:53.820
+Haskell Weekly and also in our show notes. But
+
+19
+00:00:53.830 --> 00:00:56.650
+it's gonna give you a chance to show your voice and
+
+20
+00:00:56.650 --> 00:00:59.430
+share how you interact with Haskell and the
+
+21
+00:00:59.430 --> 00:01:02.210
+things you like. The things you could think need some more
+
+22
+00:01:02.210 --> 00:01:05.200
+love. We're really glad that we can offer
+
+23
+00:01:05.200 --> 00:01:08.070
+this to you. You know, it's a Haskell Weekly exclusive
+
+24
+00:01:08.070 --> 00:01:11.010
+thing. So we do this, we
+
+25
+00:01:11.020 --> 00:01:14.020
+collect this data, and we share it with the community. So we've done this
+
+26
+00:01:14.020 --> 00:01:16.810
+for four years. And we're just
+
+27
+00:01:16.810 --> 00:01:19.480
+glad to be kicking it off this month. So thank you,
+
+28
+00:01:19.480 --> 00:01:21.360
+Taylor, for kind of heading that up.
+
+29
+00:01:21.540 --> 00:01:24.370
+>> Yeah, I'm happy to do it. And this, like you
+
+30
+00:01:24.370 --> 00:01:27.330
+mentioned, is the fourth year. So if you're interested
+
+31
+00:01:27.330 --> 00:01:30.220
+in what it looked like previous years, you can go back and
+
+32
+00:01:30.220 --> 00:01:31.540
+take a look at those results.
+
+33
+00:01:31.550 --> 00:01:33.460
+>> You mean we could go back in time?
+
+34
+00:01:33.470 --> 00:01:36.170
+>> We can. We have that power through the power
+
+35
+00:01:36.170 --> 00:01:38.570
+of HTML and old pages.
+
+36
+00:01:38.580 --> 00:01:39.360
+>> Nice.
+
+37
+00:01:39.440 --> 00:01:42.380
+>> But today we're not only talking about the Haskell
+
+38
+00:01:42.380 --> 00:01:45.310
+survey, we're also talking about this blog post by
+
+39
+00:01:45.310 --> 00:01:47.880
+Michael Snoyman called Haskell the bad
+
+40
+00:01:47.880 --> 00:01:50.820
+parts part one, implying somehow there's
+
+41
+00:01:50.820 --> 00:01:52.810
+more than one bad part of Haskell.
+
+42
+00:01:52.820 --> 00:01:55.720
+>> It could be, you know, everybody uses Haskell
+
+43
+00:01:55.720 --> 00:01:58.350
+little differently. So I think this was a great
+
+44
+00:01:58.350 --> 00:02:01.350
+post. I really appreciate his kind of banter,
+
+45
+00:02:01.350 --> 00:02:04.350
+in it as well. He was pretty lighthearted,
+
+46
+00:02:04.350 --> 00:02:07.040
+but also really giving you the chance
+
+47
+00:02:07.040 --> 00:02:09.860
+to know some things you may not have known before because I
+
+48
+00:02:09.860 --> 00:02:12.570
+know I've learned some things reading this blog post.
+
+49
+00:02:13.150 --> 00:02:15.870
+>> It's nice to see a critical post that's not written in a really
+
+50
+00:02:15.870 --> 00:02:18.830
+critical tone. You can tell that Michael cares about
+
+51
+00:02:18.830 --> 00:02:21.800
+Haskell and Haskell community and the language, and
+
+52
+00:02:21.800 --> 00:02:24.660
+he wants it to be better. So he's writing
+
+53
+00:02:24.660 --> 00:02:27.200
+this post to point out some of the things that he's
+
+54
+00:02:27.200 --> 00:02:30.150
+spotted that maybe could be better. So
+
+55
+00:02:30.150 --> 00:02:31.620
+what's the first thing that he noticed?
+
+56
+00:02:31.630 --> 00:02:34.540
+>> Yeah. So he first starts
+
+57
+00:02:34.540 --> 00:02:37.320
+off with talking about the foldl
+
+58
+00:02:37.320 --> 00:02:39.850
+function, which is
+
+59
+00:02:39.850 --> 00:02:42.420
+lazy, but that doesn't
+
+60
+00:02:42.420 --> 00:02:45.420
+quite, make it useful,
+
+61
+00:02:45.430 --> 00:02:47.960
+right? It doesn't really give us what we want.
+
+62
+00:02:48.440 --> 00:02:51.340
+Um, you know, we tend
+
+63
+00:02:51.340 --> 00:02:53.470
+to run away from foldl
+
+64
+00:02:53.480 --> 00:02:56.220
+because we have other alternatives that
+
+65
+00:02:56.230 --> 00:02:59.000
+really actually work well for us that don't cause
+
+66
+00:02:59.000 --> 00:03:01.880
+memory leaks like a foldr, a foldl',
+
+67
+00:03:01.890 --> 00:03:04.350
+which are strict. Well, foldl' is strict,
+
+68
+00:03:04.360 --> 00:03:07.070
+foldr is still lazy, but you know, when you're
+
+69
+00:03:07.070 --> 00:03:09.870
+folding left, lazy doesn't quite make
+
+70
+00:03:09.870 --> 00:03:10.470
+sense.
+
+71
+00:03:10.940 --> 00:03:13.760
+>> Yeah, it's funny because foldl is kind of like
+
+72
+00:03:14.240 --> 00:03:17.080
+too lazy because foldr is
+
+73
+00:03:17.090 --> 00:03:20.070
+lazy in the spine in the list that
+
+74
+00:03:20.070 --> 00:03:22.800
+it's folding over and foldl' is
+
+75
+00:03:22.800 --> 00:03:25.070
+strict in the combining function,
+
+76
+00:03:25.440 --> 00:03:28.320
+so foldl no prime is just,
+
+77
+00:03:28.320 --> 00:03:31.250
+like, too lazy. Never, never gets anything
+
+78
+00:03:31.250 --> 00:03:31.650
+done.
+
+79
+00:03:32.240 --> 00:03:35.180
+>> I mean, I wish I could be that lazy and
+
+80
+00:03:35.180 --> 00:03:37.950
+still get used, right? Um yeah,
+
+81
+00:03:37.950 --> 00:03:40.530
+but if you wanted to actually have a
+
+82
+00:03:40.530 --> 00:03:42.740
+lazy foldl,
+
+83
+00:03:43.300 --> 00:03:45.840
+Snoyman jokingly says you should name it
+
+84
+00:03:45.840 --> 00:03:48.850
+foldlButLazyIReallyMeanIt.
+
+85
+00:03:49.240 --> 00:03:52.010
+Or else I think he'll probably,
+
+86
+00:03:52.020 --> 00:03:54.630
+tell you about yourself a little bit if you create a
+
+87
+00:03:54.630 --> 00:03:57.340
+PR against a code base, he
+
+88
+00:03:57.340 --> 00:04:00.140
+maintains, which I appreciate
+
+89
+00:04:00.140 --> 00:04:03.060
+his brutal honesty there. I think it's he's
+
+90
+00:04:03.060 --> 00:04:05.630
+a lover of Haskell. So he's very
+
+91
+00:04:05.630 --> 00:04:08.230
+passionate about good code. And I'm
+
+92
+00:04:08.240 --> 00:04:10.570
+thankful that we have people like him in our community.
+
+93
+00:04:10.580 --> 00:04:13.020
+>> Yeah. Same. And in the Haskell
+
+94
+00:04:13.020 --> 00:04:15.980
+community, we often use the prime to indicate
+
+95
+00:04:15.990 --> 00:04:18.930
+that this is a strict version of a function. But
+
+96
+00:04:18.930 --> 00:04:21.660
+there's no similar thing for saying this is a
+
+97
+00:04:21.660 --> 00:04:24.400
+lazy version of a function. And I like that suffix
+
+98
+00:04:24.440 --> 00:04:27.420
+butLazyIReallyMeanIt. That could stand in
+
+99
+00:04:27.420 --> 00:04:30.200
+for prime. It's a little bit wordier, but I think it does the
+
+100
+00:04:30.200 --> 00:04:30.850
+same job,
+
+101
+00:04:31.440 --> 00:04:34.410
+>> Right, well, I know. Don't we use
+
+102
+00:04:34.420 --> 00:04:37.090
+tilde to enforce laziness
+
+103
+00:04:37.090 --> 00:04:39.430
+for we're enabling the strict
+
+104
+00:04:39.430 --> 00:04:42.260
+data language extension could we use
+
+105
+00:04:42.270 --> 00:04:44.270
+tilde in function names?
+
+106
+00:04:44.710 --> 00:04:47.410
+>> I wish you could. In the same way that you can
+
+107
+00:04:47.410 --> 00:04:50.380
+use. Like you mentioned tilde for fields to mark
+
+108
+00:04:50.380 --> 00:04:53.130
+them as lazy or even on pattern matches. To mark them is
+
+109
+00:04:53.130 --> 00:04:55.530
+lazy. And on the other side, you can use
+
+110
+00:04:55.530 --> 00:04:58.470
+exclamation points to mark things as strict.
+
+111
+00:04:58.480 --> 00:05:01.370
+But you can't use those in function names, unfortunately.
+
+112
+00:05:01.740 --> 00:05:04.110
+I would love it if you could say
+
+113
+00:05:04.120 --> 00:05:05.550
+foldl~ or
+
+114
+00:05:05.550 --> 00:05:08.460
+foldl! It would look a little
+
+115
+00:05:08.460 --> 00:05:11.360
+more like Ruby or Clojure or something like that. But I
+
+116
+00:05:11.360 --> 00:05:13.940
+think that would be nice. And we wouldn't have to repurpose
+
+117
+00:05:13.940 --> 00:05:15.770
+prime for all these different things.
+
+118
+00:05:15.780 --> 00:05:18.360
+>> Could that be, in part two of this, uh,
+
+119
+00:05:19.240 --> 00:05:21.540
+podcast and blog post?
+
+120
+00:05:21.550 --> 00:05:24.480
+>> It might be, I think, that if Haskell allowed you
+
+121
+00:05:24.480 --> 00:05:27.380
+to do that, some people might think it was a bad
+
+122
+00:05:27.380 --> 00:05:28.820
+part. But who knows?
+
+123
+00:05:28.830 --> 00:05:31.680
+>> Nice. Well, you know, everyone's got an
+
+124
+00:05:31.680 --> 00:05:34.630
+opinion that's totally valid. I'm not gonna ever discredit
+
+125
+00:05:34.630 --> 00:05:37.550
+someone's opinion. Most people are smarter than me, so I'm
+
+126
+00:05:37.550 --> 00:05:38.270
+okay with that.
+
+127
+00:05:38.640 --> 00:05:41.230
+>> Speaking of folding or reducing
+
+128
+00:05:41.230 --> 00:05:44.010
+functions that are lazier than they should be the
+
+129
+00:05:44.010 --> 00:05:46.650
+next bad part that Snoyman points out
+
+130
+00:05:46.660 --> 00:05:48.660
+is sum or product.
+
+131
+00:05:49.240 --> 00:05:52.200
+They do different things, but they kind of work in the
+
+132
+00:05:52.200 --> 00:05:55.150
+same way. And what is it that he says
+
+133
+00:05:55.150 --> 00:05:56.050
+about those?
+
+134
+00:05:56.740 --> 00:05:59.350
+>> Yeah, so you know, he
+
+135
+00:06:00.140 --> 00:06:03.120
+kind of talks about how the combining function determines the
+
+136
+00:06:03.120 --> 00:06:06.080
+strictness of the sum and product
+
+137
+00:06:06.090 --> 00:06:09.090
+reducing functions, which is
+
+138
+00:06:09.090 --> 00:06:11.930
+a little odd. You wouldn't expect a function you
+
+139
+00:06:11.930 --> 00:06:13.800
+pass in to determine the strictness.
+
+140
+00:06:13.810 --> 00:06:16.690
+And, you know, only really
+
+141
+00:06:16.690 --> 00:06:19.430
+works for, you know, hypothetically
+
+142
+00:06:19.430 --> 00:06:22.220
+lazy numeric types so you could create your
+
+143
+00:06:22.220 --> 00:06:24.570
+own, sum and you know,
+
+144
+00:06:24.570 --> 00:06:27.400
+product functions that are quote unquote lazy.
+
+145
+00:06:27.400 --> 00:06:30.230
+But that doesn't necessarily make a ton of
+
+146
+00:06:30.230 --> 00:06:32.070
+sense, like you can't add
+
+147
+00:06:33.240 --> 00:06:35.830
+a number if there's not another number to add it to. Right?
+
+148
+00:06:35.840 --> 00:06:38.690
+>> Right. But this is a little tricky because a
+
+149
+00:06:38.690 --> 00:06:40.990
+lot of times when people talk about this,
+
+150
+00:06:41.000 --> 00:06:43.660
+they're talking like you mentioned about
+
+151
+00:06:43.660 --> 00:06:46.190
+some hypothetical lazy numeric
+
+152
+00:06:46.190 --> 00:06:49.150
+type that may or may not actually exist and may or
+
+153
+00:06:49.150 --> 00:06:52.100
+may not actually be used. So one that pops
+
+154
+00:06:52.100 --> 00:06:54.990
+up a lot is the Peano numbers, where you
+
+155
+00:06:54.990 --> 00:06:57.970
+have zero and then successor, and from those you
+
+156
+00:06:57.970 --> 00:07:00.630
+build up everything else. So one is
+
+157
+00:07:00.640 --> 00:07:02.980
+successor zero. Two is
+
+158
+00:07:02.990 --> 00:07:05.060
+successor, successor zero.
+
+159
+00:07:05.740 --> 00:07:08.210
+And this is where you could actually benefit from
+
+160
+00:07:08.210 --> 00:07:11.160
+laziness because you could have some logic that wants
+
+161
+00:07:11.160 --> 00:07:13.830
+to take the sum of some potentially
+
+162
+00:07:13.840 --> 00:07:16.710
+infinite list of Peano numbers. But
+
+163
+00:07:16.710 --> 00:07:19.140
+once that sum goes above, let's say
+
+164
+00:07:19.140 --> 00:07:21.950
+100 then you stop doing any work,
+
+165
+00:07:22.010 --> 00:07:24.600
+and if your number is lazy, you could do that
+
+166
+00:07:24.600 --> 00:07:27.600
+without consuming the entire list. But if
+
+167
+00:07:27.600 --> 00:07:30.570
+you're using a much more typical numeric type
+
+168
+00:07:30.580 --> 00:07:33.550
+like int or integer, then you're going to
+
+169
+00:07:33.550 --> 00:07:36.400
+have to consume the entire list to produce the
+
+170
+00:07:36.400 --> 00:07:38.550
+sum of that list. Which makes sense.
+
+171
+00:07:39.140 --> 00:07:41.980
+>> Yeah, definitely makes sense. Um, yeah. He
+
+172
+00:07:41.980 --> 00:07:44.620
+also kind of talks about how you can't really rely on
+
+173
+00:07:44.630 --> 00:07:46.550
+G.H.C.'s optimizer to
+
+174
+00:07:47.040 --> 00:07:49.940
+know what to make strict verse, what not to make
+
+175
+00:07:49.940 --> 00:07:52.710
+strict. And, you know, it makes
+
+176
+00:07:52.710 --> 00:07:55.700
+more sense to say, Hey, I want this
+
+177
+00:07:55.710 --> 00:07:58.460
+function to be strict and write it as
+
+178
+00:07:58.460 --> 00:08:01.250
+such, rather than relying on the compiler
+
+179
+00:08:01.250 --> 00:08:03.450
+to optimize it to be strict.
+
+180
+00:08:03.940 --> 00:08:06.850
+>> Right. It's not useful to tell the compiler you're using a
+
+181
+00:08:06.850 --> 00:08:09.750
+lazy function and then expect it to notice that it could
+
+182
+00:08:09.750 --> 00:08:12.590
+be strict or ultimately it is strict. And then
+
+183
+00:08:12.590 --> 00:08:15.580
+optimize it away for you. Just write the strict version in
+
+184
+00:08:15.580 --> 00:08:18.400
+the first place. But the good news here is that there
+
+185
+00:08:18.410 --> 00:08:20.600
+is an open merge request against
+
+186
+00:08:20.610 --> 00:08:23.370
+G.H.C. to fix this problem with sum and
+
+187
+00:08:23.370 --> 00:08:26.300
+product to make them strict. And this came out of
+
+188
+00:08:26.300 --> 00:08:28.500
+a discussion on one of the mailing lists.
+
+189
+00:08:28.510 --> 00:08:31.380
+Probably Haskell Cafe, but I don't remember right
+
+190
+00:08:31.380 --> 00:08:34.380
+now, and it was actually a pretty quick turnaround.
+
+191
+00:08:34.390 --> 00:08:37.120
+I think it's been like less than a month since someone
+
+192
+00:08:37.120 --> 00:08:39.800
+said, Hey, this doesn't look quite right. Let's get it
+
+193
+00:08:39.800 --> 00:08:42.360
+fixed. And then they opened a merge quest
+
+194
+00:08:42.360 --> 00:08:45.280
+and so yeah, already, one of the four
+
+195
+00:08:45.280 --> 00:08:47.550
+bad parts of Haskell has already been fixed.
+
+196
+00:08:48.140 --> 00:08:51.080
+>> Woohoo! Now we just got to cut a new
+
+197
+00:08:51.080 --> 00:08:52.460
+version. We're good to go.
+
+198
+00:08:52.840 --> 00:08:55.070
+>> Yeah. So what's the next bad part?
+
+199
+00:08:55.080 --> 00:08:57.820
+>> Yeah, so the next one he talks about is data
+
+200
+00:08:57.820 --> 00:09:00.690
+text IO. So we talk a
+
+201
+00:09:00.690 --> 00:09:03.520
+lot about: Do we use string? Do we use
+
+202
+00:09:03.670 --> 00:09:05.950
+text? And the community tends to
+
+203
+00:09:06.340 --> 00:09:08.860
+move away from string in favor of text.
+
+204
+00:09:09.540 --> 00:09:12.460
+But the data text IO gives us a
+
+205
+00:09:12.460 --> 00:09:15.120
+false sense of security when
+
+206
+00:09:15.130 --> 00:09:17.580
+dealing with in particular read file.
+
+207
+00:09:18.340 --> 00:09:21.040
+That doesn't ensure
+
+208
+00:09:21.050 --> 00:09:23.690
+specific locale encoding.
+
+209
+00:09:23.700 --> 00:09:26.600
+So I feel like this is a problem in
+
+210
+00:09:26.600 --> 00:09:29.150
+Haskell and a lot of language is that,
+
+211
+00:09:29.540 --> 00:09:32.040
+you know, you try to read a file and it's in a
+
+212
+00:09:32.050 --> 00:09:34.760
+format or locale you haven't
+
+213
+00:09:34.760 --> 00:09:37.620
+programmed for, you know you're gonna create an exception
+
+214
+00:09:37.620 --> 00:09:40.540
+that doesn't, I mean, honestly, catches you
+
+215
+00:09:40.540 --> 00:09:41.190
+off guard.
+
+216
+00:09:41.200 --> 00:09:43.860
+>> We've run into this one quite a bit at work
+
+217
+00:09:43.870 --> 00:09:46.260
+because we run a lot of our stuff in Docker
+
+218
+00:09:46.260 --> 00:09:48.690
+containers and those containers are pretty minimal.
+
+219
+00:09:48.700 --> 00:09:51.330
+So at first we weren't setting the LANG
+
+220
+00:09:51.330 --> 00:09:54.090
+or LC_ALL. There's a couple environment
+
+221
+00:09:54.090 --> 00:09:56.690
+variables you can set to control which locality you're in by
+
+222
+00:09:56.690 --> 00:09:58.850
+default. And we weren't setting those.
+
+223
+00:09:59.240 --> 00:10:02.060
+So when we ran some report that produced A
+
+224
+00:10:02.060 --> 00:10:04.990
+CSV that happened to contain a non ASCII character in
+
+225
+00:10:04.990 --> 00:10:07.780
+it, it would try to print it out, and then it would crash
+
+226
+00:10:07.780 --> 00:10:10.670
+because it says, Hey, I tried to print something to the screen, but the
+
+227
+00:10:10.670 --> 00:10:13.240
+encoding I was using didn't match up with what you
+
+228
+00:10:13.240 --> 00:10:15.750
+wanted. That was really
+
+229
+00:10:15.750 --> 00:10:18.460
+surprising and difficult to work around. And I
+
+230
+00:10:18.460 --> 00:10:21.350
+remember I wasn't the one that ran into it,
+
+231
+00:10:21.360 --> 00:10:24.200
+but somebody asked me for help. And I was like, Oh, yeah,
+
+232
+00:10:24.200 --> 00:10:27.130
+I've seen this exact problem before where
+
+233
+00:10:27.130 --> 00:10:29.820
+it just says, like, invalid character or whatever the error
+
+234
+00:10:29.820 --> 00:10:32.620
+is, and I happened to know what the solution
+
+235
+00:10:32.620 --> 00:10:34.970
+is. But if I didn't already have that
+
+236
+00:10:34.970 --> 00:10:37.780
+experience, I would have been completely lost.
+
+237
+00:10:37.790 --> 00:10:40.760
+So this can be completely mystifying.
+
+238
+00:10:41.140 --> 00:10:43.980
+>> Yeah, and I love how he uses the
+
+239
+00:10:43.990 --> 00:10:46.570
+metaphor of wolf in sheep's clothing,
+
+240
+00:10:46.940 --> 00:10:49.760
+right? Like you think it's gonna be nice. It's going to do
+
+241
+00:10:49.760 --> 00:10:52.560
+what you need it to do. But then it
+
+242
+00:10:52.560 --> 00:10:55.340
+bites you in the butt, and you're like, Holy cow, What just
+
+243
+00:10:55.340 --> 00:10:57.970
+happened? And like, I mean, I
+
+244
+00:10:57.970 --> 00:11:00.830
+probably was that person because I do remember a familiar
+
+245
+00:11:00.830 --> 00:11:03.820
+situation and that dealing with this script that
+
+246
+00:11:03.820 --> 00:11:06.610
+we were running and getting a file format
+
+247
+00:11:06.610 --> 00:11:09.180
+from, you know, some company and
+
+248
+00:11:09.180 --> 00:11:12.140
+they have special characters and we didn't encode
+
+249
+00:11:12.140 --> 00:11:14.480
+correctly the locale, and we're kicking ourselves.
+
+250
+00:11:14.480 --> 00:11:15.940
+So, um.
+
+251
+00:11:15.950 --> 00:11:18.840
+>> Yep, and we've got to fix these days, so we're good now.
+
+252
+00:11:18.850 --> 00:11:21.830
+But it was confusing at the time, and another place that
+
+253
+00:11:21.830 --> 00:11:24.700
+I've run into this before is when switching between Linux
+
+254
+00:11:24.700 --> 00:11:27.490
+and Windows in most desktop Linux
+
+255
+00:11:27.610 --> 00:11:30.130
+environments, the default locale is
+
+256
+00:11:30.130 --> 00:11:33.050
+UTF-8, but on Windows, that's not the case.
+
+257
+00:11:33.310 --> 00:11:36.110
+So I'll take software that works perfectly fine on
+
+258
+00:11:36.110 --> 00:11:38.520
+my Linux desktop and on my Mac
+
+259
+00:11:38.530 --> 00:11:41.330
+laptop. But as soon as I try to run it on my Windows
+
+260
+00:11:41.330 --> 00:11:44.220
+machine, everything stops working. And it's like,
+
+261
+00:11:44.230 --> 00:11:47.140
+Oh, right. I either have to change my code page on
+
+262
+00:11:47.140 --> 00:11:49.940
+Windows or explicitly set the encoding
+
+263
+00:11:49.950 --> 00:11:52.890
+or just stop using data dot text dot
+
+264
+00:11:52.890 --> 00:11:55.250
+IO, which is often the easiest answer.
+
+265
+00:11:55.640 --> 00:11:58.390
+And in fact, the Rio Library that
+
+266
+00:11:58.390 --> 00:12:01.370
+Snoyman works on has a function that does this for
+
+267
+00:12:01.370 --> 00:12:03.860
+you called readFileUtf8.
+
+268
+00:12:04.240 --> 00:12:07.140
+And it sets the encoding for you to
+
+269
+00:12:07.140 --> 00:12:09.230
+UTF-8 and then reads the file
+
+270
+00:12:09.240 --> 00:12:11.800
+>> Right, So you tend to not need
+
+271
+00:12:11.810 --> 00:12:14.760
+to worry at that point, right? Because you know
+
+272
+00:12:14.760 --> 00:12:17.570
+what the encoding is gonna be because this functions well
+
+273
+00:12:17.570 --> 00:12:20.070
+named as well, right? It's saying, Hey, you're gonna read a
+
+274
+00:12:20.070 --> 00:12:22.850
+UTF-8 file. But it also does what it says it's
+
+275
+00:12:22.850 --> 00:12:25.440
+supposed to do where we get this false and
+
+276
+00:12:25.440 --> 00:12:27.760
+security with data text IO.
+
+277
+00:12:27.770 --> 00:12:30.520
+>> Snoyman really has a knack for naming. He's
+
+278
+00:12:30.520 --> 00:12:33.480
+got foldlButLazyIReallyMeanIt and
+
+279
+00:12:33.480 --> 00:12:36.480
+readFileUtf8. Another thing here
+
+280
+00:12:36.490 --> 00:12:39.300
+is that when you're reading a file, often the file
+
+281
+00:12:39.300 --> 00:12:41.880
+type has an encoding already specified.
+
+282
+00:12:41.890 --> 00:12:44.780
+So, like with JSON or XML, you
+
+283
+00:12:44.780 --> 00:12:47.170
+know, up front that those they're going to be UTF-8
+
+284
+00:12:47.540 --> 00:12:49.590
+So if your system locale is set to
+
+285
+00:12:49.590 --> 00:12:52.310
+UTF-16 and you want to try to read a
+
+286
+00:12:52.310 --> 00:12:55.210
+JSON file, you probably don't want to read
+
+287
+00:12:55.210 --> 00:12:58.030
+that file using the UTF-16
+
+288
+00:12:58.030 --> 00:13:00.770
+system locale. And that's where the problem comes in.
+
+289
+00:13:01.140 --> 00:13:04.080
+>> Gotcha. Well, thanks for diving into
+
+290
+00:13:04.080 --> 00:13:06.510
+that one. What's the next one that he talks about?
+
+291
+00:13:06.520 --> 00:13:09.510
+>> So the next one and the last one, at least
+
+292
+00:13:09.510 --> 00:13:12.060
+for part one of the bad parts, is the
+
+293
+00:13:12.060 --> 00:13:14.760
+bracket function from control dot exception.
+
+294
+00:13:15.140 --> 00:13:17.490
+And this is a tricky one, for sure.
+
+295
+00:13:17.500 --> 00:13:20.440
+>> Yeah, I think the fact that dealing with
+
+296
+00:13:20.440 --> 00:13:23.240
+async conceptions is tricky to deal with. I
+
+297
+00:13:23.240 --> 00:13:25.790
+know in our code base we've had some
+
+298
+00:13:25.800 --> 00:13:28.760
+odd async exception handling that has
+
+299
+00:13:29.240 --> 00:13:32.090
+kind of baffled us. With time and
+
+300
+00:13:32.090 --> 00:13:34.740
+effort, we get to where we need to be, but in the
+
+301
+00:13:34.740 --> 00:13:35.780
+moment it's a lot.
+
+302
+00:13:35.790 --> 00:13:38.510
+>> This is tricky to talk about, even because
+
+303
+00:13:38.520 --> 00:13:41.510
+async exceptions when you hear that you may think like
+
+304
+00:13:41.520 --> 00:13:44.380
+Oh, that's an exception that was thrown on an
+
+305
+00:13:44.380 --> 00:13:47.050
+async thread, uh, something
+
+306
+00:13:47.050 --> 00:13:49.630
+that was either spawned with forkIO
+
+307
+00:13:49.630 --> 00:13:51.960
+or with the async package.
+
+308
+00:13:52.440 --> 00:13:55.280
+But that's not quite what it means. And
+
+309
+00:13:55.290 --> 00:13:58.090
+there's a good chance that I will say something wrong in this part
+
+310
+00:13:58.090 --> 00:14:00.860
+because I'm not well versed in exception handling in Haskell
+
+311
+00:14:00.860 --> 00:14:03.660
+myself, Snoyman has spent a ton of
+
+312
+00:14:03.660 --> 00:14:06.650
+time on this. And whenever I run into an exception
+
+313
+00:14:06.650 --> 00:14:09.650
+problem, if there's a blog post by Snoyman about
+
+314
+00:14:09.650 --> 00:14:12.420
+that particular problem I'm encountering, I feel
+
+315
+00:14:12.430 --> 00:14:15.240
+really grateful and happy because I know I can
+
+316
+00:14:15.240 --> 00:14:17.050
+just use that as a solution.
+
+317
+00:14:17.740 --> 00:14:20.460
+But the way I understand it is
+
+318
+00:14:20.470 --> 00:14:22.920
+that async exceptions are exceptions that are
+
+319
+00:14:22.920 --> 00:14:25.850
+thrown from another thread into your
+
+320
+00:14:25.850 --> 00:14:28.660
+thread, and they can happen during pure code.
+
+321
+00:14:29.140 --> 00:14:31.980
+But I guess that's kind of besides the point here. I just
+
+322
+00:14:31.980 --> 00:14:34.870
+wanted to mention that async exceptions as a
+
+323
+00:14:34.870 --> 00:14:36.780
+term can be a little confusing,
+
+324
+00:14:36.790 --> 00:14:39.460
+>> Right, I think I was probably using it incorrectly, so I
+
+325
+00:14:39.460 --> 00:14:41.260
+appreciate you sharing that.
+
+326
+00:14:41.840 --> 00:14:44.530
+>> But the part about bracket that he thinks is a
+
+327
+00:14:44.530 --> 00:14:47.360
+bad part or a wart in Haskell is that,
+
+328
+00:14:47.940 --> 00:14:50.930
+I guess if people are unfamiliar
+
+329
+00:14:50.930 --> 00:14:53.790
+with bracket. It's a function where you can acquire
+
+330
+00:14:53.790 --> 00:14:56.690
+some resource and then perform some action on
+
+331
+00:14:56.690 --> 00:14:59.580
+that resource and clean up the resource after
+
+332
+00:14:59.580 --> 00:15:02.490
+you're done with it. So the most common example of
+
+333
+00:15:02.490 --> 00:15:05.480
+this is opening a file, writing something to it
+
+334
+00:15:05.490 --> 00:15:08.380
+and then closing the file. The purpose
+
+335
+00:15:08.380 --> 00:15:11.090
+of bracket is to make sure that opening and
+
+336
+00:15:11.090 --> 00:15:13.970
+closing always happen, regardless
+
+337
+00:15:13.970 --> 00:15:16.560
+of if an exception is thrown while you're dealing with the
+
+338
+00:15:16.560 --> 00:15:19.510
+resource while you're writing to or reading from that
+
+339
+00:15:19.510 --> 00:15:22.390
+file or whatever it is you're doing. And this is
+
+340
+00:15:22.390 --> 00:15:25.340
+really nice, because the naive code you would
+
+341
+00:15:25.340 --> 00:15:28.240
+write to do this, where if you're in a do block and you say,
+
+342
+00:15:28.390 --> 00:15:31.290
+open the file, grab that handle write to the
+
+343
+00:15:31.290 --> 00:15:33.950
+file and then close it, that reads really
+
+344
+00:15:33.950 --> 00:15:36.940
+nicely top to bottom. But if I was going through that
+
+345
+00:15:36.940 --> 00:15:39.830
+in code review, I would say, Well, what happens
+
+346
+00:15:39.830 --> 00:15:42.520
+if an exception is thrown while we're
+
+347
+00:15:42.530 --> 00:15:45.440
+writing to the file, then this file handle is still
+
+348
+00:15:45.440 --> 00:15:48.050
+open and it never gets closed. That's the
+
+349
+00:15:48.050 --> 00:15:50.360
+problem that bracket is meant to solve.
+
+350
+00:15:51.040 --> 00:15:53.980
+>> So what's wrong with bracket? Why not use
+
+351
+00:15:53.980 --> 00:15:54.460
+bracket?
+
+352
+00:15:54.840 --> 00:15:57.780
+>> The problem with bracket is that the cleanup action.
+
+353
+00:15:57.790 --> 00:16:00.560
+So like closing a file uses a
+
+354
+00:16:00.560 --> 00:16:03.120
+thing called an interruptible mask,
+
+355
+00:16:03.130 --> 00:16:05.660
+and this is where we kind of get out of my
+
+356
+00:16:05.670 --> 00:16:08.540
+area of comfort or my wheelhouse.
+
+357
+00:16:08.550 --> 00:16:10.970
+But if I understand the situation
+
+358
+00:16:10.970 --> 00:16:13.900
+correctly during your clean up, if
+
+359
+00:16:13.900 --> 00:16:16.690
+an async exception is thrown, your
+
+360
+00:16:16.690 --> 00:16:19.550
+cleanup will be interrupted or canceled,
+
+361
+00:16:19.560 --> 00:16:22.310
+and then that exception will be
+
+362
+00:16:22.310 --> 00:16:24.770
+thrown somewhere else. Probably maybe the main thread.
+
+363
+00:16:25.940 --> 00:16:28.810
+But what this means is that you can't rely
+
+364
+00:16:28.810 --> 00:16:31.370
+on your clean up running because it might be interrupted.
+
+365
+00:16:32.240 --> 00:16:35.060
+So if I've got that interpretation correct,
+
+366
+00:16:35.070 --> 00:16:37.880
+the fix is to use a different thing called an
+
+367
+00:16:37.890 --> 00:16:40.580
+uninterruptible mask. And an
+
+368
+00:16:40.590 --> 00:16:43.390
+uninterruptible mask means that other
+
+369
+00:16:43.400 --> 00:16:46.230
+async exceptions can't prevent that
+
+370
+00:16:46.230 --> 00:16:49.230
+chunk of code from running. Or rather, they
+
+371
+00:16:49.230 --> 00:16:52.190
+can't like cut into that piece of code running
+
+372
+00:16:52.190 --> 00:16:55.070
+so you can count on your cleanup always
+
+373
+00:16:55.070 --> 00:16:55.480
+running.
+
+374
+00:16:56.040 --> 00:16:59.000
+>> Yeah, and I think Snoyman does a great job
+
+375
+00:16:59.000 --> 00:17:01.830
+here in the blog post, kind of
+
+376
+00:17:01.840 --> 00:17:04.660
+explaining mask, explaining the
+
+377
+00:17:04.670 --> 00:17:06.660
+mystery around it because,
+
+378
+00:17:07.740 --> 00:17:10.410
+honestly, I don't think a lot of people have dealt with it.
+
+379
+00:17:10.420 --> 00:17:12.650
+>> I'm one of those people. I haven't dealt with it.
+
+380
+00:17:12.660 --> 00:17:15.610
+>> Right and you're in my mind, one
+
+381
+00:17:15.610 --> 00:17:18.180
+of the most experienced Haskellers I know. So
+
+382
+00:17:19.040 --> 00:17:21.970
+to say that you don't know it is probably, you
+
+383
+00:17:21.970 --> 00:17:24.930
+know, a lot of people who deal with Haskell probably never
+
+384
+00:17:24.930 --> 00:17:27.870
+experienced what that is or how
+
+385
+00:17:27.870 --> 00:17:30.660
+it would create a problem. So, grateful that
+
+386
+00:17:30.660 --> 00:17:33.310
+he has been in those
+
+387
+00:17:33.320 --> 00:17:35.670
+places and he knows the solution and he's
+
+388
+00:17:36.140 --> 00:17:39.080
+willing to share that. So, uh, he does a
+
+389
+00:17:39.080 --> 00:17:42.050
+great job of being sarcastic and like, Yeah, you
+
+390
+00:17:42.050 --> 00:17:44.810
+expect this to do this right? And
+
+391
+00:17:44.820 --> 00:17:46.170
+no, you don't.
+
+392
+00:17:46.180 --> 00:17:49.020
+>> The good news is that even if you don't understand
+
+393
+00:17:49.020 --> 00:17:52.020
+masks or haven't even heard of them before, it doesn't really
+
+394
+00:17:52.020 --> 00:17:54.930
+matter. You can reach for a library that solves this
+
+395
+00:17:54.930 --> 00:17:57.750
+problem for you. This isn't something that's a
+
+396
+00:17:57.750 --> 00:18:00.670
+problem when the language necessarily
+
+397
+00:18:00.720 --> 00:18:03.490
+it's a problem with what the bracket function in the
+
+398
+00:18:03.490 --> 00:18:06.350
+standard library does. And once again,
+
+399
+00:18:06.360 --> 00:18:09.200
+Snoyman has this library called unliftio which is
+
+400
+00:18:09.200 --> 00:18:12.060
+ultimately used in Rio. So they all kind of fit
+
+401
+00:18:12.060 --> 00:18:14.870
+together, but the unliftio library and
+
+402
+00:18:14.870 --> 00:18:17.270
+its bracket function use an
+
+403
+00:18:17.280 --> 00:18:20.140
+uninterruptible mask so it doesn't have
+
+404
+00:18:20.140 --> 00:18:21.350
+this particular problem.
+
+405
+00:18:21.740 --> 00:18:24.360
+>> So you're telling me, is all these
+
+406
+00:18:24.370 --> 00:18:27.180
+warts that Snoyman has talked about, you know, as
+
+407
+00:18:27.180 --> 00:18:29.940
+quote unquote bad parts of Haskell. He
+
+408
+00:18:29.940 --> 00:18:31.450
+pretty much has a solution for.
+
+409
+00:18:32.040 --> 00:18:34.930
+>> Yeah. Yeah, It's, uh I don't know if he's trying to
+
+410
+00:18:34.930 --> 00:18:37.870
+sell us something, you know he wants He wants
+
+411
+00:18:37.870 --> 00:18:40.160
+us to get on board with the Rio bandwagon.
+
+412
+00:18:40.170 --> 00:18:43.050
+Um, but, yeah, sum and product. You
+
+413
+00:18:43.050 --> 00:18:45.450
+know, there's a solution in the works
+
+414
+00:18:45.840 --> 00:18:48.640
+data text IO, you can use the Rio
+
+415
+00:18:48.640 --> 00:18:51.560
+Library. It saves you from that, um,
+
+416
+00:18:51.580 --> 00:18:54.480
+bracket unliftio will save
+
+417
+00:18:54.480 --> 00:18:57.440
+you from. It's really just foldl. And you know,
+
+418
+00:18:57.440 --> 00:19:00.100
+there are solutions to that, too. But the problem with Foldl is
+
+419
+00:19:00.100 --> 00:19:02.960
+mostly that it's there at all, and it's in the prelude.
+
+420
+00:19:03.540 --> 00:19:06.260
+>> Right? Well, we appreciate him talking about
+
+421
+00:19:06.260 --> 00:19:08.590
+this, and if anybody has any more
+
+422
+00:19:08.590 --> 00:19:11.570
+questions or warts that they've run into, I
+
+423
+00:19:11.570 --> 00:19:14.340
+know Snoyman's looking for that so tweet him
+
+424
+00:19:14.350 --> 00:19:17.220
+or, um, I don't know, maybe make
+
+425
+00:19:17.220 --> 00:19:20.130
+a PR against his repo or something along those lines to
+
+426
+00:19:20.130 --> 00:19:23.010
+let him know some warts. And I'm sure he would love to
+
+427
+00:19:23.010 --> 00:19:25.920
+do part two of the Haskell the bad
+
+428
+00:19:25.920 --> 00:19:26.450
+parts.
+
+429
+00:19:27.040 --> 00:19:29.560
+>> Yeah. I wonder how many parts they're gonna be.
+
+430
+00:19:30.140 --> 00:19:32.980
+>> Well, hopefully not too many. Because I know in my mind I
+
+431
+00:19:32.980 --> 00:19:35.690
+don't have a long list of warts with Haskell. I
+
+432
+00:19:35.690 --> 00:19:38.450
+love what it gives us what allows us to do and
+
+433
+00:19:38.460 --> 00:19:41.240
+what, How fast we can iterate. I'm
+
+434
+00:19:41.240 --> 00:19:42.770
+really thankful for that.
+
+435
+00:19:43.340 --> 00:19:44.180
+>> Yeah, me too.
+
+436
+00:19:44.740 --> 00:19:47.280
+>> All right, well, I think that's it.
+
+437
+00:19:47.290 --> 00:19:50.170
+>> Yeah, that'll do it for us today. Thank
+
+438
+00:19:50.170 --> 00:19:53.040
+you for listening to the Haskell weekly podcast. I've been
+
+439
+00:19:53.040 --> 00:19:55.760
+your host, Taylor Fausak. And with me today was
+
+440
+00:19:55.760 --> 00:19:58.720
+Cameron Gera. If you'd like to learn more about
+
+441
+00:19:58.720 --> 00:20:01.590
+Haskell Weekly, you can check out our website Haskell
+
+442
+00:20:01.590 --> 00:20:04.530
+weekly dot News. Or you can find us on social
+
+443
+00:20:04.530 --> 00:20:07.500
+media. Our twitter handle is Haskell Weekly
+
+444
+00:20:07.510 --> 00:20:10.430
+our Reddit user name is Haskell Weekly our
+
+445
+00:20:10.440 --> 00:20:13.010
+GitHub user name is Haskell Weekly,
+
+446
+00:20:13.020 --> 00:20:15.550
+and we're probably Haskell weekly everywhere
+
+447
+00:20:15.550 --> 00:20:16.080
+else.
+
+448
+00:20:16.090 --> 00:20:19.090
+>> Yeah, and I know if you have a blog post that
+
+449
+00:20:19.090 --> 00:20:22.020
+you maybe want featured in Haskell Weekly. Um, don't forget
+
+450
+00:20:22.020 --> 00:20:24.370
+to submit a PR on the high school
+
+451
+00:20:24.380 --> 00:20:27.080
+weekly. Um, GitHub page.
+
+452
+00:20:27.080 --> 00:20:29.620
+So, uh, and the Haskell weekly
+
+453
+00:20:29.620 --> 00:20:31.490
+podcast is brought to you by
+
+454
+00:20:31.500 --> 00:20:34.430
+ITProTV the e-learning platform for
+
+455
+00:20:34.430 --> 00:20:37.240
+IT professionals And we would love to extend
+
+456
+00:20:37.250 --> 00:20:39.820
+a coupon code to you of Haskell Weekly
+
+457
+00:20:39.820 --> 00:20:42.720
+30. To get 30% off the
+
+458
+00:20:42.720 --> 00:20:45.270
+lifetime of your subscription, feel free to
+
+459
+00:20:45.440 --> 00:20:48.360
+go Take look, sign up for a free membership.
+
+460
+00:20:48.360 --> 00:20:51.190
+If you're curious of what we do on, Do you
+
+461
+00:20:51.190 --> 00:20:54.190
+know if you love it so much? Sign up with that Haskell Weekly
+
+462
+00:20:54.190 --> 00:20:57.170
+30 podcast promo code, and you will
+
+463
+00:20:57.170 --> 00:21:00.060
+be saving 30% off for the lifetime
+
+464
+00:21:00.070 --> 00:21:03.070
+of your subscription. So I think
+
+465
+00:21:03.070 --> 00:21:05.980
+that about does it. Thanks for joining us today.
+
+466
+00:21:05.990 --> 00:21:07.450
+We'll see you next time.
+
+467
+00:21:07.940 --> 00:21:08.360
+>> Bye.
