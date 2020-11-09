@@ -4,11 +4,11 @@ module HW.Handler.Issue
   )
 where
 
-import qualified CMark as Mark
 import qualified Data.Map as Map
 import qualified Data.Text as Text
 import qualified Data.Text.Encoding as Text
 import qualified HW.Handler.Common as Common
+import qualified HW.Markdown as Markdown
 import qualified HW.Template.Issue as Issue
 import qualified HW.Type.App as App
 import qualified HW.Type.Config as Config
@@ -31,7 +31,7 @@ handler number = do
         . Common.html Http.ok200 [(Http.hCacheControl, "public, max-age=900")]
         $ Issue.template baseUrl issue node
 
-readIssueFile :: Number.Number -> App.App Mark.Node
+readIssueFile :: Number.Number -> App.App Markdown.Markdown
 readIssueFile number = do
   let
     name = "issue-" <> Number.toText number
@@ -40,6 +40,4 @@ readIssueFile number = do
   byteString <- App.readDataFile path
   case Text.decodeUtf8' byteString of
     Left exception -> fail $ show exception
-    Right text -> pure $ Mark.commonmarkToNode
-      [Mark.optNormalize, Mark.optSafe, Mark.optSmart]
-      text
+    Right text -> pure $ Markdown.fromText text

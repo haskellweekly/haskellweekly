@@ -38,7 +38,7 @@ template config maybeIssue maybeEpisode = do
       , Html.href_ $ Route.toText baseUrl Route.Newsletter
       ]
       "Newsletter"
-    Html.p_ [Html.class_ "lh-copy"] $ do
+    Html.p_ $ do
       "The Haskell Weekly Newsletter covers the Haskell programming language. "
       "Each issue features several hand-picked links to interesting content about Haskell from around the web."
     case maybeIssue of
@@ -50,7 +50,7 @@ template config maybeIssue maybeEpisode = do
       , Html.href_ $ Route.toText baseUrl Route.Podcast
       ]
       "Podcast"
-    Html.p_ [Html.class_ "lh-copy"] $ do
+    Html.p_ $ do
       "The Haskell Weekly Podcast covers the Haskell programming language. "
       "Listen to professional software developers discuss using functional programming to solve real-world business problems. "
       "Each episode uses a conversational two-host format and runs for about 15 minutes."
@@ -59,11 +59,11 @@ template config maybeIssue maybeEpisode = do
       Just episode -> episodeTemplate baseUrl episode
     Podcast.callToAction baseUrl
     Html.h2_ [Html.class_ "f2 mv3 tracked-tight"] "Survey"
-    Html.p_ [Html.class_ "lh-copy"] $ do
+    Html.p_ $ do
       "The State of Haskell Survey is a yearly survey of the Haskell community. "
       "The survey is typically open for two weeks at the beginning of November. "
       "You can view the results of previous surveys:"
-    Html.ul_ [Html.class_ "lh-copy"] $ do
+    Html.ul_ $ do
       Html.li_ $ Html.a_
         [ Html.href_
             "https://taylor.fausak.me/2019/11/16/haskell-survey-results/"
@@ -80,7 +80,7 @@ template config maybeIssue maybeEpisode = do
         ]
         "2017 State of Haskell Survey results"
     Html.h2_ [Html.class_ "f2 mv3 tracked-tight"] "Contributing"
-    Html.p_ [Html.class_ "lh-copy"] $ do
+    Html.p_ $ do
       "If you would like to contribute content to Haskell Weekly, please open an issue "
       Html.a_
         [Html.href_ "https://github.com/haskellweekly/haskellweekly"]
@@ -91,7 +91,7 @@ template config maybeIssue maybeEpisode = do
         "info@haskellweekly.news"
       "."
     Html.h2_ [Html.class_ "f2 mv3 tracked-tight"] "Advertising"
-    Html.p_ [Html.class_ "lh-copy"] $ do
+    Html.p_ $ do
       "If you would like to advertise with Haskell Weekly, please consult our "
       Html.a_
         [Html.href_ $ Route.toText baseUrl Route.Advertising]

@@ -6,6 +6,7 @@ where
 import qualified Data.List.NonEmpty as NonEmpty
 import qualified Data.Map as Map
 import qualified Data.Text as Text
+import qualified HW.Markdown as Markdown
 import qualified HW.Type.Article as Article
 import qualified HW.Type.Audio as Audio
 import qualified HW.Type.BaseUrl as BaseUrl
@@ -28,7 +29,18 @@ template baseUrl episodes =
     text = Xml.NodeContent
     itemTitle = text . Title.toText . Episode.title
     itemLink = text . Route.toText baseUrl . Route.Episode . Episode.number
-    itemDescription = text . Summary.toText . Episode.summary
+    itemSummary = text . Summary.toText . Episode.summary
+    itemDescription episode = text $ mconcat
+      [ Markdown.toHtml
+        . Markdown.fromText
+        . Summary.toText
+        $ Episode.summary episode
+      , "\n\n"
+      , Text.intercalate "\n"
+        . fmap (\ article -> "- <" <> Article.toText article <> ">")
+        . NonEmpty.toList
+        $ Episode.articles episode
+      ]
     itemEnclosureLength = Text.pack . show . Size.toNatural . Episode.size
     itemEnclosureUrl = Audio.toText . Episode.audio
     itemGuid = text . Guid.toText . Episode.guid
@@ -40,15 +52,7 @@ template baseUrl episodes =
       []
       [ node "title" [] [itemTitle episode]
       , node "link" [] [itemLink episode]
-      , node "description" []
-        [ itemDescription episode
-        , text "\n\n"
-        , text
-        . Text.intercalate "\n"
-        . fmap (\ article -> "- " <> Article.toText article)
-        . NonEmpty.toList
-        $ Episode.articles episode
-        ]
+      , node "description" [] [itemDescription episode]
       , node
         "enclosure"
         [ ("length", itemEnclosureLength episode)
@@ -61,7 +65,7 @@ template baseUrl episodes =
       , node "itunes:author" [] [text "Taylor Fausak"]
       , node "itunes:duration" [] [itemDuration episode]
       , node "itunes:episode" [] [itemEpisode episode]
-      , node "itunes:summary" [] [itemDescription episode]
+      , node "itunes:summary" [] [itemSummary episode]
       ]
     channelLink = text $ Route.toText baseUrl Route.Podcast
     channelDescription = text $ Text.unwords

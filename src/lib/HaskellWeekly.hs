@@ -8,11 +8,14 @@ module HaskellWeekly
   , Caption.parseVtt
   , Caption.renderTranscript
   , Package.getDataDir
+  , Markdown.fromText
+  , Markdown.toHtml
   )
 where
 
 import qualified HW.Episodes as Episodes
 import qualified HW.Issues as Issues
 import qualified HW.Main as Main
+import qualified HW.Markdown as Markdown
 import qualified HW.Type.Caption as Caption
 import qualified Paths_haskellweekly as Package

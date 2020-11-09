@@ -1,7 +1,7 @@
 cabal-version: 2.0
 
 name: haskellweekly
-version: 0.2020.11.5
+version: 0.2020.11.9
 
 build-type: Simple
 category: Web
@@ -89,6 +89,7 @@ library
     HW.Handler.SurveyComplete
     HW.Issues
     HW.Main
+    HW.Markdown
     HW.Middleware
     HW.S3
     HW.Server

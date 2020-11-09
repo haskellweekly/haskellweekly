@@ -22,11 +22,11 @@ template baseUrl issues =
     $ do
         Survey2020.callToAction baseUrl
         Html.h2_ [Html.class_ "f2 mv3 tracked-tight"] "Newsletter"
-        Html.p_ [Html.class_ "lh-copy"] $ do
+        Html.p_ $ do
           "The Haskell Weekly Newsletter covers the Haskell programming language. "
           "Each issue features several hand-picked links to interesting content about Haskell from around the web."
         callToAction baseUrl
-        Html.ul_ [Html.class_ "lh-copy"] $ mapM_ (issueTemplate baseUrl) issues
+        Html.ul_ $ mapM_ (issueTemplate baseUrl) issues
 
 header :: BaseUrl.BaseUrl -> Maybe Issue.Issue -> Html.Html ()
 header baseUrl maybeIssue = do
@@ -54,7 +54,7 @@ header baseUrl maybeIssue = do
 callToAction :: BaseUrl.BaseUrl -> Html.Html ()
 callToAction baseUrl =
   Html.div_ [Html.class_ "ba b--yellow bg-washed-yellow center mw6 pa3"] $ do
-    Html.p_ [Html.class_ "lh-copy mt0"] $ do
+    Html.p_ [Html.class_ "mt0"] $ do
       "Subscribe now! "
       "We'll never send you spam. "
       "You can also follow us "

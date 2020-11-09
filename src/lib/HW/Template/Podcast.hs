@@ -21,12 +21,12 @@ template baseUrl episodes =
   Base.template baseUrl "Haskell Weekly Podcast" (header baseUrl Nothing) $ do
     Survey2020.callToAction baseUrl
     Html.h2_ [Html.class_ "f2 mv3 tracked-tight"] "Podcast"
-    Html.p_ [Html.class_ "lh-copy"] $ do
+    Html.p_  $ do
       "The Haskell Weekly Podcast covers the Haskell programming language. "
       "Listen to professional software developers discuss using functional programming to solve real-world business problems. "
       "Each episode uses a conversational two-host format and runs for about 15 minutes."
     callToAction baseUrl
-    Html.ul_ [Html.class_ "lh-copy"] $ mapM_ (episodeTemplate baseUrl) episodes
+    Html.ul_ $ mapM_ (episodeTemplate baseUrl) episodes
 
 header :: BaseUrl.BaseUrl -> Maybe Episode.Episode -> Html.Html ()
 header baseUrl maybeEpisode = do
@@ -68,7 +68,7 @@ callToAction baseUrl =
               , Html.class_ "dib w-40-ns"
               , Html.src_ . Route.toText baseUrl $ Route.GoogleBadge
               ]
-        Html.p_ [Html.class_ "lh-copy mb0"] $ do
+        Html.p_ [Html.class_ "mb0"] $ do
           "You can also follow us "
           Html.a_ [Html.href_ "https://twitter.com/haskellweekly"] "on Twitter"
           " or with "

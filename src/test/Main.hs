@@ -3,7 +3,6 @@ module Main
   )
 where
 
-import qualified CMark as Mark
 import qualified Control.Exception as Exception
 import qualified Control.Monad as Monad
 import qualified Data.ByteString as ByteString
@@ -34,7 +33,8 @@ main = do
       Monad.void
         . Exception.evaluate
         . Text.length
-        . Mark.commonmarkToHtml []
+        . HaskellWeekly.toHtml
+        . HaskellWeekly.fromText
         $ Text.decodeUtf8 contents
     putStrLn $ "Parsed " <> pluralize "issue" (length entries) <> "."
   do

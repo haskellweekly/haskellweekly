@@ -44,7 +44,7 @@ template baseUrl title head_ body = do
       Common.twitter "site" "@haskellweekly"
       head_
     Html.body_
-        [Html.class_ "bg-white black flex justify-center mh3 sans-serif"]
+        [Html.class_ "bg-white black flex justify-center lh-copy mh3 sans-serif"]
       . Html.div_ [Html.class_ "mw7 w-100"]
       $ do
           Html.header_ [Html.class_ "mv3"] $ do
@@ -69,21 +69,19 @@ template baseUrl title head_ body = do
                     ]
                     "Search"
           Html.main_ [Html.class_ "mv3"] body
-          Html.footer_ [Html.class_ "mid-gray mb6 mt3"]
-            . Html.p_ [Html.class_ "lh-copy"]
-            $ do
-                "The content on this site is licensed under a "
-                Html.a_
-                  [ Html.class_ "color-inherit"
-                  , Html.href_ "https://creativecommons.org/licenses/by/4.0/"
-                  ]
-                  "Creative Commons Attribution 4.0 International"
-                " license. The code that powers this site is available "
-                Html.a_
-                  [ Html.class_ "color-inherit"
-                  , Html.href_ "https://github.com/haskellweekly/haskellweekly"
-                  ]
-                  "on GitHub"
-                ". Powered by version "
-                Html.toHtml $ Version.showVersion Package.version
-                "."
+          Html.footer_ [Html.class_ "mid-gray mb6 mt3"] . Html.p_ $ do
+            "The content on this site is licensed under a "
+            Html.a_
+              [ Html.class_ "color-inherit"
+              , Html.href_ "https://creativecommons.org/licenses/by/4.0/"
+              ]
+              "Creative Commons Attribution 4.0 International"
+            " license. The code that powers this site is available "
+            Html.a_
+              [ Html.class_ "color-inherit"
+              , Html.href_ "https://github.com/haskellweekly/haskellweekly"
+              ]
+              "on GitHub"
+            ". Powered by version "
+            Html.toHtml $ Version.showVersion Package.version
+            "."

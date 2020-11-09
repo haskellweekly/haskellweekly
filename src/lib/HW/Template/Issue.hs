@@ -3,8 +3,8 @@ module HW.Template.Issue
   )
 where
 
-import qualified CMark as Mark
 import qualified Data.Text as Text
+import qualified HW.Markdown as Markdown
 import qualified HW.Template.Base as Base
 import qualified HW.Template.Newsletter as Newsletter
 import qualified HW.Template.Survey2020 as Survey2020
@@ -15,8 +15,8 @@ import qualified HW.Type.Number as Number
 import qualified HW.Type.Route as Route
 import qualified Lucid as Html
 
-template :: BaseUrl.BaseUrl -> Issue.Issue -> Mark.Node -> Html.Html ()
-template baseUrl issue node =
+template :: BaseUrl.BaseUrl -> Issue.Issue -> Markdown.Markdown -> Html.Html ()
+template baseUrl issue markdown =
   Base.template
       baseUrl
       (title issue <> " :: Haskell Weekly Newsletter")
@@ -33,9 +33,7 @@ template baseUrl issue node =
           " "
           Html.span_ [Html.class_ "mid-gray"] . Html.toHtml $ date issue
         Newsletter.callToAction baseUrl
-        Html.div_ [Html.class_ "lh-copy"] . Html.toHtmlRaw $ Mark.nodeToHtml
-          []
-          node
+        Html.div_ . Html.toHtmlRaw $ Markdown.toHtml markdown
 
 title :: Issue.Issue -> Text.Text
 title = mappend "Issue " . Number.toText . Issue.issueNumber

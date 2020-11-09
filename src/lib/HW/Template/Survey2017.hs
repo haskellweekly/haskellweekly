@@ -11,7 +11,7 @@ template :: BaseUrl.BaseUrl -> Html.Html ()
 template baseUrl =
   Base.template baseUrl "2017 Survey :: Haskell Weekly" mempty $ do
     Html.h2_ [Html.class_ "f2 mv3 tracked-tight"] "2017 Survey"
-    Html.p_ [Html.class_ "lh-copy"] $ do
+    Html.p_ $ do
       "Thank you for your submissions! "
       "This survey is now closed. "
       "You can "

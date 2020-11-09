@@ -4,6 +4,7 @@ module HW.Template.Episode
 where
 
 import qualified Data.Text as Text
+import qualified HW.Markdown as Markdown
 import qualified HW.Template.Base as Base
 import qualified HW.Template.Podcast as Podcast
 import qualified HW.Template.Survey2020 as Survey2020
@@ -37,14 +38,16 @@ template baseUrl episode captions =
         Html.h3_ [Html.class_ "f3 mv3 tracked-tight"] . Html.toHtml $ title
           episode
         Podcast.callToAction baseUrl
-        Html.p_ [Html.class_ "lh-copy"] $ do
-          Html.toHtml . Summary.toText $ Episode.summary episode
-          " "
-          Html.span_ [Html.class_ "mid-gray"] $ do
-            Html.toHtml $ number episode
-            " was published on "
-            Html.toHtml $ date episode
-            "."
+        Html.toHtmlRaw
+          . Markdown.toHtml
+          . Markdown.fromText
+          . Summary.toText
+          $ Episode.summary episode
+        Html.p_ [Html.class_ "mid-gray"] $ do
+          Html.toHtml $ number episode
+          " was published on "
+          Html.toHtml $ date episode
+          "."
         Html.video_
             [ Html.class_ "bg-black mw-100"
             , Html.controls_ "controls"
@@ -69,10 +72,9 @@ template baseUrl episode captions =
                 , Html.makeAttribute "srclang" "en-US"
                 ]
         Html.h4_ [Html.class_ "f4 mv3"] "Links"
-        Html.ul_ [Html.class_ "lh-copy"] . mapM_ articleLink $ Episode.articles
-          episode
+        Html.ul_ . mapM_ articleLink $ Episode.articles episode
         Html.h4_ [Html.class_ "f4 mv3"] "Transcript"
-        Html.div_ [Html.class_ "lh-copy"]
+        Html.div_
           . mapM_ (Html.p_ . Html.toHtml)
           $ Caption.renderTranscript captions
 

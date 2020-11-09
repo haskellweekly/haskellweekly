@@ -3,11 +3,11 @@ module HW.Template.NewsletterFeed
   )
 where
 
-import qualified CMark as Mark
 import qualified Data.List as List
 import qualified Data.Map as Map
 import qualified Data.Maybe as Maybe
 import qualified Data.Ord as Ord
+import qualified HW.Markdown as Markdown
 import qualified HW.Type.BaseUrl as BaseUrl
 import qualified HW.Type.Date as Date
 import qualified HW.Type.Issue as Issue
@@ -15,7 +15,7 @@ import qualified HW.Type.Number as Number
 import qualified HW.Type.Route as Route
 import qualified Text.XML as Xml
 
-template :: BaseUrl.BaseUrl -> [(Issue.Issue, Mark.Node)] -> Xml.Document
+template :: BaseUrl.BaseUrl -> [(Issue.Issue, Markdown.Markdown)] -> Xml.Document
 template baseUrl issues =
   let
     element name attributes = Xml.Element name (Map.fromList attributes)
@@ -37,7 +37,7 @@ template baseUrl issues =
         [ node "name" [] [text "Haskell Weekly"]
         , node "email" [] [text "info@haskellweekly.news"]
         ]
-      , node "content" [("type", "html")] [text $ Mark.nodeToHtml [] content]
+      , node "content" [("type", "html")] [text $ Markdown.toHtml content]
       ]
     feedId = Route.toText baseUrl Route.NewsletterFeed
     feedUpdated =
