@@ -35,16 +35,20 @@ template baseUrl episodes =
     itemPubDate = text . Date.toRfc2822 . Episode.date
     itemDuration = text . Duration.toText . Episode.duration
     itemEpisode = text . Number.toText . Episode.number
-    articles = NonEmpty.toList . Episode.articles
-    articleToNode = text . mappend "\n- " . Article.toText
     item episode = node
       "item"
       []
       [ node "title" [] [itemTitle episode]
       , node "link" [] [itemLink episode]
-      , node "description" [] $ itemDescription episode : fmap
-        articleToNode
-        (articles episode)
+      , node "description" []
+        [ itemDescription episode
+        , text "\n\n"
+        , text
+        . Text.intercalate "\n"
+        . fmap (\ article -> "- <" <> Article.toText article <> ">")
+        . NonEmpty.toList
+        $ Episode.articles episode
+        ]
       , node
         "enclosure"
         [ ("length", itemEnclosureLength episode)
