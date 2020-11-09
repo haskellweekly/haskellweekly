@@ -45,7 +45,7 @@ template baseUrl episodes =
         , text "\n\n"
         , text
         . Text.intercalate "\n"
-        . fmap (\ article -> "- <" <> Article.toText article <> ">")
+        . fmap (\ article -> "- " <> Article.toText article)
         . NonEmpty.toList
         $ Episode.articles episode
         ]
