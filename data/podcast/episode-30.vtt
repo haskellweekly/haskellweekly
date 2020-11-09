@@ -1,0 +1,2137 @@
+WEBVTT
+
+1
+00:00:04.840 --> 00:00:07.770
+>> Hello and
+
+2
+00:00:07.770 --> 00:00:10.730
+welcome to the Haskell weekly podcast. I'm your host,
+
+3
+00:00:10.740 --> 00:00:13.430
+Taylor Fausak. I'm the lead engineer at
+
+4
+00:00:13.430 --> 00:00:16.210
+ITProTV. And earlier this week, I
+
+5
+00:00:16.210 --> 00:00:19.180
+was at the Haskell Exchange 2020 Conference,
+
+6
+00:00:19.180 --> 00:00:22.150
+learning about the new Haskell Foundation,
+
+7
+00:00:22.160 --> 00:00:25.020
+as announced by Simon Peyton Jones. If you haven't heard
+
+8
+00:00:25.020 --> 00:00:28.020
+about it yet, I encourage you to go check out the talk on
+
+9
+00:00:28.020 --> 00:00:30.650
+YouTube and the AMA on Reddit. There will be
+
+10
+00:00:30.650 --> 00:00:32.070
+links in the show notes.
+
+11
+00:00:32.840 --> 00:00:34.070
+>> And I'm Cameron Gera
+
+12
+00:00:34.080 --> 00:00:36.570
+another engineer here at
+
+13
+00:00:36.570 --> 00:00:39.010
+ITProTV. And it is
+
+14
+00:00:39.010 --> 00:00:41.730
+November, and it is the state of
+
+15
+00:00:41.730 --> 00:00:44.690
+Haskell Survey is out there for you guys
+
+16
+00:00:44.690 --> 00:00:47.370
+to check out. We would love to hear your opinions.
+
+17
+00:00:47.380 --> 00:00:50.330
+It is open until November 14th. So
+
+18
+00:00:50.330 --> 00:00:53.210
+that is this coming Saturday for those who
+
+19
+00:00:53.210 --> 00:00:56.130
+listen right away. So please, please, please go check
+
+20
+00:00:56.130 --> 00:00:58.160
+it out. We would love to hear your feedback.
+
+21
+00:00:58.540 --> 00:01:00.640
+>> And I am Andres Schmois.
+
+22
+00:01:00.640 --> 00:01:03.410
+Also an engineer here at
+
+23
+00:01:03.410 --> 00:01:06.260
+ITProTV. I have
+
+24
+00:01:06.260 --> 00:01:09.250
+been doing Haskell now for I would
+
+25
+00:01:09.250 --> 00:01:12.250
+say about a year and a half very much enjoying it.
+
+26
+00:01:12.640 --> 00:01:15.270
+Uh, today we will be talking
+
+27
+00:01:15.270 --> 00:01:18.190
+about a blog post, uh,
+
+28
+00:01:18.200 --> 00:01:21.160
+called names are not type safety.
+
+29
+00:01:21.540 --> 00:01:23.020
+>> It's a hot topic, huh?
+
+30
+00:01:23.030 --> 00:01:25.900
+>> Yeah. At the blog post is by Alexis
+
+31
+00:01:25.900 --> 00:01:26.680
+King.
+
+32
+00:01:26.690 --> 00:01:29.570
+>> So, what did you think when you first read this blog post
+
+33
+00:01:29.570 --> 00:01:30.110
+Andres?
+
+34
+00:01:30.120 --> 00:01:32.870
+>> Uh, I I
+
+35
+00:01:32.880 --> 00:01:34.380
+tend to think
+
+36
+00:01:34.390 --> 00:01:36.930
+blog posts that tell me
+
+37
+00:01:36.930 --> 00:01:39.660
+something that they're not seem pretty
+
+38
+00:01:39.660 --> 00:01:42.280
+aggressive from the beginning. Um,
+
+39
+00:01:42.290 --> 00:01:45.260
+it took me a little while to realize what it was
+
+40
+00:01:45.260 --> 00:01:48.140
+trying to say because I start to see red
+
+41
+00:01:48.150 --> 00:01:50.450
+when things are aggressive. Mhm.
+
+42
+00:01:50.840 --> 00:01:53.240
+But no. Just kidding, uh,
+
+43
+00:01:53.250 --> 00:01:56.150
+the the blog post tries to
+
+44
+00:01:56.150 --> 00:01:58.180
+say that new types are,
+
+45
+00:01:58.190 --> 00:02:01.150
+uh, potentially
+
+46
+00:02:01.150 --> 00:02:04.150
+not a good thing when dealing
+
+47
+00:02:04.150 --> 00:02:07.110
+with type safety in a language. However,
+
+48
+00:02:07.120 --> 00:02:09.880
+it at first I
+
+49
+00:02:09.880 --> 00:02:12.800
+thought that the blog post tried to tell you not to
+
+50
+00:02:12.800 --> 00:02:15.800
+use them and just to go straight for using the
+
+51
+00:02:15.800 --> 00:02:18.410
+variables or the primitive types themselves.
+
+52
+00:02:18.420 --> 00:02:21.100
+Uh, but then I started to realize that
+
+53
+00:02:21.100 --> 00:02:23.790
+that's not exactly what it meant. It was more,
+
+54
+00:02:23.800 --> 00:02:26.650
+uh, you know, just make sure that
+
+55
+00:02:26.660 --> 00:02:28.980
+the new types that you use are,
+
+56
+00:02:28.990 --> 00:02:29.950
+uh
+
+57
+00:02:31.540 --> 00:02:33.950
+okay. And they won't tell you
+
+58
+00:02:33.950 --> 00:02:36.470
+that the code is type safe
+
+59
+00:02:36.480 --> 00:02:38.130
+just because you're using them.
+
+60
+00:02:38.140 --> 00:02:40.990
+>> Yeah. I had a similar thought process as you
+
+61
+00:02:41.000 --> 00:02:43.630
+where when I first read this blog post, I
+
+62
+00:02:43.630 --> 00:02:46.530
+thought it was trying to say we
+
+63
+00:02:46.530 --> 00:02:49.370
+shouldn't use new types, But really, I've
+
+64
+00:02:49.370 --> 00:02:52.290
+come to realize that. I think it's saying or Alexis is saying
+
+65
+00:02:52.300 --> 00:02:54.830
+that new types
+
+66
+00:02:55.340 --> 00:02:58.130
+may not give you all of the
+
+67
+00:02:58.140 --> 00:03:01.130
+securities that you think you're getting from them, and
+
+68
+00:03:01.130 --> 00:03:04.070
+you have to keep that in mind when you work with them. What did you think about
+
+69
+00:03:04.070 --> 00:03:04.550
+it, Cam?
+
+70
+00:03:05.040 --> 00:03:06.360
+>> Yeah, so
+
+71
+00:03:07.240 --> 00:03:10.070
+starting. I really I was
+
+72
+00:03:10.080 --> 00:03:12.910
+intrigued at first because, you know,
+
+73
+00:03:12.920 --> 00:03:15.780
+like Andres said, this is kind of against the grain, right? Like,
+
+74
+00:03:15.790 --> 00:03:18.270
+don't use something that everybody uses
+
+75
+00:03:18.640 --> 00:03:21.350
+and you know, So it kind of felt aggressive in the
+
+76
+00:03:21.350 --> 00:03:23.900
+beginning. But I realized that, you know, she's
+
+77
+00:03:23.910 --> 00:03:26.860
+trying to express that. You know,
+
+78
+00:03:27.340 --> 00:03:30.150
+new types have value, but don't
+
+79
+00:03:30.150 --> 00:03:32.650
+get just confused with using them
+
+80
+00:03:32.650 --> 00:03:35.540
+for, you know, changing the name right. At that
+
+81
+00:03:35.540 --> 00:03:37.820
+point, you should just use a type alias. Or something
+
+82
+00:03:37.830 --> 00:03:40.810
+lighter, less heavyweight that
+
+83
+00:03:40.820 --> 00:03:43.300
+you can actually change the underlying type of
+
+84
+00:03:43.310 --> 00:03:46.150
+where, as with a new type you could, you know,
+
+85
+00:03:46.540 --> 00:03:48.950
+if you're exporting the constructor and
+
+86
+00:03:48.960 --> 00:03:51.820
+allowing modification to happen anywhere you can
+
+87
+00:03:51.820 --> 00:03:54.250
+kind of get yourself into a bind. And
+
+88
+00:03:54.640 --> 00:03:56.940
+you know, I like her leading example too,
+
+89
+00:03:56.950 --> 00:03:59.810
+uh which at first I thought it was gonna be
+
+90
+00:03:59.810 --> 00:04:02.520
+like, Yeah, I never use new types only always
+
+91
+00:04:02.520 --> 00:04:05.510
+get to the bottom of the construction and make sure every
+
+92
+00:04:05.520 --> 00:04:08.520
+impossible cases gone. She's just saying like,
+
+93
+00:04:08.530 --> 00:04:11.450
+That's a nice to have, like, that's something. If you can do it,
+
+94
+00:04:11.940 --> 00:04:14.870
+do it because it's gonna provide that safety
+
+95
+00:04:14.870 --> 00:04:17.650
+and allow you not to have to worry about handling quote
+
+96
+00:04:17.650 --> 00:04:19.270
+unquote the impossible case.
+
+97
+00:04:19.280 --> 00:04:20.050
+>> Right?
+
+98
+00:04:20.060 --> 00:04:21.490
+>> So I thought that was good value.
+
+99
+00:04:21.500 --> 00:04:24.430
+>> So the example that she starts with is a
+
+100
+00:04:24.430 --> 00:04:27.380
+hypothetical data type that represents the numbers from 1
+
+101
+00:04:27.380 --> 00:04:30.330
+to 5. So a very synthetic example. And
+
+102
+00:04:30.330 --> 00:04:32.960
+she shows how if you define it the
+
+103
+00:04:33.340 --> 00:04:36.040
+maybe normal way as an ADT
+
+104
+00:04:36.050 --> 00:04:38.540
+where you have five constructors named one through
+
+105
+00:04:38.540 --> 00:04:41.470
+five and she compares that to using a
+
+106
+00:04:41.470 --> 00:04:44.430
+new type wrapper around int and kind of shows. I think some of the
+
+107
+00:04:44.430 --> 00:04:47.260
+pros and cons of each approach, um,
+
+108
+00:04:47.260 --> 00:04:49.740
+and it starts to get at the question
+
+109
+00:04:49.750 --> 00:04:52.520
+of, um, what this
+
+110
+00:04:52.530 --> 00:04:55.300
+the title of the blog post gets at, which is what is type
+
+111
+00:04:55.300 --> 00:04:58.180
+safety. And it's kind of showing you that
+
+112
+00:04:58.180 --> 00:05:00.590
+with the ADT you are actually
+
+113
+00:05:00.590 --> 00:05:03.480
+excluding impossible cases from your code. And and
+
+114
+00:05:03.480 --> 00:05:06.300
+that's type safety, I think. Um,
+
+115
+00:05:06.310 --> 00:05:08.800
+whereas if you use a new type, you
+
+116
+00:05:08.800 --> 00:05:11.560
+are giving yourself the ability to
+
+117
+00:05:11.560 --> 00:05:14.540
+exclude cases in your runtime,
+
+118
+00:05:14.550 --> 00:05:17.250
+but they you still have to account for them when you're writing your code.
+
+119
+00:05:17.840 --> 00:05:20.430
+>> Right, because the compiler is gonna say, Hey, you're missing something
+
+120
+00:05:20.430 --> 00:05:21.470
+here.
+
+121
+00:05:21.840 --> 00:05:24.560
+>> And I think we need to keep in mind
+
+122
+00:05:24.560 --> 00:05:26.850
+exactly what
+
+123
+00:05:27.440 --> 00:05:30.060
+your new types are used for. So in this
+
+124
+00:05:30.060 --> 00:05:33.050
+example, uh, the obvious choice is to use
+
+125
+00:05:33.050 --> 00:05:34.950
+the 1 to 5. Uh,
+
+126
+00:05:34.960 --> 00:05:37.320
+because you know, there's only
+
+127
+00:05:37.320 --> 00:05:40.270
+five fields and the compiler
+
+128
+00:05:40.270 --> 00:05:43.230
+will tell you when you add a new case
+
+129
+00:05:43.230 --> 00:05:45.650
+where you've used it. And that doesn't
+
+130
+00:05:45.940 --> 00:05:48.820
+completely remove the possibility that you use,
+
+131
+00:05:48.830 --> 00:05:51.480
+uh, pattern matching that that
+
+132
+00:05:51.490 --> 00:05:54.410
+matches on multiple patterns. But that's normally
+
+133
+00:05:54.410 --> 00:05:57.110
+looked as you know, it's a whole another topic altogether.
+
+134
+00:05:57.110 --> 00:05:59.900
+But, um, that's more type
+
+135
+00:05:59.900 --> 00:06:02.590
+safe to use an ADT Than use a new type here. But
+
+136
+00:06:02.600 --> 00:06:05.540
+what about, for example, that you know the example that
+
+137
+00:06:05.550 --> 00:06:08.190
+she herself shows here, which is the new type email
+
+138
+00:06:08.190 --> 00:06:11.070
+address wrapped around a text type,
+
+139
+00:06:11.040 --> 00:06:13.840
+and I think that's where
+
+140
+00:06:13.850 --> 00:06:16.350
+the main question is about.
+
+141
+00:06:16.740 --> 00:06:19.440
+Is that type safe or isn't it type safe? In my
+
+142
+00:06:19.440 --> 00:06:22.410
+opinion, very off the top, I think
+
+143
+00:06:22.410 --> 00:06:25.290
+it is type safe. Um, it is not
+
+144
+00:06:25.300 --> 00:06:28.200
+always type safe, but just a wrapper around
+
+145
+00:06:28.200 --> 00:06:30.380
+text can be type safe.
+
+146
+00:06:30.390 --> 00:06:33.230
+>> Right. And that's the pardon, the pun.
+
+147
+00:06:33.230 --> 00:06:36.230
+That's the type of thing we use a lot in our code base here
+
+148
+00:06:36.230 --> 00:06:39.020
+at ITProTV, where we have things that
+
+149
+00:06:39.020 --> 00:06:41.840
+are representationally the same. So
+
+150
+00:06:41.840 --> 00:06:44.760
+like an email address and somebody's first name.
+
+151
+00:06:45.440 --> 00:06:48.350
+Um, and we want to distinguish those. So we
+
+152
+00:06:48.350 --> 00:06:50.970
+want to give them separate names. But we don't want to
+
+153
+00:06:50.970 --> 00:06:53.700
+actually make a type in our code
+
+154
+00:06:53.700 --> 00:06:56.650
+base that is correct by construction
+
+155
+00:06:56.660 --> 00:06:59.420
+or the correct by construction encoding of an email
+
+156
+00:06:59.420 --> 00:07:02.240
+address. Because I'm struggling to think of
+
+157
+00:07:02.240 --> 00:07:04.500
+what that would even look like emails are horrendously
+
+158
+00:07:04.500 --> 00:07:07.480
+complicated. You know, you start out thinking like, Oh, it's pretty simple. There's
+
+159
+00:07:07.480 --> 00:07:10.390
+only a couple parts, but, uh, we don't need to get
+
+160
+00:07:10.390 --> 00:07:13.110
+into that. That could be an entirely separate ah thing,
+
+161
+00:07:13.120 --> 00:07:15.250
+but the point for me is that, like,
+
+162
+00:07:15.940 --> 00:07:18.790
+yes, you're not actually getting any additional type
+
+163
+00:07:18.790 --> 00:07:21.730
+safety here in, like, excluding impossible cases. But
+
+164
+00:07:21.730 --> 00:07:24.540
+you are saying that I'm not gonna accidentally use somebody's
+
+165
+00:07:24.540 --> 00:07:26.660
+name as an email address.
+
+166
+00:07:26.670 --> 00:07:29.150
+>> Rgiht. Yeah. So bottom line is, there
+
+167
+00:07:29.150 --> 00:07:31.850
+still needs to be some layer of validation
+
+168
+00:07:31.860 --> 00:07:34.800
+for the underlying text of the email. If
+
+169
+00:07:34.800 --> 00:07:37.660
+you're worried about that being, you know, some something a
+
+170
+00:07:37.660 --> 00:07:40.200
+user you know, misconstrues and sends in
+
+171
+00:07:40.200 --> 00:07:42.360
+some, you know, SQL injection that
+
+172
+00:07:42.840 --> 00:07:45.610
+messes up your entire database, which I would
+
+173
+00:07:45.610 --> 00:07:48.460
+imagine we're gonna escape it correctly. But you never
+
+174
+00:07:48.460 --> 00:07:51.060
+know so I think that is Ah,
+
+175
+00:07:51.640 --> 00:07:53.860
+you know, something to note as well is like
+
+176
+00:07:54.470 --> 00:07:56.930
+it may not be quote unquote the
+
+177
+00:07:56.930 --> 00:07:59.890
+underlying construction of an email. Correct. But you
+
+178
+00:07:59.890 --> 00:08:02.700
+can do validation with that type and say, Hey, I'm
+
+179
+00:08:02.700 --> 00:08:05.600
+gonna give you quote unquote an email from text and
+
+180
+00:08:05.610 --> 00:08:08.450
+I want you to validate that is quote unquote still an email.
+
+181
+00:08:09.040 --> 00:08:11.980
+And so you know, in that way, yes, it's
+
+182
+00:08:11.980 --> 00:08:14.780
+an extra step, but it's a lot less
+
+183
+00:08:14.780 --> 00:08:15.270
+headache.
+
+184
+00:08:15.640 --> 00:08:18.320
+>> Right. And that validation uses a very
+
+185
+00:08:18.320 --> 00:08:21.060
+common pattern in Haskell and probably other
+
+186
+00:08:21.060 --> 00:08:23.560
+languages as well. But where you have
+
+187
+00:08:23.940 --> 00:08:26.910
+a module that only exposes the type and then
+
+188
+00:08:26.910 --> 00:08:29.370
+a smart constructor. So, uh,
+
+189
+00:08:29.840 --> 00:08:32.830
+this is the way that she talks about this in the post
+
+190
+00:08:32.840 --> 00:08:35.840
+is, um, new types as a token.
+
+191
+00:08:35.930 --> 00:08:38.790
+So you're saying that since the only way you
+
+192
+00:08:38.790 --> 00:08:41.660
+can construct, for example, an email address is
+
+193
+00:08:41.720 --> 00:08:44.380
+using this blessed function in this
+
+194
+00:08:44.380 --> 00:08:47.200
+module, then you can use the the email
+
+195
+00:08:47.200 --> 00:08:49.770
+address type as a token that says, I have
+
+196
+00:08:49.770 --> 00:08:52.680
+validated this thing and all of the functions that operate on that
+
+197
+00:08:52.680 --> 00:08:55.160
+type are responsible for holding those
+
+198
+00:08:55.160 --> 00:08:55.870
+invariants.
+
+199
+00:08:57.040 --> 00:08:59.680
+>> And I'd just like to mention that
+
+200
+00:08:59.690 --> 00:09:02.550
+we say validated a lot, but I think
+
+201
+00:09:02.550 --> 00:09:05.460
+we all really mean parse it. So
+
+202
+00:09:05.470 --> 00:09:08.340
+you know, there's that entire blog post by the same
+
+203
+00:09:08.340 --> 00:09:11.280
+person that says parse don't validate.
+
+204
+00:09:11.290 --> 00:09:13.070
+Uh, the
+
+205
+00:09:13.440 --> 00:09:16.310
+the thing I want to mention is that we
+
+206
+00:09:16.310 --> 00:09:19.180
+don't check to see if the email is valid
+
+207
+00:09:19.180 --> 00:09:21.800
+or, you know, if the name is valid or
+
+208
+00:09:21.800 --> 00:09:24.490
+whatever, um, we try to parse it
+
+209
+00:09:24.500 --> 00:09:27.500
+and if it fails to parse, then that
+
+210
+00:09:27.510 --> 00:09:30.440
+is an invalid email. So I think we use validate in
+
+211
+00:09:30.440 --> 00:09:31.680
+parse pretty
+
+212
+00:09:31.680 --> 00:09:34.320
+interchangeably
+
+213
+00:09:34.330 --> 00:09:37.140
+because you know that that's the right
+
+214
+00:09:37.140 --> 00:09:40.010
+way, at least that we think we should program those
+
+215
+00:09:40.010 --> 00:09:40.450
+types.
+
+216
+00:09:40.460 --> 00:09:43.400
+>> That tends to be our parsing, validating
+
+217
+00:09:43.400 --> 00:09:44.800
+for us tends to be the same.
+
+218
+00:09:44.810 --> 00:09:47.770
+>> Right. And email addresses is maybe a bad example
+
+219
+00:09:47.770 --> 00:09:50.660
+because they are very complicated. And even if you have something that
+
+220
+00:09:51.140 --> 00:09:53.660
+looks like an email address that successfully parses
+
+221
+00:09:54.040 --> 00:09:56.780
+it will, you know you may never be able to send an email to that
+
+222
+00:09:56.780 --> 00:09:59.260
+thing. Um, but
+
+223
+00:09:59.270 --> 00:10:02.230
+bringing up the parse don't validate Post is a great point, and
+
+224
+00:10:02.230 --> 00:10:05.040
+she brings it up in this Post is well, because
+
+225
+00:10:05.050 --> 00:10:07.620
+maybe a simpler example to grapple with is the non empty
+
+226
+00:10:07.620 --> 00:10:10.500
+list where if you take the approach of
+
+227
+00:10:10.510 --> 00:10:13.350
+parsing, you might go with this new type approach where it's a
+
+228
+00:10:13.350 --> 00:10:16.030
+wrapper around a list, and when you
+
+229
+00:10:16.030 --> 00:10:18.780
+construct it, you prove to yourself
+
+230
+00:10:18.790 --> 00:10:21.560
+that it's not empty, and then you hand the thing back, and every time you
+
+231
+00:10:21.560 --> 00:10:24.500
+operate on it, you have to grapple with that invariant,
+
+232
+00:10:24.510 --> 00:10:27.340
+or you can validate it and produce a
+
+233
+00:10:27.340 --> 00:10:29.650
+data structure that carries around that validation.
+
+234
+00:10:30.040 --> 00:10:32.790
+Um, and again, I think the
+
+235
+00:10:32.790 --> 00:10:35.780
+crux of this blog post is showing that those approaches
+
+236
+00:10:35.780 --> 00:10:38.670
+have different tradeoffs and there. Um,
+
+237
+00:10:38.680 --> 00:10:41.480
+one is arguably less type
+
+238
+00:10:41.480 --> 00:10:43.150
+safe, and one is more type safe.
+
+239
+00:10:43.940 --> 00:10:46.760
+>> So when um,
+
+240
+00:10:46.770 --> 00:10:49.760
+you know, we talk about using new types deriving
+
+241
+00:10:49.760 --> 00:10:52.410
+versus, you know, deconstruct,
+
+242
+00:10:52.420 --> 00:10:55.340
+constructing something that could never have the impossible case, you
+
+243
+00:10:55.340 --> 00:10:57.950
+know, And we do different types of development.
+
+244
+00:10:58.340 --> 00:11:01.250
+In what situation would we choose to do?
+
+245
+00:11:01.640 --> 00:11:04.520
+New type, deriving versus? You know, the
+
+246
+00:11:04.530 --> 00:11:07.250
+alternate, which is, Well, it's not
+
+247
+00:11:07.250 --> 00:11:10.250
+really the only alternate, but it's the alternate kind of in this discussion
+
+248
+00:11:11.540 --> 00:11:13.970
+of constructing out the impossible case.
+
+249
+00:11:14.540 --> 00:11:16.660
+>> So I think that
+
+250
+00:11:16.670 --> 00:11:19.070
+using new types,
+
+251
+00:11:19.440 --> 00:11:22.030
+um, is usually a
+
+252
+00:11:22.030 --> 00:11:25.000
+preferred way that I like to program
+
+253
+00:11:25.000 --> 00:11:27.930
+because, um as long as these
+
+254
+00:11:27.930 --> 00:11:30.430
+new types are simple and they don't do more
+
+255
+00:11:30.430 --> 00:11:33.110
+than, um, you know, then the need
+
+256
+00:11:33.110 --> 00:11:36.020
+to I think you're constraining yourself to this
+
+257
+00:11:36.030 --> 00:11:38.820
+This, like this module, not
+
+258
+00:11:38.820 --> 00:11:40.670
+module in the Haskell module sense. But this
+
+259
+00:11:40.680 --> 00:11:43.470
+section, um, And
+
+260
+00:11:44.540 --> 00:11:47.470
+when you do the opposite, which is to use type alias
+
+261
+00:11:47.470 --> 00:11:49.070
+or just not use the new type,
+
+262
+00:11:49.540 --> 00:11:52.530
+you're opening this up to pretty
+
+263
+00:11:52.530 --> 00:11:55.480
+much whatever it wants to be or whatever it can
+
+264
+00:11:55.480 --> 00:11:58.420
+be, which in this, you know, if we use a text, it could just be
+
+265
+00:11:58.420 --> 00:12:00.620
+a string of characters.
+
+266
+00:12:00.630 --> 00:12:02.350
+Um, now
+
+267
+00:12:03.540 --> 00:12:06.270
+the I think the only
+
+268
+00:12:07.040 --> 00:12:09.960
+bad. I don't think it's bad, but the only
+
+269
+00:12:09.970 --> 00:12:12.350
+downside of using a new
+
+270
+00:12:12.350 --> 00:12:14.960
+type is feeling. So
+
+271
+00:12:15.540 --> 00:12:18.480
+just because a new type is there for some
+
+272
+00:12:18.480 --> 00:12:21.460
+people, it might feel as if it's type safe or
+
+273
+00:12:21.470 --> 00:12:24.450
+isn't type safe. And that really
+
+274
+00:12:24.450 --> 00:12:26.930
+should just be dependent on your programming,
+
+275
+00:12:26.940 --> 00:12:29.710
+not the actual code itself.
+
+276
+00:12:29.710 --> 00:12:32.410
+So just because you're using a new type doesn't
+
+277
+00:12:32.410 --> 00:12:34.970
+necessarily mean it's not type safe. It just means
+
+278
+00:12:35.740 --> 00:12:38.350
+it can be, you know, something of a new type.
+
+279
+00:12:38.350 --> 00:12:41.020
+So I think we need to focus on the
+
+280
+00:12:41.020 --> 00:12:42.460
+fact of what
+
+281
+00:12:44.040 --> 00:12:46.610
+is the alternative of not using a new type.
+
+282
+00:12:46.610 --> 00:12:49.280
+So do we not use
+
+283
+00:12:49.280 --> 00:12:52.050
+them? Do we use type
+
+284
+00:12:52.050 --> 00:12:54.760
+aliases? Do we just, you know, you strings
+
+285
+00:12:54.760 --> 00:12:57.610
+text int whatever. Do we go
+
+286
+00:12:57.610 --> 00:13:00.540
+even crazier and go into liquid Haskell or refinement
+
+287
+00:13:00.540 --> 00:13:03.500
+type or anything like that? Um, I don't
+
+288
+00:13:03.500 --> 00:13:06.470
+know, but I prefer to use new types, and I
+
+289
+00:13:06.470 --> 00:13:09.350
+don't think this blog tells you what
+
+290
+00:13:09.360 --> 00:13:12.330
+to do. Um, I think
+
+291
+00:13:12.330 --> 00:13:15.130
+that's a critic
+
+292
+00:13:15.140 --> 00:13:17.930
+of Of what I'm trying to say is
+
+293
+00:13:17.940 --> 00:13:20.530
+that this blog doesn't
+
+294
+00:13:20.530 --> 00:13:23.520
+really say anything, so it doesn't say
+
+295
+00:13:23.520 --> 00:13:26.170
+Don't do this or do that, or it just says,
+
+296
+00:13:26.540 --> 00:13:29.250
+you know things about how Alexis
+
+297
+00:13:29.250 --> 00:13:32.110
+feels, Uh, when programming, which
+
+298
+00:13:32.120 --> 00:13:34.570
+is totally fine. Uh, but
+
+299
+00:13:35.340 --> 00:13:38.150
+that's that left me with the question of like, Okay,
+
+300
+00:13:38.150 --> 00:13:40.710
+what do I do? And so yeah, that's where I am.
+
+301
+00:13:40.710 --> 00:13:43.480
+>> Yeah, this blog post is not prescriptive. It doesn't
+
+302
+00:13:43.480 --> 00:13:46.180
+say Use new types in this situation or
+
+303
+00:13:46.180 --> 00:13:48.810
+use ADTs in this other situation.
+
+304
+00:13:48.820 --> 00:13:51.540
+And you mentioned Liquid Haskell refinement, typing,
+
+305
+00:13:51.540 --> 00:13:54.420
+dependent typing. I think that there is a sliding
+
+306
+00:13:54.420 --> 00:13:57.070
+scale here where at one end you have
+
+307
+00:13:57.070 --> 00:13:59.660
+using the primitive types or the types that are already
+
+308
+00:13:59.660 --> 00:14:02.160
+available to you strings, text int whatever.
+
+309
+00:14:02.540 --> 00:14:05.280
+And then as you progress, you introduce
+
+310
+00:14:05.280 --> 00:14:08.230
+type aliases, which don't give you any safety
+
+311
+00:14:08.230 --> 00:14:11.110
+at all. But they let you, um, express
+
+312
+00:14:11.110 --> 00:14:14.010
+intent, maybe with your type signatures. And then you
+
+313
+00:14:14.010 --> 00:14:16.810
+have new types which give you a little bit of type safety
+
+314
+00:14:16.820 --> 00:14:19.770
+more than type aliases. But less than ADTs and then
+
+315
+00:14:19.770 --> 00:14:22.350
+ADTs give you even more, and that's kind of where it stops for
+
+316
+00:14:22.350 --> 00:14:25.190
+Haskell. But as you add liquid
+
+317
+00:14:25.190 --> 00:14:28.150
+Haskell, you could do refinement types. So that example we started
+
+318
+00:14:28.150 --> 00:14:30.810
+with a number between one and five with liquid
+
+319
+00:14:30.810 --> 00:14:33.760
+Haskell, you could have a function that takes a regular
+
+320
+00:14:34.140 --> 00:14:37.050
+primitive int. But you can express that there's a
+
+321
+00:14:37.050 --> 00:14:39.980
+refinement on that where it has to be between one and five. And it will
+
+322
+00:14:39.980 --> 00:14:42.930
+check those for you. Um and then all the way on the
+
+323
+00:14:42.940 --> 00:14:45.935
+far end of the spectrum, you can do dependent typing like Agda or
+
+324
+00:14:45.935 --> 00:14:48.840
+Idris Um, and Haskell seems to be inching its
+
+325
+00:14:48.840 --> 00:14:51.580
+way in that direction as well. Um, and for
+
+326
+00:14:51.580 --> 00:14:54.410
+me, I think I'm in the same boat as you Andres where my preference is
+
+327
+00:14:54.410 --> 00:14:56.970
+to stay as close to
+
+328
+00:14:56.980 --> 00:14:59.650
+the simpler or primitive side of
+
+329
+00:14:59.650 --> 00:15:02.360
+that until some problem
+
+330
+00:15:02.360 --> 00:15:05.250
+happens. And that, I think, is where for me, the benefit of new types
+
+331
+00:15:05.250 --> 00:15:08.240
+is where you can start
+
+332
+00:15:08.240 --> 00:15:10.770
+to see the invariants that you wish your type
+
+333
+00:15:10.770 --> 00:15:13.730
+had. So, like you can start with a new type around text. But if
+
+334
+00:15:13.730 --> 00:15:16.290
+you're always like with an email address splitting on the at
+
+335
+00:15:16.290 --> 00:15:19.250
+sign, then you may think, Okay, I should make a type where it's already
+
+336
+00:15:19.250 --> 00:15:21.370
+split up, and I don't have to do that all the time.
+
+337
+00:15:21.940 --> 00:15:24.830
+Um, but you know, clearly this comes
+
+338
+00:15:24.830 --> 00:15:27.370
+with experience, and it's a judgment call. So like when we
+
+339
+00:15:27.370 --> 00:15:30.120
+separate email addresses from first names? That's not
+
+340
+00:15:30.120 --> 00:15:32.940
+because we've had a bunch of bugs in our past
+
+341
+00:15:32.950 --> 00:15:35.730
+at ITProTV, where we mix them up. It's
+
+342
+00:15:35.730 --> 00:15:38.250
+that in my professional experience, I
+
+343
+00:15:38.250 --> 00:15:41.140
+have seen or maybe not even
+
+344
+00:15:41.140 --> 00:15:43.850
+seen but been afraid of bugs like that. So I just want to
+
+345
+00:15:43.850 --> 00:15:46.700
+exclude them from the right out of the gate. I don't wanna have
+
+346
+00:15:46.700 --> 00:15:48.150
+them be possible.
+
+347
+00:15:48.640 --> 00:15:51.460
+>> Yeah, and I would say
+
+348
+00:15:52.340 --> 00:15:55.090
+I'm going to continue to use new types, and I think they
+
+349
+00:15:55.090 --> 00:15:58.040
+are very good for what
+
+350
+00:15:58.040 --> 00:16:00.640
+they do. I do think I've
+
+351
+00:16:00.640 --> 00:16:02.950
+been bit a couple of times
+
+352
+00:16:02.960 --> 00:16:05.720
+by, you know, some underscore case that
+
+353
+00:16:05.720 --> 00:16:08.430
+captures, you know, something that I wasn't
+
+354
+00:16:08.430 --> 00:16:11.210
+expecting it to happen, which, like
+
+355
+00:16:11.210 --> 00:16:13.960
+Andres said, that's, ah, programming error not necessarily a
+
+356
+00:16:13.960 --> 00:16:16.730
+language error, Um, but I
+
+357
+00:16:16.730 --> 00:16:19.590
+think the like. Factoring out to the impossible
+
+358
+00:16:19.590 --> 00:16:22.420
+case is ideal at
+
+359
+00:16:22.420 --> 00:16:25.400
+some point, kind of like you, said Taylor. Like, if we're always
+
+360
+00:16:25.400 --> 00:16:28.230
+splitting at the at sign, then let's just make a type that
+
+361
+00:16:28.230 --> 00:16:31.230
+has two, you know, some email with
+
+362
+00:16:31.240 --> 00:16:33.030
+two texts pieces
+
+363
+00:16:33.440 --> 00:16:35.710
+and, you know
+
+364
+00:16:35.710 --> 00:16:36.560
+it.
+
+365
+00:16:38.240 --> 00:16:40.970
+Ideally, it would be
+
+366
+00:16:40.970 --> 00:16:43.740
+easier to refactor or factor out the impossible
+
+367
+00:16:43.740 --> 00:16:46.710
+case. But sometimes it's not so new types
+
+368
+00:16:46.720 --> 00:16:49.440
+is really sometimes the best you can, do. And
+
+369
+00:16:49.440 --> 00:16:52.240
+so you know, I think she was
+
+370
+00:16:52.240 --> 00:16:55.050
+trying to bring some just awareness
+
+371
+00:16:55.060 --> 00:16:57.810
+to the fact that, like naming something
+
+372
+00:16:57.810 --> 00:17:00.070
+as something else doesn't really
+
+373
+00:17:00.940 --> 00:17:02.650
+guarantee it's always gonna be right,
+
+374
+00:17:03.440 --> 00:17:06.300
+And, you know, and I appreciate her going out on a
+
+375
+00:17:06.300 --> 00:17:09.240
+limb in that regard, but it doesn't
+
+376
+00:17:09.240 --> 00:17:12.160
+necessarily change my feeling because, like you said, it wasn't really like a
+
+377
+00:17:12.640 --> 00:17:15.640
+hey, don't do this But do this instead, which, you
+
+378
+00:17:15.640 --> 00:17:18.490
+see a lot in blog posts. I think it was just saying,
+
+379
+00:17:18.490 --> 00:17:21.410
+Hey, just just to be aware, this doesn't really
+
+380
+00:17:21.410 --> 00:17:24.180
+mean you're more type safe because you're using new types.
+
+381
+00:17:24.740 --> 00:17:27.600
+>> Yeah, and it also does a good job of
+
+382
+00:17:27.600 --> 00:17:30.420
+comparing these things against each other, the
+
+383
+00:17:30.430 --> 00:17:33.240
+data type versus the new type and
+
+384
+00:17:33.240 --> 00:17:36.220
+showing you how how you work with them, how you produce them,
+
+385
+00:17:36.220 --> 00:17:39.100
+how you consume them. Um, and that highlights. I
+
+386
+00:17:39.100 --> 00:17:42.070
+think some of the costs of new types where you
+
+387
+00:17:42.070 --> 00:17:44.580
+have to do all of this wrapping and unwrapping and
+
+388
+00:17:44.580 --> 00:17:47.460
+derive all these instances that are already
+
+389
+00:17:47.460 --> 00:17:49.870
+available on the type you're wrapping, so it's like
+
+390
+00:17:50.440 --> 00:17:53.020
+it's kind of like boilerplate. And it's,
+
+391
+00:17:53.030 --> 00:17:56.010
+um maybe it's a position of privilege
+
+392
+00:17:56.010 --> 00:17:58.850
+as a Haskell programmer to call two lines of a bunch of
+
+393
+00:17:58.850 --> 00:18:01.730
+type classes boilerplate. You know, you're not actually writing all
+
+394
+00:18:01.730 --> 00:18:04.450
+those instances, but you still have to derive them.
+
+395
+00:18:05.340 --> 00:18:08.300
+>> There, um, you know the blog.
+
+396
+00:18:08.310 --> 00:18:10.760
+You know, we talked a lot about you know what things are and
+
+397
+00:18:10.760 --> 00:18:13.720
+aren't And I think one thing that
+
+398
+00:18:13.720 --> 00:18:16.570
+we probably should mention is you can
+
+399
+00:18:16.570 --> 00:18:18.980
+misuse new types, and that's
+
+400
+00:18:18.980 --> 00:18:21.070
+true of almost any
+
+401
+00:18:21.540 --> 00:18:24.520
+programming feature. You
+
+402
+00:18:24.520 --> 00:18:27.510
+can most of the times misuse something. And I
+
+403
+00:18:27.510 --> 00:18:30.430
+think one thing in this blog post is the
+
+404
+00:18:30.440 --> 00:18:33.440
+argument name example where it's just
+
+405
+00:18:33.440 --> 00:18:36.390
+some kind of complex type that
+
+406
+00:18:36.390 --> 00:18:39.370
+will derive a whole bunch of stuff. And at
+
+407
+00:18:39.370 --> 00:18:42.330
+the end of the day, it just turns out that using this
+
+408
+00:18:42.330 --> 00:18:45.270
+new type is exactly the same as using a type alias. Now,
+
+409
+00:18:45.640 --> 00:18:48.500
+in that case, and probably many
+
+410
+00:18:48.500 --> 00:18:51.340
+other cases, this is not type
+
+411
+00:18:51.340 --> 00:18:53.410
+safe. So we are
+
+412
+00:18:53.420 --> 00:18:55.780
+allowing the possibility of
+
+413
+00:18:55.780 --> 00:18:57.960
+constructing a type
+
+414
+00:18:58.340 --> 00:19:01.140
+without actually touching the type, and so
+
+415
+00:19:01.140 --> 00:19:04.140
+that that is, I think, something to
+
+416
+00:19:04.140 --> 00:19:06.730
+point out is that just because you use type
+
+417
+00:19:06.730 --> 00:19:09.720
+safe. I'm sorry. New type doesn't necessarily
+
+418
+00:19:09.720 --> 00:19:12.340
+mean that you have even
+
+419
+00:19:12.350 --> 00:19:15.200
+any type safety. Now you can
+
+420
+00:19:15.200 --> 00:19:17.980
+use new types and have type safety.
+
+421
+00:19:17.990 --> 00:19:20.990
+But you have to be. You have to make sure that your new
+
+422
+00:19:20.990 --> 00:19:23.950
+type does do what you want it to do. And there's
+
+423
+00:19:23.950 --> 00:19:26.180
+a lot of examples of how to make new types
+
+424
+00:19:26.190 --> 00:19:28.990
+into basically not type
+
+425
+00:19:28.990 --> 00:19:31.950
+safe types. And I think a lot of that, you know,
+
+426
+00:19:31.950 --> 00:19:34.920
+you go into coerce or converting from one to
+
+427
+00:19:34.920 --> 00:19:37.850
+the other convertible. You know, that kind of stuff that
+
+428
+00:19:37.850 --> 00:19:40.800
+can get fuzzy between type safety
+
+429
+00:19:40.810 --> 00:19:43.750
+and not type safe. So that's
+
+430
+00:19:43.750 --> 00:19:46.750
+that's a good argument, and I
+
+431
+00:19:46.760 --> 00:19:49.360
+think that this blog makes very good
+
+432
+00:19:49.360 --> 00:19:52.300
+arguments. But we should be
+
+433
+00:19:52.300 --> 00:19:55.060
+mindful that new types are very
+
+434
+00:19:55.060 --> 00:19:57.470
+useful tool and we shouldn't
+
+435
+00:19:57.840 --> 00:20:00.800
+shy away from them. I mean, I don't think anyone's ever going to
+
+436
+00:20:00.800 --> 00:20:03.740
+shy away from new type. They are one of the most use features
+
+437
+00:20:03.740 --> 00:20:06.630
+of Haskell Just wanted to mention that
+
+438
+00:20:06.640 --> 00:20:09.560
+we shouldn't just start removing
+
+439
+00:20:09.560 --> 00:20:11.240
+all new types from our code bases.
+
+440
+00:20:11.250 --> 00:20:14.170
+>> New types are definitely a mainstay of Haskell programming,
+
+441
+00:20:14.170 --> 00:20:16.900
+and I doubt they'll go anywhere on the argument
+
+442
+00:20:16.900 --> 00:20:19.600
+name. I think it's hard to say in a
+
+443
+00:20:19.600 --> 00:20:22.550
+vacuum if it is truly unnecessary
+
+444
+00:20:22.550 --> 00:20:24.850
+and should have been a type alias or even
+
+445
+00:20:25.240 --> 00:20:28.170
+like a Haddock comment on arguments,
+
+446
+00:20:28.170 --> 00:20:31.050
+you know, just say like, Oh, this is It's called argument
+
+447
+00:20:31.050 --> 00:20:33.830
+name So that's confusing on function parameters. You'd say a
+
+448
+00:20:33.830 --> 00:20:36.690
+comment here. This is the argument name. Um, but it
+
+449
+00:20:36.690 --> 00:20:39.240
+could be that in this code base, there are lots of
+
+450
+00:20:39.240 --> 00:20:41.950
+different types of names that it's worthwhile to
+
+451
+00:20:41.950 --> 00:20:44.640
+differentiate between them, like an argument name versus a
+
+452
+00:20:44.640 --> 00:20:46.770
+function name or an argument name versus module name.
+
+453
+00:20:47.140 --> 00:20:50.110
+Um, so we can't really say, you
+
+454
+00:20:50.110 --> 00:20:52.880
+know, we're not looking at the code base so We'll have to
+
+455
+00:20:52.880 --> 00:20:55.830
+take Alexis's word here that this was, in fact,
+
+456
+00:20:55.840 --> 00:20:58.840
+an unnecessary wrapper, and you pay the cost of
+
+457
+00:20:58.840 --> 00:21:01.770
+wrapping and unwrapping it everywhere. But you don't ever get any benefit from
+
+458
+00:21:01.770 --> 00:21:01.960
+it.
+
+459
+00:21:02.440 --> 00:21:05.010
+>> Yeah, And I think the main thing to look into
+
+460
+00:21:05.010 --> 00:21:07.070
+here is something like
+
+461
+00:21:07.080 --> 00:21:09.970
+overloaded strings with, um
+
+462
+00:21:09.980 --> 00:21:12.550
+is string derivative. And
+
+463
+00:21:12.940 --> 00:21:15.760
+I think that that is what makes a new type
+
+464
+00:21:16.240 --> 00:21:19.030
+potentially useless. Um, it's still
+
+465
+00:21:19.030 --> 00:21:21.840
+not useless because they're still, um,
+
+466
+00:21:21.850 --> 00:21:24.390
+you know the value from using it in a function, for
+
+467
+00:21:24.390 --> 00:21:27.300
+example. But in terms of type safety, you've just thrown
+
+468
+00:21:27.300 --> 00:21:29.680
+it out the window. It's no longer just
+
+469
+00:21:30.140 --> 00:21:32.490
+an email address. It is now any string.
+
+470
+00:21:32.500 --> 00:21:34.970
+So any string could become
+
+471
+00:21:35.340 --> 00:21:38.320
+an email address, which I think that should have
+
+472
+00:21:38.320 --> 00:21:41.030
+been talked about more. Um, you know, in terms of type
+
+473
+00:21:41.030 --> 00:21:43.920
+safety of whether or not we should be
+
+474
+00:21:43.920 --> 00:21:46.700
+focusing on type safety as
+
+475
+00:21:46.700 --> 00:21:49.500
+conversion. So if we want to go from
+
+476
+00:21:49.510 --> 00:21:52.130
+something into a new type,
+
+477
+00:21:52.140 --> 00:21:54.860
+what is the best way? Do we use
+
+478
+00:21:54.860 --> 00:21:57.170
+wrapping functions that we use record type
+
+479
+00:21:57.640 --> 00:22:00.620
+wrapping? Do we use instances?
+
+480
+00:22:00.630 --> 00:22:03.410
+You know that? I think that's very
+
+481
+00:22:03.410 --> 00:22:06.380
+interesting and it's a problem that's been plaguing me for, you know,
+
+482
+00:22:06.380 --> 00:22:09.370
+since I started and I would like to have an
+
+483
+00:22:09.370 --> 00:22:12.220
+answer to it. I just you know, it's
+
+484
+00:22:12.220 --> 00:22:15.150
+still something that I'm struggling with, and
+
+485
+00:22:15.150 --> 00:22:17.960
+I'm sure there are answers or many answers. But what is the
+
+486
+00:22:17.960 --> 00:22:18.340
+right one?
+
+487
+00:22:18.340 --> 00:22:20.900
+>> Yeah, I think we've stumbled upon yet
+
+488
+00:22:20.900 --> 00:22:23.660
+another good topic for another podcast episode,
+
+489
+00:22:23.660 --> 00:22:25.440
+so we'll have to talk about that one of these days.
+
+490
+00:22:25.450 --> 00:22:27.070
+>> Yes.
+
+491
+00:22:27.840 --> 00:22:30.350
+>> Well, Cam, do you have any closing thoughts about this?
+
+492
+00:22:30.360 --> 00:22:32.370
+Names are not type safety blog post.
+
+493
+00:22:32.840 --> 00:22:35.710
+>> I think we've covered it really Well, I really appreciate you guys
+
+494
+00:22:35.710 --> 00:22:38.660
+coming on the podcast today to kind of talk about it. I really value you guys's
+
+495
+00:22:38.660 --> 00:22:41.340
+opinion. You're a little more seasoned under the
+
+496
+00:22:41.350 --> 00:22:44.130
+development belt than I am. So, you know, I've learned a
+
+497
+00:22:44.130 --> 00:22:47.070
+lot from your opinions as well as Alexis's here
+
+498
+00:22:47.440 --> 00:22:50.290
+so yeah, I think it was a good post Created some
+
+499
+00:22:50.290 --> 00:22:53.030
+good conversation, and it seems like what,
+
+500
+00:22:53.040 --> 00:22:55.750
+four or five new podcast topics. So, you know, I
+
+501
+00:22:55.750 --> 00:22:58.180
+think I think we've got a lot lot going for us here.
+
+502
+00:22:58.640 --> 00:23:00.560
+>> Yeah. Agreed Andres, How about you?
+
+503
+00:23:01.140 --> 00:23:04.020
+>> Uh, yeah. I don't have much more to add.
+
+504
+00:23:04.030 --> 00:23:06.650
+Just like to reiterate new
+
+505
+00:23:06.650 --> 00:23:09.430
+types of good size bad sides. I think we
+
+506
+00:23:09.430 --> 00:23:11.850
+should be very mindful of them. And,
+
+507
+00:23:12.240 --> 00:23:14.370
+uh, you know, the better
+
+508
+00:23:15.040 --> 00:23:18.040
+code you write is always going to be the better answer, regardless
+
+509
+00:23:18.040 --> 00:23:20.610
+of what others think.
+
+510
+00:23:20.760 --> 00:23:21.270
+So
+
+511
+00:23:21.640 --> 00:23:24.540
+>> Yeah. All right. Well, I think that will do it
+
+512
+00:23:24.540 --> 00:23:27.380
+for us today. Thank you for listening to the
+
+513
+00:23:27.380 --> 00:23:30.270
+Haskell weekly podcast. I have been your host, Taylor
+
+514
+00:23:30.270 --> 00:23:33.030
+Fausak. Um, if you wanna follow us
+
+515
+00:23:33.030 --> 00:23:36.010
+on social media, you can check out our website, which
+
+516
+00:23:36.010 --> 00:23:38.970
+is Haskell weekly dot news. From there, you could find links to
+
+517
+00:23:38.970 --> 00:23:41.720
+our Twitter Reddit GitHub All the various
+
+518
+00:23:41.720 --> 00:23:42.810
+places we are.
+
+519
+00:23:42.820 --> 00:23:45.250
+>> Yep, And Haskell Weekly is brought to you by
+
+520
+00:23:45.250 --> 00:23:47.760
+ITProTV a e learning
+
+521
+00:23:47.760 --> 00:23:50.730
+platform for IT professionals and
+
+522
+00:23:50.730 --> 00:23:52.970
+also our employer. And they want to
+
+523
+00:23:52.970 --> 00:23:55.730
+extend a gracious offer to you
+
+524
+00:23:55.730 --> 00:23:58.100
+guys of 30% off the lifetime of your
+
+525
+00:23:58.100 --> 00:24:00.760
+subscription with the promo code.
+
+526
+00:24:00.760 --> 00:24:03.700
+Haskell Weekly 30. All One word.
+
+527
+00:24:03.710 --> 00:24:06.450
+All caps Easy peasy
+
+528
+00:24:06.460 --> 00:24:09.430
+if you ever have any questions. Member Services team is pretty bomb here
+
+529
+00:24:09.430 --> 00:24:11.820
+at ITProTV. So they'd love to help you out.
+
+530
+00:24:11.830 --> 00:24:14.270
+But go check it out. We'd love to see you
+
+531
+00:24:14.940 --> 00:24:17.100
+seeing what's going on in the IT world.
+
+532
+00:24:17.740 --> 00:24:18.670
+>> Stay safe.
+
+533
+00:24:19.020 --> 00:24:19.960
+>> See you next week.
+
+534
+00:24:20.340 --> 00:24:20.940
+>> Take it easy.

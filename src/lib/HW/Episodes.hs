@@ -61,6 +61,7 @@ episodes = do
     , episode27
     , episode28
     , episode29
+    , episode30
     ]
   checkGuids validEpisodes Set.empty
   checkNumbers validEpisodes 1
@@ -604,3 +605,19 @@ episode29 =
     <*> Summary.fromText
           "Even well-designed languages have rough edges. Cameron Gera and Taylor Fausak review some of the bad parts of Haskell."
     <*> Title.fromText "Bad Parts"
+
+episode30 :: Either String Episode.Episode
+episode30 = Episode.Episode
+  <$> Articles.fromList
+    [ "https://lexi-lambda.github.io/blog/2020/11/01/names-are-not-type-safety/"
+    , "https://www.youtube.com/watch?v=MEmRarBL9kw"
+    , "https://www.reddit.com/r/haskell/comments/jnwg7i/haskell_foundation_ama/"
+    ]
+  <*> Audio.fromText "https://media.haskellweekly.news/2020-11-09-episode-30.mp3"
+  <*> Date.fromGregorian 2020 11 9
+  <*> Duration.fromTimestamp 24 25
+  <*> Guid.fromText "8377e7cf-969a-4dd5-b607-b141e6303e63"
+  <*> Number.fromNatural 30
+  <*> Size.fromNatural 27119105
+  <*> Summary.fromText "Newtypes let you give things names, but is that type safety? Andres Schmois, Cameron Gera, and Taylor Fausak explore a blog post by Alexis King."
+  <*> Title.fromText "Type Safety"
