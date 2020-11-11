@@ -28,4 +28,6 @@ undefined
 
 ## Call for participation
 
-undefined
+-   [bsc: Suggest missing `valueOf` in error message](https://github.com/B-Lang-org/bsc/issues/276)
+-   [hipsterfy: Refactor Zipkin traces to trace the entire request](https://github.com/liftM/hipsterfy/issues/13)
+-   [wasp: JWT secret must not be hardcoded in the back-end code](https://github.com/wasp-lang/wasp/issues/129)
