@@ -4,8 +4,7 @@
 module HW.Issues
   ( Issues
   , issues
-  )
-where
+  ) where
 
 import qualified Data.Bool as Bool
 import qualified Data.Map as Map

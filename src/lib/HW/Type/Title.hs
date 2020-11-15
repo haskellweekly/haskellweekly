@@ -3,8 +3,7 @@ module HW.Type.Title
   ( Title
   , fromText
   , toText
-  )
-where
+  ) where
 
 import qualified Data.Char as Char
 import qualified Data.Text as Text

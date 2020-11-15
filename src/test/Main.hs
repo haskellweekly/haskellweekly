@@ -1,7 +1,6 @@
 module Main
   ( main
-  )
-where
+  ) where
 
 import qualified Control.Exception as Exception
 import qualified Control.Monad as Monad

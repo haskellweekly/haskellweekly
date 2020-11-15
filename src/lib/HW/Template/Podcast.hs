@@ -2,8 +2,7 @@ module HW.Template.Podcast
   ( template
   , callToAction
   , header
-  )
-where
+  ) where
 
 import qualified HW.Template.Base as Base
 import qualified HW.Template.Common as Common
@@ -19,7 +18,7 @@ template :: BaseUrl.BaseUrl -> [Episode.Episode] -> Html.Html ()
 template baseUrl episodes =
   Base.template baseUrl "Haskell Weekly Podcast" (header baseUrl Nothing) $ do
     Html.h2_ [Html.class_ "f2 mv3 tracked-tight"] "Podcast"
-    Html.p_  $ do
+    Html.p_ $ do
       "The Haskell Weekly Podcast covers the Haskell programming language. "
       "Listen to professional software developers discuss using functional programming to solve real-world business problems. "
       "Each episode uses a conversational two-host format and runs for about 15 minutes."

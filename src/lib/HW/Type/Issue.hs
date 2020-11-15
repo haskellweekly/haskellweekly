@@ -1,8 +1,7 @@
 -- | This module defines a type for an issue of the newsletter.
 module HW.Type.Issue
   ( Issue(..)
-  )
-where
+  ) where
 
 import qualified HW.Type.Date as Date
 import qualified HW.Type.Number as Number

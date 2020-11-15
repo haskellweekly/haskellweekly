@@ -3,8 +3,7 @@
 module HW.Type.Config
   ( Config(..)
   , getConfig
-  )
-where
+  ) where
 
 import qualified Data.Text as Text
 import qualified HW.Type.BaseUrl as BaseUrl
@@ -37,8 +36,9 @@ getConfig = do
 -- because the server could be behind a reverse proxy or in a container or
 -- something.
 getBaseUrl :: IO BaseUrl.BaseUrl
-getBaseUrl = fmap (BaseUrl.fromText . maybe Text.empty Text.pack)
-  $ Environment.lookupEnv "BASE_URL"
+getBaseUrl =
+  BaseUrl.fromText . maybe Text.empty Text.pack <$> Environment.lookupEnv
+    "BASE_URL"
 
 -- | This is used to verify that I actually own the website as far as Google is
 -- concerned. The verification is useful for Google's webmaster tools.

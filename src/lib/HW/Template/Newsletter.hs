@@ -2,8 +2,7 @@ module HW.Template.Newsletter
   ( template
   , callToAction
   , header
-  )
-where
+  ) where
 
 import qualified HW.Template.Base as Base
 import qualified HW.Template.Common as Common

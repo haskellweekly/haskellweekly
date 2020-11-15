@@ -9,8 +9,7 @@ module HW.Type.Audio
   ( Audio
   , toText
   , fromText
-  )
-where
+  ) where
 
 import qualified Data.Char as Char
 import qualified Data.Text as Text

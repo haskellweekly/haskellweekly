@@ -1,7 +1,6 @@
 module HW.Handler.Redirect
   ( handler
-  )
-where
+  ) where
 
 import qualified Data.Text.Encoding as Text
 import qualified HW.Handler.Common as Common

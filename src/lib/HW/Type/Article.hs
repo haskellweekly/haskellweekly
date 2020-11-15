@@ -5,8 +5,7 @@ module HW.Type.Article
   ( Article
   , toText
   , fromText
-  )
-where
+  ) where
 
 import qualified Data.Text as Text
 import qualified Network.URI as Uri

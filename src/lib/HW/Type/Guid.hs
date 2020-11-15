@@ -6,8 +6,7 @@ module HW.Type.Guid
   ( Guid
   , toText
   , fromText
-  )
-where
+  ) where
 
 import qualified Data.Text as Text
 import qualified Data.UUID as Uuid

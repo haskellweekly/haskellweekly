@@ -1,7 +1,6 @@
 module HW.Template.Base
   ( template
-  )
-where
+  ) where
 
 import qualified Data.Text as Text
 import qualified Data.Version as Version
@@ -44,7 +43,9 @@ template baseUrl title head_ body = do
       Common.twitter "site" "@haskellweekly"
       head_
     Html.body_
-        [Html.class_ "bg-white black flex justify-center lh-copy mh3 sans-serif"]
+        [ Html.class_
+            "bg-white black flex justify-center lh-copy mh3 sans-serif"
+        ]
       . Html.div_ [Html.class_ "mw7 w-100"]
       $ do
           Html.header_ [Html.class_ "mv3"] $ do

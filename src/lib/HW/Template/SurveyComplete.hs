@@ -1,7 +1,6 @@
 module HW.Template.SurveyComplete
   ( template
-  )
-where
+  ) where
 
 import qualified HW.Template.Base as Base
 import qualified HW.Template.Newsletter as Newsletter
@@ -16,7 +15,8 @@ template baseUrl =
     Html.p_ $ do
       "Thank you for filling out the 2020 State of Haskell Survey! "
       "Please help us get an accurate view of the Haskell community by sharing the survey."
-    Html.p_ "If you'd like to be notified about the results, please sign up for our newsletter:"
+    Html.p_
+      "If you'd like to be notified about the results, please sign up for our newsletter:"
     Newsletter.callToAction baseUrl
     Html.p_ "You may also be interested in our podcast:"
     Podcast.callToAction baseUrl

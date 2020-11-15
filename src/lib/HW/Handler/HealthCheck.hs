@@ -1,7 +1,6 @@
 module HW.Handler.HealthCheck
   ( handler
-  )
-where
+  ) where
 
 import qualified HW.Handler.Common as Common
 import qualified HW.Type.App as App

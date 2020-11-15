@@ -3,8 +3,7 @@ module HW.Type.App
   , getConfig
   , getState
   , readDataFile
-  )
-where
+  ) where
 
 import qualified Control.Monad.IO.Class as IO
 import qualified Control.Monad.Trans.Reader as Reader

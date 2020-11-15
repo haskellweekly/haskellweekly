@@ -5,8 +5,7 @@ module HW.Handler.Common
   , notFound
   , status
   , text
-  )
-where
+  ) where
 
 import qualified Data.ByteString as ByteString
 import qualified Data.ByteString.Lazy as LazyByteString

@@ -1,7 +1,6 @@
 module HW.Template.PodcastFeed
   ( template
-  )
-where
+  ) where
 
 import qualified Data.List.NonEmpty as NonEmpty
 import qualified Data.Map as Map
@@ -31,15 +30,13 @@ template baseUrl episodes =
     itemLink = text . Route.toText baseUrl . Route.Episode . Episode.number
     itemSummary = text . Summary.toText . Episode.summary
     itemDescription episode = text $ mconcat
-      [ Markdown.toHtml
-        . Markdown.fromText
-        . Summary.toText
-        $ Episode.summary episode
+      [ Markdown.toHtml . Markdown.fromText . Summary.toText $ Episode.summary
+        episode
       , "\n\n"
       , Text.intercalate "\n"
-        . fmap (\ article -> "- <" <> Article.toText article <> ">")
-        . NonEmpty.toList
-        $ Episode.articles episode
+      . fmap (\article -> "- <" <> Article.toText article <> ">")
+      . NonEmpty.toList
+      $ Episode.articles episode
       ]
     itemEnclosureLength = Text.pack . show . Size.toNatural . Episode.size
     itemEnclosureUrl = Audio.toText . Episode.audio

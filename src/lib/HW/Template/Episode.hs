@@ -1,7 +1,6 @@
 module HW.Template.Episode
   ( template
-  )
-where
+  ) where
 
 import qualified Data.Text as Text
 import qualified HW.Markdown as Markdown
@@ -72,9 +71,8 @@ template baseUrl episode captions =
         Html.h4_ [Html.class_ "f4 mv3"] "Links"
         Html.ul_ . mapM_ articleLink $ Episode.articles episode
         Html.h4_ [Html.class_ "f4 mv3"] "Transcript"
-        Html.div_
-          . mapM_ (Html.p_ . Html.toHtml)
-          $ Caption.renderTranscript captions
+        Html.div_ . mapM_ (Html.p_ . Html.toHtml) $ Caption.renderTranscript
+          captions
 
 number :: Episode.Episode -> Text.Text
 number = mappend "Episode " . Number.toText . Episode.number

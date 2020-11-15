@@ -9,8 +9,7 @@ module HW.Type.Number
   , toNatural
   , toText
   , fromText
-  )
-where
+  ) where
 
 import qualified Data.Text as Text
 import qualified Numeric.Natural as Natural

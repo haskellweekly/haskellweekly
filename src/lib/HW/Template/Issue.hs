@@ -1,7 +1,6 @@
 module HW.Template.Issue
   ( template
-  )
-where
+  ) where
 
 import qualified Data.Text as Text
 import qualified HW.Markdown as Markdown
@@ -14,7 +13,8 @@ import qualified HW.Type.Number as Number
 import qualified HW.Type.Route as Route
 import qualified Lucid as Html
 
-template :: BaseUrl.BaseUrl -> Issue.Issue -> Markdown.Markdown -> Html.Html ()
+template
+  :: BaseUrl.BaseUrl -> Issue.Issue -> Markdown.Markdown -> Html.Html ()
 template baseUrl issue markdown =
   Base.template
       baseUrl

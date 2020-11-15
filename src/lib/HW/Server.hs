@@ -1,8 +1,7 @@
 -- | This module defines the main Haskell Weekly web server.
 module HW.Server
   ( server
-  )
-where
+  ) where
 
 import qualified Data.ByteString as ByteString
 import qualified Data.IORef as IORef

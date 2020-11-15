@@ -1,8 +1,7 @@
 module HW.Template.Common
   ( openGraph
   , twitter
-  )
-where
+  ) where
 
 import qualified Data.Text as Text
 import qualified Lucid as Html

@@ -8,8 +8,7 @@ module HW.Type.Date
   , toRfc2822
   , toShortText
   , fromGregorian
-  )
-where
+  ) where
 
 import qualified Data.Text as Text
 import qualified Data.Time as Time

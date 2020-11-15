@@ -4,8 +4,7 @@ module HW.Type.State
   ( State(..)
   , configToState
   , modifyState
-  )
-where
+  ) where
 
 import qualified Data.ByteString as ByteString
 import qualified Data.IORef as IORef
@@ -23,9 +22,7 @@ data State = State
   , fileCache :: Map.Map FilePath ByteString.ByteString
   , issues :: Issues.Issues
   , responseCache
-      :: Map.Map
-        (Text.Text, Text.Text)
-        (Time.UTCTime, Wai.Response)
+      :: Map.Map (Text.Text, Text.Text) (Time.UTCTime, Wai.Response)
   }
 
 -- | Builds up the state using the given config. If anything goes wrong, this

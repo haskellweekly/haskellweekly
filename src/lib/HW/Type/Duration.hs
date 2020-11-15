@@ -6,8 +6,7 @@ module HW.Type.Duration
   ( Duration
   , toText
   , fromTimestamp
-  )
-where
+  ) where
 
 import qualified Data.Text as Text
 import qualified Numeric.Natural as Natural

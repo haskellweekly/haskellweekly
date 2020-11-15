@@ -1,7 +1,6 @@
 module HW.Handler.Advertising
   ( handler
-  )
-where
+  ) where
 
 import qualified HW.Handler.Common as Common
 import qualified HW.Template.Advertising as Advertising

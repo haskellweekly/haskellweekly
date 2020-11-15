@@ -3,7 +3,6 @@
 -- @haskellweekly@ executable.
 module Main
   ( main
-  )
-where
+  ) where
 
 import HaskellWeekly (main)

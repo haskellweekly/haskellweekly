@@ -8,8 +8,7 @@ module HW.Type.Size
   ( Size
   , fromNatural
   , toNatural
-  )
-where
+  ) where
 
 import qualified Numeric.Natural as Natural
 

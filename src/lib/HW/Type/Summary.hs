@@ -5,8 +5,7 @@ module HW.Type.Summary
   ( Summary
   , fromText
   , toText
-  )
-where
+  ) where
 
 import qualified Data.Char as Char
 import qualified Data.Text as Text

@@ -1,7 +1,6 @@
 module HW.Template.Index
   ( template
-  )
-where
+  ) where
 
 import qualified HW.Template.Base as Base
 import qualified HW.Template.Newsletter as Newsletter

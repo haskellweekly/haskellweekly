@@ -1,7 +1,6 @@
 module HW.Template.NewsletterFeed
   ( template
-  )
-where
+  ) where
 
 import qualified Data.List as List
 import qualified Data.Map as Map
@@ -15,7 +14,8 @@ import qualified HW.Type.Number as Number
 import qualified HW.Type.Route as Route
 import qualified Text.XML as Xml
 
-template :: BaseUrl.BaseUrl -> [(Issue.Issue, Markdown.Markdown)] -> Xml.Document
+template
+  :: BaseUrl.BaseUrl -> [(Issue.Issue, Markdown.Markdown)] -> Xml.Document
 template baseUrl issues =
   let
     element name attributes = Xml.Element name (Map.fromList attributes)

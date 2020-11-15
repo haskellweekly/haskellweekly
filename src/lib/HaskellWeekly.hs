@@ -10,8 +10,7 @@ module HaskellWeekly
   , Package.getDataDir
   , Markdown.fromText
   , Markdown.toHtml
-  )
-where
+  ) where
 
 import qualified HW.Episodes as Episodes
 import qualified HW.Issues as Issues

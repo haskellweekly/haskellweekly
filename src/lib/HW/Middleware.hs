@@ -2,8 +2,7 @@
 -- application to change requests, responses, or both.
 module HW.Middleware
   ( middleware
-  )
-where
+  ) where
 
 import qualified Control.Monad as Monad
 import qualified Crypto.Hash as Crypto
@@ -13,8 +12,8 @@ import qualified Data.ByteString as ByteString
 import qualified Data.ByteString.Builder as Builder
 import qualified Data.ByteString.Lazy as LazyByteString
 import qualified Data.CaseInsensitive as CI
-import qualified Data.Int as Int
 import qualified Data.IORef as IORef
+import qualified Data.Int as Int
 import qualified Data.Map as Map
 import qualified Data.Text as Text
 import qualified Data.Text.Encoding as Text
@@ -48,7 +47,7 @@ addCaching ref application request respond = do
   let
     method = requestMethod request
     key = (method, requestPath request)
-  cache <- fmap State.responseCache $ IORef.readIORef ref
+  cache <- State.responseCache <$> IORef.readIORef ref
   now <- Time.getCurrentTime
   case Map.lookup key cache of
     Just (expires, response) | expires >= now -> respond response

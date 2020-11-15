@@ -4,8 +4,7 @@ module HW.Type.Redirect
   , toRoute
   , fromRoute
   , fromText
-  )
-where
+  ) where
 
 import qualified Data.Text as Text
 import qualified HW.Type.Route as Route

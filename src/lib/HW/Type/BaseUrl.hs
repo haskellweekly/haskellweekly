@@ -2,8 +2,7 @@ module HW.Type.BaseUrl
   ( BaseUrl
   , toText
   , fromText
-  )
-where
+  ) where
 
 import qualified Data.Text as Text
 

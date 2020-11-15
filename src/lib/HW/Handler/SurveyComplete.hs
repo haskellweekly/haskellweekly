@@ -1,7 +1,6 @@
 module HW.Handler.SurveyComplete
   ( handler
-  )
-where
+  ) where
 
 import qualified HW.Handler.Common as Common
 import qualified HW.Template.SurveyComplete as SurveyComplete

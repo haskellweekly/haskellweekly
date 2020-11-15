@@ -6,8 +6,7 @@ module HW.Type.Route
   , toText
   , fromText
   , routeContent
-  )
-where
+  ) where
 
 import qualified Data.Text as Text
 import qualified HW.Type.BaseUrl as BaseUrl

@@ -1,7 +1,6 @@
 module HW.Handler.Search
   ( handler
-  )
-where
+  ) where
 
 import qualified Control.Monad as Monad
 import qualified Data.Maybe as Maybe

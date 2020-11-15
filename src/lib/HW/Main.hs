@@ -3,8 +3,7 @@
 -- functionality comes together.
 module HW.Main
   ( main
-  )
-where
+  ) where
 
 import qualified Data.IORef as IORef
 import qualified Data.Version as Version

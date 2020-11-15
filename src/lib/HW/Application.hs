@@ -2,8 +2,7 @@
 -- Applications take in requests and give out responses.
 module HW.Application
   ( application
-  )
-where
+  ) where
 
 import qualified Control.Monad.Trans.Reader as Reader
 import qualified Data.IORef as IORef
@@ -40,11 +39,14 @@ import qualified Network.Wai as Wai
 application :: IORef.IORef State.State -> Wai.Application
 application ref request respond =
   case (requestMethod request, requestRoute request) of
-    ("POST", Just (Right (Route.Survey year))) | Number.toNatural year == 2020 -> do
-      body <- Wai.strictRequestBody request
-      S3.upload body
-      response <- Reader.runReaderT (Redirect.handler $ Redirect.fromRoute Route.SurveyComplete) ref
-      respond response
+    ("POST", Just (Right (Route.Survey year)))
+      | Number.toNatural year == 2020 -> do
+        body <- Wai.strictRequestBody request
+        S3.upload body
+        response <- Reader.runReaderT
+          (Redirect.handler $ Redirect.fromRoute Route.SurveyComplete)
+          ref
+        respond response
     ("GET", Just routeOrRedirect) -> do
       response <- Reader.runReaderT (handle routeOrRedirect request) ref
       respond response
@@ -64,7 +66,7 @@ requestRoute request =
   in
     case Route.fromText path of
       Just route -> Just $ Right route
-      Nothing -> fmap Left $ Redirect.fromText path
+      Nothing -> Left <$> Redirect.fromText path
 
 -- | Handles a particular route by calling the appropriate handler and
 -- returning the response.

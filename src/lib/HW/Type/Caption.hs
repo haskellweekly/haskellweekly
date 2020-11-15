@@ -7,8 +7,7 @@ module HW.Type.Caption
   ( Caption
   , parseVtt
   , renderTranscript
-  )
-where
+  ) where
 
 import qualified Control.Monad as Monad
 import qualified Data.Char as Char
