@@ -111,7 +111,6 @@ library
     HW.Type.App
     HW.Type.Article
     HW.Type.Articles
-    HW.Type.Audio
     HW.Type.BaseUrl
     HW.Type.Caption
     HW.Type.Config

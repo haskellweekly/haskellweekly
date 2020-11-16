@@ -7,7 +7,6 @@ import qualified Data.Map as Map
 import qualified Data.Text as Text
 import qualified HW.Markdown as Markdown
 import qualified HW.Type.Article as Article
-import qualified HW.Type.Audio as Audio
 import qualified HW.Type.BaseUrl as BaseUrl
 import qualified HW.Type.Date as Date
 import qualified HW.Type.Duration as Duration
@@ -39,7 +38,7 @@ template baseUrl episodes =
       $ Episode.articles episode
       ]
     itemEnclosureLength = Text.pack . show . Size.toNatural . Episode.size
-    itemEnclosureUrl = Audio.toText . Episode.audio
+    itemEnclosureUrl = Episode.audioUrl
     itemGuid = text . Guid.toText . Episode.guid
     itemPubDate = text . Date.toRfc2822 . Episode.date
     itemDuration = text . Duration.toText . Episode.duration

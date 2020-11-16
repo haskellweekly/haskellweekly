@@ -7,7 +7,6 @@ import qualified HW.Markdown as Markdown
 import qualified HW.Template.Base as Base
 import qualified HW.Template.Podcast as Podcast
 import qualified HW.Type.Article as Article
-import qualified HW.Type.Audio as Audio
 import qualified HW.Type.BaseUrl as BaseUrl
 import qualified HW.Type.Caption as Caption
 import qualified HW.Type.Date as Date
@@ -55,7 +54,7 @@ template baseUrl episode captions =
             ]
           $ do
               Html.source_
-                [ Html.src_ . Audio.toText $ Episode.audio episode
+                [ Html.src_ $ Episode.audioUrl episode
                 , Html.type_ "audio/mpeg"
                 ]
               Html.track_
