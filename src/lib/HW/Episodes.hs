@@ -60,6 +60,7 @@ episodes = do
     , episode28
     , episode29
     , episode30
+    , episode31
     ]
   checkGuids validEpisodes Set.empty
   checkNumbers validEpisodes 1
@@ -562,3 +563,18 @@ episode30 =
     <*> Summary.fromText
           "Newtypes let you give things names, but is that type safety? Andres Schmois, Cameron Gera, and Taylor Fausak explore a blog post by Alexis King."
     <*> Title.fromText "Type Safety"
+
+episode31 :: Either String Episode.Episode
+episode31 =
+  Episode.Episode
+    <$> Articles.fromList
+          [ "https://www.parsonsmatt.org/2020/11/10/simplifying_deriving.html"
+          ]
+    <*> Date.fromGregorian 2020 11 16
+    <*> Duration.fromTimestamp 27 32
+    <*> Guid.fromText "9b8aafdf-1b14-4261-8906-6976cd68797f"
+    <*> Number.fromNatural 31
+    <*> Size.fromNatural 28823143
+    <*> Summary.fromText
+          "Can Haskell's deriving mechanism be simplified? Cody Goodman, Cameron Gera, and Taylor Fausak walk through the changes that Matt Parsons suggested."
+    <*> Title.fromText "Simplify Deriving"
