@@ -7,15 +7,6 @@ This is a weekly summary of what's going on in its community.
 - [Where Lions Roam: Haskell & Hardware on the VELDT](https://github.com/standardsemiconductor/VELDT-getting-started/tree/8901e0126f69a1012a0997e28f532cd8a8bcca3d)
   > This is an opinionated guide to hardware design from first principles using Haskell and VELDT.
 
-## Jobs
-
-undefined
-
-Trying to hire a Haskell developer?
-You should [advertise with us](https://haskellweekly.news/advertising.html)!
-
-## In brief
-
 - [Data types for build system dependencies](https://neilmitchell.blogspot.com/2020/11/data-types-for-build-system-dependencies.html) by Neil Mitchell
   > Monadic and early cut-off? Use a sequence of sets.
 
@@ -36,6 +27,11 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 
 - [Unit Testing Compilation](https://mmhaskell.com/blog/2020/11/16/unit-testing-compilation) by Monday Morning Haskell
   > We've used Hspec before on the blog. But now we'll apply it to our Haskellings program, in conjunction with the program configuration changes we made last week!
+
+## Jobs
+
+Trying to hire a Haskell developer?
+You should [advertise with us](https://haskellweekly.news/advertising.html)!
 
 ## Show & tell
 
