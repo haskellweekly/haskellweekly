@@ -44,4 +44,5 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 
 ## Call for participation
 
-undefined
+-   [Carp: Array.unsafe-first returns a copy (which is confusing)](https://github.com/carp-lang/Carp/issues/970)
+-   [random-quote: Add more quotes](https://github.com/TheMC47/random-quote/issues/3)
