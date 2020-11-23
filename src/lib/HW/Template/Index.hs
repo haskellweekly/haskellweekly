@@ -63,6 +63,11 @@ template config maybeIssue maybeEpisode = do
     Html.ul_ $ do
       Html.li_ $ Html.a_
         [ Html.href_
+            "https://taylor.fausak.me/2020/11/22/haskell-survey-results/"
+        ]
+        "2020 State of Haskell Survey results"
+      Html.li_ $ Html.a_
+        [ Html.href_
             "https://taylor.fausak.me/2019/11/16/haskell-survey-results/"
         ]
         "2019 State of Haskell Survey results"
