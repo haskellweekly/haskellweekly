@@ -86,11 +86,6 @@ Resources:
       Name: !Ref DomainName
       Type: A
 
-  Zone:
-    Type: AWS::Route53::HostedZone
-    Properties:
-      Name: !Ref DomainName
-
   Cluster:
     Type: AWS::ECS::Cluster
     Properties:
@@ -368,3 +363,8 @@ Resources:
     Properties:
       InternetGatewayId: !Ref InternetGateway
       VpcId: !Ref Vpc
+
+  Zone:
+    Type: AWS::Route53::HostedZone
+    Properties:
+      Name: !Ref DomainName
