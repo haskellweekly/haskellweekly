@@ -23,4 +23,5 @@ undefined
 
 ## Call for participation
 
-undefined
+-   [Game-Dangerous: Game space coordinate system not working properly](https://github.com/Mushy-pea/Game-Dangerous/issues/3)
+-   [ghcide: pathToId is partial](https://github.com/haskell/ghcide/issues/921)
