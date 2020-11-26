@@ -1,0 +1,8 @@
+{
+  "build": { "dockerfile": "Dockerfile" },
+  "containerUser": "haskell",
+  "extensions": [ "taylorfausak.purple-yolk" ],
+  "forwardPorts": [ 8080 ],
+  "postCreateCommand": "cabal update",
+  "settings": { "purple-yolk.ghci.command": "cabal repl" }
+}
