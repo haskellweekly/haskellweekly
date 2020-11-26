@@ -85,6 +85,38 @@ Resources:
     Properties:
       ClusterName: !Sub ${AWS::StackName}-cluster
 
+  EmailRecordGroup:
+    Type: AWS::Route53::RecordSetGroup
+    Properties:
+      HostedZoneId: !Ref Zone
+      RecordSets:
+        - Name: !Sub fm1._domainkey.${DomainName}
+          ResourceRecords:
+            - fm1.haskellweekly.news.dkim.fmhosted.com
+          TTL: 300
+          Type: CNAME
+        - Name: !Sub fm2._domainkey.${DomainName}
+          ResourceRecords:
+            - fm2.haskellweekly.news.dkim.fmhosted.com
+          TTL: 300
+          Type: CNAME
+        - Name: !Sub fm3._domainkey.${DomainName}
+          ResourceRecords:
+            - fm3.haskellweekly.news.dkim.fmhosted.com
+          TTL: 300
+          Type: CNAME
+        - Name: !Ref DomainName
+          ResourceRecords:
+            - 10 in1-smtp.messagingengine.com
+            - 20 in2-smtp.messagingengine.com
+          TTL: 300
+          Type: MX
+        - Name: !Ref DomainName
+          ResourceRecords:
+            - '"v=spf1 include:spf.messagingengine.com ?all"'
+          TTL: 300
+          Type: TXT
+
   InternetGateway:
     Type: AWS::EC2::InternetGateway
 
