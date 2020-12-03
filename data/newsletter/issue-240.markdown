@@ -60,4 +60,4 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 
 ## Call for participation
 
-undefined
+-   [wasp: Remove createNewUser() function](https://github.com/wasp-lang/wasp/issues/150)
