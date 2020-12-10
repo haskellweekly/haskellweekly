@@ -21,4 +21,4 @@ undefined
 
 ## Call for participation
 
-undefined
+-   [password: Fix "homepage" fields in cabals](https://github.com/cdepillabout/password/issues/32)
