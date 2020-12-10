@@ -4,6 +4,9 @@ This is a weekly summary of what's going on in its community.
 
 ## Featured
 
+- [Developer Economics Survey](https://www.developereconomics.net/?utm_medium=newsletter&utm_source=haskell&utm_campaign=haskell_newsletter) (ad)
+  > It's our 20th survey anniversary! Discover new questions, prizes, and surprise perks.
+
 - [Advent of Haskell](https://github.com/bolt12/advent-of-haskell-dd/blob/0fb44c6b101545f5fb7421a9a4983a8fb7d4bf28/README.md) by Armando Santos
   > Denotational Design, developed by Conal Elliott, is an abstract and rigorous design method, that forces the programmer to really understand the nature of his problem domain, stepping back and design the meaning of abstraction before implementing it.
 
