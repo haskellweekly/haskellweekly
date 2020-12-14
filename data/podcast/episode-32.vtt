@@ -1,0 +1,3005 @@
+WEBVTT
+
+1
+00:00:04.840 --> 00:00:07.750
+>> Hello
+
+2
+00:00:07.750 --> 00:00:10.410
+and welcome to the Haskell weekly podcast. I'm your
+
+3
+00:00:10.410 --> 00:00:13.400
+host, Taylor Fausak. I'm the lead engineer at
+
+4
+00:00:13.400 --> 00:00:16.310
+ITProTV. And with me today is one of the
+
+5
+00:00:16.310 --> 00:00:19.060
+engineers on my team. Cameron Gera. Thanks for
+
+6
+00:00:19.060 --> 00:00:20.170
+joining me today, Cam.
+
+7
+00:00:20.640 --> 00:00:23.620
+>> Thanks for having me, Taylor. I'm excited to be here. It's been
+
+8
+00:00:23.620 --> 00:00:26.440
+a minute since we've done this, you know? So I'm glad to get
+
+9
+00:00:26.440 --> 00:00:27.270
+back into it.
+
+10
+00:00:27.280 --> 00:00:29.940
+>> Yeah, we took a month off there around
+
+11
+00:00:29.940 --> 00:00:32.770
+Thanksgiving. I guess we needed some time to recuperate from those
+
+12
+00:00:32.780 --> 00:00:34.050
+large meals.
+
+13
+00:00:34.440 --> 00:00:36.960
+>> Mm. All that turkey. Mm.
+
+14
+00:00:37.340 --> 00:00:40.110
+But yeah. I mean, today we're in December.
+
+15
+00:00:40.120 --> 00:00:43.080
+It's, uh, here in Florida. It's actually a little chilly for once,
+
+16
+00:00:43.080 --> 00:00:45.900
+which has been really nice. Um, and, you
+
+17
+00:00:45.900 --> 00:00:48.630
+know, the holiday season is upon us, and there's this
+
+18
+00:00:48.640 --> 00:00:51.520
+awesome project that's been out there for a couple of
+
+19
+00:00:51.520 --> 00:00:54.380
+years now called Advent of Code. And so
+
+20
+00:00:54.390 --> 00:00:57.350
+I've been working on it. Taylor, you've been kicking my butt at it. But
+
+21
+00:00:57.360 --> 00:01:00.290
+you know, Taylor is also working on it on, and I just wanted to, you
+
+22
+00:01:00.290 --> 00:01:03.230
+know, let our listeners know that that's available to you. If you're interested,
+
+23
+00:01:03.240 --> 00:01:05.870
+you can solve it in any language you want. But,
+
+24
+00:01:06.240 --> 00:01:08.710
+you know, I'd encourage Haskell Taylor's doing,
+
+25
+00:01:08.720 --> 00:01:11.610
+Elm so there's, You know, it's all about
+
+26
+00:01:11.610 --> 00:01:14.450
+getting to the right answer. Uh, and so that actually kind
+
+27
+00:01:14.450 --> 00:01:17.210
+of leads us in today's topic because, you
+
+28
+00:01:17.210 --> 00:01:20.150
+know, in Advent of Code, we're doing a lot of parsing.
+
+29
+00:01:20.160 --> 00:01:23.040
+And in this edition of Haskell Weekly, which
+
+30
+00:01:23.040 --> 00:01:25.880
+is edition 241 there is
+
+31
+00:01:25.890 --> 00:01:28.490
+a blog post called parser combinators
+
+32
+00:01:28.490 --> 00:01:31.360
+walkthrough and I was like, Oh, sweet,
+
+33
+00:01:31.360 --> 00:01:34.350
+This is awesome. I need this, um, and you
+
+34
+00:01:34.350 --> 00:01:37.320
+know, the author Antoine Leblanc did
+
+35
+00:01:37.320 --> 00:01:40.310
+a great job of explaining this I'm really excited
+
+36
+00:01:40.310 --> 00:01:43.310
+to kind of chit chat about it. So the parsing expert
+
+37
+00:01:43.310 --> 00:01:46.210
+ourselves from least not it's not Antoine, but it's
+
+38
+00:01:46.210 --> 00:01:49.000
+Taylor. So he's the expert here, so I'm
+
+39
+00:01:49.000 --> 00:01:51.760
+probably gonna be pinning him with a lot of questions. Um,
+
+40
+00:01:51.770 --> 00:01:52.940
+so, yeah, I mean,
+
+41
+00:01:52.940 --> 00:01:53.570
+>> I'm ready.
+
+42
+00:01:54.940 --> 00:01:57.700
+>> Obviously, I know what a parser is.
+
+43
+00:01:57.710 --> 00:02:00.640
+Luckily, Antoine talks about that which is
+
+44
+00:02:00.640 --> 00:02:03.120
+just, you know, the ability
+
+45
+00:02:03.120 --> 00:02:05.930
+to read through some sort of
+
+46
+00:02:05.940 --> 00:02:08.930
+stream and transform it into some other data
+
+47
+00:02:08.930 --> 00:02:11.620
+type. The most common
+
+48
+00:02:11.620 --> 00:02:14.420
+one in Haskell is generally a string. You
+
+49
+00:02:14.420 --> 00:02:17.390
+parse the string by each character, and You go
+
+50
+00:02:17.400 --> 00:02:19.460
+parse it into something else. Um,
+
+51
+00:02:20.040 --> 00:02:22.650
+and here he focuses on, you know,
+
+52
+00:02:23.240 --> 00:02:26.140
+understanding what Parsec does and
+
+53
+00:02:26.140 --> 00:02:28.770
+what it is and kind of rebuilds it to Then
+
+54
+00:02:29.240 --> 00:02:30.720
+kind of make a JSON parser
+
+55
+00:02:30.730 --> 00:02:33.680
+>> Yeah, You've touched on a lot of things that I wanna
+
+56
+00:02:33.690 --> 00:02:36.500
+build on just a little bit. So
+
+57
+00:02:36.510 --> 00:02:39.420
+yeah, a parser at a high level is something that takes
+
+58
+00:02:39.430 --> 00:02:42.110
+some input and produces some output. But that basically
+
+59
+00:02:42.110 --> 00:02:44.750
+describes a function as well. So that's a little too general.
+
+60
+00:02:44.740 --> 00:02:47.550
+Usually when we think of parsers, we're thinking of parsing
+
+61
+00:02:47.550 --> 00:02:50.350
+strings and in Haskell returning them into more structured
+
+62
+00:02:50.350 --> 00:02:52.960
+data types. So one thing that we've talked about
+
+63
+00:02:52.960 --> 00:02:55.760
+before on this podcast is the difference
+
+64
+00:02:55.760 --> 00:02:58.300
+between parsing and validating. So
+
+65
+00:02:58.300 --> 00:03:00.880
+parsing like you consume your input and
+
+66
+00:03:00.880 --> 00:03:03.460
+produce something that tells you more about it. You know, more
+
+67
+00:03:03.460 --> 00:03:06.340
+information at the end versus validation is like you already
+
+68
+00:03:06.340 --> 00:03:09.090
+have some data on hand, and you just check something
+
+69
+00:03:09.090 --> 00:03:09.560
+about it,
+
+70
+00:03:10.040 --> 00:03:10.550
+>> right.
+
+71
+00:03:11.140 --> 00:03:14.110
+>> Um and like you mentioned, string is a really common input
+
+72
+00:03:14.110 --> 00:03:16.870
+type for parsers, but it doesn't have to be strings. You can
+
+73
+00:03:16.870 --> 00:03:19.660
+parse byte string. You can parse, JSON. I
+
+74
+00:03:19.660 --> 00:03:22.530
+mean, and when I say parse JSON, I mean, like, you could use JSON
+
+75
+00:03:22.530 --> 00:03:25.450
+as your input type and then produce something else at the end. So
+
+76
+00:03:26.040 --> 00:03:28.660
+with the library, like Aeson, when you're doing the
+
+77
+00:03:28.670 --> 00:03:31.240
+FromJSON instance, you could think of that as
+
+78
+00:03:31.240 --> 00:03:34.160
+like, I'm taking a JSON input and producing some
+
+79
+00:03:34.170 --> 00:03:37.010
+custom type as the output. That's a helpful way to
+
+80
+00:03:37.010 --> 00:03:38.590
+think about it. But
+
+81
+00:03:38.600 --> 00:03:41.350
+>> yeah, it makes a lot of sense to me.
+
+82
+00:03:41.360 --> 00:03:43.790
+I just, you know, have a
+
+83
+00:03:43.800 --> 00:03:46.620
+really excuse me. I've really never taken the
+
+84
+00:03:46.620 --> 00:03:49.540
+time to understand what's happening underneath. I just kind of
+
+85
+00:03:49.540 --> 00:03:52.450
+say Oh, yeah, it's It's parsing JSON into our new data
+
+86
+00:03:52.450 --> 00:03:55.430
+type and that's it's fine. But when
+
+87
+00:03:55.430 --> 00:03:58.400
+I'm, you know, working on Advent of code Problem where I'm saying All
+
+88
+00:03:58.400 --> 00:04:01.050
+right, let me take in this stream of input,
+
+89
+00:04:01.060 --> 00:04:03.050
+and I need to make sure you know
+
+90
+00:04:03.940 --> 00:04:06.910
+I need to parse it and then also validate it afterwards, which
+
+91
+00:04:06.920 --> 00:04:09.760
+you since I have the data type and I could parse it into
+
+92
+00:04:10.140 --> 00:04:12.770
+a known you know ADT for say, I
+
+93
+00:04:13.320 --> 00:04:15.920
+think hair color is something I'm trying to parse right now,
+
+94
+00:04:15.930 --> 00:04:18.860
+and you know. Do you have a certain op number of
+
+95
+00:04:18.860 --> 00:04:21.750
+options for that? Um and so I
+
+96
+00:04:21.750 --> 00:04:24.660
+could parse that into a specific, you know, data type. That
+
+97
+00:04:24.660 --> 00:04:27.370
+would be easier to understand. It's a check
+
+98
+00:04:27.370 --> 00:04:27.910
+against.
+
+99
+00:04:27.920 --> 00:04:30.770
+>> Yeah, that's a really natural fit for, uh,
+
+100
+00:04:30.780 --> 00:04:33.410
+parsing into a data type. Because instead of matching on a
+
+101
+00:04:33.410 --> 00:04:36.240
+string and having some, you know, underscore match that
+
+102
+00:04:36.240 --> 00:04:38.950
+says this should never happen You know, this is an impossible
+
+103
+00:04:38.950 --> 00:04:40.860
+case. You can actually just rule it out.
+
+104
+00:04:41.340 --> 00:04:42.060
+Um,
+
+105
+00:04:42.640 --> 00:04:45.570
+>> you should see the code. Right now it's
+
+106
+00:04:45.580 --> 00:04:48.100
+I'm using data dot text, and I'm doing a lot of
+
+107
+00:04:48.110 --> 00:04:50.800
+infix isInfixOf and
+
+108
+00:04:50.810 --> 00:04:53.640
+any and alls and it's no good. So
+
+109
+00:04:53.650 --> 00:04:56.540
+>> yeah, and hopefully after we finish talking about parser
+
+110
+00:04:56.540 --> 00:04:59.410
+combinators and you can apply
+
+111
+00:04:59.410 --> 00:05:02.340
+this to your advent of code solution, you'll be able to look and see like Oh,
+
+112
+00:05:02.340 --> 00:05:05.090
+yeah, using a parcer here makes
+
+113
+00:05:05.090 --> 00:05:08.040
+code that's both easier to read and easier to maintain and
+
+114
+00:05:08.040 --> 00:05:10.670
+easier to see what's going on versus the like,
+
+115
+00:05:10.840 --> 00:05:13.780
+poking around and plucking sub strings out of stuff like you
+
+116
+00:05:13.780 --> 00:05:15.020
+might do in some other languages.
+
+117
+00:05:15.440 --> 00:05:18.050
+>> Yeah, so I mean, that's a great
+
+118
+00:05:18.050 --> 00:05:21.000
+little segue like where do we start
+
+119
+00:05:21.000 --> 00:05:23.750
+with parsecs like, What's a good place to start
+
+120
+00:05:24.140 --> 00:05:26.880
+understanding and how Parsec and
+
+121
+00:05:26.880 --> 00:05:28.420
+parser combinators work?
+
+122
+00:05:28.430 --> 00:05:31.330
+>> Yeah, so this post obviously, is
+
+123
+00:05:31.330 --> 00:05:34.160
+a great place to start, But it's not the first resource for
+
+124
+00:05:34.160 --> 00:05:37.110
+something like this. And it's been a
+
+125
+00:05:37.110 --> 00:05:40.110
+while since I was learning
+
+126
+00:05:40.110 --> 00:05:43.020
+how parser combinators work. So I want to say
+
+127
+00:05:43.020 --> 00:05:45.850
+that like the Parsec documentation or
+
+128
+00:05:45.860 --> 00:05:48.600
+Megaparsec or Attoparsec any of those are
+
+129
+00:05:48.600 --> 00:05:51.400
+probably find to understand, like the API that they
+
+130
+00:05:51.400 --> 00:05:54.380
+expose. But to figure out how it works behind the
+
+131
+00:05:54.380 --> 00:05:57.220
+scenes, you're going to need a resource like this or
+
+132
+00:05:57.230 --> 00:06:00.070
+Stephen Diehl wrote one a while ago
+
+133
+00:06:00.640 --> 00:06:03.420
+where he goes through the same thing of building up a parser
+
+134
+00:06:03.420 --> 00:06:06.290
+combinator from scratch. And I'm sure other people have written things as
+
+135
+00:06:06.290 --> 00:06:09.180
+well. So I'll try to include links to
+
+136
+00:06:09.180 --> 00:06:12.070
+those things in the show notes. But yeah,
+
+137
+00:06:12.080 --> 00:06:14.350
+this is a great resource. So let's let's dive right in.
+
+138
+00:06:14.840 --> 00:06:17.760
+>> Yeah, so the first thing he does is obviously give
+
+139
+00:06:17.760 --> 00:06:20.450
+you a type signature and show you that
+
+140
+00:06:20.450 --> 00:06:23.380
+Parsec is really just a function. Uh, you know
+
+141
+00:06:23.380 --> 00:06:25.970
+you're taking some string and
+
+142
+00:06:25.970 --> 00:06:28.970
+transforming into some a, um and you know,
+
+143
+00:06:28.970 --> 00:06:31.960
+that's not always gonna be successful. So he actually creates
+
+144
+00:06:31.960 --> 00:06:34.890
+it, you know, it returns an either. So you can kind of catch a
+
+145
+00:06:34.890 --> 00:06:37.860
+parsing error and display that to your users so that they can
+
+146
+00:06:37.860 --> 00:06:40.710
+understand. Oh, my input. Incorrect. Let me change
+
+147
+00:06:40.710 --> 00:06:43.530
+that. Uh, and so, you know,
+
+148
+00:06:43.530 --> 00:06:45.860
+that's a good little, you know,
+
+149
+00:06:46.340 --> 00:06:49.040
+place to start. And then he's like, All right, well,
+
+150
+00:06:49.050 --> 00:06:51.330
+enough of that we're done. Cool. Let's move on. We've
+
+151
+00:06:51.330 --> 00:06:52.970
+got to
+
+152
+00:06:53.540 --> 00:06:56.220
+really crux parsers,
+
+153
+00:06:56.220 --> 00:06:58.670
+right? That are super low, low,
+
+154
+00:06:59.440 --> 00:07:00.890
+low level or high level.
+
+155
+00:07:00.900 --> 00:07:02.730
+>> They're low level, I think.
+
+156
+00:07:02.740 --> 00:07:04.700
+>> Right. That's what I would have thought
+
+157
+00:07:04.700 --> 00:07:06.170
+>> They're like primitives almost
+
+158
+00:07:06.540 --> 00:07:09.520
+>> right. And that's the idea of,
+
+159
+00:07:09.530 --> 00:07:12.460
+you know, an any parser and an
+
+160
+00:07:12.470 --> 00:07:15.350
+end of file parser. So an any parser just says,
+
+161
+00:07:15.350 --> 00:07:17.760
+keep giving me stuff while there is stuff.
+
+162
+00:07:18.140 --> 00:07:20.950
+And then the end of file
+
+163
+00:07:20.950 --> 00:07:23.770
+partner says, Oh, there's nothing left to parse.
+
+164
+00:07:23.770 --> 00:07:26.360
+We're done. Here is your output. Here's your
+
+165
+00:07:26.370 --> 00:07:26.860
+result.
+
+166
+00:07:26.870 --> 00:07:29.790
+>> And both of these things are quote unquote
+
+167
+00:07:29.790 --> 00:07:32.630
+combinators. I know that when I was learning functional
+
+168
+00:07:32.630 --> 00:07:35.320
+programming in Haskell and parser commentators that
+
+169
+00:07:35.320 --> 00:07:38.160
+term kind of threw me off like, What does it mean exactly?
+
+170
+00:07:38.540 --> 00:07:41.410
+So from this post that any function
+
+171
+00:07:41.420 --> 00:07:44.370
+that is a parser and the EOF sorry, I called
+
+172
+00:07:44.370 --> 00:07:47.090
+it function. It's a parser value, which itself is a
+
+173
+00:07:47.090 --> 00:07:49.970
+wrapper around a function. But any and
+
+174
+00:07:49.970 --> 00:07:52.850
+EOF are both people would refer to
+
+175
+00:07:52.850 --> 00:07:55.810
+them as combinators. So if you hear parser combinator, that's kind of the
+
+176
+00:07:55.810 --> 00:07:56.920
+thing they're talking about.
+
+177
+00:07:56.930 --> 00:07:59.410
+>> Gotcha. Okay, that makes sense.
+
+178
+00:07:59.420 --> 00:08:01.950
+So, you know, that covers the two base
+
+179
+00:08:01.950 --> 00:08:02.640
+cases
+
+180
+00:08:02.650 --> 00:08:05.590
+>> I just wanted to touch on. Why those two are
+
+181
+00:08:05.590 --> 00:08:08.510
+base cases because our the function type that
+
+182
+00:08:08.510 --> 00:08:11.470
+we have says you give me a string and I'll give
+
+183
+00:08:11.470 --> 00:08:14.460
+you effectively either a result
+
+184
+00:08:14.470 --> 00:08:16.850
+or an error, right?
+
+185
+00:08:16.860 --> 00:08:19.790
+And these two combinators, any
+
+186
+00:08:19.800 --> 00:08:22.750
+and EOF Let us step through the entire input so we could
+
+187
+00:08:22.750 --> 00:08:25.720
+go one character at a time. Just give me each character as it comes
+
+188
+00:08:25.720 --> 00:08:28.360
+along, and I'll do something with it, and then I'll hit the end.
+
+189
+00:08:28.740 --> 00:08:31.440
+Um, we're gonna need a couple more things, and
+
+190
+00:08:31.450 --> 00:08:33.700
+what we're building here may not be very
+
+191
+00:08:33.700 --> 00:08:36.040
+efficient. You can imagine going one character at the
+
+192
+00:08:36.040 --> 00:08:38.880
+time isn't the fastest thing in the world. Sometimes, you
+
+193
+00:08:38.880 --> 00:08:41.550
+know, you can skip a bunch of characters. Um,
+
+194
+00:08:42.140 --> 00:08:45.090
+but this is enough to show you how
+
+195
+00:08:45.090 --> 00:08:45.950
+these things work.
+
+196
+00:08:46.740 --> 00:08:49.470
+>> Gotcha. So how does it
+
+197
+00:08:50.640 --> 00:08:52.050
+I guess
+
+198
+00:08:53.040 --> 00:08:55.970
+any is recursive, right? Is
+
+199
+00:08:55.970 --> 00:08:58.150
+that Is that what's happening, or how do we
+
+200
+00:08:58.150 --> 00:09:00.990
+continually get through? You know, a
+
+201
+00:09:00.990 --> 00:09:03.570
+string? Like what? What in parsec does that?
+
+202
+00:09:04.140 --> 00:09:06.880
+>> Yeah, it could be a little tricky to wrap your head around. And I
+
+203
+00:09:06.880 --> 00:09:09.820
+think throughout this episode we'll probably say Parsec And we
+
+204
+00:09:09.820 --> 00:09:12.810
+may not actually mean the Parsec library. We may be talking about what they're
+
+205
+00:09:12.810 --> 00:09:15.650
+showing here. Um, but what? What he's
+
+206
+00:09:15.650 --> 00:09:18.380
+showing here the way that you carry that string around and like,
+
+207
+00:09:18.390 --> 00:09:21.360
+quote unquote update your state as you might think of it. In
+
+208
+00:09:21.360 --> 00:09:24.040
+a normal imperative, language is
+
+209
+00:09:24.050 --> 00:09:26.780
+you take a string as input and what you
+
+210
+00:09:26.780 --> 00:09:29.700
+return is a tuple that has a string and then
+
+211
+00:09:29.700 --> 00:09:32.660
+that either I talked about before. So you
+
+212
+00:09:33.040 --> 00:09:35.930
+take your input and then you produce like the rest of the
+
+213
+00:09:35.930 --> 00:09:38.420
+input after that. So with any
+
+214
+00:09:38.420 --> 00:09:41.310
+combinator, you're taking one character off the front of your
+
+215
+00:09:41.310 --> 00:09:43.650
+input and then passing the rest of it,
+
+216
+00:09:43.660 --> 00:09:45.460
+Uh, back to the caller.
+
+217
+00:09:46.540 --> 00:09:48.390
+>> Okay. Makes sense.
+
+218
+00:09:48.400 --> 00:09:51.040
+>> It could be a little tricky to wrap your head around because you're right. Like
+
+219
+00:09:51.050 --> 00:09:53.440
+using this will typically kind of feel
+
+220
+00:09:53.440 --> 00:09:56.370
+recursive, but the any function itself
+
+221
+00:09:56.380 --> 00:09:57.860
+doesn't use recursion.
+
+222
+00:09:58.540 --> 00:10:01.420
+>> Okay, that's that's good to know, because that's
+
+223
+00:10:01.420 --> 00:10:03.920
+where, like, you know, looking at the Parsec
+
+224
+00:10:03.920 --> 00:10:06.150
+library and kind of looking at the API
+
+225
+00:10:06.150 --> 00:10:08.630
+exposes. I'm like, Okay, but how do I
+
+226
+00:10:08.630 --> 00:10:11.600
+use these things? Like I know I can see what
+
+227
+00:10:11.600 --> 00:10:14.530
+they are, and I understand the type signatures, but how do I
+
+228
+00:10:14.530 --> 00:10:17.270
+use them? Um and so, I think,
+
+229
+00:10:17.280 --> 00:10:20.260
+diving down a little bit into the
+
+230
+00:10:21.440 --> 00:10:24.200
+his version, you know, of
+
+231
+00:10:24.210 --> 00:10:27.050
+any and EOF you know, is helpful to
+
+232
+00:10:27.540 --> 00:10:30.290
+just kind of grok That
+
+233
+00:10:30.290 --> 00:10:30.970
+idea.
+
+234
+00:10:30.980 --> 00:10:33.460
+>> Yeah. And I would have liked seeing a little
+
+235
+00:10:33.460 --> 00:10:36.450
+more high level motivation at the top. I think
+
+236
+00:10:36.460 --> 00:10:39.420
+he's kind of taking for granted that you already know what it will look like to
+
+237
+00:10:39.420 --> 00:10:42.180
+use this thing at the end. And you're curious about how is it
+
+238
+00:10:42.180 --> 00:10:45.160
+implemented? But you know, towards the end, when he gets
+
+239
+00:10:45.160 --> 00:10:47.960
+into parsing JSON, he mentions that
+
+240
+00:10:48.040 --> 00:10:50.900
+or he shows like this is how you will parse a JSON value will say,
+
+241
+00:10:50.900 --> 00:10:53.820
+like this constructor f mapped over this parser, Or this constructor
+
+242
+00:10:53.820 --> 00:10:56.530
+over that one on so. That's, I
+
+243
+00:10:56.530 --> 00:10:59.130
+think, kind of what you were touching on of, like, Okay, I can see how all
+
+244
+00:10:59.130 --> 00:11:01.960
+these what the type signatures of all these pieces
+
+245
+00:11:01.960 --> 00:11:04.370
+are. But how do I actually use them together?
+
+246
+00:11:04.840 --> 00:11:07.780
+>> So yeah. I mean, it is also
+
+247
+00:11:07.780 --> 00:11:10.410
+very nice to know what's happening
+
+248
+00:11:10.410 --> 00:11:13.230
+underneath? I don't discount that at all,
+
+249
+00:11:13.240 --> 00:11:16.080
+but as someone who hasn't put into practice like
+
+250
+00:11:16.090 --> 00:11:19.000
+I read this today knowing that okay, I
+
+251
+00:11:19.000 --> 00:11:21.860
+wanna take this tomorrow and run with
+
+252
+00:11:21.860 --> 00:11:24.700
+it for ah, advent of
+
+253
+00:11:24.700 --> 00:11:27.600
+code and parsing. You know, this hair color thing that I'm
+
+254
+00:11:27.600 --> 00:11:30.580
+trying to figure out what it is to make sure it
+
+255
+00:11:30.590 --> 00:11:33.560
+matches the rules that they have placed upon it.
+
+256
+00:11:34.040 --> 00:11:36.780
+So, yeah,
+
+257
+00:11:36.790 --> 00:11:39.720
+I definitely feel like I got a little bit more value at
+
+258
+00:11:39.720 --> 00:11:42.110
+the end of this article, but, uh,
+
+259
+00:11:42.120 --> 00:11:44.660
+moving along. You know, I think
+
+260
+00:11:45.040 --> 00:11:47.550
+talking about sequencing these parsers
+
+261
+00:11:47.560 --> 00:11:50.060
+is, um yeah,
+
+262
+00:11:50.940 --> 00:11:53.800
+parsing is sequential in
+
+263
+00:11:53.800 --> 00:11:56.650
+its nature, right? Like you're moving all through something
+
+264
+00:11:56.650 --> 00:11:59.080
+to translate it into some other data
+
+265
+00:11:59.080 --> 00:12:01.580
+type. And
+
+266
+00:12:01.580 --> 00:12:04.160
+so you know, he kind of
+
+267
+00:12:05.140 --> 00:12:07.540
+dives in a little bit of like how a parser might
+
+268
+00:12:07.540 --> 00:12:10.150
+help and how it allows you know
+
+269
+00:12:10.640 --> 00:12:13.210
+you to be in the parser monad that
+
+270
+00:12:13.220 --> 00:12:15.770
+than makes it a little easier to
+
+271
+00:12:16.240 --> 00:12:18.310
+to comprehend and follow.
+
+272
+00:12:18.320 --> 00:12:20.670
+>> Yeah, I feel like this is maybe it's
+
+273
+00:12:20.670 --> 00:12:23.610
+intentional. Maybe it's accidental, but it seems kind
+
+274
+00:12:23.610 --> 00:12:26.430
+of like a good introduction or Good monad tutorial,
+
+275
+00:12:26.440 --> 00:12:29.380
+which is kind of a meme in the Haskell community. But he starts
+
+276
+00:12:29.380 --> 00:12:32.060
+by showing what it would look like to use one of these
+
+277
+00:12:32.060 --> 00:12:34.970
+parsers if you had to pattern match on the result
+
+278
+00:12:34.970 --> 00:12:37.780
+every time. And it sucks. You know, you keep
+
+279
+00:12:37.790 --> 00:12:40.710
+indenting more and more, and you have to match every
+
+280
+00:12:40.710 --> 00:12:43.410
+time you capture a value. And,
+
+281
+00:12:43.420 --> 00:12:46.300
+uh, it feels to me, or it looks to me a
+
+282
+00:12:46.300 --> 00:12:48.990
+little bit like handling errors in golang where you
+
+283
+00:12:48.990 --> 00:12:51.630
+say, if there was a problem, then panic. Otherwise, keep going
+
+284
+00:12:51.640 --> 00:12:54.590
+and you just do that over and over again. And then
+
+285
+00:12:54.600 --> 00:12:57.400
+he shows how you can take that and improve it a little
+
+286
+00:12:57.400 --> 00:13:00.400
+bit by writing another combinator called
+
+287
+00:13:00.400 --> 00:13:03.200
+andThen where you give it a
+
+288
+00:13:03.200 --> 00:13:06.170
+function with the result you expected, and
+
+289
+00:13:06.170 --> 00:13:09.140
+it'll string all these things together for you so you can hide away some of that
+
+290
+00:13:09.140 --> 00:13:12.040
+complexity. And this, to me, looks a lot like the
+
+291
+00:13:12.040 --> 00:13:14.850
+elm way of doing things where there's no special syntax or
+
+292
+00:13:14.850 --> 00:13:17.620
+anything. And it's all very straightforward what's going on? But
+
+293
+00:13:17.620 --> 00:13:20.510
+because of that, there's a lot of extra noise where you have to
+
+294
+00:13:20.520 --> 00:13:23.390
+plug all these things together. And then you
+
+295
+00:13:23.390 --> 00:13:25.950
+get to, like, kind of the whole
+
+296
+00:13:25.950 --> 00:13:28.650
+reason. One of the reasons that Haskell exists
+
+297
+00:13:28.720 --> 00:13:31.650
+this special syntax around monads where you can make
+
+298
+00:13:31.650 --> 00:13:34.620
+it look like the same code you would write for IO Or
+
+299
+00:13:34.620 --> 00:13:37.140
+maybe or either or any other monad that you use
+
+300
+00:13:37.150 --> 00:13:39.790
+Haskell boom. You can use it for a parser to,
+
+301
+00:13:39.830 --> 00:13:41.760
+and I like that progression. I think that's cool.
+
+302
+00:13:42.340 --> 00:13:45.260
+>> Mhm. Yeah, honestly, I think you
+
+303
+00:13:45.260 --> 00:13:48.250
+know, I know there's fancy ways to do you know this
+
+304
+00:13:48.250 --> 00:13:50.970
+parsing, but I'm probably gonna start with, like, Alright, let me use do
+
+305
+00:13:50.970 --> 00:13:53.270
+notation and get
+
+306
+00:13:53.840 --> 00:13:56.570
+this piece of it and then say all right now I've got this
+
+307
+00:13:56.570 --> 00:13:59.120
+piece of it. I think that will be
+
+308
+00:13:59.150 --> 00:14:01.830
+super helpful. and read
+
+309
+00:14:01.840 --> 00:14:03.650
+easy to reason about.
+
+310
+00:14:03.660 --> 00:14:05.920
+>> I think it's a natural fit because, like you said,
+
+311
+00:14:05.930 --> 00:14:08.680
+parsing is sequential or at the very
+
+312
+00:14:08.680 --> 00:14:11.600
+least we can think of it as sequential. Sometimes you
+
+313
+00:14:11.600 --> 00:14:14.300
+can jump around. So, like if you're parsing a
+
+314
+00:14:14.300 --> 00:14:17.110
+JSON String, you could skip to the
+
+315
+00:14:17.110 --> 00:14:19.950
+next double quote and
+
+316
+00:14:19.950 --> 00:14:22.890
+just say, Okay, well, everything in there is probably a string and I'm gonna jump ahead if
+
+317
+00:14:22.890 --> 00:14:25.470
+you're looking for something else. But again, that's an optimization.
+
+318
+00:14:25.480 --> 00:14:28.250
+So, yeah, looking at the sequentially of do notation like
+
+319
+00:14:28.260 --> 00:14:30.980
+Look for this character, then look for a space, then look for this other
+
+320
+00:14:30.980 --> 00:14:33.970
+character. It's really easy to wrap your head around
+
+321
+00:14:33.970 --> 00:14:34.270
+that
+
+322
+00:14:34.740 --> 00:14:37.280
+>> Mhm. Yeah, No, I think that's
+
+323
+00:14:37.280 --> 00:14:39.380
+awesome. And like I said, there's more
+
+324
+00:14:39.390 --> 00:14:42.350
+complicated processes, which is like, you know, there's
+
+325
+00:14:42.350 --> 00:14:45.060
+a lot of infix operators here that
+
+326
+00:14:45.640 --> 00:14:48.500
+make your life easier. But if you're not
+
+327
+00:14:48.510 --> 00:14:51.260
+familiar with, you know, their type signatures and what they're
+
+328
+00:14:51.260 --> 00:14:54.150
+actually doing, it can get a little bit confusing.
+
+329
+00:14:54.160 --> 00:14:55.860
+Get backwards easily.
+
+330
+00:14:55.870 --> 00:14:58.820
+>> Do notation definitely has. The advantage of you
+
+331
+00:14:58.820 --> 00:15:01.520
+could point pretty much anybody at it, and they could probably guess what it
+
+332
+00:15:01.520 --> 00:15:04.270
+does. These other operators
+
+333
+00:15:04.240 --> 00:15:07.160
+are very convenient, and once you're familiar with the grammar
+
+334
+00:15:07.160 --> 00:15:10.040
+they form, then it's a really succinct
+
+335
+00:15:10.040 --> 00:15:12.960
+way to describe these things. Um, and
+
+336
+00:15:12.960 --> 00:15:15.830
+a lot of Haskellers are already familiar with some of these operators, in
+
+337
+00:15:15.830 --> 00:15:18.660
+particular the like angle bracket, dollar sign angle bracket that
+
+338
+00:15:18.660 --> 00:15:21.540
+infix fmap operator. We use that
+
+339
+00:15:21.540 --> 00:15:24.400
+one all the time, and we also use the I forget what what
+
+340
+00:15:24.400 --> 00:15:26.820
+people call it, like the spaceship or whatever. Which is the angle bracket
+
+341
+00:15:26.820 --> 00:15:29.610
+asterisk. Yeah, the applicative Um,
+
+342
+00:15:29.620 --> 00:15:32.610
+and we use that to, like, build up records or something out of a bunch
+
+343
+00:15:32.610 --> 00:15:35.390
+of different fields. But then there's there's the
+
+344
+00:15:35.390 --> 00:15:38.380
+versions of those operators that only have one of the angle brackets, so they're, like,
+
+345
+00:15:38.380 --> 00:15:40.970
+missing a side, and that treats one side as
+
+346
+00:15:40.970 --> 00:15:43.600
+special. So, like it will
+
+347
+00:15:43.600 --> 00:15:46.190
+ignore the result from one side and give you the result from the other.
+
+348
+00:15:46.290 --> 00:15:49.100
+Um, and again, those are super convenient.
+
+349
+00:15:49.100 --> 00:15:52.070
+But if you see these and you don't already know what they do,
+
+350
+00:15:52.080 --> 00:15:53.660
+you might not be able to find out,
+
+351
+00:15:54.440 --> 00:15:57.380
+>> right? Yeah. So,
+
+352
+00:15:57.390 --> 00:16:00.120
+yeah, he kind of chit chats about some of those
+
+353
+00:16:00.130 --> 00:16:02.700
+infix operators as well. Eh? So I do
+
+354
+00:16:02.700 --> 00:16:05.270
+definitely see their value It's just kind of
+
+355
+00:16:05.840 --> 00:16:08.770
+a little blurry, but I'm glad that this blog post
+
+356
+00:16:08.770 --> 00:16:10.150
+is giving me insight.
+
+357
+00:16:10.160 --> 00:16:13.110
+>> Well, my my prediction is that as you get
+
+358
+00:16:13.110 --> 00:16:15.450
+more comfortable with parsers, you
+
+359
+00:16:15.450 --> 00:16:18.030
+will start to be a little annoyed by
+
+360
+00:16:18.030 --> 00:16:20.890
+the common structure that you often do where you're like
+
+361
+00:16:20.900 --> 00:16:23.730
+parse one thing, and then do a void parse
+
+362
+00:16:23.730 --> 00:16:26.510
+something else and then parse some other thing. And that's very
+
+363
+00:16:26.510 --> 00:16:28.550
+neatly captured by some of these operators.
+
+364
+00:16:28.940 --> 00:16:31.910
+>> Mm. Like oh, yeah, I want just the left side
+
+365
+00:16:31.910 --> 00:16:34.350
+of this. Don't give me whatever comes from the right.
+
+366
+00:16:34.360 --> 00:16:37.230
+>> And I also wanted to circle back so earlier when I was talking about
+
+367
+00:16:37.230 --> 00:16:40.190
+combinators. The way that I think of
+
+368
+00:16:40.200 --> 00:16:43.150
+parser combinators is in my head is stuff that
+
+369
+00:16:43.150 --> 00:16:46.060
+you use with these goofy operators. So, like, if
+
+370
+00:16:46.060 --> 00:16:48.840
+you would plug it into this weird sequence of star angle
+
+371
+00:16:48.840 --> 00:16:51.740
+bracket, you know, dollar sign, blah, blah, blah, then it's
+
+372
+00:16:51.740 --> 00:16:54.670
+probably a parser combinator That's
+
+373
+00:16:54.670 --> 00:16:57.660
+a That's a pretty wishy washy definition. But it works pretty well.
+
+374
+00:16:58.140 --> 00:17:00.640
+>> Yeah, seems to cover the bases.
+
+375
+00:17:00.650 --> 00:17:03.490
+Hmm. All right.
+
+376
+00:17:03.490 --> 00:17:06.330
+So you know, we've learned
+
+377
+00:17:06.330 --> 00:17:09.120
+about this stuff and, you know,
+
+378
+00:17:09.130 --> 00:17:11.850
+we How do we know we're
+
+379
+00:17:11.850 --> 00:17:14.370
+getting the right thing. Like, how do we know that
+
+380
+00:17:15.240 --> 00:17:17.780
+you know this string? You know,
+
+381
+00:17:18.440 --> 00:17:21.220
+once we've quote unquote parsed it
+
+382
+00:17:21.230 --> 00:17:24.200
+out of, you know, the larger string How
+
+383
+00:17:24.200 --> 00:17:27.070
+do we know what to transform it into, like, how does
+
+384
+00:17:27.070 --> 00:17:27.660
+that work?
+
+385
+00:17:29.140 --> 00:17:32.100
+>> Yeah, that one is tricky a little
+
+386
+00:17:32.100 --> 00:17:34.730
+bit. So we have to
+
+387
+00:17:34.740 --> 00:17:37.570
+match on what we captured, right? So,
+
+388
+00:17:37.570 --> 00:17:40.290
+like, let's say we grab some string and if that string is
+
+389
+00:17:40.290 --> 00:17:43.190
+a double quote, then we know we're doing it. Or that might be a
+
+390
+00:17:43.190 --> 00:17:46.010
+bad example. If that if that character is a you
+
+391
+00:17:46.010 --> 00:17:48.740
+know, square bracket, then we know we're going to start parsing an array at that
+
+392
+00:17:48.740 --> 00:17:51.560
+point. And this
+
+393
+00:17:51.570 --> 00:17:54.420
+is another place where recursion I think comes in
+
+394
+00:17:54.430 --> 00:17:56.860
+because usually what you're going to do is look for
+
+395
+00:17:56.860 --> 00:17:59.720
+some special identifying character, like
+
+396
+00:17:59.720 --> 00:18:02.510
+a square bracket or a curly bracket, and
+
+397
+00:18:02.510 --> 00:18:05.360
+then call some other parser and that parser
+
+398
+00:18:05.360 --> 00:18:08.190
+is gonna parse a couple of more characters and produce a value for
+
+399
+00:18:08.190 --> 00:18:10.160
+you. So, like, um,
+
+400
+00:18:11.560 --> 00:18:14.460
+like, null in JSON, that's a That's a good example. So you
+
+401
+00:18:14.460 --> 00:18:17.390
+may look for, like, hey, parse the letter n and
+
+402
+00:18:17.390 --> 00:18:20.160
+then parse the letter u and then l and then l.
+
+403
+00:18:20.170 --> 00:18:22.420
+And after you've done those four things
+
+404
+00:18:22.430 --> 00:18:25.360
+return or pure in modern parlance,
+
+405
+00:18:25.370 --> 00:18:28.170
+pure, the like JSON null value.
+
+406
+00:18:28.640 --> 00:18:30.910
+And that's how your quote unquote
+
+407
+00:18:30.910 --> 00:18:33.670
+converting this string into a more
+
+408
+00:18:33.670 --> 00:18:36.620
+structured value. You're doing the parsing. And then,
+
+409
+00:18:36.620 --> 00:18:39.460
+after the parsing has succeeded, you're saying this is the value I
+
+410
+00:18:39.460 --> 00:18:40.490
+actually want to use,
+
+411
+00:18:40.500 --> 00:18:43.340
+>> right? So you're Yeah, you're just getting that
+
+412
+00:18:43.350 --> 00:18:46.040
+chunk of data and saying all right, now that I had this piece of
+
+413
+00:18:46.040 --> 00:18:48.770
+information, does it turn transform into
+
+414
+00:18:48.770 --> 00:18:49.670
+this proper
+
+415
+00:18:50.040 --> 00:18:51.770
+>> right? And
+
+416
+00:18:52.540 --> 00:18:55.540
+null is kind of, ah, weird example because you're not
+
+417
+00:18:55.540 --> 00:18:58.270
+actually doing anything with your input. You're just making sure that you
+
+418
+00:18:58.270 --> 00:19:01.000
+were given some input. If you want to parse a
+
+419
+00:19:01.000 --> 00:19:03.580
+number, you may parse like let's say you want an
+
+420
+00:19:03.580 --> 00:19:06.330
+integer, a positive integer. So you just parse
+
+421
+00:19:06.340 --> 00:19:08.950
+some number of decimal digits in a row.
+
+422
+00:19:09.540 --> 00:19:12.140
+Um, you still have to turn that into a
+
+423
+00:19:12.140 --> 00:19:15.090
+number. And that part just depends on what
+
+424
+00:19:15.090 --> 00:19:17.760
+data type you're trying to build. So, you know, for numbers you would
+
+425
+00:19:17.760 --> 00:19:20.500
+like, uh, take each
+
+426
+00:19:20.500 --> 00:19:23.490
+digit individually and convert it from a character into
+
+427
+00:19:23.590 --> 00:19:26.480
+a numeric value and then add all
+
+428
+00:19:26.480 --> 00:19:29.350
+those up with their respective, you know, multiplication
+
+429
+00:19:29.350 --> 00:19:31.770
+for the whatever base you're in.
+
+430
+00:19:32.140 --> 00:19:34.830
+Um so to answer your question, it
+
+431
+00:19:34.830 --> 00:19:37.820
+depends. That's how you turn stuff in structured
+
+432
+00:19:37.830 --> 00:19:37.980
+data.
+
+433
+00:19:37.980 --> 00:19:40.710
+>> Sounds like Haskell. Everything. It just
+
+434
+00:19:40.710 --> 00:19:43.400
+depends. Which was totally cool.
+
+435
+00:19:43.690 --> 00:19:46.680
+I love that flexibility. And they, you know,
+
+436
+00:19:47.040 --> 00:19:49.990
+the safety that it gives us. Um, it's
+
+437
+00:19:49.990 --> 00:19:52.840
+great. Uh, cool. Well, thank you for your kind of
+
+438
+00:19:52.840 --> 00:19:55.370
+diving and a little bit on that bit.
+
+439
+00:19:55.380 --> 00:19:58.040
+So, like I was saying
+
+440
+00:19:58.050 --> 00:20:01.010
+earlier, I'm gonna be parsing
+
+441
+00:20:01.010 --> 00:20:03.520
+something that could be
+
+442
+00:20:03.910 --> 00:20:06.380
+one of I think eight things
+
+443
+00:20:06.380 --> 00:20:09.160
+is the problem I'm currently trying to solve.
+
+444
+00:20:09.540 --> 00:20:11.820
+Mm. What
+
+445
+00:20:11.820 --> 00:20:14.450
+happens if, like,
+
+446
+00:20:15.040 --> 00:20:17.860
+I think I think choice is what I
+
+447
+00:20:17.860 --> 00:20:20.250
+want here. But like, if I have a list
+
+448
+00:20:20.260 --> 00:20:22.830
+of, you know, match strings
+
+449
+00:20:22.830 --> 00:20:25.700
+matches and I want to say, All right, it's got to match. At least one of
+
+450
+00:20:25.700 --> 00:20:28.370
+these is like is like, the idea of
+
+451
+00:20:28.840 --> 00:20:31.670
+picking one, making a choice that is successful. Is
+
+452
+00:20:31.670 --> 00:20:32.860
+that what I would want to do?
+
+453
+00:20:33.440 --> 00:20:36.260
+>> Yeah, almost always and choice
+
+454
+00:20:36.260 --> 00:20:38.810
+itself. I don't think the
+
+455
+00:20:38.820 --> 00:20:41.500
+Parsec library probably provides this. Um,
+
+456
+00:20:41.510 --> 00:20:44.510
+but the operator that it builds off of Is
+
+457
+00:20:44.510 --> 00:20:47.210
+this another one of these special ones? That is angle
+
+458
+00:20:47.210 --> 00:20:50.190
+bracket, pipe angle bracket. So it kind of visually looks like
+
+459
+00:20:50.190 --> 00:20:51.070
+this or that.
+
+460
+00:20:51.540 --> 00:20:53.520
+>> The ax
+
+461
+00:20:53.530 --> 00:20:54.460
+>> the battle ax
+
+462
+00:20:54.470 --> 00:20:56.940
+>> I don't know. Is it like a hammer. Maybe,
+
+463
+00:20:56.950 --> 00:20:58.790
+uh maybe pick ax
+
+464
+00:20:58.800 --> 00:21:00.370
+Yeah. There we go.
+
+465
+00:21:00.840 --> 00:21:03.750
+>> Um, and choice just glues together. A bunch of things that
+
+466
+00:21:03.750 --> 00:21:06.710
+you provide as a list so that you can not
+
+467
+00:21:06.710 --> 00:21:09.510
+use that operator a bunch. Um, but yeah,
+
+468
+00:21:09.510 --> 00:21:12.270
+you normally would say I want this
+
+469
+00:21:12.270 --> 00:21:15.260
+thing or if it's not that thing, I want this other thing or if
+
+470
+00:21:15.260 --> 00:21:17.780
+it's not that other thing, I want this yet another thing
+
+471
+00:21:18.140 --> 00:21:20.870
+and you have to be a little careful here because
+
+472
+00:21:22.500 --> 00:21:25.360
+the parser as we've talked about you
+
+473
+00:21:25.360 --> 00:21:28.360
+can think of it as being sequential. So if you put something
+
+474
+00:21:28.360 --> 00:21:31.260
+less specific higher up in your list,
+
+475
+00:21:31.840 --> 00:21:34.820
+it may prevent your more specific thing from matching.
+
+476
+00:21:35.340 --> 00:21:38.120
+So, uh, to use an example, let's
+
+477
+00:21:38.120 --> 00:21:40.520
+say you want to parse numbers. So
+
+478
+00:21:40.520 --> 00:21:43.460
+you say I'll take any any digit any
+
+479
+00:21:43.460 --> 00:21:45.920
+number of times. Okay, But then later, you
+
+480
+00:21:45.920 --> 00:21:48.690
+specifically want to parse the number zero because you do something
+
+481
+00:21:48.690 --> 00:21:51.570
+special with it in your language. You're gonna
+
+482
+00:21:51.570 --> 00:21:54.540
+have to put zero before your general number parser. Otherwise,
+
+483
+00:21:54.540 --> 00:21:57.490
+it will never parse it because it will already have been grabbed by
+
+484
+00:21:57.490 --> 00:21:58.470
+the earlier one.
+
+485
+00:21:59.040 --> 00:21:59.520
+>> Hmm, okay.
+
+486
+00:21:59.530 --> 00:22:02.520
+>> So when you're doing that angle, bracket,
+
+487
+00:22:02.530 --> 00:22:05.140
+pipe angle bracket, that choice operation,
+
+488
+00:22:05.150 --> 00:22:08.050
+you have to put more specific stuff at the top.
+
+489
+00:22:08.060 --> 00:22:10.750
+Yeah, and then less specific stuff below. Order
+
+490
+00:22:10.760 --> 00:22:13.650
+matters. And usually or often I
+
+491
+00:22:13.650 --> 00:22:16.370
+should say your like
+
+492
+00:22:16.370 --> 00:22:18.860
+attempts at parsing stuff are gonna have different
+
+493
+00:22:18.870 --> 00:22:21.710
+first characters. So it won't matter too much. Like with
+
+494
+00:22:21.710 --> 00:22:24.660
+JSON. You're parsing null or true or
+
+495
+00:22:24.660 --> 00:22:27.190
+false. All of which start with a different character
+
+496
+00:22:27.200 --> 00:22:30.180
+or you're parsing a number which doesn't start with any of
+
+497
+00:22:30.180 --> 00:22:33.140
+those characters or a string or an array or an object. So they all
+
+498
+00:22:33.140 --> 00:22:35.920
+start with different things. So this isn't super
+
+499
+00:22:35.920 --> 00:22:37.680
+important for that particular case.
+
+500
+00:22:38.340 --> 00:22:40.870
+>> Gotcha. Okay, cool. Yeah. So
+
+501
+00:22:41.540 --> 00:22:44.260
+seems like choice is going to give
+
+502
+00:22:44.260 --> 00:22:47.210
+us, you know, based on which one
+
+503
+00:22:47.210 --> 00:22:49.720
+it matches, which everyone that matches first, it's gonna give us that
+
+504
+00:22:49.720 --> 00:22:50.670
+data,
+
+505
+00:22:51.440 --> 00:22:54.220
+>> Yeah It has. It has no concept of, like, a best
+
+506
+00:22:54.220 --> 00:22:56.700
+match or like a most specific match,
+
+507
+00:22:56.710 --> 00:22:59.610
+>> which yeah, that would be really tough to do. I
+
+508
+00:22:59.610 --> 00:23:02.180
+mean, I'm sure it's possible, but seems
+
+509
+00:23:02.840 --> 00:23:05.610
+not worth it. Just order things the way you want.
+
+510
+00:23:05.620 --> 00:23:08.360
+>> Then you get out of that mental model of thinking of it as
+
+511
+00:23:08.360 --> 00:23:11.340
+sequential. Because then your model becomes, Well, it's going to
+
+512
+00:23:11.340 --> 00:23:14.070
+try to parse everything quote unquote at the
+
+513
+00:23:14.070 --> 00:23:16.760
+same time. And then it will give me back the best one.
+
+514
+00:23:17.240 --> 00:23:20.230
+And, you know, there are parsers that can work like that, the
+
+515
+00:23:20.230 --> 00:23:23.000
+one that we're building in. This isn't like that. And I'm
+
+516
+00:23:23.000 --> 00:23:25.680
+pretty sure Parsec isn't like that. Um,
+
+517
+00:23:25.690 --> 00:23:28.410
+maybe you can muscle it into being that way, but I'm not
+
+518
+00:23:28.410 --> 00:23:28.780
+sure.
+
+519
+00:23:29.140 --> 00:23:31.910
+>> Yeah, I mean, I'm the newb here,
+
+520
+00:23:31.910 --> 00:23:34.890
+so, you know, don't quite new. Okay,
+
+521
+00:23:34.900 --> 00:23:37.560
+so what if we are
+
+522
+00:23:37.570 --> 00:23:40.520
+iterating? Like so say we have a
+
+523
+00:23:40.520 --> 00:23:43.380
+list, for some reason not some reason
+
+524
+00:23:43.390 --> 00:23:46.280
+it's a valid thing. We have a list, and we all
+
+525
+00:23:46.290 --> 00:23:49.130
+we know it's separated by commas.
+
+526
+00:23:49.330 --> 00:23:52.220
+Like and we just wanna get each piece
+
+527
+00:23:52.220 --> 00:23:54.920
+of data. How would we do that?
+
+528
+00:23:54.920 --> 00:23:57.060
+What would that look like? Um,
+
+529
+00:23:57.440 --> 00:23:58.460
+yeah,
+
+530
+00:23:59.340 --> 00:24:01.850
+>> yeah. So this is another one of the combinators,
+
+531
+00:24:01.850 --> 00:24:04.810
+and I should have said this earlier but at the top when we
+
+532
+00:24:04.810 --> 00:24:07.680
+had any and EOF those are
+
+533
+00:24:07.680 --> 00:24:10.280
+like the primitives, they're absolutely necessary to do
+
+534
+00:24:10.280 --> 00:24:12.870
+anything. But everything we've been talking about
+
+535
+00:24:13.440 --> 00:24:16.240
+are also primitives. And in fact, many of them are
+
+536
+00:24:16.240 --> 00:24:19.150
+defined in the control dot applicative module
+
+537
+00:24:19.160 --> 00:24:21.960
+for either applicatives or a related type class
+
+538
+00:24:21.960 --> 00:24:24.900
+called Alternative. An alternative is the one that defines that
+
+539
+00:24:24.900 --> 00:24:27.450
+choice operator, the Pick ax
+
+540
+00:24:28.040 --> 00:24:30.760
+Um, and these are
+
+541
+00:24:30.760 --> 00:24:33.700
+generally useful. So, like, um, choosing
+
+542
+00:24:33.710 --> 00:24:35.920
+the first of many options or
+
+543
+00:24:35.930 --> 00:24:38.720
+parsing are selecting many things in a row or
+
+544
+00:24:38.720 --> 00:24:41.550
+saying I want lots of things separated by things. These are all general
+
+545
+00:24:41.550 --> 00:24:44.000
+concepts, and they happen to apply to parsers.
+
+546
+00:24:44.010 --> 00:24:47.010
+Uh, but they're not specific to parsers, So I should
+
+547
+00:24:47.010 --> 00:24:49.970
+have said that earlier. But first, for separating by
+
+548
+00:24:49.970 --> 00:24:52.660
+So like, this is really common, like with JSON parsing an array,
+
+549
+00:24:53.040 --> 00:24:55.820
+you say, give me a square bracket or I want a
+
+550
+00:24:55.820 --> 00:24:58.790
+match on a square bracket and then some JSON Value and then a
+
+551
+00:24:58.790 --> 00:25:01.740
+comma, and then some other Jason value. And just keep doing that
+
+552
+00:25:01.750 --> 00:25:03.450
+until you hit a closing square bracket.
+
+553
+00:25:04.140 --> 00:25:06.330
+Um, and the
+
+554
+00:25:06.340 --> 00:25:09.220
+sepBy operator, which Parsec,
+
+555
+00:25:09.220 --> 00:25:12.130
+provides in this little library he's building up also provides Does that
+
+556
+00:25:12.130 --> 00:25:14.770
+for you. Where it. Um uh,
+
+557
+00:25:15.440 --> 00:25:18.410
+This this is finally where we run into actual recursion
+
+558
+00:25:18.720 --> 00:25:21.630
+because sepBy has a companion function
+
+559
+00:25:21.630 --> 00:25:24.410
+called sepBy1. And the difference between those
+
+560
+00:25:24.410 --> 00:25:27.380
+two is that sepBy1 needs at least
+
+561
+00:25:27.380 --> 00:25:30.350
+one element to match inside where as sepBy I can give you
+
+562
+00:25:30.350 --> 00:25:32.880
+back an empty list. And these two
+
+563
+00:25:32.880 --> 00:25:35.740
+functions take turns calling each
+
+564
+00:25:35.740 --> 00:25:38.740
+other. They're mutually recursive. Or maybe not these two. But he has,
+
+565
+00:25:38.740 --> 00:25:40.870
+ah, similar pair of functions called many and
+
+566
+00:25:40.880 --> 00:25:43.640
+manyOne. where many will give
+
+567
+00:25:43.640 --> 00:25:46.610
+you could give you an empty list. And manyOne will always guarantee there's at
+
+568
+00:25:46.610 --> 00:25:49.080
+least one thing in it. And this is
+
+569
+00:25:49.080 --> 00:25:51.570
+a challenging thing to wrap your head around
+
+570
+00:25:51.580 --> 00:25:54.350
+because many calls manyOne or it
+
+571
+00:25:54.350 --> 00:25:57.090
+returns an empty list and then manyOne calls the
+
+572
+00:25:57.090 --> 00:26:00.020
+parser and then calls many. But then manyOne
+
+573
+00:26:00.020 --> 00:26:02.930
+comes back and calls like they just bounce back and forth
+
+574
+00:26:02.930 --> 00:26:05.740
+between each other. Um, so I know I
+
+575
+00:26:05.740 --> 00:26:08.720
+struggled with that the first time I saw it, but it's it's a little
+
+576
+00:26:08.720 --> 00:26:09.080
+weird.
+
+577
+00:26:09.090 --> 00:26:11.850
+>> Yeah, I was like, I'm still
+
+578
+00:26:11.860 --> 00:26:14.720
+trying to grok it, and it's like three or four times now.
+
+579
+00:26:14.720 --> 00:26:17.310
+So it's like, Yeah, I mean,
+
+580
+00:26:17.320 --> 00:26:20.220
+I see the benefit, but it's and like
+
+581
+00:26:20.230 --> 00:26:22.910
+the need for it, but it's just a little only confusing
+
+582
+00:26:22.910 --> 00:26:23.500
+side.
+
+583
+00:26:23.510 --> 00:26:26.270
+>> So I think many and
+
+584
+00:26:26.270 --> 00:26:29.170
+manyOne are a little easier to understand than sepBy and
+
+585
+00:26:29.170 --> 00:26:32.010
+sepBy1. So I'm gonna focus on those. And just so you know,
+
+586
+00:26:32.020 --> 00:26:34.780
+I was talking about the alternative type class. It
+
+587
+00:26:34.780 --> 00:26:37.330
+defines many and manyOne but it calls
+
+588
+00:26:37.330 --> 00:26:40.320
+manyOne some s o
+
+589
+00:26:40.320 --> 00:26:43.060
+M e, which is super confusing because I can never
+
+590
+00:26:43.060 --> 00:26:45.900
+remember. Does many mean it can be empty? Or
+
+591
+00:26:45.900 --> 00:26:48.740
+does some mean it can be empty? And the
+
+592
+00:26:48.740 --> 00:26:51.500
+answer is that it's many, but I like that he went with many and
+
+593
+00:26:51.500 --> 00:26:54.150
+manyOne. So the way
+
+594
+00:26:54.150 --> 00:26:56.650
+that they work is that for
+
+595
+00:26:56.650 --> 00:26:59.460
+many, it tries to call
+
+596
+00:26:59.460 --> 00:27:02.150
+manyOne and then if that fails, it
+
+597
+00:27:02.150 --> 00:27:05.140
+returns an empty list. So it has that pickaxe operator there.
+
+598
+00:27:05.150 --> 00:27:07.980
+It's doing a choice. So that means that
+
+599
+00:27:07.980 --> 00:27:10.780
+if if the parser that you're trying to match many of
+
+600
+00:27:11.240 --> 00:27:14.230
+did not succeed at least one time, then you're going to
+
+601
+00:27:14.230 --> 00:27:15.350
+get back the empty list
+
+602
+00:27:17.040 --> 00:27:19.870
+And then we can consider manyOne. So what
+
+603
+00:27:19.870 --> 00:27:22.310
+manyOne does is it runs that
+
+604
+00:27:22.310 --> 00:27:25.280
+parser You gave it. So it'll look for, let's say, a
+
+605
+00:27:25.280 --> 00:27:28.100
+JSON Value. And then it'll
+
+606
+00:27:28.100 --> 00:27:31.100
+run that parser zero or more times after
+
+607
+00:27:31.100 --> 00:27:32.860
+that by calling many.
+
+608
+00:27:33.840 --> 00:27:36.450
+So it's just a way to say, like,
+
+609
+00:27:37.640 --> 00:27:40.540
+it's clever. It doesn't need to be done this way.
+
+610
+00:27:40.550 --> 00:27:43.120
+You could write them, not in terms of each other,
+
+611
+00:27:43.130 --> 00:27:45.500
+but it is clever.
+
+612
+00:27:45.510 --> 00:27:48.330
+>> Got so soon as you get a Failing
+
+613
+00:27:48.330 --> 00:27:51.190
+manyOne, you would then return
+
+614
+00:27:51.200 --> 00:27:52.620
+an empty list.
+
+615
+00:27:52.630 --> 00:27:55.580
+>> So it just keeps trying that parser over
+
+616
+00:27:55.580 --> 00:27:58.420
+and over until it can't anymore and then says, Okay, I'm done. You get back your empty
+
+617
+00:27:58.420 --> 00:28:01.240
+list and that'll be consed. You know, all the elements you
+
+618
+00:28:01.240 --> 00:28:03.870
+found up until then, we'll be consed onto it.
+
+619
+00:28:04.840 --> 00:28:05.170
+Yeah.
+
+620
+00:28:06.040 --> 00:28:06.460
+>> Nice.
+
+621
+00:28:07.140 --> 00:28:10.110
+>> Yeah. And if, uh if you're looking for, like some
+
+622
+00:28:10.110 --> 00:28:13.040
+experimental insight into how this works, you
+
+623
+00:28:13.040 --> 00:28:15.710
+could use the debug dot trace module to put a
+
+624
+00:28:15.710 --> 00:28:18.690
+debug at the first
+
+625
+00:28:18.700 --> 00:28:21.360
+like line of each of these implementations to see how it bounces
+
+626
+00:28:21.360 --> 00:28:23.990
+between them and what it has built up. So far and what it's
+
+627
+00:28:23.990 --> 00:28:26.670
+parsed so that may be illuminating as well.
+
+628
+00:28:26.680 --> 00:28:29.420
+>> Yeah, I saw that. That actually parsec that has,
+
+629
+00:28:29.430 --> 00:28:31.870
+like, its own trace functions and stuff.
+
+630
+00:28:32.240 --> 00:28:32.720
+>> Yeah,
+
+631
+00:28:32.730 --> 00:28:35.670
+>> put straight up in line was just like, Okay. I mean, they're probably the
+
+632
+00:28:35.670 --> 00:28:37.670
+same as debug dot Trace that Probably just
+
+633
+00:28:38.040 --> 00:28:41.020
+>> and Parsec and probably the other related
+
+634
+00:28:41.020 --> 00:28:43.990
+libraries. One of the benefits of using them is that they
+
+635
+00:28:43.990 --> 00:28:46.470
+have some utility functions that will
+
+636
+00:28:46.840 --> 00:28:49.650
+print out a lot of debugging information as they go along. So you
+
+637
+00:28:49.650 --> 00:28:52.380
+can. There's some function in Parsec. That's like, you
+
+638
+00:28:52.380 --> 00:28:55.200
+know, try to run this parser against this input
+
+639
+00:28:55.210 --> 00:28:58.150
+and also spit out all the debugging info you generate along the
+
+640
+00:28:58.150 --> 00:29:01.080
+way. And it may not give you down to the
+
+641
+00:29:01.080 --> 00:29:03.900
+level of which combinator am I calling at any given
+
+642
+00:29:03.900 --> 00:29:06.840
+time. But it'll be like I'm examining this bit of input, and this is
+
+643
+00:29:06.840 --> 00:29:09.680
+the decision I made based on it. So that's
+
+644
+00:29:09.680 --> 00:29:10.050
+useful.
+
+645
+00:29:10.440 --> 00:29:11.420
+>> Yeah, yeah.
+
+646
+00:29:11.430 --> 00:29:14.370
+>> Um, but yeah. Sorry. Bringing it all the way back around
+
+647
+00:29:14.370 --> 00:29:17.300
+to sepBy, um, the way that set by works
+
+648
+00:29:17.310 --> 00:29:18.780
+is essentially by
+
+649
+00:29:19.400 --> 00:29:22.300
+delegating to many and manyOne,
+
+650
+00:29:22.740 --> 00:29:24.820
+but it will
+
+651
+00:29:25.840 --> 00:29:28.660
+because you're separator means that you have to
+
+652
+00:29:28.940 --> 00:29:31.440
+parse that separator between
+
+653
+00:29:31.440 --> 00:29:34.430
+parses right? So like
+
+654
+00:29:34.440 --> 00:29:37.310
+I'll parse a JSON value and then I'll parse a comma. And then I
+
+655
+00:29:37.310 --> 00:29:39.180
+have to parse another JSON value after that.
+
+656
+00:29:39.840 --> 00:29:42.660
+Um, and so sepBy just
+
+657
+00:29:43.240 --> 00:29:46.080
+builds those two parser together, the separator in the value
+
+658
+00:29:46.090 --> 00:29:48.980
+in the right order and then calls many with it. I
+
+659
+00:29:48.980 --> 00:29:51.560
+feel like I'm doing a poor job explaining this, but it
+
+660
+00:29:51.570 --> 00:29:54.170
+conceptually isn't that different than many. And
+
+661
+00:29:54.170 --> 00:29:54.680
+manyOne.
+
+662
+00:29:55.040 --> 00:29:58.010
+>> Gotcha. Okay, cool. Yeah. I mean, that
+
+663
+00:29:58.020 --> 00:30:00.860
+makes sense. I would definitely go
+
+664
+00:30:01.940 --> 00:30:03.680
+have people check it out if they're
+
+665
+00:30:04.180 --> 00:30:05.060
+curious.
+
+666
+00:30:05.440 --> 00:30:07.670
+>> Yeah. Agreed.
+
+667
+00:30:08.140 --> 00:30:11.120
+>> Yeah. Um well, I know we've been chatting about
+
+668
+00:30:11.120 --> 00:30:13.980
+this for a minute, and I don't want to keep our listeners too
+
+669
+00:30:13.980 --> 00:30:16.530
+long, and I wanna respect you know, all of our
+
+670
+00:30:16.530 --> 00:30:19.250
+times. So if you're interested in the parsing
+
+671
+00:30:19.250 --> 00:30:22.170
+JSON section of this, check out the
+
+672
+00:30:22.180 --> 00:30:25.010
+the post it will be in the show notes a
+
+673
+00:30:25.010 --> 00:30:27.420
+swell, as in, uh, issue
+
+674
+00:30:27.420 --> 00:30:30.410
+241 of Haskell weekly. So there's
+
+675
+00:30:30.410 --> 00:30:33.290
+lots of places to go find it, but that that bit kind of
+
+676
+00:30:33.290 --> 00:30:36.260
+puts it all together, you know, shows you how
+
+677
+00:30:36.260 --> 00:30:39.040
+to take a set of information and
+
+678
+00:30:39.040 --> 00:30:41.960
+then parse it all the way through and figure out which
+
+679
+00:30:41.960 --> 00:30:44.550
+choice is going to succeed on. They start with the
+
+680
+00:30:44.550 --> 00:30:45.770
+most, um,
+
+681
+00:30:47.640 --> 00:30:50.290
+most descriptive, which is, like, object. And then they move
+
+682
+00:30:50.290 --> 00:30:53.090
+down as far as like what things could be
+
+683
+00:30:53.090 --> 00:30:55.950
+parsed into. So, you know, if you're interested in that,
+
+684
+00:30:56.640 --> 00:30:57.360
+go check it out.
+
+685
+00:30:58.340 --> 00:31:01.210
+>> Yeah, it's a great resource,
+
+686
+00:31:01.210 --> 00:31:03.830
+and I feel like some of the things that we've talked about our a
+
+687
+00:31:03.830 --> 00:31:06.500
+lot easier to look at on screen. So, like
+
+688
+00:31:06.500 --> 00:31:09.350
+saying angle, bracket dollar sign angle bracket is super clunky,
+
+689
+00:31:09.350 --> 00:31:12.340
+but reading it's not that bad. Um, and on the
+
+690
+00:31:12.340 --> 00:31:14.620
+flip side, reading something like the many
+
+691
+00:31:14.620 --> 00:31:17.410
+definition, uh, just kinda rolls
+
+692
+00:31:17.410 --> 00:31:20.360
+past your eyes and you're like, Wait a minute. What? What did I just read there?
+
+693
+00:31:20.640 --> 00:31:23.490
+Yeah, yeah, it's a great resource. Go check it
+
+694
+00:31:23.490 --> 00:31:24.680
+out. It'll be in the show notes.
+
+695
+00:31:24.690 --> 00:31:27.640
+>> Yeah, and I mean, who knows maybe next week?
+
+696
+00:31:27.640 --> 00:31:30.630
+We'll see if I actually was able to figure out how Parsec works and
+
+697
+00:31:30.630 --> 00:31:33.460
+actually succeed at Day four part two
+
+698
+00:31:33.470 --> 00:31:36.390
+of Advent of Code which I've been stuck on since December 4th,
+
+699
+00:31:36.400 --> 00:31:39.320
+so if you're curious, that's
+
+700
+00:31:39.320 --> 00:31:41.880
+where I'm at and It's currently December
+
+701
+00:31:41.880 --> 00:31:43.730
+11th. So we're struggle bussing here.
+
+702
+00:31:43.740 --> 00:31:45.760
+>> Good luck.
+
+703
+00:31:46.140 --> 00:31:49.120
+>> Thank you. I need it. I need it, But
+
+704
+00:31:49.120 --> 00:31:51.950
+yeah. So thanks for being on the show, Taylor. It was Thanks for
+
+705
+00:31:51.950 --> 00:31:54.830
+having me as well. It was fun to chat and catch up.
+
+706
+00:31:54.840 --> 00:31:57.110
+It's been a little bit since we've got to do this. So,
+
+707
+00:31:57.120 --> 00:32:00.020
+>> yeah, I'm not sure which one of us is on the show in which
+
+708
+00:32:00.020 --> 00:32:02.190
+one of us is having the other on the show. But, you know,
+
+709
+00:32:02.200 --> 00:32:03.520
+>> I think it's our show
+
+710
+00:32:03.530 --> 00:32:06.020
+>> We're co-hosts we're both doing each.
+
+711
+00:32:06.030 --> 00:32:08.740
+>> It's like our house in the middle
+
+712
+00:32:08.740 --> 00:32:10.700
+of the Haskell weekly. Yeah.
+
+713
+00:32:10.710 --> 00:32:12.570
+>> Can we sing that? Do we have to pay royalties?
+
+714
+00:32:12.580 --> 00:32:15.240
+>> I don't know. I mean, I made a
+
+715
+00:32:15.250 --> 00:32:18.070
+spoof off of it. So do a half. You
+
+716
+00:32:18.080 --> 00:32:20.990
+think so? I didn't want to use it directly.
+
+717
+00:32:21.000 --> 00:32:23.990
+Um, yeah. So it was fun to be
+
+718
+00:32:23.990 --> 00:32:26.740
+here today. Uh, you know, I want to also thank
+
+719
+00:32:26.750 --> 00:32:29.680
+ITProTV our employer for sponsoring
+
+720
+00:32:29.680 --> 00:32:32.180
+this podcast and allowing us to, you know,
+
+721
+00:32:32.640 --> 00:32:35.260
+chit chat, catch up and spend some time,
+
+722
+00:32:35.270 --> 00:32:37.770
+you know, sharing with the community what we're learning and what we're
+
+723
+00:32:37.770 --> 00:32:40.620
+doing. So I appreciate them a lot.
+
+724
+00:32:40.630 --> 00:32:43.500
+They also want to thank all of you guys, Um,
+
+725
+00:32:43.510 --> 00:32:46.280
+for, you know, listening. And they wanted to offer you
+
+726
+00:32:46.280 --> 00:32:48.910
+guys a promo code for 30% off the
+
+727
+00:32:48.910 --> 00:32:51.640
+lifetime of your subscription using a Haskell
+
+728
+00:32:51.640 --> 00:32:54.310
+weekly 30 again, that is Haskell
+
+729
+00:32:54.310 --> 00:32:56.240
+Weekly 30 for access to
+
+730
+00:32:56.250 --> 00:32:59.140
+ITProTV the e-learning platform for
+
+731
+00:32:59.140 --> 00:33:00.660
+IT professionals.
+
+732
+00:33:01.340 --> 00:33:04.330
+>> Yeah, man, go check it out. itpro.tv
+
+733
+00:33:04.340 --> 00:33:07.270
+Also, if you wanna learn more about us, you can visit
+
+734
+00:33:07.270 --> 00:33:10.140
+our website Haskell weekly dot News were also on
+
+735
+00:33:10.140 --> 00:33:13.000
+social media Twitter, Reddit, YouTube,
+
+736
+00:33:13.010 --> 00:33:16.010
+all that stuff and if You have suggestions
+
+737
+00:33:16.010 --> 00:33:19.010
+for stuff you would like to see in the newsletter or you'd like to
+
+738
+00:33:19.010 --> 00:33:21.490
+hear us discuss here on the podcast Excuse me.
+
+739
+00:33:21.500 --> 00:33:24.380
+Podcast, please let us know. You can email us
+
+740
+00:33:24.390 --> 00:33:26.950
+info at Haskell weekly dot news or open an issue on
+
+741
+00:33:26.950 --> 00:33:28.360
+GitHub or ping us on Twitter.
+
+742
+00:33:28.740 --> 00:33:31.690
+>> Whatever. Or if you wanna be on the show is a guest just
+
+743
+00:33:31.690 --> 00:33:32.510
+hit us up.
+
+744
+00:33:32.520 --> 00:33:34.680
+>> Yeah, we'd be happy to have a guest.
+
+745
+00:33:35.540 --> 00:33:36.840
+And Yeah, I think that will
+
+746
+00:33:36.850 --> 00:33:39.350
+>> Just two lonely souls here.
+
+747
+00:33:40.040 --> 00:33:42.830
+>> Yeah, um, that will do it for
+
+748
+00:33:42.830 --> 00:33:45.640
+us this week. With any luck, we'll see you
+
+749
+00:33:45.640 --> 00:33:48.610
+again next week. And, uh, Happy holidays,
+
+750
+00:33:48.610 --> 00:33:49.160
+everybody.
+
+751
+00:33:49.170 --> 00:33:51.060
+>> Happy holidays. Stay safe.

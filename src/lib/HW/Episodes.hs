@@ -61,6 +61,7 @@ episodes = do
     , episode29
     , episode30
     , episode31
+    , episode32
     ]
   checkGuids validEpisodes Set.empty
   checkNumbers validEpisodes 1
@@ -578,3 +579,17 @@ episode31 =
     <*> Summary.fromText
           "Can Haskell's deriving mechanism be simplified? Cody Goodman, Cameron Gera, and Taylor Fausak walk through the changes that Matt Parsons suggested."
     <*> Title.fromText "Simplify Deriving"
+
+episode32 :: Either String Episode.Episode
+episode32 = Episode.Episode
+  <$> Articles.fromList
+    [ "https://hasura.io/blog/parser-combinators-walkthrough/"
+    , "http://dev.stephendiehl.com/fun/002_parsers.html"
+    ]
+  <*> Date.fromGregorian 2020 12 14
+  <*> Duration.fromTimestamp 33 56
+  <*> Guid.fromText "0f32c9ec-22a4-4a6a-8c14-b449b525d63f"
+  <*> Number.fromNatural 32
+  <*> Size.fromNatural 37124835
+  <*> Summary.fromText "Are you curious about how Parsec is implemented behind the scenes? Cameron Gera and Taylor Fausak follow Antoine Leblanc's walkthrough."
+  <*> Title.fromText "Parser Combinators"
