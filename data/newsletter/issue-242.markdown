@@ -21,4 +21,5 @@ undefined
 
 ## Call for participation
 
-undefined
+-   [graphql-engine: console: make the search bar in actions and events case insensitive](https://github.com/hasura/graphql-engine/issues/6351)
+-   [penrose: Initial parameters for some graphical primitives are surprising](https://github.com/penrose/penrose/issues/430)
