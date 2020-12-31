@@ -23,4 +23,5 @@ undefined
 
 ## Call for participation
 
-undefined
+-   [dex-lang: Unify stack.yaml and stack-macos.yaml](https://github.com/google-research/dex-lang/issues/379)
+-   [spago: New command: `spago graph`](https://github.com/purescript/spago/issues/723)
