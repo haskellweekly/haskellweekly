@@ -15,7 +15,8 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 
 ## In brief
 
-undefined
+[A story about resource pool](https://qnikst.brick.do/2020-12-28-resource-pool) by Alexander Vershilov
+> A story of finding and fixing problems with the resource-pool package
 
 ## Show & tell
 
