@@ -17,6 +17,8 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 
 [A story about resource pool](https://qnikst.brick.do/2020-12-28-resource-pool) by Alexander Vershilov
 > A story of finding and fixing problems with the resource-pool package
+[An "Happy new year" gist](https://gist.github.com/jeffagit-anto/ddfd95a0e49e31c66d8d9dab58b5ab7b) by Jeff Anto
+> 2021 is already great !
 
 ## Show & tell
 
