@@ -24,4 +24,5 @@ undefined
 
 ## Call for participation
 
-undefined
+-   [jsonnet-hs: Debugging: add `std.trace`](https://github.com/moleike/jsonnet-hs/issues/12)
+-   [termonad: make default blue color lighter](https://github.com/cdepillabout/termonad/issues/177)
