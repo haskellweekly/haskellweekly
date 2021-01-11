@@ -62,6 +62,7 @@ episodes = do
     , episode30
     , episode31
     , episode32
+    , episode33
     ]
   checkGuids validEpisodes Set.empty
   checkNumbers validEpisodes 1
@@ -593,3 +594,16 @@ episode32 = Episode.Episode
   <*> Size.fromNatural 37124835
   <*> Summary.fromText "Are you curious about how Parsec is implemented behind the scenes? Cameron Gera and Taylor Fausak follow Antoine Leblanc's walkthrough."
   <*> Title.fromText "Parser Combinators"
+
+episode33 :: Either String Episode.Episode
+episode33 = Episode.Episode
+  <$> Articles.fromList
+    [ "https://wespiser.com/posts/2021-01-03-Lessons-Learned-From-A-Year-Of-Haskell.html"
+    ]
+  <*> Date.fromGregorian 2021 1 11
+  <*> Duration.fromTimestamp 27 32
+  <*> Guid.fromText "1fb365b8-7624-470b-a2d4-d1d40df7f3ce"
+  <*> Number.fromNatural 33
+  <*> Size.fromNatural 29472217
+  <*> Summary.fromText "Using Adam Wespiser's blog post as a jumping off point, Cameron Gera and Taylor Fausak look back on a year of Haskell."
+  <*> Title.fromText "2020 Retrospective"

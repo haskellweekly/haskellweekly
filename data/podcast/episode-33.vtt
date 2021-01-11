@@ -1,0 +1,2457 @@
+WEBVTT
+
+1
+00:00:04.140 --> 00:00:07.440
+>> Hello
+
+2
+00:00:07.440 --> 00:00:10.390
+and welcome to the Haskell weekly podcast. I am your host
+
+3
+00:00:10.390 --> 00:00:13.230
+today. Cameron Gera, Uh, engineer I.T.
+
+4
+00:00:13.230 --> 00:00:15.730
+pro T.V.. And with me today we have a
+
+5
+00:00:15.740 --> 00:00:18.230
+coworker of mine and my boss
+
+6
+00:00:18.240 --> 00:00:19.650
+Taylor. How's it going, man?
+
+7
+00:00:20.640 --> 00:00:23.160
+>> It's going good. Thanks for having me on the show camp.
+
+8
+00:00:23.740 --> 00:00:26.650
+>> Yeah, man, you know, figured you know, we're in a
+
+9
+00:00:26.650 --> 00:00:29.360
+new year. So happy 2021. Everyone
+
+10
+00:00:29.370 --> 00:00:32.260
+on Do you know, we got to take a timeto look
+
+11
+00:00:32.260 --> 00:00:35.190
+back at what we have come from, You know, 2020
+
+12
+00:00:35.190 --> 00:00:38.140
+was filled with a lot of stuff. You know, we all
+
+13
+00:00:38.140 --> 00:00:40.990
+transition to work from home. We all figured out
+
+14
+00:00:40.990 --> 00:00:43.550
+how to communicate still without in face
+
+15
+00:00:43.550 --> 00:00:46.530
+meetings and figured out how to use Zoom, which
+
+16
+00:00:46.530 --> 00:00:49.280
+some of us are still questionable. That speaking about lots of
+
+17
+00:00:49.280 --> 00:00:51.910
+>> programs we got, zoom, we got teams, we got
+
+18
+00:00:51.910 --> 00:00:54.470
+discord. We tried a bunch of others
+
+19
+00:00:55.140 --> 00:00:58.050
+>> that we did, but
+
+20
+00:00:58.060 --> 00:01:00.800
+hey, we're making it through, you know, day by day
+
+21
+00:01:00.810 --> 00:01:03.710
+on bond. Thank you, listeners joining us today, but
+
+22
+00:01:03.710 --> 00:01:06.690
+yes. So today we're gonna talk about a little bit about 2020 for us
+
+23
+00:01:06.700 --> 00:01:09.570
+on Ben also, uh, kind of dive into a
+
+24
+00:01:09.570 --> 00:01:12.210
+post that was written by Adam West
+
+25
+00:01:12.210 --> 00:01:15.020
+Peyser about lessons learned from a year
+
+26
+00:01:15.030 --> 00:01:17.980
+of writing. Haskell, which is a great
+
+27
+00:01:17.980 --> 00:01:20.960
+post, definitely would encourage you. It's and, um,
+
+28
+00:01:21.340 --> 00:01:22.600
+addition to
+
+29
+00:01:22.600 --> 00:01:24.460
+41
+
+30
+00:01:25.140 --> 00:01:28.000
+>> 2, 45. I've lost track of the issue
+
+31
+00:01:28.000 --> 00:01:30.670
+numbers of Haskell Weekly, which, you know, you think if
+
+32
+00:01:30.670 --> 00:01:33.100
+anybody knew, I would know. But it's 2
+
+33
+00:01:33.100 --> 00:01:35.980
+45. It's the most recent one. So I guess
+
+34
+00:01:35.980 --> 00:01:38.850
+this is Yeah. This is from 2 45 e mean, it was
+
+35
+00:01:38.850 --> 00:01:40.960
+easy when I was on issue, like, seven.
+
+36
+00:01:40.970 --> 00:01:43.870
+But when you're up in the two hundreds, it's been a
+
+37
+00:01:43.870 --> 00:01:46.870
+>> while. Yeah, we've got got a lot. So yeah, go check
+
+38
+00:01:46.870 --> 00:01:49.600
+it out. Issue to 45 of High School
+
+39
+00:01:49.600 --> 00:01:51.940
+Weekly on This is the 33rd
+
+40
+00:01:51.950 --> 00:01:54.730
+episode of High School Weekly Podcast. So,
+
+41
+00:01:54.740 --> 00:01:57.660
+you know, we're getting up there. We're gonna start losing count of these as well.
+
+42
+00:01:57.670 --> 00:02:00.650
+But you know, so today we're gonna talk about
+
+43
+00:02:00.650 --> 00:02:03.520
+this post by Adam, and he actually gives a
+
+44
+00:02:03.520 --> 00:02:06.420
+shout out the Haskell week. Lisa. Thank you, Adam. Work. Glad you
+
+45
+00:02:06.430 --> 00:02:08.880
+had, um, enjoy the weekly
+
+46
+00:02:08.890 --> 00:02:11.570
+update of what's happening in the world of high school. Uh,
+
+47
+00:02:11.580 --> 00:02:14.570
+you know, it's definitely a kind of a
+
+48
+00:02:14.570 --> 00:02:17.330
+sparse field sometimes. And so we have a
+
+49
+00:02:17.330 --> 00:02:20.180
+place like Haskell Weekly to go and, you know, read
+
+50
+00:02:20.180 --> 00:02:23.160
+articles about high school and other functional programming languages.
+
+51
+00:02:23.170 --> 00:02:24.500
+It's kind of funny.
+
+52
+00:02:24.510 --> 00:02:26.950
+>> Funny you mention that because when I started Haskell
+
+53
+00:02:26.950 --> 00:02:29.930
+Weekly, I was afraid that some weeks there just
+
+54
+00:02:29.930 --> 00:02:32.890
+wouldn't be anything or there'd be, like, two links
+
+55
+00:02:32.890 --> 00:02:35.820
+to publish or something like that. And surprisingly, that has never
+
+56
+00:02:35.820 --> 00:02:38.320
+been the case. There's never been a shortage of content.
+
+57
+00:02:38.330 --> 00:02:40.690
+So, uh, just, I guess,
+
+58
+00:02:40.700 --> 00:02:43.310
+thank from me. Thank you to the whole high school
+
+59
+00:02:43.310 --> 00:02:45.670
+community for writing so much good stuff with such
+
+60
+00:02:45.670 --> 00:02:48.460
+regularity. It makes my job collecting all of
+
+61
+00:02:48.460 --> 00:02:49.560
+it a lot easier.
+
+62
+00:02:49.570 --> 00:02:52.500
+>> Exactly. Yeah, I would also have that
+
+63
+00:02:52.500 --> 00:02:55.060
+fear. I think of starting some sort of weekly
+
+64
+00:02:55.060 --> 00:02:58.020
+news pot meal news, grouping off
+
+65
+00:02:58.030 --> 00:03:00.980
+articles and then not have anything to post. But, you
+
+66
+00:03:00.980 --> 00:03:03.950
+know, high school weekly high school community
+
+67
+00:03:03.960 --> 00:03:06.580
+is coming in strong for sure.
+
+68
+00:03:06.590 --> 00:03:09.570
+Haskell Weekly, um but awesome. All right, Taylor. Well, I
+
+69
+00:03:09.570 --> 00:03:12.410
+want to kind of jump in, um and I want you to kind of share maybe
+
+70
+00:03:12.410 --> 00:03:14.880
+some of the highlights of your 2020
+
+71
+00:03:14.880 --> 00:03:17.810
+and you know something you've learned, you know,
+
+72
+00:03:17.820 --> 00:03:20.770
+work or high school related. Um, that,
+
+73
+00:03:20.780 --> 00:03:23.170
+you know, you were like, Oh, this is pretty sweet,
+
+74
+00:03:24.740 --> 00:03:27.260
+>> man. You think I would have prepped for this? But
+
+75
+00:03:27.270 --> 00:03:30.180
+questions catch me a little off guard. I'm gonna stall
+
+76
+00:03:30.180 --> 00:03:33.040
+and pull one of the quotes that Adam put in this article that I really
+
+77
+00:03:33.040 --> 00:03:35.570
+agreed with. And I'm not sure that it's something that has
+
+78
+00:03:35.580 --> 00:03:38.320
+changed for me in 2020. But he
+
+79
+00:03:38.320 --> 00:03:41.260
+says that an important perspective when writing code is
+
+80
+00:03:41.260 --> 00:03:43.800
+understanding how it will exist through
+
+81
+00:03:43.800 --> 00:03:46.600
+time and what demands will be placed on it and how the
+
+82
+00:03:46.600 --> 00:03:49.410
+fundamental assumptions that code makes will inevitably
+
+83
+00:03:49.410 --> 00:03:52.250
+change. And for me, and my career is a
+
+84
+00:03:52.250 --> 00:03:54.770
+software engineer. That's something that I've just
+
+85
+00:03:54.770 --> 00:03:57.570
+seen come true over and over again where,
+
+86
+00:03:57.570 --> 00:04:00.160
+like sometimes there's a
+
+87
+00:04:00.160 --> 00:04:03.140
+focus on how do I make this code as clever
+
+88
+00:04:03.140 --> 00:04:05.490
+or performance or whatever is possible in
+
+89
+00:04:05.490 --> 00:04:07.870
+isolation. But really, what's important is like,
+
+90
+00:04:08.340 --> 00:04:11.280
+is it easy to change over time? And even
+
+91
+00:04:11.280 --> 00:04:14.080
+as it passes hands, you know, through a team or something like that,
+
+92
+00:04:14.090 --> 00:04:16.990
+at least in my career, that's the thing that has been important because I've worked
+
+93
+00:04:16.990 --> 00:04:19.920
+on long running software with large teams
+
+94
+00:04:19.920 --> 00:04:22.590
+of people or maybe large is a misnomer. I
+
+95
+00:04:22.600 --> 00:04:25.430
+typically work for startups, so, you know, like less than
+
+96
+00:04:25.430 --> 00:04:28.390
+10 people. But more than one. That's that's large,
+
+97
+00:04:28.390 --> 00:04:28.860
+I think.
+
+98
+00:04:28.870 --> 00:04:29.610
+>> Yeah,
+
+99
+00:04:29.620 --> 00:04:32.300
+e Think any
+
+100
+00:04:32.300 --> 00:04:34.580
+programmer knows that, you know, Could you, right?
+
+101
+00:04:34.580 --> 00:04:37.270
+55 minutes ago is now legacy.
+
+102
+00:04:37.340 --> 00:04:39.090
+Something has changed
+
+103
+00:04:39.840 --> 00:04:42.620
+because we experienced that everyday. Working through a
+
+104
+00:04:42.620 --> 00:04:45.500
+legacy a p I that I've been
+
+105
+00:04:45.510 --> 00:04:48.470
+that I.T. pro for a long time. I literally just
+
+106
+00:04:48.470 --> 00:04:51.270
+today I was looking at code I wrote in JavaScript
+
+107
+00:04:51.840 --> 00:04:54.270
+four years ago and I was like, Wow,
+
+108
+00:04:55.040 --> 00:04:56.680
+>> you were a different person back then.
+
+109
+00:04:56.690 --> 00:04:59.680
+>> Yeah, yeah, It's like this is gonna
+
+110
+00:04:59.680 --> 00:05:02.190
+be great. It's awesome. Now it's trash. But that's
+
+111
+00:05:02.190 --> 00:05:04.790
+okay. You know, we've learned on well,
+
+112
+00:05:04.790 --> 00:05:07.150
+>> and now it's in the trash. So we're
+
+113
+00:05:07.150 --> 00:05:10.000
+>> belong, Yes, delete over 5000
+
+114
+00:05:10.000 --> 00:05:12.500
+lines of code today. So that's that's a good day.
+
+115
+00:05:12.510 --> 00:05:15.400
+Good day at the office. Eso thats
+
+116
+00:05:15.400 --> 00:05:15.550
+why
+
+117
+00:05:15.550 --> 00:05:18.330
+>> a non answer to your question? Cam, what's your answer
+
+118
+00:05:18.340 --> 00:05:18.900
+about
+
+119
+00:05:18.900 --> 00:05:21.820
+>> 2020? I mean, actually, it's funny because this
+
+120
+00:05:21.820 --> 00:05:24.190
+is something Adam kind of mentioned at one point,
+
+121
+00:05:24.200 --> 00:05:27.130
+um, is using stack
+
+122
+00:05:27.140 --> 00:05:29.980
+or not Stack Well, yes, using that, he
+
+123
+00:05:29.980 --> 00:05:32.840
+does mention that he's been using that. But what I meant to say
+
+124
+00:05:32.850 --> 00:05:35.520
+is he's been using servant or you
+
+125
+00:05:35.520 --> 00:05:38.330
+mentioned servant assed faras, like some type level
+
+126
+00:05:38.330 --> 00:05:40.800
+shenanigans that you can kind of learn that
+
+127
+00:05:40.810 --> 00:05:43.670
+will, you know, really be
+
+128
+00:05:43.670 --> 00:05:45.950
+helpful in the long run. And I think we've
+
+129
+00:05:46.340 --> 00:05:49.270
+really benefited from switching r a p
+
+130
+00:05:49.270 --> 00:05:52.160
+I over to servant and slowly moving routes
+
+131
+00:05:52.160 --> 00:05:54.960
+over because, you know, we've been getting documentation for
+
+132
+00:05:54.960 --> 00:05:57.670
+free. We've been getting, ah, lot of, you know,
+
+133
+00:05:57.680 --> 00:06:00.310
+benefits out of switching over to servant
+
+134
+00:06:00.320 --> 00:06:02.960
+>> testing for free. Certain types of tests. Yeah,
+
+135
+00:06:02.960 --> 00:06:05.620
+>> we're testing for free. We get a lot of great benefits
+
+136
+00:06:05.620 --> 00:06:08.440
+from over some of the other. You know, our other
+
+137
+00:06:08.440 --> 00:06:11.310
+AP that we framework we use half stack, you know,
+
+138
+00:06:11.310 --> 00:06:13.910
+have stock was good at the time, but now we've kind of
+
+139
+00:06:13.920 --> 00:06:16.840
+understood the fundamentals of Haskell a little bit better, and we
+
+140
+00:06:16.840 --> 00:06:19.640
+can kind of conceptualized type levels. And Anne, it's a little bit
+
+141
+00:06:19.640 --> 00:06:22.640
+more as a team. And so I'm really happy that our teams kind of
+
+142
+00:06:22.640 --> 00:06:25.370
+just taking servant by storm and
+
+143
+00:06:25.370 --> 00:06:28.310
+really, you know, just really creating
+
+144
+00:06:28.940 --> 00:06:31.200
+on a P I. That's a joy to work. And, um,
+
+145
+00:06:31.210 --> 00:06:33.050
+especially as a way of FBI
+
+146
+00:06:33.840 --> 00:06:36.780
+>> and that, you know, touches on something else that Adam talks about in this
+
+147
+00:06:36.780 --> 00:06:39.630
+post of in general, preferring to write
+
+148
+00:06:39.630 --> 00:06:41.550
+junior code but
+
+149
+00:06:42.310 --> 00:06:45.100
+knowing the team you're with and knowing what they can handle
+
+150
+00:06:45.100 --> 00:06:48.080
+and changing what you write to fit that so for
+
+151
+00:06:48.080 --> 00:06:50.920
+me, you know, one of the reasons that we were using Half
+
+152
+00:06:50.920 --> 00:06:53.780
+Stack was that it is. I mean, it's
+
+153
+00:06:53.780 --> 00:06:56.650
+got some complicated stuff behind the scenes, but generally when you use it, it's
+
+154
+00:06:56.650 --> 00:06:59.490
+pretty straightforward. It's just like, right stuff in Amman ad and
+
+155
+00:06:59.490 --> 00:07:02.420
+it'll work. Um, whereas servant has a much higher
+
+156
+00:07:02.420 --> 00:07:04.970
+bar to clear and you get a lot of benefits from it. But
+
+157
+00:07:05.340 --> 00:07:07.850
+I have been pleasantly
+
+158
+00:07:07.850 --> 00:07:10.490
+surprised that our team, which has quite a few junior
+
+159
+00:07:10.490 --> 00:07:12.860
+engineers on it that are not familiar with Haskell,
+
+160
+00:07:12.870 --> 00:07:15.850
+um has been able to pick up servant and run with it. It's
+
+161
+00:07:15.850 --> 00:07:16.370
+been great.
+
+162
+00:07:16.740 --> 00:07:19.390
+>> Yeah, yeah, I think you know that Helps toe
+
+163
+00:07:19.390 --> 00:07:21.930
+have also senior people on the team that
+
+164
+00:07:21.930 --> 00:07:24.780
+have kind of led the way. Um, and kind
+
+165
+00:07:24.780 --> 00:07:27.710
+of I know demystified some
+
+166
+00:07:27.710 --> 00:07:30.480
+of what's happening, eh? So we can all kind of learn from one
+
+167
+00:07:30.480 --> 00:07:33.230
+another. Um, really? Well, and I think, honestly,
+
+168
+00:07:33.230 --> 00:07:36.060
+2020 was a year that we had to
+
+169
+00:07:36.060 --> 00:07:38.980
+grow together, you know, in a different kind of way. You know, usually
+
+170
+00:07:38.980 --> 00:07:41.770
+we're in the office, and we're sitting next to each other, and, you know,
+
+171
+00:07:41.780 --> 00:07:44.770
+we always We've been preparing for a long time, but I think
+
+172
+00:07:45.340 --> 00:07:47.910
+at this 0.2020 kind of push just to
+
+173
+00:07:47.910 --> 00:07:50.190
+be even a tighter knit group
+
+174
+00:07:50.200 --> 00:07:52.830
+where, you know, we're communicating better. We're
+
+175
+00:07:52.840 --> 00:07:55.430
+teaching each other, you know, healthy habits
+
+176
+00:07:55.430 --> 00:07:58.150
+and just really, you know, helping each other,
+
+177
+00:07:58.640 --> 00:08:01.480
+uh, build together as our company slogan
+
+178
+00:08:01.480 --> 00:08:04.370
+currently is, Uh,
+
+179
+00:08:04.380 --> 00:08:07.280
+but you know, that Z you know, that's
+
+180
+00:08:07.280 --> 00:08:10.280
+what 2020 really offered us. So, you know, I'm
+
+181
+00:08:10.280 --> 00:08:13.270
+really thankful for that on, but I think you
+
+182
+00:08:13.270 --> 00:08:16.020
+know, for us as a team, we're
+
+183
+00:08:16.030 --> 00:08:18.950
+like, what? Your to your three of high school
+
+184
+00:08:18.950 --> 00:08:21.240
+writing Three. Little more
+
+185
+00:08:21.240 --> 00:08:24.130
+>> than three. Because I joined right after y'all had
+
+186
+00:08:24.130 --> 00:08:27.110
+switched toe Haskell and I'm coming up on my third
+
+187
+00:08:27.110 --> 00:08:27.470
+year.
+
+188
+00:08:28.140 --> 00:08:31.020
+>> Mm. Okay. Yeah. So we're in
+
+189
+00:08:31.020 --> 00:08:33.670
+three years of writing high school, and, you know, I think last year was
+
+190
+00:08:33.670 --> 00:08:36.340
+really ah year that we
+
+191
+00:08:36.340 --> 00:08:39.340
+stopped worrying about JavaScript code or
+
+192
+00:08:39.350 --> 00:08:42.260
+worrying about migrations from various platforms. And we
+
+193
+00:08:42.260 --> 00:08:44.980
+have been just really solely working on
+
+194
+00:08:44.990 --> 00:08:47.740
+three I.T. pro T.V. product s. So I think that
+
+195
+00:08:47.740 --> 00:08:49.740
+was really great. Um,
+
+196
+00:08:49.750 --> 00:08:52.530
+>> yeah. And I'm sure that, you know, the remote
+
+197
+00:08:52.530 --> 00:08:55.160
+members of our team are very glad that
+
+198
+00:08:55.170 --> 00:08:58.170
+we're remote first. Now, everyone's
+
+199
+00:08:58.180 --> 00:09:01.040
+in the same shoes that they've been in the whole time. So we
+
+200
+00:09:01.040 --> 00:09:03.240
+understand their plight a little better.
+
+201
+00:09:03.250 --> 00:09:05.560
+>> Um oh, yeah.
+
+202
+00:09:06.240 --> 00:09:09.170
+Um, but yeah. So back to the post to
+
+203
+00:09:09.180 --> 00:09:11.670
+is he He talks about
+
+204
+00:09:12.240 --> 00:09:15.160
+type level witnesses, which he tried out. Hey,
+
+205
+00:09:15.160 --> 00:09:17.690
+had a little little difficulty. Um,
+
+206
+00:09:17.700 --> 00:09:20.690
+honestly, I really never heard of, you
+
+207
+00:09:20.690 --> 00:09:23.640
+know, the type of witnesses. So I really should probably
+
+208
+00:09:23.640 --> 00:09:26.370
+follow the block posts because he linked to
+
+209
+00:09:26.840 --> 00:09:29.800
+a type level witness block post. So I
+
+210
+00:09:29.800 --> 00:09:32.580
+should definitely check that out. But do you know anything
+
+211
+00:09:32.580 --> 00:09:33.170
+about that?
+
+212
+00:09:33.640 --> 00:09:36.430
+>> I don't. I pulled up the block post, so I'm trying to scan it really
+
+213
+00:09:36.430 --> 00:09:39.110
+quick. If I had to guess, I think this would be about
+
+214
+00:09:39.110 --> 00:09:41.660
+the like, um, ghosts of
+
+215
+00:09:41.660 --> 00:09:44.650
+departed proofs paper where
+
+216
+00:09:45.040 --> 00:09:47.910
+you encode information in the
+
+217
+00:09:47.920 --> 00:09:50.550
+at the type level, so that once you
+
+218
+00:09:50.560 --> 00:09:52.970
+prove something via like a smart
+
+219
+00:09:52.970 --> 00:09:55.960
+constructor, you have evidence of that proof that you
+
+220
+00:09:55.960 --> 00:09:58.870
+can carry along. So the canonical example would
+
+221
+00:09:58.870 --> 00:10:01.520
+be like, um, you have proved that a
+
+222
+00:10:01.520 --> 00:10:04.330
+number is odd. So now you're type is odd
+
+223
+00:10:04.330 --> 00:10:07.250
+number rather than just number into juror or whatever.
+
+224
+00:10:07.640 --> 00:10:10.510
+Um, and in general, like, you could do that
+
+225
+00:10:10.510 --> 00:10:13.460
+with new type rappers for any particular type. But
+
+226
+00:10:13.460 --> 00:10:16.010
+in general, if you want to connect like,
+
+227
+00:10:16.020 --> 00:10:18.710
+uh, refinements or constraints to
+
+228
+00:10:18.710 --> 00:10:21.680
+stuff, there's a mawr principled way to do all of
+
+229
+00:10:21.680 --> 00:10:24.370
+that. And I think that's what this type level witness stuff
+
+230
+00:10:24.370 --> 00:10:26.850
+is. Although maybe I could be grossly
+
+231
+00:10:26.850 --> 00:10:29.730
+misrepresenting it. So I apologize. If I am,
+
+232
+00:10:29.740 --> 00:10:32.730
+>> maybe we'll cover that in another weeks of
+
+233
+00:10:32.740 --> 00:10:34.550
+high school weekly podcast here, you know,
+
+234
+00:10:35.240 --> 00:10:37.840
+um, but yeah. Okay. So thank you for
+
+235
+00:10:37.850 --> 00:10:40.410
+trying to give me some insight there.
+
+236
+00:10:40.420 --> 00:10:40.980
+Yeah,
+
+237
+00:10:40.980 --> 00:10:43.860
+>> and so my my reading of his,
+
+238
+00:10:43.870 --> 00:10:46.870
+you know, hesitation about using type level witnesses is
+
+239
+00:10:46.870 --> 00:10:49.730
+that they are nice and they give you some good
+
+240
+00:10:49.730 --> 00:10:52.250
+things. But the interface for using them is
+
+241
+00:10:52.540 --> 00:10:55.450
+two clunky or too complex or too difficult for him,
+
+242
+00:10:55.740 --> 00:10:58.640
+which I think is a fair complaint. Not just about type
+
+243
+00:10:58.640 --> 00:11:01.450
+level witnesses, but many things
+
+244
+00:11:01.460 --> 00:11:04.450
+and type level high school. And, you know, for me, that was one of
+
+245
+00:11:04.450 --> 00:11:07.360
+the reasons I push back on Servant for so
+
+246
+00:11:07.360 --> 00:11:10.170
+long is like Well, yeah, I can see all the benefits, but
+
+247
+00:11:10.640 --> 00:11:12.860
+I'm not sure what all the downsides are.
+
+248
+00:11:13.440 --> 00:11:16.360
+>> Yeah, yeah, it definitely you with
+
+249
+00:11:16.360 --> 00:11:18.600
+high overhead to understand. Something
+
+250
+00:11:18.610 --> 00:11:21.610
+really tends to rub me the wrong way as well,
+
+251
+00:11:21.620 --> 00:11:24.360
+because I'm like, Well, you know, it's not just me
+
+252
+00:11:24.370 --> 00:11:27.140
+at that writing this code like it's an entire
+
+253
+00:11:27.140 --> 00:11:30.120
+team. We all need to be ableto handle this. And
+
+254
+00:11:30.130 --> 00:11:33.060
+if it's clunky and harder to use like it's just not
+
+255
+00:11:33.060 --> 00:11:34.110
+ready, then you know.
+
+256
+00:11:34.120 --> 00:11:37.050
+>> And it's not only is it hard to write or
+
+257
+00:11:37.050 --> 00:11:39.820
+use but, like, maintain or understand when
+
+258
+00:11:39.820 --> 00:11:42.430
+something goes wrong. We ran into that the other day with
+
+259
+00:11:42.430 --> 00:11:45.240
+Servant, where we had moved on in
+
+260
+00:11:45.240 --> 00:11:47.990
+point from our old service to our new one. And it
+
+261
+00:11:47.990 --> 00:11:50.770
+wasn't behaving the same. And like everything we could look at was the
+
+262
+00:11:50.770 --> 00:11:53.570
+same. It was, oh, something behind the scenes that servant is
+
+263
+00:11:53.570 --> 00:11:56.530
+doing. It's actually Mawr correct and like, it's good
+
+264
+00:11:56.530 --> 00:11:59.370
+that it's doing that thing, but we weren't aware of
+
+265
+00:11:59.370 --> 00:12:02.200
+that. So it was hard for us to debug this problem because we were
+
+266
+00:12:02.200 --> 00:12:04.750
+looking at our application code rather than the, you know,
+
+267
+00:12:05.240 --> 00:12:06.220
+servant code,
+
+268
+00:12:06.380 --> 00:12:09.340
+>> right? Yeah. But, you
+
+269
+00:12:09.340 --> 00:12:12.340
+know, with time, everybody kinda can work through those clunks
+
+270
+00:12:12.340 --> 00:12:15.320
+and, you know, maybe Adam in 2021
+
+271
+00:12:15.320 --> 00:12:18.260
+can, you know, master with, you know, type
+
+272
+00:12:18.260 --> 00:12:21.130
+level witnesses, and you look forward Thio reading
+
+273
+00:12:21.130 --> 00:12:23.990
+his post next January E
+
+274
+00:12:24.000 --> 00:12:24.970
+>> finally figured out Type
+
+275
+00:12:24.970 --> 00:12:27.650
+>> level witnesses, Yes, or maybe. Hey,
+
+276
+00:12:27.740 --> 00:12:30.630
+if you want to write it in 2021 I'm all for
+
+277
+00:12:30.630 --> 00:12:32.970
+it. Definitely down there to check it out.
+
+278
+00:12:33.440 --> 00:12:35.570
+Ah, yeah. Um
+
+279
+00:12:35.940 --> 00:12:38.830
+so I think this is something we faced,
+
+280
+00:12:38.830 --> 00:12:41.180
+and we've gone through many iterations of
+
+281
+00:12:41.190 --> 00:12:43.510
+build systems and, you know,
+
+282
+00:12:43.510 --> 00:12:46.360
+we've we're using Stack, but we know it's
+
+283
+00:12:46.360 --> 00:12:49.150
+limitations, and we're we rub up against it. We thought
+
+284
+00:12:49.150 --> 00:12:52.120
+about Nick's like, and he kind
+
+285
+00:12:52.120 --> 00:12:54.970
+of mentioned this in the block post, and he's kind of gives
+
+286
+00:12:54.970 --> 00:12:57.950
+his his two cents per se about it, Um,
+
+287
+00:12:58.740 --> 00:13:01.590
+which I thought was was informative. I think
+
+288
+00:13:01.600 --> 00:13:03.750
+you know, for us we want
+
+289
+00:13:04.640 --> 00:13:07.320
+all the cash and we could get so if we could do Knicks like
+
+290
+00:13:07.330 --> 00:13:09.860
+we're all about it. But like he says, it's a little complicated
+
+291
+00:13:10.240 --> 00:13:13.150
+until we've kind of, you know, we have some team
+
+292
+00:13:13.150 --> 00:13:16.040
+members who use Nick's ls and they will not be
+
+293
+00:13:16.040 --> 00:13:19.040
+named their great. Uh, but
+
+294
+00:13:19.050 --> 00:13:21.250
+>> names have been changed to protect the innocent.
+
+295
+00:13:22.540 --> 00:13:25.060
+Yeah, I mean, Knicks has been like a pipe dream for us
+
+296
+00:13:25.060 --> 00:13:27.990
+for years and not so much like
+
+297
+00:13:27.990 --> 00:13:30.820
+nix the technology but the stuff that it brings. Like you
+
+298
+00:13:30.820 --> 00:13:33.740
+mentioned with cashing because we have spent ah lot
+
+299
+00:13:33.740 --> 00:13:36.440
+of engineering hours trying to get the cashing not
+
+300
+00:13:36.440 --> 00:13:38.770
+only on our local machines, but on C I,
+
+301
+00:13:39.340 --> 00:13:42.230
+uh, to get are cashing in a good place with stacks so that we
+
+302
+00:13:42.230 --> 00:13:45.180
+don't spend, you know, 15 minutes waiting for a really small
+
+303
+00:13:45.180 --> 00:13:46.960
+change to go through our C I process.
+
+304
+00:13:47.540 --> 00:13:50.370
+>> Yeah. So you're saying if we could get the cash
+
+305
+00:13:50.370 --> 00:13:51.450
+right, we would save a lot of
+
+306
+00:13:51.450 --> 00:13:54.040
+cash?
+
+307
+00:13:54.540 --> 00:13:57.440
+Very true. Yeah. Yeah, You're welcome.
+
+308
+00:13:57.440 --> 00:14:00.060
+I'll be here all year. Maybe
+
+309
+00:14:01.540 --> 00:14:04.490
+outrage from from viewers. Get this
+
+310
+00:14:04.490 --> 00:14:06.750
+kid off of this way. Can't handle those
+
+311
+00:14:06.750 --> 00:14:08.940
+>> Haskell puns anymore. Kick him off the
+
+312
+00:14:08.940 --> 00:14:09.760
+podcast.
+
+313
+00:14:10.140 --> 00:14:12.980
+>> He's out of here. All right, Well, then you'll get
+
+314
+00:14:12.980 --> 00:14:15.280
+tailored by himself because we my friends
+
+315
+00:14:15.280 --> 00:14:16.170
+>> were Justus Bad
+
+316
+00:14:17.540 --> 00:14:20.460
+>> Fair. But hey, at least we've got them, right? That jokes for
+
+317
+00:14:20.460 --> 00:14:20.990
+days.
+
+318
+00:14:21.000 --> 00:14:23.730
+>> Yeah. Um, but yeah, I I liked
+
+319
+00:14:23.730 --> 00:14:26.580
+hearing his take on build systems because
+
+320
+00:14:26.580 --> 00:14:29.380
+it kind of matches ours. Like we're using Stack. There are some things
+
+321
+00:14:29.380 --> 00:14:32.100
+about it that annoy us, but not enough to push us on.
+
+322
+00:14:32.100 --> 00:14:35.100
+Anything else and something like next would be great. We
+
+323
+00:14:35.100 --> 00:14:38.050
+could probably get away with using COBOL directly, but Stack gives
+
+324
+00:14:38.050 --> 00:14:40.760
+us some niceties that we want to stick with. Although I was
+
+325
+00:14:40.760 --> 00:14:43.650
+surprised to hear that this, like, flat name
+
+326
+00:14:43.650 --> 00:14:46.650
+space area that he mentions. I don't think I've ever seen that. And we have
+
+327
+00:14:46.660 --> 00:14:49.330
+eight people working on stack working with
+
+328
+00:14:49.330 --> 00:14:52.080
+stack all day every day. Um,
+
+329
+00:14:52.090 --> 00:14:54.790
+so I don't know. He says the dreaded like it's some well known
+
+330
+00:14:54.790 --> 00:14:57.000
+thing I have never seen. Knock on
+
+331
+00:14:57.000 --> 00:14:59.940
+>> wood. Same. Yeah. Tomorrow. Coming
+
+332
+00:14:59.940 --> 00:15:02.850
+to work tomorrow. Saturday. But come
+
+333
+00:15:02.850 --> 00:15:04.260
+in Monday, and it's gonna be just like,
+
+334
+00:15:05.140 --> 00:15:08.060
+uh, nobody can work today. We're all
+
+335
+00:15:08.060 --> 00:15:10.990
+work through this problem together. Uh, but
+
+336
+00:15:10.990 --> 00:15:13.870
+yeah. So then he moves on from build systems to kind
+
+337
+00:15:13.870 --> 00:15:16.440
+off some of the tools which I guess
+
+338
+00:15:16.450 --> 00:15:19.350
+can play into the build system. Uh, but,
+
+339
+00:15:19.360 --> 00:15:22.080
+you know, it sounds like he's a G.H.C. I.T. fan, which
+
+340
+00:15:22.090 --> 00:15:24.370
+we hear it I.T. pro T.V. are also
+
+341
+00:15:24.640 --> 00:15:25.800
+G.H.C. defense.
+
+342
+00:15:26.240 --> 00:15:28.830
+>> Yeah, it's surprising how helpful G.H.C.
+
+343
+00:15:28.830 --> 00:15:31.820
+ideas, given that it's such a simple tool like it
+
+344
+00:15:31.820 --> 00:15:34.800
+hardly does anything in principle. It's like if you
+
+345
+00:15:34.800 --> 00:15:37.670
+started G.H.C. I and just hit colon reload
+
+346
+00:15:37.670 --> 00:15:40.470
+over and over again every time you saved a file. But
+
+347
+00:15:40.480 --> 00:15:43.230
+that's really helpful. I mean, G.H.C. is a nice
+
+348
+00:15:43.230 --> 00:15:46.030
+compiler, especially once you're familiar with
+
+349
+00:15:46.040 --> 00:15:48.870
+how it reports errors to you, right?
+
+350
+00:15:49.240 --> 00:15:52.090
+Um but yeah, that, like G.H.C. i
+
+351
+00:15:52.090 --> 00:15:54.830
+d by itself is great. So thank you, Neil
+
+352
+00:15:54.830 --> 00:15:56.250
+Mitchell, for starting that
+
+353
+00:15:57.340 --> 00:16:00.180
+>> woof. Yeah, And then we've got you know,
+
+354
+00:16:00.190 --> 00:16:03.180
+something? I think we've tried here. It I.T. pro. At least a few of us
+
+355
+00:16:03.180 --> 00:16:06.060
+have is getting high school language server
+
+356
+00:16:06.070 --> 00:16:08.760
+up and going. Um, you know,
+
+357
+00:16:09.140 --> 00:16:11.370
+we've caused some crashes from that.
+
+358
+00:16:11.380 --> 00:16:14.210
+>> I was going to say it's a running joke that when one of
+
+359
+00:16:14.210 --> 00:16:17.020
+our one of the guys on our team runs HLs, it's like,
+
+360
+00:16:17.020 --> 00:16:19.770
+Well, his machine is gonna crash sometime in the next 48
+
+361
+00:16:19.770 --> 00:16:21.820
+hours. We don't know when, but it will
+
+362
+00:16:21.820 --> 00:16:24.770
+>> happen. Yeah, but, I mean, that would
+
+363
+00:16:24.770 --> 00:16:26.010
+work if you turn the machine off
+
+364
+00:16:26.010 --> 00:16:28.950
+>> every night. But yeah. And this was a long time ago that this,
+
+365
+00:16:28.950 --> 00:16:31.860
+you know, internal name came up, So I'm sure HLS
+
+366
+00:16:31.860 --> 00:16:34.710
+is better. Um, but we haven't tried it in the
+
+367
+00:16:34.710 --> 00:16:35.250
+meantime.
+
+368
+00:16:35.640 --> 00:16:37.860
+>> Yeah, Yeah, it's been a minute. Um,
+
+369
+00:16:38.540 --> 00:16:41.530
+because H l s and h i e all
+
+370
+00:16:41.530 --> 00:16:42.110
+kind of merged
+
+371
+00:16:42.110 --> 00:16:45.030
+>> together, right? I have not been able to keep track
+
+372
+00:16:45.040 --> 00:16:47.940
+of all the naming, emerging, but I think that's true or
+
+373
+00:16:47.940 --> 00:16:50.370
+HLs includes h i e or something like that.
+
+374
+00:16:51.540 --> 00:16:54.440
+Mhm. Yeah, Yeah, they
+
+375
+00:16:54.440 --> 00:16:57.330
+fixed a bunch of memory leaks, and supposedly, it's a lot better and
+
+376
+00:16:57.330 --> 00:16:59.360
+faster now, but I haven't given another chance.
+
+377
+00:16:59.940 --> 00:17:02.540
+>> Yeah, you know, I just use this little
+
+378
+00:17:02.550 --> 00:17:05.300
+Adam, uh, V s code plug in called
+
+379
+00:17:05.300 --> 00:17:08.170
+Probably yoke. Does this guy made e
+
+380
+00:17:08.170 --> 00:17:11.050
+>> didn't wanna plug my own plug in, but yes, I
+
+381
+00:17:11.050 --> 00:17:13.640
+wrote one called Purple Yoke, and it behaves a lot like
+
+382
+00:17:13.640 --> 00:17:16.310
+G.H.C. I.T. where really it just spins up
+
+383
+00:17:16.310 --> 00:17:19.280
+G.H.C. I in the background and reloads it for you a bunch and gives
+
+384
+00:17:19.280 --> 00:17:22.140
+you the little red squiggly underlines which works really
+
+385
+00:17:22.140 --> 00:17:24.640
+>> well for me. Hey, More to come in
+
+386
+00:17:24.640 --> 00:17:25.860
+2021 Probably.
+
+387
+00:17:25.870 --> 00:17:28.850
+>> Yeah. I might make, like three commits to it this
+
+388
+00:17:28.850 --> 00:17:31.660
+>> year if we could
+
+389
+00:17:31.660 --> 00:17:34.400
+get, like, a quick jump or something working with it.
+
+390
+00:17:34.410 --> 00:17:34.800
+Uh,
+
+391
+00:17:34.810 --> 00:17:37.540
+>> well, yeah, I was gonna say one of the other tools that he mentions his Haskell
+
+392
+00:17:37.540 --> 00:17:40.350
+tags, and that has been really useful again. It's like
+
+393
+00:17:40.350 --> 00:17:43.300
+a relatively simple tool, and it doesn't do a
+
+394
+00:17:43.300 --> 00:17:45.950
+whole lot, But just being able to say, like, keyboard
+
+395
+00:17:45.950 --> 00:17:48.880
+shortcut jumped aware this thing is defined amazingly
+
+396
+00:17:48.880 --> 00:17:51.490
+useful because I do that all the time And what I used to do was
+
+397
+00:17:51.490 --> 00:17:54.330
+selected and search through the whole project for it. And then, like, oh,
+
+398
+00:17:54.330 --> 00:17:56.550
+no, these air you call sites, not definition sites.
+
+399
+00:17:56.940 --> 00:17:58.610
+>> Yeah, it's a cave man.
+
+400
+00:17:58.620 --> 00:18:01.450
+E I still I'm
+
+401
+00:18:01.450 --> 00:18:02.490
+stuck doing that because
+
+402
+00:18:02.500 --> 00:18:05.440
+e I guess I lost
+
+403
+00:18:05.440 --> 00:18:08.380
+my hashtags configuration or something along those lines with
+
+404
+00:18:08.390 --> 00:18:11.160
+V s code. But eso I really haven't been
+
+405
+00:18:11.160 --> 00:18:14.030
+doing that. I've been doing the control shift f with the highlighted
+
+406
+00:18:14.030 --> 00:18:16.480
+word and yeah, then being like,
+
+407
+00:18:16.490 --> 00:18:18.880
+uh, scroll, scroll, scroll! Oh, there it It's
+
+408
+00:18:18.880 --> 00:18:21.750
+OK, Nita, Maybe that's one of
+
+409
+00:18:21.750 --> 00:18:24.160
+my 2021 resolutions. Just get that
+
+410
+00:18:24.840 --> 00:18:27.270
+get away. Working again? Yeah,
+
+411
+00:18:27.940 --> 00:18:30.560
+It's like it's one of those things. Like it
+
+412
+00:18:30.560 --> 00:18:32.580
+broke, but it wasn't a huge inconvenience.
+
+413
+00:18:33.040 --> 00:18:35.670
+Yeah, I don't know. I guess I have a high
+
+414
+00:18:35.670 --> 00:18:37.170
+tolerance for inconvenience.
+
+415
+00:18:37.940 --> 00:18:40.800
+>> Well, you know, it's a little thing where you don't feel the
+
+416
+00:18:40.800 --> 00:18:43.630
+pain that much. It's like, Oh, yeah. It took me five seconds to
+
+417
+00:18:43.630 --> 00:18:45.560
+find this definition instead of one second.
+
+418
+00:18:46.040 --> 00:18:49.020
+And maybe you don't do that operation enough
+
+419
+00:18:49.020 --> 00:18:51.410
+for it to matter, or it's like, just part of your work flow.
+
+420
+00:18:51.410 --> 00:18:53.690
+So you keep
+
+421
+00:18:53.700 --> 00:18:56.460
+>> your like, uh,
+
+422
+00:18:57.040 --> 00:18:59.970
+yeah, so anything I definitely think the
+
+423
+00:18:59.970 --> 00:19:02.890
+two league in 2020 was. You know, there's
+
+424
+00:19:02.890 --> 00:19:05.680
+some major improvements that happened there. Um, for
+
+425
+00:19:05.680 --> 00:19:08.680
+sure. So, yeah. Team G.H.C.
+
+426
+00:19:08.680 --> 00:19:11.480
+I.T. always the old reliable at this
+
+427
+00:19:11.480 --> 00:19:14.400
+point, HLS is the cool, new shiny toy
+
+428
+00:19:14.400 --> 00:19:17.180
+that you know, has a squeaky wheel here and there.
+
+429
+00:19:17.640 --> 00:19:20.540
+Mhm So. But yeah. So then
+
+430
+00:19:20.540 --> 00:19:23.160
+he kind of moves on talking about
+
+431
+00:19:23.540 --> 00:19:26.300
+the release of G.H.C. nine. Done
+
+432
+00:19:26.310 --> 00:19:26.550
+done.
+
+433
+00:19:27.440 --> 00:19:30.000
+>> Yeah, that's a big one. Which maybe we should do a whole
+
+434
+00:19:30.000 --> 00:19:32.850
+episode on that, But I feel like I'm not qualified for it
+
+435
+00:19:32.850 --> 00:19:35.570
+because the big like, you know, headline release
+
+436
+00:19:35.580 --> 00:19:38.310
+or feature for G.H.C. nine is linear
+
+437
+00:19:38.310 --> 00:19:40.710
+types, which are really exciting,
+
+438
+00:19:40.720 --> 00:19:43.610
+but I don't really know anything
+
+439
+00:19:43.610 --> 00:19:45.060
+about them, so
+
+440
+00:19:45.740 --> 00:19:48.690
+>> Okay, it will be good. Maybe we'll learn about it and then talk
+
+441
+00:19:48.690 --> 00:19:51.560
+about it will be good practice. Good. Yeah,
+
+442
+00:19:52.040 --> 00:19:54.530
+>> but yeah. The first release candidate for G.H.C.
+
+443
+00:19:54.530 --> 00:19:57.460
+nine was released. Um, I think I installed it
+
+444
+00:19:57.460 --> 00:19:59.780
+on one of my machines, but I haven't really played with it yet.
+
+445
+00:20:00.240 --> 00:20:02.870
+>> Mhm. Yeah, I haven't
+
+446
+00:20:03.340 --> 00:20:06.190
+at all. Didn't even know there is a pre release version s
+
+447
+00:20:06.200 --> 00:20:09.190
+So you know, that's how in the no. I am here. Uh,
+
+448
+00:20:09.200 --> 00:20:11.850
+just hosting the high school weekly podcast. No big deal.
+
+449
+00:20:12.340 --> 00:20:13.460
+Yeah, Kind of.
+
+450
+00:20:13.470 --> 00:20:15.500
+>> Haskell. Wait. There's a G.H.C. nine.
+
+451
+00:20:15.510 --> 00:20:18.240
+>> What's G.H.C.
+
+452
+00:20:18.250 --> 00:20:20.550
+e you thug?
+
+453
+00:20:21.740 --> 00:20:23.760
+Yeah. Hugs. Not drugs
+
+454
+00:20:24.740 --> 00:20:27.640
+any. Uh yeah. And then
+
+455
+00:20:27.650 --> 00:20:30.130
+another great thing that happened in 2020 that was
+
+456
+00:20:30.140 --> 00:20:32.770
+announced near the end. Was the high school
+
+457
+00:20:32.770 --> 00:20:35.620
+foundation being formed? I think that was
+
+458
+00:20:35.620 --> 00:20:37.770
+a big win for 2020.
+
+459
+00:20:38.540 --> 00:20:41.020
+>> Yeah, I'm really looking forward to seeing where that
+
+460
+00:20:41.020 --> 00:20:43.860
+goes. Right now, it's kind of nebulous, like it is a
+
+461
+00:20:43.860 --> 00:20:46.520
+good thing that it's there and they've secured a bunch of funding
+
+462
+00:20:46.520 --> 00:20:48.680
+and all the right people are involved. But
+
+463
+00:20:49.440 --> 00:20:52.060
+what are they going to do? I want to see what
+
+464
+00:20:52.060 --> 00:20:52.560
+happens.
+
+465
+00:20:53.540 --> 00:20:55.670
+>> Yes, we can all sit there like Petr
+
+466
+00:20:56.140 --> 00:20:58.840
+Marty Katz. And with someone maniacal
+
+467
+00:20:58.840 --> 00:21:01.150
+cackle, Mr
+
+468
+00:21:01.150 --> 00:21:03.060
+>> Bigglesworth. Yeah, yeah,
+
+469
+00:21:03.740 --> 00:21:06.670
+but, um but yeah, those are definitely things, like maybe at
+
+470
+00:21:06.670 --> 00:21:09.090
+the end of 2021 we'll look back and
+
+471
+00:21:09.090 --> 00:21:11.880
+say, you know, G.H.C. nine was this
+
+472
+00:21:11.890 --> 00:21:14.750
+watershed moment for the community. Linear types
+
+473
+00:21:14.750 --> 00:21:17.670
+are amazing and change the world. Um,
+
+474
+00:21:17.670 --> 00:21:20.500
+and Haskell Foundation united all these disparate
+
+475
+00:21:20.500 --> 00:21:23.440
+projects and really helped push the ball forward or push
+
+476
+00:21:23.440 --> 00:21:25.670
+the lift the boat up, Whatever the expression is,
+
+477
+00:21:25.840 --> 00:21:28.750
+rather yeah, row the boat. Get everyone
+
+478
+00:21:28.750 --> 00:21:30.750
+rowing in the same direction. There we go. We got there.
+
+479
+00:21:30.760 --> 00:21:33.100
+>> Lift. Lift the boat. Uh,
+
+480
+00:21:33.110 --> 00:21:34.000
+rising.
+
+481
+00:21:34.010 --> 00:21:36.290
+>> Rising tide lifts all boats is what I was going for,
+
+482
+00:21:36.290 --> 00:21:39.270
+>> but oh, God, you They're all rising.
+
+483
+00:21:39.280 --> 00:21:40.240
+Tides were just pouring
+
+484
+00:21:40.240 --> 00:21:43.060
+>> water into the ocean. Yeah, there's too many idioms to pick from.
+
+485
+00:21:43.440 --> 00:21:45.940
+>> Yeah, you mixed him up. That's okay. We like we like,
+
+486
+00:21:45.940 --> 00:21:47.070
+emerged stuff here.
+
+487
+00:21:47.540 --> 00:21:50.450
+Yeah. Yeah. So I'm gonna
+
+488
+00:21:50.450 --> 00:21:53.120
+put you back on the spot against you. You denied My
+
+489
+00:21:53.120 --> 00:21:55.400
+last time I asked the question, but what
+
+490
+00:21:55.400 --> 00:21:58.360
+was? Yeah, one thing that sticks out in your mind of
+
+491
+00:21:58.360 --> 00:22:01.050
+something you learned in 2020 can be meta.
+
+492
+00:22:01.700 --> 00:22:04.680
+It could be code related. It could be
+
+493
+00:22:05.340 --> 00:22:05.900
+so
+
+494
+00:22:05.910 --> 00:22:08.890
+>> So I got something. It's kind of code related, and it's actually my,
+
+495
+00:22:08.900 --> 00:22:11.840
+um, my resolution for this
+
+496
+00:22:11.840 --> 00:22:14.370
+year, and it is to write less
+
+497
+00:22:14.370 --> 00:22:16.990
+code at work. So for
+
+498
+00:22:16.990 --> 00:22:19.600
+those listeners that aren't employees of I.T.
+
+499
+00:22:19.600 --> 00:22:22.420
+pro um, I I managed the team of
+
+500
+00:22:22.420 --> 00:22:25.190
+engineers here, but I also in the past year
+
+501
+00:22:25.190 --> 00:22:28.160
+and my whole time here, have done a lot of engineering myself,
+
+502
+00:22:28.170 --> 00:22:30.660
+and I've found that, um,
+
+503
+00:22:30.940 --> 00:22:33.860
+it can often I often use that as like a short cut of like, I
+
+504
+00:22:33.860 --> 00:22:36.460
+know how I want this done, so I'll just do it.
+
+505
+00:22:36.940 --> 00:22:39.350
+But that kind of Rob's everyone else on the team of that
+
+506
+00:22:39.350 --> 00:22:42.130
+opportunity of poking around and trying it out and
+
+507
+00:22:42.130 --> 00:22:45.100
+seeing what works and what doesn't work. So one of my goals for the new
+
+508
+00:22:45.100 --> 00:22:48.020
+year is, too. Let my team
+
+509
+00:22:48.030 --> 00:22:50.920
+explore the space of how to solve problems,
+
+510
+00:22:50.920 --> 00:22:53.480
+and I'll be happy to give direction and coach.
+
+511
+00:22:53.480 --> 00:22:56.360
+But I want to write less code at
+
+512
+00:22:56.360 --> 00:22:59.250
+>> work. Can I have that resolution to
+
+513
+00:22:59.260 --> 00:23:02.170
+the whole team.
+
+514
+00:23:02.170 --> 00:23:03.370
+>> Can't write less code. Or maybe
+
+515
+00:23:03.370 --> 00:23:06.120
+>> we can. Maybe that's what we should go for it. Yeah, just
+
+516
+00:23:06.130 --> 00:23:08.470
+minimalistic. I mean, Dutch skin.
+
+517
+00:23:08.940 --> 00:23:11.900
+No, I think there's a lot to learn in 2021. Looking forward.
+
+518
+00:23:11.900 --> 00:23:14.740
+Toa writing more code? Yeah. Solving more
+
+519
+00:23:14.740 --> 00:23:15.360
+problems.
+
+520
+00:23:16.140 --> 00:23:18.780
+>> Yeah. Oh, that reminds me. Um,
+
+521
+00:23:19.140 --> 00:23:21.950
+I gave up on the advent of code on, like, day
+
+522
+00:23:21.950 --> 00:23:24.920
+22 or 23. We were talking about that. And I think the last time
+
+523
+00:23:24.930 --> 00:23:27.870
+we recorded How did you do on a camp?
+
+524
+00:23:28.540 --> 00:23:30.970
+>> Chuckles just chuckles.
+
+525
+00:23:31.840 --> 00:23:34.660
+I mean, if you count getting through
+
+526
+00:23:35.440 --> 00:23:38.170
+day four. Part one is a wind, then, Yeah,
+
+527
+00:23:38.740 --> 00:23:41.740
+I think it's further than I made it in any other years of
+
+528
+00:23:41.740 --> 00:23:44.130
+avenue code. I think I totally skipped it in
+
+529
+00:23:44.130 --> 00:23:46.060
+2019 and 2018. I did like,
+
+530
+00:23:46.940 --> 00:23:49.860
+a couple of days. It's just hard to like,
+
+531
+00:23:50.440 --> 00:23:53.420
+Yeah, I didn't have a ton of, like, you know, here at
+
+532
+00:23:53.420 --> 00:23:56.310
+the house. We've got a new puppy. We were doing
+
+533
+00:23:56.310 --> 00:23:59.040
+home renovations. So, like, doing stuff outside of
+
+534
+00:23:59.040 --> 00:24:01.470
+work is generally not coding
+
+535
+00:24:01.480 --> 00:24:02.970
+s. So
+
+536
+00:24:02.980 --> 00:24:05.900
+>> it takes a surprising amount of time. Even if you're good
+
+537
+00:24:05.900 --> 00:24:08.460
+at those types of puzzles You still have to, like,
+
+538
+00:24:08.940 --> 00:24:11.690
+read it and understand what it's asking and try it out and
+
+539
+00:24:11.690 --> 00:24:14.560
+debug it. And, you know, then you want to write, you know, make your own
+
+540
+00:24:14.560 --> 00:24:17.200
+code better and all that. So, yeah, it's it's a big time
+
+541
+00:24:17.200 --> 00:24:17.670
+commitment.
+
+542
+00:24:18.240 --> 00:24:21.040
+>> Yeah, it wasn't Wasn't ready for it. Yeah,
+
+543
+00:24:21.050 --> 00:24:23.920
+So maybe I'll prep everything next year and just be
+
+544
+00:24:23.920 --> 00:24:26.790
+like, all right. From December 1st to
+
+545
+00:24:26.790 --> 00:24:29.680
+December 25th, I code. I
+
+546
+00:24:29.680 --> 00:24:32.650
+>> got an hour a day blocked out on my calendar. Don't interrupt
+
+547
+00:24:32.650 --> 00:24:32.950
+me.
+
+548
+00:24:32.960 --> 00:24:35.900
+>> Yeah, just take off time of work. It's like,
+
+549
+00:24:35.910 --> 00:24:38.650
+take my sick, sick days like an hour
+
+550
+00:24:38.660 --> 00:24:41.640
+every day spread one sick day over a
+
+551
+00:24:41.640 --> 00:24:44.180
+whole week. Yeah. Can I make that work?
+
+552
+00:24:45.240 --> 00:24:47.640
+We'll see. HR must have to weigh in on
+
+553
+00:24:47.640 --> 00:24:50.070
+that. Fair enough, But
+
+554
+00:24:50.540 --> 00:24:52.870
+yeah, so you know that's
+
+555
+00:24:52.870 --> 00:24:55.030
+2020. Now we're heading into
+
+556
+00:24:55.030 --> 00:24:57.970
+2021. And, you know, we've got a new
+
+557
+00:24:58.340 --> 00:25:01.100
+slew of opportunities for high school weekly podcast, and
+
+558
+00:25:01.100 --> 00:25:04.040
+we actually also would love to invite any of our listeners
+
+559
+00:25:04.050 --> 00:25:06.660
+or block post authors who are
+
+560
+00:25:06.670 --> 00:25:09.550
+interested in maybe sharing what they have to say on high
+
+561
+00:25:09.550 --> 00:25:11.830
+school podcast we love for you to reach out.
+
+562
+00:25:11.840 --> 00:25:14.060
+Um, Taylor, where can they find us?
+
+563
+00:25:14.840 --> 00:25:17.840
+>> Yeah, I was gonna say, uh, we have mentioned that before, kind of
+
+564
+00:25:17.840 --> 00:25:20.700
+in passing. But really, if you want to be a guest on the podcast, if you got something to
+
+565
+00:25:20.700 --> 00:25:23.680
+say or if we have grossly misrepresented one of your own
+
+566
+00:25:23.680 --> 00:25:26.070
+block posts, please come on and correct the record.
+
+567
+00:25:26.080 --> 00:25:28.660
+Uh, and you can find us at
+
+568
+00:25:28.670 --> 00:25:31.100
+Haskell weekly dot news or you can email us
+
+569
+00:25:31.110 --> 00:25:34.070
+at info at Haskell weekly dot news
+
+570
+00:25:34.440 --> 00:25:37.190
+or Twitter. Our handle is Haskell
+
+571
+00:25:37.190 --> 00:25:39.570
+Weekly. Those are all the best ways to get us or on get hub.
+
+572
+00:25:39.940 --> 00:25:42.560
+Our user name is Haskell Weekly, and you could make an issue on the
+
+573
+00:25:42.560 --> 00:25:45.490
+repo or pull request or whatever. Um, any of those
+
+574
+00:25:45.490 --> 00:25:48.450
+places I will hopefully notice and get
+
+575
+00:25:48.450 --> 00:25:48.730
+back to
+
+576
+00:25:48.730 --> 00:25:51.500
+>> you. Yeah. Or you can look up Taylor Fausak on
+
+577
+00:25:51.500 --> 00:25:53.860
+Google. Find this phone number and call them.
+
+578
+00:25:54.340 --> 00:25:56.680
+>> Please don't. Hopefully my number is not online, but
+
+579
+00:25:57.140 --> 00:25:58.420
+screen all my calls.
+
+580
+00:25:58.430 --> 00:26:01.370
+>> A tous point. I feel like everything's online.
+
+581
+00:26:01.840 --> 00:26:03.450
+Want. Want somebody to
+
+582
+00:26:03.450 --> 00:26:04.790
+>> call me on key base or something,
+
+583
+00:26:04.790 --> 00:26:07.470
+>> but shell phone
+
+584
+00:26:07.480 --> 00:26:09.970
+just you know
+
+585
+00:26:09.980 --> 00:26:12.490
+anything? Let's not get into song here.
+
+586
+00:26:12.500 --> 00:26:15.000
+Uh, yeah. No. So thank you. All
+
+587
+00:26:15.000 --> 00:26:17.550
+listeners who joined us today. We really
+
+588
+00:26:17.550 --> 00:26:20.330
+enjoyed having Taylor on the show. Thank you again,
+
+589
+00:26:20.330 --> 00:26:20.770
+man.
+
+590
+00:26:21.640 --> 00:26:24.450
+>> Yeah, thanks for hosting. And, uh, you know,
+
+591
+00:26:24.450 --> 00:26:27.350
+hopefully my another one of my resolutions here in
+
+592
+00:26:27.350 --> 00:26:29.690
+2021 is to actually record one of these
+
+593
+00:26:29.690 --> 00:26:32.670
+podcasts every week. We did pretty good toward the end of the
+
+594
+00:26:32.670 --> 00:26:35.660
+year last year on, we did pretty good when we started, but there have
+
+595
+00:26:35.660 --> 00:26:38.480
+been some big sabbaticals in between. So
+
+596
+00:26:38.480 --> 00:26:39.630
+this year, hopefully we'll do better.
+
+597
+00:26:39.640 --> 00:26:42.540
+>> Hopefully, this year will be consistent because, um,
+
+598
+00:26:42.550 --> 00:26:45.550
+you know, our sponsor I.T. pro T.V. is allowing
+
+599
+00:26:45.550 --> 00:26:48.430
+us to do this. And so we wanna thank them. Um, they also
+
+600
+00:26:48.430 --> 00:26:51.130
+want to thank you for listening. So if you're interested in
+
+601
+00:26:51.140 --> 00:26:54.040
+I.T. pro T.V. ve learning platform for I.T.
+
+602
+00:26:54.040 --> 00:26:56.750
+professionals, I encourage you to goto I.T. pro dot
+
+603
+00:26:56.750 --> 00:26:59.490
+T.V. and see what we have to offer. And if you're
+
+604
+00:26:59.500 --> 00:27:02.410
+interested in a subscription, uh, there is a promo
+
+605
+00:27:02.410 --> 00:27:04.950
+code available to you. It is Haskell Weekly
+
+606
+00:27:04.960 --> 00:27:07.760
+30 that you can put in a
+
+607
+00:27:07.760 --> 00:27:10.340
+check out, and that will apply 30% off the
+
+608
+00:27:10.340 --> 00:27:13.050
+lifetime of your subscription, so we would definitely
+
+609
+00:27:13.050 --> 00:27:15.950
+encourage you to check it out. And we really appreciate you being on
+
+610
+00:27:15.950 --> 00:27:18.840
+today. E. I think that's all I've got anything else to
+
+611
+00:27:18.840 --> 00:27:19.460
+add? Taylor?
+
+612
+00:27:20.340 --> 00:27:23.340
+>> Uh, that is it. Happy hacking, Have a
+
+613
+00:27:23.340 --> 00:27:25.450
+good year and Audio's
+
+614
+00:27:25.840 --> 00:27:26.560
+posts.
