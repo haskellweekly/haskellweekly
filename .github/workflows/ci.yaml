@@ -15,16 +15,16 @@ jobs:
         os:
           - ubuntu-18.04
         ghc:
-          - 8.10.2
+          - 8.10.3
         cabal:
-          - 3.4.0.0
+          - 3.2.0.0
     runs-on: ${{ matrix.os }}
     steps:
       - id: haskell
-        uses: actions/setup-haskell@v1
+        uses: haskell/actions/setup@v1
         with:
-          ghc-version: 8.10.3
-          cabal-version: 3.2.0.0
+          ghc-version: ${{ matrix.ghc }}
+          cabal-version: ${{ matrix.cabal }}
 
       - uses: actions/checkout@v2
 
