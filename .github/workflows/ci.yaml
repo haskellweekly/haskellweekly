@@ -1,3 +1,5 @@
+name: CI
+
 on:
   pull_request:
     branches:
@@ -5,8 +7,8 @@ on:
   push:
     branches:
       - haskellweekly
-jobs:
 
+jobs:
   build:
     strategy:
       matrix:
@@ -18,12 +20,11 @@ jobs:
           - 3.4.0.0
     runs-on: ${{ matrix.os }}
     steps:
-
       - id: haskell
         uses: actions/setup-haskell@v1
         with:
-          ghc-version: 8.10.2
-          cabal-version: 3.4.0.0
+          ghc-version: 8.10.3
+          cabal-version: 3.2.0.0
 
       - uses: actions/checkout@v2
 
