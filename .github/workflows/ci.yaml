@@ -71,6 +71,8 @@ jobs:
         with:
           name: haskellweekly-${{ github.sha }}
           path: docker/haskellweekly
+          
+      - run: chmod +x docker/haskellweekly
 
       - uses: docker/build-push-action@v2
         with:
