@@ -17,6 +17,9 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 
 undefined
 
+- [Calling C++ from Haskell](https://luctielen.com/posts/calling_cpp_from_haskell/) by Luc Tielen
+  > In this article, I show some techniques for calling C++ code from Haskell without using TemplateHaskell.
+
 ## Show & tell
 
 undefined
