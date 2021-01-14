@@ -24,4 +24,5 @@ undefined
 
 ## Call for participation
 
-undefined
+-   [owenbot-hs: Add support for Nitro emojis in ReactHandler.hs](https://github.com/yellowtides/owenbot-hs/issues/4)
+-   [spacecookie: Let users configure custom file type mappings](https://github.com/sternenseemann/spacecookie/issues/36)
