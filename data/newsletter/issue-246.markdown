@@ -68,10 +68,6 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 - [Why exactly I want Boring Haskell to happen](https://tek.brick.do/a6d9388a-208e-4b18-a219-85457faf69aa) by Artyom Kazak
   > My working hypothesis right now is that Haskell should be split into "Haskell" and "Boring Haskell".
 
-## Show & tell
-
-undefined
-
 ## Call for participation
 
 -   [owenbot-hs: Add support for Nitro emojis in ReactHandler.hs](https://github.com/yellowtides/owenbot-hs/issues/4)
