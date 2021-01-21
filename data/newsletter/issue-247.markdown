@@ -10,6 +10,9 @@ This is a weekly summary of what's going on in its community.
 - [A bulletin board website using Haskell, scotty and friends](https://gilmi.me/blog/post/2021/01/15/bulletin-app) by Gil Mizrahi
   > After writing my blog post on building a bulletin board, I decided spend a couple of weeks and build something a bit more featureful to serve as an example of doing something a bit more complex with scotty.
 
+- [Capturing call stack with Haskell exceptions](https://maksbotan.github.io/posts/2021-01-20-callstacks.html) by Maxim Koltsov
+  > Recently I discovered a nice way to capture call stack in Haskell exceptions almost transparently, and I’m going to share it in this post.
+
 - [Choosing Haskell isn’t a stand-in for good software design](https://ozataman.medium.com/choosing-haskell-isnt-a-stand-in-for-good-software-design-7d893882f963) by Ozgun Ataman
   > Haskell, or any other particular language for that matter, does not automatically solve all problems related to architecture and macro-level decision-making in software production.
 
@@ -57,10 +60,6 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 
 - [Towards Hoare logic for a small imperative language in Haskell](https://bor0.wordpress.com/2021/01/18/towards-hoare-logic-for-a-small-imperative-language-in-haskell/) by Boro Sitnikovski
   > We will implement a small imperative language together with (a very simple) Hoare Logic that will allow us to reason about programs in this imperative language.
-
-## Show & tell
-
-undefined
 
 ## Call for participation
 
