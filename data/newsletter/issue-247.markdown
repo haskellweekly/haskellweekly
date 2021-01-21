@@ -28,7 +28,7 @@ This is a weekly summary of what's going on in its community.
 - [Maybe Overuse, Stories About Error Information Loss](https://rpeszek.github.io/posts/2021-01-17-maybe-overuse.html) by Robert Peszek
   > Maybe is the functional answer to null - the billion dollar mistake. I claim that using Maybe can still be problematic.
 
-- [Panel: Dependent Types - salvation or plague?](https://www.airmeet.com/e/4d96c880-5982-11eb-ac04-6124f038041d) by John Huges
+- [Panel: Dependent Types - salvation or plague?](https://www.airmeet.com/e/4d96c880-5982-11eb-ac04-6124f038041d) by John Hughes
   > Final preparations for Lambda Days 2021 are in full swing! You can have a taste of the February event by joining our completely free and open meetup.
 
 ## Jobs
