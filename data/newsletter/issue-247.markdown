@@ -61,4 +61,4 @@ undefined
 
 ## Call for participation
 
-undefined
+-   [purebred: Add user-agent to outgoing mail](https://github.com/purebred-mua/purebred/issues/414)
