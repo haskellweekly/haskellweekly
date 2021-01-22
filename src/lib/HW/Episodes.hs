@@ -63,6 +63,7 @@ episodes = do
     , episode31
     , episode32
     , episode33
+    , episode34
     ]
   checkGuids validEpisodes Set.empty
   checkNumbers validEpisodes 1
@@ -607,3 +608,16 @@ episode33 = Episode.Episode
   <*> Size.fromNatural 29472217
   <*> Summary.fromText "Using Adam Wespiser's blog post as a jumping off point, Cameron Gera and Taylor Fausak look back on a year of Haskell."
   <*> Title.fromText "2020 Retrospective"
+
+episode34 :: Either String Episode.Episode
+episode34 = Episode.Episode
+  <$> Articles.fromList
+    [ "https://www.foxhound.systems/blog/why-haskell-for-production/"
+    ]
+  <*> Date.fromGregorian 2021 1 22
+  <*> Duration.fromTimestamp 26 4
+  <*> Guid.fromText "21471901-5115-479d-85dd-cc1a31deb997"
+  <*> Number.fromNatural 34
+  <*> Size.fromNatural 27275545
+  <*> Summary.fromText "Christian Charukiewicz at Foxhound Systems wrote a list of reasons to prefer Haskell for building production systems. Cameron Gera and Taylor Fausak review the list and share their experience at ITProTV."
+  <*> Title.fromText "Production Haskell"

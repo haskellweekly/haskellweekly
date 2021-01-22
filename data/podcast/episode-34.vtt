@@ -1,0 +1,2269 @@
+WEBVTT
+
+1
+00:00:04.840 --> 00:00:07.780
+>> Taylor: Hello and welcome
+
+2
+00:00:07.780 --> 00:00:10.510
+to the Haskell weekly podcast. I'm your host,
+
+3
+00:00:10.520 --> 00:00:13.290
+Taylor Fausak. I'm the lead engineer at
+
+4
+00:00:13.290 --> 00:00:16.100
+ITProTV. And with me today is one of the
+
+5
+00:00:16.100 --> 00:00:18.960
+engineers on my team and my co host, Cameron
+
+6
+00:00:18.960 --> 00:00:20.560
+Gera. Thanks for joining me, Cam.
+
+7
+00:00:20.940 --> 00:00:22.650
+>> Cameron: Hey, thanks for having me. Glad to be here.
+
+8
+00:00:23.340 --> 00:00:26.170
+>> Always good to have you. So what are we talking about
+
+9
+00:00:26.170 --> 00:00:26.760
+today, Cam?
+
+10
+00:00:27.140 --> 00:00:29.270
+>> Well, you know, as an
+
+11
+00:00:29.280 --> 00:00:32.220
+organization that uses Haskell in production every day,
+
+12
+00:00:32.230 --> 00:00:35.040
+I figured we should take the chance to
+
+13
+00:00:35.050 --> 00:00:37.910
+review this post by Christian at
+
+14
+00:00:37.910 --> 00:00:40.760
+Foxhound Systems, where he talks about why
+
+15
+00:00:40.760 --> 00:00:43.600
+Haskell is their first choice for building production
+
+16
+00:00:43.600 --> 00:00:46.570
+software systems and coincides a lot with what we do here
+
+17
+00:00:46.570 --> 00:00:49.360
+at ITProTV. So, you know, really going to talk about our
+
+18
+00:00:49.360 --> 00:00:52.060
+experience today and how it relates to some of the
+
+19
+00:00:52.070 --> 00:00:54.180
+really great things that Haskell provides us.
+
+20
+00:00:54.190 --> 00:00:57.150
+>> Yeah. We were joking earlier today that
+
+21
+00:00:57.160 --> 00:01:00.050
+we could have written this blog post like every point we
+
+22
+00:01:00.050 --> 00:01:02.550
+like. Yep. Yep. We've seen that, too. Same stuff.
+
+23
+00:01:03.140 --> 00:01:05.710
+>> We like that. Yep. That's great too. Learning
+
+24
+00:01:05.710 --> 00:01:07.760
+curve, kind of tough, but we still love it.
+
+25
+00:01:08.640 --> 00:01:11.620
+>> Mhm. Yeah, and I guess we can jump
+
+26
+00:01:11.620 --> 00:01:14.150
+right in. So he broke this down into, like, nine
+
+27
+00:01:14.160 --> 00:01:16.980
+big points about why he prefers Haskell
+
+28
+00:01:16.990 --> 00:01:19.460
+and we'll dig in each one of them a little bit.
+
+29
+00:01:19.840 --> 00:01:22.840
+The first one is maybe the least surprising,
+
+30
+00:01:22.850 --> 00:01:25.740
+which is the strong, static type system. I think
+
+31
+00:01:25.750 --> 00:01:28.270
+everybody talks about this when it comes to
+
+32
+00:01:28.270 --> 00:01:31.240
+Haskell, but it's worth remarking like, Yeah, it is
+
+33
+00:01:31.240 --> 00:01:34.220
+good. It does help prevent errors and reduce
+
+34
+00:01:34.220 --> 00:01:35.260
+cognitive load.
+
+35
+00:01:35.270 --> 00:01:37.970
+>> So you're telling me Haskell isn't the new
+
+36
+00:01:37.970 --> 00:01:40.670
+JavaScript? It's not the wild, Wild West anymore?
+
+37
+00:01:41.640 --> 00:01:44.140
+>> Well, JavaScript has TypeScript these days,
+
+38
+00:01:44.140 --> 00:01:47.050
+but it's better... The type system in Haskell
+
+39
+00:01:47.050 --> 00:01:49.810
+is better than the one in TypeScript, I think.
+
+40
+00:01:49.820 --> 00:01:52.700
+>> For sure. Hands down, hands down. Yeah. No, I
+
+41
+00:01:52.700 --> 00:01:55.510
+think it was... You know, after the
+
+42
+00:01:55.510 --> 00:01:58.500
+learning curve, which I feel like a lot of people have as a con
+
+43
+00:01:58.500 --> 00:02:00.850
+of learning, you know, doing Haskell in production.
+
+44
+00:02:01.240 --> 00:02:04.230
+The cognitive load really does get reduced because
+
+45
+00:02:04.230 --> 00:02:07.190
+you're not thinking about Yeah. Is this
+
+46
+00:02:07.190 --> 00:02:10.010
+gonna work? Is, um I'm gonna get a runtime error here. You're going to
+
+47
+00:02:10.010 --> 00:02:12.450
+see it 95% of the time
+
+48
+00:02:13.140 --> 00:02:15.580
+in the compiler. The compiler's gonna say, Hey yeah, That's not
+
+49
+00:02:15.580 --> 00:02:18.450
+the That's not the right thing to do here. You're gonna get
+
+50
+00:02:18.450 --> 00:02:19.830
+some type mismatch.
+
+51
+00:02:19.840 --> 00:02:22.740
+>> Yeah, and the most basic example is like, Is something
+
+52
+00:02:22.740 --> 00:02:25.240
+null or is it optional or whatever? And this is
+
+53
+00:02:25.240 --> 00:02:28.140
+where, when you compare the languages like Java, you
+
+54
+00:02:28.140 --> 00:02:31.080
+get a huge benefit by using Haskell,
+
+55
+00:02:31.080 --> 00:02:33.850
+because in Java anything could be null. But in
+
+56
+00:02:33.850 --> 00:02:36.760
+Haskell, only stuff that is marked as maybe can be null.
+
+57
+00:02:36.790 --> 00:02:39.440
+>> Yeah, there's no if this equal
+
+58
+00:02:39.440 --> 00:02:42.440
+null, do this, it's There's no having to check that, which
+
+59
+00:02:42.440 --> 00:02:42.760
+is, super helpful.
+
+60
+00:02:43.340 --> 00:02:46.330
+>> Yeah, it's amazing to me. So, like in
+
+61
+00:02:46.330 --> 00:02:48.990
+my history, I've did a lot of Ruby reprogramming
+
+62
+00:02:48.990 --> 00:02:51.980
+earlier in my career and, ah,
+
+63
+00:02:51.980 --> 00:02:54.390
+huge portion of the
+
+64
+00:02:54.400 --> 00:02:57.260
+runtime errors that we fixed were
+
+65
+00:02:57.740 --> 00:03:00.400
+nil, which is Ruby's null
+
+66
+00:03:00.410 --> 00:03:03.300
+doesn't you know, have the method whatever we wanted to call it
+
+67
+00:03:03.300 --> 00:03:06.170
+like name or something like that, and it would take
+
+68
+00:03:06.170 --> 00:03:09.070
+forever to track these things down because normally the null came
+
+69
+00:03:09.070 --> 00:03:11.910
+into your system, and then it gets passed around by like,
+
+70
+00:03:11.910 --> 00:03:14.880
+15 different functions, and finally, something tries to call something on, and it's
+
+71
+00:03:14.890 --> 00:03:17.690
+totally disconnected from where it came from. We just
+
+72
+00:03:17.700 --> 00:03:20.420
+don't have those problems in Haskell. We never run into that
+
+73
+00:03:20.420 --> 00:03:20.950
+stuff.
+
+74
+00:03:20.960 --> 00:03:23.540
+>> Yeah, in the legacy
+
+75
+00:03:23.750 --> 00:03:26.720
+JavaScript API, Yeah, we definitely had that experience as well. it
+
+76
+00:03:26.730 --> 00:03:29.540
+would be like, Yeah, push this to production And we wrote
+
+77
+00:03:29.540 --> 00:03:32.530
+test cases and we can write the test case in case
+
+78
+00:03:32.530 --> 00:03:35.080
+somebody can put anything in. And there you go, run time exception
+
+79
+00:03:35.080 --> 00:03:37.530
+that's, you know, kind of difficult and
+
+80
+00:03:37.540 --> 00:03:40.490
+dispersed when you're trying to, figure out what's going
+
+81
+00:03:40.490 --> 00:03:43.460
+on. Another great, um, you know,
+
+82
+00:03:43.840 --> 00:03:46.700
+thing that reduced cognitive load the fact that types kind of
+
+83
+00:03:46.710 --> 00:03:49.450
+act as a documentation source like I mean,
+
+84
+00:03:49.460 --> 00:03:52.310
+obviously there's implementations where
+
+85
+00:03:52.320 --> 00:03:54.950
+you can use Swagger's documentation to
+
+86
+00:03:54.950 --> 00:03:57.440
+operate auto, generate API documentation and
+
+87
+00:03:57.440 --> 00:04:00.110
+such. But I don't think he's really talking about that
+
+88
+00:04:00.120 --> 00:04:02.950
+here. He's more just talking about you can read
+
+89
+00:04:03.440 --> 00:04:06.230
+a type and he said, Oh, the
+
+90
+00:04:06.230 --> 00:04:09.180
+type person, Yeah, that's
+
+91
+00:04:09.180 --> 00:04:12.050
+going to be dealing with a person may be Have the
+
+92
+00:04:12.050 --> 00:04:14.970
+name of that age, all these different things and,
+
+93
+00:04:14.980 --> 00:04:17.970
+you know, you read the type. You know what it is or what
+
+94
+00:04:18.440 --> 00:04:21.100
+Well, it will probably do within the system,
+
+95
+00:04:21.110 --> 00:04:24.060
+>> and there are exceptions to this. So if you have a function that has type
+
+96
+00:04:24.060 --> 00:04:26.880
+like I take three strings and I give you back a
+
+97
+00:04:26.880 --> 00:04:29.660
+string. Good luck figuring out what it actually does. You'll need to read the
+
+98
+00:04:29.660 --> 00:04:31.200
+documentation, but
+
+99
+00:04:31.210 --> 00:04:33.720
+>> that's why you have types type around those kind of
+
+100
+00:04:33.720 --> 00:04:34.220
+things.
+
+101
+00:04:34.230 --> 00:04:37.010
+>> Exactly. And, a lot of functions have more specific
+
+102
+00:04:37.010 --> 00:04:39.380
+types in that. So it's still useful. And
+
+103
+00:04:39.390 --> 00:04:41.740
+another place that this is really useful is
+
+104
+00:04:41.750 --> 00:04:44.680
+searching. And, like almost getting to the
+
+105
+00:04:44.680 --> 00:04:47.540
+point of program synthesis, having the program write itself where you're
+
+106
+00:04:47.540 --> 00:04:50.480
+like, I don't know what goes here. So I'll put an underscore
+
+107
+00:04:50.480 --> 00:04:53.410
+and have GHC tell me the things that can go in
+
+108
+00:04:53.410 --> 00:04:56.320
+there where all the types will line up. Or you can do these searches on
+
+109
+00:04:56.320 --> 00:04:59.150
+Hoogle or Stackage or wherever. Um, but
+
+110
+00:04:59.150 --> 00:05:01.830
+it's really powerful to say like, I know we have a
+
+111
+00:05:01.830 --> 00:05:04.770
+function that does this. I can't remember what it's called right now.
+
+112
+00:05:04.780 --> 00:05:06.660
+Compiler: Just tell me what to put in here,
+
+113
+00:05:07.040 --> 00:05:10.030
+>> right? Yeah. No, that those aren't
+
+114
+00:05:10.040 --> 00:05:12.450
+exactly typed holes, right? Those were just holes in general.
+
+115
+00:05:12.460 --> 00:05:14.820
+>> No that's typed holes.
+
+116
+00:05:15.200 --> 00:05:17.530
+>> Yeah, well, typed holes are a
+
+117
+00:05:17.530 --> 00:05:20.440
+godsend. You obviously you have to have a
+
+118
+00:05:20.450 --> 00:05:23.430
+problem. You know the package in that
+
+119
+00:05:23.430 --> 00:05:25.950
+module if you're expecting it to give you something. But
+
+120
+00:05:26.540 --> 00:05:28.550
+overall, it's been
+
+121
+00:05:29.240 --> 00:05:32.230
+hands down a great tool for you
+
+122
+00:05:32.230 --> 00:05:34.470
+know, us. As we're working through
+
+123
+00:05:35.540 --> 00:05:37.010
+just day to day actions,
+
+124
+00:05:37.020 --> 00:05:40.010
+>> Yeah and for me, it's been a game changer
+
+125
+00:05:40.010 --> 00:05:42.550
+coming from again my previous experience with dynamic
+
+126
+00:05:42.550 --> 00:05:44.060
+languages because
+
+127
+00:05:45.140 --> 00:05:47.940
+you mentioned you have to have the module in scope, But often you do
+
+128
+00:05:47.940 --> 00:05:50.790
+already because you're dealing with its data types. So you're just like,
+
+129
+00:05:50.800 --> 00:05:53.800
+uh, let's see if there's a conversion functional there is. All right, Cool. I'll use
+
+130
+00:05:53.800 --> 00:05:56.470
+it. Yeah,
+
+131
+00:05:57.240 --> 00:05:59.610
+Speaking of moving on with our life, should we go to the next point?
+
+132
+00:05:59.620 --> 00:06:02.300
+>> I mean, I think so, Yeah. Hey, talks about
+
+133
+00:06:02.300 --> 00:06:05.290
+how Haskell enables writing code that is composable
+
+134
+00:06:05.290 --> 00:06:07.860
+testable and has predictable side effects.
+
+135
+00:06:08.540 --> 00:06:11.470
+>> Yeah, and this dovetails nicely with what we were just
+
+136
+00:06:11.470 --> 00:06:14.460
+talking about. So as a extension of
+
+137
+00:06:14.460 --> 00:06:17.180
+the powerful type system and the reduced cognitive
+
+138
+00:06:17.180 --> 00:06:19.550
+load, all side effects are
+
+139
+00:06:19.550 --> 00:06:22.290
+typically marked as IO
+
+140
+00:06:22.290 --> 00:06:25.090
+or You know, however you manage effects will just say IO throughout
+
+141
+00:06:25.090 --> 00:06:28.050
+here, but it it makes it really easy to reason about
+
+142
+00:06:28.050 --> 00:06:30.660
+stuff, because when you look at a function. You don't have to wonder.
+
+143
+00:06:30.840 --> 00:06:33.820
+Is this reading some environment variable? Or is
+
+144
+00:06:33.820 --> 00:06:36.730
+it writing some file or doing something that can change?
+
+145
+00:06:36.740 --> 00:06:39.500
+Um, no, it's just depending exactly on the types that are passed
+
+146
+00:06:39.500 --> 00:06:40.850
+in, right?
+
+147
+00:06:40.860 --> 00:06:43.640
+>> Yeah. And I think that, you know, helps with
+
+148
+00:06:43.650 --> 00:06:46.530
+your composability, testability as well. You can kind
+
+149
+00:06:46.530 --> 00:06:49.340
+of, you know, construct what you expect the data look
+
+150
+00:06:49.340 --> 00:06:52.300
+like. Pass it through some functions and,
+
+151
+00:06:52.310 --> 00:06:55.110
+you know, test the result like it's not hard to do in
+
+152
+00:06:55.110 --> 00:06:58.040
+Haskell because it's not always a ton of boilerplate
+
+153
+00:06:58.040 --> 00:07:00.790
+you have to set up like if you have your type, you construct it
+
+154
+00:07:00.800 --> 00:07:03.650
+and passed to a function and see what
+
+155
+00:07:03.650 --> 00:07:06.170
+happens right like that, because it's kind of there,
+
+156
+00:07:06.540 --> 00:07:08.460
+um, which I think is a really great benefit.
+
+157
+00:07:08.940 --> 00:07:11.710
+>> Yeah, And in addition to the testing side of
+
+158
+00:07:11.710 --> 00:07:14.570
+this, uh, the purity of the
+
+159
+00:07:14.570 --> 00:07:16.970
+predictable side effects makes it easy to do
+
+160
+00:07:16.980 --> 00:07:19.870
+equation reasoning, which is kind of a consequence
+
+161
+00:07:19.870 --> 00:07:22.520
+of, or a different way of stating referential
+
+162
+00:07:22.520 --> 00:07:25.200
+transparency, where if you have some
+
+163
+00:07:25.200 --> 00:07:28.060
+definition, wherever you use that term, you
+
+164
+00:07:28.060 --> 00:07:30.660
+can replace it with its definition and keep doing that
+
+165
+00:07:30.740 --> 00:07:33.430
+until you can kind of see how things were gonna work.
+
+166
+00:07:33.440 --> 00:07:35.940
+So, uh, typically, you will see
+
+167
+00:07:35.940 --> 00:07:38.670
+examples on blog post of people doing that with, like, a
+
+168
+00:07:38.670 --> 00:07:41.410
+fold where they have the foldr expression,
+
+169
+00:07:41.420 --> 00:07:44.410
+and then they'll, like, go one step and go another step and keep
+
+170
+00:07:44.410 --> 00:07:47.210
+doing that until it's all reduced down to one term. Um,
+
+171
+00:07:47.210 --> 00:07:49.820
+but you could do that to a smaller scale with
+
+172
+00:07:49.830 --> 00:07:52.660
+various functions throughout your code base just to see how they work.
+
+173
+00:07:52.670 --> 00:07:53.950
+It's pretty powerful.
+
+174
+00:07:54.640 --> 00:07:57.320
+>> Yeah, for sure. Um, keep on
+
+175
+00:07:57.320 --> 00:07:59.950
+trucking here. He kind of
+
+176
+00:07:59.960 --> 00:08:02.770
+points at how Haskell facilitates. rapid
+
+177
+00:08:02.780 --> 00:08:05.190
+development, worry free refactoring and
+
+178
+00:08:05.200 --> 00:08:07.800
+excellent maintainability. I think here it
+
+179
+00:08:07.800 --> 00:08:10.760
+ITProTV were in love with the maintainability
+
+180
+00:08:10.760 --> 00:08:11.980
+we have with our Haskell repo.
+
+181
+00:08:11.990 --> 00:08:14.350
+>> We would say that it's egg-cellent.
+
+182
+00:08:14.740 --> 00:08:17.650
+>> We make an internal joke here
+
+183
+00:08:17.650 --> 00:08:20.630
+that we're all eggs. So it's a very good pun
+
+184
+00:08:20.630 --> 00:08:21.100
+there, Taylor.
+
+185
+00:08:21.110 --> 00:08:24.110
+>> Yeah, we had a typo three years ago, and it's just puns
+
+186
+00:08:24.110 --> 00:08:26.850
+nonstop since then. Forever and ever.
+
+187
+00:08:27.440 --> 00:08:30.260
+Anyway, Yeah, I think that the maintainability of
+
+188
+00:08:30.260 --> 00:08:33.090
+Haskell is one of its biggest selling points. And in
+
+189
+00:08:33.090 --> 00:08:35.980
+fact, after the uh, Haskell survey
+
+190
+00:08:35.980 --> 00:08:38.060
+last year, I wrote a blog post saying that,
+
+191
+00:08:38.070 --> 00:08:40.980
+uh, Haskell killer application
+
+192
+00:08:40.990 --> 00:08:43.890
+is maintainability because, um,
+
+193
+00:08:43.900 --> 00:08:46.650
+it's painless to change
+
+194
+00:08:46.650 --> 00:08:49.300
+stuff. And that makes it really easy to keep iterating
+
+195
+00:08:49.300 --> 00:08:52.080
+on development. And just, like, improving
+
+196
+00:08:52.080 --> 00:08:54.770
+stuff without breaking stuff all the time,
+
+197
+00:08:55.140 --> 00:08:55.560
+right?
+
+198
+00:08:56.140 --> 00:08:58.720
+>> Yeah. I want to point back to the rapid
+
+199
+00:08:58.720 --> 00:09:00.970
+development. You know, there's
+
+200
+00:09:00.980 --> 00:09:03.970
+he references ghcid which here
+
+201
+00:09:03.970 --> 00:09:06.240
+at ITProTV We use every single day
+
+202
+00:09:06.250 --> 00:09:09.030
+as something that allows us to be quick
+
+203
+00:09:09.040 --> 00:09:12.040
+When were, you know, writing day to day code, you know,
+
+204
+00:09:12.040 --> 00:09:15.010
+plugging those type holes and we talked about and seeing
+
+205
+00:09:15.010 --> 00:09:17.950
+What? What should we plug in there or, you know
+
+206
+00:09:17.940 --> 00:09:20.860
+Oh, this is a compiler. Let's keep moving. So, you know,
+
+207
+00:09:20.860 --> 00:09:23.830
+there's a lot of I mean, I think
+
+208
+00:09:23.830 --> 00:09:26.120
+ghcid right now is for me the
+
+209
+00:09:26.120 --> 00:09:29.050
+top tool we have in our Haskell tool belt,
+
+210
+00:09:29.060 --> 00:09:31.850
+uh, for rapid development.
+
+211
+00:09:32.340 --> 00:09:35.100
+>> Yeah, and to give a sense of how rapid it
+
+212
+00:09:35.110 --> 00:09:37.890
+is, I don't have the exact numbers, but I think
+
+213
+00:09:37.890 --> 00:09:40.370
+our code bases like under
+
+214
+00:09:40.370 --> 00:09:42.720
+100,000 lines. But roughly around there
+
+215
+00:09:42.730 --> 00:09:45.260
+and with ghcid.
+
+216
+00:09:45.740 --> 00:09:48.620
+We can build it and build it and run our test
+
+217
+00:09:48.620 --> 00:09:51.480
+suite in, like, under five or 10 seconds,
+
+218
+00:09:51.490 --> 00:09:54.410
+depending on what exactly you change. But
+
+219
+00:09:54.410 --> 00:09:57.400
+yeah, like if you want quick feedback on a typed hole, you could
+
+220
+00:09:57.400 --> 00:10:00.040
+get that within seconds, which is fantastic.
+
+221
+00:10:00.050 --> 00:10:02.960
+>> Yeah. You know, another benefit of
+
+222
+00:10:03.040 --> 00:10:05.800
+the type system in general allows us to have a lot of worry
+
+223
+00:10:05.800 --> 00:10:08.800
+free refactoring. Obviously, there's chances that you
+
+224
+00:10:08.800 --> 00:10:11.690
+can create some change in a
+
+225
+00:10:11.690 --> 00:10:14.640
+JSON Key or something along those lines which could create
+
+226
+00:10:14.650 --> 00:10:17.410
+run time errors that you don't catch by the compiler. But
+
+227
+00:10:17.410 --> 00:10:20.400
+95% of the time, if you're using generics
+
+228
+00:10:20.400 --> 00:10:23.320
+and stuff like that, you're gonna be able to keep
+
+229
+00:10:23.320 --> 00:10:26.240
+that pretty maintains as well as having some unit
+
+230
+00:10:26.240 --> 00:10:29.150
+tests and property tests to make sure to go alongside of that too.
+
+231
+00:10:29.340 --> 00:10:32.110
+Just really ensure that you have a very maintained
+
+232
+00:10:32.120 --> 00:10:34.950
+piece of code and refactoring it. Yeah,
+
+233
+00:10:35.440 --> 00:10:38.050
+gets to be a little easier. A little less stressful.
+
+234
+00:10:38.440 --> 00:10:40.930
+>> Makes code review a lot nicer to because you don't have to
+
+235
+00:10:40.930 --> 00:10:43.890
+wonder. Does this all still type? Check because you know it
+
+236
+00:10:43.890 --> 00:10:46.710
+does. Because the build does it for you.
+
+237
+00:10:46.720 --> 00:10:49.500
+>> Like green check Mark. Good to exactly
+
+238
+00:10:49.510 --> 00:10:52.160
+Yeah, Awesome. Let's keep going.
+
+239
+00:10:52.540 --> 00:10:55.050
+>> Yeah, so the next one is talking about performance.
+
+240
+00:10:55.060 --> 00:10:58.020
+Uh, Haskell programs have stellar performance,
+
+241
+00:10:58.030 --> 00:11:00.730
+uh, leading to faster applications and lower hardware
+
+242
+00:11:00.730 --> 00:11:03.510
+costs. So we've seen this to be true. It's been
+
+243
+00:11:03.510 --> 00:11:06.210
+kind of surprising to me that we're running
+
+244
+00:11:06.220 --> 00:11:08.810
+ah, lot of our infrastructure on pretty much the
+
+245
+00:11:08.810 --> 00:11:11.650
+smallest Amazon instances that we can.
+
+246
+00:11:11.840 --> 00:11:14.590
+And it just works like we haven't really done
+
+247
+00:11:14.590 --> 00:11:17.360
+anything special. No profiling, no, like optimized
+
+248
+00:11:17.360 --> 00:11:19.950
+builds or anything like that. I mean, they're optimized, but not
+
+249
+00:11:19.960 --> 00:11:22.880
+especially optimized. Um, and it
+
+250
+00:11:22.880 --> 00:11:25.760
+just works. Um, and again
+
+251
+00:11:25.760 --> 00:11:28.710
+drawing on my history, I used to work with Ruby applications and we would
+
+252
+00:11:28.710 --> 00:11:31.500
+have maybe scores of them
+
+253
+00:11:31.500 --> 00:11:34.330
+running. And you've got, like, a reverse proxy in front of all of
+
+254
+00:11:34.330 --> 00:11:37.240
+them, and they run out of memory all the time, and then you have to
+
+255
+00:11:37.240 --> 00:11:39.790
+kill them and restart them, and we just don't have to deal with any of
+
+256
+00:11:39.790 --> 00:11:40.850
+that.
+
+257
+00:11:41.440 --> 00:11:44.040
+>> Yeah, no, I think for me this
+
+258
+00:11:44.040 --> 00:11:46.990
+point was kind of like the Oh, wow. Dang, that's
+
+259
+00:11:46.990 --> 00:11:49.960
+cool. Because he did a great comparison with, you know, scripting
+
+260
+00:11:49.960 --> 00:11:52.890
+language like PHP versus You
+
+261
+00:11:52.890 --> 00:11:55.870
+know the Haskell equivalent, right? They
+
+262
+00:11:55.880 --> 00:11:58.510
+run the same code there. Same in point. Same
+
+263
+00:11:58.510 --> 00:12:01.510
+database usage, Same payload
+
+264
+00:12:01.520 --> 00:12:04.450
+on and are saying load
+
+265
+00:12:04.460 --> 00:12:07.280
+of users. And you know,
+
+266
+00:12:07.290 --> 00:12:10.280
+he you know, the cost is
+
+267
+00:12:10.280 --> 00:12:12.430
+like 1/16 of what? The PHP,
+
+268
+00:12:12.440 --> 00:12:15.240
+uh, you know, runs. And he's running
+
+269
+00:12:15.240 --> 00:12:17.880
+four services rather than four
+
+270
+00:12:17.880 --> 00:12:20.820
+instances of the service rather than the two that he was for PHP. So,
+
+271
+00:12:20.820 --> 00:12:23.580
+like that to me was like, Whoa, like, 16
+
+272
+00:12:23.580 --> 00:12:24.460
+times smaller.
+
+273
+00:12:24.940 --> 00:12:27.890
+>> Yeah. I think you got the numbers backwards there. So
+
+274
+00:12:27.890 --> 00:12:30.620
+they were running four copies of the PHP
+
+275
+00:12:30.620 --> 00:12:33.250
+server because they needed the additional infrastructure.
+
+276
+00:12:33.640 --> 00:12:36.460
+And I think they're running two of the Haskell one.
+
+277
+00:12:37.440 --> 00:12:39.890
+Oh, no. Did I? Oh, I got that backwards. Sorry. I'm bad at reading
+
+278
+00:12:39.890 --> 00:12:42.740
+tables. You were right. So, yeah,
+
+279
+00:12:42.740 --> 00:12:45.640
+they're running smaller services and more
+
+280
+00:12:45.640 --> 00:12:46.150
+of them.
+
+281
+00:12:46.540 --> 00:12:49.150
+>> Yeah. And the, you know, the larger
+
+282
+00:12:49.540 --> 00:12:52.470
+PHP instances had,
+
+283
+00:12:52.480 --> 00:12:54.480
+you know, four dedicated CPU cores.
+
+284
+00:12:54.490 --> 00:12:55.040
+>> Yeah.
+
+285
+00:12:55.050 --> 00:12:55.700
+>> Where...
+
+286
+00:12:55.710 --> 00:12:58.590
+>> And they had, like, 16 times as much. RAM
+
+287
+00:12:58.600 --> 00:12:59.680
+right?
+
+288
+00:12:59.690 --> 00:13:02.170
+>> Yeah, like half gig RAM on that.
+
+289
+00:13:02.540 --> 00:13:05.250
+Yeah. Since it's just bonkers that you know,
+
+290
+00:13:05.740 --> 00:13:08.050
+they're and they're also outperforming the
+
+291
+00:13:08.050 --> 00:13:10.890
+PHP instances like by, you
+
+292
+00:13:10.890 --> 00:13:13.600
+know, you know, milliseconds, but still yeah,
+
+293
+00:13:13.610 --> 00:13:16.350
+its's still pretty substantial when you're dealing with
+
+294
+00:13:16.360 --> 00:13:19.060
+hundreds of thousands of requests per minute. Like
+
+295
+00:13:19.060 --> 00:13:20.470
+that's important.
+
+296
+00:13:22.440 --> 00:13:25.370
+>> Yeah, he says. Haskell outperforms PHP by
+
+297
+00:13:25.370 --> 00:13:28.360
+at least an order of magnitude. So I
+
+298
+00:13:28.360 --> 00:13:31.350
+think, yeah, that. I mean, we don't have a
+
+299
+00:13:31.350 --> 00:13:33.850
+like-for-like comparison to make their
+
+300
+00:13:33.860 --> 00:13:36.630
+from our experience. Like you've mentioned earlier.
+
+301
+00:13:36.630 --> 00:13:39.570
+We do have a legacy JavaScript, API that we are migrating
+
+302
+00:13:39.570 --> 00:13:42.160
+away from, but we haven't
+
+303
+00:13:42.170 --> 00:13:44.970
+done any like, Okay, let's move this in
+
+304
+00:13:44.970 --> 00:13:47.940
+point from here to there and measure the
+
+305
+00:13:47.940 --> 00:13:49.350
+performance along the way.
+
+306
+00:13:51.540 --> 00:13:54.420
+But, like I mentioned all of our services are
+
+307
+00:13:54.420 --> 00:13:57.390
+running on tiny AWS machines and it's working great.
+
+308
+00:13:57.400 --> 00:14:00.260
+>> So, yeah, there's not necessarily for us a reason
+
+309
+00:14:00.260 --> 00:14:02.970
+to we'll keep. We have a lot of other
+
+310
+00:14:02.970 --> 00:14:05.810
+projects going on that we can't really sit there and tweak the
+
+311
+00:14:05.820 --> 00:14:08.770
+benchmarking. Yeah, benchmarking for us isn't
+
+312
+00:14:09.340 --> 00:14:12.240
+as important at the moment now as you scale. You wanna keep
+
+313
+00:14:12.240 --> 00:14:15.210
+that in mind? But for us, it hasn't really been a
+
+314
+00:14:15.210 --> 00:14:18.050
+concern, but yeah,
+
+315
+00:14:18.060 --> 00:14:21.000
+let's get Let's keep moving. We've got the next one,
+
+316
+00:14:21.000 --> 00:14:23.740
+which is Haskell's great for domain modeling and preventing
+
+317
+00:14:23.750 --> 00:14:26.400
+errors in domain logic. Right? So this is
+
+318
+00:14:26.400 --> 00:14:29.280
+about kind of being able to create data
+
+319
+00:14:29.280 --> 00:14:32.110
+types that clearly express what you're trying
+
+320
+00:14:32.110 --> 00:14:34.840
+to do give you
+
+321
+00:14:34.950 --> 00:14:37.650
+records that make sense that keep everybody
+
+322
+00:14:38.140 --> 00:14:40.780
+you know, keep everything in order, allows you to give data
+
+323
+00:14:40.780 --> 00:14:43.640
+types to these specific fields on the record,
+
+324
+00:14:43.650 --> 00:14:46.540
+and you can really crack through and know,
+
+325
+00:14:46.540 --> 00:14:49.300
+Okay, this is this is what I'm dealing with every step of the
+
+326
+00:14:49.300 --> 00:14:49.570
+way.
+
+327
+00:14:50.040 --> 00:14:52.870
+>> Mhm. And for me, once I
+
+328
+00:14:52.870 --> 00:14:55.740
+had Haskell's data types, like
+
+329
+00:14:55.740 --> 00:14:58.590
+as a tool in my tool belt. I
+
+330
+00:14:58.590 --> 00:15:01.580
+started to wonder how I ever did anything before, because
+
+331
+00:15:01.580 --> 00:15:04.550
+so often what I want is a
+
+332
+00:15:04.560 --> 00:15:07.550
+record of data. So, like a
+
+333
+00:15:07.940 --> 00:15:10.900
+you know, person with a bunch of fields on it, and
+
+334
+00:15:10.900 --> 00:15:13.770
+each of those has their own type. And then in
+
+335
+00:15:13.770 --> 00:15:16.630
+addition to that, I want something that lets me select between
+
+336
+00:15:16.630 --> 00:15:19.410
+different things. So, like usually, this would be an
+
+337
+00:15:19.410 --> 00:15:22.200
+enum and other languages and enums can't have
+
+338
+00:15:22.210 --> 00:15:24.740
+data associated. But in Haskell, you can
+
+339
+00:15:24.740 --> 00:15:27.630
+have whatever arbitrary data on there you want. So you can
+
+340
+00:15:27.630 --> 00:15:30.600
+say, like your two tools here
+
+341
+00:15:30.600 --> 00:15:33.440
+are I have one thing with a bunch of named fields on it,
+
+342
+00:15:33.450 --> 00:15:36.280
+or I have a choice between all these other things.
+
+343
+00:15:36.290 --> 00:15:38.470
+And with those two, you can represent
+
+344
+00:15:38.940 --> 00:15:41.490
+basically everything. And it feels great to do
+
+345
+00:15:41.490 --> 00:15:42.200
+it.
+
+346
+00:15:42.210 --> 00:15:44.980
+>> Yeah, yeah, ADTs where life changer, for
+
+347
+00:15:44.980 --> 00:15:47.760
+sure. I mean, I've even today
+
+348
+00:15:48.540 --> 00:15:51.490
+I didn't do it in Haskell, but I've been doing a lot in Elm.
+
+349
+00:15:51.490 --> 00:15:54.490
+So far as pattern matching is concerned. And I think that was, you know,
+
+350
+00:15:54.500 --> 00:15:57.060
+just incredible that the compiler can catch that
+
+351
+00:15:57.740 --> 00:16:00.660
+as long as you have the warnings enabled. That's, you know, the Catch
+
+352
+00:16:00.660 --> 00:16:03.530
+22 there. But you know, you have warn all or warn error you're
+
+353
+00:16:03.530 --> 00:16:05.780
+gonna be able to see if you add
+
+354
+00:16:05.790 --> 00:16:08.670
+something to else to the ADT
+
+355
+00:16:08.680 --> 00:16:11.230
+You're gonna get a compiler and says,
+
+356
+00:16:11.230 --> 00:16:13.690
+Hey, check this out. You're missing
+
+357
+00:16:13.700 --> 00:16:15.940
+non exhaustive pattern matching here,
+
+358
+00:16:15.950 --> 00:16:17.570
+and I think that
+
+359
+00:16:19.540 --> 00:16:22.480
+>> A good example of this from the blog post is like if
+
+360
+00:16:22.480 --> 00:16:24.670
+you have something that's modeling and invoice
+
+361
+00:16:25.040 --> 00:16:27.760
+in a more, like in javascript, you might
+
+362
+00:16:27.760 --> 00:16:30.690
+have a field on the invoice that says, Is it
+
+363
+00:16:30.690 --> 00:16:33.590
+paid or not? And that thing would be a Boolean, and it's true or false.
+
+364
+00:16:33.600 --> 00:16:36.410
+And then, as your system grows, you like crap we need to
+
+365
+00:16:36.410 --> 00:16:39.330
+represent, Uh, this thing can be canceled
+
+366
+00:16:39.340 --> 00:16:41.780
+in addition to either being not paid yet or paid.
+
+367
+00:16:42.140 --> 00:16:44.900
+Um, and so you would either
+
+368
+00:16:44.900 --> 00:16:47.900
+add another field that says canceled. And then you have to worry about Well, what
+
+369
+00:16:47.900 --> 00:16:50.730
+if it's paid, but but also
+
+370
+00:16:50.730 --> 00:16:53.720
+canceled? Does that even make sense? Um, and in
+
+371
+00:16:53.720 --> 00:16:56.480
+Haskell instead, you can have an ADT that says your
+
+372
+00:16:56.480 --> 00:16:59.120
+status is either unpaid, paid
+
+373
+00:16:59.130 --> 00:17:01.800
+or canceled. And when you go and add that canceled one
+
+374
+00:17:01.800 --> 00:17:04.760
+later, the compiler will tell you these are the places
+
+375
+00:17:04.760 --> 00:17:07.350
+where you need to go update your code. So this ties back with that,
+
+376
+00:17:07.740 --> 00:17:10.560
+you know, powerful. Uh, refactoring and
+
+377
+00:17:10.560 --> 00:17:13.330
+rapid development we were talking about earlier. You just
+
+378
+00:17:13.340 --> 00:17:16.270
+add the constructor and have the compiler tell
+
+379
+00:17:16.270 --> 00:17:19.160
+you not literally everywhere, but almost everywhere
+
+380
+00:17:19.160 --> 00:17:20.370
+you're going to go and need to update.
+
+381
+00:17:21.040 --> 00:17:24.010
+>> Yeah, No, I think I think it's great. Um
+
+382
+00:17:24.020 --> 00:17:26.070
+I think it's been
+
+383
+00:17:26.840 --> 00:17:29.390
+game changer for me, especially coming from
+
+384
+00:17:29.390 --> 00:17:32.240
+JavaScript previously where I had to deal with those
+
+385
+00:17:32.240 --> 00:17:35.130
+kind of situations and I couldn't clearly say, Hey, I
+
+386
+00:17:35.130 --> 00:17:38.100
+have yeah, you can use a case statement, but it's not
+
+387
+00:17:38.100 --> 00:17:40.850
+really the same. Yeah, you have your
+
+388
+00:17:40.850 --> 00:17:43.750
+matching on a string or number like that's just not how
+
+389
+00:17:43.750 --> 00:17:46.580
+you wanna match on. So, like, being able to
+
+390
+00:17:46.580 --> 00:17:49.390
+have these data types that have this pattern matching is
+
+391
+00:17:49.390 --> 00:17:52.110
+great. Yeah. Um, the
+
+392
+00:17:52.120 --> 00:17:54.020
+next thing we're gonna get into is,
+
+393
+00:17:55.240 --> 00:17:58.150
+you know, as far as Haskell compares to other
+
+394
+00:17:58.160 --> 00:18:00.970
+languages maybe a little, you know, less. But
+
+395
+00:18:01.340 --> 00:18:04.180
+still, just as powerful, um is the
+
+396
+00:18:04.190 --> 00:18:07.070
+amount off libraries high quality
+
+397
+00:18:07.540 --> 00:18:10.520
+libraries that are available where you can look
+
+398
+00:18:10.520 --> 00:18:13.450
+at other languages, like JavaScript that has npm
+
+399
+00:18:13.450 --> 00:18:16.290
+with million's of libraries.
+
+400
+00:18:16.300 --> 00:18:19.080
+And you can look at PHP that has
+
+401
+00:18:19.090 --> 00:18:21.800
+all kinds and, you know, like you can look at any language and
+
+402
+00:18:21.800 --> 00:18:24.540
+there's the ba-jillions. Haskell maybe
+
+403
+00:18:24.550 --> 00:18:27.360
+has a smaller set of that, but everything was high
+
+404
+00:18:27.360 --> 00:18:30.260
+quality. You know what? You what you're getting with?
+
+405
+00:18:30.270 --> 00:18:33.050
+Like there's documentation. There's places to search through it,
+
+406
+00:18:33.640 --> 00:18:35.850
+comprehend what's going on, you know?
+
+407
+00:18:36.240 --> 00:18:39.220
+Yes. You're not going to get ah, third party service
+
+408
+00:18:39.220 --> 00:18:41.790
+to, you know, have some SDK for Haskell.
+
+409
+00:18:41.800 --> 00:18:44.800
+That's most likely not gonna happen, but
+
+410
+00:18:44.810 --> 00:18:47.460
+doesn't mean you can't write it and put it out there for the world.
+
+411
+00:18:47.940 --> 00:18:50.640
+You know, it's a great, great place
+
+412
+00:18:50.640 --> 00:18:52.470
+too. Got some good stuff.
+
+413
+00:18:52.840 --> 00:18:55.630
+>> Yeah, And I again was surprised, though
+
+414
+00:18:55.630 --> 00:18:58.530
+coming from Ruby, which has many times
+
+415
+00:18:58.530 --> 00:19:00.850
+more packages available than Haskell
+
+416
+00:19:01.740 --> 00:19:04.710
+for pretty much everything we do at work, there is a package already
+
+417
+00:19:04.710 --> 00:19:07.540
+available. And like you mentioned for third party services, there may
+
+418
+00:19:07.540 --> 00:19:09.990
+not be one. But it turns out that having
+
+419
+00:19:09.990 --> 00:19:12.950
+a having the ability to define those
+
+420
+00:19:12.950 --> 00:19:15.950
+custom types that we just talked about makes it really easy to
+
+421
+00:19:15.950 --> 00:19:18.930
+write your own because you say Okay, this is the data model that I'm gonna
+
+422
+00:19:18.930 --> 00:19:21.770
+be sending to them. And this is what I expect back. And then you
+
+423
+00:19:21.770 --> 00:19:24.650
+just plug in an HTTP Library typically in between those
+
+424
+00:19:24.650 --> 00:19:26.100
+and you're off to the races.
+
+425
+00:19:26.340 --> 00:19:28.900
+>> Mhm. Yeah, like for us.
+
+426
+00:19:28.910 --> 00:19:31.830
+You know, we use Recurly, and we've kind of
+
+427
+00:19:31.840 --> 00:19:34.540
+created our own. Recurly library.
+
+428
+00:19:34.550 --> 00:19:37.540
+I don't know if we've published it anywhere at the moment, but, you know, we're
+
+429
+00:19:37.550 --> 00:19:37.950
+>> not yet.
+
+430
+00:19:37.960 --> 00:19:40.660
+>> We have some set of, you know,
+
+431
+00:19:40.670 --> 00:19:43.430
+we know the specifications. We've seen their documentation and we wrote
+
+432
+00:19:43.430 --> 00:19:46.200
+out, you know, specs that can be
+
+433
+00:19:46.200 --> 00:19:49.140
+translated. You know, the data types were
+
+434
+00:19:49.140 --> 00:19:52.060
+all written and all that kind of stuff and It's just kind of there. Um,
+
+435
+00:19:52.070 --> 00:19:54.850
+you know, we don't really have a ton of time to maintain an open
+
+436
+00:19:54.850 --> 00:19:57.680
+source library like that, but, you know, it's possible.
+
+437
+00:19:59.140 --> 00:20:01.900
+>> Yeah. Um and so, yeah, moving on to the
+
+438
+00:20:01.900 --> 00:20:04.460
+next one? Uh, Haskell makes it easy to
+
+439
+00:20:04.460 --> 00:20:07.270
+write concurrent programs. Um,
+
+440
+00:20:07.740 --> 00:20:10.530
+basically, Haskell's runtime
+
+441
+00:20:10.540 --> 00:20:13.420
+lets you have multiple green threads going at the same
+
+442
+00:20:13.420 --> 00:20:15.820
+time. So unlike JavaScript, where
+
+443
+00:20:15.820 --> 00:20:18.730
+everything is single threaded with Haskell, you can have multiple
+
+444
+00:20:18.730 --> 00:20:21.210
+threads. And this makes doing anything with asynchronous
+
+445
+00:20:21.210 --> 00:20:22.560
+stuff way nicer.
+
+446
+00:20:23.240 --> 00:20:25.850
+>> Oh, yeah, Yeah.
+
+447
+00:20:26.640 --> 00:20:29.500
+Personally, like in my professional experience, have had too
+
+448
+00:20:29.510 --> 00:20:32.050
+much issue with async and not async.
+
+449
+00:20:32.060 --> 00:20:34.710
+Um, but I know you you have with your
+
+450
+00:20:34.710 --> 00:20:36.510
+Ruby situation.
+
+451
+00:20:36.520 --> 00:20:39.340
+>> So as I keep mentioning, I used to work a lot with Ruby,
+
+452
+00:20:39.350 --> 00:20:42.230
+and, um, the only option
+
+453
+00:20:42.230 --> 00:20:44.980
+there if you wanted to do something asynchronously
+
+454
+00:20:44.980 --> 00:20:47.790
+was to throw it on a job queue. Because otherwise you
+
+455
+00:20:47.790 --> 00:20:50.790
+would hold up the thread that was serving
+
+456
+00:20:50.790 --> 00:20:53.470
+the request, and you wouldn't be able to serve the next request.
+
+457
+00:20:53.840 --> 00:20:56.820
+So if you wanted to, like, send
+
+458
+00:20:56.820 --> 00:20:59.740
+an email to somebody or when somebody logs in, you want to
+
+459
+00:20:59.740 --> 00:21:02.700
+go like update something in your database, but it's not
+
+460
+00:21:02.700 --> 00:21:05.650
+critical that it gets done before they finish logging in. So
+
+461
+00:21:05.650 --> 00:21:08.600
+you can you want to do it in the background, you would have to make a job
+
+462
+00:21:08.600 --> 00:21:11.000
+for that. Whereas in Haskell, you could just say
+
+463
+00:21:11.010 --> 00:21:13.260
+async. Whatever. And it'll go do it
+
+464
+00:21:14.540 --> 00:21:17.060
+>> nice. Yeah, I think that's great.
+
+465
+00:21:17.640 --> 00:21:19.490
+So go concurrent
+
+466
+00:21:19.490 --> 00:21:21.950
+programs. Ah,
+
+467
+00:21:22.340 --> 00:21:25.320
+but let's keep moving. We've got I've got
+
+468
+00:21:25.320 --> 00:21:28.060
+a my dog here who's keeps butting into the
+
+469
+00:21:28.070 --> 00:21:30.800
+table. So pardon me if you keep hearing
+
+470
+00:21:30.810 --> 00:21:33.030
+random crashes.
+
+471
+00:21:33.040 --> 00:21:36.010
+Uh, that would be a little
+
+472
+00:21:36.010 --> 00:21:38.990
+puppy being a little puppy. Um, anyways,
+
+473
+00:21:39.000 --> 00:21:41.700
+keep moving. We've got Haskell, enables
+
+474
+00:21:41.710 --> 00:21:44.640
+domain specific languages with foster expressiveness
+
+475
+00:21:44.640 --> 00:21:46.860
+and reduce boilerplate.
+
+476
+00:21:47.940 --> 00:21:50.020
+Yeah, sure.
+
+477
+00:21:50.020 --> 00:21:52.710
+>> So I think these days the
+
+478
+00:21:52.710 --> 00:21:54.840
+canonical example of a domain specific
+
+479
+00:21:54.840 --> 00:21:57.010
+language. Well, maybe maybe not.
+
+480
+00:21:57.020 --> 00:22:00.000
+SQL is one. So if you wanna
+
+481
+00:22:00.010 --> 00:22:02.870
+interact with a relational database, more likely than not, you're gonna be
+
+482
+00:22:02.870 --> 00:22:05.720
+writing SQL and Haskell makes it really easy to
+
+483
+00:22:05.720 --> 00:22:08.490
+use languages like SQL
+
+484
+00:22:08.490 --> 00:22:11.330
+inside of a Haskell program so that you can, um
+
+485
+00:22:11.340 --> 00:22:13.670
+write Your query using language. Is that you know, already
+
+486
+00:22:14.240 --> 00:22:17.130
+mhm and usually the way this is done
+
+487
+00:22:17.140 --> 00:22:20.010
+is with Template Haskell and one of the examples that he
+
+488
+00:22:20.010 --> 00:22:22.990
+calls out to his persistent And this is used to,
+
+489
+00:22:22.990 --> 00:22:25.750
+like, define your data models and how they get
+
+490
+00:22:25.760 --> 00:22:28.730
+stored to the database and how you query them and it comes
+
+491
+00:22:28.730 --> 00:22:30.770
+with a whole slew of benefits.
+
+492
+00:22:32.740 --> 00:22:35.710
+But for me, I am not the world's
+
+493
+00:22:35.710 --> 00:22:38.190
+biggest fan of DSLs I like him. Okay, But
+
+494
+00:22:38.200 --> 00:22:40.780
+I am. I like
+
+495
+00:22:40.790 --> 00:22:43.650
+embedded domain specific language is a little bit more
+
+496
+00:22:43.660 --> 00:22:46.410
+and an eDSL is something that
+
+497
+00:22:46.420 --> 00:22:47.780
+uses the
+
+498
+00:22:48.740 --> 00:22:51.740
+syntax of the like, quote unquote host language.
+
+499
+00:22:51.750 --> 00:22:54.410
+So instead of like having embedded
+
+500
+00:22:54.420 --> 00:22:57.110
+SQL string in your code, you
+
+501
+00:22:57.110 --> 00:23:00.100
+would write like a Haskell expression that then gets turned into
+
+502
+00:23:00.100 --> 00:23:02.860
+SQL. So for other languages, usually this
+
+503
+00:23:02.860 --> 00:23:05.420
+is a like ORM an object
+
+504
+00:23:05.420 --> 00:23:07.830
+relational manager, library, whatever it is
+
+505
+00:23:07.840 --> 00:23:10.610
+where you like, you know, do user dot
+
+506
+00:23:10.610 --> 00:23:13.270
+find, you know, some ID whatever. And it just
+
+507
+00:23:13.280 --> 00:23:14.600
+creates the SQL for you behind
+
+508
+00:23:14.600 --> 00:23:17.540
+>> the scenes. Yeah, and I
+
+509
+00:23:17.540 --> 00:23:19.860
+mean, I don't have a ton of experience with
+
+510
+00:23:20.240 --> 00:23:23.160
+DSLs I'm sure you know, with
+
+511
+00:23:23.160 --> 00:23:26.040
+time I will. But I'm definitely looking to kind of
+
+512
+00:23:26.050 --> 00:23:28.910
+understand, like you know the example he gives here
+
+513
+00:23:28.910 --> 00:23:31.890
+persistent, like, we're using it more and more, you know,
+
+514
+00:23:31.900 --> 00:23:34.870
+for SQL and for Mongo. So understanding a little
+
+515
+00:23:34.870 --> 00:23:37.860
+bit more about how those work, Um, it's
+
+516
+00:23:37.860 --> 00:23:40.840
+gonna be really beneficial.
+
+517
+00:23:40.850 --> 00:23:43.770
+Um, but yeah, I think that's
+
+518
+00:23:43.770 --> 00:23:46.280
+awesome. I think the last one is my favorite.
+
+519
+00:23:46.280 --> 00:23:49.240
+Personally, you know, I feel like I've probably said these
+
+520
+00:23:49.240 --> 00:23:51.660
+are my favorite like all of them. But this one's my favorite
+
+521
+00:23:51.660 --> 00:23:54.510
+because it's true. And, you know, Haskell
+
+522
+00:23:54.510 --> 00:23:57.260
+Weekly gets a shout out, but
+
+523
+00:23:57.260 --> 00:24:00.090
+>> you said it's true. The topic here is that it has a
+
+524
+00:24:00.090 --> 00:24:03.050
+large community filled with smart and friendly people. And
+
+525
+00:24:03.050 --> 00:24:05.860
+yeah, I I agree with this one. Um, you know,
+
+526
+00:24:05.870 --> 00:24:08.730
+as part of running Haskell weekly, I keep an
+
+527
+00:24:08.730 --> 00:24:11.480
+eye on lots of different parts of the community, and,
+
+528
+00:24:11.480 --> 00:24:14.050
+uh, you know, by and large, it's
+
+529
+00:24:14.060 --> 00:24:16.870
+really smart and friendly. If you have a question, people are
+
+530
+00:24:16.870 --> 00:24:19.730
+very happy to help you with it and show you
+
+531
+00:24:19.740 --> 00:24:20.970
+how to do things the right way.
+
+532
+00:24:21.340 --> 00:24:24.310
+>> Yeah, think that's awesome. You get a little
+
+533
+00:24:24.310 --> 00:24:27.090
+puppy love over here, too runs
+
+534
+00:24:27.090 --> 00:24:30.040
+around, and it's getting really feisty
+
+535
+00:24:30.040 --> 00:24:31.190
+right now. Um,
+
+536
+00:24:32.940 --> 00:24:35.690
+>> but yeah, it's ah that about wraps up the post.
+
+537
+00:24:35.690 --> 00:24:38.330
+And like we said at the top, you know, we, I
+
+538
+00:24:38.330 --> 00:24:41.170
+guess, feel basically the same as these
+
+539
+00:24:41.170 --> 00:24:44.020
+guys at Foxhound Systems that, um, Haskell
+
+540
+00:24:44.020 --> 00:24:46.710
+has enabled us to write very,
+
+541
+00:24:46.720 --> 00:24:49.320
+um, robust, reliable software and
+
+542
+00:24:49.320 --> 00:24:51.950
+maintain it over time without, you know,
+
+543
+00:24:52.440 --> 00:24:55.280
+ripping our hair out, trying to debug null
+
+544
+00:24:55.280 --> 00:24:58.050
+pointer, nil, null pointer exceptions. And that kind of stuff.
+
+545
+00:24:58.540 --> 00:25:01.530
+Um and yeah, like the last one
+
+546
+00:25:01.530 --> 00:25:04.410
+mentioned, the community is super important, and we're happy to be a
+
+547
+00:25:04.410 --> 00:25:07.260
+part of that. Uh, if you want to, you
+
+548
+00:25:07.260 --> 00:25:10.190
+know, figure out what's going on in the community. Please go check
+
+549
+00:25:10.190 --> 00:25:12.990
+out the Haskell Weekly newsletter. You can read more at
+
+550
+00:25:13.000 --> 00:25:15.740
+haskellweekly.news You can catch us on
+
+551
+00:25:15.740 --> 00:25:18.190
+Twitter on reddit GitHub all over the place.
+
+552
+00:25:18.200 --> 00:25:20.060
+Um, yeah,
+
+553
+00:25:20.440 --> 00:25:23.410
+>> yeah, yeah. In Haskell weekly is brought to you by
+
+554
+00:25:23.420 --> 00:25:25.990
+our employers ITProTV, which is the
+
+555
+00:25:26.000 --> 00:25:28.270
+e-learning platform for IT professionals.
+
+556
+00:25:28.640 --> 00:25:31.070
+We just wanted to Thank you all for
+
+557
+00:25:31.070 --> 00:25:33.920
+listening on and ITProTV would love to extend
+
+558
+00:25:33.930 --> 00:25:35.940
+a promo code to you guys. That is
+
+559
+00:25:35.940 --> 00:25:38.860
+HaskellWeekly30 for 30% off the
+
+560
+00:25:38.860 --> 00:25:41.850
+lifetime of your membership. So please. Your interested
+
+561
+00:25:41.850 --> 00:25:44.420
+go check out itpro.tv Uh,
+
+562
+00:25:44.430 --> 00:25:47.320
+get your access. You can sign up for a free
+
+563
+00:25:47.320 --> 00:25:50.290
+account if you want. Um, yeah, yeah. Any interest
+
+564
+00:25:50.290 --> 00:25:53.170
+in IT? Please, Please, please check it out
+
+565
+00:25:53.540 --> 00:25:56.290
+>> for sure. Well thanks so much for
+
+566
+00:25:56.290 --> 00:25:58.450
+listening. See you next time.
+
+567
+00:25:58.840 --> 00:25:59.580
+>> Peace.
