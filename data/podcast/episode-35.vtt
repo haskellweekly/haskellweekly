@@ -1,5 +1,2481 @@
 WEBVTT
 
+0
+00:00:00.000 --> 00:00:01.000
+>> [unedited transcript made by automated process]
+
 1
-00:00:00.000 --> 00:00:00.001
->> [No transcript yet.]
+00:00:02.040 --> 00:00:02.250
+>> Yeah.
+
+2
+00:00:04.840 --> 00:00:07.630
+Hello.
+
+3
+00:00:07.640 --> 00:00:10.310
+Welcome to the high school. Really? Podcast. I'm your host,
+
+4
+00:00:10.320 --> 00:00:12.800
+Cameron Gera. Uh, on engineering I.T. pro
+
+5
+00:00:12.800 --> 00:00:15.350
+T.V.. And with me today is Taylor
+
+6
+00:00:15.350 --> 00:00:18.120
+Fausak one of my boss? Actually,
+
+7
+00:00:18.130 --> 00:00:20.830
+he's not. He's on my team, but he's my boss as well, but
+
+8
+00:00:20.840 --> 00:00:23.560
+we're just super excited to be here today. How you doing today?
+
+9
+00:00:24.340 --> 00:00:24.580
+I'm
+
+10
+00:00:24.580 --> 00:00:27.090
+>> doing well, Cam. Thanks for hosting me on the show
+
+11
+00:00:27.090 --> 00:00:29.190
+>> this week. Of course, man. We're on episode
+
+12
+00:00:29.190 --> 00:00:31.810
+35. That's a big deal. So
+
+13
+00:00:31.820 --> 00:00:33.750
+thank you all for listening. And we're
+
+14
+00:00:33.760 --> 00:00:36.160
+hoping you'd like to stick around.
+
+15
+00:00:36.740 --> 00:00:38.570
+So tell what we're talking about today.
+
+16
+00:00:39.540 --> 00:00:42.210
+>> Eso today we're gonna be digging into a post
+
+17
+00:00:42.210 --> 00:00:44.870
+about kind of, maybe versus
+
+18
+00:00:44.870 --> 00:00:47.800
+either and error reporting. But
+
+19
+00:00:47.800 --> 00:00:49.880
+before we get to that, I think we have
+
+20
+00:00:49.890 --> 00:00:52.710
+announcement from the community at
+
+21
+00:00:52.710 --> 00:00:55.440
+large, not an announcement from us that we should talk about a little
+
+22
+00:00:55.440 --> 00:00:58.250
+bit, which is the G.H.C.
+
+23
+00:00:58.260 --> 00:01:01.110
+2021 proposal has been accepted.
+
+24
+00:01:01.120 --> 00:01:03.670
+So, uh, yeah, very
+
+25
+00:01:03.670 --> 00:01:06.350
+exciting. Cam, I know we talked about this on a previous
+
+26
+00:01:06.350 --> 00:01:09.320
+episode of the podcast, but you got anything to say about it now that
+
+27
+00:01:09.320 --> 00:01:10.270
+it's accepted?
+
+28
+00:01:10.840 --> 00:01:13.810
+>> I mean, I think I think it's cool I think it's interesting to see
+
+29
+00:01:13.810 --> 00:01:16.790
+the data and how the votes went. A Sfar. It's the committee.
+
+30
+00:01:16.800 --> 00:01:19.440
+Selecting what? To bring in what? Not to bring in.
+
+31
+00:01:19.450 --> 00:01:22.360
+Um, still for me. Personally shocked. Overloaded strings
+
+32
+00:01:22.360 --> 00:01:24.880
+isn't there? But that's okay. You know, we could
+
+33
+00:01:24.890 --> 00:01:27.850
+continue Thio enable that extension for
+
+34
+00:01:27.850 --> 00:01:29.960
+us. It helps with our, uh,
+
+35
+00:01:30.440 --> 00:01:31.460
+ap Development.
+
+36
+00:01:32.040 --> 00:01:34.830
+>> Yeah, I think it's one of the most popular extensions. But
+
+37
+00:01:34.830 --> 00:01:37.660
+this since it's the first cut of this new process, I
+
+38
+00:01:37.660 --> 00:01:40.330
+think they tried to play it a little safe. And overloaded
+
+39
+00:01:40.330 --> 00:01:43.230
+strings can introduce a lot of ambiguity. So I see why.
+
+40
+00:01:43.230 --> 00:01:44.450
+Maybe they left it off.
+
+41
+00:01:44.460 --> 00:01:47.460
+>> That's fair. That's fair. Yeah. I mean, you know,
+
+42
+00:01:47.460 --> 00:01:50.010
+they did great work with keeping it backwards
+
+43
+00:01:50.010 --> 00:01:52.550
+compatible with high school 2010 and all that stuff.
+
+44
+00:01:52.840 --> 00:01:55.560
+Um, but yeah. Do you have any,
+
+45
+00:01:55.560 --> 00:01:58.410
+like, uh, just give ah, listener quick
+
+46
+00:01:58.420 --> 00:02:01.120
+point of like, what's the difference between this and, you know,
+
+47
+00:02:01.130 --> 00:02:02.860
+a language standard?
+
+48
+00:02:03.540 --> 00:02:06.530
+>> Sure. Once again, I'll point back to our previous
+
+49
+00:02:06.530 --> 00:02:09.400
+episode in October, where we talked about this in a little more detail.
+
+50
+00:02:09.410 --> 00:02:12.360
+But, um, this isn't a full blown new
+
+51
+00:02:12.360 --> 00:02:15.180
+version of the Haskell language report, so It's
+
+52
+00:02:15.180 --> 00:02:17.860
+not like a new standard. And the difference
+
+53
+00:02:17.870 --> 00:02:20.720
+is that are, like the pragmatic differences that
+
+54
+00:02:20.720 --> 00:02:23.670
+G.H.C.. 2021 is a language extension
+
+55
+00:02:24.040 --> 00:02:26.700
+that just enables a bunch of other language
+
+56
+00:02:26.700 --> 00:02:29.560
+extensions. So it's like an alias for these other
+
+57
+00:02:29.560 --> 00:02:31.990
+things. Um, and a new version of the
+
+58
+00:02:31.990 --> 00:02:34.640
+standard would be hopefully
+
+59
+00:02:34.640 --> 00:02:37.530
+well specified enough that someone
+
+60
+00:02:37.530 --> 00:02:40.380
+will be able to implement a different compiler that
+
+61
+00:02:40.390 --> 00:02:43.160
+implements that standard. So most of the time,
+
+62
+00:02:43.160 --> 00:02:45.950
+G.H.C. is the only compiler that we talk about. But
+
+63
+00:02:45.960 --> 00:02:48.420
+there are others, and there have been others in the past. And,
+
+64
+00:02:48.430 --> 00:02:51.370
+uh, the language special specification
+
+65
+00:02:51.380 --> 00:02:53.450
+could allow more of those in the future.
+
+66
+00:02:54.240 --> 00:02:57.010
+>> No. Awesome. Well, thanks for that tidbit. We, uh, you
+
+67
+00:02:57.010 --> 00:02:59.840
+know, obviously, like Taylor said, go check back at
+
+68
+00:02:59.850 --> 00:03:02.850
+our other podcast where we talked to more in depth
+
+69
+00:03:02.850 --> 00:03:05.690
+about that, or feel free to check it out in this week.
+
+70
+00:03:05.700 --> 00:03:07.450
+This week's edition of Haskell Weekly.
+
+71
+00:03:08.740 --> 00:03:11.550
+>> Mm. So, but yeah, like I mentioned,
+
+72
+00:03:11.550 --> 00:03:14.200
+that's not what we're here to talk about today.
+
+73
+00:03:14.210 --> 00:03:16.990
+Instead, we're gonna be talking about maybe and
+
+74
+00:03:16.990 --> 00:03:18.060
+either Right, Cam?
+
+75
+00:03:18.070 --> 00:03:21.000
+>> Yeah. Yeah, I think,
+
+76
+00:03:21.010 --> 00:03:24.000
+uh, you know, for those who have been in programming and
+
+77
+00:03:24.000 --> 00:03:26.910
+Haskell for a period of time. You've come across
+
+78
+00:03:26.910 --> 00:03:29.730
+this decision of Do I use an either here or do I use maybe
+
+79
+00:03:29.730 --> 00:03:32.670
+here and today the post We're gonna be kind
+
+80
+00:03:32.670 --> 00:03:35.610
+of diving more into is, you know, leaning
+
+81
+00:03:35.610 --> 00:03:38.370
+more towards Hey, use either here because
+
+82
+00:03:38.380 --> 00:03:41.070
+you don't wanna lose necessarily information
+
+83
+00:03:41.080 --> 00:03:43.930
+on I think we can easily
+
+84
+00:03:43.940 --> 00:03:46.900
+trying to navigate that by, you know,
+
+85
+00:03:46.910 --> 00:03:49.450
+e I mean, it's really up to you know
+
+86
+00:03:49.460 --> 00:03:51.900
+what the case is, right? Like everything's different.
+
+87
+00:03:51.900 --> 00:03:54.750
+Nobody when you're, you
+
+88
+00:03:54.750 --> 00:03:57.710
+know, saying for input like maybe it's generally OK for
+
+89
+00:03:57.710 --> 00:04:00.700
+an input like it's either there it's not on.
+
+90
+00:04:00.700 --> 00:04:03.370
+Do you can kind of, you know, but that could also work for either, Like
+
+91
+00:04:03.540 --> 00:04:06.490
+it z not there and it gives you some useful
+
+92
+00:04:06.490 --> 00:04:09.300
+information. So, um yeah, I
+
+93
+00:04:09.300 --> 00:04:12.110
+think you know, he kind of dives in here. Um,
+
+94
+00:04:12.120 --> 00:04:15.080
+do you want to kind of give what his nutshell per
+
+95
+00:04:15.080 --> 00:04:15.610
+se is?
+
+96
+00:04:15.620 --> 00:04:18.380
+>> Sure. And even before we get to the like,
+
+97
+00:04:18.380 --> 00:04:20.970
+30,000 ft overview of this, some of the
+
+98
+00:04:20.980 --> 00:04:23.780
+motivation, so maybe is
+
+99
+00:04:23.780 --> 00:04:26.730
+sort of, in a way, Haskell's answer to
+
+100
+00:04:26.740 --> 00:04:29.510
+knowl most other mainstream programming
+
+101
+00:04:29.510 --> 00:04:32.060
+languages have a concept of Knoll
+
+102
+00:04:32.060 --> 00:04:34.540
+that is a valid value for any
+
+103
+00:04:34.540 --> 00:04:37.360
+type. And this is frequently referred to as the billion
+
+104
+00:04:37.360 --> 00:04:40.210
+dollar mistake because it causes so many
+
+105
+00:04:40.220 --> 00:04:42.850
+bugs and weird program behaviors.
+
+106
+00:04:43.240 --> 00:04:46.140
+Andan Haskell We don't have that. And instead, if
+
+107
+00:04:46.140 --> 00:04:48.600
+you had something that would be knowable in another
+
+108
+00:04:48.600 --> 00:04:50.770
+language in Haskell, you model that with maybe.
+
+109
+00:04:51.140 --> 00:04:53.750
+And I think the high level overview
+
+110
+00:04:53.750 --> 00:04:56.590
+of Roberts, the Post author
+
+111
+00:04:56.590 --> 00:04:59.250
+here of his like what he's putting forth here
+
+112
+00:04:59.260 --> 00:05:02.150
+is, if you are wanting to
+
+113
+00:05:02.150 --> 00:05:05.010
+return, maybe perhaps you
+
+114
+00:05:05.010 --> 00:05:08.000
+should return either instead, so that if
+
+115
+00:05:08.000 --> 00:05:10.860
+something does go wrong, you'll know which
+
+116
+00:05:10.860 --> 00:05:13.690
+thing went wrong rather than just like, Well, something somewhere went
+
+117
+00:05:13.690 --> 00:05:16.530
+wrong. Good luck, Which is better
+
+118
+00:05:16.530 --> 00:05:18.470
+than a no pointer error, but
+
+119
+00:05:19.040 --> 00:05:20.690
+maybe only a little bit,
+
+120
+00:05:20.700 --> 00:05:23.660
+>> right? I mean, if you're parsing through some code and you're
+
+121
+00:05:23.660 --> 00:05:26.250
+like, I could be these five
+
+122
+00:05:26.260 --> 00:05:29.140
+possible, you know, no values or nothing
+
+123
+00:05:29.140 --> 00:05:31.600
+values like which one is it? Um,
+
+124
+00:05:31.610 --> 00:05:34.390
+you know, the fact that Haskell has the
+
+125
+00:05:34.390 --> 00:05:37.000
+either concept really should allow us
+
+126
+00:05:37.000 --> 00:05:39.590
+to a t least consider it when we are
+
+127
+00:05:39.590 --> 00:05:41.570
+choosing and reaching for. Maybe
+
+128
+00:05:42.040 --> 00:05:43.460
+E
+
+129
+00:05:43.460 --> 00:05:46.120
+>> will say that in our day to day life,
+
+130
+00:05:46.130 --> 00:05:48.540
+developing a Web application at I.T. Pro
+
+131
+00:05:48.540 --> 00:05:51.390
+T.V.. We frequently do
+
+132
+00:05:51.390 --> 00:05:54.110
+both types of conversions where we have a maybe
+
+133
+00:05:54.110 --> 00:05:56.640
+value, and we want to attach additional
+
+134
+00:05:56.650 --> 00:05:59.050
+information to it in the case where it's nothing
+
+135
+00:05:59.140 --> 00:06:01.520
+or we have some value that already
+
+136
+00:06:01.520 --> 00:06:04.380
+has extra information on it. And we want to strip that
+
+137
+00:06:04.380 --> 00:06:07.190
+off to get a maybe value. And usually this is to
+
+138
+00:06:07.200 --> 00:06:10.190
+meet, you know, the various contracts of Oh, we need to turn a
+
+139
+00:06:10.200 --> 00:06:12.950
+We need to give a maybe to this function and we haven't either or vice
+
+140
+00:06:12.950 --> 00:06:15.890
+versa. Um, but very often we
+
+141
+00:06:15.890 --> 00:06:18.830
+have functions that give us back a maybe, and we have
+
+142
+00:06:18.830 --> 00:06:21.830
+to add extra information there that says like, Oh, we were looking at
+
+143
+00:06:21.830 --> 00:06:24.700
+this field and we expected this type and it was
+
+144
+00:06:24.700 --> 00:06:27.700
+that type. But we got this value which didn't parse for this
+
+145
+00:06:27.700 --> 00:06:30.650
+reason. And that's way more useful for us when we're
+
+146
+00:06:30.650 --> 00:06:33.400
+debugging that problem than just getting nothing
+
+147
+00:06:33.410 --> 00:06:34.760
+like something went wrong.
+
+148
+00:06:35.340 --> 00:06:38.150
+>> Who knows, Right? And I feel like, you
+
+149
+00:06:38.150 --> 00:06:40.810
+know, there's a
+
+150
+00:06:40.810 --> 00:06:43.560
+large Haskell ecosystem out there, you know,
+
+151
+00:06:43.570 --> 00:06:46.410
+libraries and packages that help people solve
+
+152
+00:06:46.410 --> 00:06:49.300
+problems. And, uh, you know, I
+
+153
+00:06:49.300 --> 00:06:52.220
+think we've had people file
+
+154
+00:06:52.230 --> 00:06:54.600
+issues and bugs on certain packages
+
+155
+00:06:54.600 --> 00:06:57.400
+because this returning them, maybe. And there's some sort of failure
+
+156
+00:06:57.400 --> 00:07:00.280
+that they don't have any idea to Why that happened
+
+157
+00:07:00.290 --> 00:07:02.750
+on DSO. You know, the author here kind of
+
+158
+00:07:02.750 --> 00:07:05.240
+uses servant multi part as
+
+159
+00:07:05.240 --> 00:07:07.850
+a, um kind of
+
+160
+00:07:08.540 --> 00:07:11.420
+example to say, Hey, here's something that used to
+
+161
+00:07:11.420 --> 00:07:14.360
+use Maybe now it's using on either, and it's
+
+162
+00:07:14.360 --> 00:07:15.950
+honestly a better package for it.
+
+163
+00:07:16.540 --> 00:07:19.270
+>> Yeah, and for those that may not be familiar.
+
+164
+00:07:19.280 --> 00:07:21.970
+Ah, multi part is a part of, like,
+
+165
+00:07:21.970 --> 00:07:24.920
+an http form payload. So
+
+166
+00:07:24.920 --> 00:07:27.600
+whenever you have a form on a HTML page and you hit
+
+167
+00:07:27.600 --> 00:07:30.530
+submit that gets submitted as a multi part and then that
+
+168
+00:07:30.530 --> 00:07:33.430
+has to be parsed on the server Onda, sometimes it's
+
+169
+00:07:33.430 --> 00:07:36.300
+chase on. Sometimes it's, uh, it looks like a query
+
+170
+00:07:36.300 --> 00:07:39.210
+string. But regardless of how it looks, you're parsing that.
+
+171
+00:07:39.210 --> 00:07:41.980
+And if it if you can't parse it, you want to know why
+
+172
+00:07:41.980 --> 00:07:44.680
+rather than just returning a 400 to the user and
+
+173
+00:07:44.680 --> 00:07:46.490
+saying Sorry, try again.
+
+174
+00:07:47.140 --> 00:07:50.140
+>> Yeah, I mean, that's not really giving anybody any information
+
+175
+00:07:50.140 --> 00:07:53.000
+to go anywhere. I mean, you know, it's
+
+176
+00:07:53.000 --> 00:07:55.950
+kind of that whole just putting somebody. You
+
+177
+00:07:55.950 --> 00:07:58.950
+always telling that person returned. Right? And there you go. In a
+
+178
+00:07:58.950 --> 00:07:59.440
+circle?
+
+179
+00:07:59.450 --> 00:08:02.040
+>> Yeah,
+
+180
+00:08:02.050 --> 00:08:04.400
+on den to kind of support
+
+181
+00:08:04.410 --> 00:08:07.320
+this suggested shift into
+
+182
+00:08:07.320 --> 00:08:09.620
+either versus Maybe, um, he
+
+183
+00:08:09.620 --> 00:08:12.610
+proposes. Or maybe I'm not sure if he's proposing this function
+
+184
+00:08:12.610 --> 00:08:15.540
+or if he's talking about one that already exists called unexplained for doing that
+
+185
+00:08:15.540 --> 00:08:18.510
+conversion I talked about just a minute ago where you haven't either. And you
+
+186
+00:08:18.510 --> 00:08:21.090
+need a maybe, um And we
+
+187
+00:08:21.090 --> 00:08:23.730
+recently introduced to functions like this to
+
+188
+00:08:23.730 --> 00:08:26.470
+our prelude where we call them
+
+189
+00:08:26.470 --> 00:08:29.410
+note and hush and, uh, may have
+
+190
+00:08:29.410 --> 00:08:32.260
+come from somewhere else again, I don't know, but there's such simple functions. They're
+
+191
+00:08:32.260 --> 00:08:35.090
+easy to write, so note takes it maybe value
+
+192
+00:08:35.090 --> 00:08:37.940
+and the like, um, string.
+
+193
+00:08:37.940 --> 00:08:40.910
+Normally that you want to give on the error and gives you back
+
+194
+00:08:40.910 --> 00:08:43.530
+in, either. And then hush goes the other way. So it's a little
+
+195
+00:08:43.530 --> 00:08:44.870
+evocative of how they work.
+
+196
+00:08:45.240 --> 00:08:47.160
+>> It's very similar to unexplained hushes.
+
+197
+00:08:47.840 --> 00:08:50.710
+>> Right on. Does air are very nice because that you
+
+198
+00:08:50.710 --> 00:08:53.620
+can use them in line. Really? You know, succinctly
+
+199
+00:08:53.620 --> 00:08:56.130
+and works out nicely. Um,
+
+200
+00:08:56.140 --> 00:08:59.070
+and I think he has an interesting example here of talking
+
+201
+00:08:59.070 --> 00:09:01.910
+about ace on the Jason Library, where
+
+202
+00:09:01.910 --> 00:09:04.350
+it has a bunch of different functions for doing
+
+203
+00:09:04.350 --> 00:09:07.230
+decoding that return various different. You
+
+204
+00:09:07.230 --> 00:09:10.150
+know, he's a day neither. Is it a part, sir? Is it a maybe, is it?
+
+205
+00:09:10.150 --> 00:09:13.000
+Whatever. Um, and it feels like you
+
+206
+00:09:13.000 --> 00:09:15.840
+could just have one of those, and then these notes
+
+207
+00:09:15.850 --> 00:09:18.770
+or hush type functions, Thio, you know,
+
+208
+00:09:18.780 --> 00:09:19.950
+massage it in the shape you
+
+209
+00:09:19.950 --> 00:09:22.350
+>> want. Mhm.
+
+210
+00:09:22.740 --> 00:09:25.470
+Yeah. And I mean, you know, a son's a good
+
+211
+00:09:26.040 --> 00:09:28.990
+example of, ah, library that does have a
+
+212
+00:09:28.990 --> 00:09:31.070
+lot of support for either, Um,
+
+213
+00:09:31.080 --> 00:09:34.080
+whereas, you know, obviously
+
+214
+00:09:34.090 --> 00:09:36.370
+they have Maybe, and I think that's kind of their default, but
+
+215
+00:09:36.370 --> 00:09:39.110
+they've, you know, with the New Age and
+
+216
+00:09:39.120 --> 00:09:41.550
+everybody realized Oh, yeah, we may want this air
+
+217
+00:09:41.550 --> 00:09:44.000
+information passed along, You know,
+
+218
+00:09:44.010 --> 00:09:46.460
+they've kind of added this either, um,
+
+219
+00:09:47.440 --> 00:09:50.410
+either functions into their library.
+
+220
+00:09:50.410 --> 00:09:53.380
+So much appreciated. I know. We used
+
+221
+00:09:53.390 --> 00:09:56.170
+either decode a lot. Um,
+
+222
+00:09:56.540 --> 00:09:59.420
+>> yeah, we use that all the time, and I think they're error messages have
+
+223
+00:09:59.420 --> 00:10:02.340
+gotten a lot better. And I know there used
+
+224
+00:10:02.340 --> 00:10:05.270
+to be a separate package for getting better error messages
+
+225
+00:10:05.270 --> 00:10:08.070
+out of a salon. And so maybe they took a page out of that
+
+226
+00:10:08.070 --> 00:10:09.650
+book and rolled it into the library
+
+227
+00:10:09.650 --> 00:10:11.360
+>> itself.
+
+228
+00:10:12.140 --> 00:10:14.990
+Yeah, and you know, e think, uh, you know, a
+
+229
+00:10:14.990 --> 00:10:17.670
+son has, um, basic
+
+230
+00:10:17.670 --> 00:10:20.100
+ways to signal a failed conversion,
+
+231
+00:10:20.110 --> 00:10:23.030
+right? Whether it, you know,
+
+232
+00:10:23.040 --> 00:10:25.710
+has that customary message with the either or
+
+233
+00:10:25.720 --> 00:10:28.610
+just it's nothing right, which
+
+234
+00:10:28.620 --> 00:10:31.290
+isn't always informative, and it kind of makes it a little difficult,
+
+235
+00:10:31.290 --> 00:10:33.140
+But, you know, there's a
+
+236
+00:10:33.150 --> 00:10:35.850
+certain type
+
+237
+00:10:35.850 --> 00:10:38.710
+classes that maybe has that either doesn't, which I
+
+238
+00:10:38.710 --> 00:10:40.070
+think will touch on here in a little bit.
+
+239
+00:10:40.740 --> 00:10:43.740
+>> Yeah, and like you mentioned with Ace on, there are
+
+240
+00:10:43.740 --> 00:10:46.450
+lots of different ways. It reports errors, and I think that comes
+
+241
+00:10:46.450 --> 00:10:49.450
+from under the covers. It's like a parsing library. I don't know if
+
+242
+00:10:49.450 --> 00:10:52.430
+they implement their own or if they rely on one that's probably at a party
+
+243
+00:10:52.470 --> 00:10:55.200
+or something like that button. Those parsing libraries
+
+244
+00:10:55.200 --> 00:10:57.380
+often, uh, implement
+
+245
+00:10:57.390 --> 00:11:00.110
+either, well, one of the type
+
+246
+00:11:00.110 --> 00:11:02.870
+classes of alternative or
+
+247
+00:11:02.870 --> 00:11:05.850
+monitored plus, and both of those have this concept
+
+248
+00:11:05.860 --> 00:11:08.690
+of like choice. Give me either this one,
+
+249
+00:11:08.690 --> 00:11:11.670
+or if that one fails, give me this other one, Um,
+
+250
+00:11:11.680 --> 00:11:14.470
+and as a consequence, they also have the
+
+251
+00:11:14.470 --> 00:11:17.190
+identity for choice. I think it's identity where
+
+252
+00:11:17.190 --> 00:11:20.110
+you say this will always fail because normally If you
+
+253
+00:11:20.110 --> 00:11:22.980
+have a list of choices, what do you do if none of them match,
+
+254
+00:11:22.980 --> 00:11:25.890
+then you get back. Nothing. Um and
+
+255
+00:11:25.890 --> 00:11:28.810
+that's very well modeled by maybe. And like you mentioned, it
+
+256
+00:11:28.820 --> 00:11:31.630
+has instances for these things. But the error
+
+257
+00:11:31.630 --> 00:11:34.590
+messages were pretty bad because, like with Jason, if you're saying I want
+
+258
+00:11:34.590 --> 00:11:37.550
+to parse a number or a string or I didn't get either of
+
+259
+00:11:37.550 --> 00:11:40.370
+them. So the air message you get is worthless.
+
+260
+00:11:40.380 --> 00:11:40.770
+I don't
+
+261
+00:11:40.770 --> 00:11:43.450
+>> know. What do you really want from me,
+
+262
+00:11:43.940 --> 00:11:45.590
+Right? You'll never know. Ha
+
+263
+00:11:45.590 --> 00:11:47.040
+ha.
+
+264
+00:11:47.050 --> 00:11:50.050
+>> And there are things you could do to improve this to, like. You could make your
+
+265
+00:11:50.050 --> 00:11:52.940
+last case and explicit error message
+
+266
+00:11:52.940 --> 00:11:55.900
+that says, you know, I was looking for one of these values and I didn't get
+
+267
+00:11:55.900 --> 00:11:58.630
+any of them. And I know that some parsing libraries, like
+
+268
+00:11:58.630 --> 00:12:01.430
+Mega Par sec do that more or less by
+
+269
+00:12:01.430 --> 00:12:04.310
+default, where they smartly figure
+
+270
+00:12:04.310 --> 00:12:06.930
+out what the next token could have been and show you all the
+
+271
+00:12:06.930 --> 00:12:08.500
+options. Right? Right,
+
+272
+00:12:08.500 --> 00:12:10.890
+>> right. Yeah, Well,
+
+273
+00:12:10.900 --> 00:12:12.650
+continuing on,
+
+274
+00:12:13.940 --> 00:12:16.850
+I think we've come across this. Some in our
+
+275
+00:12:16.850 --> 00:12:19.660
+own code is you know, the fact that you know Monnet
+
+276
+00:12:19.660 --> 00:12:22.630
+fail and maybe don't really work well
+
+277
+00:12:22.630 --> 00:12:24.810
+together. Uh, or
+
+278
+00:12:24.810 --> 00:12:27.550
+>> they do work well together. Maybe too well, because
+
+279
+00:12:27.550 --> 00:12:30.450
+fail suggests that you will
+
+280
+00:12:30.450 --> 00:12:33.010
+get the error message and maybe says, Yeah, I
+
+281
+00:12:33.010 --> 00:12:35.830
+implement Mom had failed, but I just throw that error message away.
+
+282
+00:12:35.840 --> 00:12:38.660
+>> It's just like, uh, it's
+
+283
+00:12:38.660 --> 00:12:41.070
+gives you a false sense of security, for sure are like
+
+284
+00:12:41.540 --> 00:12:43.670
+assurance. I guess not. Security.
+
+285
+00:12:44.140 --> 00:12:47.000
+>> Yeah. You feel like oh, I'm doing I'm doing my part. You
+
+286
+00:12:47.000 --> 00:12:49.880
+know, I'm helping us with exception reports by
+
+287
+00:12:49.880 --> 00:12:52.760
+providing this beautiful, useful error message. But
+
+288
+00:12:53.240 --> 00:12:55.330
+where do you feel that way? Nah, Uh
+
+289
+00:12:55.330 --> 00:12:56.250
+huh,
+
+290
+00:12:57.240 --> 00:13:00.120
+Yeah, but yeah, and and kind of a related
+
+291
+00:13:00.120 --> 00:13:02.490
+point is the next thing he talks about with cat maybes
+
+292
+00:13:02.490 --> 00:13:05.230
+where, um, he suggests using
+
+293
+00:13:05.230 --> 00:13:08.130
+partition either's instead, which lets
+
+294
+00:13:08.130 --> 00:13:11.070
+you instead of throwing away the nothing's
+
+295
+00:13:11.080 --> 00:13:14.030
+partition either's takes in a list of
+
+296
+00:13:14.030 --> 00:13:16.940
+either's and gives you back a couple where
+
+297
+00:13:16.940 --> 00:13:19.690
+the left things are in one of them and the right things there in the
+
+298
+00:13:19.690 --> 00:13:22.480
+other. This is a change we've actually
+
+299
+00:13:22.480 --> 00:13:24.760
+made to a lot of the scripts that we right
+
+300
+00:13:24.770 --> 00:13:27.710
+where initially we were using cat maybes
+
+301
+00:13:27.710 --> 00:13:30.590
+and then either during code review or while we're actually using the
+
+302
+00:13:30.590 --> 00:13:32.370
+thing we realize.
+
+303
+00:13:33.440 --> 00:13:36.440
+Wait a minute. We're just dropping these values, like, maybe that's
+
+304
+00:13:36.440 --> 00:13:39.440
+a problem that we need to know about. So we use partition, either's
+
+305
+00:13:39.440 --> 00:13:42.360
+instead and then log them out or fail, depending on what it
+
+306
+00:13:42.360 --> 00:13:43.670
+is. Exactly. You
+
+307
+00:13:43.670 --> 00:13:46.030
+>> mean, maybe maybe created some issues for
+
+308
+00:13:46.030 --> 00:13:49.010
+us. We
+
+309
+00:13:49.010 --> 00:13:51.250
+>> got to get in at least one good punch each episode.
+
+310
+00:13:51.250 --> 00:13:54.160
+>> You know, I got to I mean s so far, the
+
+311
+00:13:54.170 --> 00:13:56.420
+listeners haven't thrown me out yet. So that
+
+312
+00:13:56.420 --> 00:13:58.410
+xem I.T.? Yes,
+
+313
+00:13:58.420 --> 00:14:01.350
+maybe. Maybe problematic.
+
+314
+00:14:01.740 --> 00:14:04.160
+Uh huh.
+
+315
+00:14:05.040 --> 00:14:08.000
+Well, awesome. Yeah. I mean, I would be in favor of
+
+316
+00:14:08.000 --> 00:14:11.000
+that. I mean, the nice thing is partitioned. I there's, you know, acts the
+
+317
+00:14:11.000 --> 00:14:13.840
+same way. And if you're in a situation where you don't really care about what the left
+
+318
+00:14:13.840 --> 00:14:16.740
+say, you can just, you know, continue with the
+
+319
+00:14:16.740 --> 00:14:19.080
+rights and move forward. Yep.
+
+320
+00:14:19.090 --> 00:14:22.040
+>> Yeah. Pattern match on one side of that to pull. And it's exactly the same as
+
+321
+00:14:22.050 --> 00:14:23.500
+you called cat maybes.
+
+322
+00:14:23.510 --> 00:14:25.820
+>> Yeah. All
+
+323
+00:14:25.820 --> 00:14:28.410
+>> right. So the next thing he talks about
+
+324
+00:14:28.420 --> 00:14:31.310
+is like a design pattern, and I don't
+
+325
+00:14:31.310 --> 00:14:33.850
+want to spend too much time talking about the design pattern
+
+326
+00:14:33.850 --> 00:14:36.760
+itself. It's called the higher kind of data pattern.
+
+327
+00:14:36.770 --> 00:14:39.700
+And it's where, instead of defining a record with a bunch
+
+328
+00:14:39.700 --> 00:14:42.590
+of concrete, um, monem or FIC types
+
+329
+00:14:42.590 --> 00:14:45.150
+for the fields, you parameter rise the
+
+330
+00:14:45.150 --> 00:14:47.830
+entire record over some container type.
+
+331
+00:14:47.830 --> 00:14:50.550
+So the example they give is some
+
+332
+00:14:50.550 --> 00:14:53.490
+person, and it has a type variable f.
+
+333
+00:14:53.500 --> 00:14:56.340
+And for each field like name, it is of type
+
+334
+00:14:56.350 --> 00:14:59.020
+F string and ages of type
+
+335
+00:14:59.030 --> 00:15:01.800
+F int. And this looks a little goofy to
+
+336
+00:15:01.800 --> 00:15:04.440
+start. But the idea is, when you're doing
+
+337
+00:15:04.440 --> 00:15:07.380
+validation, you would have a person where f
+
+338
+00:15:07.390 --> 00:15:10.390
+is maybe meaning that the values are either not there
+
+339
+00:15:10.390 --> 00:15:13.230
+yet or didn't pass validation or whatever. And then
+
+340
+00:15:13.230 --> 00:15:16.050
+once you've validated everything, you change that f
+
+341
+00:15:16.060 --> 00:15:19.050
+from maybe two identity. And you're saying Okay, now everything
+
+342
+00:15:19.050 --> 00:15:21.930
+is actually there, and this is, ah, powerful
+
+343
+00:15:21.930 --> 00:15:24.650
+way. I know. In a previous episode we talked
+
+344
+00:15:24.650 --> 00:15:27.240
+about, um, parse, don't validate.
+
+345
+00:15:27.250 --> 00:15:30.140
+And I've used validation a lot as I've been talking about this,
+
+346
+00:15:30.140 --> 00:15:32.920
+but this is a way to quote unquote parse this
+
+347
+00:15:32.920 --> 00:15:35.720
+stuff by pushing this information to the type level
+
+348
+00:15:35.720 --> 00:15:38.360
+and forcing yourself to prove that they're all there
+
+349
+00:15:38.940 --> 00:15:41.860
+>> mhm s o. Okay, so with this
+
+350
+00:15:41.870 --> 00:15:43.850
+higher kind of day. The pattern,
+
+351
+00:15:44.340 --> 00:15:46.840
+um, you know, he kind of
+
+352
+00:15:47.070 --> 00:15:49.970
+launches end with maybe all the way.
+
+353
+00:15:49.980 --> 00:15:52.870
+Um, and obviously in this post,
+
+354
+00:15:52.870 --> 00:15:55.740
+he's kind of saying, hey, be weary of maybe maybe it's
+
+355
+00:15:55.740 --> 00:15:58.630
+not the best case. Uh, so
+
+356
+00:15:58.630 --> 00:16:00.760
+he starts and kind of moves towards
+
+357
+00:16:01.240 --> 00:16:03.790
+Yeah, I guess. Using either in this I
+
+358
+00:16:03.800 --> 00:16:06.550
+got a little confusing that for me for a minute. Um,
+
+359
+00:16:07.040 --> 00:16:09.750
+but what do you kind of parts of the next section
+
+360
+00:16:09.750 --> 00:16:11.960
+of this higher kind of data? Strict pattern.
+
+361
+00:16:13.260 --> 00:16:16.000
+>> This one gets a little tricky because with
+
+362
+00:16:16.010 --> 00:16:19.010
+maybe it's very easy to flip this around. So
+
+363
+00:16:19.010 --> 00:16:21.300
+if you have a person where f is, maybe
+
+364
+00:16:21.600 --> 00:16:24.310
+it's easy to turn that into a maybe
+
+365
+00:16:24.510 --> 00:16:27.490
+person where f his identity? Because
+
+366
+00:16:27.500 --> 00:16:30.500
+you try to get every field out of it.
+
+367
+00:16:30.500 --> 00:16:33.460
+And if it works, you're done. Um, but
+
+368
+00:16:33.460 --> 00:16:36.290
+often what you If you had a person
+
+369
+00:16:36.290 --> 00:16:38.750
+where f is either string,
+
+370
+00:16:39.640 --> 00:16:42.460
+you have a choice. Do you want to stop as
+
+371
+00:16:42.460 --> 00:16:45.160
+soon as one thing goes wrong, or do you want to
+
+372
+00:16:45.160 --> 00:16:48.000
+try to go as far as you can and collect as
+
+373
+00:16:48.000 --> 00:16:50.860
+many error messages as possible and then return all of them?
+
+374
+00:16:51.240 --> 00:16:54.160
+So the example I always think about here is if
+
+375
+00:16:54.160 --> 00:16:57.060
+you're trying to sign up for some service and
+
+376
+00:16:57.070 --> 00:17:00.040
+you load the form and then you just submit it and it comes back and
+
+377
+00:17:00.040 --> 00:17:02.970
+says, Hey, first name is required like OK, cool. I'll fill
+
+378
+00:17:02.970 --> 00:17:05.880
+out the first name, submit the form again. Last name is also
+
+379
+00:17:05.880 --> 00:17:08.750
+required. Okay, fill that out and then, you know, do
+
+380
+00:17:08.750 --> 00:17:11.570
+that three or four times you get a little frustrated, whereas if you just
+
+381
+00:17:11.640 --> 00:17:14.420
+hit it once and it comes back and says all of these things are required,
+
+382
+00:17:14.430 --> 00:17:16.770
+that's the difference that I'm talking about here.
+
+383
+00:17:18.140 --> 00:17:20.810
+And he recommends a package called
+
+384
+00:17:20.810 --> 00:17:23.610
+Barbies, which I had not heard of before. But it has a great
+
+385
+00:17:23.610 --> 00:17:26.170
+description on Hack Ege. It says,
+
+386
+00:17:26.180 --> 00:17:29.170
+Um, types that are parametric on a
+
+387
+00:17:29.170 --> 00:17:32.060
+funked er which is what we're talking about here. This higher kind of
+
+388
+00:17:32.060 --> 00:17:35.030
+data pattern types that are parametric on
+
+389
+00:17:35.030 --> 00:17:37.860
+a funked er are like Barbies that have an outfit for each
+
+390
+00:17:37.860 --> 00:17:40.560
+role. So maybe he's an outfit. Either is an outfit,
+
+391
+00:17:40.560 --> 00:17:43.530
+identities and outfit. I just think that's a cute description of
+
+392
+00:17:43.530 --> 00:17:46.520
+this. Um, but
+
+393
+00:17:46.520 --> 00:17:49.350
+yeah, the package the Barbies package gives helpers for
+
+394
+00:17:49.350 --> 00:17:51.570
+doing this error collection that I was just
+
+395
+00:17:51.570 --> 00:17:53.850
+describing noise.
+
+396
+00:17:55.740 --> 00:17:58.570
+Um, so, yeah, I'm not sure I have much more to
+
+397
+00:17:58.570 --> 00:18:01.560
+say about HKD. Was there any other stuff you wanted to know about it?
+
+398
+00:18:02.540 --> 00:18:05.360
+>> No, I think that was good. I Yes. As I'm
+
+399
+00:18:06.180 --> 00:18:09.090
+re parsing through it with what you're saying, Um,
+
+400
+00:18:09.100 --> 00:18:11.770
+you know, the fact that it, you know, returns
+
+401
+00:18:11.770 --> 00:18:14.640
+this either list of fuel info and your
+
+402
+00:18:14.640 --> 00:18:17.070
+example was great. So I really appreciate that.
+
+403
+00:18:17.740 --> 00:18:20.630
+>> Yeah. Happy to help. Um,
+
+404
+00:18:20.640 --> 00:18:23.550
+And then he, uh, he goes on the post
+
+405
+00:18:23.550 --> 00:18:26.290
+author here. Goes on to talk about Java
+
+406
+00:18:26.290 --> 00:18:29.130
+beans, which are I wasn't aware of this as,
+
+407
+00:18:29.130 --> 00:18:31.660
+like, a thing. I have worked with Java, but it's been a long time.
+
+408
+00:18:32.040 --> 00:18:34.990
+And, uh, apparently job of beans air, like a
+
+409
+00:18:34.990 --> 00:18:37.170
+class that can have an empty
+
+410
+00:18:37.940 --> 00:18:40.850
+thing. Instance, Yeah. Instance. Or like, a
+
+411
+00:18:40.850 --> 00:18:43.790
+default value or something like that. Um, but I
+
+412
+00:18:43.790 --> 00:18:46.560
+had a hard time following this section because I
+
+413
+00:18:47.040 --> 00:18:49.850
+couldn't get these things to type. Check in my head with the
+
+414
+00:18:49.850 --> 00:18:52.670
+G.H.C. that's running in my head. And then I tried with a real
+
+415
+00:18:52.670 --> 00:18:55.110
+G.H.C., and it wouldn't type check there either,
+
+416
+00:18:55.110 --> 00:18:58.100
+so I don't know what to say about this doesn't make
+
+417
+00:18:58.100 --> 00:18:58.680
+sense to me.
+
+418
+00:18:59.340 --> 00:19:02.170
+>> Yeah. I mean, you know, 11 would
+
+419
+00:19:02.170 --> 00:19:05.090
+think that, You know, if you
+
+420
+00:19:05.090 --> 00:19:07.920
+have ah, person of the
+
+421
+00:19:07.920 --> 00:19:10.730
+maybe funked er right under. Maybe the function.
+
+422
+00:19:10.740 --> 00:19:13.130
+Okay. Should I make sure
+
+423
+00:19:13.140 --> 00:19:16.060
+speaking here? Because I know someone in the Internet will tell me
+
+424
+00:19:16.060 --> 00:19:18.950
+I'm wrong, but that's okay. Uh, you know, in person of
+
+425
+00:19:18.950 --> 00:19:21.840
+identity, then you
+
+426
+00:19:21.840 --> 00:19:24.170
+try to mix them together. That's not
+
+427
+00:19:24.540 --> 00:19:27.460
+kind of work. I mean, and that's that whole compiler thing in
+
+428
+00:19:27.460 --> 00:19:29.760
+your head. Not working. Um,
+
+429
+00:19:30.540 --> 00:19:33.070
+I mean, if you wanted to, you could run, maybe and
+
+430
+00:19:33.080 --> 00:19:35.770
+have it to, you know, return just 10 rather than
+
+431
+00:19:35.780 --> 00:19:38.090
+identity. Yeah,
+
+432
+00:19:38.090 --> 00:19:40.520
+>> but then the whole example would be different.
+
+433
+00:19:40.580 --> 00:19:43.570
+>> So a little, a little more to
+
+434
+00:19:43.570 --> 00:19:46.400
+be desired. Here. Maybe there's just something we're missing or
+
+435
+00:19:46.400 --> 00:19:49.120
+misreading. Um, so
+
+436
+00:19:49.130 --> 00:19:51.610
+yeah, uh, no, I
+
+437
+00:19:51.610 --> 00:19:53.370
+think you know, that section was
+
+438
+00:19:55.540 --> 00:19:58.470
+informative, but still a little confusing.
+
+439
+00:19:58.470 --> 00:20:00.760
+So we'll keep moving
+
+440
+00:20:01.740 --> 00:20:04.290
+eso. When we were kind of prepping for this
+
+441
+00:20:04.290 --> 00:20:07.060
+show, we talked. We kind of stumbled
+
+442
+00:20:07.060 --> 00:20:09.840
+across this next section, which is the maybe first
+
+443
+00:20:09.840 --> 00:20:11.850
+mano a mano, Wakefield's.
+
+444
+00:20:12.240 --> 00:20:15.170
+And we were
+
+445
+00:20:15.940 --> 00:20:18.340
+also a little like first And then we
+
+446
+00:20:18.340 --> 00:20:21.070
+realized first was just really a wrapper around maybe,
+
+447
+00:20:21.440 --> 00:20:24.290
+Um uh, and you know, then
+
+448
+00:20:24.290 --> 00:20:26.930
+things got really interesting when we, uh, made a grandpa
+
+449
+00:20:26.940 --> 00:20:29.940
+toddler That happened somewhere later in this
+
+450
+00:20:29.940 --> 00:20:31.950
+example.
+
+451
+00:20:32.340 --> 00:20:35.130
+>> Yeah. So, like you mentioned first is a new
+
+452
+00:20:35.130 --> 00:20:38.100
+type wrapper around maybe. And the thing
+
+453
+00:20:38.100 --> 00:20:41.010
+that it does for you is pick. Um, when
+
+454
+00:20:41.010 --> 00:20:43.570
+you do like a semi group of pinned that
+
+455
+00:20:43.570 --> 00:20:45.770
+diamond operator or mm penned either one,
+
+456
+00:20:46.140 --> 00:20:49.090
+Uh, it will give you the first value.
+
+457
+00:20:49.090 --> 00:20:51.700
+That is just something.
+
+458
+00:20:51.780 --> 00:20:54.770
+So if you're one on the left, is that nothing? You'll get the
+
+459
+00:20:54.770 --> 00:20:57.660
+one on the right, And if the one on the left is a just, then
+
+460
+00:20:57.660 --> 00:21:00.280
+you'll get the one on the left, regardless of what the two values are. So it
+
+461
+00:21:00.280 --> 00:21:03.210
+doesn't smash them together, like with strings or add
+
+462
+00:21:03.210 --> 00:21:06.160
+them together, like with some or any of that stuff.
+
+463
+00:21:06.640 --> 00:21:09.170
+And this curious
+
+464
+00:21:09.180 --> 00:21:11.880
+grandpa toddler value is where they take
+
+465
+00:21:11.890 --> 00:21:14.870
+two people values and smush
+
+466
+00:21:14.870 --> 00:21:17.570
+them together using this first concept. And you
+
+467
+00:21:17.570 --> 00:21:20.080
+can end up with some weird data Where,
+
+468
+00:21:20.090 --> 00:21:22.850
+uh, yeah, it's just
+
+469
+00:21:22.850 --> 00:21:25.720
+like, you know, pretty much arbitrarily grabbing fields from
+
+470
+00:21:25.720 --> 00:21:28.500
+one and the other and pushing them together.
+
+471
+00:21:28.510 --> 00:21:31.260
+>> At that point, you get a grandpa or you get a some
+
+472
+00:21:31.270 --> 00:21:34.170
+person with the name Grandpa in a native woman. I
+
+473
+00:21:34.180 --> 00:21:36.210
+mean, they must have started when they were really, really
+
+474
+00:21:36.210 --> 00:21:37.770
+young.
+
+475
+00:21:38.240 --> 00:21:41.190
+>> Um and I'll just say for this we have
+
+476
+00:21:41.190 --> 00:21:43.950
+done this in our code base, a fair amount where we have
+
+477
+00:21:43.950 --> 00:21:46.840
+custom data types, that we have
+
+478
+00:21:46.840 --> 00:21:49.320
+semi group instances to combine them
+
+479
+00:21:49.320 --> 00:21:52.100
+together. But usually we implement
+
+480
+00:21:52.100 --> 00:21:55.020
+those instances by hand rather than
+
+481
+00:21:55.020 --> 00:21:57.890
+leaning on these, um, kind of convenience new
+
+482
+00:21:57.890 --> 00:22:00.740
+type rappers that the semi group and Mon oId modules
+
+483
+00:22:00.740 --> 00:22:03.560
+exposed like first and last in product and all this
+
+484
+00:22:03.560 --> 00:22:06.500
+other stuff. Um, so this hasn't been a
+
+485
+00:22:06.500 --> 00:22:08.670
+problem for us in practice. And
+
+486
+00:22:08.680 --> 00:22:11.390
+also we don't implement them for, like are quote
+
+487
+00:22:11.390 --> 00:22:14.210
+unquote business objects like person
+
+488
+00:22:14.210 --> 00:22:16.450
+or whatever. Instead, it's usually for
+
+489
+00:22:16.460 --> 00:22:19.240
+configuration or some type of aggregation that were building
+
+490
+00:22:19.240 --> 00:22:22.220
+up. So I do see
+
+491
+00:22:22.220 --> 00:22:24.670
+that this is a problem, but we haven't
+
+492
+00:22:24.670 --> 00:22:25.470
+experienced it,
+
+493
+00:22:25.840 --> 00:22:28.460
+>> right? Doesn't mean it's not out there. It's just
+
+494
+00:22:28.470 --> 00:22:31.380
+firsthand, very little like, Yeah, it doesn't seem like a problem
+
+495
+00:22:31.380 --> 00:22:34.290
+does. But because we don't use that, so
+
+496
+00:22:34.290 --> 00:22:36.940
+another big thing for you
+
+497
+00:22:36.940 --> 00:22:39.850
+know that maybe has going for it is the
+
+498
+00:22:39.850 --> 00:22:42.760
+fact that it has, you know, You know, we spoke
+
+499
+00:22:42.760 --> 00:22:45.670
+earlier about having alternative instance and having mawr instances
+
+500
+00:22:45.670 --> 00:22:48.320
+than either, Uh, which
+
+501
+00:22:48.330 --> 00:22:51.290
+allows to be a little easier to work with, because you're like, Oh, yeah, it's got the
+
+502
+00:22:51.290 --> 00:22:54.010
+instance I need here. I'll just go with maybe over either,
+
+503
+00:22:54.020 --> 00:22:56.770
+rather than trying to create your own alternative
+
+504
+00:22:56.770 --> 00:22:57.760
+instance for either.
+
+505
+00:22:58.140 --> 00:23:01.140
+>> Yeah, if you want to either write code,
+
+506
+00:23:01.150 --> 00:23:04.040
+that is probably more FIC or use code.
+
+507
+00:23:04.040 --> 00:23:07.000
+That's probably more fake than it turns out that you can use maybe
+
+508
+00:23:07.000 --> 00:23:08.760
+a lot more often than you can use, either.
+
+509
+00:23:09.640 --> 00:23:12.540
+And I think that's a good segue into the next section.
+
+510
+00:23:12.540 --> 00:23:15.430
+And almost the last section, which is Ah, we've
+
+511
+00:23:15.430 --> 00:23:18.420
+spent this whole time trashing. Maybe. But when is the good
+
+512
+00:23:18.420 --> 00:23:19.370
+time to use? Maybe
+
+513
+00:23:19.940 --> 00:23:21.860
+>> Mm. Oh, good old. Maybe
+
+514
+00:23:22.640 --> 00:23:25.210
+right. And, you know, we kind of touched on it in the beginning, right?
+
+515
+00:23:25.220 --> 00:23:28.040
+Um, you know, three authors here says he
+
+516
+00:23:28.040 --> 00:23:30.600
+follows a old design principle
+
+517
+00:23:30.600 --> 00:23:33.530
+called pastas Law. Where
+
+518
+00:23:33.530 --> 00:23:36.270
+you know, Lena input strict
+
+519
+00:23:36.280 --> 00:23:39.040
+output. Um, right. You know, things that
+
+520
+00:23:39.050 --> 00:23:41.820
+can be put input to the system can be more flexible than
+
+521
+00:23:41.820 --> 00:23:44.710
+what returned from the system, right?
+
+522
+00:23:44.720 --> 00:23:47.680
+>> So in this particular case, that means
+
+523
+00:23:47.680 --> 00:23:50.470
+like using either for your input would be
+
+524
+00:23:50.480 --> 00:23:53.430
+more strict because you would be requiring people to give
+
+525
+00:23:53.430 --> 00:23:56.340
+you this error information. But
+
+526
+00:23:56.340 --> 00:23:59.260
+with a maybe you're just saying I need
+
+527
+00:23:59.260 --> 00:24:02.260
+to know whether it's there or not. I don't need to know why it wasn't there,
+
+528
+00:24:02.270 --> 00:24:03.080
+so that's a little more
+
+529
+00:24:03.080 --> 00:24:05.760
+>> lenient. So
+
+530
+00:24:06.340 --> 00:24:07.360
+don't make me woo
+
+531
+00:24:07.840 --> 00:24:09.950
+e.
+
+532
+00:24:09.960 --> 00:24:12.890
+>> Do think it's funny that he explicitly mentions data
+
+533
+00:24:12.890 --> 00:24:15.610
+dot map. Look up as somewhere. That's probably
+
+534
+00:24:15.610 --> 00:24:18.460
+fine to use. Maybe because for
+
+535
+00:24:18.460 --> 00:24:21.370
+me, that's one place where I want either. And when I talk about
+
+536
+00:24:21.370 --> 00:24:24.330
+in our code base, where we decorate, maybe values with error
+
+537
+00:24:24.330 --> 00:24:27.160
+information, it's often on this where we're doing
+
+538
+00:24:27.160 --> 00:24:30.070
+three or four look ups in a row, and we want to know which
+
+539
+00:24:30.070 --> 00:24:32.970
+one failed. And it's really convenient to say, Oh, I couldn't find this
+
+540
+00:24:32.970 --> 00:24:34.830
+key rather than just getting back
+
+541
+00:24:34.830 --> 00:24:37.760
+>> nothing. Yeah, maybe that's
+
+542
+00:24:37.760 --> 00:24:39.560
+a future enhancement.
+
+543
+00:24:40.140 --> 00:24:42.660
+>> Mhm. Yeah, we'll have another.
+
+544
+00:24:43.040 --> 00:24:45.670
+Yeah, well, we end up doing a lot of note. Look
+
+545
+00:24:45.670 --> 00:24:47.380
+up. Using the help function we talked
+
+546
+00:24:47.380 --> 00:24:50.180
+>> about e mean at this point we should just probably,
+
+547
+00:24:50.190 --> 00:24:52.970
+you know, pull a new instance of look up into
+
+548
+00:24:52.970 --> 00:24:55.270
+our prelude that does that
+
+549
+00:24:55.270 --> 00:24:56.060
+>> has that on their
+
+550
+00:24:56.070 --> 00:24:59.070
+>> Yeah, probably could make life a little
+
+551
+00:24:59.070 --> 00:25:01.870
+easier. But, you know, note.
+
+552
+00:25:01.880 --> 00:25:04.460
+Look up. Wasn't the worst thing in the world either,
+
+553
+00:25:04.470 --> 00:25:07.440
+but, Well, awesome. Yeah, I think
+
+554
+00:25:07.440 --> 00:25:10.400
+that was, uh, Cem. Good
+
+555
+00:25:10.400 --> 00:25:13.160
+cases for using, maybe. And, you know, overall,
+
+556
+00:25:13.640 --> 00:25:16.470
+maybe either is the way to go, but, you know, maybe has its
+
+557
+00:25:16.470 --> 00:25:18.470
+place. That's why it's in the ecosystem.
+
+558
+00:25:19.040 --> 00:25:21.770
+>> This is a compelling argument to me, and I've I've
+
+559
+00:25:21.770 --> 00:25:24.670
+found I haven't, you know, crystallized this opinion
+
+560
+00:25:24.670 --> 00:25:27.610
+myself for or thought too much about it before. But reading
+
+561
+00:25:27.610 --> 00:25:30.320
+through this post, I was like, Yeah, you know, most of the time I would prefer
+
+562
+00:25:30.320 --> 00:25:33.310
+something that dealt with either or something. I see
+
+563
+00:25:33.310 --> 00:25:36.220
+more fake toe either rather than maybe so that when
+
+564
+00:25:36.220 --> 00:25:37.670
+something goes wrong, I'll know why.
+
+565
+00:25:38.440 --> 00:25:40.850
+>> Yeah. Yeah. So
+
+566
+00:25:41.340 --> 00:25:43.850
+to kind of recap the
+
+567
+00:25:43.850 --> 00:25:46.740
+authors causes for thinking, you know, for
+
+568
+00:25:46.740 --> 00:25:49.720
+saying it's overused. Uh, yeah. He
+
+569
+00:25:49.720 --> 00:25:52.500
+says, you know, using maybe is simpler than either,
+
+570
+00:25:52.510 --> 00:25:55.470
+um, you know, coding with Maybe it's
+
+571
+00:25:55.480 --> 00:25:58.410
+tercer, which is a fun, weird
+
+572
+00:25:58.420 --> 00:26:01.000
+tercer uh, maybe
+
+573
+00:26:01.000 --> 00:26:03.950
+is more expressive, really having more
+
+574
+00:26:03.960 --> 00:26:06.860
+instances available to it on. And then you know,
+
+575
+00:26:08.340 --> 00:26:11.310
+the sophisticated abstractions can can
+
+576
+00:26:11.310 --> 00:26:14.070
+obscure the common sense. But,
+
+577
+00:26:14.440 --> 00:26:17.210
+you know, you may be it's gonna make
+
+578
+00:26:17.210 --> 00:26:20.170
+it do what you want. It can
+
+579
+00:26:20.170 --> 00:26:23.090
+make it do what you want. But you may also be missing information and
+
+580
+00:26:23.090 --> 00:26:25.360
+losing out on things you expect to be there.
+
+581
+00:26:25.840 --> 00:26:28.600
+>> Yeah, I think this ties into the previous one where, since
+
+582
+00:26:28.600 --> 00:26:31.510
+maybe has more instances, you can use it with more
+
+583
+00:26:31.510 --> 00:26:34.180
+abstractions, and it will
+
+584
+00:26:34.180 --> 00:26:37.140
+probably all type check. But you may end up with something that's very
+
+585
+00:26:37.140 --> 00:26:39.670
+confusing either to use or to debug.
+
+586
+00:26:40.840 --> 00:26:43.670
+>> Precisely. Well,
+
+587
+00:26:43.680 --> 00:26:46.230
+awesome, Taylor. Well, thanks for being on the show with me
+
+588
+00:26:46.230 --> 00:26:49.160
+today. Thank you. Listeners for tuning in.
+
+589
+00:26:49.640 --> 00:26:52.140
+Um, Taylor, where can they find
+
+590
+00:26:52.140 --> 00:26:53.570
+us?
+
+591
+00:26:53.940 --> 00:26:56.690
+>> Well, uh, they could probably just google for high school
+
+592
+00:26:56.690 --> 00:26:59.610
+weekly. That might be the easiest way, but if you want to go straight
+
+593
+00:26:59.610 --> 00:27:02.230
+to the source, our website is high school weekly
+
+594
+00:27:02.230 --> 00:27:05.060
+dot news. We're on Twitter. Our handle
+
+595
+00:27:05.060 --> 00:27:08.050
+is Haskell Weekly. Were on Reddit. Same
+
+596
+00:27:08.050 --> 00:27:10.180
+handle were on git hub, same handle.
+
+597
+00:27:10.640 --> 00:27:13.420
+And if you want to suggest
+
+598
+00:27:13.420 --> 00:27:15.830
+something, tow us, you could send an email to
+
+599
+00:27:15.830 --> 00:27:18.560
+info at Haskell weekly dot news.
+
+600
+00:27:19.240 --> 00:27:20.990
+>> They can't find us on MYSPACE
+
+601
+00:27:21.840 --> 00:27:22.690
+way
+
+602
+00:27:22.690 --> 00:27:24.410
+>> had to take down our MySpace page.
+
+603
+00:27:24.420 --> 00:27:26.350
+>> Just Yeah.
+
+604
+00:27:26.740 --> 00:27:29.250
+Okay. That's okay, though, because
+
+605
+00:27:29.260 --> 00:27:31.950
+high school, the podcast is brought to you by I.T. pro
+
+606
+00:27:31.950 --> 00:27:34.580
+T.V. three e learning platform for I.T.
+
+607
+00:27:34.580 --> 00:27:37.570
+professionals. And also employer way.
+
+608
+00:27:37.570 --> 00:27:40.560
+Thank them for letting us do such an incredible show.
+
+609
+00:27:40.570 --> 00:27:43.480
+Uh, they're also very generous
+
+610
+00:27:43.480 --> 00:27:46.140
+because they would love to offer all of our listeners a
+
+611
+00:27:46.140 --> 00:27:49.120
+30% discount code for the lifetime of
+
+612
+00:27:49.120 --> 00:27:51.900
+the prescription by using Haskell Weekly
+
+613
+00:27:51.900 --> 00:27:54.580
+30 at check out. And that will get you
+
+614
+00:27:54.580 --> 00:27:57.200
+30% off the lifetime of that subscription.
+
+615
+00:27:57.210 --> 00:28:00.050
+So go check
+
+616
+00:28:00.060 --> 00:28:03.050
+it out. Yeah,
+
+617
+00:28:03.060 --> 00:28:04.290
+>> and I think that will do it for
+
+618
+00:28:04.290 --> 00:28:07.070
+>> us this week. See you next week.
+
+619
+00:28:07.540 --> 00:28:08.080
+Peace
