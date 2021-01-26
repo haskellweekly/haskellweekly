@@ -64,6 +64,7 @@ episodes = do
     , episode32
     , episode33
     , episode34
+    , episode35
     ]
   checkGuids validEpisodes Set.empty
   checkNumbers validEpisodes 1
@@ -621,3 +622,16 @@ episode34 = Episode.Episode
   <*> Size.fromNatural 27275545
   <*> Summary.fromText "Christian Charukiewicz at Foxhound Systems wrote a list of reasons to prefer Haskell for building production systems. Cameron Gera and Taylor Fausak review the list and share their experience at ITProTV."
   <*> Title.fromText "Production Haskell"
+
+episode35 :: Either String Episode.Episode
+episode35 = Episode.Episode
+  <$> Articles.fromList
+    [ "https://rpeszek.github.io/posts/2021-01-17-maybe-overuse.html"
+    ]
+  <*> Date.fromGregorian 2021 1 26
+  <*> Duration.fromTimestamp 28 12
+  <*> Guid.fromText "3c79db09-71af-403d-90ef-abb839df5138"
+  <*> Number.fromNatural 35
+  <*> Size.fromNatural 29166778
+  <*> Summary.fromText "Is Maybe problematic? Well, maybe. Robert Peszek thinks that Maybe is overused. Cameron Gera and Taylor Fausak break it down and consider alternatives."
+  <*> Title.fromText "Maybe Either"
