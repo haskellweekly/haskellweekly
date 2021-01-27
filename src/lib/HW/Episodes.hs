@@ -632,6 +632,6 @@ episode35 = Episode.Episode
   <*> Duration.fromTimestamp 28 12
   <*> Guid.fromText "3c79db09-71af-403d-90ef-abb839df5138"
   <*> Number.fromNatural 35
-  <*> Size.fromNatural 29166778
+  <*> Size.fromNatural 29352917
   <*> Summary.fromText "Is Maybe problematic? Well, maybe. Robert Peszek thinks that Maybe is overused. Cameron Gera and Taylor Fausak break it down and consider alternatives."
   <*> Title.fromText "Maybe Either"
