@@ -55,4 +55,5 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 
 ## Call for participation
 
-undefined
+-   [cascade: Obtain HTTP port for starting HTTP API server from environment variables](https://github.com/the-dr-lazy/cascade/issues/15)
+-   [haskell-language-server: Add haskell-language-server to chocolatey package manager](https://github.com/haskell/haskell-language-server/issues/1250)
