@@ -65,6 +65,7 @@ episodes = do
     , episode33
     , episode34
     , episode35
+    , episode36
     ]
   checkGuids validEpisodes Set.empty
   checkNumbers validEpisodes 1
@@ -635,3 +636,17 @@ episode35 = Episode.Episode
   <*> Size.fromNatural 29352917
   <*> Summary.fromText "Is Maybe problematic? Well, maybe. Robert Peszek thinks that Maybe is overused. Cameron Gera and Taylor Fausak break it down and consider alternatives."
   <*> Title.fromText "Maybe Either"
+
+episode36 :: Either String Episode.Episode
+episode36 = Episode.Episode
+  <$> Articles.fromList
+    [ "https://leanpub.com/production-haskell"
+    , "https://twitter.com/prodhaskell"
+    ]
+  <*> Date.fromGregorian 2021 2 1
+  <*> Duration.fromTimestamp 32 53
+  <*> Guid.fromText "4170635b-c65b-40ef-b34a-0111dfc9ccd3"
+  <*> Number.fromNatural 36
+  <*> Size.fromNatural 32881421
+  <*> Summary.fromText "Special guest Matt Parsons talks to us about his upcoming book, Production Haskell."
+  <*> Title.fromText "Production Haskell with Matt Parsons"
