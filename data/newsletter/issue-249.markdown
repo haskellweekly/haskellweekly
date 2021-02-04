@@ -78,4 +78,5 @@ is something both very right, and very wrong about it.
 
 ## Call for participation
 
-undefined
+-   [password: Test on GHC 8.2.2 again](https://github.com/cdepillabout/password/issues/41)
+-   [prefmanager: Watching a lot of domains can cause program to crash after some time](https://github.com/malob/prefmanager/issues/1)
