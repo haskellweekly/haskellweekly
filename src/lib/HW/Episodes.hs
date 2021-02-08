@@ -66,6 +66,7 @@ episodes = do
     , episode34
     , episode35
     , episode36
+    , episode37
     ]
   checkGuids validEpisodes Set.empty
   checkNumbers validEpisodes 1
@@ -650,3 +651,16 @@ episode36 = Episode.Episode
   <*> Size.fromNatural 32881421
   <*> Summary.fromText "Special guest Matt Parsons talks to us about his upcoming book, Production Haskell."
   <*> Title.fromText "Production Haskell with Matt Parsons"
+
+episode37 :: Either String Episode.Episode
+episode37 = Episode.Episode
+  <$> Articles.fromList
+    [ "https://zacwood.me/posts/haskell-type-application/"
+    ]
+  <*> Date.fromGregorian 2021 2 8
+  <*> Duration.fromTimestamp 18 33
+  <*> Guid.fromText "59638cbd-3b43-4c5b-b0db-e46b0d0675bd"
+  <*> Number.fromNatural 37
+  <*> Size.fromNatural 20353812
+  <*> Summary.fromText "Come `@` me bro! In this episode we review Zac Wood's post about the type applications language extension."
+  <*> Title.fromText "Type Applications"
