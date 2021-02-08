@@ -4,6 +4,7 @@ module HW.Template.Podcast
   , header
   ) where
 
+import qualified HW.Markdown as Markdown
 import qualified HW.Template.Base as Base
 import qualified HW.Template.Common as Common
 import qualified HW.Type.BaseUrl as BaseUrl
@@ -88,7 +89,11 @@ episodeTemplate baseUrl episode = Html.li_ . Html.p_ $ do
     . Title.toText
     $ Episode.title episode
   ": "
-  Html.toHtml . Summary.toText $ Episode.summary episode
+  Html.toHtmlRaw
+    . Markdown.toHtml
+    . Markdown.fromText
+    . Summary.toText
+    $ Episode.summary episode
   " "
   Html.span_ [Html.class_ "mid-gray"]
     . Html.toHtml
