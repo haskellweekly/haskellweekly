@@ -23,4 +23,4 @@ undefined
 
 ## Call for participation
 
-undefined
+-   [monpad: Make `--watch-layout` work correctly with multiple clients](https://github.com/georgefst/monpad/issues/19)
