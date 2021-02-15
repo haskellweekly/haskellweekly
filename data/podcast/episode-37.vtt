@@ -1,5 +1,1609 @@
 WEBVTT
 
 1
-00:00:00.000 --> 00:00:05.000
->> [No transcript yet.]
+00:00:07.850 --> 00:00:10.740
+>> Welcome to the Haskell Weekly podcast. This is a show
+
+2
+00:00:10.740 --> 00:00:13.130
+about Haskell, a purely functional programming
+
+3
+00:00:13.130 --> 00:00:16.030
+language. I'm your host, Taylor Fausak, the
+
+4
+00:00:16.030 --> 00:00:18.550
+lead engineer at ITProTV, an ACI
+
+5
+00:00:18.820 --> 00:00:21.460
+learning company. With me today is Cameron
+
+6
+00:00:21.460 --> 00:00:24.400
+Gera, one of the engineers on my team. Thanks for joining me
+
+7
+00:00:24.400 --> 00:00:25.150
+today, Cam.
+
+8
+00:00:25.160 --> 00:00:27.720
+>> Thanks for having me, Taylor. Pleasure as
+
+9
+00:00:27.720 --> 00:00:30.560
+always I'm just really excited about today. I
+
+10
+00:00:30.560 --> 00:00:33.260
+think we've got some great content ahead of us
+
+11
+00:00:33.270 --> 00:00:36.070
+going to be talking a little bit about a
+
+12
+00:00:36.070 --> 00:00:39.070
+language extension called type applications. So,
+
+13
+00:00:39.080 --> 00:00:41.850
+uh, if you're familiar with Haskell, you've probably heard of type
+
+14
+00:00:41.850 --> 00:00:44.800
+applications. If you're new to Haskell, well
+
+15
+00:00:44.800 --> 00:00:47.720
+then you're in for a special treat today. We're gonna kind of walk
+
+16
+00:00:47.720 --> 00:00:50.700
+through type applications. You know what? What's helpful
+
+17
+00:00:50.700 --> 00:00:53.650
+about it? What's, you know, maybe confusing about
+
+18
+00:00:53.650 --> 00:00:56.410
+it and really dive in to a
+
+19
+00:00:56.410 --> 00:00:58.860
+post that Zach Wood, uh,
+
+20
+00:00:59.240 --> 00:01:02.100
+wrote called Haskell's at
+
+21
+00:01:02.110 --> 00:01:05.060
+symbol type applications. So,
+
+22
+00:01:05.070 --> 00:01:07.800
+uh, to kick off,
+
+23
+00:01:07.810 --> 00:01:10.720
+he I think, probably works
+
+24
+00:01:10.720 --> 00:01:13.570
+with, uh, IHP, which is integrated
+
+25
+00:01:13.570 --> 00:01:16.160
+Haskell platform. And he is trying
+
+26
+00:01:16.160 --> 00:01:18.990
+to help explain, um, some of
+
+27
+00:01:18.990 --> 00:01:21.330
+the extensions that are
+
+28
+00:01:21.340 --> 00:01:24.280
+uh, kind of on by default
+
+29
+00:01:24.280 --> 00:01:27.260
+when you're using the the IHP platform. You know, uh,
+
+30
+00:01:27.640 --> 00:01:30.330
+framework, I believe, is really what it is at the end of the
+
+31
+00:01:30.330 --> 00:01:32.660
+day. Um and
+
+32
+00:01:32.660 --> 00:01:35.610
+so, yeah, tell us a little bit about
+
+33
+00:01:35.620 --> 00:01:36.960
+type applications. Taylor.
+
+34
+00:01:37.940 --> 00:01:40.870
+>> Yeah. For context. Like you mentioned,
+
+35
+00:01:40.870 --> 00:01:43.600
+the I H P is a framework for building Web
+
+36
+00:01:43.600 --> 00:01:46.490
+applications with Haskell. And if you're familiar with Ruby on
+
+37
+00:01:46.490 --> 00:01:49.380
+rails, I think it tries to be a lot like that. So
+
+38
+00:01:49.390 --> 00:01:51.760
+it aims to be very developer friendly,
+
+39
+00:01:52.140 --> 00:01:54.930
+and one of the things that you often want to
+
+40
+00:01:54.930 --> 00:01:57.670
+do with Haskell is have a function that is
+
+41
+00:01:57.670 --> 00:01:59.940
+polymorphic that could be used in a lot of different
+
+42
+00:01:59.940 --> 00:02:02.690
+contexts. But then you need to pick which
+
+43
+00:02:02.690 --> 00:02:05.520
+context you're using it in. So the example he gives is if you're
+
+44
+00:02:05.520 --> 00:02:07.650
+like, querying for something from the database,
+
+45
+00:02:08.140 --> 00:02:10.810
+that function should clearly allow you
+
+46
+00:02:10.810 --> 00:02:13.390
+to query for many different types of
+
+47
+00:02:13.390 --> 00:02:16.160
+things. Let's say like a user or an
+
+48
+00:02:16.160 --> 00:02:18.580
+episode for us. That's one of our data models.
+
+49
+00:02:18.590 --> 00:02:21.480
+Um, but you are gonna wanna pick
+
+50
+00:02:21.490 --> 00:02:24.060
+which thing you're querying for, so that's where type
+
+51
+00:02:24.060 --> 00:02:26.970
+applications can come in as a solution to that problem where you have this
+
+52
+00:02:26.970 --> 00:02:29.960
+polymorphic function, you say I want to use it with
+
+53
+00:02:29.970 --> 00:02:31.360
+this specific type.
+
+54
+00:02:31.840 --> 00:02:34.460
+>> Yeah, and you know, I think type
+
+55
+00:02:34.460 --> 00:02:37.410
+applications is a great way to fix this one
+
+56
+00:02:37.420 --> 00:02:40.340
+for us. We actually had this
+
+57
+00:02:40.340 --> 00:02:43.180
+kind of similar problem where we had a query that could return
+
+58
+00:02:43.190 --> 00:02:45.800
+all kinds of different things. And if we didn't use it in another
+
+59
+00:02:45.800 --> 00:02:48.350
+context, it couldn't figure out. You know
+
+60
+00:02:48.840 --> 00:02:51.570
+what type we were trying to query there. So we
+
+61
+00:02:51.570 --> 00:02:54.130
+actually used to do just kind of type
+
+62
+00:02:54.130 --> 00:02:56.440
+assertion at the variable
+
+63
+00:02:56.440 --> 00:02:59.310
+Declaration. So that was
+
+64
+00:02:59.320 --> 00:03:01.890
+you know, all right, we have user
+
+65
+00:03:01.900 --> 00:03:04.850
+whose colon colon type user and then that's
+
+66
+00:03:04.850 --> 00:03:07.340
+bound from the query that we were running.
+
+67
+00:03:07.340 --> 00:03:10.180
+So you know, that's why another way to
+
+68
+00:03:10.190 --> 00:03:12.570
+do what type application does
+
+69
+00:03:13.270 --> 00:03:16.190
+>> and funny note about that that requires a
+
+70
+00:03:16.190 --> 00:03:19.080
+different language extension called scoped
+
+71
+00:03:19.090 --> 00:03:22.010
+type variables, to be able to give a
+
+72
+00:03:22.010 --> 00:03:24.890
+type signature when you bind a variable so either on the
+
+73
+00:03:24.890 --> 00:03:27.850
+left side of one of the arrows in do notation or
+
+74
+00:03:27.850 --> 00:03:30.650
+on the left side of unequal sign in a let statement.
+
+75
+00:03:31.040 --> 00:03:33.960
+Otherwise you have to either give the
+
+76
+00:03:33.960 --> 00:03:36.910
+type signature on some other line later
+
+77
+00:03:36.910 --> 00:03:39.900
+in the function where use the thing or on the right
+
+78
+00:03:39.900 --> 00:03:42.540
+side, you would give, like colon colon, like io
+
+79
+00:03:42.540 --> 00:03:45.480
+user or the type of the whole expression where
+
+80
+00:03:45.480 --> 00:03:47.960
+the thing comes from rather than just that piece you care about.
+
+81
+00:03:48.540 --> 00:03:51.530
+>> Yeah. True. True. True. Yeah, thank you for that correction. But
+
+82
+00:03:51.530 --> 00:03:54.400
+yeah, that was also something we used to do before we even
+
+83
+00:03:54.400 --> 00:03:56.490
+had scope type variables. So
+
+84
+00:03:56.500 --> 00:03:59.250
+yeah, I think type applications
+
+85
+00:03:59.940 --> 00:04:02.840
+cleaned up the code a little bit over scope type
+
+86
+00:04:02.840 --> 00:04:05.560
+variables because, you know, we
+
+87
+00:04:05.560 --> 00:04:08.510
+could kind of read the functional, revered
+
+88
+00:04:08.510 --> 00:04:11.340
+writing and then say, Oh, hey, here's what type that
+
+89
+00:04:11.350 --> 00:04:14.300
+thing needs to return Or here's that, really.
+
+90
+00:04:14.310 --> 00:04:17.260
+Here's that type that needs to be filled into the polymorphic
+
+91
+00:04:17.270 --> 00:04:18.750
+piece of this function.
+
+92
+00:04:19.140 --> 00:04:22.130
+>> Yeah, and one of the reasons I think that we
+
+93
+00:04:22.140 --> 00:04:24.870
+didn't use type applications or scoped type
+
+94
+00:04:24.870 --> 00:04:27.820
+variables for a while is that in general, I try to avoid
+
+95
+00:04:27.820 --> 00:04:30.730
+using language extensions, but these ones, we had
+
+96
+00:04:30.730 --> 00:04:33.710
+enough polymorphic functions where the
+
+97
+00:04:33.710 --> 00:04:36.710
+utility was just undeniable. And instead of
+
+98
+00:04:36.710 --> 00:04:39.390
+ending up writing like a find
+
+99
+00:04:39.390 --> 00:04:42.290
+user function and find episode function and find
+
+100
+00:04:42.290 --> 00:04:44.810
+this, find that you just have one find
+
+101
+00:04:44.810 --> 00:04:47.760
+function and you pass the at type name for
+
+102
+00:04:47.760 --> 00:04:50.460
+the next thing. And it feels like you get a lot of the same
+
+103
+00:04:50.460 --> 00:04:53.260
+benefits as if you had a lot of different monomorphic
+
+104
+00:04:53.260 --> 00:04:53.860
+functions,
+
+105
+00:04:54.340 --> 00:04:57.120
+>> right? Right. And you know, I mean, I
+
+106
+00:04:57.130 --> 00:05:00.080
+know you. The habit is to shy away from
+
+107
+00:05:00.080 --> 00:05:02.900
+a language extension before, you know, going to it
+
+108
+00:05:02.910 --> 00:05:05.910
+until you see that use case. And I think for us, we really
+
+109
+00:05:05.920 --> 00:05:08.680
+did find that use case, Uh, you know, and
+
+110
+00:05:08.690 --> 00:05:11.550
+the nice thing about type applications as a language extension is
+
+111
+00:05:11.560 --> 00:05:14.450
+it's pretty well known around the community. And, you know,
+
+112
+00:05:14.740 --> 00:05:17.620
+it's even gonna be in the release of GHT 2021 which
+
+113
+00:05:17.620 --> 00:05:20.540
+we've talked about in previous podcast. So you know, there's
+
+114
+00:05:20.550 --> 00:05:23.460
+ah lot of community understanding on
+
+115
+00:05:23.460 --> 00:05:26.320
+tap type applications and you know, it's
+
+116
+00:05:26.320 --> 00:05:29.320
+something. There's a lot of, you know, tutorials on
+
+117
+00:05:29.320 --> 00:05:32.210
+what it does and how it works. Um, you know, and
+
+118
+00:05:32.220 --> 00:05:34.760
+this post is another opportunity to kind of
+
+119
+00:05:35.140 --> 00:05:37.960
+show what power it has. Um,
+
+120
+00:05:38.340 --> 00:05:41.060
+but, you know, we've been praising type applications a
+
+121
+00:05:41.060 --> 00:05:43.810
+lot, but I know there is one thing that's kind
+
+122
+00:05:43.810 --> 00:05:46.140
+of tricky when it comes to type
+
+123
+00:05:46.140 --> 00:05:49.090
+applications. And that's what like
+
+124
+00:05:49.100 --> 00:05:50.860
+when you put in that symbol in some
+
+125
+00:05:51.240 --> 00:05:53.920
+type, you think it may be a
+
+126
+00:05:53.920 --> 00:05:56.050
+variable to the function when it's really not,
+
+127
+00:05:56.060 --> 00:05:57.180
+Uh,
+
+128
+00:05:57.190 --> 00:06:00.030
+>> it's gonna be really confusing, because, uh, the
+
+129
+00:06:00.030 --> 00:06:02.960
+at sign you might think it could be used as an
+
+130
+00:06:02.960 --> 00:06:05.720
+operator. So if you had some identify
+
+131
+00:06:05.720 --> 00:06:08.720
+at sign some, some other identify that
+
+132
+00:06:08.720 --> 00:06:11.580
+could be a normal operator call like, plus or you know,
+
+133
+00:06:11.590 --> 00:06:14.550
+something like that. But it actually it can't be in
+
+134
+00:06:14.550 --> 00:06:17.060
+Haskell because the at sign is reserved for this
+
+135
+00:06:17.060 --> 00:06:19.770
+special thing when you bind
+
+136
+00:06:19.770 --> 00:06:22.500
+variables or when you match on them. So, like if you want to
+
+137
+00:06:22.500 --> 00:06:25.370
+match on a list and destructure the
+
+138
+00:06:25.370 --> 00:06:28.370
+head and the tail using colon, but you wanna
+
+139
+00:06:28.370 --> 00:06:31.370
+hang on to that overall list, you can do that with the at sign
+
+140
+00:06:31.370 --> 00:06:33.900
+so you do the like whole
+
+141
+00:06:33.900 --> 00:06:36.410
+term on the left and then at sign and
+
+142
+00:06:36.410 --> 00:06:39.080
+then some destructuring pattern on the
+
+143
+00:06:39.080 --> 00:06:41.250
+right. Um, so
+
+144
+00:06:41.640 --> 00:06:44.420
+that's one way that type applications could be a little
+
+145
+00:06:44.420 --> 00:06:46.590
+confusing is that this at sign is overloaded.
+
+146
+00:06:46.600 --> 00:06:49.440
+But fortunately, uh, the like
+
+147
+00:06:49.440 --> 00:06:51.900
+space around the operator is what
+
+148
+00:06:51.910 --> 00:06:54.780
+disambiguates it. So if you have a space before the at
+
+149
+00:06:54.780 --> 00:06:57.450
+sign, you know that it's gonna be a type application,
+
+150
+00:06:58.240 --> 00:07:01.210
+>> right? And then, yeah, I mean, and that's that's one
+
+151
+00:07:01.210 --> 00:07:04.090
+thing. The other thing, too, is you know, the order
+
+152
+00:07:04.100 --> 00:07:06.940
+of passing these type types through type
+
+153
+00:07:06.940 --> 00:07:09.640
+applications matters because, you know, if there's
+
+154
+00:07:09.640 --> 00:07:12.360
+multiple polymorphic variables in a function,
+
+155
+00:07:12.940 --> 00:07:15.550
+you have to make sure you pass this in order or you probably
+
+156
+00:07:15.550 --> 00:07:18.550
+get I mean, I imagine the compiler
+
+157
+00:07:19.540 --> 00:07:22.430
+errors were pretty helpful, but it could still be pretty confusing,
+
+158
+00:07:22.430 --> 00:07:22.990
+so
+
+159
+00:07:23.000 --> 00:07:25.550
+>> they might be pretty gnarly, especially if you have
+
+160
+00:07:25.560 --> 00:07:28.540
+types of different kinds. So, like
+
+161
+00:07:28.540 --> 00:07:31.450
+if one of your type arguments is meant to be
+
+162
+00:07:31.450 --> 00:07:34.060
+some monad, so it takes another type as an argument,
+
+163
+00:07:34.440 --> 00:07:37.350
+and you try to pass something like into that the kinds
+
+164
+00:07:37.350 --> 00:07:40.210
+aren't going to match up. And I think most Haskell programmers probably
+
+165
+00:07:40.210 --> 00:07:42.810
+don't run into that type of error very often, so it might be a little
+
+166
+00:07:42.810 --> 00:07:45.720
+mystifying. Um, but yeah, the
+
+167
+00:07:45.720 --> 00:07:47.920
+order of the argument is important, and
+
+168
+00:07:47.930 --> 00:07:50.890
+usually the order that type
+
+169
+00:07:50.890 --> 00:07:53.710
+variables appear in a type signature is
+
+170
+00:07:53.710 --> 00:07:56.660
+OK like that's the order that you would want to supply them,
+
+171
+00:07:57.040 --> 00:07:59.970
+but sometimes it's not right. You want to
+
+172
+00:07:59.970 --> 00:08:01.660
+change the order. So how would you do that?
+
+173
+00:08:02.740 --> 00:08:05.540
+>> Yeah, so that's our good
+
+174
+00:08:05.540 --> 00:08:08.110
+friend, the for all statement, right? Isn't that thing
+
+175
+00:08:08.120 --> 00:08:09.760
+>> yet? Another language extension?
+
+176
+00:08:10.140 --> 00:08:13.050
+>> Yeah. Which we don't tend to
+
+177
+00:08:13.050 --> 00:08:15.920
+use it very often on our day today. So for me, that's
+
+178
+00:08:15.930 --> 00:08:18.740
+a little fuzzy. So I'm gonna actually bounce that back to you and
+
+179
+00:08:18.740 --> 00:08:20.400
+ask Sure about it
+
+180
+00:08:20.410 --> 00:08:23.290
+>> So the way that I like to think
+
+181
+00:08:23.290 --> 00:08:25.940
+about for all is sort of a type
+
+182
+00:08:25.940 --> 00:08:28.780
+level lambda. I think pretty much any Haskell
+
+183
+00:08:28.780 --> 00:08:31.570
+programmer is gonna be comfortable writing a lambda with a
+
+184
+00:08:31.570 --> 00:08:33.460
+bunch of variables and then an arrow.
+
+185
+00:08:33.940 --> 00:08:36.840
+And for me for all is
+
+186
+00:08:36.840 --> 00:08:39.340
+kind of the same thing on the type level, where you
+
+187
+00:08:39.340 --> 00:08:42.200
+have the for all and then a bunch
+
+188
+00:08:42.200 --> 00:08:45.100
+of type variables and then a period. And then you have the type
+
+189
+00:08:45.100 --> 00:08:47.690
+signature after that. So it's a way
+
+190
+00:08:47.690 --> 00:08:50.690
+of explicitly listing all the type variables you're
+
+191
+00:08:50.690 --> 00:08:53.360
+going to use so that you can give them in a particular order.
+
+192
+00:08:54.640 --> 00:08:55.760
+>> Mhm. Okay,
+
+193
+00:08:57.910 --> 00:09:00.720
+I knew it was a thing in Haskell, but I didn't really
+
+194
+00:09:00.720 --> 00:09:03.180
+ever understand the reasoning for it,
+
+195
+00:09:03.190 --> 00:09:05.740
+Um, way generally don't have
+
+196
+00:09:05.750 --> 00:09:08.650
+super overly polymorphic functions where we have tell.
+
+197
+00:09:09.040 --> 00:09:12.030
+Yeah, and where the order always matters or something along
+
+198
+00:09:12.030 --> 00:09:14.560
+those lines. So for us,
+
+199
+00:09:14.940 --> 00:09:17.480
+you know, we haven't really run into that too much
+
+200
+00:09:17.490 --> 00:09:18.120
+personally.
+
+201
+00:09:18.130 --> 00:09:21.110
+>> Yeah, and it's kind of funny because the four
+
+202
+00:09:21.110 --> 00:09:24.020
+all is actually always there. It's
+
+203
+00:09:24.020 --> 00:09:27.020
+just implied that if you mention a type variable and
+
+204
+00:09:27.020 --> 00:09:29.920
+you haven't quantified it, if you haven't
+
+205
+00:09:29.920 --> 00:09:32.530
+given it by using one of these for all things,
+
+206
+00:09:32.540 --> 00:09:35.340
+then ghd will just do that for you. And
+
+207
+00:09:35.340 --> 00:09:38.170
+sometimes you'll see this on an error message where it'll print out a
+
+208
+00:09:38.170 --> 00:09:41.170
+type signature and we'll have a four all there. But it's not actually in
+
+209
+00:09:41.170 --> 00:09:43.620
+your source code, and you may wonder, where did that come from?
+
+210
+00:09:43.980 --> 00:09:46.240
+Ghd Just put it in there for you. It's
+
+211
+00:09:46.240 --> 00:09:49.170
+>> magic, you know, feel like today we could even talked
+
+212
+00:09:49.170 --> 00:09:52.010
+about G 9.0 point
+
+213
+00:09:52.010 --> 00:09:54.910
+one being released to know we have Yeah, it's got
+
+214
+00:09:54.910 --> 00:09:55.450
+that
+
+215
+00:09:55.460 --> 00:09:58.220
+>> got some fancy type stuff in there, but maybe we should do a
+
+216
+00:09:58.220 --> 00:10:00.170
+whole whole separate episode on that one. There's a lot
+
+217
+00:10:00.170 --> 00:10:03.020
+>> of time. That's where you're interested in.
+
+218
+00:10:03.030 --> 00:10:05.990
+It's out there, just, you know. Ah, friendly, Haskell
+
+219
+00:10:05.990 --> 00:10:08.810
+reminder for those who want to dive on into
+
+220
+00:10:08.810 --> 00:10:09.250
+that,
+
+221
+00:10:09.640 --> 00:10:12.170
+>> I mean, I just assume people are already reading the
+
+222
+00:10:12.170 --> 00:10:14.850
+newsletter right there. Already subscribed to the Haskell
+
+223
+00:10:14.850 --> 00:10:17.570
+weekly newsletter. I
+
+224
+00:10:17.580 --> 00:10:18.050
+mean,
+
+225
+00:10:18.640 --> 00:10:20.910
+>> if you're not, I would definitely go do it now.
+
+226
+00:10:20.920 --> 00:10:23.900
+It's just an email once a week. That's it. You don't
+
+227
+00:10:23.900 --> 00:10:26.610
+get too much information. It's not like he's We're trying to
+
+228
+00:10:26.610 --> 00:10:29.360
+sell you anything. Just trying to show you some
+
+229
+00:10:29.360 --> 00:10:30.400
+Haskell love, man.
+
+230
+00:10:30.410 --> 00:10:33.390
+>> Yeah, but on the topic of type applications, is there
+
+231
+00:10:33.390 --> 00:10:34.870
+anything else you wanted to cover here?
+
+232
+00:10:34.880 --> 00:10:37.150
+>> Uh, yeah. So,
+
+233
+00:10:37.540 --> 00:10:38.260
+um,
+
+234
+00:10:40.140 --> 00:10:42.870
+what else did I want to say? I wanted to say
+
+235
+00:10:42.870 --> 00:10:45.750
+something, but now I'm forgetting, which is great. Uh,
+
+236
+00:10:45.760 --> 00:10:48.740
+do you have anything you want to add? Because
+
+237
+00:10:48.740 --> 00:10:51.460
+I'm blanking at the moment. It's Friday afternoon, everybody. I'm
+
+238
+00:10:51.460 --> 00:10:51.980
+sorry.
+
+239
+00:10:51.990 --> 00:10:54.660
+>> Yeah. So we talked about some other
+
+240
+00:10:54.670 --> 00:10:57.510
+ways that we did stuff that type application
+
+241
+00:10:57.510 --> 00:11:00.460
+could do for us. So, like scope type variables, they're just manually giving a
+
+242
+00:11:00.460 --> 00:11:03.140
+type signature. One other very common
+
+243
+00:11:03.140 --> 00:11:06.140
+pattern that type applications replaces
+
+244
+00:11:06.150 --> 00:11:08.780
+is passing around proxy arguments.
+
+245
+00:11:08.790 --> 00:11:11.690
+So if you're not familiar, proxy is a data
+
+246
+00:11:11.690 --> 00:11:13.160
+type that
+
+247
+00:11:14.240 --> 00:11:17.050
+doesn't convey any information at the value
+
+248
+00:11:17.050 --> 00:11:19.780
+level. All of its information is in the type level.
+
+249
+00:11:19.790 --> 00:11:22.760
+So if you wanted to pass like the
+
+250
+00:11:23.240 --> 00:11:26.120
+pass a type to a function, you might do that
+
+251
+00:11:26.120 --> 00:11:28.860
+with a proxy. This is very common with the servant
+
+252
+00:11:28.860 --> 00:11:31.660
+library. That's how it passes around all this, a p I stuff and
+
+253
+00:11:31.660 --> 00:11:33.940
+lets you hold on to that as a value.
+
+254
+00:11:33.950 --> 00:11:36.870
+Um, but with type applications, you
+
+255
+00:11:36.870 --> 00:11:39.780
+don't really need to use proxy at all.
+
+256
+00:11:39.790 --> 00:11:42.550
+You can replace that with an explicit type application. So that's
+
+257
+00:11:42.550 --> 00:11:44.850
+nice. You just get rid of this concept altogether.
+
+258
+00:11:45.340 --> 00:11:47.950
+>> Yeah. I mean, for me, it's not. I mean,
+
+259
+00:11:49.140 --> 00:11:52.090
+I'm all for type applications. I think it's been a great quality of
+
+260
+00:11:52.090 --> 00:11:54.560
+life improvement for our code base.
+
+261
+00:11:54.570 --> 00:11:57.540
+Um, and as a, you know, engineer
+
+262
+00:11:57.550 --> 00:12:00.310
+helps me work faster and more
+
+263
+00:12:00.320 --> 00:12:02.760
+effectively. Um, and also
+
+264
+00:12:02.760 --> 00:12:05.730
+read code faster for the obviously. At first
+
+265
+00:12:05.730 --> 00:12:08.560
+it was really weird. I remember the engineer who
+
+266
+00:12:08.560 --> 00:12:11.530
+kind of like all about it. Cody, he was like, Hey,
+
+267
+00:12:11.900 --> 00:12:14.460
+let's do this. And I read that PR and I was just like,
+
+268
+00:12:15.940 --> 00:12:18.000
+Okay, I think I get it.
+
+269
+00:12:18.010 --> 00:12:20.160
+But at that point You know,
+
+270
+00:12:20.540 --> 00:12:22.850
+>> it takes a minute to wrap your head around, but I think
+
+271
+00:12:23.540 --> 00:12:26.330
+once you know what it does,
+
+272
+00:12:26.340 --> 00:12:29.290
+there's not really a downside to this language extension.
+
+273
+00:12:29.290 --> 00:12:32.060
+Some language extensions have a little bit of give and take. This one is just
+
+274
+00:12:32.070 --> 00:12:34.750
+give it lets you express something that you weren't able to do
+
+275
+00:12:34.750 --> 00:12:36.150
+before. Mhm.
+
+276
+00:12:36.540 --> 00:12:39.230
+>> Yeah, I think it's great. Um, is there anything else from the
+
+277
+00:12:39.230 --> 00:12:42.050
+Post that you were, uh, you know, interested
+
+278
+00:12:42.050 --> 00:12:44.980
+in or intrigued you? Because obviously, we talked a
+
+279
+00:12:44.980 --> 00:12:47.840
+little bit about the post, but not a ton. He was Yeah.
+
+280
+00:12:47.850 --> 00:12:50.340
+This is a great opportunity for us to have a good jumping off
+
+281
+00:12:50.340 --> 00:12:53.150
+point. Um, but we didn't really dive too
+
+282
+00:12:53.150 --> 00:12:55.160
+much into the actual post.
+
+283
+00:12:55.540 --> 00:12:58.330
+>> Um I mean, it was a great post. I really like
+
+284
+00:12:58.330 --> 00:13:01.280
+reading. Zach has put out a handful of posts, and I like reading
+
+285
+00:13:01.280 --> 00:13:04.250
+all of them. Um, this also gave me some good
+
+286
+00:13:04.250 --> 00:13:07.060
+insight or like, kind of day in the life
+
+287
+00:13:07.060 --> 00:13:09.920
+slice of life type stuff about I h p. I
+
+288
+00:13:09.920 --> 00:13:12.890
+haven't used it myself, but I've seen a lot of people excited
+
+289
+00:13:12.890 --> 00:13:15.720
+about it in the community, and I like what it's trying to do so. I like seeing posts like
+
+290
+00:13:15.720 --> 00:13:17.260
+this that give me a taste of it.
+
+291
+00:13:17.640 --> 00:13:20.590
+>> Yeah, I know. I think he's gonna have to do some follow up post,
+
+292
+00:13:20.590 --> 00:13:23.520
+too, because he's got two other language extension. He's use
+
+293
+00:13:23.530 --> 00:13:26.410
+in the posts that he actually had comments in the post
+
+294
+00:13:26.410 --> 00:13:29.260
+about which is really and he was very quick to react.
+
+295
+00:13:29.260 --> 00:13:31.690
+So I'm sure if you have more questions. I think Zach's got you
+
+296
+00:13:33.890 --> 00:13:34.825
+>> Exactly.
+
+297
+00:13:34.825 --> 00:13:35.760
+>>  Exactly.
+
+298
+00:13:36.140 --> 00:13:39.120
+>> Dude you can't escape the puns. I didn't
+
+299
+00:13:39.120 --> 00:13:41.890
+mean to. Wow, just subconsciously
+
+300
+00:13:41.890 --> 00:13:42.760
+punning all the time.
+
+301
+00:13:43.340 --> 00:13:45.460
+>> That's life.
+
+302
+00:13:46.140 --> 00:13:49.140
+>> Um, but yeah, Cam, like you mentioned, I think next week
+
+303
+00:13:49.150 --> 00:13:52.110
+we'll have to talk about GH c nine. But I think that will do
+
+304
+00:13:52.110 --> 00:13:54.360
+it for us this week. Unless you get anything else.
+
+305
+00:13:55.240 --> 00:13:57.850
+>> I don't think so. I mean, it's a great quick
+
+306
+00:13:57.850 --> 00:14:00.360
+topic. Um, I mean,
+
+307
+00:14:01.040 --> 00:14:03.720
+I think the only other thing I was thinking about talking about with
+
+308
+00:14:03.720 --> 00:14:06.670
+examples of you, but you think we should talk about
+
+309
+00:14:06.670 --> 00:14:09.160
+some examples like it's really good
+
+310
+00:14:10.750 --> 00:14:12.340
+>> he gives a couple in the post, right?
+
+311
+00:14:12.350 --> 00:14:15.340
+>> Right. He uses reading show is a great examples because, you
+
+312
+00:14:15.340 --> 00:14:18.250
+know, read takes a string and returns today and show takes a
+
+313
+00:14:18.250 --> 00:14:21.170
+name, returns a string. Uh, you can for the
+
+314
+00:14:21.170 --> 00:14:22.560
+read function, you could assert it,
+
+315
+00:14:23.840 --> 00:14:26.750
+or you could always write a wrapper function that
+
+316
+00:14:27.440 --> 00:14:30.440
+gives it explicit types. But if you don't wanna do that,
+
+317
+00:14:30.450 --> 00:14:33.400
+you can just type applications to say, Hey, I
+
+318
+00:14:33.400 --> 00:14:36.210
+want this string 1234 or 1234
+
+319
+00:14:36.220 --> 00:14:39.070
+to become an int and you just do read
+
+320
+00:14:39.080 --> 00:14:41.690
+at ent this string. So it'll
+
+321
+00:14:41.690 --> 00:14:44.490
+transform it and obviously create a run time
+
+322
+00:14:44.560 --> 00:14:46.660
+error if you can't do that. But
+
+323
+00:14:47.640 --> 00:14:50.100
+you know it tries which, you know, I think that was a great
+
+324
+00:14:50.100 --> 00:14:52.870
+example. Some more for us that we
+
+325
+00:14:52.870 --> 00:14:55.680
+see on a more day to day basis is, you know,
+
+326
+00:14:55.690 --> 00:14:58.010
+from from integral or
+
+327
+00:14:58.010 --> 00:15:00.740
+realToFrac to transform one
+
+328
+00:15:00.750 --> 00:15:03.350
+integral type to another integral type
+
+329
+00:15:03.740 --> 00:15:06.320
+>> these are Like the Swiss Army knife
+
+330
+00:15:06.320 --> 00:15:09.190
+conversion functions, they're used for so many things,
+
+331
+00:15:09.190 --> 00:15:12.120
+like from a machine sized integer into
+
+332
+00:15:12.120 --> 00:15:14.940
+some specific sized incised, unsigned
+
+333
+00:15:14.940 --> 00:15:17.690
+integer, or like from a database type
+
+334
+00:15:17.690 --> 00:15:20.690
+into a normal type or from a time. Or, you
+
+335
+00:15:20.690 --> 00:15:23.640
+know, just all kinds of things have surprising instances where
+
+336
+00:15:23.640 --> 00:15:26.260
+you can convert it with from integral on, and
+
+337
+00:15:26.840 --> 00:15:29.490
+a lot of times I encourage people to write
+
+338
+00:15:29.500 --> 00:15:32.320
+monomorphic rapper functions like specifically from this
+
+339
+00:15:32.320 --> 00:15:35.240
+type of that type. But with type applications, you
+
+340
+00:15:35.240 --> 00:15:38.040
+can say from integral at this type at that
+
+341
+00:15:38.040 --> 00:15:41.040
+type and then you don't need to write that extra function. You just kind of define
+
+342
+00:15:41.040 --> 00:15:42.160
+it in line as it were.
+
+343
+00:15:42.640 --> 00:15:45.220
+>> Yeah, which, you know, pros and
+
+344
+00:15:45.220 --> 00:15:48.080
+cons. But if you're kind of
+
+345
+00:15:48.080 --> 00:15:50.650
+familiar with the extension,
+
+346
+00:15:51.140 --> 00:15:53.890
+I think it's a easy thing to grok. You know,
+
+347
+00:15:53.900 --> 00:15:56.690
+obviously, if you're new to a code base and you've never seen
+
+348
+00:15:56.690 --> 00:15:59.590
+type application before, yeah, you would be like wait a second. Why
+
+349
+00:15:59.590 --> 00:16:02.410
+is this that way? We should just made it a separate function.
+
+350
+00:16:02.420 --> 00:16:05.190
+>> But that actually reminds me,
+
+351
+00:16:05.200 --> 00:16:08.070
+um, one thing we didn't touch on yet that I think we should
+
+352
+00:16:08.070 --> 00:16:10.500
+is that with type applications,
+
+353
+00:16:10.510 --> 00:16:13.380
+sometimes a function will have, Let's
+
+354
+00:16:13.380 --> 00:16:16.000
+say, to type variables, and you want
+
+355
+00:16:16.000 --> 00:16:18.760
+to only supply the second one. So
+
+356
+00:16:18.770 --> 00:16:21.610
+you're like whatever the first one is. If you want to infer it,
+
+357
+00:16:21.620 --> 00:16:24.460
+that's fine. But the second one needs to be int,
+
+358
+00:16:24.840 --> 00:16:27.560
+and you can do that with type applications, where,
+
+359
+00:16:27.940 --> 00:16:30.900
+instead of saying at some type name you say
+
+360
+00:16:30.900 --> 00:16:33.310
+at Underscore and that tells G h
+
+361
+00:16:33.310 --> 00:16:36.090
+c go ahead and do what you were going to do here. Anyway,
+
+362
+00:16:36.090 --> 00:16:38.590
+Just pretend I'm not here and I'll do the next thing,
+
+363
+00:16:38.600 --> 00:16:41.480
+>> right? And that's you know where that order matters. Because if you
+
+364
+00:16:41.480 --> 00:16:44.360
+try to just apply the second one it would infer it as the
+
+365
+00:16:44.360 --> 00:16:45.760
+first one, right?
+
+366
+00:16:47.440 --> 00:16:50.030
+>> like with from integral. If if in your
+
+367
+00:16:50.030 --> 00:16:52.890
+context, the first type variable is already picked for
+
+368
+00:16:52.890 --> 00:16:55.770
+you. So you don't wanna specify it again, You would
+
+369
+00:16:55.770 --> 00:16:58.610
+say from integral at underscore at
+
+370
+00:16:58.620 --> 00:17:01.150
+int. And then that would say, I'm converting into an integer.
+
+371
+00:17:01.630 --> 00:17:04.450
+>> Right? But that's Yeah, super nice little
+
+372
+00:17:04.940 --> 00:17:07.580
+thing that type applications
+
+373
+00:17:07.590 --> 00:17:10.540
+gave us so much. Appreciate it. Thank
+
+374
+00:17:10.540 --> 00:17:12.890
+you, programmers. Who created this?
+
+375
+00:17:12.900 --> 00:17:15.850
+>> Great. Yeah, that's a good one.
+
+376
+00:17:16.340 --> 00:17:19.220
+Uh, so, yeah, I feel like we've we've
+
+377
+00:17:19.220 --> 00:17:22.170
+said we're almost done for a couple times here, but I think we're actually almost done now.
+
+378
+00:17:22.180 --> 00:17:25.080
+>> Yeah, I think so. I mean, you know, I wanted to give us
+
+379
+00:17:25.080 --> 00:17:27.300
+some good content. I was like, What? We need
+
+380
+00:17:27.300 --> 00:17:29.830
+examples, So yeah, Glad we got that
+
+381
+00:17:29.840 --> 00:17:32.670
+opportunity. Sorry, but yeah, the emotional roller
+
+382
+00:17:32.670 --> 00:17:34.980
+coaster off our listeners.
+
+383
+00:17:34.990 --> 00:17:37.460
+>> Are we over? Are we not? We were over.
+
+384
+00:17:38.140 --> 00:17:41.000
+Thank you. Okay. No, no, there's no more.
+
+385
+00:17:41.010 --> 00:17:43.890
+Uh, yeah. Thank you for listening to the high
+
+386
+00:17:43.890 --> 00:17:46.860
+school weekly podcast. I have been your host, Taylor Fausak.
+
+387
+00:17:46.860 --> 00:17:49.820
+And with me today was Cameron Gera. If you want to find
+
+388
+00:17:49.820 --> 00:17:52.750
+out more about Haskell Weekly, you can go to our website
+
+389
+00:17:52.760 --> 00:17:55.530
+haskellweekly.news And if you
+
+390
+00:17:55.530 --> 00:17:58.390
+enjoyed the show, please rate and review us on apple
+
+391
+00:17:58.390 --> 00:18:00.990
+podcasts. And if you have any feedback for us,
+
+392
+00:18:01.000 --> 00:18:03.350
+tweet us at Haskell Weekly
+
+393
+00:18:04.540 --> 00:18:07.420
+>> And Haskell Weekly is brought to you by ITProTV and
+
+394
+00:18:07.420 --> 00:18:10.170
+A C I learning company and our employer.
+
+395
+00:18:10.180 --> 00:18:13.170
+They would like to offer you 30% off your
+
+396
+00:18:13.170 --> 00:18:14.860
+subscription by using promo code
+
+397
+00:18:14.870 --> 00:18:17.410
+HASKELLWEEKLY30 at check
+
+398
+00:18:17.410 --> 00:18:20.260
+out. And that about does it for us, huh? Taylor?
+
+399
+00:18:20.740 --> 00:18:21.670
+>> Sure does.
+
+400
+00:18:22.140 --> 00:18:24.895
+>> Well, thanks for joining us this week on Haskell Weekly, and
+
+401
+00:18:25.630 --> 00:18:26.760
+we'll see you next week.
+
+402
+00:18:27.540 --> 00:18:28.050
+>> Bye.
