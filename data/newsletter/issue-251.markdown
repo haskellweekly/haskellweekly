@@ -4,7 +4,8 @@ This is a weekly summary of what's going on in its community.
 
 ## Featured
 
-undefined
+- [Writing AWS Lambdas in Haskell](https://notquiteamonad.com/blog/2021-02-15-writing-aws-lambdas-in-haskell)
+  > I wrote a script which allows a collection of Haskell lambdas using the hal runtime to be deployed by CDK.
 
 ## Jobs
 
