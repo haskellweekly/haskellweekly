@@ -7,6 +7,9 @@ This is a weekly summary of what's going on in its community.
 - [Writing AWS Lambdas in Haskell](https://notquiteamonad.com/blog/2021-02-15-writing-aws-lambdas-in-haskell)
   > I wrote a script which allows a collection of Haskell lambdas using the hal runtime to be deployed by CDK.
 
+- [Production Webservers and Concurrent Requests](https://jkeuhlen.com/2021/02/13/Production-Webservers-and-Concurrent-Requests.html) by Jake Keuhlen
+  > In this case, it's important to realize that, more often than not, we run our code on linux systems that have their own resource constraints and default limits.
+
 ## Jobs
 
 undefined
