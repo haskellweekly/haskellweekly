@@ -23,4 +23,4 @@ undefined
 
 ## Call for participation
 
-undefined
+-   [neuron: ANSI colors in emacs look ugly](https://github.com/srid/neuron/issues/555)
