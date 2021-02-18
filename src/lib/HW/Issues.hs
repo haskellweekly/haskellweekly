@@ -1282,3 +1282,7 @@ issue249 =
 issue250 :: Either String Issue.Issue
 issue250 =
   Issue.Issue <$> Date.fromGregorian 2021 2 11 <*> Number.fromNatural 250
+
+issue251 :: Either String Issue.Issue
+issue251 =
+  Issue.Issue <$> Date.fromGregorian 2021 2 18 <*> Number.fromNatural 251
