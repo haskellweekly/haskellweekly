@@ -273,6 +273,7 @@ issues = do
     , issue248
     , issue249
     , issue250
+    , issue251
     ]
   checkNumbers validIssues
   pure $ foldr insertIssue Map.empty validIssues
