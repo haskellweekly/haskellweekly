@@ -50,7 +50,7 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 - [Request for Nominations to the GHC Steering Committee](https://discourse.haskell.org/t/request-for-nominations-to-the-ghc-steering-committee/1887?u=taylorfausak) by Alejandro Serrano
   > The GHC Steering committee is seeking nominations for new members.
 
-- [Stackage LTS 1.74 with GHC 8.10.4](https://www.stackage.org/lts-17.4)
+- [Stackage LTS 17.4 with GHC 8.10.4](https://www.stackage.org/lts-17.4)
 
 ## Show & tell
 
