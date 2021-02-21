@@ -25,6 +25,7 @@ data Route
   | Logo
   | Newsletter
   | NewsletterFeed
+  | Ping
   | Podcast
   | PodcastFeed
   | Robots
@@ -49,6 +50,7 @@ toTextRelative route = case route of
   Logo -> "/logo.png"
   NewsletterFeed -> "/newsletter.atom"
   Newsletter -> "/newsletter.html"
+  Ping -> "/ping"
   PodcastFeed -> "/podcast.rss"
   Podcast -> "/podcast.html"
   Robots -> "/robots.txt"
@@ -78,6 +80,7 @@ fromText path = case path of
   ["logo.png"] -> Just Logo
   ["newsletter.atom"] -> Just NewsletterFeed
   ["newsletter.html"] -> Just Newsletter
+  ["ping"] -> Just Ping
   ["podcast.html"] -> Just Podcast
   ["podcast.rss"] -> Just PodcastFeed
   ["robots.txt"] -> Just Robots

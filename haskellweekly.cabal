@@ -74,6 +74,7 @@ library
     HW.Handler.Issue
     HW.Handler.Newsletter
     HW.Handler.NewsletterFeed
+    HW.Handler.Ping
     HW.Handler.Podcast
     HW.Handler.PodcastFeed
     HW.Handler.Redirect

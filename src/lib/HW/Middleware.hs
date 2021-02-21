@@ -167,48 +167,10 @@ addSecurityHeaders :: Wai.Middleware
 addSecurityHeaders =
   Wai.modifyResponse
     . Wai.mapResponseHeaders
-    $ addHeader "Content-Security-Policy" contentSecurityPolicy
-    . addHeader "Feature-Policy" featurePolicy
-    . addHeader "Referrer-Policy" "no-referrer"
+    $ addHeader "Referrer-Policy" "no-referrer"
     . addHeader "X-Content-Type-Options" "nosniff"
     . addHeader "X-Frame-Options" "deny"
     . addHeader "X-XSS-Protection" "1; mode=block"
-
--- | The value of the @Content-Security-Policy@ header.
--- <https://scotthelme.co.uk/content-security-policy-an-introduction/>
--- <https://www.ctrl.blog/entry/safari-csp-media-controls.html>
-contentSecurityPolicy :: Text.Text
-contentSecurityPolicy = Text.intercalate
-  "; "
-  [ "base-uri 'none'"
-  , "default-src 'none'"
-  , "form-action https://duckduckgo.com https://news.us10.list-manage.com 'self'"
-  , "frame-ancestors 'none'"
-  , "img-src data: 'self'"
-  , "media-src https://media.haskellweekly.news 'self'"
-  , "script-src 'unsafe-inline'"
-  , "style-src 'self'"
-  ]
-
--- | The value of the @Feature-Policy@ header.
--- <https://scotthelme.co.uk/a-new-security-header-feature-policy/>
-featurePolicy :: Text.Text
-featurePolicy = Text.intercalate
-  "; "
-  [ "camera 'none'"
-  , "fullscreen 'none'"
-  , "geolocation 'none'"
-  , "gyroscope 'none'"
-  , "magnetometer 'none'"
-  , "microphone 'none'"
-  , "midi 'none'"
-  , "notifications 'none'"
-  , "payment 'none'"
-  , "push 'none'"
-  , "speaker 'self'"
-  , "sync-xhr 'none'"
-  , "vibrate 'none'"
-  ]
 
 -- | Adds a header to a response. This doesn't remove any existing headers with
 -- the same name, so it's possible to end up with duplicates.

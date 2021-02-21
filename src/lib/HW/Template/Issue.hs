@@ -24,6 +24,7 @@ template baseUrl issue markdown =
         Html.h2_ [Html.class_ "f2 mv3 tracked-tight"] $ Html.a_
           [ Html.class_ "no-underline purple"
           , Html.href_ $ Route.toText baseUrl Route.Newsletter
+          , Html.ping_ $ Route.toText baseUrl Route.Ping
           ]
           "Newsletter"
         Html.h3_ [Html.class_ "f3 mv3 tracked-tight"] $ do
