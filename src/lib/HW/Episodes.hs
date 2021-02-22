@@ -67,6 +67,7 @@ episodes = do
     , episode35
     , episode36
     , episode37
+    , episode38
     ]
   checkGuids validEpisodes Set.empty
   checkNumbers validEpisodes 1
@@ -664,3 +665,19 @@ episode37 = Episode.Episode
   <*> Size.fromNatural 20353812
   <*> Summary.fromText "Come `@` me bro! In this episode we review Zac Wood's post about the type applications language extension."
   <*> Title.fromText "Type Applications"
+
+episode38 :: Either String Episode.Episode
+episode38 = Episode.Episode
+  <$> Articles.fromList
+    [ "https://discourse.haskell.org/t/haskell-foundation-executive-director-and-chief-technology-officer/1861"
+    , "https://discourse.haskell.org/t/ghc-8-10-4-released/1847"
+    , "https://discourse.haskell.org/t/ghc-9-0-1-released/1840"
+    , "https://www.tweag.io/blog/2021-02-10-linear-base/"
+    ]
+  <*> Date.fromGregorian 2021 2 22
+  <*> Duration.fromTimestamp 27 18
+  <*> Guid.fromText "67d13fea-1cd1-4e9c-b27e-6b5e897280b6"
+  <*> Number.fromNatural 38
+  <*> Size.fromNatural 28770384
+  <*> Summary.fromText "Linear types finally landed in GHC 9.0.1! We talk through what that means along with other news from the Haskell Foundation and Tweag."
+  <*> Title.fromText "GHC 9.0.1"

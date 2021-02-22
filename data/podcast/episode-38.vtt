@@ -1,0 +1,2421 @@
+WEBVTT
+
+1
+00:00:04.840 --> 00:00:07.980
+Hi!
+
+2
+00:00:07.990 --> 00:00:10.720
+Welcome to the Haskell Weekly podcast. This is a show
+
+3
+00:00:10.720 --> 00:00:13.010
+about Haskell, a purely functional programming
+
+4
+00:00:13.010 --> 00:00:15.830
+language. I'm your host, Taylor Fausak. I'm the
+
+5
+00:00:15.830 --> 00:00:18.670
+lead engineer at ITProTV, an ACI
+
+6
+00:00:18.670 --> 00:00:21.610
+learning company. And with me today is Cameron
+
+7
+00:00:21.610 --> 00:00:24.570
+Gera, one of the engineers on my team. Thanks for joining me
+
+8
+00:00:24.570 --> 00:00:25.220
+today, Cam.
+
+9
+00:00:25.230 --> 00:00:28.110
+>> Of course, man. I'm glad to be back after, you know, a week
+
+10
+00:00:28.110 --> 00:00:30.340
+off. Sorry to all of our
+
+11
+00:00:30.340 --> 00:00:32.450
+listeners who didn't get
+
+12
+00:00:32.460 --> 00:00:35.080
+that Monday morning joy of
+
+13
+00:00:35.090 --> 00:00:37.240
+Haskell Weekly coming out.
+
+14
+00:00:37.250 --> 00:00:39.800
+>> Well it's all right. We're gonna be
+
+15
+00:00:39.800 --> 00:00:42.800
+reliving last week this week because there was a lot of
+
+16
+00:00:42.800 --> 00:00:45.750
+good news that we want to go over. And, uh, yeah,
+
+17
+00:00:45.760 --> 00:00:48.390
+just all kinds of crazy stuff happening in the world of GHC.
+
+18
+00:00:48.400 --> 00:00:51.350
+>> Yeah, GHC started off 2021 with a bang. You know,
+
+19
+00:00:51.350 --> 00:00:53.820
+we've already talked about you know, the
+
+20
+00:00:53.830 --> 00:00:56.770
+GHC 2021 grouping
+
+21
+00:00:56.770 --> 00:00:59.610
+of language extensions. And today we're gonna be kind of
+
+22
+00:00:59.620 --> 00:01:02.460
+diving in, Um, to
+
+23
+00:01:02.460 --> 00:01:05.240
+more awesome news in GHC and just the Haskell community in
+
+24
+00:01:05.240 --> 00:01:08.040
+general. Um, and I think our first
+
+25
+00:01:08.050 --> 00:01:10.160
+kind of order uh,
+
+26
+00:01:10.740 --> 00:01:13.150
+yeah, order of business here is to
+
+27
+00:01:13.150 --> 00:01:16.060
+congratulate the Haskell Foundation for picking their
+
+28
+00:01:16.070 --> 00:01:18.750
+executive director and chief technology officer.
+
+29
+00:01:18.760 --> 00:01:21.360
+Um, those are two positions that I think
+
+30
+00:01:21.940 --> 00:01:24.710
+with the people they chose is going to do great things.
+
+31
+00:01:24.720 --> 00:01:27.660
+Um, I know Taylor, you have a little bit more experience with
+
+32
+00:01:28.040 --> 00:01:30.780
+who they chose. Do you want to kind of
+
+33
+00:01:30.780 --> 00:01:31.760
+talk more about that?
+
+34
+00:01:32.640 --> 00:01:35.390
+>> Sure, I'd be happy to. So on the
+
+35
+00:01:35.390 --> 00:01:38.300
+discourse for Haskell, which is like, you know,
+
+36
+00:01:38.300 --> 00:01:40.740
+the forum. Simon Peyton Jones
+
+37
+00:01:40.750 --> 00:01:43.640
+announced that the Haskell Foundation picked the executive
+
+38
+00:01:43.640 --> 00:01:46.220
+director and the chief technology officer. Like you
+
+39
+00:01:46.220 --> 00:01:48.660
+said, uh, the executive director
+
+40
+00:01:48.670 --> 00:01:51.000
+is Andrew Boardman, and I
+
+41
+00:01:51.000 --> 00:01:53.860
+actually had not heard of him before. Haven't interacted with him,
+
+42
+00:01:53.860 --> 00:01:56.760
+but there's a little intro there in the post. We'll have a link in the
+
+43
+00:01:56.760 --> 00:01:59.730
+show notes. And he sounds like a great guy and,
+
+44
+00:01:59.740 --> 00:02:02.620
+you know, ready to helm this new
+
+45
+00:02:02.620 --> 00:02:05.570
+foundation and lead it in a good direction. So I'm looking
+
+46
+00:02:05.570 --> 00:02:08.360
+forward to what he's able to do. Um, and
+
+47
+00:02:08.360 --> 00:02:10.900
+also the chief technology
+
+48
+00:02:10.900 --> 00:02:13.770
+officer, which was kind of like a bonus selection
+
+49
+00:02:13.770 --> 00:02:16.620
+for the Haskell Foundation. I think they only intended to pick
+
+50
+00:02:16.630 --> 00:02:19.200
+an executive director, but um,
+
+51
+00:02:19.210 --> 00:02:21.660
+everybody was so on board with this person
+
+52
+00:02:21.660 --> 00:02:24.370
+that, you know, they were able to give her a role.
+
+53
+00:02:24.370 --> 00:02:27.110
+So Emily Pillmore is the CTO for the
+
+54
+00:02:27.110 --> 00:02:30.040
+Haskell Foundation. Um, I have interacted with her.
+
+55
+00:02:30.040 --> 00:02:32.610
+She's a great person, and she's gonna be in charge of all
+
+56
+00:02:32.610 --> 00:02:35.150
+the technical decision making for the
+
+57
+00:02:35.150 --> 00:02:36.150
+foundation itself.
+
+58
+00:02:36.540 --> 00:02:39.330
+>> I think that's awesome. Congratulations, Andrew and Emily.
+
+59
+00:02:39.560 --> 00:02:41.250
+We look forward to seeing
+
+60
+00:02:41.940 --> 00:02:44.480
+how the Haskell Foundation
+
+61
+00:02:44.480 --> 00:02:47.310
+flourishes under your guys's leadership. So I'm
+
+62
+00:02:47.320 --> 00:02:48.650
+really excited about that.
+
+63
+00:02:49.790 --> 00:02:52.470
+>> Yeah! I think this is an important step for the foundation.
+
+64
+00:02:52.480 --> 00:02:54.890
+And, uh, I think we may have talked about it a little bit
+
+65
+00:02:54.900 --> 00:02:57.750
+before, maybe last year even. But for those not in the
+
+66
+00:02:57.750 --> 00:03:00.140
+know, the Haskell Foundation,
+
+67
+00:03:00.150 --> 00:03:02.950
+um is still kind of nascent, like still
+
+68
+00:03:02.950 --> 00:03:05.950
+coming together a little bit. But the intent
+
+69
+00:03:05.960 --> 00:03:08.710
+is to have, like, one
+
+70
+00:03:08.710 --> 00:03:11.150
+guiding light for the Haskell
+
+71
+00:03:11.160 --> 00:03:14.130
+community slash ecosystem. Or to put it another way to
+
+72
+00:03:14.130 --> 00:03:16.720
+kind of bring together all of these disparate
+
+73
+00:03:16.730 --> 00:03:19.650
+communities and groups that Haskell has, like the
+
+74
+00:03:19.660 --> 00:03:22.330
+Haskell.org committee and the core Libraries
+
+75
+00:03:22.330 --> 00:03:25.280
+Committee and all the people that maintain all these
+
+76
+00:03:25.280 --> 00:03:28.240
+different packages having a common area for all of
+
+77
+00:03:28.240 --> 00:03:31.240
+them, you know, to pool resources or ask for help or that type
+
+78
+00:03:31.240 --> 00:03:34.150
+of thing and and many other things. So, really
+
+79
+00:03:34.150 --> 00:03:36.760
+looking forward to the Haskell Foundation. This is a excellent start.
+
+80
+00:03:36.770 --> 00:03:39.560
+>> Yeah, it seems like it's gonna make a big
+
+81
+00:03:39.560 --> 00:03:42.310
+waves for Haskell in the overall programming.
+
+82
+00:03:42.320 --> 00:03:45.020
+You know, realm. Um, you know, obviously there's large
+
+83
+00:03:45.020 --> 00:03:47.950
+organizations that use Haskell, but a lot of people don't
+
+84
+00:03:47.950 --> 00:03:50.430
+know that. Um and so I think having a
+
+85
+00:03:50.430 --> 00:03:53.210
+foundation that is centered around creating
+
+86
+00:03:53.210 --> 00:03:54.160
+this, you know,
+
+87
+00:03:55.440 --> 00:03:58.000
+awareness and education around
+
+88
+00:03:58.000 --> 00:04:00.830
+Haskell, what can provide you will really
+
+89
+00:04:00.840 --> 00:04:03.790
+allow other organizations to hear that and be like, Okay, let's
+
+90
+00:04:03.790 --> 00:04:06.460
+give it a shot. So, Think it's
+
+91
+00:04:06.460 --> 00:04:09.320
+great for, you know, all the Haskellers out there because it
+
+92
+00:04:09.320 --> 00:04:11.850
+will eventually mean more job opportunities.
+
+93
+00:04:12.440 --> 00:04:15.400
+>> Exactly. And we're not a large company, but we're a
+
+94
+00:04:15.400 --> 00:04:18.350
+small company, and we use Haskell. And I think there's some good
+
+95
+00:04:18.350 --> 00:04:21.040
+stuff. Uh, you know, even for us, like you mentioned, it'll be
+
+96
+00:04:21.040 --> 00:04:23.960
+easier to hire Haskell people in the future. If
+
+97
+00:04:23.960 --> 00:04:26.790
+the Haskell Foundation succeeds at what it's trying to do, which I think it
+
+98
+00:04:26.790 --> 00:04:29.790
+will. So shall we move on to
+
+99
+00:04:29.790 --> 00:04:30.900
+some of the GHC news?
+
+100
+00:04:31.340 --> 00:04:33.830
+>> Oh, yeah. Drumroll, please.
+
+101
+00:04:33.840 --> 00:04:36.630
+>> Well, we're going to start with a small one.
+
+102
+00:04:36.640 --> 00:04:38.060
+So
+
+103
+00:04:38.940 --> 00:04:40.650
+The GHC
+
+104
+00:04:40.660 --> 00:04:43.410
+8.10.4 was released,
+
+105
+00:04:43.420 --> 00:04:46.380
+and this is a very small bug fix release, but
+
+106
+00:04:46.380 --> 00:04:49.030
+it's probably the end of the line for the 8.10
+
+107
+00:04:49.040 --> 00:04:51.890
+series. And this one's important. It shores up a
+
+108
+00:04:51.890 --> 00:04:54.780
+couple bugs with windows, um, and linking and some other
+
+109
+00:04:54.780 --> 00:04:57.450
+little things. So pretty much if you're currently
+
+110
+00:04:57.450 --> 00:05:00.330
+using 8.10 dot something, you should upgrade to
+
+111
+00:05:00.330 --> 00:05:01.540
+8.10.4.
+
+112
+00:05:01.550 --> 00:05:04.290
+>> Yeah. Shouldn't really have any obviously major
+
+113
+00:05:04.290 --> 00:05:06.830
+breaking changes and should allow you
+
+114
+00:05:06.830 --> 00:05:08.760
+to be up to date.
+
+115
+00:05:09.540 --> 00:05:12.120
+Um, you know, maybe maybe we gotta pour one out for the
+
+116
+00:05:12.120 --> 00:05:15.020
+8.10 series, you know, be like it's done a lot of good for the
+
+117
+00:05:15.020 --> 00:05:16.460
+Haskell world.
+
+118
+00:05:17.040 --> 00:05:19.570
+>> Yeah. I mean, we're still using it at work.
+
+119
+00:05:19.580 --> 00:05:22.470
+Um, and we were fortunate because we're we use
+
+120
+00:05:22.470 --> 00:05:25.430
+stack and Stackage and the most
+
+121
+00:05:25.430 --> 00:05:28.160
+recent version of Stackage. Both nightly and
+
+122
+00:05:28.160 --> 00:05:30.880
+LTS use 8.10.4. So it's
+
+123
+00:05:30.880 --> 00:05:32.830
+a pretty seamless upgrade for us.
+
+124
+00:05:32.840 --> 00:05:34.980
+>> Nice Well, you know, we keep talking
+
+125
+00:05:34.980 --> 00:05:37.710
+about this being the last of the series.
+
+126
+00:05:37.720 --> 00:05:40.670
+Well, what's next? What's next for GHC? Um,
+
+127
+00:05:40.670 --> 00:05:43.270
+and I love you to announce that. Good, Sir
+
+128
+00:05:43.270 --> 00:05:44.450
+Taylor.
+
+129
+00:05:44.940 --> 00:05:47.840
+>> So the big ticket release
+
+130
+00:05:47.850 --> 00:05:50.850
+is G.H.C. 9.0.1.
+
+131
+00:05:50.860 --> 00:05:53.550
+Um, this has been, um,
+
+132
+00:05:53.940 --> 00:05:56.930
+a lot of people have been very excited about this release
+
+133
+00:05:56.930 --> 00:05:59.720
+and for good reason. There's a lot of big ticket things that landed
+
+134
+00:05:59.720 --> 00:06:02.280
+here that are, um maybe not
+
+135
+00:06:02.280 --> 00:06:04.640
+fundamental changes to Haskell, but,
+
+136
+00:06:04.650 --> 00:06:07.000
+um, very big changes.
+
+137
+00:06:07.190 --> 00:06:10.020
+So the biggest one, perhaps,
+
+138
+00:06:10.100 --> 00:06:13.020
+is the addition of linear types
+
+139
+00:06:13.030 --> 00:06:15.980
+through a language extension on that comes
+
+140
+00:06:15.990 --> 00:06:18.930
+to us in GHC 9. So now you can
+
+141
+00:06:18.930 --> 00:06:21.320
+download the compiler and try out linear
+
+142
+00:06:21.320 --> 00:06:22.960
+types.
+
+143
+00:06:23.440 --> 00:06:25.840
+>> I know you were, you know, still
+
+144
+00:06:25.840 --> 00:06:28.700
+learning more about linear type because it's not obviously
+
+145
+00:06:28.700 --> 00:06:30.910
+something we used in our current Haskell,
+
+146
+00:06:30.920 --> 00:06:33.840
+um, implementations because it hasn't really been available
+
+147
+00:06:33.840 --> 00:06:36.500
+to us. What's kind of some examples
+
+148
+00:06:36.500 --> 00:06:38.560
+of what linear types help with
+
+149
+00:06:39.240 --> 00:06:40.350
+those who may not know.
+
+150
+00:06:40.940 --> 00:06:43.860
+>> Yeah. So I don't feel super qualified to
+
+151
+00:06:43.860 --> 00:06:46.470
+be an authority on this, because I don't know a lot about linear types
+
+152
+00:06:46.470 --> 00:06:49.290
+myself. Um, the way that I understand it maybe the
+
+153
+00:06:49.290 --> 00:06:52.280
+best, like go to example of what
+
+154
+00:06:52.280 --> 00:06:55.090
+our linear types or what they can help. What can they help
+
+155
+00:06:55.090 --> 00:06:57.120
+with is to look at rust.
+
+156
+00:06:57.500 --> 00:07:00.360
+And there's an important caveat here that Rust
+
+157
+00:07:00.740 --> 00:07:03.620
+doesn't actually have linear types. It has a related
+
+158
+00:07:03.620 --> 00:07:06.390
+thing called affine types. Um, and my
+
+159
+00:07:06.390 --> 00:07:09.230
+understanding is that the differences with linear
+
+160
+00:07:09.230 --> 00:07:11.720
+types, um, you have to
+
+161
+00:07:11.720 --> 00:07:14.490
+use your argument once,
+
+162
+00:07:14.500 --> 00:07:17.330
+like exactly one time and with affine types, you
+
+163
+00:07:17.330 --> 00:07:19.750
+have the choice. You can either use it or not.
+
+164
+00:07:20.240 --> 00:07:23.160
+Um, so it seems like kind of a pedantic
+
+165
+00:07:23.170 --> 00:07:26.080
+difference, and it probably is. But by and large, if you're wondering
+
+166
+00:07:26.080 --> 00:07:28.870
+what are linear types, I think it's what Rust
+
+167
+00:07:28.880 --> 00:07:30.950
+does is a reasonable way to look at it.
+
+168
+00:07:31.540 --> 00:07:34.170
+>> Okay, cool. Awesome. Well, let's get on to
+
+169
+00:07:34.170 --> 00:07:36.760
+the next one that I know you're thrilled about.
+
+170
+00:07:37.140 --> 00:07:40.020
+I feel like this is the one where you're like, GHC
+
+171
+00:07:40.020 --> 00:07:43.020
+9's out, and this is what it gives us like it's
+
+172
+00:07:43.030 --> 00:07:45.980
+qualified do, right? Like, what's
+
+173
+00:07:45.980 --> 00:07:47.750
+the deal with qualified do? Why is it awesome?
+
+174
+00:07:48.440 --> 00:07:51.170
+>> Yeah, So this one, it's kind of funny because it ties in with
+
+175
+00:07:51.170 --> 00:07:54.120
+linear types quite a bit, um, but only
+
+176
+00:07:54.530 --> 00:07:57.510
+they're sort of orthogonal to each other, but
+
+177
+00:07:57.510 --> 00:08:00.100
+they both benefit each other. So qualified do means
+
+178
+00:08:00.100 --> 00:08:02.980
+that normally, if you use
+
+179
+00:08:02.980 --> 00:08:05.860
+do notation in a Haskell program, it will
+
+180
+00:08:05.860 --> 00:08:08.480
+use the bind operator from the
+
+181
+00:08:08.480 --> 00:08:11.130
+prelude that greater than greater than Equal Sign
+
+182
+00:08:11.140 --> 00:08:14.070
+Operator, which works for the monad class.
+
+183
+00:08:14.540 --> 00:08:17.510
+Um, there have been ways
+
+184
+00:08:17.510 --> 00:08:20.300
+to change how that works. There's a There's a very
+
+185
+00:08:20.300 --> 00:08:22.870
+big hammer of a language extension called rebindable
+
+186
+00:08:22.870 --> 00:08:24.860
+syntax that lets you choose
+
+187
+00:08:25.540 --> 00:08:28.510
+whatever bind operator you want. But
+
+188
+00:08:28.510 --> 00:08:30.660
+what qualified do lets you do
+
+189
+00:08:31.040 --> 00:08:33.700
+is for each
+
+190
+00:08:33.710 --> 00:08:36.200
+at each place where you use the
+
+191
+00:08:36.200 --> 00:08:39.130
+keyword. Do you can qualify it like you would
+
+192
+00:08:39.130 --> 00:08:41.700
+any other identifier or operator in your program, and you could
+
+193
+00:08:41.700 --> 00:08:44.160
+say some monad dot do,
+
+194
+00:08:44.640 --> 00:08:47.640
+And then within that block, it
+
+195
+00:08:47.640 --> 00:08:50.630
+will use some monad dot bind rather
+
+196
+00:08:50.630 --> 00:08:51.750
+than the one from the prelude.
+
+197
+00:08:52.640 --> 00:08:55.590
+So this might sound
+
+198
+00:08:55.590 --> 00:08:58.530
+kind of pointless, like for most, most of the monads that
+
+199
+00:08:58.530 --> 00:09:01.140
+most people use most of the time using a lot of
+
+200
+00:09:01.150 --> 00:09:03.850
+weasel words here, uh, it won't matter because,
+
+201
+00:09:03.850 --> 00:09:06.620
+like, you know, you could do a ReaderT and that'll work with
+
+202
+00:09:06.620 --> 00:09:09.430
+monad whatever. But if you wanted to use, for
+
+203
+00:09:09.430 --> 00:09:12.210
+instance linear types with a linear monad,
+
+204
+00:09:12.220 --> 00:09:14.880
+it wouldn't type Check. I'm pretty sure
+
+205
+00:09:14.890 --> 00:09:17.260
+again, I'm not an authority on linear types, but,
+
+206
+00:09:17.440 --> 00:09:20.260
+uh, yeah, it can allow you to do
+
+207
+00:09:20.740 --> 00:09:23.320
+new, more powerful things. Um, there's
+
+208
+00:09:23.320 --> 00:09:25.910
+a related concept called
+
+209
+00:09:25.920 --> 00:09:28.810
+indexed monads. Hopefully I I
+
+210
+00:09:28.810 --> 00:09:31.630
+think it's related you could do index monads with qualified
+
+211
+00:09:31.630 --> 00:09:34.370
+do, um Or if you just wanted to be more
+
+212
+00:09:34.370 --> 00:09:36.800
+specific and say, like, maybe dot do
+
+213
+00:09:36.800 --> 00:09:39.680
+or, you know, list dot Do or something like that. A little
+
+214
+00:09:39.680 --> 00:09:42.170
+more Elm-ish in the explicitness.
+
+215
+00:09:42.180 --> 00:09:45.040
+>> Yeah, Yeah, that's what I was kind of
+
+216
+00:09:45.040 --> 00:09:47.870
+picturing when you first started talking about qualified. Do was like,
+
+217
+00:09:47.880 --> 00:09:50.730
+maybe dot do list dot do, um
+
+218
+00:09:50.740 --> 00:09:53.720
+and just kind of explicitly setting the monad in which the two
+
+219
+00:09:53.720 --> 00:09:56.060
+up, you know, which we're working in.
+
+220
+00:09:56.540 --> 00:09:58.460
+I think that's kind of Ah,
+
+221
+00:09:59.840 --> 00:10:02.720
+you know, I'm excited to see what it does for us. I
+
+222
+00:10:02.730 --> 00:10:05.580
+don't think for me
+
+223
+00:10:05.580 --> 00:10:08.190
+right now. I don't see us gaining a ton of benefits from it,
+
+224
+00:10:08.190 --> 00:10:10.870
+but I also don't. I've never used it. I don't
+
+225
+00:10:10.880 --> 00:10:13.360
+understand fully why it would be
+
+226
+00:10:13.740 --> 00:10:16.240
+super great, but I'm excited to learn
+
+227
+00:10:16.250 --> 00:10:18.670
+and, you know, kind of take those steps towards
+
+228
+00:10:18.680 --> 00:10:21.260
+seeing the significance in this, um,
+
+229
+00:10:22.340 --> 00:10:23.450
+in the version. Bump.
+
+230
+00:10:24.140 --> 00:10:27.010
+>> Yeah, I am, too. And I think one area
+
+231
+00:10:27.010 --> 00:10:29.980
+that this might be kind of abused
+
+232
+00:10:29.980 --> 00:10:32.680
+a little bit is that you could use qualified
+
+233
+00:10:32.680 --> 00:10:35.500
+do to make a DSL
+
+234
+00:10:35.510 --> 00:10:38.300
+that just happens to use do notation to, like,
+
+235
+00:10:38.300 --> 00:10:41.000
+split things up on the separate lines. So if you wanted to
+
+236
+00:10:41.000 --> 00:10:43.790
+write like a, you know, Web server
+
+237
+00:10:43.790 --> 00:10:46.360
+router, where you put the routes each on their own
+
+238
+00:10:46.360 --> 00:10:49.120
+line and the Scotty library kind already does this
+
+239
+00:10:49.120 --> 00:10:52.050
+anyway. But you could do that without actually having
+
+240
+00:10:52.050 --> 00:10:55.040
+to implement a monad behind the scenes, which maybe
+
+241
+00:10:55.040 --> 00:10:57.660
+could be helpful. I'm not sure it would depend on exactly what you're
+
+242
+00:10:57.660 --> 00:11:00.580
+implementing. So it might be nice and some other weird
+
+243
+00:11:00.580 --> 00:11:03.180
+ways We'll see what the community does with it. I like you. I'm
+
+244
+00:11:03.180 --> 00:11:04.500
+excited to see where this goes.
+
+245
+00:11:04.510 --> 00:11:07.460
+>> Yeah, awesome. Well, we've got another
+
+246
+00:11:07.840 --> 00:11:10.450
+think. Biggest change related to
+
+247
+00:11:10.940 --> 00:11:12.160
+GHC bignum
+
+248
+00:11:13.040 --> 00:11:14.960
+>> Yeah. Big change, bignum.
+
+249
+00:11:15.340 --> 00:11:17.960
+>> Oh, yeah. How it's gonna replace the
+
+250
+00:11:17.970 --> 00:11:19.260
+integer GMP.
+
+251
+00:11:19.840 --> 00:11:22.350
+>> Mhm. So I could give a little bit of color
+
+252
+00:11:22.350 --> 00:11:24.660
+commentary here. So, um,
+
+253
+00:11:25.140 --> 00:11:27.250
+when you use arbitrary
+
+254
+00:11:27.250 --> 00:11:30.240
+precision, integrals in Haskell. So,
+
+255
+00:11:30.240 --> 00:11:33.030
+like the integer type or the natural
+
+256
+00:11:33.040 --> 00:11:35.550
+type where they're unbounded, they could be as big as you want
+
+257
+00:11:36.440 --> 00:11:38.900
+behind the scenes, those are using currently with like
+
+258
+00:11:38.900 --> 00:11:41.800
+8.10 and before they're using a library called integer
+
+259
+00:11:41.800 --> 00:11:44.570
+GMP. GMP stands for the GNU
+
+260
+00:11:44.580 --> 00:11:47.570
+multiple precision. Something like
+
+261
+00:11:47.570 --> 00:11:49.960
+that. Anyway, uh,
+
+262
+00:11:50.740 --> 00:11:53.700
+some people dislike this library because it
+
+263
+00:11:53.700 --> 00:11:56.610
+is licensed with the GPL, which is like
+
+264
+00:11:56.610 --> 00:11:59.410
+a copyleft license so. There's a
+
+265
+00:11:59.410 --> 00:12:02.280
+replacement library called integer simple, but
+
+266
+00:12:02.290 --> 00:12:05.230
+it's a lot slower, and it's written in pure
+
+267
+00:12:05.230 --> 00:12:07.970
+Haskell rather than integer GMP, which I think is either C or
+
+268
+00:12:07.970 --> 00:12:10.940
+C++ so GHC bignum
+
+269
+00:12:10.940 --> 00:12:13.660
+is trying to get the best of both worlds here,
+
+270
+00:12:13.670 --> 00:12:16.590
+where you can have arbitrary precision
+
+271
+00:12:16.590 --> 00:12:19.500
+integers and you can use them without
+
+272
+00:12:19.500 --> 00:12:22.330
+using GPL licensed code. And it will be code that's
+
+273
+00:12:22.330 --> 00:12:25.120
+maintained by GHC and I think
+
+274
+00:12:25.130 --> 00:12:27.900
+mostly written in Haskell. I don't know what the implementation of
+
+275
+00:12:27.900 --> 00:12:30.610
+bignum looks like, so it's a little behind the
+
+276
+00:12:30.610 --> 00:12:32.440
+scenes, but it's a good change nonetheless.
+
+277
+00:12:32.450 --> 00:12:35.210
+>> Yeah, it seems like it will give you give
+
+278
+00:12:35.220 --> 00:12:37.460
+programmers a little more freedom. Uh,
+
+279
+00:12:38.040 --> 00:12:40.670
+so that's cool. Awesome. Um,
+
+280
+00:12:40.680 --> 00:12:43.650
+all right, so we have the next ticket item here,
+
+281
+00:12:44.140 --> 00:12:47.120
+which is simplified subsumption setting
+
+282
+00:12:47.120 --> 00:12:49.130
+things up for quick. Look
+
+283
+00:12:49.140 --> 00:12:51.360
+impredicativity.
+
+284
+00:12:52.110 --> 00:12:55.100
+>> That's a mouthful. Yeah. So this
+
+285
+00:12:55.100 --> 00:12:57.740
+is this is something that I am definitely not
+
+286
+00:12:57.740 --> 00:13:00.090
+qualified to remark on. Um,
+
+287
+00:13:00.100 --> 00:13:03.010
+I know that. Yeah.
+
+288
+00:13:03.020 --> 00:13:05.990
+Impredicativity? Come on. Um, I know that
+
+289
+00:13:05.990 --> 00:13:08.450
+Richard Eisenberg, who is actually the
+
+290
+00:13:08.460 --> 00:13:11.350
+chair of the Haskell Foundation board,
+
+291
+00:13:11.360 --> 00:13:14.350
+um, he has a YouTube channel where he's doing,
+
+292
+00:13:14.350 --> 00:13:17.230
+like, these kind of quick bites of explaining concepts because
+
+293
+00:13:17.230 --> 00:13:20.120
+he's a He's a GHC contributor. Very smart guy.
+
+294
+00:13:20.120 --> 00:13:23.030
+And he's, you know, pushing on some of this quick look
+
+295
+00:13:23.030 --> 00:13:26.010
+impredicativity stuff. So if you want to
+
+296
+00:13:26.010 --> 00:13:28.810
+know more about it, I would recommend find that YouTube
+
+297
+00:13:28.810 --> 00:13:31.020
+channel or look at what he's written.
+
+298
+00:13:31.030 --> 00:13:33.900
+He's excellent communicator, and it's
+
+299
+00:13:33.910 --> 00:13:36.620
+my own fault that I don't know any about any of this stuff,
+
+300
+00:13:36.620 --> 00:13:39.580
+so yeah, um
+
+301
+00:13:39.590 --> 00:13:42.500
+but yeah, this is just some changes to the type system
+
+302
+00:13:42.510 --> 00:13:44.840
+that are coming, and I think they'll be good.
+
+303
+00:13:44.850 --> 00:13:47.660
+>> Yeah, And if you know more about any of these topics. And you have
+
+304
+00:13:47.660 --> 00:13:50.540
+any interest in being on the podcast and explaining
+
+305
+00:13:50.540 --> 00:13:53.440
+them for us like we would love to have You we're always looking
+
+306
+00:13:53.440 --> 00:13:56.370
+guests on the podcast. So just a quick
+
+307
+00:13:56.380 --> 00:13:59.310
+sidebar there. Uh huh. But yeah.
+
+308
+00:13:59.320 --> 00:14:01.990
+So now I think this language
+
+309
+00:14:01.990 --> 00:14:04.060
+extension that's coming with GHC
+
+310
+00:14:04.070 --> 00:14:06.360
+9.0.1 will
+
+311
+00:14:06.370 --> 00:14:09.370
+help us and, I think, help the community, which
+
+312
+00:14:09.370 --> 00:14:11.740
+is the new lexical negation. A
+
+313
+00:14:11.750 --> 00:14:13.060
+situation that we have.
+
+314
+00:14:14.540 --> 00:14:16.850
+>> Yeah. So now we're into the area of things. I feel very
+
+315
+00:14:16.850 --> 00:14:19.420
+comfortable being an authority on. So lexical
+
+316
+00:14:19.420 --> 00:14:22.250
+negation, uh, basically means it's a language
+
+317
+00:14:22.250 --> 00:14:24.560
+extension, like you said. And what it means is that
+
+318
+00:14:25.040 --> 00:14:27.860
+the spacing around a negative sign
+
+319
+00:14:27.870 --> 00:14:30.710
+will be important. So normally in
+
+320
+00:14:30.710 --> 00:14:33.560
+current Haskell, if you write X minus one,
+
+321
+00:14:34.340 --> 00:14:36.730
+that pretty much always means X minus one.
+
+322
+00:14:36.740 --> 00:14:39.450
+Um, whether or not it's X
+
+323
+00:14:39.460 --> 00:14:42.320
+space minus space one or all run together or any
+
+324
+00:14:42.320 --> 00:14:44.830
+variation with lexical
+
+325
+00:14:44.830 --> 00:14:47.830
+negation. If you do X space minus space
+
+326
+00:14:47.830 --> 00:14:50.830
+one that means X minus one like it always did. But if you do
+
+327
+00:14:50.830 --> 00:14:53.740
+X space minus one kind of smushed
+
+328
+00:14:53.740 --> 00:14:56.320
+together, then that minus one will be a
+
+329
+00:14:56.320 --> 00:14:58.560
+single unit and won't mean minus one anymore.
+
+330
+00:14:59.240 --> 00:15:02.010
+Um and this seems a little
+
+331
+00:15:02.020 --> 00:15:04.950
+nitpicky. Maybe, but something similar
+
+332
+00:15:04.950 --> 00:15:07.230
+already happens with the dot or the
+
+333
+00:15:07.230 --> 00:15:09.980
+period where sometimes
+
+334
+00:15:09.990 --> 00:15:12.970
+it means like a qualified thing,
+
+335
+00:15:12.980 --> 00:15:15.970
+Right. If you have some name dot some identifier, then
+
+336
+00:15:15.970 --> 00:15:18.710
+it's a qualified thing. But if you put spaces in there,
+
+337
+00:15:18.710 --> 00:15:21.560
+suddenly it means function, composition or whatever.
+
+338
+00:15:21.560 --> 00:15:24.460
+Operator, you have imported usually function composition.
+
+339
+00:15:25.440 --> 00:15:28.080
+So I think the precedent has already been
+
+340
+00:15:28.080 --> 00:15:30.830
+set that white space is or can be
+
+341
+00:15:30.830 --> 00:15:33.810
+important for these operator type things. And I really like
+
+342
+00:15:33.810 --> 00:15:36.790
+this because one of the annoying kind of gotchas with
+
+343
+00:15:36.790 --> 00:15:39.710
+Haskell is that if you if you have some function that takes a
+
+344
+00:15:39.710 --> 00:15:42.710
+number and you want to pass a negative number to it, you have to wrap
+
+345
+00:15:42.710 --> 00:15:45.510
+it in parentheses, which is, I mean, honestly, kind of
+
+346
+00:15:45.510 --> 00:15:48.470
+silly. And this language extension will mean you don't have
+
+347
+00:15:48.470 --> 00:15:49.910
+to use parentheses anymore.
+
+348
+00:15:49.920 --> 00:15:52.910
+>> Yeah, I think, Yeah, I think this is gonna be
+
+349
+00:15:52.910 --> 00:15:55.690
+good? I don't really think it could have a huge
+
+350
+00:15:55.700 --> 00:15:58.420
+impact on current existing code. I do
+
+351
+00:15:58.420 --> 00:16:01.350
+think moving forward that I think it will be really
+
+352
+00:16:01.350 --> 00:16:03.990
+nice. I'm curious. With like some of the external
+
+353
+00:16:03.990 --> 00:16:06.960
+tooling out there like HLint that says, Hey, we
+
+354
+00:16:06.960 --> 00:16:09.280
+see you've got this language extension installed. Now you have these
+
+355
+00:16:09.290 --> 00:16:11.910
+parens negative one. Those can go away
+
+356
+00:16:11.910 --> 00:16:14.720
+now, like those kind of things may become possible, which would
+
+357
+00:16:14.720 --> 00:16:17.550
+be, you know, a nice quality of life improvement.
+
+358
+00:16:17.560 --> 00:16:19.960
+Yes, parens aren't terrible, but they're also
+
+359
+00:16:20.940 --> 00:16:23.860
+kind of pointless for that situation. So it would be
+
+360
+00:16:23.860 --> 00:16:26.850
+nice to have that I think this next
+
+361
+00:16:26.850 --> 00:16:29.760
+one, we're gonna talk about those, actually, my favorite, because
+
+362
+00:16:29.770 --> 00:16:32.030
+if you have a giant project loading
+
+363
+00:16:32.030 --> 00:16:34.690
+GHCi and the giant project is tough
+
+364
+00:16:34.690 --> 00:16:37.380
+unless you manually set the prompt to something else
+
+365
+00:16:38.000 --> 00:16:40.780
+So this is saying the GHC prompt will no longer
+
+366
+00:16:40.780 --> 00:16:43.700
+list loaded modules. I imagine there's still
+
+367
+00:16:43.700 --> 00:16:46.630
+gonna be some shortcut to get to them. If you need to see what's imported
+
+368
+00:16:46.630 --> 00:16:49.560
+or what's in scope, all you can always just say, What's this?
+
+369
+00:16:49.560 --> 00:16:51.930
+Is it there cool. It is. Let's use it. If
+
+370
+00:16:51.930 --> 00:16:54.760
+not, let's import it and
+
+371
+00:16:54.770 --> 00:16:55.660
+be able to use it then.
+
+372
+00:16:56.540 --> 00:16:59.370
+>> Yeah, So for those not in the know, this has been another
+
+373
+00:16:59.370 --> 00:17:01.790
+kind of long time uh,
+
+374
+00:17:01.800 --> 00:17:04.260
+paper cut of the Haskell
+
+375
+00:17:04.260 --> 00:17:07.060
+REPL, where if you fire up GHCi it'll
+
+376
+00:17:07.060 --> 00:17:09.850
+normally say prelude and then like a
+
+377
+00:17:09.850 --> 00:17:12.490
+greater than sign. And that's where you type in your stuff. And if you import
+
+378
+00:17:12.490 --> 00:17:15.460
+module like data dot map, then it will say prelude space
+
+379
+00:17:15.460 --> 00:17:18.190
+data dot map and then your prompt, Um,
+
+380
+00:17:18.200 --> 00:17:21.170
+And for us, when we start GHCi
+
+381
+00:17:21.170 --> 00:17:24.100
+for our project at work, we have on the order of,
+
+382
+00:17:24.100 --> 00:17:26.920
+like, 1000 to 2000 modules. So our
+
+383
+00:17:26.920 --> 00:17:29.920
+prompt, if we don't customize it, has 1000
+
+384
+00:17:29.920 --> 00:17:32.570
+modules, all all of their names there and
+
+385
+00:17:32.570 --> 00:17:35.270
+then the little greater than sign. And then we type in whatever. So
+
+386
+00:17:35.940 --> 00:17:38.610
+that's completely useless to us and takes up a ton of screen
+
+387
+00:17:38.610 --> 00:17:41.550
+space. And this change will make it so that we
+
+388
+00:17:41.550 --> 00:17:44.380
+don't have to customize our prompt anymore. It'll just do kind of
+
+389
+00:17:44.380 --> 00:17:46.210
+what it probably should have always done in the first place.
+
+390
+00:17:46.220 --> 00:17:49.010
+>> Yeah, because, I mean, if you have everything listed,
+
+391
+00:17:49.020 --> 00:17:51.580
+you could write a function, and by the time
+
+392
+00:17:51.580 --> 00:17:54.540
+you hit enter, you're never going to see the output because
+
+393
+00:17:54.540 --> 00:17:57.400
+it's gonna be wiped away by the new list of
+
+394
+00:17:57.400 --> 00:17:58.850
+modules that the new prompt has
+
+395
+00:17:59.240 --> 00:18:00.010
+>> exactly
+
+396
+00:18:00.010 --> 00:18:02.360
+>> like it's rough.
+
+397
+00:18:02.940 --> 00:18:05.710
+So we're excited about that. I
+
+398
+00:18:05.720 --> 00:18:08.350
+think this one will be good
+
+399
+00:18:08.360 --> 00:18:11.270
+overall. Long term for the Haskell community
+
+400
+00:18:11.830 --> 00:18:14.300
+is making the haddock
+
+401
+00:18:14.300 --> 00:18:17.220
+parsing more resilient, right? Because
+
+402
+00:18:17.220 --> 00:18:19.170
+haddock deals with a lot of documentation, right?
+
+403
+00:18:19.640 --> 00:18:22.560
+>> Yes. So there's a lot of things kind of balled up
+
+404
+00:18:22.560 --> 00:18:25.460
+in this, um, part of the change log,
+
+405
+00:18:25.840 --> 00:18:28.780
+and some people may not have
+
+406
+00:18:28.780 --> 00:18:31.670
+run into these problems, but I've run into them and they're really annoying. So
+
+407
+00:18:31.670 --> 00:18:34.610
+with haddock, your comments
+
+408
+00:18:34.610 --> 00:18:37.550
+become more important, right? Because your documentation lives
+
+409
+00:18:37.550 --> 00:18:40.190
+in your comments. And haddock has
+
+410
+00:18:40.190 --> 00:18:43.010
+certain things that are special that it cares
+
+411
+00:18:43.010 --> 00:18:45.870
+about. So the most important one that most people are probably already
+
+412
+00:18:45.870 --> 00:18:48.850
+familiar with is starting a comment with the vertical
+
+413
+00:18:48.850 --> 00:18:51.700
+pipe. So if you do dash dash pipe, that means okay, I'm
+
+414
+00:18:51.700 --> 00:18:54.630
+starting a documentation comment here. This will be attached to the
+
+415
+00:18:54.630 --> 00:18:57.280
+function or type or whatever and then
+
+416
+00:18:57.280 --> 00:19:00.230
+rendered when I run haddock. Um,
+
+417
+00:19:00.240 --> 00:19:03.020
+there are other things that are important, like dash dash
+
+418
+00:19:03.020 --> 00:19:05.820
+star and that one I mention because I run into
+
+419
+00:19:05.820 --> 00:19:08.570
+this frequently, where a project will
+
+420
+00:19:08.570 --> 00:19:11.370
+build just fine when I'm not producing any
+
+421
+00:19:11.370 --> 00:19:14.210
+documentation and then When I try to build the documentation,
+
+422
+00:19:14.220 --> 00:19:17.180
+it will crash, like, fail to compile. Because I
+
+423
+00:19:17.180 --> 00:19:19.850
+have a comment somewhere that says, like Dash Dash, star, star
+
+424
+00:19:19.850 --> 00:19:22.440
+star, important star, star star, You know, don't do
+
+425
+00:19:22.440 --> 00:19:25.220
+this. And Haddock's like, Hey, I tried
+
+426
+00:19:25.220 --> 00:19:28.080
+to, you know, interpret this as some special markup for myself, and I
+
+427
+00:19:28.080 --> 00:19:31.030
+wasn't able to. And you know, I'm thinking, Why did you do
+
+428
+00:19:31.030 --> 00:19:33.890
+that? Haddock. That's silly. Um, but yeah. So
+
+429
+00:19:33.890 --> 00:19:36.770
+with GHC 9, it will be more resilient to these,
+
+430
+00:19:36.770 --> 00:19:39.200
+so it won't crash. I think it will instead
+
+431
+00:19:39.200 --> 00:19:41.780
+produce a warning so that you can
+
+432
+00:19:41.790 --> 00:19:44.720
+realize like, Oh, this is ambiguous. If this is meant to be parsed
+
+433
+00:19:44.720 --> 00:19:46.410
+by haddock or not,
+
+434
+00:19:46.420 --> 00:19:49.090
+>> that sounds helpful. Like that would
+
+435
+00:19:49.090 --> 00:19:51.880
+be really frustrating. Very much my
+
+436
+00:19:51.880 --> 00:19:54.710
+code works. And then you're like, Wait, what now? I'm building
+
+437
+00:19:54.710 --> 00:19:55.760
+documentation. What happened?
+
+438
+00:19:56.140 --> 00:19:59.050
+>> Yeah, and many people don't build documentation themselves.
+
+439
+00:19:59.060 --> 00:20:01.720
+So this problem gets even worse because you can have a
+
+440
+00:20:01.720 --> 00:20:04.540
+project that builds perfectly fine for yourself, and then you
+
+441
+00:20:04.540 --> 00:20:06.610
+release it and upload it to Hackage.
+
+442
+00:20:06.620 --> 00:20:09.140
+And somebody complains like, Hey, you don't have any
+
+443
+00:20:09.140 --> 00:20:11.680
+documentation on Hackage like, Yeah, I wrote
+
+444
+00:20:11.680 --> 00:20:14.560
+documentation for everything, and it's because oh, Haddock failed to build.
+
+445
+00:20:14.940 --> 00:20:17.640
+Um, so it'll actually be a little while until Haddock uses
+
+446
+00:20:17.640 --> 00:20:20.540
+GHC 9. Excuse me. Hackage uses GHC 9,
+
+447
+00:20:20.550 --> 00:20:23.100
+but when it does, we can look forward to this being a little
+
+448
+00:20:23.100 --> 00:20:24.500
+more resilient.
+
+449
+00:20:24.510 --> 00:20:27.050
+>> That's good. Yeah. Speaking
+
+450
+00:20:27.050 --> 00:20:29.980
+of you know, nightlies and LTS and
+
+451
+00:20:29.980 --> 00:20:32.570
+Stackage. You know, we got a little while
+
+452
+00:20:32.570 --> 00:20:35.550
+probably before that's coming out next couple of weeks.
+
+453
+00:20:36.140 --> 00:20:39.090
+>> Yeah, I saw a tweet. I forget who it
+
+454
+00:20:39.090 --> 00:20:41.200
+was from one of the Stackage maintainers
+
+455
+00:20:41.210 --> 00:20:44.180
+announcing that, you know, the
+
+456
+00:20:44.180 --> 00:20:46.400
+nightlies and LTS are using GHC
+
+457
+00:20:46.400 --> 00:20:49.360
+8.10.4. And they're looking to use GHC 9
+
+458
+00:20:49.360 --> 00:20:52.350
+quickly on the nightlies. But I think a lot of packages they're going to
+
+459
+00:20:52.350 --> 00:20:54.960
+get booted out because either they have
+
+460
+00:20:55.540 --> 00:20:58.260
+version constraints that maybe just need to be relaxed
+
+461
+00:20:58.260 --> 00:21:00.770
+or something changed in, You know, the
+
+462
+00:21:00.770 --> 00:21:03.560
+GHCi, uh the bits of
+
+463
+00:21:03.560 --> 00:21:06.460
+GHC that they use that needs to be changed to support it.
+
+464
+00:21:06.940 --> 00:21:09.410
+Um, but yeah, I just wanted to wrap up with
+
+465
+00:21:09.420 --> 00:21:12.140
+GHC 9. So there are many, many more
+
+466
+00:21:12.140 --> 00:21:14.990
+things in the change log. It was hard to pick kind of
+
+467
+00:21:14.990 --> 00:21:17.760
+the big ticket things that we should talk about because there's
+
+468
+00:21:17.760 --> 00:21:20.670
+so many, Um there's a lot of bug fixes.
+
+469
+00:21:20.670 --> 00:21:23.460
+There's a lot of performance improvements. Both when it comes to
+
+470
+00:21:23.640 --> 00:21:26.570
+how quickly GHC compiles your code,
+
+471
+00:21:26.570 --> 00:21:29.510
+but also with the code that GHC produces, it may run
+
+472
+00:21:29.510 --> 00:21:32.440
+faster as well. So GHC 9 is just
+
+473
+00:21:32.440 --> 00:21:35.410
+like an amazing release. Very excited for so many things in
+
+474
+00:21:35.410 --> 00:21:35.670
+it.
+
+475
+00:21:35.680 --> 00:21:38.450
+>> Yeah, that's awesome, I mean You always expect, you know,
+
+476
+00:21:38.460 --> 00:21:41.320
+quote unquote performance enhancements with any
+
+477
+00:21:41.330 --> 00:21:44.120
+release of anything, you know, you get a new iPhone, your
+
+478
+00:21:44.120 --> 00:21:47.010
+android phone, latest new processor like
+
+479
+00:21:47.020 --> 00:21:49.620
+all those things. So that's you know, that's
+
+480
+00:21:49.620 --> 00:21:52.320
+exciting because I think GHC
+
+481
+00:21:52.330 --> 00:21:55.130
+needed that, um, you know, And
+
+482
+00:21:55.140 --> 00:21:57.970
+they could do this with such a big release that has so
+
+483
+00:21:57.970 --> 00:21:59.810
+many other enhancements as well.
+
+484
+00:21:59.820 --> 00:22:02.440
+>> Yeah, and I wanted to call that out because I know some
+
+485
+00:22:02.440 --> 00:22:05.420
+people are concerned that if GHC
+
+486
+00:22:05.420 --> 00:22:08.110
+focuses on these fancy
+
+487
+00:22:08.110 --> 00:22:10.960
+new type system enhancements like linear types
+
+488
+00:22:11.040 --> 00:22:13.830
+than maybe the more mundane or
+
+489
+00:22:13.830 --> 00:22:16.630
+boring like quality of life improvements aren't gonna happen. Or
+
+490
+00:22:16.630 --> 00:22:19.520
+even compiler performance may get worse as a result. But
+
+491
+00:22:19.520 --> 00:22:22.260
+that is not the case, at least for this release. So
+
+492
+00:22:22.540 --> 00:22:25.520
+kudos to the GHC team. They're doing amazing work.
+
+493
+00:22:25.530 --> 00:22:27.550
+It's just again. Great release.
+
+494
+00:22:27.560 --> 00:22:30.400
+>> Yeah, I know. I'm really hoping we can get to it soon,
+
+495
+00:22:30.400 --> 00:22:33.230
+but some of our tooling, you know, we're just tightly
+
+496
+00:22:33.230 --> 00:22:35.500
+coupled. GHC versions
+
+497
+00:22:35.690 --> 00:22:38.320
+Weeder, Brittany. Those guys
+
+498
+00:22:38.320 --> 00:22:41.260
+just kind of make us have to slow down for all the new
+
+499
+00:22:41.260 --> 00:22:43.460
+hotness, because we've gotta wait for it to support it
+
+500
+00:22:43.840 --> 00:22:45.790
+had worked through all of its
+
+501
+00:22:45.800 --> 00:22:46.860
+transitions.
+
+502
+00:22:47.240 --> 00:22:49.780
+>> Yeah, and we've talked on this show before about
+
+503
+00:22:49.780 --> 00:22:52.730
+HLS, which some of us use and is also tightly coupled to
+
+504
+00:22:52.730 --> 00:22:55.640
+the GHC version. So, yeah, the
+
+505
+00:22:55.650 --> 00:22:58.070
+tooling side leaves maybe a little bit to be
+
+506
+00:22:58.070 --> 00:23:00.760
+desired. But it also encourages you to use
+
+507
+00:23:00.760 --> 00:23:03.530
+tooling that isn't tightly coupled to GHC in that
+
+508
+00:23:03.530 --> 00:23:03.860
+way.
+
+509
+00:23:04.440 --> 00:23:07.350
+>> Yeah, that's true. Maybe she could
+
+510
+00:23:08.340 --> 00:23:11.090
+takes, um, more enhancements in the tooling realm. I don't
+
+511
+00:23:11.090 --> 00:23:11.550
+know.
+
+512
+00:23:12.140 --> 00:23:15.030
+>> Yeah, yeah, they
+
+513
+00:23:15.040 --> 00:23:17.700
+definitely have their work cut out for them, but it would be
+
+514
+00:23:17.700 --> 00:23:20.360
+excellent from our point of view if they could
+
+515
+00:23:20.740 --> 00:23:23.540
+roll in some of these projects to GHC
+
+516
+00:23:23.540 --> 00:23:26.300
+itself. So, like Weeder, for instance,
+
+517
+00:23:26.310 --> 00:23:28.720
+Onley relies on the HIE files that
+
+518
+00:23:28.720 --> 00:23:31.680
+GHC now produces, rather than having to interact with
+
+519
+00:23:31.680 --> 00:23:34.470
+the GHC API So it's a little
+
+520
+00:23:34.470 --> 00:23:37.200
+less coupled. Um, and then, you know, kind of like blue
+
+521
+00:23:37.200 --> 00:23:40.030
+sky. It would be amazing if GHC had a formatter
+
+522
+00:23:40.040 --> 00:23:43.030
+built in, and then we wouldn't need to use Brittany. But that may be a
+
+523
+00:23:43.030 --> 00:23:43.760
+bridge too far.
+
+524
+00:23:44.840 --> 00:23:46.220
+>> We can always hope and dream, right?
+
+525
+00:23:46.640 --> 00:23:49.570
+>> Yeah, exactly um. But I
+
+526
+00:23:49.570 --> 00:23:52.240
+think we had one last thing to talk about today, which
+
+527
+00:23:52.240 --> 00:23:55.100
+is kind of related to the GHC 9
+
+528
+00:23:55.110 --> 00:23:57.830
+release. There's a new package put together
+
+529
+00:23:57.830 --> 00:23:59.870
+by Tweag, uh, called
+
+530
+00:23:59.870 --> 00:24:02.790
+linear-base. And this
+
+531
+00:24:02.790 --> 00:24:05.620
+is like a replacement for the base library. So
+
+532
+00:24:05.620 --> 00:24:08.180
+kind of, ah, standard library, so to
+
+533
+00:24:08.180 --> 00:24:10.770
+speak, specifically for linear types.
+
+534
+00:24:11.340 --> 00:24:14.130
+Um, And like I mentioned with linear types,
+
+535
+00:24:14.140 --> 00:24:17.080
+I am not an authority here. I'll encourage you to go read the blog
+
+536
+00:24:17.080 --> 00:24:19.950
+post where they announced this. Um, but
+
+537
+00:24:20.540 --> 00:24:23.460
+the long and short of it is that in order to effectively work
+
+538
+00:24:23.460 --> 00:24:26.200
+with linear types, you need a lot of common utilities to
+
+539
+00:24:26.210 --> 00:24:28.850
+have linear versions, and that's what linear base
+
+540
+00:24:28.850 --> 00:24:31.580
+provides. And it also provides
+
+541
+00:24:31.590 --> 00:24:34.440
+many other things that aren't provided by the base library,
+
+542
+00:24:34.450 --> 00:24:37.320
+like, um, efficient arrays,
+
+543
+00:24:37.330 --> 00:24:40.290
+vectors, hash maps, sets. So things that you
+
+544
+00:24:40.290 --> 00:24:42.920
+can get from other libraries, like array and vector and containers and
+
+545
+00:24:42.920 --> 00:24:45.360
+unordered containers. But they're all in one library now.
+
+546
+00:24:45.840 --> 00:24:48.780
+Um, and it also has even more stuff, like
+
+547
+00:24:48.790 --> 00:24:51.520
+has a streaming abstraction built in, so think, like
+
+548
+00:24:51.520 --> 00:24:54.090
+conduit or pipes. And it also has lenses and
+
+549
+00:24:54.090 --> 00:24:57.010
+optics, like the lens library or the optics library
+
+550
+00:24:57.020 --> 00:25:00.000
+on. But I think they're looking to add even more stuff to it. So it seems
+
+551
+00:25:00.000 --> 00:25:02.670
+to be a surprisingly well featured
+
+552
+00:25:02.940 --> 00:25:05.790
+standard library, considering how new all of this stuff
+
+553
+00:25:05.790 --> 00:25:06.170
+is.
+
+554
+00:25:06.340 --> 00:25:08.560
+>> Yeah, that's awesome. Yeah. And if you're looking for the
+
+555
+00:25:08.940 --> 00:25:11.360
+blog post, it will be in the show notes as well.
+
+556
+00:25:11.740 --> 00:25:14.720
+>> Mm. Or go check issue 250 of the newsletter and
+
+557
+00:25:14.720 --> 00:25:15.680
+go sign up while you're at it.
+
+558
+00:25:15.690 --> 00:25:18.240
+>> Wow. We're at 250 man? That's awesome.
+
+559
+00:25:18.250 --> 00:25:18.710
+>> Yeah.
+
+560
+00:25:18.720 --> 00:25:19.360
+>> 250.
+
+561
+00:25:19.940 --> 00:25:22.820
+>> Been doing it a while. Um, but yeah,
+
+562
+00:25:22.820 --> 00:25:25.820
+Like I said, I think those were the main highlights that we wanted to touch
+
+563
+00:25:25.820 --> 00:25:28.750
+on for GHC and related stuff going on over the past
+
+564
+00:25:28.750 --> 00:25:31.670
+couple weeks. Um, Cam did you have anything else that you wanted to remark
+
+565
+00:25:31.670 --> 00:25:31.960
+on?
+
+566
+00:25:32.340 --> 00:25:35.310
+>> No, I think I'm excited about GHC 9 and
+
+567
+00:25:35.310 --> 00:25:37.810
+seeing where it takes the Haskell community. And
+
+568
+00:25:37.820 --> 00:25:40.730
+obviously all the other stuff we talked about is fantastic.
+
+569
+00:25:40.730 --> 00:25:43.170
+So I'm really looking forward. to Yeah.
+
+570
+00:25:43.540 --> 00:25:45.160
+Being a Haskell programmer. It's awesome.
+
+571
+00:25:45.740 --> 00:25:48.450
+>> Yeah, sure is. We're gonna have to learn more about linear types,
+
+572
+00:25:48.450 --> 00:25:50.230
+so we'll see how that goes.
+
+573
+00:25:50.240 --> 00:25:52.950
+>> Yeah, maybe we can walk our listeners through it once we've
+
+574
+00:25:52.950 --> 00:25:55.800
+learned we could just maybe here at work, you
+
+575
+00:25:55.800 --> 00:25:58.510
+know, have some people figure out what linear types are and teach
+
+576
+00:25:58.510 --> 00:25:58.860
+us.
+
+577
+00:25:59.240 --> 00:26:02.240
+>> Mm. Yeah. We may need to have some of our Haskell
+
+578
+00:26:02.240 --> 00:26:04.790
+wizards on the engineering team teach us how it
+
+579
+00:26:04.790 --> 00:26:05.260
+works.
+
+580
+00:26:05.270 --> 00:26:07.870
+>> I know, they're pretty excited about it, So
+
+581
+00:26:07.880 --> 00:26:10.860
+yeah, that'll be good. No, Maybe have them. Come
+
+582
+00:26:10.860 --> 00:26:13.560
+on. The podcast. Try to get Zach on the podcast today, but
+
+583
+00:26:13.940 --> 00:26:16.770
+he wasn't quite ready, so that's okay, but maybe next time.
+
+584
+00:26:16.780 --> 00:26:19.060
+>> One of these days we'll convince him,
+
+585
+00:26:20.040 --> 00:26:22.920
+but yeah, I think that will do it for us. Thank you
+
+586
+00:26:22.920 --> 00:26:25.860
+for listening to the Haskell weekly podcast. I have been your
+
+587
+00:26:25.860 --> 00:26:28.690
+host, Taylor Fausak, and the other voice you heard
+
+588
+00:26:28.690 --> 00:26:31.440
+today was Cameron Gera. If you'd like to find out
+
+589
+00:26:31.440 --> 00:26:34.390
+more about Haskell weekly, you can check out our website
+
+590
+00:26:34.400 --> 00:26:37.140
+Haskell weekly dot news. If you like the
+
+591
+00:26:37.140 --> 00:26:39.480
+show, please rate and review us on apple
+
+592
+00:26:39.480 --> 00:26:42.130
+podcasts. And if you have any feedback you'd like to give to
+
+593
+00:26:42.130 --> 00:26:45.050
+us, just tweet us at Haskell Weekly
+
+594
+00:26:46.040 --> 00:26:48.940
+>> and Haskell Weekly is brought to you by ITProTV an
+
+595
+00:26:48.950 --> 00:26:51.850
+ACI learning company and our employer. They
+
+596
+00:26:51.850 --> 00:26:54.600
+would like to offer you 30% off your subscription by using
+
+597
+00:26:54.610 --> 00:26:57.600
+promo code Haskell Weekly 30 at
+
+598
+00:26:57.610 --> 00:27:00.300
+check Out. That does it for
+
+599
+00:27:00.300 --> 00:27:02.980
+us. Good. Sir. Taylor, I really like using that name
+
+600
+00:27:02.980 --> 00:27:03.350
+today.
+
+601
+00:27:04.440 --> 00:27:07.270
+>> It sure does. So, yeah. Thank you for joining us on the Haskell
+
+602
+00:27:07.270 --> 00:27:09.830
+Weekly podcast. And we'll see you hopefully next week.
+
+603
+00:27:09.840 --> 00:27:10.560
+>> See you next week.
+
+604
+00:27:11.440 --> 00:27:11.870
+>> Bye
+
+605
+00:27:12.420 --> 00:27:13.040
+>> Peace
