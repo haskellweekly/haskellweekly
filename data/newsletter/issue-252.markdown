@@ -23,4 +23,5 @@ undefined
 
 ## Call for participation
 
-undefined
+-   [unison: The Unison `List` type is inconsistently called "list", "sequence", and "vector" in different parts of the Haskell code](https://github.com/unisonweb/unison/issues/1822)
+-   [wasp: Introduce "ignore" file for files that shouldn't be copied from ext/](https://github.com/wasp-lang/wasp/issues/192)
