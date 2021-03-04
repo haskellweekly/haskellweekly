@@ -23,4 +23,5 @@ undefined
 
 ## Call for participation
 
-undefined
+-   [haskell-language-server: suggestImportDisambiguation does not interact well with DuplicateRecordFields](https://github.com/haskell/haskell-language-server/issues/1457)
+-   [neuron: head.html is injected with a wrapping <div> within <head>](https://github.com/srid/neuron/issues/577)
