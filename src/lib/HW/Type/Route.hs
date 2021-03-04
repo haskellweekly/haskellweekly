@@ -4,6 +4,7 @@
 module HW.Type.Route
   ( Route(..)
   , toText
+  , toTextRelative
   , fromText
   , routeContent
   ) where

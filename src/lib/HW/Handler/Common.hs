@@ -9,13 +9,17 @@ module HW.Handler.Common
 
 import qualified Data.ByteString as ByteString
 import qualified Data.ByteString.Lazy as LazyByteString
+import qualified Data.Map as Map
 import qualified Data.Text as Text
 import qualified Data.Text.Encoding as Text
 import qualified Data.Text.Encoding.Error as Text
 import qualified HW.Type.App as App
+import qualified HW.Type.Route as Route
 import qualified Lucid as Html
 import qualified Network.HTTP.Types as Http
 import qualified Network.Wai as Wai
+import qualified Text.HTML.DOM as Dom
+import qualified Text.XML as Xml
 
 bs
   :: Http.Status
@@ -42,7 +46,28 @@ html s h x =
   let
     body = Html.renderBS x
     headers = withContentType "text/html; charset=utf-8" h
-  in lbs s headers body
+    newBody = Xml.renderLBS Xml.def . pingDocument $ Dom.parseLBS body
+  in lbs s headers newBody
+
+pingDocument :: Xml.Document -> Xml.Document
+pingDocument document =
+  let root = pingElement $ Xml.documentRoot document
+  in document { Xml.documentRoot = root }
+
+pingElement :: Xml.Element -> Xml.Element
+pingElement element =
+  let
+    ping = Route.toTextRelative Route.Ping
+    attributes = case Xml.elementName element of
+      "a" -> Map.insert "ping" ping $ Xml.elementAttributes element
+      _ -> Xml.elementAttributes element
+    nodes = pingNode <$> Xml.elementNodes element
+  in element { Xml.elementAttributes = attributes, Xml.elementNodes = nodes }
+
+pingNode :: Xml.Node -> Xml.Node
+pingNode node = case node of
+  Xml.NodeElement element -> Xml.NodeElement $ pingElement element
+  _ -> node
 
 lbs
   :: Http.Status
