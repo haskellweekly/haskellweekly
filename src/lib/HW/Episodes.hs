@@ -68,6 +68,7 @@ episodes = do
     , episode36
     , episode37
     , episode38
+    , episode39
     ]
   checkGuids validEpisodes Set.empty
   checkNumbers validEpisodes 1
@@ -681,3 +682,21 @@ episode38 = Episode.Episode
   <*> Size.fromNatural 28770384
   <*> Summary.fromText "Linear types finally landed in GHC 9.0.1! We talk through what that means along with other news from the Haskell Foundation and Tweag."
   <*> Title.fromText "GHC 9.0.1"
+
+episode39 :: Either String Episode.Episode
+episode39 = Episode.Episode
+  <$> Articles.fromList
+    [ "https://www.patreon.com/wingman_for_haskell"
+    , "https://leanpub.com/algebra-driven-design"
+    , "https://leanpub.com/thinking-with-types"
+    , "https://github.com/polysemy-research/polysemy"
+    , "https://reasonablypolymorphic.com"
+    , "https://sandymaguire.me"
+    ]
+  <*> Date.fromGregorian 2021 3 8
+  <*> Duration.fromTimestamp 47 1
+  <*> Guid.fromText "706ebc1e-307a-40d4-8fa3-2f4ec3541bc9"
+  <*> Number.fromNatural 39
+  <*> Size.fromNatural 48042902
+  <*> Summary.fromText "Special guest Sandy Maguire talks with us about using Haskell Wingman for program synthesis, designing bulletproof abstractions with algebra, wrangling type level programming in Haskell, and managing effects with his Polysemy library."
+  <*> Title.fromText "Haskell Wingman with Sandy Maguire"

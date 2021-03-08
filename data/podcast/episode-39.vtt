@@ -1,0 +1,4269 @@
+WEBVTT
+
+1
+00:00:02.040 --> 00:00:02.240
+[Automatically transcribed. Not edited yet. Contains many errors.]
+
+2
+00:00:04.840 --> 00:00:07.740
+>> Hello
+
+3
+00:00:07.750 --> 00:00:10.500
+>> and welcome to the high school weekly podcast. This is so about
+
+4
+00:00:10.500 --> 00:00:13.290
+Haskell, a purely functional programming language.
+
+5
+00:00:13.300 --> 00:00:16.210
+I'm your host, Cameron Gara, an engineer here at I.T..
+
+6
+00:00:16.210 --> 00:00:18.590
+Pro T.V.. And with me today is Taylor
+
+7
+00:00:18.590 --> 00:00:21.570
+Fausak, one of the engineers on my team and my
+
+8
+00:00:21.570 --> 00:00:23.650
+boss. Thanks for joining me today, Taylor.
+
+9
+00:00:24.340 --> 00:00:27.150
+>> Yeah. I'm happy to be here, Cam. And I'm really excited
+
+10
+00:00:27.150 --> 00:00:29.810
+today because we have a special guest with
+
+11
+00:00:29.810 --> 00:00:32.700
+us. Sandy McGuire. Thanks for joining us, Sandy.
+
+12
+00:00:32.710 --> 00:00:33.640
+Thanks for having
+
+13
+00:00:33.640 --> 00:00:35.260
+>> me, guys. I'm excited to be here.
+
+14
+00:00:35.270 --> 00:00:38.190
+>> Yeah, this is awesome. So, Sandy, for
+
+15
+00:00:38.190 --> 00:00:40.870
+people who may not know who you are already.
+
+16
+00:00:40.910 --> 00:00:42.350
+How would you describe yourself?
+
+17
+00:00:43.340 --> 00:00:45.460
+>> I write a lot of Haskell.
+
+18
+00:00:46.540 --> 00:00:47.310
+>> Good.
+
+19
+00:00:47.320 --> 00:00:49.880
+Yeah.
+
+20
+00:00:49.890 --> 00:00:51.400
+>> I don't know. You caught me off guard here,
+
+21
+00:00:51.400 --> 00:00:53.860
+Taylor.
+
+22
+00:00:54.540 --> 00:00:57.230
+>> Well, then let me say some things that I know about you. So
+
+23
+00:00:57.240 --> 00:00:57.710
+you're
+
+24
+00:00:57.710 --> 00:00:58.580
+>> better prepared than I am
+
+25
+00:00:58.580 --> 00:01:01.550
+>> here. In addition to writing a lot of Haskell, you write a
+
+26
+00:01:01.550 --> 00:01:04.050
+lot of Haskell content. You've authored two
+
+27
+00:01:04.050 --> 00:01:07.000
+books thinking with types and algebra driven
+
+28
+00:01:07.000 --> 00:01:09.230
+design. Uh, neither of which I think are
+
+29
+00:01:09.230 --> 00:01:12.160
+necessarily like Haskell books, quote unquote.
+
+30
+00:01:12.170 --> 00:01:14.850
+But they do sort of intersect quite a bit.
+
+31
+00:01:15.340 --> 00:01:16.940
+>> Yeah, I think that's very fair.
+
+32
+00:01:16.950 --> 00:01:19.700
+>> And you also author the blog?
+
+33
+00:01:19.700 --> 00:01:22.560
+Reasonably polymorphic. And you're the
+
+34
+00:01:22.560 --> 00:01:25.260
+author of the policy. Me by saying that, right?
+
+35
+00:01:25.640 --> 00:01:28.560
+Yeah. The city library. For what's
+
+36
+00:01:28.560 --> 00:01:31.360
+that, like, freer effects effects system?
+
+37
+00:01:32.440 --> 00:01:33.800
+>> Yeah, some sort of weird effect
+
+38
+00:01:33.800 --> 00:01:35.860
+>> system.
+
+39
+00:01:36.240 --> 00:01:39.210
+Uh, and more recently, you've been working on
+
+40
+00:01:39.210 --> 00:01:42.160
+wingman for Haskell, which is a tool for
+
+41
+00:01:42.170 --> 00:01:44.550
+I would say, program synthesis, maybe.
+
+42
+00:01:45.240 --> 00:01:48.140
+>> Yeah, that's, uh that's a great description of it.
+
+43
+00:01:48.150 --> 00:01:49.150
+>> So
+
+44
+00:01:49.160 --> 00:01:52.160
+>> you're telling me it's not like the apex
+
+45
+00:01:52.160 --> 00:01:55.160
+weapon? The wingman, you know?
+
+46
+00:01:55.170 --> 00:01:55.650
+No.
+
+47
+00:01:55.660 --> 00:01:58.550
+>> No, it's not. I really want to call it copilot, but
+
+48
+00:01:58.550 --> 00:02:00.360
+that one's turned out to already be used.
+
+49
+00:02:00.370 --> 00:02:01.160
+>> Really?
+
+50
+00:02:01.540 --> 00:02:02.510
+>> Yeah. It's called co
+
+51
+00:02:02.510 --> 00:02:04.840
+>> Pilot. There's, um there's like a NASA
+
+52
+00:02:04.840 --> 00:02:07.790
+DSL for doing, like, verified
+
+53
+00:02:07.790 --> 00:02:09.850
+C plus plus programming or something.
+
+54
+00:02:10.340 --> 00:02:11.780
+>> So I'm not quite the same thing.
+
+55
+00:02:11.790 --> 00:02:14.780
+>> Not quite the same thing? No, but it's a great name, and I'm
+
+56
+00:02:14.780 --> 00:02:16.900
+upset. They got it. First.
+
+57
+00:02:16.910 --> 00:02:19.720
+>> Wingman is good, too. I like that. Thank
+
+58
+00:02:19.720 --> 00:02:22.670
+you. So maybe let's launch into that. Could you tell us a
+
+59
+00:02:22.670 --> 00:02:24.260
+little about wingman? What does it do?
+
+60
+00:02:24.640 --> 00:02:27.630
+>> Sure. Um, so wingman is a plug in
+
+61
+00:02:27.630 --> 00:02:30.390
+for the Haskell language server and the idea
+
+62
+00:02:30.390 --> 00:02:33.060
+is It tries to automate away, um,
+
+63
+00:02:33.440 --> 00:02:36.320
+the whole driven design, um,
+
+64
+00:02:36.330 --> 00:02:39.230
+philosophy where you say, I don't really know the code I'm writing. I'm going to put it
+
+65
+00:02:39.230 --> 00:02:41.920
+in a hole. And then the compiler tells you what that whole
+
+66
+00:02:41.930 --> 00:02:44.420
+has type. It gives you the type of it, and you say Okay,
+
+67
+00:02:44.420 --> 00:02:47.380
+well, I know this thing has some type, and I sort of
+
+68
+00:02:47.380 --> 00:02:50.290
+know roughly what type I think it should be. So you
+
+69
+00:02:50.290 --> 00:02:53.220
+maybe you put an F map in, and then you put it another hole, and
+
+70
+00:02:53.220 --> 00:02:56.210
+then it says Okay, well, now the whole has changed because you've sort
+
+71
+00:02:56.210 --> 00:02:58.820
+of synthesize some of the program. Um,
+
+72
+00:02:58.930 --> 00:03:01.750
+And for a lot of cold code, this turns out to like,
+
+73
+00:03:02.440 --> 00:03:05.330
+Really, What you're doing is just typing
+
+74
+00:03:05.330 --> 00:03:08.060
+in the things G.H.C. tells you to type, right?
+
+75
+00:03:08.070 --> 00:03:11.050
+It's a little silly, right? So I thought, Why not? Why don't we just, like,
+
+76
+00:03:11.050 --> 00:03:14.000
+automate that right? Why don't we just automate that conversation with the
+
+77
+00:03:14.000 --> 00:03:16.550
+compiler and see if we can synthesize all sort of the
+
+78
+00:03:16.550 --> 00:03:19.540
+dumb programs that you would write yourself if you just
+
+79
+00:03:19.540 --> 00:03:21.060
+follow the holes?
+
+80
+00:03:21.440 --> 00:03:24.080
+>> Yeah, we do that surprisingly often. Here.
+
+81
+00:03:24.090 --> 00:03:26.610
+Uh, we haven't been able to get HLS to work
+
+82
+00:03:26.610 --> 00:03:29.490
+reliably on our code based, unfortunately, but we do
+
+83
+00:03:29.490 --> 00:03:32.390
+the like, put a type hole in there and then copy paste or just type
+
+84
+00:03:32.390 --> 00:03:35.360
+in whatever G.H.C. suggests. Um, if there's only one
+
+85
+00:03:35.360 --> 00:03:38.050
+thing often there are multiple, you know? Then you pick the right one. The one that's probably
+
+86
+00:03:38.050 --> 00:03:40.680
+not unsafe. Course. Yeah,
+
+87
+00:03:40.690 --> 00:03:41.360
+>> doesn't do that.
+
+88
+00:03:41.560 --> 00:03:44.410
+>> The trick is to not have that one in scope, I
+
+89
+00:03:44.410 --> 00:03:47.410
+think. But yeah, we get an empty a lot
+
+90
+00:03:47.420 --> 00:03:50.050
+or like, const. Or something like that. Absolutely.
+
+91
+00:03:50.060 --> 00:03:53.040
+But yeah, it is kind of silly to be doing this copy
+
+92
+00:03:53.040 --> 00:03:55.980
+pasting, and it sounds like wingman automate some of that.
+
+93
+00:03:55.980 --> 00:03:58.620
+But also, I got the impression that it does
+
+94
+00:03:58.630 --> 00:04:01.510
+more than just naively filling in the hole that G.H.C.
+
+95
+00:04:01.510 --> 00:04:02.860
+suggests. Is that right?
+
+96
+00:04:03.340 --> 00:04:06.320
+>> Um, yeah. So there's sort of two things there, One of which
+
+97
+00:04:06.320 --> 00:04:09.270
+is, uh, we have this this, like, proof search going on in the
+
+98
+00:04:09.270 --> 00:04:11.800
+background. And so it's actually trying to find a good
+
+99
+00:04:11.800 --> 00:04:14.670
+program, um, by for some
+
+100
+00:04:14.680 --> 00:04:17.470
+definition of good, right? And that sort of usually, if you
+
+101
+00:04:17.470 --> 00:04:19.750
+write code, um, you'll you
+
+102
+00:04:20.340 --> 00:04:23.290
+often if you like, Seiko that a beginner is written the like.
+
+103
+00:04:23.300 --> 00:04:26.220
+It'll be crazy. And like, the type signature doesn't really correspond to
+
+104
+00:04:26.220 --> 00:04:29.140
+the definition. And it's sort of hard to put your hand on what
+
+105
+00:04:29.140 --> 00:04:32.110
+that means. Um, but
+
+106
+00:04:32.120 --> 00:04:35.050
+so, like a good metric for that is sort of linearity. You want
+
+107
+00:04:35.050 --> 00:04:37.810
+generally your variables to only be used once,
+
+108
+00:04:37.820 --> 00:04:40.550
+right? And so that a program where
+
+109
+00:04:40.840 --> 00:04:43.810
+if you can synthesize a solution that only uses your variables once, that's
+
+110
+00:04:43.810 --> 00:04:46.280
+usually better than one that uses the multiple times
+
+111
+00:04:47.110 --> 00:04:47.210
+>> at
+
+112
+00:04:47.210 --> 00:04:50.050
+>> all. Or not at all, right? Exactly. Which is the
+
+113
+00:04:50.060 --> 00:04:53.060
+concert? The unsafe course sort of solution. Um, so
+
+114
+00:04:53.060 --> 00:04:56.030
+that is sort of the interesting
+
+115
+00:04:56.030 --> 00:04:58.870
+part of it. Um, and then we also have a bunch of,
+
+116
+00:04:58.880 --> 00:05:01.740
+like, ergonomic things going on. And so,
+
+117
+00:05:01.750 --> 00:05:04.560
+um, wingman will also do things like case splitting. And so you can say,
+
+118
+00:05:04.740 --> 00:05:07.600
+um hey, I want you to case split on X, and that
+
+119
+00:05:07.600 --> 00:05:10.360
+is some weird GT, and it'll, um it will
+
+120
+00:05:10.370 --> 00:05:13.200
+multiply out every match, so you'll get
+
+121
+00:05:13.200 --> 00:05:15.820
+multiple definitions of the function for every possible
+
+122
+00:05:15.820 --> 00:05:16.460
+constructor,
+
+123
+00:05:17.040 --> 00:05:19.890
+>> right? So that that turns like one type
+
+124
+00:05:19.890 --> 00:05:22.840
+hole into many potentially right. And then you keep on filling
+
+125
+00:05:22.840 --> 00:05:22.990
+from
+
+126
+00:05:22.990 --> 00:05:24.260
+>> there.
+
+127
+00:05:24.840 --> 00:05:27.250
+>> Cool. And you mentioned
+
+128
+00:05:27.260 --> 00:05:30.180
+linearity. Uh, don't want to go too far off on a
+
+129
+00:05:30.180 --> 00:05:32.740
+tangent here, but I'm wondering, is there
+
+130
+00:05:32.750 --> 00:05:35.710
+with linear types landed in G.H.C. nine? Is there
+
+131
+00:05:35.710 --> 00:05:38.630
+an opportunity for wingman too? Make use of that
+
+132
+00:05:38.630 --> 00:05:41.100
+information and say, Okay, I know that this needs to be
+
+133
+00:05:41.100 --> 00:05:43.700
+used, so therefore, that's going to guide my
+
+134
+00:05:43.700 --> 00:05:44.360
+synthesis.
+
+135
+00:05:44.940 --> 00:05:47.060
+>> Uh, that is a good question.
+
+136
+00:05:47.440 --> 00:05:50.350
+I have not even looked at the linear
+
+137
+00:05:50.350 --> 00:05:52.770
+stuff, even in the language. So
+
+138
+00:05:52.780 --> 00:05:53.970
+>> fair enough. Apparently it
+
+139
+00:05:53.970 --> 00:05:56.910
+>> doesn't. Um but the way it works
+
+140
+00:05:56.910 --> 00:05:59.710
+is it's using all of the information from G.H.C. itself.
+
+141
+00:05:59.720 --> 00:06:02.610
+And so, um, presumably G.H.C. Well, tell me
+
+142
+00:06:02.610 --> 00:06:05.520
+about the multiplicity of my arrows. And then the
+
+143
+00:06:05.530 --> 00:06:08.470
+trick is just to run the proof search such that such that it
+
+144
+00:06:08.740 --> 00:06:11.660
+it respects that. So I don't think there would be any challenges there other than
+
+145
+00:06:11.660 --> 00:06:13.360
+just writing the code. Cool.
+
+146
+00:06:14.140 --> 00:06:17.000
+>> And I mean, wingman could probably write some of that code for you,
+
+147
+00:06:17.000 --> 00:06:18.040
+right?
+
+148
+00:06:18.050 --> 00:06:20.980
+>> Like the more the better gets, the more you use it
+
+149
+00:06:20.980 --> 00:06:23.610
+in daily dog Fuding. And, um, it's it's
+
+150
+00:06:23.610 --> 00:06:26.520
+remarkable how, how much? Just
+
+151
+00:06:26.520 --> 00:06:29.320
+how lovely it is, right? Compared to the bad old
+
+152
+00:06:29.320 --> 00:06:32.300
+days where I had to write a case statement for myself and go look up all the
+
+153
+00:06:32.300 --> 00:06:34.610
+constructors, right? Sort of stupid.
+
+154
+00:06:34.620 --> 00:06:36.970
+How how much work that was. And I didn't realize
+
+155
+00:06:36.970 --> 00:06:39.730
+because, um, just like the i d e
+
+156
+00:06:39.730 --> 00:06:42.680
+situation was so bad for Haskell that, um, before
+
+157
+00:06:42.680 --> 00:06:45.640
+Haskell language server, you just it wasn't worth your time
+
+158
+00:06:45.650 --> 00:06:48.210
+often to do it right. So it's an
+
+159
+00:06:48.210 --> 00:06:51.030
+amazing change in the last year. So the
+
+160
+00:06:51.030 --> 00:06:53.960
+HLs guys are amazing and they are so much.
+
+161
+00:06:53.970 --> 00:06:56.850
+>> Yeah, like I mentioned, we haven't been able to get it
+
+162
+00:06:56.850 --> 00:06:59.850
+working reliably with our code base. But many of us
+
+163
+00:06:59.850 --> 00:07:02.610
+have been working with it in our side projects or whatever, and
+
+164
+00:07:02.620 --> 00:07:05.510
+everyone that has it working just immediately
+
+165
+00:07:05.510 --> 00:07:06.960
+falls in love with it. It's amazing.
+
+166
+00:07:07.340 --> 00:07:09.330
+>> Yeah, it really adds a lot to the
+
+167
+00:07:09.330 --> 00:07:10.760
+language.
+
+168
+00:07:11.240 --> 00:07:14.140
+>> Yeah, I know we've been kind of waiting for this to to
+
+169
+00:07:14.140 --> 00:07:17.120
+come to the ecosystem because we've been kind of
+
+170
+00:07:17.120 --> 00:07:20.110
+stranded as far as you know, tools
+
+171
+00:07:20.110 --> 00:07:22.640
+that we have in our cool belt. Um and I
+
+172
+00:07:22.640 --> 00:07:25.190
+think, uh, HLs really
+
+173
+00:07:25.200 --> 00:07:28.010
+just, you know, hit a home run more or
+
+174
+00:07:28.010 --> 00:07:30.880
+less for the usability and
+
+175
+00:07:30.890 --> 00:07:33.350
+and feature fullness that we need in the high school
+
+176
+00:07:33.360 --> 00:07:34.210
+community?
+
+177
+00:07:34.240 --> 00:07:37.110
+>> Absolutely. It's been like day and
+
+178
+00:07:37.110 --> 00:07:39.770
+night. Just how quickly the tooling situation has changed last
+
+179
+00:07:39.770 --> 00:07:40.160
+year.
+
+180
+00:07:40.540 --> 00:07:43.280
+>> Yeah, and it's funny. When we were talking to Matt
+
+181
+00:07:43.280 --> 00:07:45.760
+Parsons a couple weeks ago, you mentioned that
+
+182
+00:07:46.640 --> 00:07:49.600
+since Haskell is such a powerful language, you can
+
+183
+00:07:49.600 --> 00:07:52.330
+kind of get away without having a powerful I d.
+
+184
+00:07:52.540 --> 00:07:55.340
+But once you also have a
+
+185
+00:07:55.340 --> 00:07:57.900
+powerful idea, you just kind of like leapfrog your own
+
+186
+00:07:57.900 --> 00:07:59.260
+productivity. It's
+
+187
+00:07:59.260 --> 00:08:01.060
+>> great. It's crazy. Yeah.
+
+188
+00:08:02.040 --> 00:08:04.910
+>> Um, so could you tell us how did you come
+
+189
+00:08:04.910 --> 00:08:07.710
+to work on wingman and program synthesis? What? Do you do
+
+190
+00:08:07.710 --> 00:08:07.950
+that?
+
+191
+00:08:08.740 --> 00:08:11.650
+>> Yeah, that's a That's a great question. Um, I
+
+192
+00:08:12.040 --> 00:08:14.880
+So maybe two years ago, I I was sort of fed up. I was
+
+193
+00:08:14.880 --> 00:08:17.780
+living in Ottawa, in Canada, which was an atrocious place and
+
+194
+00:08:17.780 --> 00:08:20.330
+just sort of missing a lot of the intellectual
+
+195
+00:08:20.330 --> 00:08:23.240
+community I was looking for. And so I decided I
+
+196
+00:08:23.240 --> 00:08:25.840
+was just going to run away and live on Haskell is couches
+
+197
+00:08:25.840 --> 00:08:27.640
+for as long as I could handle.
+
+198
+00:08:27.650 --> 00:08:28.800
+>> Remember that.
+
+199
+00:08:28.810 --> 00:08:31.360
+>> Yeah. I made it for about four months of, like,
+
+200
+00:08:31.360 --> 00:08:34.060
+couchsurfing and meeting all sorts of really amazing people.
+
+201
+00:08:34.440 --> 00:08:37.300
+Um and one of the people I met was James King, who
+
+202
+00:08:37.310 --> 00:08:40.300
+had, like, a little tablet. Um, and he was sort of
+
+203
+00:08:40.300 --> 00:08:43.210
+pitching me on this idea of programming on the
+
+204
+00:08:43.210 --> 00:08:46.200
+tablet, right? And like, what would you need to do to make
+
+205
+00:08:46.200 --> 00:08:49.040
+that happen? Um, sort of. The dream I
+
+206
+00:08:49.040 --> 00:08:51.720
+have is like, one day being able to be out in the park on my
+
+207
+00:08:51.720 --> 00:08:54.560
+tablet and, like, programming like
+
+208
+00:08:54.560 --> 00:08:57.180
+productively out in the park without a keyboard without a
+
+209
+00:08:57.180 --> 00:08:59.450
+monitor without any of that crap. Right?
+
+210
+00:09:00.340 --> 00:09:03.170
+Um and so that that question sort of got me
+
+211
+00:09:03.170 --> 00:09:06.110
+thinking about, like, how? How could we find a better interface
+
+212
+00:09:06.110 --> 00:09:08.370
+for programming that isn't just typing on a
+
+213
+00:09:08.370 --> 00:09:11.220
+keyboard? Um, at the same time,
+
+214
+00:09:11.220 --> 00:09:13.710
+I I was talking a lot with the read Mellanox
+
+215
+00:09:13.710 --> 00:09:16.670
+who has been working on a tactic synthesizer
+
+216
+00:09:16.670 --> 00:09:19.350
+for Haskell and sort of He does a lot
+
+217
+00:09:19.360 --> 00:09:22.300
+of things in like, dependent type languages
+
+218
+00:09:22.300 --> 00:09:25.110
+where, um they have all the sort of this code synthesis
+
+219
+00:09:25.110 --> 00:09:27.560
+stuff, and he wanted to bring that into
+
+220
+00:09:27.560 --> 00:09:30.410
+Haskell. And so he had built, like, a bunch of really incredible
+
+221
+00:09:30.410 --> 00:09:33.400
+libraries, um, that do most
+
+222
+00:09:33.400 --> 00:09:36.280
+of the work. And so really,
+
+223
+00:09:36.290 --> 00:09:39.230
+my contribution was taking the idea and
+
+224
+00:09:39.230 --> 00:09:42.070
+trying to bridge the gap there,
+
+225
+00:09:42.080 --> 00:09:44.660
+right between the interface and the solution.
+
+226
+00:09:45.140 --> 00:09:48.030
+Okay. Um, yeah. So that's sort of how I got
+
+227
+00:09:48.030 --> 00:09:50.150
+started on it was just, um mm.
+
+228
+00:09:50.540 --> 00:09:53.480
+This, like, sort of being tired of being on a bus and trying
+
+229
+00:09:53.480 --> 00:09:56.370
+to type, having terrible are for the
+
+230
+00:09:56.370 --> 00:09:57.140
+week after. You
+
+231
+00:09:57.140 --> 00:09:59.780
+>> know, um, it's funny you mentioned
+
+232
+00:09:59.780 --> 00:10:02.700
+different, like using a tablet as sort of a
+
+233
+00:10:02.710 --> 00:10:05.550
+different programming paradigm. And I've thought a
+
+234
+00:10:05.550 --> 00:10:08.460
+lot about that as well. I imagine a lot of programmers have of like,
+
+235
+00:10:08.470 --> 00:10:11.230
+why is it that I have to be sitting here with a full
+
+236
+00:10:11.230 --> 00:10:13.250
+sized keyboard in order to be productive?
+
+237
+00:10:13.640 --> 00:10:16.480
+Um, and yeah, it seems like the
+
+238
+00:10:16.480 --> 00:10:19.040
+interface for a tablet would be wildly different. Or like in
+
+239
+00:10:19.040 --> 00:10:21.850
+VR or on a phone or really, anywhere but
+
+240
+00:10:21.850 --> 00:10:23.410
+sitting at a desk with a
+
+241
+00:10:23.410 --> 00:10:26.340
+>> computer. I think the value of a keyboard is that it
+
+242
+00:10:26.340 --> 00:10:28.810
+lets you type arbitrary strings, right. But
+
+243
+00:10:28.820 --> 00:10:31.480
+almost no strings are programs.
+
+244
+00:10:31.490 --> 00:10:34.190
+Yeah, right. It's sort of ridiculous that we even
+
+245
+00:10:34.200 --> 00:10:36.540
+use strings to represent these things in the first place,
+
+246
+00:10:36.540 --> 00:10:39.320
+>> but and a lot of the strings that you end up typing
+
+247
+00:10:39.330 --> 00:10:42.270
+aren't arbitrary. They come from some other part of your code
+
+248
+00:10:42.270 --> 00:10:42.800
+base.
+
+249
+00:10:42.810 --> 00:10:45.740
+>> That's true. Um, even like keywords
+
+250
+00:10:45.750 --> 00:10:48.510
+should be auto complete herbal and like a lot of keywords you
+
+251
+00:10:48.510 --> 00:10:51.500
+need in together. So I need
+
+252
+00:10:51.510 --> 00:10:54.510
+every time I have a case I need the word of exactly. So
+
+253
+00:10:54.510 --> 00:10:57.430
+why do I have to type that at any given point? There's only,
+
+254
+00:10:57.430 --> 00:11:00.400
+like, five things you might want to do, right? So
+
+255
+00:11:00.400 --> 00:11:02.310
+why don't you just give you those options?
+
+256
+00:11:02.320 --> 00:11:05.290
+>> I like it. And I know a lot of people go down
+
+257
+00:11:05.290 --> 00:11:07.340
+the route of structured editing as
+
+258
+00:11:07.340 --> 00:11:10.070
+a solution to this problem of instead of
+
+259
+00:11:10.070 --> 00:11:13.030
+typing text into an editor, let's have something like,
+
+260
+00:11:13.040 --> 00:11:15.660
+I think scratches kind of the prototypical example. But
+
+261
+00:11:15.740 --> 00:11:18.500
+Block based where you pull that case statement out of
+
+262
+00:11:18.500 --> 00:11:21.450
+some palette and drop it in your program What? How
+
+263
+00:11:21.450 --> 00:11:24.170
+did you or what kind of led you to program
+
+264
+00:11:24.170 --> 00:11:26.060
+synthesis versus structured editing?
+
+265
+00:11:26.640 --> 00:11:29.600
+>> I think structured editing is a good approach.
+
+266
+00:11:29.610 --> 00:11:31.580
+Um, I didn't know how to do
+
+267
+00:11:31.580 --> 00:11:33.750
+that.
+
+268
+00:11:34.140 --> 00:11:37.030
+Um, I guess the other thing is like, even if you are,
+
+269
+00:11:37.040 --> 00:11:39.820
+even if you have a better interface, like still, why do I have to
+
+270
+00:11:39.830 --> 00:11:42.620
+code things that have exactly one solution, right?
+
+271
+00:11:42.630 --> 00:11:45.330
+A huge personal part of the reason I, like
+
+272
+00:11:45.330 --> 00:11:48.240
+Haskell is the type system is so good at constraining
+
+273
+00:11:48.240 --> 00:11:51.170
+implementations, right? And so I sort of
+
+274
+00:11:51.170 --> 00:11:53.900
+look at like, you've done your job. Well, if if there is
+
+275
+00:11:53.910 --> 00:11:56.860
+exactly one solution to your type, right, that means you've designed
+
+276
+00:11:56.860 --> 00:11:59.690
+a good program, and then let's just find that
+
+277
+00:11:59.700 --> 00:12:00.070
+thing.
+
+278
+00:12:00.220 --> 00:12:03.060
+>> I like that. Yeah, that's good, because
+
+279
+00:12:03.060 --> 00:12:06.020
+I'm trying to imagine, like, in javascript. What would
+
+280
+00:12:06.020 --> 00:12:09.000
+program synthesis look like? And it seems like,
+
+281
+00:12:09.010 --> 00:12:11.360
+Yeah, I don't know. I don't know enough about it.
+
+282
+00:12:11.940 --> 00:12:14.850
+Yeah, it's not without crazy ai. Yeah,
+
+283
+00:12:14.860 --> 00:12:17.720
+or maybe with typescript. There might be enough fence there. Yeah, I
+
+284
+00:12:17.720 --> 00:12:20.470
+don't know. Um actually, we use a plug in
+
+285
+00:12:20.480 --> 00:12:23.450
+called Tab nine. That doesn't much.
+
+286
+00:12:23.460 --> 00:12:24.640
+Are you familiar with it?
+
+287
+00:12:24.650 --> 00:12:27.020
+>> I sort of know it exists. It's sort of like
+
+288
+00:12:27.020 --> 00:12:28.550
+machine learning.
+
+289
+00:12:28.940 --> 00:12:31.820
+>> Yeah, it's very I don't know how to describe it.
+
+290
+00:12:31.820 --> 00:12:34.570
+Maybe, like stochastic where it just looks at the
+
+291
+00:12:34.570 --> 00:12:37.260
+strings in your code base and figures out how often they
+
+292
+00:12:37.260 --> 00:12:39.950
+occur. And then when you start typing something, it's like, Oh,
+
+293
+00:12:39.950 --> 00:12:42.860
+normally when this is before the cursor and you're typing this. This is
+
+294
+00:12:42.860 --> 00:12:45.350
+what comes after. So it'll suggest that doesn't work well,
+
+295
+00:12:46.040 --> 00:12:49.030
+pretty well. Yeah, especially for pretty. Wrote stuff
+
+296
+00:12:49.030 --> 00:12:51.790
+like imports or again. HLS solves imports for you,
+
+297
+00:12:51.790 --> 00:12:54.780
+But if you are typing one out, it'll be like, this is a typical module name.
+
+298
+00:12:54.780 --> 00:12:56.150
+Here you go. Mhm.
+
+299
+00:12:57.140 --> 00:13:00.120
+>> Yeah. Be nice to get the more time
+
+300
+00:13:00.120 --> 00:13:02.870
+invested in figuring out how to make HLS work in our
+
+301
+00:13:02.880 --> 00:13:03.860
+>> program, but
+
+302
+00:13:04.240 --> 00:13:06.160
+>> for the time, use a lot of template. Haskell.
+
+303
+00:13:06.940 --> 00:13:09.890
+>> We have a little bit. We're using more. We've We've
+
+304
+00:13:09.890 --> 00:13:12.660
+turned toward using more of the persistent quasi
+
+305
+00:13:12.660 --> 00:13:15.430
+quota for doing our models. So that's
+
+306
+00:13:15.430 --> 00:13:15.740
+that's
+
+307
+00:13:15.740 --> 00:13:17.560
+>> often that that's the big issue.
+
+308
+00:13:17.940 --> 00:13:20.600
+Um, and if you can sort of separate that into a
+
+309
+00:13:20.600 --> 00:13:23.130
+different package, I suspect that will solve your problems,
+
+310
+00:13:23.130 --> 00:13:25.960
+>> but I promise we'll poke around with it. We have some What? I
+
+311
+00:13:25.960 --> 00:13:28.870
+mean, like everybody. We have a bespoke environment. We got
+
+312
+00:13:28.870 --> 00:13:31.680
+docker containers and we got all kinds of stuff going on. Of course,
+
+313
+00:13:32.440 --> 00:13:35.370
+um, but yeah. Can you use tab nine? I think more than I do.
+
+314
+00:13:35.380 --> 00:13:38.350
+So you may be able to speak to like what it does. What it's good at,
+
+315
+00:13:38.740 --> 00:13:41.260
+especially in comparison HLS Yeah. I
+
+316
+00:13:41.260 --> 00:13:43.720
+>> mean, if you're making a sweeping code
+
+317
+00:13:43.730 --> 00:13:46.590
+change across the entire code basic
+
+318
+00:13:46.590 --> 00:13:49.340
+and pretty much figure out what you're
+
+319
+00:13:49.340 --> 00:13:52.010
+trying to type as you just kind of started
+
+320
+00:13:52.020 --> 00:13:54.750
+So it's been really helpful. Um, you know,
+
+321
+00:13:54.760 --> 00:13:57.670
+imports is one that is obviously it has a
+
+322
+00:13:57.670 --> 00:14:00.600
+lot of examples to analyze and say, Hey, this is what we think you're
+
+323
+00:14:00.600 --> 00:14:03.010
+doing, especially because we have pretty
+
+324
+00:14:03.020 --> 00:14:05.800
+consistent naming schemes, so it makes it really easy.
+
+325
+00:14:05.810 --> 00:14:08.560
+Um, and, uh,
+
+326
+00:14:09.240 --> 00:14:12.110
+you know, when you're writing function definitions, it can
+
+327
+00:14:12.110 --> 00:14:14.550
+get a little tricky sometimes because it wants you to, like
+
+328
+00:14:15.040 --> 00:14:17.950
+if you're doing your type signature like the next line it tries to say, Oh,
+
+329
+00:14:17.950 --> 00:14:20.550
+you're doing your type signature again. You're like, Wait, no, I'm not
+
+330
+00:14:20.560 --> 00:14:23.530
+actually implemented here, so that can get a little bit of
+
+331
+00:14:23.530 --> 00:14:26.300
+a little bit annoyance there. But
+
+332
+00:14:26.310 --> 00:14:28.830
+overall, it's pretty
+
+333
+00:14:28.830 --> 00:14:31.560
+helpful. Uh, just in the day to day,
+
+334
+00:14:31.570 --> 00:14:31.930
+you
+
+335
+00:14:31.930 --> 00:14:32.790
+>> know, I think
+
+336
+00:14:32.800 --> 00:14:35.490
+>> if we can get some HLs love, then
+
+337
+00:14:35.500 --> 00:14:38.420
+you know that may the need for that could
+
+338
+00:14:38.420 --> 00:14:40.260
+go away should be really cool.
+
+339
+00:14:41.040 --> 00:14:43.640
+>> It's funny because they're kind of similar
+
+340
+00:14:43.650 --> 00:14:46.390
+solutions to sorry they're
+
+341
+00:14:46.390 --> 00:14:49.270
+approaching the same problem with radically different solutions.
+
+342
+00:14:49.270 --> 00:14:52.160
+One is like, very smart. Give me as much information from the compiler and I'll
+
+343
+00:14:52.160 --> 00:14:54.900
+use it. And the other is like, I don't need to know, even language you're
+
+344
+00:14:54.900 --> 00:14:56.420
+typing. I'll just guess, And it'll probably work.
+
+345
+00:14:56.430 --> 00:14:57.930
+It's
+
+346
+00:14:57.930 --> 00:14:59.630
+>> amazing to me that that works at all.
+
+347
+00:14:59.640 --> 00:15:02.150
+>> Yeah, it is startling. Um,
+
+348
+00:15:02.540 --> 00:15:05.260
+yeah, try that out, and I'd be curious to see what you think about
+
+349
+00:15:05.260 --> 00:15:07.950
+it. Um, but on the topic of program synthesis, I
+
+350
+00:15:07.950 --> 00:15:10.880
+am aware of a couple earlier attempts with Haskell to
+
+351
+00:15:10.880 --> 00:15:13.860
+synthesize programs like I think Lambda but can do some stuff. And
+
+352
+00:15:13.860 --> 00:15:16.460
+there's a package called gin that does something similar.
+
+353
+00:15:16.470 --> 00:15:19.130
+Is wingman built on top of those are related to them in any way?
+
+354
+00:15:19.130 --> 00:15:22.050
+>> Not at all. No, I don't know how Lambda, but does it by no Gin,
+
+355
+00:15:22.060 --> 00:15:24.950
+um, doesn't work particularly well.
+
+356
+00:15:25.340 --> 00:15:27.450
+>> I've never used it, so I don't I just know it exists. Then
+
+357
+00:15:27.450 --> 00:15:30.360
+>> we'll do a lot of like, um, like, sort of
+
+358
+00:15:30.360 --> 00:15:33.360
+const. Stuff. It
+
+359
+00:15:33.370 --> 00:15:36.140
+doesn't care if it's used. Arguments is just like, here's a
+
+360
+00:15:36.140 --> 00:15:39.020
+solution. Um, one thing that wingman also does that Jim doesn't
+
+361
+00:15:39.020 --> 00:15:41.690
+is Ryker Asian And so, jin,
+
+362
+00:15:41.700 --> 00:15:44.520
+uh, wingman can, like implement
+
+363
+00:15:44.520 --> 00:15:47.280
+folder for you, for example. And
+
+364
+00:15:47.290 --> 00:15:50.010
+if it does recur version of guarantees that,
+
+365
+00:15:50.020 --> 00:15:52.530
+um, is rehearsing something structurally smaller, so it will
+
+366
+00:15:52.530 --> 00:15:53.070
+terminate.
+
+367
+00:15:53.150 --> 00:15:54.180
+>> Yeah,
+
+368
+00:15:54.190 --> 00:15:56.780
+>> Exactly. Um, So, Jin, I think
+
+369
+00:15:56.790 --> 00:15:59.620
+it's interesting that exists, and sort of it was
+
+370
+00:15:59.620 --> 00:16:02.470
+inspiring to me just to see that someone had made progress there.
+
+371
+00:16:02.470 --> 00:16:05.380
+But, um, if you've ever tried to use it
+
+372
+00:16:05.380 --> 00:16:07.860
+for real, it it falls short quite soon.
+
+373
+00:16:08.240 --> 00:16:08.750
+Mm.
+
+374
+00:16:09.840 --> 00:16:12.720
+>> Well, I hadn't tried to use it. I don't think it builds with more recent
+
+375
+00:16:12.720 --> 00:16:15.570
+G.H.C. s. So that's what prevented me from trying it out.
+
+376
+00:16:15.580 --> 00:16:18.490
+>> There's there's another thing I've heard of called Magic Haskell,
+
+377
+00:16:18.500 --> 00:16:21.290
+which is sort of the other way is to says, Here's some
+
+378
+00:16:21.290 --> 00:16:23.970
+arguments And here's what the output should be. And it tries to synthesize a
+
+379
+00:16:23.970 --> 00:16:26.220
+function that produces the output from the inputs.
+
+380
+00:16:26.230 --> 00:16:28.980
+>> Oh, that's cool. So more kind of spec based.
+
+381
+00:16:28.990 --> 00:16:29.280
+Yeah,
+
+382
+00:16:29.290 --> 00:16:32.060
+>> exactly. Um, I haven't I haven't looked at it with the
+
+383
+00:16:32.070 --> 00:16:33.960
+website was down when I tried to run it, but
+
+384
+00:16:34.240 --> 00:16:36.900
+>> that sounds really cool. I've heard of similar projects.
+
+385
+00:16:36.980 --> 00:16:39.970
+I think I I'm
+
+386
+00:16:39.970 --> 00:16:42.740
+trying to remember the name. There was a project in, like scheme or something like
+
+387
+00:16:42.740 --> 00:16:45.540
+that. I think it's called Barley Man, or
+
+388
+00:16:45.550 --> 00:16:48.510
+it's been many years since I heard. Anyway, there's some presentation where it's like
+
+389
+00:16:48.510 --> 00:16:51.400
+you give a test case and it will produce a function
+
+390
+00:16:51.400 --> 00:16:54.250
+that meets that. And then you had another test case, and it will turn for a
+
+391
+00:16:54.250 --> 00:16:57.210
+bit and say, Okay, well, I have a new function now, And as you add more
+
+392
+00:16:57.210 --> 00:16:59.960
+and more test cases, uh, the implementation gets more and
+
+393
+00:16:59.960 --> 00:17:02.760
+more, you know, don't look behind the curtain type
+
+394
+00:17:02.770 --> 00:17:05.670
+implementation, but it works. Technically,
+
+395
+00:17:05.840 --> 00:17:08.780
+at least it gives you the outputs for the inputs, right? Yeah. And
+
+396
+00:17:08.780 --> 00:17:11.720
+then, um I think for those that type of program
+
+397
+00:17:11.720 --> 00:17:14.570
+synthesis, uh, property based tests
+
+398
+00:17:14.580 --> 00:17:17.370
+will give you much more assurance that your implementation
+
+399
+00:17:17.380 --> 00:17:20.340
+is something more than just a pile of this statements. Like,
+
+400
+00:17:20.350 --> 00:17:23.020
+if you give me, I'll give you that, which I think ties in
+
+401
+00:17:23.020 --> 00:17:25.880
+with algebra driven, designed to kind of take a corner
+
+402
+00:17:25.880 --> 00:17:28.150
+here. Um, that's a good segue. Thank
+
+403
+00:17:28.150 --> 00:17:31.070
+you. Uh, so,
+
+404
+00:17:31.070 --> 00:17:33.960
+yeah. Property based tests are, you know, way too
+
+405
+00:17:35.840 --> 00:17:38.750
+state properties that should hold in your system and then
+
+406
+00:17:38.750 --> 00:17:41.710
+tested against the implementation and see if it works. And algebra.
+
+407
+00:17:41.710 --> 00:17:44.450
+Different design is all about coming up with those
+
+408
+00:17:44.450 --> 00:17:45.670
+properties, right?
+
+409
+00:17:46.540 --> 00:17:49.540
+>> Yeah, it's, um, the book itself, sort of.
+
+410
+00:17:49.550 --> 00:17:52.290
+The main thesis of it is that if we're doing
+
+411
+00:17:52.290 --> 00:17:55.260
+functional program, we should really be thinking about equality of programs,
+
+412
+00:17:55.270 --> 00:17:58.060
+right? That's sort of what it buys us over imperative stuff.
+
+413
+00:17:58.540 --> 00:18:01.260
+And, um And so
+
+414
+00:18:01.270 --> 00:18:03.750
+if you're like designing some a p I it's really interesting to
+
+415
+00:18:03.750 --> 00:18:06.650
+ask. When are two expressions in
+
+416
+00:18:06.650 --> 00:18:09.250
+this is like, DSLR this a p I is the same,
+
+417
+00:18:09.260 --> 00:18:12.150
+right? Right. And we're sort of used to this in everyday high school.
+
+418
+00:18:12.160 --> 00:18:14.620
+We say, like, f map dot f map is the same as one f
+
+419
+00:18:14.620 --> 00:18:17.310
+map, right? Um, but
+
+420
+00:18:17.320 --> 00:18:20.270
+very often, like very rarely. Do you see people
+
+421
+00:18:20.270 --> 00:18:22.350
+think about this for, like, the libraries they're writing?
+
+422
+00:18:22.740 --> 00:18:25.710
+Lesser. The category theory people
+
+423
+00:18:25.720 --> 00:18:27.360
+stuff. Um,
+
+424
+00:18:28.440 --> 00:18:31.220
+and so the claim is that, um, we can
+
+425
+00:18:31.230 --> 00:18:34.100
+think about equality for, like, very mundane
+
+426
+00:18:34.100 --> 00:18:36.780
+sorts of tasks, right? Like very mundane. Like
+
+427
+00:18:36.790 --> 00:18:39.780
+real world applications that you're writing. Um,
+
+428
+00:18:39.790 --> 00:18:42.700
+they should have qualities as well. And,
+
+429
+00:18:43.140 --> 00:18:46.080
+um so So there's a few things that come from
+
+430
+00:18:46.080 --> 00:18:48.980
+that right, one of which is, if you have these
+
+431
+00:18:48.980 --> 00:18:51.880
+equalities, then of course, you can turn them into property tests and
+
+432
+00:18:51.880 --> 00:18:54.560
+then, as you like wicked amounts of
+
+433
+00:18:55.040 --> 00:18:57.690
+of just test coverage, right? For every property test, you can generate
+
+434
+00:18:57.700 --> 00:19:00.670
+arbitrary many unit tests. Um,
+
+435
+00:19:01.640 --> 00:19:04.620
+and so that's that's exciting. But the other thing is, what it does
+
+436
+00:19:04.620 --> 00:19:07.420
+is it constrains the implementation, right?
+
+437
+00:19:07.430 --> 00:19:10.270
+Um, there's going to be sort of infinite many ways of
+
+438
+00:19:10.270 --> 00:19:13.200
+implementing a program such that all of these
+
+439
+00:19:13.210 --> 00:19:16.190
+equalities hold. But often, if you like,
+
+440
+00:19:16.200 --> 00:19:18.630
+chase the equalities, you can find different ways of
+
+441
+00:19:18.630 --> 00:19:21.500
+representing programs. And so you can. You
+
+442
+00:19:21.500 --> 00:19:24.020
+can use the equalities as a tool for, as an
+
+443
+00:19:24.020 --> 00:19:26.640
+implementer to say, like I know that these two things are
+
+444
+00:19:26.640 --> 00:19:29.640
+equivalent, but one of them is maybe faster. So
+
+445
+00:19:29.640 --> 00:19:32.200
+I'm going to choose that as my sort of basis,
+
+446
+00:19:32.210 --> 00:19:35.100
+um, and then use the inequalities to rewrite
+
+447
+00:19:35.100 --> 00:19:37.560
+all the things that user rights in a language that's, um,
+
+448
+00:19:37.940 --> 00:19:40.940
+useful to them or make sense to them in a way that
+
+449
+00:19:40.950 --> 00:19:43.060
+is equivalent but faster,
+
+450
+00:19:43.070 --> 00:19:45.960
+>> Right? That sounds to me how to do that.
+
+451
+00:19:45.970 --> 00:19:48.710
+That sounds to me like something that is very appealing to
+
+452
+00:19:48.710 --> 00:19:51.640
+programmers, especially I feel like this comes up a lot
+
+453
+00:19:51.640 --> 00:19:54.590
+in list programming where people want
+
+454
+00:19:54.600 --> 00:19:57.150
+a very small kernel of
+
+455
+00:19:57.160 --> 00:20:00.100
+primitives and then build everything out of that and
+
+456
+00:20:00.100 --> 00:20:02.760
+it sounds like algebra driven. Design is trying to find,
+
+457
+00:20:03.240 --> 00:20:05.970
+uh, maybe in kind of a roundabout way,
+
+458
+00:20:05.970 --> 00:20:08.850
+find those primitives such that they meet all these
+
+459
+00:20:08.850 --> 00:20:11.680
+properties and then you can shuffle them around behind the scenes to get a good
+
+460
+00:20:11.680 --> 00:20:12.450
+implementation.
+
+461
+00:20:12.940 --> 00:20:15.930
+>> Yeah, I think so. I think that's a very good way of raising it. Um, one
+
+462
+00:20:15.930 --> 00:20:18.780
+thing I'd like to stress is just that the implementation doesn't need to be at all
+
+463
+00:20:18.790 --> 00:20:21.560
+based on the colonel's right. The kernels are for the
+
+464
+00:20:21.560 --> 00:20:24.390
+user. But for the implementation, you can have all sorts of crazy
+
+465
+00:20:24.390 --> 00:20:27.370
+like, um, specialist primitives that
+
+466
+00:20:27.370 --> 00:20:30.090
+make no sense in user land. That's okay, because they're
+
+467
+00:20:30.090 --> 00:20:32.620
+fast as long as you can prove the equality. It's
+
+468
+00:20:32.620 --> 00:20:33.130
+fine.
+
+469
+00:20:33.140 --> 00:20:35.890
+>> And I think this ties in with something else. You said from the
+
+470
+00:20:35.890 --> 00:20:38.060
+book about abstraction, where
+
+471
+00:20:39.240 --> 00:20:42.110
+programmers often think about abstraction as like
+
+472
+00:20:42.120 --> 00:20:44.710
+hiding implementation details. And it does do that.
+
+473
+00:20:44.720 --> 00:20:47.400
+But, uh, it seems to be more powerful
+
+474
+00:20:47.400 --> 00:20:50.270
+when you're abstraction is based on this algebra, so that
+
+475
+00:20:50.640 --> 00:20:53.520
+you know, your abstraction can't leak because the
+
+476
+00:20:53.520 --> 00:20:56.370
+entire, like the rules of the thing are based on the
+
+477
+00:20:56.370 --> 00:20:59.170
+algebra you built. So the implementation
+
+478
+00:20:59.180 --> 00:21:01.560
+kind of, by definition does not matter.
+
+479
+00:21:02.140 --> 00:21:05.140
+>> Yeah. Yeah, that's it. Absolutely. I
+
+480
+00:21:05.140 --> 00:21:08.120
+think too many people think about abstractions like, Oh,
+
+481
+00:21:08.120 --> 00:21:09.550
+I'll put it in a module.
+
+482
+00:21:09.560 --> 00:21:12.070
+I'll put it behind a data
+
+483
+00:21:12.070 --> 00:21:14.860
+type right? Or I'll pull out this
+
+484
+00:21:14.860 --> 00:21:17.060
+implementation to its own function. It's like That's
+
+485
+00:21:17.060 --> 00:21:19.780
+not There's a quote from Dexter I really like, which is
+
+486
+00:21:19.780 --> 00:21:22.620
+that abstraction is not about being vague,
+
+487
+00:21:22.620 --> 00:21:25.300
+but a about creating a new semantic level. I wish you can be
+
+488
+00:21:25.300 --> 00:21:27.460
+absolutely precise, right?
+
+489
+00:21:29.040 --> 00:21:31.770
+>> Yeah. So, yeah, I, like I
+
+490
+00:21:31.770 --> 00:21:34.610
+mentioned earlier, have not made it entirely through this book yet, but I'm
+
+491
+00:21:34.610 --> 00:21:37.390
+really enjoying it so far. And it feels like it'll give me
+
+492
+00:21:37.390 --> 00:21:39.290
+some tools for approaching problems,
+
+493
+00:21:39.300 --> 00:21:41.360
+particularly, um,
+
+494
+00:21:41.940 --> 00:21:44.920
+taking the time before diving
+
+495
+00:21:44.920 --> 00:21:47.860
+into implementation, to think about the problem and kind of push on
+
+496
+00:21:47.860 --> 00:21:50.730
+the boundaries of it and see where it can be broken down into simpler
+
+497
+00:21:50.730 --> 00:21:52.840
+pieces, which is something that I've already
+
+498
+00:21:52.840 --> 00:21:55.670
+seen in the examples that you give where
+
+499
+00:21:56.540 --> 00:21:59.490
+you talk about like you can come up with a property, and it may be very
+
+500
+00:21:59.490 --> 00:22:02.480
+complicated. And that suggests that you
+
+501
+00:22:02.480 --> 00:22:05.200
+may have multiple things kind of mixed together there or
+
+502
+00:22:05.210 --> 00:22:08.190
+complected to borrow the you know, the rich hickey. Speak there.
+
+503
+00:22:08.200 --> 00:22:11.150
+Um and you would do well to pull those
+
+504
+00:22:11.150 --> 00:22:13.980
+apart. And then in doing so, you might discover more
+
+505
+00:22:13.980 --> 00:22:16.770
+properties about your program, or you might discover a simple, simpler way to
+
+506
+00:22:16.770 --> 00:22:19.040
+implement it or, you know, any number of things.
+
+507
+00:22:19.050 --> 00:22:21.860
+So looking forward to continuing to explore that
+
+508
+00:22:22.340 --> 00:22:25.010
+>> Yeah, well, I think it's a great book, and I strongly
+
+509
+00:22:25.010 --> 00:22:27.760
+recommend it might
+
+510
+00:22:27.760 --> 00:22:29.700
+>> just be a little bit biased. But I agree
+
+511
+00:22:29.700 --> 00:22:31.160
+with you.
+
+512
+00:22:32.040 --> 00:22:34.650
+Um, but yeah, that's not the only book you've
+
+513
+00:22:34.650 --> 00:22:37.410
+written, right? You previously wrote another book called
+
+514
+00:22:37.410 --> 00:22:39.860
+Thinking With Types. What is that one about?
+
+515
+00:22:40.340 --> 00:22:43.030
+>> That one is about all the all the wonky
+
+516
+00:22:43.030 --> 00:22:45.630
+stuff you need to do in order to do type level programming.
+
+517
+00:22:45.630 --> 00:22:48.600
+Haskell. Right. Um, it's sort of
+
+518
+00:22:48.600 --> 00:22:51.580
+unfortunate that such a book is necessary, right?
+
+519
+00:22:51.580 --> 00:22:54.450
+Because if you look at languages like Magda
+
+520
+00:22:54.450 --> 00:22:57.110
+or um Cocker, like properly dependent type
+
+521
+00:22:57.110 --> 00:23:00.110
+languages, there is no type level
+
+522
+00:23:00.110 --> 00:23:03.030
+programming. It's just programming in Haskell.
+
+523
+00:23:03.040 --> 00:23:05.960
+It's sort of ridiculous. that we have this like strange kind,
+
+524
+00:23:06.440 --> 00:23:08.900
+where it's sort of a tuple, but it's not
+
+525
+00:23:08.900 --> 00:23:11.740
+really, but it's like a set of constraints. But it's not data
+
+526
+00:23:11.740 --> 00:23:14.400
+dot set right, and it's like,
+
+527
+00:23:14.400 --> 00:23:17.150
+Why does this exist? Right? So,
+
+528
+00:23:17.160 --> 00:23:19.670
+um so thinking what types of sort of a
+
+529
+00:23:19.670 --> 00:23:22.550
+collection of all the folk floor that has existed
+
+530
+00:23:22.560 --> 00:23:25.390
+about how to do independently type stuff,
+
+531
+00:23:25.400 --> 00:23:27.670
+like type level programming more, more generally,
+
+532
+00:23:28.140 --> 00:23:31.060
+um, without sort of needing to go through
+
+533
+00:23:31.060 --> 00:23:33.440
+and find all the resources for
+
+534
+00:23:33.440 --> 00:23:34.510
+yourself?
+
+535
+00:23:35.340 --> 00:23:38.310
+>> Yeah. Uh, I often we have turned
+
+536
+00:23:38.310 --> 00:23:41.160
+recently into using more servant the
+
+537
+00:23:41.170 --> 00:23:44.080
+http API library, which is very
+
+538
+00:23:44.080 --> 00:23:46.910
+much implemented at the type level. And it definitely
+
+539
+00:23:46.920 --> 00:23:49.720
+highlights some of the I don't
+
+540
+00:23:49.720 --> 00:23:52.420
+know sharp edges on dealing with this type level of
+
+541
+00:23:52.420 --> 00:23:55.140
+programming in high school, because you have to leave the very
+
+542
+00:23:55.140 --> 00:23:58.140
+comfortable value level programming world and deal with
+
+543
+00:23:58.140 --> 00:24:01.070
+this entirely different world, which is kind of disorienting.
+
+544
+00:24:01.080 --> 00:24:02.870
+>> It's the same, but it's different
+
+545
+00:24:03.780 --> 00:24:05.210
+annoyingly,
+
+546
+00:24:05.220 --> 00:24:07.760
+yeah,
+
+547
+00:24:08.640 --> 00:24:11.530
+>> and there's all new terminology to worry about. You know, you got type flame
+
+548
+00:24:11.530 --> 00:24:13.350
+movies and data and, like
+
+549
+00:24:14.040 --> 00:24:16.860
+just I want to deal with functions and you know, the stuff that I know,
+
+550
+00:24:17.540 --> 00:24:20.250
+>> right? Yeah. It's definitely a mind bender to some
+
+551
+00:24:20.250 --> 00:24:23.050
+degree. Um, you know, as someone
+
+552
+00:24:23.050 --> 00:24:25.980
+who's not as experienced in
+
+553
+00:24:25.980 --> 00:24:28.890
+high school, like walking into type
+
+554
+00:24:28.890 --> 00:24:31.320
+families and type level programming,
+
+555
+00:24:31.330 --> 00:24:34.220
+Definitely. I mean, it's been insightful and fun to
+
+556
+00:24:34.220 --> 00:24:36.920
+learn, but it definitely took Took a
+
+557
+00:24:36.920 --> 00:24:39.790
+minute. So, um, you know, I appreciate you taking the
+
+558
+00:24:39.790 --> 00:24:42.310
+time to gather some
+
+559
+00:24:42.320 --> 00:24:44.730
+helpful resources for that.
+
+560
+00:24:44.740 --> 00:24:47.240
+Uh, that way you aren't bouncing
+
+561
+00:24:47.240 --> 00:24:50.160
+>> around all over the Internet to figure out what do I do? What
+
+562
+00:24:50.170 --> 00:24:52.270
+>> type? Families. How does this work?
+
+563
+00:24:52.280 --> 00:24:54.740
+>> As an experienced Haskell? Er doesn't make my
+
+564
+00:24:54.740 --> 00:24:57.140
+brain bend any less.
+
+565
+00:24:57.150 --> 00:24:59.960
+It's just weird. And like
+
+566
+00:25:00.040 --> 00:25:02.970
+every single time, I need to re page all these arcane
+
+567
+00:25:02.970 --> 00:25:05.880
+rules for how to do it. And as
+
+568
+00:25:05.880 --> 00:25:08.720
+I get older and wiser, I sort of the more I
+
+569
+00:25:08.720 --> 00:25:10.960
+feel like maybe this is a bad approach.
+
+570
+00:25:11.640 --> 00:25:14.400
+And, like, maybe we just shouldn't be doing these things
+
+571
+00:25:14.410 --> 00:25:16.280
+except in very, very small.
+
+572
+00:25:16.290 --> 00:25:18.900
+>> Yeah, So do you feel like we should
+
+573
+00:25:18.900 --> 00:25:21.900
+be pushing toward dependent? We typed
+
+574
+00:25:21.910 --> 00:25:24.690
+languages, or we should be pushing toward
+
+575
+00:25:24.690 --> 00:25:27.640
+more, give up on the type level programming and
+
+576
+00:25:27.640 --> 00:25:28.950
+focus on the value level stuff.
+
+577
+00:25:29.740 --> 00:25:32.350
+>> Um, I think either of those would be okay,
+
+578
+00:25:32.840 --> 00:25:35.590
+>> but we're kind of in the middle right now, and that's the problem.
+
+579
+00:25:35.600 --> 00:25:38.460
+>> I don't know what the dependent Haskell story is going to
+
+580
+00:25:38.460 --> 00:25:41.040
+look like, but I'm hoping it will just
+
+581
+00:25:41.040 --> 00:25:43.710
+work in the way that, like lean or
+
+582
+00:25:43.710 --> 00:25:44.540
+address, just
+
+583
+00:25:44.540 --> 00:25:45.520
+>> works.
+
+584
+00:25:45.640 --> 00:25:48.260
+>> Um, I hope it is. I
+
+585
+00:25:48.940 --> 00:25:51.700
+I want to believe, but based on what the current
+
+586
+00:25:51.700 --> 00:25:54.690
+type story is, I don't know if I feel
+
+587
+00:25:54.690 --> 00:25:56.250
+it yet. I've been internalized
+
+588
+00:25:56.250 --> 00:25:58.950
+>> it. Yeah, I haven't, uh, been
+
+589
+00:25:58.950 --> 00:26:01.790
+following the dependent Haskell threat. I haven't
+
+590
+00:26:01.790 --> 00:26:04.710
+played with really any independent dependent. We typed languages. I'm
+
+591
+00:26:04.720 --> 00:26:06.960
+aware of address. And every time I see,
+
+592
+00:26:06.970 --> 00:26:09.920
+uh, tweet pop up with and I'm like, man, that looks pretty cool. I should
+
+593
+00:26:09.920 --> 00:26:12.080
+check it out sometime. Um,
+
+594
+00:26:12.090 --> 00:26:14.950
+but, uh, yeah, I'm not hopeful
+
+595
+00:26:14.960 --> 00:26:17.860
+that Haskell, as a language and community, will be able
+
+596
+00:26:17.860 --> 00:26:20.780
+to shift from not being dependent. We typed to be independently
+
+597
+00:26:20.780 --> 00:26:23.560
+typed. It seems like too much of a change, but,
+
+598
+00:26:23.740 --> 00:26:26.560
+you know, maybe it will happen. And I think with linear
+
+599
+00:26:26.560 --> 00:26:29.010
+types, that's a that's a similar type of change.
+
+600
+00:26:29.020 --> 00:26:31.860
+And maybe if that one goes really well, that could bode well
+
+601
+00:26:31.860 --> 00:26:33.600
+for also doing dependent types.
+
+602
+00:26:33.610 --> 00:26:36.370
+>> Yeah, is your concern that there's too much
+
+603
+00:26:36.370 --> 00:26:39.260
+baggage or too much like ego
+
+604
+00:26:39.260 --> 00:26:42.110
+or, um, or just like, maybe the implementation won't be what we
+
+605
+00:26:42.110 --> 00:26:42.780
+want or
+
+606
+00:26:42.790 --> 00:26:45.650
+>> I would be afraid of baggage. Like we have
+
+607
+00:26:45.650 --> 00:26:48.470
+so many things. As bad as the
+
+608
+00:26:48.480 --> 00:26:50.840
+type level programming situation is now,
+
+609
+00:26:50.850 --> 00:26:53.330
+um, people are at
+
+610
+00:26:53.330 --> 00:26:56.200
+least familiar with it. You know, it's close
+
+611
+00:26:56.200 --> 00:26:59.020
+at hand to continue borrowing rich
+
+612
+00:26:59.020 --> 00:27:02.000
+Yogi ISMs. Um, and if we say
+
+613
+00:27:02.000 --> 00:27:04.960
+Okay, well, all that is gone now, and it's replaced with this thing.
+
+614
+00:27:04.960 --> 00:27:07.930
+That is better. But you have to relearn everything.
+
+615
+00:27:07.940 --> 00:27:10.700
+Maybe that'll be too much and people will give up. Or
+
+616
+00:27:10.700 --> 00:27:13.550
+maybe it'll be great and everyone will jump ship. But I don't know.
+
+617
+00:27:13.940 --> 00:27:16.640
+>> The dream of
+
+618
+00:27:16.640 --> 00:27:19.580
+dependent types is that it works just like values. And so there is
+
+619
+00:27:19.580 --> 00:27:20.500
+nothing to learn,
+
+620
+00:27:20.510 --> 00:27:23.470
+>> right? But if you're already
+
+621
+00:27:23.470 --> 00:27:26.440
+familiar with the Singleton's library or like servant would have to
+
+622
+00:27:26.440 --> 00:27:28.900
+be, I assume completely rewritten.
+
+623
+00:27:28.910 --> 00:27:30.300
+And maybe the
+
+624
+00:27:30.300 --> 00:27:33.180
+>> good thing I think servants an amazing piece of engineering. But I wish it
+
+625
+00:27:33.180 --> 00:27:34.030
+didn't exist.
+
+626
+00:27:34.040 --> 00:27:36.890
+>> Yeah, I think I agree with you. I really enjoy using
+
+627
+00:27:36.890 --> 00:27:39.830
+it and everything that it gets us, but it's beautiful
+
+628
+00:27:39.830 --> 00:27:42.520
+>> when it works well. And when it doesn't, you get these type tornadoes.
+
+629
+00:27:42.530 --> 00:27:45.280
+Yeah, five pages all the way
+
+630
+00:27:45.280 --> 00:27:46.830
+across several times.
+
+631
+00:27:46.840 --> 00:27:49.490
+>> People like to give JavaScript a hard time for, like, the
+
+632
+00:27:49.490 --> 00:27:52.400
+nested callback thing. But those servant type errors
+
+633
+00:27:52.400 --> 00:27:53.560
+are much worse.
+
+634
+00:27:53.570 --> 00:27:55.670
+>> It's amazing when it works, it's so
+
+635
+00:27:55.670 --> 00:27:58.520
+fantastic. And if you can follow the happy path,
+
+636
+00:27:58.530 --> 00:28:01.480
+it's great. Unfortunately, I find I'm not good at
+
+637
+00:28:01.480 --> 00:28:02.790
+following Happy Path. Often
+
+638
+00:28:02.800 --> 00:28:05.690
+>> we try to stay on it. I heard someone I wish
+
+639
+00:28:05.690 --> 00:28:08.640
+I could remember who. But I heard them say that, like, the best thing
+
+640
+00:28:08.640 --> 00:28:11.200
+to do as a programmer is just don't do weird
+
+641
+00:28:11.200 --> 00:28:14.020
+stuff. And the hard part is figuring out what the weird stuff
+
+642
+00:28:14.020 --> 00:28:16.890
+is. So with servants, as long as you stay on the
+
+643
+00:28:16.890 --> 00:28:19.440
+straight and narrow, then it works great. But otherwise I'd like
+
+644
+00:28:19.440 --> 00:28:21.160
+that.
+
+645
+00:28:22.840 --> 00:28:25.550
+But yeah, I don't think we're going to get to the answer today
+
+646
+00:28:25.550 --> 00:28:28.410
+of is dependent type Haskell going to work or not, But
+
+647
+00:28:28.410 --> 00:28:31.180
+I'm just I feel like if there's enough
+
+648
+00:28:31.180 --> 00:28:33.790
+work involved with the switch over, then it's going to be a
+
+649
+00:28:33.790 --> 00:28:36.780
+hard sell versus oh well,
+
+650
+00:28:36.780 --> 00:28:39.330
+I'll switch to address or I'll switch to you know what other other
+
+651
+00:28:39.330 --> 00:28:40.100
+language?
+
+652
+00:28:40.110 --> 00:28:42.400
+>> Yeah, Haskell has the advantage in that. We have
+
+653
+00:28:42.400 --> 00:28:45.320
+users. All
+
+654
+00:28:45.320 --> 00:28:48.180
+these other languages are really cool, but nobody Nobody,
+
+655
+00:28:48.180 --> 00:28:50.940
+really outside of the core group of researchers. And
+
+656
+00:28:50.940 --> 00:28:53.870
+like some academics, as far as I can tell, really use these
+
+657
+00:28:53.870 --> 00:28:56.840
+things. Um And so I think it would be hard
+
+658
+00:28:56.840 --> 00:28:59.620
+to I think Haskell has momentum, and I think it's probably
+
+659
+00:28:59.620 --> 00:29:02.530
+past the the I think it will exist
+
+660
+00:29:02.530 --> 00:29:03.050
+forever.
+
+661
+00:29:03.440 --> 00:29:04.640
+>> Right, Uh,
+
+662
+00:29:04.650 --> 00:29:06.860
+>> in one way, in one way or another. Right. Um,
+
+663
+00:29:07.740 --> 00:29:09.880
+so I I think that's promising. And,
+
+664
+00:29:09.890 --> 00:29:12.620
+um, I'm really curious to see how they
+
+665
+00:29:12.620 --> 00:29:15.590
+deprecate the old stuff for when dependent type
+
+666
+00:29:15.600 --> 00:29:18.420
+Haskell happens, right? Do you still support all the
+
+667
+00:29:18.420 --> 00:29:21.350
+weird type family stuff? I guess you have
+
+668
+00:29:21.350 --> 00:29:24.050
+to, but I think they would. Weird semantics, right?
+
+669
+00:29:24.060 --> 00:29:27.020
+>> Yeah. I mean, given how G.H.C. in
+
+670
+00:29:27.020 --> 00:29:29.150
+particular support stuff now,
+
+671
+00:29:29.160 --> 00:29:32.030
+um, it seems like they would support it for quite a
+
+672
+00:29:32.030 --> 00:29:32.850
+while. You know,
+
+673
+00:29:32.860 --> 00:29:35.550
+>> that's a very good point that that actually scares me more
+
+674
+00:29:35.560 --> 00:29:36.430
+than
+
+675
+00:29:36.440 --> 00:29:39.190
+>> yeah. G.H.C. seems to be very,
+
+676
+00:29:39.200 --> 00:29:41.790
+um, and probably for the best, but they seem to be very
+
+677
+00:29:41.790 --> 00:29:44.460
+hesitant to deprecate anything and get rid of anything.
+
+678
+00:29:44.840 --> 00:29:47.600
+>> I mean, it's amazing if you're a user
+
+679
+00:29:47.610 --> 00:29:50.410
+of G.H.C., it's less so if you are, like a
+
+680
+00:29:50.420 --> 00:29:53.080
+revolutionary and want to change the language,
+
+681
+00:29:53.090 --> 00:29:55.870
+so I understand why they do it,
+
+682
+00:29:55.870 --> 00:29:58.270
+But I wish they wouldn't, But I don't
+
+683
+00:29:58.280 --> 00:30:01.190
+know if it weren't
+
+684
+00:30:01.190 --> 00:30:02.620
+there, I would miss it, I guess, is what I'm trying to
+
+685
+00:30:02.620 --> 00:30:05.250
+>> say. Yeah.
+
+686
+00:30:05.640 --> 00:30:08.520
+Um, so, yeah. Thanks for explaining thinking
+
+687
+00:30:08.520 --> 00:30:11.380
+with types to us. It sounds like both came and I could do well to
+
+688
+00:30:11.380 --> 00:30:14.360
+read it and maybe understand what we're doing. The servant a little better.
+
+689
+00:30:14.740 --> 00:30:15.370
+I think it would
+
+690
+00:30:15.370 --> 00:30:18.120
+>> probably help if if you're just sort of bashing your head against the
+
+691
+00:30:18.120 --> 00:30:20.970
+wall, So why doesn't Why doesn't this work? Where's that come
+
+692
+00:30:20.970 --> 00:30:22.860
+>> from?
+
+693
+00:30:23.540 --> 00:30:26.470
+Um, yeah, I'd like to, uh, shift gears a little
+
+694
+00:30:26.470 --> 00:30:29.300
+bit and talk about your probably semi library, which
+
+695
+00:30:29.310 --> 00:30:32.090
+maybe is a little old hat by now, but
+
+696
+00:30:32.100 --> 00:30:35.010
+yeah, tell us about it. What is it? Why people may want to use
+
+697
+00:30:35.010 --> 00:30:35.270
+it.
+
+698
+00:30:35.940 --> 00:30:38.620
+>> Yeah, um, so plus me
+
+699
+00:30:38.630 --> 00:30:41.430
+is Freeman adds, um,
+
+700
+00:30:41.430 --> 00:30:44.120
+done better, I guess, is how I would phrase it,
+
+701
+00:30:44.130 --> 00:30:46.680
+um and so the idea is sort of you can
+
+702
+00:30:46.680 --> 00:30:49.590
+abstract away from a specific Menad stack
+
+703
+00:30:49.600 --> 00:30:52.600
+like Mona Transformer thing. And instead you can
+
+704
+00:30:52.600 --> 00:30:55.330
+say I have these effects and
+
+705
+00:30:55.330 --> 00:30:58.250
+companies effects can be like, really fine tune because they like, I have a
+
+706
+00:30:58.250 --> 00:31:00.170
+connection to an FTP client
+
+707
+00:31:00.540 --> 00:31:03.060
+FTP server or I have, like, um,
+
+708
+00:31:03.640 --> 00:31:06.540
+I have the ability to read and write to some data source
+
+709
+00:31:06.550 --> 00:31:09.160
+That is a key value source state fully. But I don't
+
+710
+00:31:09.160 --> 00:31:12.040
+care what that is. Maybe that's, uh
+
+711
+00:31:12.050 --> 00:31:14.980
+So, um so the idea is sort
+
+712
+00:31:14.980 --> 00:31:17.850
+of you can separate your business logic, which is I have
+
+713
+00:31:17.850 --> 00:31:20.640
+some abstractions I care about from the actual implementations of those
+
+714
+00:31:20.640 --> 00:31:23.520
+things. Um, that's the cell at the high
+
+715
+00:31:23.520 --> 00:31:26.360
+level, and I guess of all of
+
+716
+00:31:26.360 --> 00:31:29.170
+all effects systems. And, uh, and
+
+717
+00:31:29.170 --> 00:31:31.950
+then later you can choose how to interpret those
+
+718
+00:31:31.960 --> 00:31:34.890
+systems. And so I can say, Oh, I have this this key
+
+719
+00:31:34.890 --> 00:31:37.860
+value store and, like, maybe that's read this. Or maybe
+
+720
+00:31:37.860 --> 00:31:40.560
+that is http requests. Or maybe it's a local
+
+721
+00:31:40.560 --> 00:31:42.920
+file, right? Or maybe it's just a local statement. Add,
+
+722
+00:31:42.930 --> 00:31:45.690
+um, the application
+
+723
+00:31:45.690 --> 00:31:46.460
+shouldn't care,
+
+724
+00:31:47.140 --> 00:31:50.050
+>> right? You only care about the interface that it exposes.
+
+725
+00:31:50.060 --> 00:31:52.670
+>> Yeah, exactly like and so the pitch is sort of like,
+
+726
+00:31:52.680 --> 00:31:55.490
+what did the business people care about? Can we express
+
+727
+00:31:55.490 --> 00:31:58.460
+that in 10 lines of code, right. And
+
+728
+00:31:58.460 --> 00:32:01.440
+generally, if you're at a high enough high enough level of abstraction,
+
+729
+00:32:01.440 --> 00:32:04.400
+the answer is yes. Um, and and that's really
+
+730
+00:32:04.400 --> 00:32:07.220
+lovely, right? When you get to a point where all of your business
+
+731
+00:32:07.220 --> 00:32:10.200
+logic is comprehensible and then
+
+732
+00:32:10.210 --> 00:32:12.440
+you sort of transform it through these
+
+733
+00:32:12.450 --> 00:32:15.440
+transformations of I have this one effect, I
+
+734
+00:32:15.440 --> 00:32:18.260
+can implement it either directly. Or I can say
+
+735
+00:32:18.270 --> 00:32:21.010
+I can implement in terms of other effects. And so I can
+
+736
+00:32:21.010 --> 00:32:23.910
+say I can implement this state, but only if I've
+
+737
+00:32:23.910 --> 00:32:26.850
+got access to a Web client, right?
+
+738
+00:32:27.140 --> 00:32:30.050
+Um, but then that Web client you might also want to mock.
+
+739
+00:32:30.140 --> 00:32:32.770
+And so it's not actually talking to the Web.
+
+740
+00:32:33.140 --> 00:32:36.060
+Right? So So that's sort of the the idea. Um,
+
+741
+00:32:36.070 --> 00:32:39.010
+polygamy. What it brings to the table is, makes it
+
+742
+00:32:39.010 --> 00:32:41.450
+much easier to do these sorts of things. Um,
+
+743
+00:32:41.840 --> 00:32:42.770
+>> easier than what?
+
+744
+00:32:43.340 --> 00:32:46.340
+>> Easier than, uh, there's
+
+745
+00:32:46.350 --> 00:32:49.270
+another library called like, free or simple, and
+
+746
+00:32:49.270 --> 00:32:51.740
+for your effects and freer. And,
+
+747
+00:32:51.750 --> 00:32:54.610
+uh, there's, like 20 different Fremont libraries in
+
+748
+00:32:54.610 --> 00:32:57.340
+various states of love.
+
+749
+00:32:57.350 --> 00:32:58.400
+Really?
+
+750
+00:32:58.410 --> 00:33:01.350
+Um, and the idea
+
+751
+00:33:01.350 --> 00:33:04.210
+for this was I wanted it to be, um,
+
+752
+00:33:04.220 --> 00:33:07.200
+easy and fast and give good
+
+753
+00:33:07.210 --> 00:33:10.110
+error messages if you screwed something up and
+
+754
+00:33:10.110 --> 00:33:12.950
+so that those were the goals. And, um, the last
+
+755
+00:33:12.950 --> 00:33:15.880
+one, in particular, was quite challenging. Uh, it
+
+756
+00:33:15.880 --> 00:33:18.840
+requires, like it requires a plug in to
+
+757
+00:33:18.840 --> 00:33:21.590
+run, which, in retrospect, was a bad idea,
+
+758
+00:33:21.600 --> 00:33:24.420
+because it means you just have to keep that up to date with
+
+759
+00:33:24.430 --> 00:33:26.770
+G.H.C. versions in a way that, like a library, doesn't need to
+
+760
+00:33:26.770 --> 00:33:27.660
+be.
+
+761
+00:33:28.240 --> 00:33:30.970
+>> Wait, so it requires a plug in in order to
+
+762
+00:33:30.970 --> 00:33:32.620
+work at all, or in order to get, doesn't
+
+763
+00:33:32.620 --> 00:33:35.500
+>> know, not in order to work at all, but in order to, um,
+
+764
+00:33:35.510 --> 00:33:38.490
+to get type in France working. There's
+
+765
+00:33:38.490 --> 00:33:41.490
+a lot of programs you'll write in polygamy that without
+
+766
+00:33:41.490 --> 00:33:44.450
+the plug in, you'll say, Obviously, this is what I want
+
+767
+00:33:44.460 --> 00:33:47.350
+and do like Whoa, I don't know what this effect is like. There's only one
+
+768
+00:33:47.350 --> 00:33:49.460
+effect. There is clearly that one, but
+
+769
+00:33:49.540 --> 00:33:52.510
+it doesn't know. And so there's a There's a plug in that,
+
+770
+00:33:52.510 --> 00:33:55.140
+like solves those. So it's sort of a type
+
+771
+00:33:55.140 --> 00:33:57.670
+checker addition. Cool.
+
+772
+00:33:58.040 --> 00:34:00.750
+>> Yeah. Um, but yeah, uh, I can
+
+773
+00:34:00.750 --> 00:34:03.750
+appreciate that keeping up with the G.H.C. A p I is
+
+774
+00:34:03.750 --> 00:34:06.620
+a little tedious. Um, we were just talking about how good they
+
+775
+00:34:06.620 --> 00:34:09.580
+are, maintaining backwards compatibility. That's for their, you
+
+776
+00:34:09.580 --> 00:34:12.570
+know, the compiler and everything. Not for the internals,
+
+777
+00:34:12.570 --> 00:34:14.260
+which shift around much more often.
+
+778
+00:34:14.640 --> 00:34:17.580
+>> Right on the on the other hand, like I appreciate
+
+779
+00:34:17.580 --> 00:34:20.310
+I wish there were a better
+
+780
+00:34:20.320 --> 00:34:23.080
+compatibility story, though there is, like the G.H.C. lived
+
+781
+00:34:23.080 --> 00:34:26.020
+now, which I think solves
+
+782
+00:34:26.020 --> 00:34:28.840
+this problem I've never really worked against. I think it's newer
+
+783
+00:34:28.840 --> 00:34:30.630
+than my issues, But
+
+784
+00:34:30.640 --> 00:34:33.030
+>> yeah, there is the G.H.C. library for, like,
+
+785
+00:34:33.040 --> 00:34:35.770
+parsing right that Shane
+
+786
+00:34:35.770 --> 00:34:37.860
+Fletcher, I think maintains,
+
+787
+00:34:38.240 --> 00:34:41.240
+um and yeah, that seems really nice to say, like, Okay, I don't
+
+788
+00:34:41.240 --> 00:34:43.740
+really use all the particulars, or I can do
+
+789
+00:34:43.740 --> 00:34:46.670
+a pretty straightforward mapping between all the versions, and he
+
+790
+00:34:46.670 --> 00:34:47.470
+has done that for you.
+
+791
+00:34:48.240 --> 00:34:50.590
+>> That one, unfortunately, doesn't work if you also need
+
+792
+00:34:50.590 --> 00:34:52.470
+G.H.C. the library.
+
+793
+00:34:52.840 --> 00:34:55.840
+Because the parcel has just redefined all the
+
+794
+00:34:55.840 --> 00:34:58.790
+types of needs, which is lovely. Except when
+
+795
+00:34:58.790 --> 00:35:01.770
+you now want to talk back to G.H.C. is like, Oh, my expression is
+
+796
+00:35:01.770 --> 00:35:03.810
+not the same as your expression, even though it's identical,
+
+797
+00:35:03.820 --> 00:35:06.250
+>> right? That's unfortunate. Yeah.
+
+798
+00:35:06.260 --> 00:35:09.200
+>> Yeah. So um, I think it's it's much better state of
+
+799
+00:35:09.200 --> 00:35:11.700
+affairs than the whole source extensions.
+
+800
+00:35:11.710 --> 00:35:14.650
+Situation was, Yeah, but I haven't had
+
+801
+00:35:14.650 --> 00:35:15.670
+the joy of working with it yet.
+
+802
+00:35:16.640 --> 00:35:19.200
+>> Yeah, I will say that it's
+
+803
+00:35:19.200 --> 00:35:22.060
+nice to have the option of writing these plug
+
+804
+00:35:22.060 --> 00:35:25.020
+ins, you know, and I think that, uh, there are
+
+805
+00:35:25.020 --> 00:35:28.000
+a couple kind of big name ones, I guess
+
+806
+00:35:28.000 --> 00:35:30.900
+I can only really think of one. The record pre processor has kind of like a
+
+807
+00:35:30.900 --> 00:35:33.860
+preview of, like, extensions to come. Um,
+
+808
+00:35:34.140 --> 00:35:36.750
+but interesting to see them used here for an effect library as well.
+
+809
+00:35:37.440 --> 00:35:40.220
+>> Yeah. Um I think these days I
+
+810
+00:35:40.220 --> 00:35:42.810
+don't really endorse Freeman. It's
+
+811
+00:35:42.820 --> 00:35:45.780
+okay. Alexis. Alexis
+
+812
+00:35:45.780 --> 00:35:48.770
+king wrote an article. Maybe this year, maybe last year. It's hard to
+
+813
+00:35:48.770 --> 00:35:50.200
+keep track
+
+814
+00:35:50.210 --> 00:35:52.010
+>> of Time is a flat circle.
+
+815
+00:35:52.010 --> 00:35:54.940
+>> Yeah. Yes, um, talking about how all of my
+
+816
+00:35:54.940 --> 00:35:57.060
+claims for performance were
+
+817
+00:35:57.240 --> 00:35:59.970
+untrue. And, um,
+
+818
+00:36:00.630 --> 00:36:03.510
+she was absolutely right about that. And then eventually
+
+819
+00:36:03.520 --> 00:36:06.420
+unintentionally untrue. Right? And I wasn't going on my way to lie
+
+820
+00:36:06.420 --> 00:36:08.960
+about it, but some issues sort of in the
+
+821
+00:36:08.960 --> 00:36:11.560
+benchmarking and how the simple fireworks, and just like, there
+
+822
+00:36:11.560 --> 00:36:14.340
+were several systematic errors that led to my
+
+823
+00:36:14.340 --> 00:36:16.850
+performance claims being untrue.
+
+824
+00:36:17.230 --> 00:36:20.170
+Um, so that was part of it. And then, um,
+
+825
+00:36:20.180 --> 00:36:23.080
+the good news, I guess, Or bad news depending on how you look at is
+
+826
+00:36:23.080 --> 00:36:26.060
+that sort of all effects systems have terrible performance,
+
+827
+00:36:26.060 --> 00:36:28.830
+including MTL, and nobody noticed
+
+828
+00:36:28.830 --> 00:36:30.540
+because everybody's bad at benchmarking.
+
+829
+00:36:30.550 --> 00:36:33.100
+>> It's hard.
+
+830
+00:36:33.130 --> 00:36:34.480
+Yeah,
+
+831
+00:36:34.490 --> 00:36:37.450
+>> it's not to say like mtl is as bad as plus me. But
+
+832
+00:36:38.430 --> 00:36:41.380
+so on one hand, like I claimed, the performance doesn't really matter. For most of the
+
+833
+00:36:41.380 --> 00:36:44.170
+things we write write most of the time you're waiting on a network
+
+834
+00:36:44.170 --> 00:36:47.060
+call or or you know, I or something so
+
+835
+00:36:47.060 --> 00:36:49.740
+usually doesn't matter. But it would still be nice to get that right.
+
+836
+00:36:50.350 --> 00:36:53.020
+And on the other hand, um, the thing is, I
+
+837
+00:36:53.020 --> 00:36:55.870
+realized I think we're all
+
+838
+00:36:55.870 --> 00:36:58.170
+better off just sort of like writing pure
+
+839
+00:36:58.180 --> 00:37:01.090
+programs. If you just push all the effects
+
+840
+00:37:01.090 --> 00:37:03.830
+as far out as possible. That's just a
+
+841
+00:37:03.830 --> 00:37:06.790
+better solution in general. Yeah. Are you
+
+842
+00:37:06.790 --> 00:37:09.400
+familiar with this? Actually has a lot of good articles on how to do
+
+843
+00:37:09.400 --> 00:37:09.920
+this.
+
+844
+00:37:09.930 --> 00:37:12.480
+>> The three layer Haskell cake, I think, is
+
+845
+00:37:12.480 --> 00:37:14.900
+>> one. Um, that one I'm not as fond
+
+846
+00:37:14.900 --> 00:37:17.880
+of. He's got one called Invert your mocks. There
+
+847
+00:37:17.880 --> 00:37:20.360
+you go. And that one is sort of all about how to pull
+
+848
+00:37:20.360 --> 00:37:22.980
+out the pure parts of effective programs. And I really endorse
+
+849
+00:37:22.980 --> 00:37:24.150
+that.
+
+850
+00:37:24.160 --> 00:37:26.740
+>> And I think, uh, there's some
+
+851
+00:37:27.630 --> 00:37:30.200
+I'm drawn to that approach of
+
+852
+00:37:30.210 --> 00:37:32.950
+designing software because it extends outside of
+
+853
+00:37:32.950 --> 00:37:35.920
+Haskell as well. If you're familiar with Gary Bernhardt, he has
+
+854
+00:37:35.920 --> 00:37:38.660
+to talk about, um What is it?
+
+855
+00:37:39.330 --> 00:37:42.310
+Imperative Shell. Pure core. It may not be the
+
+856
+00:37:42.310 --> 00:37:45.310
+exact wording, but yeah, push everything to the outside and then on
+
+857
+00:37:45.310 --> 00:37:48.050
+the inside. You've already done all the network, all the
+
+858
+00:37:48.060 --> 00:37:50.730
+database, all that, and you just deal with the pure stuff.
+
+859
+00:37:50.740 --> 00:37:53.550
+>> Unfortunately, humans seem bad at writing code like that.
+
+860
+00:37:53.550 --> 00:37:56.550
+Especially when, like time pressure arises. And it's like, Oh, I just
+
+861
+00:37:56.550 --> 00:37:59.470
+need io here. I can't be fucked to do it the right way.
+
+862
+00:37:59.480 --> 00:38:02.130
+Right. Um and then over time, that stuff
+
+863
+00:38:02.130 --> 00:38:05.060
+accumulates and sort of I think that was really what I was rallying
+
+864
+00:38:05.060 --> 00:38:07.970
+against with. Plus, me was, um I had
+
+865
+00:38:07.970 --> 00:38:10.350
+worked in, like, a pretty atrocious code base
+
+866
+00:38:10.360 --> 00:38:12.920
+professionally, which just the entire thing was in
+
+867
+00:38:12.920 --> 00:38:15.900
+Ohio and there was no sort
+
+868
+00:38:15.900 --> 00:38:18.880
+of discipline anywhere about what things were appearing.
+
+869
+00:38:18.880 --> 00:38:21.550
+So just like we We
+
+870
+00:38:21.550 --> 00:38:24.260
+found a multimillion dollar bug that bit us
+
+871
+00:38:24.260 --> 00:38:26.950
+because we just couldn't test anything because it was all an I O.
+
+872
+00:38:27.520 --> 00:38:30.290
+>> Yes, that's pretty bad. So I can see why that would
+
+873
+00:38:30.290 --> 00:38:31.200
+motivate you.
+
+874
+00:38:31.210 --> 00:38:34.200
+>> Yeah, the problem is sort of motivation, like these
+
+875
+00:38:34.200 --> 00:38:36.500
+are only ever after the fact. Right?
+
+876
+00:38:36.510 --> 00:38:39.460
+Nobody really cares if you say, Hey, everything is an i o.
+
+877
+00:38:39.460 --> 00:38:41.950
+And it's going to cause us millions of dollars, but
+
+878
+00:38:42.320 --> 00:38:44.960
+it doesn't work until it happens. Right? So
+
+879
+00:38:45.440 --> 00:38:48.220
+>> and then when it happens, you get the the peanut
+
+880
+00:38:48.220 --> 00:38:51.160
+gallery on Reddit saying, like, you could have you could have got this
+
+881
+00:38:51.170 --> 00:38:54.130
+>> Exactly. Yeah. Um,
+
+882
+00:38:54.140 --> 00:38:56.920
+So yeah. So I think it was It was a really
+
+883
+00:38:56.920 --> 00:38:59.840
+interesting project for me to just go through and learn how to
+
+884
+00:38:59.850 --> 00:39:02.490
+do all of this stuff and really flex my type level
+
+885
+00:39:02.500 --> 00:39:03.960
+muscles.
+
+886
+00:39:03.970 --> 00:39:05.970
+>> Lots of type of programming in there.
+
+887
+00:39:05.980 --> 00:39:08.840
+>> Yeah, exactly. Um and I'm happy that it's taken
+
+888
+00:39:08.840 --> 00:39:11.600
+off, um, in a way that I didn't
+
+889
+00:39:11.600 --> 00:39:14.040
+expect. Um I think
+
+890
+00:39:15.020 --> 00:39:17.840
+that's exciting to me. And also a little scary.
+
+891
+00:39:18.220 --> 00:39:20.980
+>> Scary how
+
+892
+00:39:20.990 --> 00:39:21.790
+people
+
+893
+00:39:21.790 --> 00:39:24.680
+>> are using yourself out there. Not because how I
+
+894
+00:39:24.680 --> 00:39:27.430
+would like to write programs anymore. I
+
+895
+00:39:27.430 --> 00:39:30.230
+think I've learned something now that I hadn't learned
+
+896
+00:39:30.230 --> 00:39:32.780
+back then. And so people using that sort of
+
+897
+00:39:32.780 --> 00:39:35.420
+reflects, like either I'm wrong
+
+898
+00:39:35.430 --> 00:39:38.350
+now or their right,
+
+899
+00:39:38.360 --> 00:39:40.660
+>> neither of which is a good place to be. Yeah,
+
+900
+00:39:40.670 --> 00:39:43.010
+>> exactly. And so I'm not sure what the answer is,
+
+901
+00:39:43.010 --> 00:39:45.880
+but anyway, so I'm happy people use
+
+902
+00:39:45.880 --> 00:39:47.640
+it. I'm happy I get the credit for it.
+
+903
+00:39:48.120 --> 00:39:50.940
+Uh, you know, there's worse
+
+904
+00:39:50.940 --> 00:39:52.650
+things in the world than people using your software.
+
+905
+00:39:52.660 --> 00:39:55.300
+>> Yeah, I'm curious. We were talking earlier
+
+906
+00:39:55.300 --> 00:39:57.860
+about dependency type programs and
+
+907
+00:39:57.860 --> 00:40:00.730
+how you know, Haskell is kind of halfway there, and it's
+
+908
+00:40:00.730 --> 00:40:03.530
+awkward. Um, I have a passing
+
+909
+00:40:03.530 --> 00:40:06.480
+familiarity with peer script, which has sort of an effect system
+
+910
+00:40:06.480 --> 00:40:09.260
+baked in thanks to the road types. Uh,
+
+911
+00:40:09.270 --> 00:40:12.270
+do you have any experience with that? And how does it kind of stack up against
+
+912
+00:40:12.270 --> 00:40:13.240
+the Fremont ads?
+
+913
+00:40:13.610 --> 00:40:16.590
+>> I don't have really any experience with you know what
+
+914
+00:40:16.590 --> 00:40:19.410
+existed. And then they sort of chopped out of I O
+
+915
+00:40:19.420 --> 00:40:22.370
+yeah. Kept the prototypes, and I don't I don't know anything more than
+
+916
+00:40:22.370 --> 00:40:22.790
+that.
+
+917
+00:40:22.800 --> 00:40:25.350
+>> Yeah, I think again, I only have a passing
+
+918
+00:40:25.350 --> 00:40:28.270
+familiarity. So apologies to anyone in the peer script community. If I get this
+
+919
+00:40:28.270 --> 00:40:30.930
+way wrong, but, uh, from what I recall, they
+
+920
+00:40:30.930 --> 00:40:33.590
+had, um, or they have road types
+
+921
+00:40:33.600 --> 00:40:36.470
+so they can do, like, anonymous records. And those also
+
+922
+00:40:36.470 --> 00:40:39.200
+exist at the type level. So you can have an
+
+923
+00:40:39.200 --> 00:40:41.530
+anonymous map of
+
+924
+00:40:41.540 --> 00:40:44.510
+named things too. I think they just
+
+925
+00:40:44.510 --> 00:40:47.080
+call them effects. So you'd have, like, some kind that
+
+926
+00:40:47.080 --> 00:40:50.040
+represented I can talk to the database and
+
+927
+00:40:50.050 --> 00:40:52.940
+you're function and say, Okay, I need this effect in order to work, and
+
+928
+00:40:53.410 --> 00:40:56.340
+I think they don't do that anymore. You can if
+
+929
+00:40:56.340 --> 00:40:59.260
+you want to, but officially, they effectively just
+
+930
+00:40:59.260 --> 00:41:01.440
+have Io as their effect.
+
+931
+00:41:01.810 --> 00:41:04.790
+Um, so is, uh, interesting for me to see,
+
+932
+00:41:04.790 --> 00:41:07.540
+like, Okay, they have all this power. They can express all this stuff at the type level,
+
+933
+00:41:07.540 --> 00:41:10.520
+and they kind of don't want to, um and they'll
+
+934
+00:41:10.520 --> 00:41:12.130
+go back to doing things the way they Haskell does it.
+
+935
+00:41:12.510 --> 00:41:15.220
+>> Yeah, I don't know why. Maybe
+
+936
+00:41:15.230 --> 00:41:18.070
+Maybe they've tried and given to go and realized it
+
+937
+00:41:18.070 --> 00:41:21.040
+doesn't work. Um, maybe, just like Haskell
+
+938
+00:41:21.040 --> 00:41:23.780
+has the prestige. And there's this
+
+939
+00:41:23.780 --> 00:41:26.750
+weird Mona thing where once you realize what you learn about money,
+
+940
+00:41:26.760 --> 00:41:28.980
+you need to write about them. And, like,
+
+941
+00:41:28.990 --> 00:41:31.930
+I think that is a big problem.
+
+942
+00:41:32.010 --> 00:41:34.870
+I don't know if that's relevant here, but I think I could see that happening where,
+
+943
+00:41:34.870 --> 00:41:37.590
+like someone says, Oh, Mona Transformers Let's use those because
+
+944
+00:41:37.590 --> 00:41:40.030
+Haskell uses those, Um,
+
+945
+00:41:40.510 --> 00:41:43.150
+again. I don't know anything about your scripts, and that's the sentiment they have.
+
+946
+00:41:43.160 --> 00:41:43.860
+But
+
+947
+00:41:43.870 --> 00:41:46.640
+>> so, uh, to try to shove these pieces
+
+948
+00:41:46.640 --> 00:41:49.350
+together. I think one of the problems that peer script ran into was
+
+949
+00:41:49.350 --> 00:41:51.370
+that, um if
+
+950
+00:41:51.380 --> 00:41:54.310
+your effect kind like
+
+951
+00:41:54.310 --> 00:41:56.890
+the thing that says, Hey, I need to be able to talk to or right to the
+
+952
+00:41:56.890 --> 00:41:59.500
+counselor read from it or whatever. If that
+
+953
+00:41:59.500 --> 00:42:02.380
+isn't shared among every library
+
+954
+00:42:02.390 --> 00:42:05.190
+that you're working with, then you get this very strange fracturing
+
+955
+00:42:05.200 --> 00:42:07.800
+where you have, let's say, two different Reedus
+
+956
+00:42:07.800 --> 00:42:10.280
+libraries, and they each define their own
+
+957
+00:42:10.280 --> 00:42:13.120
+effect. And so if you have one and you want to use the
+
+958
+00:42:13.120 --> 00:42:16.120
+other, suddenly you have to redo all of the effects all the way
+
+959
+00:42:16.120 --> 00:42:18.930
+up your chain because you have both of them. Now,
+
+960
+00:42:19.300 --> 00:42:21.890
+Um, and I feel like Haskell also
+
+961
+00:42:21.900 --> 00:42:24.760
+can have this problem where, like, you know, if
+
+962
+00:42:24.760 --> 00:42:27.430
+some fundamental type isn't defined low enough, Then everybody
+
+963
+00:42:27.430 --> 00:42:30.300
+defines their own, and it becomes a zoo. Um,
+
+964
+00:42:30.310 --> 00:42:33.170
+and maybe that's just way more annoying to deal
+
+965
+00:42:33.170 --> 00:42:35.120
+with when you're at the effect level.
+
+966
+00:42:35.900 --> 00:42:38.620
+>> I think that's true. Um, I'm hoping that people
+
+967
+00:42:38.620 --> 00:42:41.420
+don't I guess that's one of the things I like to
+
+968
+00:42:41.430 --> 00:42:44.360
+post me was sort of the high level idea of, like, I just
+
+969
+00:42:44.360 --> 00:42:47.350
+have some key value state. Right? Um, the thing
+
+970
+00:42:47.350 --> 00:42:50.220
+about if you have, like a red, this effect is that the only
+
+971
+00:42:50.220 --> 00:42:53.200
+implementation of that can be read us. There's
+
+972
+00:42:53.200 --> 00:42:55.970
+you can't do anything other than, like reddish or re
+
+973
+00:42:55.970 --> 00:42:56.910
+implementing lettuce.
+
+974
+00:42:56.920 --> 00:42:59.620
+You can try.
+
+975
+00:43:00.000 --> 00:43:02.930
+You could try, but at that point why, right? Um
+
+976
+00:43:02.940 --> 00:43:05.740
+and so I think there's a value
+
+977
+00:43:05.740 --> 00:43:08.660
+in keeping your effects as small as possible exactly for
+
+978
+00:43:08.660 --> 00:43:11.660
+this reason, regardless of the system or if it's just
+
+979
+00:43:11.660 --> 00:43:14.510
+MTL, or even if it's just like making a
+
+980
+00:43:14.510 --> 00:43:16.920
+moan and stack concrete on a stack of just
+
+981
+00:43:16.930 --> 00:43:19.620
+keeping your effects as small as possible, because
+
+982
+00:43:19.630 --> 00:43:22.390
+otherwise you're making choices
+
+983
+00:43:22.400 --> 00:43:25.120
+that you're going to have to live with, right?
+
+984
+00:43:25.600 --> 00:43:28.570
+Um, and unfortunately, like you have to make choices
+
+985
+00:43:28.570 --> 00:43:31.140
+at some point. But again, if you can push them as far out as
+
+986
+00:43:31.140 --> 00:43:31.810
+possible.
+
+987
+00:43:32.200 --> 00:43:34.940
+>> Yeah, I I
+
+988
+00:43:34.940 --> 00:43:37.590
+agree with you, but I'm not surprised to hear you say that Based on
+
+989
+00:43:37.600 --> 00:43:40.590
+algebra different design. Because it's like, you know, if
+
+990
+00:43:40.590 --> 00:43:43.320
+your interfaces I am reading this, then
+
+991
+00:43:43.330 --> 00:43:46.030
+it's really hard to come up with properties about that to market, to do
+
+992
+00:43:46.030 --> 00:43:48.820
+anything. But if your face is I'm a key value store
+
+993
+00:43:48.830 --> 00:43:49.640
+much easier.
+
+994
+00:43:49.650 --> 00:43:52.580
+>> Exactly. Yeah. What are the properties of lettuce?
+
+995
+00:43:52.900 --> 00:43:55.490
+Mhm. I don't know if there are any
+
+996
+00:43:55.490 --> 00:43:57.880
+right guaranteed to get back what you put in.
+
+997
+00:43:57.890 --> 00:43:58.710
+Yeah.
+
+998
+00:43:59.500 --> 00:44:01.920
+>> Uh, yeah.
+
+999
+00:44:03.190 --> 00:44:06.190
+Um, well, we've covered a lot of good topics
+
+1000
+00:44:06.190 --> 00:44:09.180
+here. Uh, Sandy, is there anything else you know? What
+
+1001
+00:44:09.180 --> 00:44:11.810
+are you working on? What are you looking forward to? What's next for you?
+
+1002
+00:44:12.290 --> 00:44:15.080
+>> Yeah. So right now I'm working full time on
+
+1003
+00:44:15.090 --> 00:44:17.640
+high school. Wingman. Wingman, try Haskell. Um,
+
+1004
+00:44:17.650 --> 00:44:20.640
+the branding is still being fixed up
+
+1005
+00:44:20.640 --> 00:44:23.460
+in the air. Yeah, exactly. Um and so
+
+1006
+00:44:23.470 --> 00:44:25.970
+I'm trying to make that, like, my full time life.
+
+1007
+00:44:25.980 --> 00:44:28.930
+Um and so I've got a patreon for that. If if
+
+1008
+00:44:28.930 --> 00:44:31.610
+anyone is interested in helping support me through that,
+
+1009
+00:44:31.890 --> 00:44:34.620
+>> for sure we'll leave. That sort of linked to that in the show
+
+1010
+00:44:34.620 --> 00:44:35.100
+notes.
+
+1011
+00:44:35.110 --> 00:44:38.040
+>> Marvelous. Thank you. Um, that's like where all my
+
+1012
+00:44:38.040 --> 00:44:40.850
+time's going and putting, like, 10 hours a day into it right now.
+
+1013
+00:44:40.860 --> 00:44:43.400
+And so, uh, yeah, besides that,
+
+1014
+00:44:43.410 --> 00:44:45.900
+um, I think that's it. Really
+
+1015
+00:44:45.910 --> 00:44:48.610
+like, that's all I'm doing. It feels good.
+
+1016
+00:44:48.620 --> 00:44:51.060
+Honestly, it's not like a project you really care
+
+1017
+00:44:51.060 --> 00:44:51.640
+about.
+
+1018
+00:44:51.650 --> 00:44:54.600
+>> Yeah, And if people want to find you online, where should
+
+1019
+00:44:54.600 --> 00:44:55.310
+they go look for you?
+
+1020
+00:44:55.790 --> 00:44:58.180
+>> Yeah, I'm I'm online at reasonably
+
+1021
+00:44:58.180 --> 00:45:01.090
+polymorphic dot com is my math blog, and I also
+
+1022
+00:45:01.090 --> 00:45:03.870
+have sandy McGuire dot me, which is my personal
+
+1023
+00:45:03.870 --> 00:45:06.600
+blog, and it turns out like I'm going to show them
+
+1024
+00:45:06.600 --> 00:45:09.430
+both, but there's really no market for like, there's no
+
+1025
+00:45:09.430 --> 00:45:11.870
+intersection of people care about both of those things.
+
+1026
+00:45:11.880 --> 00:45:14.510
+People care about my math stuff or they care
+
+1027
+00:45:14.510 --> 00:45:17.290
+about me as a person. But
+
+1028
+00:45:17.300 --> 00:45:20.200
+I learned that the hard way. I need to split them up, but I'll show
+
+1029
+00:45:20.200 --> 00:45:23.190
+them both, and I think that's that's pretty
+
+1030
+00:45:23.190 --> 00:45:24.770
+much all of my online presence.
+
+1031
+00:45:25.490 --> 00:45:28.270
+>> All right. Yeah. Thank you
+
+1032
+00:45:28.280 --> 00:45:31.250
+so much for being on the show with us today. It's been great to have
+
+1033
+00:45:31.250 --> 00:45:32.330
+you here. And my
+
+1034
+00:45:32.330 --> 00:45:35.300
+>> pleasure. Thanks for having me. And I just want to thank you both for, like, all the
+
+1035
+00:45:35.300 --> 00:45:37.060
+great things you've been doing for the community.
+
+1036
+00:45:37.070 --> 00:45:38.610
+>> Thanks. I appreciate it.
+
+1037
+00:45:39.790 --> 00:45:40.980
+>> Can you keep on keeping on?
+
+1038
+00:45:40.990 --> 00:45:42.730
+>> Yeah, like that. Cheers.
+
+1039
+00:45:42.740 --> 00:45:44.020
+Please
+
+1040
+00:45:44.020 --> 00:45:44.220
+>> do,
+
+1041
+00:45:44.230 --> 00:45:47.120
+>> uh, and thank you to the listeners of the high
+
+1042
+00:45:47.120 --> 00:45:50.070
+school weekly podcast. Um, thanks for tuning in. Even though
+
+1043
+00:45:50.070 --> 00:45:52.110
+we're not here every week, we're here. Most weeks,
+
+1044
+00:45:52.490 --> 00:45:55.480
+uh, I've been your
+
+1045
+00:45:55.480 --> 00:45:58.390
+host, Taylor Fausak, and our special guest this week was
+
+1046
+00:45:58.400 --> 00:46:01.340
+Sandy McGuire. Also with me today was Cameron
+
+1047
+00:46:01.340 --> 00:46:04.090
+Gara. If you want to find out more about Haskell
+
+1048
+00:46:04.090 --> 00:46:06.790
+Weekly, you can visit our website, which is Haskell
+
+1049
+00:46:06.790 --> 00:46:09.620
+weekly dot news. If you like the show,
+
+1050
+00:46:09.630 --> 00:46:11.940
+please rate and review us on apple
+
+1051
+00:46:11.940 --> 00:46:14.750
+podcasts. Uh, and if you have any feedback, you can
+
+1052
+00:46:14.750 --> 00:46:17.430
+tweet it at us. Our handle is at
+
+1053
+00:46:17.440 --> 00:46:20.400
+Haskell Weekly. Um, and, yeah, we're
+
+1054
+00:46:20.410 --> 00:46:22.300
+elsewhere on the web. But those are the mainland's.
+
+1055
+00:46:22.980 --> 00:46:25.770
+>> Yep. And Haskell Weekly is brought to you by I.T. Pro
+
+1056
+00:46:25.770 --> 00:46:28.530
+T.V. an A C I learning company and our
+
+1057
+00:46:28.530 --> 00:46:31.290
+employer. They would like to offer you 30%
+
+1058
+00:46:31.290 --> 00:46:33.910
+off your subscription by using promo
+
+1059
+00:46:33.910 --> 00:46:36.410
+code Haskell Weekly 30 at
+
+1060
+00:46:36.420 --> 00:46:39.320
+checkout. Um, so if you're ever interested in
+
+1061
+00:46:39.330 --> 00:46:42.300
+I.T. cybersecurity training, you know
+
+1062
+00:46:42.380 --> 00:46:45.140
+we have anything and everything you need. So
+
+1063
+00:46:45.150 --> 00:46:48.040
+check it out if you're interested. But I think that about does it
+
+1064
+00:46:48.040 --> 00:46:50.690
+for us. Taylor and Sandy? Yeah,
+
+1065
+00:46:51.280 --> 00:46:54.060
+>> sure does. So thanks for joining us. And we'll see you
+
+1066
+00:46:54.060 --> 00:46:54.870
+next week.
+
+1067
+00:46:54.880 --> 00:46:55.710
+>> Peace.
