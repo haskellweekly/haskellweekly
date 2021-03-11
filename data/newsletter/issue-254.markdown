@@ -24,4 +24,6 @@ undefined
 
 ## Call for participation
 
-undefined
+-   [haskell-language-server: Possible to pass options to HLint?](https://github.com/haskell/haskell-language-server/issues/1509)
+-   [sbv: Faster allSat](https://github.com/LeventErkok/sbv/issues/580)
+-   [striot: CompileIoT: generate docker-compose.file](https://github.com/striot/striot/issues/126)
