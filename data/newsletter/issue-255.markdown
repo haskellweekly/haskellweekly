@@ -4,7 +4,8 @@ This is a weekly summary of what's going on in its community.
 
 ## Featured
 
-undefined
+- [Supercharge your handles with phantom types](https://luctielen.com/posts/supercharge_your_handles_with_phantom_types/) by Luc Tielen
+  > In this article, I show how to use phantom types in combination with the "Handle pattern" to create more type-safe and user-friendly APIs in Haskell.
 
 ## Jobs
 
