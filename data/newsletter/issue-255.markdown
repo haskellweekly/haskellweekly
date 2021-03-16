@@ -6,6 +6,7 @@ This is a weekly summary of what's going on in its community.
 
 - [Supercharge your handles with phantom types](https://luctielen.com/posts/supercharge_your_handles_with_phantom_types/) by Luc Tielen
   > In this article, I show how to use phantom types in combination with the "Handle pattern" to create more type-safe and user-friendly APIs in Haskell.
+
 - [(((Wait a moment .) .) .) - Composing Functions with Multiple Arguments](https://ubikium.gitlab.io/portfolio/2021-03-13-wait-a-moment.html) by Ubikium
   > A meme I saw reminded me of different ways to compose a function with more than one arguments before forwarding the result to other arguments.
 
