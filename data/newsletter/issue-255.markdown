@@ -27,4 +27,7 @@ undefined
 
 ## Call for participation
 
-undefined
+-   [haskell-language-server: Suggestion: Use CiInterface as completion item kind for typeclasses](https://github.com/haskell/haskell-language-server/issues/1581)
+-   [password: change CI badges from Travis CI to GitHub Actions](https://github.com/cdepillabout/password/issues/47)
+-   [text-ascii: Rename 'fromBytestring'](https://github.com/kozross/text-ascii/issues/23)
+-   [unison: Allow multiple commas between elements of a list, and allow a trailing comma](https://github.com/unisonweb/unison/issues/1841)
