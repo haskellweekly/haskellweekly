@@ -5,7 +5,7 @@ This is a weekly summary of what's going on in its community.
 ## Featured
 
 - [Weekly News for Busy Devs](https://programmingdigest.net/?utm_medium=email&utm_campaign=2020-05-promo&utm_source=haskell) by Jakub Chodounsky (ad)
-  > Programming Digest is a weekly curated newsletter with the five most interesting stories in programming, data, and tech️.
+  > Programming Digest is a weekly curated newsletter with the five most interesting stories in programming, data, and tech.
 
 - [The doomsday machine](https://tech.fretlink.com/the-doomsday-machine/) by Clément Delafargue
   > Ah, the do-notation. Is it good, is it bad; who knows? It's good for beginners, it's bad for beginners. It's considered harmful.
@@ -72,7 +72,7 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
   > The Overloaded:Unit is the third and the last of the new features of recent overloaded 0.2.1 release.
 
 - [Types vs. datatypes vs. typeclasses in Haskell](https://jesseevers.com/haskell-types/) by Jesse Evers
-  > There are three consecutive chapters in HPFP named Datatypes, Types, and Typeclasses. Those all sound very similar―in this article, I attempt to explain the differences between them.
+  > There are three consecutive chapters in HPFP named Datatypes, Types, and Typeclasses. Those all sound very similar --- in this article, I attempt to explain the differences between them.
 
 - [Why I use typed functional programming](http://luizsol.com/why-functional-programming/) by Luiz Sol
   > Functional programming languages and architectures provides many features that offer, in my opinion, more benefits than disadvantages when compared to their imperative counterparts.

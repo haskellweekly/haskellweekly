@@ -8,7 +8,7 @@ This is a weekly summary of what's going on in its community.
   > Featuring Simon Peyton Jones about Haskell Foundation, Alexander Granin's "Functional Architecture and Design" book, ImpurePics exclusive content, aeson library review, and much more!
 
 - [Complicated Haskell Words - Isomorphism](https://juliu.is/complicated-haskell-words-isomorphism/) by Ju Liu
-  > My goal here is to explain these terms using the simplest analogies I’ve come across.
+  > My goal here is to explain these terms using the simplest analogies I've come across.
 
 - [Composition in Trick-Taking Card Games](https://3fx.ch/blog/2020/12/03/composition-in-trick-taking-card-games/) by Ben Fiedler
   > In this blog post we dive a bit deeper into the implementation of determining trick winners, and discover a neat application of composition to solve this problem.
@@ -23,7 +23,7 @@ This is a weekly summary of what's going on in its community.
   > Here I explore some of the lesser talked about features that greatly contribute to the Haskells power, performance, and convenience.
 
 - [How would I do it in Haskell?](https://odone.io/posts/2020-11-26-how-would-i-do-it-in-haskell.html) by Riccardo Odone
-  > Since I started playing with functional programming, not only I’ve dot-chained the hell out of object-oriented code, but I often catch myself thinking: how would I do this in Haskell?
+  > Since I started playing with functional programming, not only I've dot-chained the hell out of object-oriented code, but I often catch myself thinking: how would I do this in Haskell?
 
 - [Is Haskell fast?](https://arifordsham.com/is-haskell-fast/) by Ari Fordsham
   > If you try to research this question, you might come up with confusing and contradictory answers, strongly-stated opinions, and loads of technical jargon.
@@ -48,7 +48,7 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
   > So in addition to testing whether or not our exercises compile, we'll also want to run the code the user wrote and see if it works properly!
 
 - [The Haskell Foundation](https://www.snoyman.com/blog/2020/12/haskell-foundation) by Michael Snoyman
-  > This post is not about past mistakes and regrets, though I have both. It’s about forging a path forward.
+  > This post is not about past mistakes and regrets, though I have both. It's about forging a path forward.
 
 - [Monthly Hask Anything (December 2020)](https://www.reddit.com/r/haskell/comments/k3zxqy/monthly_hask_anything_december_2020/)
   > This is your opportunity to ask any questions you feel don't deserve their own threads, no matter how small or simple they might be!

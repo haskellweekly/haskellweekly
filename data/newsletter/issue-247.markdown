@@ -11,9 +11,9 @@ This is a weekly summary of what's going on in its community.
   > After writing my blog post on building a bulletin board, I decided spend a couple of weeks and build something a bit more featureful to serve as an example of doing something a bit more complex with scotty.
 
 - [Capturing call stack with Haskell exceptions](https://maksbotan.github.io/posts/2021-01-20-callstacks.html) by Maxim Koltsov
-  > Recently I discovered a nice way to capture call stack in Haskell exceptions almost transparently, and I’m going to share it in this post.
+  > Recently I discovered a nice way to capture call stack in Haskell exceptions almost transparently, and I'm going to share it in this post.
 
-- [Choosing Haskell isn’t a stand-in for good software design](https://ozataman.medium.com/choosing-haskell-isnt-a-stand-in-for-good-software-design-7d893882f963) by Ozgun Ataman
+- [Choosing Haskell isn't a stand-in for good software design](https://ozataman.medium.com/choosing-haskell-isnt-a-stand-in-for-good-software-design-7d893882f963) by Ozgun Ataman
   > Haskell, or any other particular language for that matter, does not automatically solve all problems related to architecture and macro-level decision-making in software production.
 
 - [GHC 2021 proposal accepted](https://github.com/ghc-proposals/ghc-proposals/blob/0827f6bfc686a5388ec381107b8178bb4d684edd/proposals/0380-ghc2021.rst) by Joachim Breitner
@@ -44,7 +44,7 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
   > Where has Monday Morning Haskell been? Well, to ring in 2021, we've been making some big improvements to the permanent content on the site.
 
 - [Defunctionalizing dependent type families in Haskell](https://blog.poisson.chat/posts/2021-01-16-dependent-fcfs.html) by Li-yao Xia
-  > The challenge we’ll face in this post is to do type-level pattern-matching on GADTs indexed by type families.
+  > The challenge we'll face in this post is to do type-level pattern-matching on GADTs indexed by type families.
 
 - [EDE a template engine](https://qnikst.brick.do/2021-01-17_ede_a_template_engine) by Alexander Vershilov
   > Today I want to describe the library we use at work and why do I use that.

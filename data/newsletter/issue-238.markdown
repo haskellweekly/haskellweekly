@@ -11,13 +11,13 @@ This is a weekly summary of what's going on in its community.
   > Monadic and early cut-off? Use a sequence of sets.
 
 - [Episode 31: Simplify Deriving](https://haskellweekly.news/episode/31.html) by Haskell Weekly Podcast
-  > Can Haskell’s deriving mechanism be simplified? Cody Goodman, Cameron Gera, and Taylor Fausak walk through the changes that Matt Parsons suggested.
+  > Can Haskell's deriving mechanism be simplified? Cody Goodman, Cameron Gera, and Taylor Fausak walk through the changes that Matt Parsons suggested.
 
 - [Functional Algorithm Design, Part 0](https://blog.sigplan.org/2020/11/17/functional-algorithm-design-part-0/) by Jeremy Gibbons
   > How do you get from a fresh problem statement to an algorithmic solution?
 
 - [Shuffling things up: Applying Group Theory in Advent of Code](https://blog.jle.im/entry/shuffling-things-up.html) by Justin Le
-  > To kick off the season, I’ve decided to write about one of my favorite puzzles from Advent of Code 2019 – Day 22: Slam Shuffle.
+  > To kick off the season, I've decided to write about one of my favorite puzzles from Advent of Code 2019 --- Day 22: Slam Shuffle.
 
 - [Superpowered keyword args in Haskell](https://www.kovach.me/Superpowered_keyword_args_in_Haskell.html) by Ben Kovach
   > This blog post is about how to deal with the growth of the humble function.

@@ -14,16 +14,16 @@ This is a weekly summary of what's going on in its community.
   > When making WireWorld we can reuse large parts (with some trivial changes) of the UI made for the implementation of Conway's Game of Life.
 
 - [Accidentally-Quadratic HashMaps](http://jackkelly.name/blog/archives/2020/10/16/accidentally-quadratic_hashmaps/index.html) by Jack Kelly
-  > Unless you’re careful, using `foldMap` to build `HashMap`s can take O(n^2) time.
+  > Unless you're careful, using `foldMap` to build `HashMap`s can take O(n^2) time.
 
 - [Handling of Uncaught Exceptions in Haskell](https://serokell.io/blog/uncaught-exception-handling) by Ivan Gromakovsky
-  > When your Haskell application’s thread throws an exception that does not get caught, the Haskell runtime system will handle it and print it based on the `Show` instance.
+  > When your Haskell application's thread throws an exception that does not get caught, the Haskell runtime system will handle it and print it based on the `Show` instance.
 
 - [Haskell: The Bad Parts, part 1](https://www.snoyman.com/blog/2020/10/haskell-bad-parts-1) by Michael Snoyman
-  > Haskell is a great language with some warts. Ideally, we’d get rid of the warts. Second to that: let’s be honest about the warts and warn people away from them.
+  > Haskell is a great language with some warts. Ideally, we'd get rid of the warts. Second to that: let's be honest about the warts and warn people away from them.
 
 - [Plucking In, Plucking Out](https://www.parsonsmatt.org/2020/10/27/plucking_in_plucking_out.html) by Matt Parsons
-  > In The Trouble With Typed Errors, I argue that an error type that is too big is a major problem. But I’ve never really been bothered with an `env` type that is too big. Why is that?
+  > In The Trouble With Typed Errors, I argue that an error type that is too big is a major problem. But I've never really been bothered with an `env` type that is too big. Why is that?
 
 - [Tagged is not a Newtype](https://tech.freckle.com/2020/10/26/tagged-is-not-a-newtype/) by Evan Borden
   > As learners get deeper into the ecosystem, as they explore more GHC extensions, they find `Tagged` and `DataKinds`.
