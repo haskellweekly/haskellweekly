@@ -69,6 +69,7 @@ episodes = do
     , episode37
     , episode38
     , episode39
+    , episode40
     ]
   checkGuids validEpisodes Set.empty
   checkNumbers validEpisodes 1
@@ -700,3 +701,17 @@ episode39 = Episode.Episode
   <*> Size.fromNatural 48042902
   <*> Summary.fromText "Special guest Sandy Maguire talks with us about using Haskell Wingman for program synthesis, designing bulletproof abstractions with algebra, wrangling type level programming in Haskell, and managing effects with his Polysemy library."
   <*> Title.fromText "Haskell Wingman with Sandy Maguire"
+
+episode40 :: Either String Episode.Episode
+episode40 = Episode.Episode
+  <$> Articles.fromList
+    [ "https://www.chatwisely.com"
+    , "https://www.patreon.com/chatwisely"
+    ]
+  <*> Date.fromGregorian 2021 3 17
+  <*> Duration.fromTimestamp 46 39
+  <*> Guid.fromText "8411df65-0665-4649-8279-b1abe405e040"
+  <*> Number.fromNatural 40
+  <*> Size.fromNatural 46498026
+  <*> Summary.fromText "Special guests Michael Litchard and Brian Hurt talk with us about their new social networking site Chat Wisely. We hear about their experience using Haskell not only on the backend but also on the frontend through GHCJS."
+  <*> Title.fromText "Chat Wisely"
