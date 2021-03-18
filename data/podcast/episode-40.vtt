@@ -1,5 +1,4125 @@
 WEBVTT
 
 1
-00:00:00.000 --> 00:00:05.000
-[No transcript yet.]
+00:00:00.000 --> 00:00:01.000
+[Automatically transcribed. Not edited yet. Contains many errors.]
+
+2
+00:00:04.840 --> 00:00:07.370
+>> Hello
+
+3
+00:00:07.380 --> 00:00:09.990
+>> and welcome to the Haskell weekly podcast. This is a show about
+
+4
+00:00:09.990 --> 00:00:12.820
+Haskell, a purely functional programming language.
+
+5
+00:00:12.830 --> 00:00:15.720
+I'm your host, Cameron Gara, an engineer here at
+
+6
+00:00:15.730 --> 00:00:18.570
+I.T.. Pro T.V. with me today is Taylor
+
+7
+00:00:18.570 --> 00:00:21.530
+Fausak, one of the engineers on my team. Thanks for joining
+
+8
+00:00:21.530 --> 00:00:22.210
+me today, Taylor.
+
+9
+00:00:22.220 --> 00:00:24.940
+>> Yeah. I'm happy to be here, Cam. Also excited
+
+10
+00:00:24.940 --> 00:00:27.930
+because we have not one but two special guests
+
+11
+00:00:27.930 --> 00:00:30.910
+with us today. We've got Michael
+
+12
+00:00:30.910 --> 00:00:33.620
+Bouchard and Brian Hurt both from
+
+13
+00:00:33.630 --> 00:00:36.210
+chat wisely. Thanks for joining us today. Michael and
+
+14
+00:00:36.210 --> 00:00:38.350
+Brian. Good things here. Yeah,
+
+15
+00:00:38.360 --> 00:00:39.180
+>> thanks for having us.
+
+16
+00:00:39.940 --> 00:00:42.790
+>> So, Michael, you are the CEO
+
+17
+00:00:42.790 --> 00:00:45.770
+of chat wisely. Could you get us acquainted?
+
+18
+00:00:45.780 --> 00:00:48.710
+What is chat wisely. And I guess. First, who are you?
+
+19
+00:00:48.720 --> 00:00:49.660
+Tell us about yourself.
+
+20
+00:00:50.540 --> 00:00:53.090
+>> Oh, sure. Um uh, I
+
+21
+00:00:53.090 --> 00:00:56.080
+am a software engineer.
+
+22
+00:00:56.090 --> 00:00:59.080
+Uh, that, uh, met Brian when we're
+
+23
+00:00:59.080 --> 00:01:02.060
+working, uh, at a different company. That
+
+24
+00:01:02.070 --> 00:01:04.570
+was also using
+
+25
+00:01:04.580 --> 00:01:07.550
+Haskell. And that's where we got the
+
+26
+00:01:07.560 --> 00:01:10.370
+idea for chat wisely.
+
+27
+00:01:11.240 --> 00:01:14.230
+That's where I was enamored with
+
+28
+00:01:14.230 --> 00:01:16.060
+Brian's idea. Um
+
+29
+00:01:16.640 --> 00:01:19.510
+uh, for chat wisely, uh, which
+
+30
+00:01:19.510 --> 00:01:21.560
+is a member supported mini blog.
+
+31
+00:01:22.340 --> 00:01:25.280
+Um uh, social network.
+
+32
+00:01:25.290 --> 00:01:26.660
+That's currently an open beta.
+
+33
+00:01:27.440 --> 00:01:30.190
+>> Okay. And many blogs, social network.
+
+34
+00:01:30.200 --> 00:01:32.900
+Is that something like Twitter? Mastodon, That type of
+
+35
+00:01:32.900 --> 00:01:33.250
+thing.
+
+36
+00:01:33.260 --> 00:01:36.160
+>> Oh, yeah, Well, it's, uh,
+
+37
+00:01:36.540 --> 00:01:39.500
+uh, something like Twitter. Except, uh, one
+
+38
+00:01:39.500 --> 00:01:42.320
+of the main differences is how we handle, uh,
+
+39
+00:01:42.330 --> 00:01:45.210
+the post chain, um, with
+
+40
+00:01:45.220 --> 00:01:47.690
+Twitter. Uh, we see
+
+41
+00:01:47.690 --> 00:01:50.540
+a particular problem with Twitter is is being
+
+42
+00:01:50.540 --> 00:01:53.420
+able to follow and manage extended
+
+43
+00:01:53.420 --> 00:01:56.380
+conversations. So the idea we came
+
+44
+00:01:56.380 --> 00:01:59.000
+up with was, uh,
+
+45
+00:01:59.010 --> 00:02:01.580
+to be able to
+
+46
+00:02:01.590 --> 00:02:04.290
+open up a larger
+
+47
+00:02:04.300 --> 00:02:07.230
+hosts hidden behind smaller post that looked like
+
+48
+00:02:07.230 --> 00:02:09.260
+twitter. Looks like those Twitter,
+
+49
+00:02:09.940 --> 00:02:11.950
+um, tweets,
+
+50
+00:02:12.440 --> 00:02:14.150
+Okay. And
+
+51
+00:02:15.940 --> 00:02:18.660
+>> the other big Sorry. The other big thing,
+
+52
+00:02:18.660 --> 00:02:21.520
+and probably even more importantly, is how
+
+53
+00:02:21.520 --> 00:02:24.160
+we're actually going to fund it. Um,
+
+54
+00:02:25.040 --> 00:02:27.870
+our plan is, rather than depending, depending upon
+
+55
+00:02:27.870 --> 00:02:30.810
+advertising revenue, we're just going to charge a small
+
+56
+00:02:30.810 --> 00:02:33.400
+amount of buck a month, basically nothing.
+
+57
+00:02:33.410 --> 00:02:35.600
+But that's enough that it
+
+58
+00:02:35.600 --> 00:02:37.750
+changes all of
+
+59
+00:02:37.750 --> 00:02:40.710
+the incentives that
+
+60
+00:02:40.720 --> 00:02:43.680
+the company has. And you tell me how you tell me
+
+61
+00:02:43.680 --> 00:02:46.430
+what incentives the company has. You tell me how the company makes
+
+62
+00:02:46.430 --> 00:02:48.860
+money. I will tell you how the company will behave,
+
+63
+00:02:49.340 --> 00:02:52.150
+right? And so this has been something I've
+
+64
+00:02:52.150 --> 00:02:54.960
+been sort of muttering in my cups about for a couple of
+
+65
+00:02:54.960 --> 00:02:57.860
+years. Now that you know the problem with
+
+66
+00:02:57.860 --> 00:03:00.330
+Facebook and Twitter and all of the
+
+67
+00:03:00.330 --> 00:03:03.180
+spying and the trolls and everything has
+
+68
+00:03:03.180 --> 00:03:05.360
+been because their business model is wrong,
+
+69
+00:03:05.840 --> 00:03:08.450
+fix the business model and the
+
+70
+00:03:08.450 --> 00:03:10.660
+behavior of the company fixes itself.
+
+71
+00:03:11.340 --> 00:03:14.270
+Yeah, And so I met Michael
+
+72
+00:03:14.270 --> 00:03:16.260
+and I was, you know, uh,
+
+73
+00:03:16.840 --> 00:03:19.590
+muttering in my cups one day and he was like,
+
+74
+00:03:19.600 --> 00:03:21.110
+Sounds like a great idea. Let's do
+
+75
+00:03:21.110 --> 00:03:23.260
+>> it.
+
+76
+00:03:23.940 --> 00:03:26.460
+And that sounds like a great idea to me as well.
+
+77
+00:03:27.340 --> 00:03:30.160
+Mhm. Um, so
+
+78
+00:03:30.170 --> 00:03:32.710
+yeah. So, Brian, could you give us just a brief
+
+79
+00:03:32.710 --> 00:03:35.480
+introduction to the technical side of things as well?
+
+80
+00:03:35.490 --> 00:03:38.260
+>> Okay, I'm Brian Hurt. I'm the cto
+
+81
+00:03:38.270 --> 00:03:41.190
+of chat wisely because I won the coin
+
+82
+00:03:41.190 --> 00:03:43.440
+flip. And so I got,
+
+83
+00:03:43.450 --> 00:03:46.400
+uh and
+
+84
+00:03:46.410 --> 00:03:49.310
+yeah, chat wisely is built
+
+85
+00:03:49.310 --> 00:03:52.150
+in Haskell. Uh, we're using Haskell on the back
+
+86
+00:03:52.150 --> 00:03:55.030
+end. Um, a lot of servants. Some Yes.
+
+87
+00:03:55.030 --> 00:03:57.940
+Owed some more. You know more. Yea. So we'll be coming.
+
+88
+00:03:57.950 --> 00:04:00.780
+Um and,
+
+89
+00:04:00.790 --> 00:04:03.620
+uh, postgres is the database and
+
+90
+00:04:03.620 --> 00:04:06.550
+G.H.C. Js and reflexes. The front end
+
+91
+00:04:07.340 --> 00:04:09.650
+and we are loving Haskell.
+
+92
+00:04:10.240 --> 00:04:12.480
+>> I should hope so.
+
+93
+00:04:12.490 --> 00:04:15.330
+>> Yeah. Would you guys kind of expand
+
+94
+00:04:15.330 --> 00:04:17.650
+upon your experience with G.H.C. gs
+
+95
+00:04:18.140 --> 00:04:19.760
+and kind of why he chose it.
+
+96
+00:04:21.140 --> 00:04:23.840
+>> So you know what? You know,
+
+97
+00:04:23.840 --> 00:04:26.520
+the question is always what's the right tool for the
+
+98
+00:04:26.520 --> 00:04:29.410
+job And the, you know,
+
+99
+00:04:29.420 --> 00:04:32.350
+the engineering is always about trade offs. What do you
+
+100
+00:04:32.350 --> 00:04:35.120
+gain? What do you lose? There is no such thing as a perfect
+
+101
+00:04:35.120 --> 00:04:38.070
+solution. Um, and
+
+102
+00:04:38.070 --> 00:04:40.720
+so if you're going
+
+103
+00:04:40.730 --> 00:04:42.750
+to do a more static web
+
+104
+00:04:42.760 --> 00:04:45.640
+website, I would I would probably recommend
+
+105
+00:04:45.640 --> 00:04:48.630
+a soda as the website generator Really like it
+
+106
+00:04:48.640 --> 00:04:51.120
+for, you know, static server side rendering.
+
+107
+00:04:51.130 --> 00:04:53.990
+But, you know, if you need the
+
+108
+00:04:53.990 --> 00:04:56.840
+dynamism of the the front
+
+109
+00:04:56.840 --> 00:04:59.640
+end, you know, complex,
+
+110
+00:04:59.650 --> 00:05:02.650
+dynamic changing of
+
+111
+00:05:02.660 --> 00:05:05.580
+web app. Um, then
+
+112
+00:05:05.590 --> 00:05:08.510
+G.H.C. Js and, um, reflex are
+
+113
+00:05:08.510 --> 00:05:10.890
+good solutions, all right?
+
+114
+00:05:11.390 --> 00:05:14.330
+>> And I mean, there are solid business reasons to choose
+
+115
+00:05:14.340 --> 00:05:17.230
+J. C. J s and reflex, as opposed to say no
+
+116
+00:05:17.230 --> 00:05:19.920
+Js when you're two guys and your
+
+117
+00:05:19.920 --> 00:05:21.750
+labor, your labor budget is zero.
+
+118
+00:05:22.140 --> 00:05:24.890
+Uh, and you need to
+
+119
+00:05:24.890 --> 00:05:27.700
+iterate quickly, and you're building something that you
+
+120
+00:05:27.710 --> 00:05:30.650
+don't know how to. I mean, this is we started
+
+121
+00:05:30.660 --> 00:05:33.200
+not knowing how to build a social network. Um
+
+122
+00:05:33.210 --> 00:05:35.820
+uh, and, um, it was,
+
+123
+00:05:35.830 --> 00:05:38.560
+uh, the type system of Haskell.
+
+124
+00:05:39.040 --> 00:05:41.700
+Um, that allowed us
+
+125
+00:05:41.710 --> 00:05:44.350
+to get stuff out
+
+126
+00:05:44.360 --> 00:05:46.720
+quickly. Figure out
+
+127
+00:05:46.890 --> 00:05:49.760
+where the happy Path was.
+
+128
+00:05:50.240 --> 00:05:53.190
+Um, cheaply. Um, and we don't spend a
+
+129
+00:05:53.190 --> 00:05:55.540
+lot of time on unit
+
+130
+00:05:55.540 --> 00:05:58.480
+tests, um, but rather
+
+131
+00:05:58.550 --> 00:06:01.540
+getting getting the product out. Um,
+
+132
+00:06:01.540 --> 00:06:04.540
+and this is where Haskell really shines from a
+
+133
+00:06:04.540 --> 00:06:05.260
+business perspective.
+
+134
+00:06:06.240 --> 00:06:09.070
+>> Yeah, I I would go. You
+
+135
+00:06:09.070 --> 00:06:11.970
+are. If you're not using Haskell on the back
+
+136
+00:06:11.970 --> 00:06:14.760
+end, at least you are almost certainly
+
+137
+00:06:14.770 --> 00:06:17.460
+messing up. Um,
+
+138
+00:06:18.040 --> 00:06:20.660
+it is Haskell on the back end to such a
+
+139
+00:06:20.660 --> 00:06:23.560
+strong proposition. Um,
+
+140
+00:06:24.940 --> 00:06:27.900
+the advantage of doing Haskell on the front end
+
+141
+00:06:27.900 --> 00:06:30.890
+and doing G.H.C. Js The biggest advantage
+
+142
+00:06:30.980 --> 00:06:33.910
+is you can share code between the front end
+
+143
+00:06:33.910 --> 00:06:36.730
+and the back end. And
+
+144
+00:06:36.740 --> 00:06:39.680
+so what happens? And I've seen this at other you know,
+
+145
+00:06:39.690 --> 00:06:41.980
+at other places I've worked
+
+146
+00:06:41.990 --> 00:06:44.850
+is you know, you You you
+
+147
+00:06:44.850 --> 00:06:47.840
+get a If you're using Haskell on both
+
+148
+00:06:47.840 --> 00:06:50.700
+front and back end, you drive. You take a
+
+149
+00:06:50.700 --> 00:06:53.490
+feature and you drive it home. Soup to nuts, right? You do the
+
+150
+00:06:53.490 --> 00:06:56.440
+back end, you do the front end, you do the database. You
+
+151
+00:06:56.440 --> 00:06:59.140
+do, you know, um, you do
+
+152
+00:06:59.140 --> 00:07:02.060
+everything and then you go here. It's done
+
+153
+00:07:02.740 --> 00:07:04.960
+in other environments that I've worked in.
+
+154
+00:07:05.340 --> 00:07:07.900
+You know, when you have different languages. It,
+
+155
+00:07:07.910 --> 00:07:10.790
+you know, in the front end versus the back end.
+
+156
+00:07:10.800 --> 00:07:13.750
+It sorts out that there will be front end people, and there will
+
+157
+00:07:13.750 --> 00:07:16.670
+be back into people. And what will happen is
+
+158
+00:07:16.680 --> 00:07:19.160
+the back end. People will enter. You will will
+
+159
+00:07:19.160 --> 00:07:21.660
+implement, you know, stuff for this feature
+
+160
+00:07:22.040 --> 00:07:25.020
+and the front end people will go. Well, we're not. You know, the back
+
+161
+00:07:25.020 --> 00:07:27.930
+end isn't here yet. We can't start developing until the front,
+
+162
+00:07:27.940 --> 00:07:30.860
+the back end, is there and then they'll forget about it.
+
+163
+00:07:31.540 --> 00:07:34.360
+And then I'm not kidding. I actually have
+
+164
+00:07:34.360 --> 00:07:37.350
+experiences of five years later. Management's going.
+
+165
+00:07:37.350 --> 00:07:40.240
+Whatever happened to this feature that, like we
+
+166
+00:07:40.240 --> 00:07:43.080
+did work on, like, five years ago? What
+
+167
+00:07:43.090 --> 00:07:46.060
+back in people are like, it's there. It works in the front end of people are
+
+168
+00:07:46.060 --> 00:07:49.060
+going What feature or right? First
+
+169
+00:07:49.060 --> 00:07:51.990
+I've seen it go the other way. This is not, you know, this is
+
+170
+00:07:52.000 --> 00:07:54.980
+you know, this is just how humans work. Once you
+
+171
+00:07:54.980 --> 00:07:57.750
+start segregating into two groups,
+
+172
+00:07:57.760 --> 00:08:00.700
+it becomes the sharks and the jets, whether you wanted
+
+173
+00:08:00.700 --> 00:08:03.620
+to be or not, right and so just
+
+174
+00:08:03.630 --> 00:08:06.430
+just being able to go. Okay? You are in
+
+175
+00:08:06.430 --> 00:08:09.270
+charge of this feature soup to not to
+
+176
+00:08:09.270 --> 00:08:12.110
+do it means it gets done. And you
+
+177
+00:08:12.110 --> 00:08:14.860
+don't have all of this stuff hanging fire and handoff
+
+178
+00:08:14.860 --> 00:08:17.650
+issues and so on. Um,
+
+179
+00:08:18.340 --> 00:08:21.210
+and there's a huge advantage to, I mean,
+
+180
+00:08:21.210 --> 00:08:24.090
+one of the biggest pieces of code that gets shared between the front
+
+181
+00:08:24.090 --> 00:08:26.920
+and the back end. Our is the
+
+182
+00:08:26.920 --> 00:08:29.920
+types of the data you're sending back
+
+183
+00:08:29.920 --> 00:08:32.850
+and forth. So it's very nice
+
+184
+00:08:32.850 --> 00:08:35.160
+to just go. You know, we have a common
+
+185
+00:08:35.160 --> 00:08:37.720
+schema directory that has all of
+
+186
+00:08:37.720 --> 00:08:40.620
+the common directories. Everything that's shared
+
+187
+00:08:40.620 --> 00:08:43.280
+between the front and the back end and the
+
+188
+00:08:43.280 --> 00:08:46.000
+schema is just all of those data types that are
+
+189
+00:08:46.000 --> 00:08:48.990
+boasts the front end and the back end. Have and
+
+190
+00:08:48.990 --> 00:08:51.970
+you go. Okay, here's the two. You know, this is the type. Here's the
+
+191
+00:08:51.970 --> 00:08:54.840
+two. Jason, here's the from Jason. Do
+
+192
+00:08:54.840 --> 00:08:57.360
+the obvious quick check test to
+
+193
+00:08:57.360 --> 00:09:00.340
+go. If we encode it to Jason and decode it, we should
+
+194
+00:09:00.340 --> 00:09:02.900
+get the same thing back out again. Right?
+
+195
+00:09:02.940 --> 00:09:05.550
+And now you don't have a
+
+196
+00:09:05.550 --> 00:09:07.850
+communications problem of,
+
+197
+00:09:08.440 --> 00:09:11.400
+you know of of the back end, sending one saying in
+
+198
+00:09:11.400 --> 00:09:13.540
+the front end, expecting something else
+
+199
+00:09:13.570 --> 00:09:16.500
+>> exactly right. So we we are
+
+200
+00:09:16.500 --> 00:09:19.130
+currently in that situation you were describing Where
+
+201
+00:09:19.210 --> 00:09:22.200
+Cam and I both primarily work on the back end
+
+202
+00:09:22.250 --> 00:09:25.040
+and we are using high school. So we're doing something right
+
+203
+00:09:25.040 --> 00:09:27.990
+there, and our API is in servant. So we have,
+
+204
+00:09:28.000 --> 00:09:31.000
+you know, a well type description of it. And on the front
+
+205
+00:09:31.000 --> 00:09:33.940
+end, we're using l'm rather than G.H.C. Js. But the
+
+206
+00:09:33.950 --> 00:09:36.740
+principle is the same. You know, we're using a strongly typed language, so we have to
+
+207
+00:09:36.740 --> 00:09:39.650
+decode it. And yeah, we have walked into that situation a
+
+208
+00:09:39.650 --> 00:09:42.600
+couple of times where the back end team has developed something, and
+
+209
+00:09:42.600 --> 00:09:45.560
+then the front and team doesn't know that it's finished. They think they're still waiting on
+
+210
+00:09:45.560 --> 00:09:48.540
+it or vice versa. And, uh, it would be nice
+
+211
+00:09:48.540 --> 00:09:51.090
+to be able to go into end with one language.
+
+212
+00:09:51.100 --> 00:09:53.790
+Um, but I am curious. Uh, is there a
+
+213
+00:09:53.790 --> 00:09:56.270
+particular reason you all chose G.H.C. Js
+
+214
+00:09:56.270 --> 00:09:58.950
+versus, uh, you know, there are many languages in here,
+
+215
+00:09:58.950 --> 00:10:01.710
+like, uh, Elmore peer script or
+
+216
+00:10:01.710 --> 00:10:02.960
+paste or fate or whatever.
+
+217
+00:10:04.740 --> 00:10:05.830
+>> Uh, a
+
+218
+00:10:05.830 --> 00:10:08.580
+>> lot of it was a lot of it was
+
+219
+00:10:08.580 --> 00:10:11.370
+just straight up familiarity. Both of us had worked with
+
+220
+00:10:11.370 --> 00:10:13.950
+G.H.C. Js and reflex before,
+
+221
+00:10:13.960 --> 00:10:16.760
+and so, um
+
+222
+00:10:17.240 --> 00:10:19.670
+I will admit to a little bit of pure script
+
+223
+00:10:19.670 --> 00:10:22.550
+envy. Um, there are, But
+
+224
+00:10:22.550 --> 00:10:25.420
+there are tradeoffs here, right? It's always, you
+
+225
+00:10:25.420 --> 00:10:28.370
+know, what do you gain? What do you lose? Um,
+
+226
+00:10:28.380 --> 00:10:28.730
+I had
+
+227
+00:10:28.730 --> 00:10:31.460
+>> some experience with pure script and my only problem with your
+
+228
+00:10:31.460 --> 00:10:34.360
+script Besides, the fact that you cannot share,
+
+229
+00:10:35.040 --> 00:10:37.880
+uh, data types is that it's just like
+
+230
+00:10:37.880 --> 00:10:38.850
+Haskell until it isn't,
+
+231
+00:10:39.640 --> 00:10:41.630
+um, and
+
+232
+00:10:41.640 --> 00:10:44.460
+getting getting tripped up over that
+
+233
+00:10:44.460 --> 00:10:47.200
+just just there's too much friction. Um,
+
+234
+00:10:47.210 --> 00:10:50.050
+and and what you get in exchange, this didn't seem
+
+235
+00:10:50.060 --> 00:10:52.440
+worth it. And not knowing
+
+236
+00:10:52.450 --> 00:10:54.990
+how to build what we were going to build,
+
+237
+00:10:55.000 --> 00:10:57.890
+um, I found that reflex
+
+238
+00:10:57.890 --> 00:11:00.260
+would give us the flexibility to change
+
+239
+00:11:00.260 --> 00:11:03.260
+course if we needed to. And we have needed to on
+
+240
+00:11:03.260 --> 00:11:04.600
+a number of occasions
+
+241
+00:11:04.690 --> 00:11:06.840
+>> or the re flexibility, you might say,
+
+242
+00:11:06.850 --> 00:11:09.600
+>> Yeah. I mean, for for me, it's
+
+243
+00:11:09.610 --> 00:11:12.530
+the idea of the shared data types between the front and the
+
+244
+00:11:12.530 --> 00:11:15.380
+back, and it's just awesome because
+
+245
+00:11:15.380 --> 00:11:18.360
+we've had kind of that issue where, you know, for generically
+
+246
+00:11:18.360 --> 00:11:21.080
+deriving something, we changed the name of a record access er
+
+247
+00:11:21.080 --> 00:11:24.070
+and oh, the front is broken or a
+
+248
+00:11:24.070 --> 00:11:26.860
+mobile app was broken for two months.
+
+249
+00:11:26.870 --> 00:11:29.410
+We had no idea, You know, like those kind of
+
+250
+00:11:29.410 --> 00:11:32.170
+things. You know, obviously
+
+251
+00:11:32.180 --> 00:11:34.760
+there's test cases for that kind of stuff, and we're
+
+252
+00:11:35.240 --> 00:11:38.120
+have learned from our mistakes. But, you know, it's kind of that
+
+253
+00:11:38.120 --> 00:11:41.100
+thing where if we could just have the same data
+
+254
+00:11:41.100 --> 00:11:44.030
+types front and back end, it's not, You know,
+
+255
+00:11:44.030 --> 00:11:46.160
+we don't have to worry about decoding and encoding
+
+256
+00:11:46.840 --> 00:11:49.620
+changes. It would break production running
+
+257
+00:11:49.620 --> 00:11:50.200
+sites.
+
+258
+00:11:51.540 --> 00:11:54.360
+>> Yeah, and I'm curious for y'all. Maybe chat
+
+259
+00:11:54.360 --> 00:11:57.040
+wisely hasn't been around long enough to have run into this
+
+260
+00:11:57.040 --> 00:12:00.020
+problem. But maybe you all are familiar with it. So even
+
+261
+00:12:00.020 --> 00:12:02.560
+with code sharing, do you still worry
+
+262
+00:12:02.560 --> 00:12:05.520
+about Is there like an older version of the client
+
+263
+00:12:05.520 --> 00:12:08.510
+out there that expects the old schema and we updated it?
+
+264
+00:12:08.510 --> 00:12:11.200
+And it's new on the back end and new on the front end. But they haven't
+
+265
+00:12:11.210 --> 00:12:12.350
+refreshed the page yet.
+
+266
+00:12:13.240 --> 00:12:14.230
+>> Brian
+
+267
+00:12:14.230 --> 00:12:17.050
+>> came up with a great idea very early on to deal with
+
+268
+00:12:17.060 --> 00:12:17.400
+this.
+
+269
+00:12:17.410 --> 00:12:18.550
+>> Let's hear it.
+
+270
+00:12:19.240 --> 00:12:21.890
+>> Okay, so the basic idea is you need to have
+
+271
+00:12:21.890 --> 00:12:24.290
+version schemas. Um,
+
+272
+00:12:24.300 --> 00:12:27.070
+the nice thing. One of the nice things about
+
+273
+00:12:27.070 --> 00:12:30.030
+servant, one of the many, many nice things about servant
+
+274
+00:12:30.040 --> 00:12:32.970
+is you know, you sit there and you go. This endpoint has
+
+275
+00:12:32.970 --> 00:12:35.770
+the function here is to function so you can
+
+276
+00:12:35.770 --> 00:12:38.670
+have multiple different You can have,
+
+277
+00:12:38.670 --> 00:12:41.640
+you know, V one schema and V two schema
+
+278
+00:12:41.650 --> 00:12:44.570
+and you know V three schema. And if the function if
+
+279
+00:12:44.570 --> 00:12:47.520
+that endpoint hasn't changed, you just use the same function
+
+280
+00:12:47.520 --> 00:12:50.300
+in all three places. And so our
+
+281
+00:12:50.300 --> 00:12:52.950
+plan for doing that is you
+
+282
+00:12:52.950 --> 00:12:55.850
+just support multiple versions of the schema,
+
+283
+00:12:56.240 --> 00:12:58.920
+Um, you know, at the same
+
+284
+00:12:58.920 --> 00:13:01.790
+time. And it's okay, these in points are
+
+285
+00:13:01.790 --> 00:13:04.630
+different. And here is the old in point that
+
+286
+00:13:04.630 --> 00:13:07.380
+supports the old schema. And here's the new endpoint that
+
+287
+00:13:07.380 --> 00:13:10.280
+supports the new schema. And then you can
+
+288
+00:13:10.280 --> 00:13:12.810
+still have old clients using the
+
+289
+00:13:12.810 --> 00:13:15.480
+old the old
+
+290
+00:13:15.480 --> 00:13:18.070
+API, and you can, but you can still move
+
+291
+00:13:18.070 --> 00:13:18.690
+forward.
+
+292
+00:13:19.050 --> 00:13:20.260
+>> Yeah, that's very slim.
+
+293
+00:13:21.040 --> 00:13:23.990
+>> Um, and we're doing something similar to that on on
+
+294
+00:13:23.990 --> 00:13:26.850
+the database. Where if you have this, you have sort of the same problem on the
+
+295
+00:13:26.850 --> 00:13:29.770
+database side of things right where
+
+296
+00:13:29.770 --> 00:13:32.160
+you want to be, changing the database schema.
+
+297
+00:13:32.640 --> 00:13:35.510
+Um, and don't get me started on
+
+298
+00:13:35.510 --> 00:13:38.430
+schema list. We only have an hour here. Just, um
+
+299
+00:13:38.440 --> 00:13:41.330
+just walk, walk quietly passed
+
+300
+00:13:41.330 --> 00:13:44.290
+and let's move on. Um, you want to change
+
+301
+00:13:44.290 --> 00:13:47.290
+the database schema, but you've got some servers that are
+
+302
+00:13:47.290 --> 00:13:49.980
+using the old schema and some servers that are using the new
+
+303
+00:13:49.980 --> 00:13:52.640
+schema. And so the solution
+
+304
+00:13:52.640 --> 00:13:55.420
+is, um you you
+
+305
+00:13:55.420 --> 00:13:58.140
+you basically code it so that we're using liquid
+
+306
+00:13:58.140 --> 00:14:00.900
+base and there's a specific table that liquid
+
+307
+00:14:00.900 --> 00:14:03.780
+base updates to to
+
+308
+00:14:03.780 --> 00:14:06.470
+go. These are the constraints. These are
+
+309
+00:14:06.470 --> 00:14:08.930
+the the schema changes that are in in
+
+310
+00:14:08.930 --> 00:14:11.770
+place and you can write your code
+
+311
+00:14:11.770 --> 00:14:14.690
+so that you know the nice thing about Post
+
+312
+00:14:14.690 --> 00:14:17.220
+Grad the schema changes are our
+
+313
+00:14:17.230 --> 00:14:20.130
+atomic are are transactional. So
+
+314
+00:14:20.130 --> 00:14:23.070
+your eyes are on the old scheme or you're on the new scheme and you don't have to
+
+315
+00:14:23.070 --> 00:14:25.920
+worry about what if I'm halfway in between, you can just
+
+316
+00:14:25.920 --> 00:14:28.850
+go. Has this change been applied yet? And
+
+317
+00:14:28.850 --> 00:14:31.460
+you can write What you do is you write your server
+
+318
+00:14:31.840 --> 00:14:34.730
+Stage one, you write your server to go. It supports mostly
+
+319
+00:14:34.730 --> 00:14:37.370
+old scheme and the new schema. And it just
+
+320
+00:14:37.370 --> 00:14:40.160
+goes, you know, when it hits the database, it goes,
+
+321
+00:14:40.170 --> 00:14:42.990
+you know, starts a transaction. It goes Okay. Which schema do I
+
+322
+00:14:42.990 --> 00:14:45.380
+have? Do the right thing mhm.
+
+323
+00:14:45.390 --> 00:14:48.360
+Then once, then you do a blue green
+
+324
+00:14:48.360 --> 00:14:51.270
+deployment to update everything. So
+
+325
+00:14:51.270 --> 00:14:54.260
+now everything supports opposed the old scheme and the new schema.
+
+326
+00:14:54.640 --> 00:14:57.100
+You do the database transaction to
+
+327
+00:14:57.110 --> 00:14:58.660
+implement the new schema.
+
+328
+00:14:59.640 --> 00:15:02.570
+Once that commits, every all all of the you know,
+
+329
+00:15:02.570 --> 00:15:05.410
+all of the, um, all of the web servers
+
+330
+00:15:05.420 --> 00:15:07.460
+switch over to using the new schema.
+
+331
+00:15:08.240 --> 00:15:11.150
+And then when? When it's convenient,
+
+332
+00:15:11.160 --> 00:15:13.890
+you delete the support, the old schema
+
+333
+00:15:13.890 --> 00:15:16.830
+code allowing you to simplify your code, and then the
+
+334
+00:15:16.830 --> 00:15:19.670
+next time you do a blue green deployment, you don't have to do it
+
+335
+00:15:19.670 --> 00:15:22.310
+immediately. But as you know, as you bring up new servers
+
+336
+00:15:22.310 --> 00:15:25.280
+anyways, you bring them up with I just only support
+
+337
+00:15:25.280 --> 00:15:26.750
+the new schema.
+
+338
+00:15:27.140 --> 00:15:28.660
+>> I love it. Seamless.
+
+339
+00:15:29.340 --> 00:15:32.240
+>> Yep. And so this allows you to be updating the,
+
+340
+00:15:32.250 --> 00:15:34.950
+um, you know, updating the database even
+
+341
+00:15:34.950 --> 00:15:37.560
+while you're alive and serving traffic.
+
+342
+00:15:37.940 --> 00:15:40.890
+>> Mhm. I'm curious. Uh, it sounds like
+
+343
+00:15:40.890 --> 00:15:43.850
+you're doing either something very similar or the same on the
+
+344
+00:15:43.850 --> 00:15:46.710
+front end. Is there a cut off point for you on the front end like
+
+345
+00:15:46.720 --> 00:15:49.680
+we will support clients that are up to, you know, week
+
+346
+00:15:49.680 --> 00:15:51.080
+old or a month old or whatever
+
+347
+00:15:51.090 --> 00:15:53.730
+>> um, we haven't made that decision yet.
+
+348
+00:15:53.740 --> 00:15:56.510
+Um, there
+
+349
+00:15:56.510 --> 00:15:58.850
+there's a couple of different solutions to that,
+
+350
+00:15:58.860 --> 00:16:01.360
+um, ranging from
+
+351
+00:16:01.370 --> 00:16:04.160
+nice to obnoxious. Um,
+
+352
+00:16:04.540 --> 00:16:04.870
+yeah.
+
+353
+00:16:04.870 --> 00:16:07.820
+>> I've seen some single page apps where
+
+354
+00:16:07.830 --> 00:16:10.760
+they'll have a little pop up that says, Hey, there's been an update.
+
+355
+00:16:10.760 --> 00:16:13.110
+Please refresh. And I assume at a certain point they get a
+
+356
+00:16:13.110 --> 00:16:15.050
+little more strongly worded than
+
+357
+00:16:15.050 --> 00:16:17.570
+>> that. You can start doing
+
+358
+00:16:17.570 --> 00:16:20.050
+stunts like Okay, everybody using the
+
+359
+00:16:20.050 --> 00:16:23.010
+old schema now has an additional
+
+360
+00:16:23.010 --> 00:16:25.710
+one second delay added to all of the rest
+
+361
+00:16:25.710 --> 00:16:28.530
+calls. Oh, you have a program.
+
+362
+00:16:28.540 --> 00:16:31.230
+A performance problem. Have you tried updating?
+
+363
+00:16:31.240 --> 00:16:33.490
+Oh, it's all fast now. Okay, Problem
+
+364
+00:16:33.490 --> 00:16:34.250
+solved.
+
+365
+00:16:34.260 --> 00:16:35.100
+>> Yeah,
+
+366
+00:16:35.110 --> 00:16:37.790
+>> that's like the iPhone
+
+367
+00:16:37.790 --> 00:16:40.740
+world where they slow down the thing. So you
+
+368
+00:16:40.740 --> 00:16:41.570
+get a new phone,
+
+369
+00:16:41.650 --> 00:16:44.560
+>> the planned obsolescence approach to client
+
+370
+00:16:44.560 --> 00:16:45.160
+upgrades.
+
+371
+00:16:45.540 --> 00:16:48.430
+>> Yeah. Not not saying we're going to do that.
+
+372
+00:16:48.430 --> 00:16:51.410
+We Actually, we haven't gotten to the point where we needed to do this
+
+373
+00:16:51.410 --> 00:16:54.250
+stuff, but my pieces are in position, and I'm ready
+
+374
+00:16:54.250 --> 00:16:57.170
+to I don't know how we're going to solve that problem.
+
+375
+00:16:57.180 --> 00:16:57.360
+Gonna
+
+376
+00:16:57.360 --> 00:16:58.230
+>> put them in Checkmate,
+
+377
+00:16:58.230 --> 00:17:00.540
+>> huh? I like it. Um,
+
+378
+00:17:00.550 --> 00:17:03.390
+so, uh, G.H.C. Js
+
+379
+00:17:03.390 --> 00:17:06.280
+obviously works great for the web. Do you
+
+380
+00:17:06.280 --> 00:17:09.180
+have a story for. Have you thought about native clients?
+
+381
+00:17:09.220 --> 00:17:11.360
+And are you going to use Haskell there as well?
+
+382
+00:17:11.380 --> 00:17:13.990
+>> Okay, yes. The short answer.
+
+383
+00:17:14.000 --> 00:17:16.880
+Yes, we have a story. And yes, we're going to use Haskell
+
+384
+00:17:16.880 --> 00:17:19.830
+there, at least at the beginning. So one of the
+
+385
+00:17:19.830 --> 00:17:22.770
+other nice things about reflex Well,
+
+386
+00:17:22.770 --> 00:17:25.570
+G.H.C. Js in general is you can
+
+387
+00:17:25.570 --> 00:17:28.430
+flip and do compile
+
+388
+00:17:28.430 --> 00:17:30.960
+to native IOS and native android.
+
+389
+00:17:31.640 --> 00:17:34.240
+Um, using, you know, just using a built in
+
+390
+00:17:34.240 --> 00:17:36.520
+browser using the native mode browser
+
+391
+00:17:36.520 --> 00:17:37.450
+stuff.
+
+392
+00:17:37.460 --> 00:17:39.660
+>> Okay, so, like a web, you or what?
+
+393
+00:17:39.700 --> 00:17:42.170
+>> Exactly? Um,
+
+394
+00:17:42.640 --> 00:17:45.160
+and so you can
+
+395
+00:17:45.170 --> 00:17:47.540
+just take your reflex
+
+396
+00:17:47.540 --> 00:17:50.000
+code and compile it
+
+397
+00:17:50.010 --> 00:17:52.860
+to IOS native or android native and go
+
+398
+00:17:52.870 --> 00:17:54.960
+bang. Here. Here's your web app
+
+399
+00:17:55.440 --> 00:17:58.350
+that gets that gets you started.
+
+400
+00:17:58.360 --> 00:18:01.040
+Solution, right? That isn't a long term. You're going
+
+401
+00:18:01.040 --> 00:18:03.970
+to, you know, if if chat wisely takes off, we start
+
+402
+00:18:03.970 --> 00:18:06.660
+having you know, millions of users and money to actually
+
+403
+00:18:06.660 --> 00:18:09.150
+spend. Um, we will almost certainly
+
+404
+00:18:09.150 --> 00:18:11.790
+be, you know, you know, evolve. Um,
+
+405
+00:18:11.800 --> 00:18:14.420
+native true native front ends written in
+
+406
+00:18:14.420 --> 00:18:16.460
+swift or Scotland or what? Have you
+
+407
+00:18:16.740 --> 00:18:19.330
+mhm by that
+
+408
+00:18:19.330 --> 00:18:22.240
+time? Possibly G.H.C. right. It might be
+
+409
+00:18:22.240 --> 00:18:25.070
+worthwhile to just spend at the time to do the
+
+410
+00:18:25.070 --> 00:18:27.780
+bindings to the native, to the native calls to the
+
+411
+00:18:27.780 --> 00:18:29.920
+native libraries and just write the code and
+
+412
+00:18:29.920 --> 00:18:30.800
+G.H.C..
+
+413
+00:18:30.860 --> 00:18:33.800
+>> Exactly. I was going to say that with the recent changes to
+
+414
+00:18:33.810 --> 00:18:35.970
+the apple silicon using, um,
+
+415
+00:18:36.130 --> 00:18:39.130
+arm as their, uh, platform of
+
+416
+00:18:39.130 --> 00:18:42.130
+choice, I think G.H.C. in 9.2 is going to
+
+417
+00:18:42.130 --> 00:18:44.720
+have support for that. And I know it's not the exact same, but that
+
+418
+00:18:44.720 --> 00:18:47.540
+should perhaps ease the transition into IOS
+
+419
+00:18:47.540 --> 00:18:49.360
+native and maybe and native.
+
+420
+00:18:50.340 --> 00:18:53.180
+>> Yeah, um, but but we
+
+421
+00:18:53.180 --> 00:18:55.360
+can get a long ways
+
+422
+00:18:55.940 --> 00:18:58.880
+just going here. Is the web Nate of,
+
+423
+00:18:58.890 --> 00:19:01.090
+you know, the, you know, the web native
+
+424
+00:19:01.090 --> 00:19:03.740
+implementation. Oh, yeah. I
+
+425
+00:19:03.740 --> 00:19:06.470
+mean, Flack did that for years. Yeah, exactly.
+
+426
+00:19:06.470 --> 00:19:09.430
+>> Slack got away with that for many years, which is which is
+
+427
+00:19:09.430 --> 00:19:12.010
+what I needed to be assuaged. I was a little nervous about this, but
+
+428
+00:19:12.010 --> 00:19:14.980
+then, you know, um, we saw the slack business
+
+429
+00:19:14.980 --> 00:19:17.480
+case, but they did it for years. I think we'll be
+
+430
+00:19:17.480 --> 00:19:18.370
+fine. You
+
+431
+00:19:18.370 --> 00:19:21.070
+>> know, if slack can get away with it, why
+
+432
+00:19:21.070 --> 00:19:23.460
+not?
+
+433
+00:19:24.240 --> 00:19:27.010
+So yeah, So I'm curious.
+
+434
+00:19:27.020 --> 00:19:29.880
+Uh, G.H.C. Js Seems like it has been
+
+435
+00:19:29.890 --> 00:19:32.680
+going like gangbusters, and you've got plans for
+
+436
+00:19:32.680 --> 00:19:35.460
+future improvements. Is there anything about it that you haven't liked or
+
+437
+00:19:35.460 --> 00:19:36.160
+hasn't been? Great?
+
+438
+00:19:37.240 --> 00:19:40.120
+>> Uh, I will say there's there are
+
+439
+00:19:40.120 --> 00:19:43.050
+some performance problems, which is what's causing the
+
+440
+00:19:43.050 --> 00:19:46.040
+sort of the the the, um, the
+
+441
+00:19:46.050 --> 00:19:48.240
+pure script envy. A little bit there.
+
+442
+00:19:48.250 --> 00:19:51.020
+Um, although, you know,
+
+443
+00:19:51.020 --> 00:19:53.920
+from what you guys are saying, I said I would take
+
+444
+00:19:53.920 --> 00:19:56.060
+the fewer problems. Slower code.
+
+445
+00:19:56.440 --> 00:19:59.440
+I am a firm believer of I
+
+446
+00:19:59.440 --> 00:20:02.130
+would rather have slow but correct code
+
+447
+00:20:02.140 --> 00:20:04.360
+than fast, but wrong code.
+
+448
+00:20:04.740 --> 00:20:06.360
+Yeah, I I think it's
+
+449
+00:20:06.740 --> 00:20:09.610
+>> a little easier to speed things up than it is to make them more
+
+450
+00:20:09.610 --> 00:20:12.600
+correct, usually in painting with some broad strokes here.
+
+451
+00:20:12.610 --> 00:20:15.440
+But, um, And for the performance problems, are you
+
+452
+00:20:15.440 --> 00:20:18.440
+talking about, like, bundle size or, like, actual
+
+453
+00:20:18.440 --> 00:20:19.340
+runtime performance?
+
+454
+00:20:19.350 --> 00:20:21.830
+>> Um, bundle size of the problem?
+
+455
+00:20:21.840 --> 00:20:23.850
+Um, actual runtime.
+
+456
+00:20:25.040 --> 00:20:27.590
+So the problem as I understand it and I'm not an
+
+457
+00:20:27.590 --> 00:20:30.510
+expert takes us. Don't. Don't take this with so much. A grain of
+
+458
+00:20:30.510 --> 00:20:33.460
+salt to the £5 block of salt. Um,
+
+459
+00:20:34.140 --> 00:20:36.890
+is, um, the
+
+460
+00:20:36.900 --> 00:20:39.860
+the the you know,
+
+461
+00:20:39.860 --> 00:20:42.170
+the garbage collector
+
+462
+00:20:42.740 --> 00:20:45.680
+in in Haskell will actually force
+
+463
+00:20:45.730 --> 00:20:48.680
+chunks. Um, how it's been
+
+464
+00:20:48.680 --> 00:20:51.580
+explained to me, um so like
+
+465
+00:20:51.590 --> 00:20:54.480
+if you have a If you have a sunk that produces a
+
+466
+00:20:54.480 --> 00:20:57.100
+tuple and then another song because it just calls
+
+467
+00:20:57.100 --> 00:20:59.870
+first on the tuple the garbage collection will
+
+468
+00:20:59.870 --> 00:21:02.660
+notice that the tuple sunk has been forced. And we'll
+
+469
+00:21:02.660 --> 00:21:04.670
+just automatically forced the first
+
+470
+00:21:05.340 --> 00:21:08.230
+sunk right to just and
+
+471
+00:21:08.230 --> 00:21:10.880
+and that will, oftentimes free up a lot of memory.
+
+472
+00:21:11.080 --> 00:21:13.980
+This is a huge performance requirement
+
+473
+00:21:13.980 --> 00:21:16.680
+in Haskell. The the story I got
+
+474
+00:21:16.680 --> 00:21:19.130
+told was re compiling G.H.C. whist
+
+475
+00:21:19.160 --> 00:21:21.660
+trick in the garbage collector takes, like,
+
+476
+00:21:21.670 --> 00:21:24.230
+10 minutes or 20 minutes or whatever.
+
+477
+00:21:24.240 --> 00:21:27.010
+Without this trick, they let it run for 24
+
+478
+00:21:27.010 --> 00:21:29.910
+hours and it hadn't completed yet before they killed it. It's
+
+479
+00:21:29.910 --> 00:21:31.350
+that sort of performance.
+
+480
+00:21:31.350 --> 00:21:32.640
+>> Couple orders of magnitude.
+
+481
+00:21:32.650 --> 00:21:35.440
+>> Um um
+
+482
+00:21:35.450 --> 00:21:38.440
+and so again, large chunk of salt
+
+483
+00:21:38.440 --> 00:21:40.260
+here, Um, but
+
+484
+00:21:41.140 --> 00:21:44.110
+this means this means two things.
+
+485
+00:21:44.120 --> 00:21:47.040
+One thing is the the
+
+486
+00:21:47.050 --> 00:21:50.000
+the the the the the the
+
+487
+00:21:50.010 --> 00:21:52.770
+The JavaScript size is much
+
+488
+00:21:52.770 --> 00:21:55.150
+larger than it needs to be because you're converting to
+
+489
+00:21:55.150 --> 00:21:58.080
+javascript from the wrong point. You have to
+
+490
+00:21:58.080 --> 00:22:00.960
+be converting it to down at I think the C minus minus
+
+491
+00:22:00.960 --> 00:22:03.890
+level rather than at the
+
+492
+00:22:03.890 --> 00:22:06.690
+core level. Um, I think it would be much
+
+493
+00:22:06.690 --> 00:22:09.390
+smaller and actually much nicer on
+
+494
+00:22:09.400 --> 00:22:12.020
+on JavaScript if we could go straight from
+
+495
+00:22:12.020 --> 00:22:14.850
+core two to JavaScript.
+
+496
+00:22:15.640 --> 00:22:18.130
+Um, and
+
+497
+00:22:18.130 --> 00:22:20.940
+so you know now where the
+
+498
+00:22:20.940 --> 00:22:23.270
+other thing is that now you have to have a garbage
+
+499
+00:22:23.270 --> 00:22:26.170
+collector in your garbage collector language,
+
+500
+00:22:26.840 --> 00:22:29.450
+right? Which is just never a win. You
+
+501
+00:22:29.450 --> 00:22:31.010
+>> gotta run time on top of your runtime.
+
+502
+00:22:31.020 --> 00:22:33.770
+>> Yeah, and so mhm.
+
+503
+00:22:34.240 --> 00:22:36.670
+Yeah. I mean, at the moment,
+
+504
+00:22:37.440 --> 00:22:39.560
+it's I think it's good enough.
+
+505
+00:22:40.440 --> 00:22:43.410
+Um, but I actually have the dream of,
+
+506
+00:22:43.420 --> 00:22:46.170
+you know, one day having enough money to actually hire
+
+507
+00:22:46.170 --> 00:22:49.120
+people to fix this. And I actually
+
+508
+00:22:49.120 --> 00:22:52.030
+think the the this
+
+509
+00:22:52.030 --> 00:22:54.980
+is this is me dreaming the shining city
+
+510
+00:22:54.980 --> 00:22:57.550
+in the distance sort of dream.
+
+511
+00:22:58.240 --> 00:23:01.170
+I actually seek Haskell compiling
+
+512
+00:23:01.170 --> 00:23:03.340
+to JavaScript could be
+
+513
+00:23:03.340 --> 00:23:06.340
+faster than native
+
+514
+00:23:06.340 --> 00:23:09.190
+JavaScript. Uh,
+
+515
+00:23:09.200 --> 00:23:11.500
+frameworks like like, um, like,
+
+516
+00:23:11.510 --> 00:23:14.440
+react. And here,
+
+517
+00:23:14.450 --> 00:23:16.910
+here's my reasoning, and this isn't true at the
+
+518
+00:23:16.910 --> 00:23:19.610
+moment, you know? But what could
+
+519
+00:23:19.610 --> 00:23:21.170
+be, um,
+
+520
+00:23:22.740 --> 00:23:25.660
+So with react, how things work is whenever we when,
+
+521
+00:23:25.660 --> 00:23:28.370
+when any. When? The little about. Let me try this thing in
+
+522
+00:23:28.370 --> 00:23:30.770
+English. When any time when anything
+
+523
+00:23:30.770 --> 00:23:33.770
+changes you,
+
+524
+00:23:33.770 --> 00:23:36.560
+we draw the entire
+
+525
+00:23:36.570 --> 00:23:39.470
+you re render the entire the entire
+
+526
+00:23:39.470 --> 00:23:42.440
+page. But you re render it in virtual
+
+527
+00:23:42.440 --> 00:23:45.150
+dumb. Not real dumb objects, because
+
+528
+00:23:45.150 --> 00:23:47.670
+constructing real dumb objects is expensive.
+
+529
+00:23:48.040 --> 00:23:50.170
+And then you def. This
+
+530
+00:23:50.180 --> 00:23:53.140
+tree, the virtual dom tree
+
+531
+00:23:53.140 --> 00:23:55.740
+with with the dom that actually exists.
+
+532
+00:23:55.750 --> 00:23:58.130
+And then you do whatever changes actually
+
+533
+00:23:58.130 --> 00:24:01.090
+changed, right? But this means you're
+
+534
+00:24:01.090 --> 00:24:03.980
+doing an awful lot of work. You're generating an awful lot of
+
+535
+00:24:03.980 --> 00:24:06.720
+objects that you're having to do a large def
+
+536
+00:24:06.730 --> 00:24:09.550
+to go. Okay, this button changed
+
+537
+00:24:09.550 --> 00:24:12.330
+from red to green. What
+
+538
+00:24:12.330 --> 00:24:14.850
+happens in reflex in G.H.C.
+
+539
+00:24:14.850 --> 00:24:17.750
+Js is you just hit
+
+540
+00:24:17.750 --> 00:24:20.680
+the dumb directly. You don't recreate the dumb, you just
+
+541
+00:24:20.680 --> 00:24:23.510
+go. This dumb now has style. Instead of having
+
+542
+00:24:23.510 --> 00:24:26.340
+a style color red, it has a style color
+
+543
+00:24:26.340 --> 00:24:29.270
+green bang. And
+
+544
+00:24:29.280 --> 00:24:32.100
+this is a much faster update. You know,
+
+545
+00:24:32.100 --> 00:24:34.950
+you're even if you're slower. Even if your performance
+
+546
+00:24:34.950 --> 00:24:37.830
+on average is slower, you're doing so
+
+547
+00:24:37.830 --> 00:24:40.810
+much less work that
+
+548
+00:24:40.820 --> 00:24:42.860
+it could still be a win, right?
+
+549
+00:24:43.640 --> 00:24:46.250
+Yeah, I want I want to reiterate this is not
+
+550
+00:24:46.260 --> 00:24:48.860
+housing actually exist at the moment. So
+
+551
+00:24:48.860 --> 00:24:51.840
+everybody going I tested it and it
+
+552
+00:24:51.840 --> 00:24:53.100
+works. I'm going. Yeah. This is how
+
+553
+00:24:53.100 --> 00:24:54.360
+>> things could be. This is
+
+554
+00:24:54.360 --> 00:24:57.030
+>> how it could be. I think l'm is
+
+555
+00:24:57.030 --> 00:24:59.930
+perhaps proof positive that that approach can
+
+556
+00:24:59.930 --> 00:25:02.450
+work as far as I understand it. L'm,
+
+557
+00:25:02.840 --> 00:25:05.750
+um, can perform better than, say
+
+558
+00:25:05.760 --> 00:25:08.650
+react because it has immutable
+
+559
+00:25:08.650 --> 00:25:11.630
+data structures. It doesn't have laziness. However, there,
+
+560
+00:25:11.640 --> 00:25:13.960
+uh, html generator can
+
+561
+00:25:14.440 --> 00:25:17.380
+be written in a lazy way. They have a strict one, and they have a lazy
+
+562
+00:25:17.380 --> 00:25:20.320
+one. Um, and they also have a keyed version
+
+563
+00:25:20.320 --> 00:25:22.690
+which I think react as well. But yeah, it's,
+
+564
+00:25:22.700 --> 00:25:25.620
+um it can have that same performance guarantee where it
+
+565
+00:25:25.620 --> 00:25:28.530
+doesn't need to realize the entire virtual Dom in order to notice that
+
+566
+00:25:28.530 --> 00:25:31.500
+this one no changed. It can do much less work. And because of
+
+567
+00:25:31.500 --> 00:25:34.060
+that and many other reasons, I think it can be faster.
+
+568
+00:25:34.540 --> 00:25:37.100
+Yep. Well, that's
+
+569
+00:25:37.100 --> 00:25:40.070
+exciting. So I see you've taken the downside
+
+570
+00:25:40.070 --> 00:25:42.620
+of G.H.C. s and turned it into a potential future
+
+571
+00:25:42.620 --> 00:25:43.310
+upside.
+
+572
+00:25:43.320 --> 00:25:45.900
+>> Yeah, but again,
+
+573
+00:25:45.910 --> 00:25:48.850
+it's welcome to engineering. It's What do you gain? What
+
+574
+00:25:48.850 --> 00:25:51.360
+do you lose? There are no perfect solutions,
+
+575
+00:25:51.740 --> 00:25:54.550
+right? And the upsides
+
+576
+00:25:54.560 --> 00:25:57.410
+of Well, I also really like
+
+577
+00:25:57.410 --> 00:25:59.460
+the the the, um
+
+578
+00:26:00.140 --> 00:26:02.730
+the, uh, having a senior
+
+579
+00:26:02.730 --> 00:26:05.430
+moment. Reactive banana. Michael
+
+580
+00:26:05.430 --> 00:26:06.940
+the, uh Oh, yeah, yeah, yeah.
+
+581
+00:26:06.950 --> 00:26:08.990
+>> It's called reactive banana. That was my first
+
+582
+00:26:09.000 --> 00:26:11.920
+introduction to um uh, functional
+
+583
+00:26:11.920 --> 00:26:12.880
+reactive programming.
+
+584
+00:26:12.890 --> 00:26:15.800
+>> Functional reactive programming was the phrase I just
+
+585
+00:26:15.810 --> 00:26:18.090
+couldn't remember.
+
+586
+00:26:18.100 --> 00:26:20.720
+Yeah. First the knees go, then the memory
+
+587
+00:26:20.720 --> 00:26:22.490
+goes, and then I forget what goes after
+
+588
+00:26:22.490 --> 00:26:25.050
+that.
+
+589
+00:26:25.140 --> 00:26:28.010
+But, um, yeah, I really like
+
+590
+00:26:28.010 --> 00:26:30.880
+functional reactive programming. Just as a programming
+
+591
+00:26:30.880 --> 00:26:33.540
+style. Maybe it's just how my brain is
+
+592
+00:26:33.540 --> 00:26:36.180
+wired. But I I like just
+
+593
+00:26:36.190 --> 00:26:38.160
+wire everything up.
+
+594
+00:26:38.640 --> 00:26:41.500
+>> Yeah, And, uh, for listeners who may not be
+
+595
+00:26:41.500 --> 00:26:44.350
+familiar with f r. P, my understanding of it is that it
+
+596
+00:26:44.350 --> 00:26:47.330
+is more event driven than,
+
+597
+00:26:47.340 --> 00:26:50.290
+um, like, state driven. But I
+
+598
+00:26:50.290 --> 00:26:52.870
+haven't actually used f r p and anger. So maybe
+
+599
+00:26:52.880 --> 00:26:54.390
+Brian, could you explain what it means to
+
+600
+00:26:54.390 --> 00:26:56.360
+>> you? Okay, so
+
+601
+00:26:57.240 --> 00:27:00.040
+the core of f r. P is actually fairly simple.
+
+602
+00:27:00.050 --> 00:27:02.550
+Um, you you've got you've got
+
+603
+00:27:03.240 --> 00:27:05.910
+you've got 33 parts, three
+
+604
+00:27:05.910 --> 00:27:08.900
+major parts. You get what I think of as the
+
+605
+00:27:08.900 --> 00:27:11.730
+f r p. The f r p.
+
+606
+00:27:11.730 --> 00:27:14.630
+Pure stuff. You've got the, um
+
+607
+00:27:14.640 --> 00:27:17.640
+um the dom generating stuff. And then you
+
+608
+00:27:17.640 --> 00:27:20.260
+have the interface interfacing functions.
+
+609
+00:27:20.840 --> 00:27:23.420
+So at the f r. P level, you
+
+610
+00:27:23.420 --> 00:27:26.330
+have events. An event is something that can
+
+611
+00:27:26.330 --> 00:27:28.990
+be firing at any given point in time, and it can be
+
+612
+00:27:28.990 --> 00:27:31.810
+carrying a value when it fires. So
+
+613
+00:27:31.810 --> 00:27:34.770
+a classic examples are a key press, right? And
+
+614
+00:27:34.770 --> 00:27:37.650
+it's carrying what the event is. What key got
+
+615
+00:27:37.650 --> 00:27:40.550
+pressed or a mouse clicked. Right.
+
+616
+00:27:40.940 --> 00:27:43.310
+Um, then you have
+
+617
+00:27:43.320 --> 00:27:45.870
+behaviors. Um,
+
+618
+00:27:45.870 --> 00:27:48.870
+behaviors are things that have a value at all
+
+619
+00:27:48.870 --> 00:27:51.870
+points in time. At any point in time, I can return,
+
+620
+00:27:51.870 --> 00:27:53.660
+I can go behavior. What's your value,
+
+621
+00:27:54.440 --> 00:27:57.250
+like especially this event fired. When this
+
+622
+00:27:57.250 --> 00:28:00.180
+event fires get to get the value out of that
+
+623
+00:28:00.190 --> 00:28:03.050
+behavior and, you know, go do something with it,
+
+624
+00:28:03.740 --> 00:28:06.530
+then you have dynamics, which are the
+
+625
+00:28:06.530 --> 00:28:08.970
+combination of behavior. It's a
+
+626
+00:28:08.970 --> 00:28:11.560
+behaviour and an event that fires
+
+627
+00:28:11.560 --> 00:28:14.560
+whenever the behavior changes. So this
+
+628
+00:28:14.560 --> 00:28:17.560
+is this is sort of the the pure and, you know,
+
+629
+00:28:17.570 --> 00:28:20.500
+you know, behaviors you can f map behaviors, you can
+
+630
+00:28:20.500 --> 00:28:23.270
+filter behavior. You, uh you know, you can,
+
+631
+00:28:23.280 --> 00:28:26.180
+um, sorry. You can't filter behaviors. You can f
+
+632
+00:28:26.180 --> 00:28:29.070
+map everything. Everything is a funk door. Uh,
+
+633
+00:28:29.080 --> 00:28:31.850
+dynamics hormone adds, um, you can do
+
+634
+00:28:31.850 --> 00:28:34.250
+filters on the event. Right? So this event
+
+635
+00:28:34.250 --> 00:28:36.980
+fired is that when I care about No, don't
+
+636
+00:28:36.980 --> 00:28:39.960
+fire. You know, don't carry on firing right.
+
+637
+00:28:40.440 --> 00:28:43.430
+Then you have a standard
+
+638
+00:28:43.440 --> 00:28:46.410
+monastic based dom generation, right
+
+639
+00:28:46.420 --> 00:28:49.350
+where I can just you know, there's an e l function
+
+640
+00:28:49.350 --> 00:28:52.260
+which creates a dom element, and you can
+
+641
+00:28:52.260 --> 00:28:54.940
+give it This is you know, this is the tag. Here are the
+
+642
+00:28:54.940 --> 00:28:57.830
+attributes. And here is the the the
+
+643
+00:28:57.830 --> 00:29:00.750
+Menad that generates its Children. Right?
+
+644
+00:29:00.750 --> 00:29:03.060
+And I'm generated as some Children of some parents
+
+645
+00:29:03.440 --> 00:29:06.270
+function, right, so this ends up this code
+
+646
+00:29:06.270 --> 00:29:09.040
+ends up looking an awful lot like, if you've ever if you've
+
+647
+00:29:09.040 --> 00:29:11.730
+ever done, um, blaze HTML
+
+648
+00:29:11.740 --> 00:29:13.300
+or um um,
+
+649
+00:29:14.140 --> 00:29:16.960
+lucid um, it it ends up looking very
+
+650
+00:29:16.960 --> 00:29:19.460
+similar to that. I mean, the functions are all named
+
+651
+00:29:19.460 --> 00:29:22.360
+differently because, of course they are. But, um,
+
+652
+00:29:23.040 --> 00:29:25.090
+it's very much that pattern
+
+653
+00:29:25.540 --> 00:29:28.320
+and then you have the the interface
+
+654
+00:29:28.320 --> 00:29:31.020
+functions, right? So there's a function that can take an
+
+655
+00:29:31.020 --> 00:29:33.910
+element that you generated and go when,
+
+656
+00:29:33.910 --> 00:29:36.840
+when when the user clicks on it. Give
+
+657
+00:29:36.840 --> 00:29:39.140
+me an event that fires when the user clicks on this
+
+658
+00:29:39.140 --> 00:29:40.020
+element,
+
+659
+00:29:40.030 --> 00:29:42.330
+>> right, walking back into the
+
+660
+00:29:43.540 --> 00:29:46.410
+>> or create this element.
+
+661
+00:29:46.410 --> 00:29:49.250
+And here is an event or dynamic that
+
+662
+00:29:49.260 --> 00:29:52.100
+holds the attributes that this this
+
+663
+00:29:52.100 --> 00:29:54.960
+element should have. Right? And when this, when the
+
+664
+00:29:54.960 --> 00:29:57.750
+dynamic updates and changes, the attributes
+
+665
+00:29:57.750 --> 00:30:00.700
+get reset or here is, you
+
+666
+00:30:00.700 --> 00:30:03.690
+know, a widget Hold here is you know, I
+
+667
+00:30:03.690 --> 00:30:06.610
+just want to swap out which Manatt I'm sticking
+
+668
+00:30:06.610 --> 00:30:09.360
+in, you know, to generate the dom in this place
+
+669
+00:30:09.440 --> 00:30:12.420
+to replace this whole Dom sub tree with some
+
+670
+00:30:12.420 --> 00:30:15.040
+other dumb sub tree, you know, coming out of a
+
+671
+00:30:15.040 --> 00:30:17.170
+dynamic or an event. Right?
+
+672
+00:30:17.180 --> 00:30:20.000
+>> So, to me, this all
+
+673
+00:30:20.000 --> 00:30:22.470
+sounds eerily similar to the
+
+674
+00:30:22.480 --> 00:30:25.440
+architecture elm has tried to do. So I know that we kind of talked
+
+675
+00:30:25.440 --> 00:30:28.220
+about that earlier. Um, so it's relating a lot to
+
+676
+00:30:28.220 --> 00:30:30.670
+me as far as like, my experience with elm and like,
+
+677
+00:30:31.840 --> 00:30:34.690
+Yeah, so I'm like, OK, yeah, like this makes sense. And I
+
+678
+00:30:34.690 --> 00:30:36.210
+do enjoy that style
+
+679
+00:30:36.220 --> 00:30:39.170
+>> very much. L'm, I think used
+
+680
+00:30:39.180 --> 00:30:41.880
+to be based on f r p.
+
+681
+00:30:41.890 --> 00:30:44.370
+But sometime I want to say, like, l'm
+
+682
+00:30:44.370 --> 00:30:47.340
+0.16. They are no longer f r p based, even
+
+683
+00:30:47.340 --> 00:30:49.660
+though the the interface you use is very similar.
+
+684
+00:30:50.340 --> 00:30:52.860
+Mhm. So just historical oddity there.
+
+685
+00:30:53.740 --> 00:30:56.210
+>> Yeah, I think they they they may still
+
+686
+00:30:56.210 --> 00:30:59.160
+qualify as f r. P in my my book.
+
+687
+00:30:59.170 --> 00:31:01.660
+Um, I haven't actually done a lot of elm, so,
+
+688
+00:31:02.340 --> 00:31:05.280
+um, but if they are f r p I mean that in a good
+
+689
+00:31:05.280 --> 00:31:06.990
+sense, I like that.
+
+690
+00:31:07.000 --> 00:31:07.760
+>> Yeah.
+
+691
+00:31:08.240 --> 00:31:11.130
+>> Um, so, uh, switching gears just a little
+
+692
+00:31:11.130 --> 00:31:13.870
+bit. Uh, you all mentioned that the back end
+
+693
+00:31:13.880 --> 00:31:16.520
+is kind of a mix of servant,
+
+694
+00:31:16.530 --> 00:31:18.730
+and you sewed. Is that correct?
+
+695
+00:31:18.740 --> 00:31:21.600
+So, uh, do you
+
+696
+00:31:21.600 --> 00:31:23.770
+do any server side rendering,
+
+697
+00:31:24.140 --> 00:31:26.900
+like, a pre baked version of the single
+
+698
+00:31:26.900 --> 00:31:29.720
+page app to send out the first load? That then gets updated
+
+699
+00:31:29.720 --> 00:31:31.030
+later. Or how does that work?
+
+700
+00:31:31.040 --> 00:31:33.870
+>> Um, okay, we don't. Okay, we're
+
+701
+00:31:33.870 --> 00:31:36.870
+using again. I'm a great believer in
+
+702
+00:31:36.870 --> 00:31:39.580
+using the right tool for the job and for
+
+703
+00:31:39.580 --> 00:31:41.780
+stuff that doesn't have a
+
+704
+00:31:41.790 --> 00:31:43.350
+reflex. Um,
+
+705
+00:31:43.360 --> 00:31:46.250
+a reflex front
+
+706
+00:31:46.250 --> 00:31:48.350
+end that's needed. Um,
+
+707
+00:31:48.940 --> 00:31:51.920
+we are using a showed. And one of the nice things about
+
+708
+00:31:51.920 --> 00:31:54.460
+Haskell is Haskell works well with Haskell.
+
+709
+00:31:54.840 --> 00:31:57.690
+You can have, you know, you write a little bit of
+
+710
+00:31:57.690 --> 00:32:00.560
+Web application interface code by a little bit. I mean, like,
+
+711
+00:32:00.560 --> 00:32:03.170
+five lines, 10 lines of it, and you
+
+712
+00:32:03.170 --> 00:32:06.100
+go. Okay. The episode stuff goes here, and
+
+713
+00:32:06.100 --> 00:32:08.810
+the reflex stuff goes there, and everything is just happy.
+
+714
+00:32:08.810 --> 00:32:11.760
+And it all just works beautifully. And so you
+
+715
+00:32:11.760 --> 00:32:14.320
+can sit there and you can go. Okay. There are There are
+
+716
+00:32:14.320 --> 00:32:16.870
+some Web pages like, you know, give us your
+
+717
+00:32:16.870 --> 00:32:19.580
+financial information where we don't want,
+
+718
+00:32:19.590 --> 00:32:22.080
+You know, we want it to be a server side
+
+719
+00:32:22.080 --> 00:32:23.730
+rendered, you know,
+
+720
+00:32:23.740 --> 00:32:26.590
+>> uh, weapons a little JavaScript on there as possible.
+
+721
+00:32:26.600 --> 00:32:29.480
+>> A little job. Yeah. And And, you know, all of the,
+
+722
+00:32:29.480 --> 00:32:32.370
+you know, stuff to make sure that people aren't hijacking the
+
+723
+00:32:32.370 --> 00:32:34.980
+session and all of that, which Yes, So doll
+
+724
+00:32:34.980 --> 00:32:37.660
+has and baked in, um,
+
+725
+00:32:38.340 --> 00:32:41.280
+so use a sewed for what you saw is really
+
+726
+00:32:41.280 --> 00:32:43.900
+good at. And by the way, if
+
+727
+00:32:43.910 --> 00:32:46.680
+if that's pretty much your entire web page, I
+
+728
+00:32:46.690 --> 00:32:49.170
+do recommend the A Sewed it is a very nice
+
+729
+00:32:49.180 --> 00:32:51.940
+if you, you know, if you are. If you are just a
+
+730
+00:32:51.940 --> 00:32:54.680
+static web page generating site,
+
+731
+00:32:54.690 --> 00:32:57.580
+um, you know, yes, Soda is very,
+
+732
+00:32:57.580 --> 00:33:00.180
+very nice. I like I like its widget idea.
+
+733
+00:33:00.190 --> 00:33:03.010
+Um, but
+
+734
+00:33:03.020 --> 00:33:05.550
+for the, you know, for the reflex
+
+735
+00:33:05.550 --> 00:33:08.470
+pages, we haven't implemented this yet, and we
+
+736
+00:33:08.470 --> 00:33:11.360
+are going to in the near future, and it's, you know,
+
+737
+00:33:11.370 --> 00:33:14.310
+it's simply a complete deficit of
+
+738
+00:33:14.310 --> 00:33:17.230
+circular to it. Um, we don't have any round
+
+739
+00:33:17.230 --> 00:33:20.070
+to it. Um, haven't gotten any
+
+740
+00:33:20.070 --> 00:33:22.330
+round to it yet. Um,
+
+741
+00:33:22.340 --> 00:33:23.860
+the
+
+742
+00:33:25.140 --> 00:33:27.620
+we have, you know, um, reflex
+
+743
+00:33:27.620 --> 00:33:30.490
+has a, um a a
+
+744
+00:33:30.490 --> 00:33:33.330
+static rendering Where you basically run
+
+745
+00:33:33.340 --> 00:33:35.670
+the reflex code
+
+746
+00:33:36.040 --> 00:33:38.890
+again? This is the nice thing you can share code between front and
+
+747
+00:33:38.890 --> 00:33:41.650
+back end, right? So we can just suck. They
+
+748
+00:33:41.660 --> 00:33:44.060
+suck the page, rendering code from the client
+
+749
+00:33:44.070 --> 00:33:46.860
+into the server side and
+
+750
+00:33:46.860 --> 00:33:49.810
+go when you're hitting a
+
+751
+00:33:49.820 --> 00:33:52.450
+reflex page. We just pre render the
+
+752
+00:33:52.450 --> 00:33:55.320
+page on the server side, using
+
+753
+00:33:55.320 --> 00:33:58.170
+exactly the same code and spit that up.
+
+754
+00:33:58.180 --> 00:34:01.150
+And then and then reflex has some some magic. It
+
+755
+00:34:01.150 --> 00:34:03.730
+does to to instead of generating the
+
+756
+00:34:03.730 --> 00:34:06.430
+dom, reuse the existing dumb
+
+757
+00:34:06.440 --> 00:34:09.320
+>> kind of bootstrap it. Yeah. Okay, so then
+
+758
+00:34:09.330 --> 00:34:12.090
+this is This is possible. In theory, it's just not done
+
+759
+00:34:12.090 --> 00:34:12.350
+yet.
+
+760
+00:34:12.740 --> 00:34:15.640
+>> Um, we haven't done it yet. We haven't done it chat
+
+761
+00:34:15.640 --> 00:34:18.640
+wisely yet. Um, I've done it in other places. Just
+
+762
+00:34:18.650 --> 00:34:21.100
+round to its deficit. Um,
+
+763
+00:34:21.110 --> 00:34:22.160
+>> that's very exciting.
+
+764
+00:34:22.740 --> 00:34:25.680
+>> So hopefully that will solve several of
+
+765
+00:34:25.680 --> 00:34:27.770
+our bigger performance problems.
+
+766
+00:34:27.780 --> 00:34:28.860
+Um,
+
+767
+00:34:29.340 --> 00:34:32.330
+>> so we've been talking tech for a while now, but when
+
+768
+00:34:32.330 --> 00:34:35.130
+we kick this off, we were talking a little about, um,
+
+769
+00:34:35.140 --> 00:34:38.080
+you know, the users of the site and how it's funded, and I want to come
+
+770
+00:34:38.080 --> 00:34:41.060
+back to that. So, uh, Michael, could you,
+
+771
+00:34:41.070 --> 00:34:43.860
+uh, maybe talk us through a little more about
+
+772
+00:34:43.870 --> 00:34:46.860
+the funding like you mentioned? It's going to be,
+
+773
+00:34:47.330 --> 00:34:50.250
+I think right now in an open beta and you
+
+774
+00:34:50.250 --> 00:34:52.680
+will charge users some feed. Sounds like a dollar a
+
+775
+00:34:52.680 --> 00:34:55.620
+month. Um, how does this compare to
+
+776
+00:34:55.620 --> 00:34:58.500
+other sites with a similar model? Ones I'm familiar with are,
+
+777
+00:34:58.500 --> 00:35:01.160
+like, meta filter or slash dot or FARC or
+
+778
+00:35:01.170 --> 00:35:04.130
+something awful, I think where, um, this is just like
+
+779
+00:35:04.130 --> 00:35:07.060
+a minimum bar to clear in order to participate, uh, you
+
+780
+00:35:07.060 --> 00:35:10.060
+have to throw a dollar at us or $5 or whatever
+
+781
+00:35:10.060 --> 00:35:12.860
+it is. So, yeah, what do you expect? What
+
+782
+00:35:12.860 --> 00:35:14.850
+impact do you expect that to have on the community?
+
+783
+00:35:15.740 --> 00:35:18.470
+>> Well, I think the,
+
+784
+00:35:18.940 --> 00:35:20.860
+uh, biggest, uh,
+
+785
+00:35:21.440 --> 00:35:24.320
+impact is going to have is that it's our first troll
+
+786
+00:35:24.320 --> 00:35:27.140
+filter. We don't think most
+
+787
+00:35:27.150 --> 00:35:29.970
+bad actors are going to want to pay for the privilege.
+
+788
+00:35:30.740 --> 00:35:33.560
+Um, and, uh, the
+
+789
+00:35:33.560 --> 00:35:36.520
+feedback I've been getting when I talk to people, um,
+
+790
+00:35:36.520 --> 00:35:39.030
+and make the pitch is going to be a dollar a month. The
+
+791
+00:35:39.040 --> 00:35:41.910
+the, uh, reaction I get
+
+792
+00:35:41.920 --> 00:35:44.820
+is Well, that's nothing. Which is
+
+793
+00:35:44.820 --> 00:35:47.710
+what we want to communicate to you. It's nothing but in the
+
+794
+00:35:47.710 --> 00:35:50.160
+aggregate. To us, it's a sustainable
+
+795
+00:35:50.160 --> 00:35:50.910
+business.
+
+796
+00:35:50.920 --> 00:35:53.630
+Uh, whether you're
+
+797
+00:35:53.630 --> 00:35:56.410
+charging a dollar a month or
+
+798
+00:35:56.410 --> 00:35:58.960
+not, every social network needs to
+
+799
+00:35:58.970 --> 00:36:01.910
+reach, um, a point
+
+800
+00:36:01.910 --> 00:36:04.570
+of stability. Um uh, having a strong
+
+801
+00:36:04.570 --> 00:36:06.770
+enough strongly connected enough and large enough
+
+802
+00:36:06.770 --> 00:36:09.350
+network in order to be considered stable.
+
+803
+00:36:09.360 --> 00:36:12.180
+So it's in that scenario chat wisely,
+
+804
+00:36:12.180 --> 00:36:14.730
+having reached stability. Um,
+
+805
+00:36:14.740 --> 00:36:17.430
+that, uh, that dollar a
+
+806
+00:36:17.430 --> 00:36:20.340
+month, um, is is
+
+807
+00:36:20.930 --> 00:36:23.550
+very much worth it. Um,
+
+808
+00:36:24.130 --> 00:36:27.130
+and so yeah. So the dollar a month It's
+
+809
+00:36:27.130 --> 00:36:29.730
+our first, uh, not just
+
+810
+00:36:29.730 --> 00:36:32.210
+our first filter, um, but
+
+811
+00:36:32.220 --> 00:36:34.840
+also allows us to deliver,
+
+812
+00:36:35.530 --> 00:36:38.070
+uh, features that we've noticed.
+
+813
+00:36:38.080 --> 00:36:40.960
+Um, would be popular have been popular,
+
+814
+00:36:41.330 --> 00:36:43.250
+but they don't work in
+
+815
+00:36:43.260 --> 00:36:45.950
+a social
+
+816
+00:36:45.950 --> 00:36:48.470
+networks that rely on ads. I'll give an
+
+817
+00:36:48.470 --> 00:36:51.050
+example. There was a few years back in
+
+818
+00:36:51.050 --> 00:36:53.880
+2014 associate were called Yik
+
+819
+00:36:53.880 --> 00:36:56.500
+Yak. Um, Yahya
+
+820
+00:36:56.510 --> 00:36:58.860
+was ju located
+
+821
+00:36:58.870 --> 00:37:01.250
+based messaging, um,
+
+822
+00:37:01.260 --> 00:37:03.840
+which blew up on college campuses.
+
+823
+00:37:04.230 --> 00:37:07.160
+College kids love Yik yak. The
+
+824
+00:37:07.160 --> 00:37:09.840
+problem was, is that everyone was anonymous
+
+825
+00:37:11.570 --> 00:37:13.840
+and people could come and go anonymously,
+
+826
+00:37:14.530 --> 00:37:17.030
+which meant that turned into a
+
+827
+00:37:17.030 --> 00:37:19.650
+harassment machine. Um, and
+
+828
+00:37:19.660 --> 00:37:22.660
+they they shut down as fast as they blew
+
+829
+00:37:22.660 --> 00:37:24.350
+up. Um
+
+830
+00:37:24.730 --> 00:37:27.470
+uh, So, um, the
+
+831
+00:37:27.480 --> 00:37:30.160
+the the the market is there. Um
+
+832
+00:37:30.170 --> 00:37:33.110
+uh, just for that one aspect as
+
+833
+00:37:33.110 --> 00:37:36.000
+an example, Um, where we come in?
+
+834
+00:37:36.010 --> 00:37:38.830
+Um, uh, the reason why we
+
+835
+00:37:38.830 --> 00:37:40.960
+think we could make that scenario work.
+
+836
+00:37:41.330 --> 00:37:44.120
+Um, in a post covid world, of course.
+
+837
+00:37:44.390 --> 00:37:47.190
+Right. Is, uh,
+
+838
+00:37:47.200 --> 00:37:49.990
+having paid us, even though we provide
+
+839
+00:37:49.990 --> 00:37:52.900
+mechanisms to protect your privacy to the outside
+
+840
+00:37:52.900 --> 00:37:54.050
+world, if that's what you want to do.
+
+841
+00:37:54.530 --> 00:37:57.430
+Uh, so you you can go
+
+842
+00:37:57.430 --> 00:38:00.360
+ahead and be anonymous to the outside world, but we know who
+
+843
+00:38:00.360 --> 00:38:03.230
+you are. Um, and so, uh,
+
+844
+00:38:03.240 --> 00:38:06.140
+that is a huge disincentive. Um, to
+
+845
+00:38:06.140 --> 00:38:09.070
+try and use chat wisely as a harassment machine.
+
+846
+00:38:09.080 --> 00:38:12.030
+Um, uh, so I think that's gonna be
+
+847
+00:38:12.040 --> 00:38:14.870
+a huge impact. We were going to be able to
+
+848
+00:38:14.880 --> 00:38:17.740
+offer, um, features
+
+849
+00:38:17.750 --> 00:38:20.410
+that people want, um, but
+
+850
+00:38:20.410 --> 00:38:22.830
+cannot work, um, in,
+
+851
+00:38:22.840 --> 00:38:24.760
+uh, an ad based,
+
+852
+00:38:24.770 --> 00:38:27.040
+uh, social network.
+
+853
+00:38:27.820 --> 00:38:30.790
+>> Yeah, that's fascinating. The kind
+
+854
+00:38:30.790 --> 00:38:33.710
+of localized or, uh, I guess hyper local would be the
+
+855
+00:38:33.710 --> 00:38:36.530
+buzzword version of that. Um, I can see that it is an
+
+856
+00:38:36.530 --> 00:38:39.360
+appealing feature. And, uh, Jack, I suppose, is
+
+857
+00:38:39.360 --> 00:38:42.330
+proof positive of that. Um, and that would be it would be cool to
+
+858
+00:38:42.330 --> 00:38:45.150
+see that in a platform that isn't ad driven.
+
+859
+00:38:45.720 --> 00:38:48.450
+>> And can I jump in here for a minute, please?
+
+860
+00:38:49.020 --> 00:38:51.770
+Also, I mean, there are features
+
+861
+00:38:51.780 --> 00:38:54.630
+that, you know, that makes perfect sense for us.
+
+862
+00:38:54.630 --> 00:38:57.340
+But don't for, um, um, Facebook.
+
+863
+00:38:57.350 --> 00:38:59.980
+And one big one is a lot more
+
+864
+00:38:59.980 --> 00:39:02.640
+control. Over what? What you see,
+
+865
+00:39:03.120 --> 00:39:05.450
+um, and the soul,
+
+866
+00:39:06.120 --> 00:39:08.030
+you know, Mm.
+
+867
+00:39:08.720 --> 00:39:11.650
+If you wrote a client for Facebook
+
+868
+00:39:11.660 --> 00:39:14.420
+or for Twitter that showed all the
+
+869
+00:39:14.420 --> 00:39:17.390
+content but didn't show the ads, they
+
+870
+00:39:17.390 --> 00:39:20.140
+would have to shut you down quickly. Right.
+
+871
+00:39:20.520 --> 00:39:23.220
+Um, just just to keep their own
+
+872
+00:39:23.220 --> 00:39:26.080
+lights on right? Just to, you know, to pay their
+
+873
+00:39:26.080 --> 00:39:28.760
+own salaries, they would have to shut you down quickly.
+
+874
+00:39:29.060 --> 00:39:31.380
+We have no such problem.
+
+875
+00:39:31.390 --> 00:39:34.270
+Um, you know, so long as you're paying us to
+
+876
+00:39:34.270 --> 00:39:37.240
+buck a month, you know, we're we're good was, however
+
+877
+00:39:37.240 --> 00:39:39.390
+you want to access the site. All
+
+878
+00:39:39.390 --> 00:39:42.260
+>> right? The only clients are fine, as long as the users are
+
+879
+00:39:42.260 --> 00:39:45.240
+actually paying for paying you for the service. Yep.
+
+880
+00:39:46.020 --> 00:39:48.960
+>> And so and, you know, allow me to
+
+881
+00:39:48.960 --> 00:39:51.930
+to circle back on the tech side of things. This is one of the nice
+
+882
+00:39:51.930 --> 00:39:54.850
+things about servant is we are planning at one
+
+883
+00:39:54.850 --> 00:39:57.650
+point. We're not doing it currently, but at some
+
+884
+00:39:57.650 --> 00:40:00.450
+point we will be going. Here's a library to
+
+885
+00:40:00.450 --> 00:40:03.110
+access our you know, our a p i
+
+886
+00:40:03.110 --> 00:40:06.110
+with, you know, javascript with Ruby, with python
+
+887
+00:40:06.110 --> 00:40:08.790
+with java with whatever right.
+
+888
+00:40:08.800 --> 00:40:11.640
+And, you know, let 1000 clients, you
+
+889
+00:40:11.640 --> 00:40:12.820
+know, you know, Bloom,
+
+890
+00:40:13.580 --> 00:40:16.430
+may the best one win. Hopefully,
+
+891
+00:40:16.430 --> 00:40:19.000
+we're the best. One will be working hard to make sure we
+
+892
+00:40:19.010 --> 00:40:21.750
+try to make sure we're the best one, but it's going to be a
+
+893
+00:40:21.750 --> 00:40:24.460
+level playing field. We're not going to have access to
+
+894
+00:40:24.460 --> 00:40:26.830
+super secret. A p I is that you know you don't,
+
+895
+00:40:27.210 --> 00:40:28.000
+right?
+
+896
+00:40:28.010 --> 00:40:30.930
+>> That's something that we have been able to take advantage of here at
+
+897
+00:40:30.930 --> 00:40:33.820
+I.T. Pro. Like I mentioned, our back end team in front of team are separate.
+
+898
+00:40:33.830 --> 00:40:36.740
+Um, and we have an internal swagger. Api,
+
+899
+00:40:36.750 --> 00:40:39.180
+uh, we haven't yet got to the point where we
+
+900
+00:40:39.180 --> 00:40:41.970
+generate a client from that, but we do have the
+
+901
+00:40:41.970 --> 00:40:44.740
+open API swagger specification that you can
+
+902
+00:40:44.740 --> 00:40:47.570
+browse and, you know, make requests through and all that, which
+
+903
+00:40:47.570 --> 00:40:50.340
+turns out to be really handy, because when we finish a
+
+904
+00:40:50.340 --> 00:40:53.260
+feature, we can just send a link to that documentation of the front
+
+905
+00:40:53.260 --> 00:40:55.820
+and team and say, Hey, here's the endpoint. It's got everything you need in there.
+
+906
+00:40:56.710 --> 00:40:57.030
+Yep.
+
+907
+00:40:58.010 --> 00:40:59.760
+>> Um, yeah. Previous.
+
+908
+00:40:59.770 --> 00:41:02.620
+>> Uh, I just wanted to talk about how we
+
+909
+00:41:02.630 --> 00:41:05.040
+organize. This is another thing that,
+
+910
+00:41:05.050 --> 00:41:08.000
+uh, Twitter and Facebook don't really want you to do. Because
+
+911
+00:41:08.000 --> 00:41:10.690
+what they want to do is to deliver you and add,
+
+912
+00:41:10.700 --> 00:41:13.510
+um, and so their timeline belongs to
+
+913
+00:41:13.510 --> 00:41:16.490
+them, Not your timeline belongs to them, not you.
+
+914
+00:41:16.500 --> 00:41:19.400
+Uh, and, uh, so with
+
+915
+00:41:19.400 --> 00:41:21.080
+us, our incentives,
+
+916
+00:41:21.090 --> 00:41:23.660
+uh, were
+
+917
+00:41:23.660 --> 00:41:26.520
+incentivized to to want to want
+
+918
+00:41:26.530 --> 00:41:28.630
+people to own their timeline.
+
+919
+00:41:29.010 --> 00:41:31.860
+Mhm. And so what we've done is given
+
+920
+00:41:31.860 --> 00:41:34.560
+ways to organize your timeline,
+
+921
+00:41:34.570 --> 00:41:36.820
+um, so that you can
+
+922
+00:41:36.820 --> 00:41:39.810
+divide up the timeline
+
+923
+00:41:39.820 --> 00:41:42.730
+based on who you're talking to and
+
+924
+00:41:42.730 --> 00:41:45.210
+what you're talking about. So, for
+
+925
+00:41:45.210 --> 00:41:48.160
+example, if you've got relatives that you
+
+926
+00:41:48.160 --> 00:41:50.930
+want to engage with, um in terms
+
+927
+00:41:50.940 --> 00:41:53.820
+of, you know, food recipes or sport
+
+928
+00:41:53.830 --> 00:41:56.710
+events and things like that that are, you know,
+
+929
+00:41:56.720 --> 00:41:59.420
+family safe, um, but not want to talk about
+
+930
+00:41:59.420 --> 00:42:01.460
+politics so much. Um
+
+931
+00:42:01.470 --> 00:42:04.470
+uh, the other. You know, other social
+
+932
+00:42:04.470 --> 00:42:07.450
+networks are pretty binary. Either you're engaging
+
+933
+00:42:07.450 --> 00:42:10.180
+these people, or you aren't. Um
+
+934
+00:42:10.190 --> 00:42:12.990
+and, uh, with us, we give much a
+
+935
+00:42:12.990 --> 00:42:15.320
+much finer control. Maybe I want to talk tonight.
+
+936
+00:42:15.700 --> 00:42:18.170
+Uh, what about her cookie
+
+937
+00:42:18.170 --> 00:42:21.030
+recipes? But not so much about her
+
+938
+00:42:21.040 --> 00:42:24.030
+opinion on national politics. And we we have
+
+939
+00:42:24.040 --> 00:42:27.010
+mechanisms, uh, to help you do That
+
+940
+00:42:27.600 --> 00:42:30.270
+>> sounds really powerful. Like a hopefully better
+
+941
+00:42:30.270 --> 00:42:33.080
+version of Google's circles, which were a
+
+942
+00:42:33.080 --> 00:42:35.010
+person based rather than kind of topic based
+
+943
+00:42:35.800 --> 00:42:38.160
+from from the dark days of Google. Plus
+
+944
+00:42:38.800 --> 00:42:41.720
+>> Yeah, well, I appreciate
+
+945
+00:42:41.720 --> 00:42:44.680
+you guys coming onto the podcast. I I I want
+
+946
+00:42:44.680 --> 00:42:47.460
+to let our audience know, um, and let you
+
+947
+00:42:47.460 --> 00:42:50.430
+guys kind of give them an update of kind of
+
+948
+00:42:51.100 --> 00:42:53.530
+what's next And maybe some of your platforms that
+
+949
+00:42:53.530 --> 00:42:56.430
+you're, uh, not secure platforms, but where to find your
+
+950
+00:42:56.430 --> 00:42:59.390
+platform and how to access it And how to, you know, be a
+
+951
+00:42:59.390 --> 00:42:59.720
+part of
+
+952
+00:42:59.720 --> 00:43:02.010
+>> it. Yeah, wisely dot com.
+
+953
+00:43:02.500 --> 00:43:03.360
+Yeah,
+
+954
+00:43:03.370 --> 00:43:05.800
+>> yeah, yeah. You can come to chat wisely dot com.
+
+955
+00:43:05.810 --> 00:43:08.560
+And, uh, So what we're doing right now,
+
+956
+00:43:08.570 --> 00:43:11.240
+uh, is trying to
+
+957
+00:43:11.240 --> 00:43:13.780
+demonstrate, um, to,
+
+958
+00:43:13.790 --> 00:43:16.140
+uh, to potential investors that
+
+959
+00:43:16.150 --> 00:43:18.940
+are our assertion is valid that people are
+
+960
+00:43:18.940 --> 00:43:21.710
+willing to pay. Um, but because we're beta,
+
+961
+00:43:21.720 --> 00:43:24.420
+uh, we don't have our payment mechanisms set up
+
+962
+00:43:24.420 --> 00:43:27.340
+yet. Uh, so uh, in lieu of that, we've set up a
+
+963
+00:43:27.340 --> 00:43:30.230
+patreon. Um, uh,
+
+964
+00:43:30.240 --> 00:43:33.030
+which, uh, has has astounded and
+
+965
+00:43:33.030 --> 00:43:35.650
+and and and giving me lots of warm fuzzies
+
+966
+00:43:35.660 --> 00:43:38.260
+based on how successful we haven't had it up very,
+
+967
+00:43:38.270 --> 00:43:41.250
+very long. Um, and, uh, the
+
+968
+00:43:41.250 --> 00:43:43.490
+success that we've received with that, um
+
+969
+00:43:43.500 --> 00:43:46.190
+uh, you know, making me feel really good.
+
+970
+00:43:46.200 --> 00:43:49.030
+Uh, we're up to a little over 100 a month
+
+971
+00:43:49.030 --> 00:43:51.810
+on it. Um, uh,
+
+972
+00:43:51.820 --> 00:43:54.660
+um, the higher we can get that number,
+
+973
+00:43:54.670 --> 00:43:57.350
+the more powerful our assertion will
+
+974
+00:43:57.350 --> 00:43:59.520
+be that people are willing,
+
+975
+00:44:00.000 --> 00:44:02.730
+um uh, to pay for a
+
+976
+00:44:02.730 --> 00:44:03.600
+social network,
+
+977
+00:44:04.290 --> 00:44:07.080
+>> for sure. So we'll leave a link both to
+
+978
+00:44:07.090 --> 00:44:09.920
+chat wisely dot com and to the patreon and the show notes for this
+
+979
+00:44:09.920 --> 00:44:12.110
+episode. Great. So thanks for that.
+
+980
+00:44:13.290 --> 00:44:15.940
+Thank you. Yeah. And, uh, there
+
+981
+00:44:15.950 --> 00:44:18.870
+anything we didn't cover that y'all wanted to mention about?
+
+982
+00:44:18.870 --> 00:44:19.510
+Chat wisely.
+
+983
+00:44:21.290 --> 00:44:24.260
+>> Uh, well, uh, we need beta testers. Um,
+
+984
+00:44:24.270 --> 00:44:27.050
+uh, we we've had some, uh Come
+
+985
+00:44:27.050 --> 00:44:30.050
+on, the blog
+
+986
+00:44:30.060 --> 00:44:32.670
+was very helpful for that, Um,
+
+987
+00:44:32.670 --> 00:44:33.800
+and, uh,
+
+988
+00:44:34.190 --> 00:44:36.950
+uh, we had we had some
+
+989
+00:44:36.960 --> 00:44:39.470
+people point out tests and
+
+990
+00:44:39.480 --> 00:44:42.290
+problems, um, and generated
+
+991
+00:44:42.290 --> 00:44:45.280
+some, you know, lots of tickets for us, which is what we
+
+992
+00:44:45.280 --> 00:44:45.650
+need.
+
+993
+00:44:45.660 --> 00:44:46.090
+>> Um
+
+994
+00:44:46.100 --> 00:44:49.060
+>> uh and so, Yeah,
+
+995
+00:44:49.070 --> 00:44:51.310
+we need beta testers. We
+
+996
+00:44:51.690 --> 00:44:54.660
+please try to break it. Try to break the site. If things
+
+997
+00:44:54.660 --> 00:44:57.290
+are confusing, let us know. Um, we're not
+
+998
+00:44:57.300 --> 00:45:00.180
+user interface or user experience, people. Um
+
+999
+00:45:00.180 --> 00:45:03.020
+and so we need a conversation with beta
+
+1000
+00:45:03.020 --> 00:45:05.900
+testers about their
+
+1001
+00:45:05.900 --> 00:45:08.790
+reaction to how we have things designed which
+
+1002
+00:45:08.790 --> 00:45:11.590
+will help us iterate, um, and and
+
+1003
+00:45:11.590 --> 00:45:14.190
+get something and get and get a better user
+
+1004
+00:45:14.190 --> 00:45:14.810
+experience.
+
+1005
+00:45:15.790 --> 00:45:18.300
+>> Awesome. Yeah. I mean, thank you,
+
+1006
+00:45:18.790 --> 00:45:21.650
+Brian and Michael. It's been a lot of fun.
+
+1007
+00:45:21.650 --> 00:45:24.620
+Kind of hearing about chat wisely. I'm gonna throw it
+
+1008
+00:45:24.620 --> 00:45:26.600
+over to our friend Taylor.
+
+1009
+00:45:27.490 --> 00:45:30.380
+>> Yeah. Thank you so much for listening to the high
+
+1010
+00:45:30.380 --> 00:45:33.310
+school weekly podcast. And again. Thank you, Michael. Thank you, Brian, for being
+
+1011
+00:45:33.310 --> 00:45:36.100
+guests today. It's been great to talk with you. I've
+
+1012
+00:45:36.490 --> 00:45:39.240
+Oh, yeah, absolutely. I've been your host, Taylor
+
+1013
+00:45:39.240 --> 00:45:42.210
+Fausak. And with me today was Cameron Gara. If you want
+
+1014
+00:45:42.210 --> 00:45:45.010
+to find out more about high School weekly, you can go to
+
+1015
+00:45:45.010 --> 00:45:47.560
+our website, which is Haskell weekly dot news.
+
+1016
+00:45:47.710 --> 00:45:50.500
+If you enjoyed listening to this podcast, please
+
+1017
+00:45:50.500 --> 00:45:53.340
+rate and review us wherever you found us. If you have any
+
+1018
+00:45:53.340 --> 00:45:56.280
+feedback for us, please set us up on Twitter at High
+
+1019
+00:45:56.280 --> 00:45:59.150
+School weekly. And, uh, yeah, anything else
+
+1020
+00:45:59.150 --> 00:45:59.500
+came.
+
+1021
+00:45:59.510 --> 00:46:02.450
+>> Yeah, High school weekly is brought to you by I.T.
+
+1022
+00:46:02.450 --> 00:46:05.410
+pro T.V. and a CI learning company and our
+
+1023
+00:46:05.410 --> 00:46:08.350
+employer. They would like to offer you 30% off
+
+1024
+00:46:08.350 --> 00:46:11.120
+the lifetime of your subscription. So if you
+
+1025
+00:46:11.120 --> 00:46:14.100
+have any interest in I.T. world, we have the
+
+1026
+00:46:14.100 --> 00:46:16.960
+content for you. Um and you can use
+
+1027
+00:46:16.960 --> 00:46:19.460
+promo code Haskell Weekly 30 at
+
+1028
+00:46:19.470 --> 00:46:22.250
+checkout for that discount. So I think that
+
+1029
+00:46:22.260 --> 00:46:25.080
+about does it for us. Thank you for joining us on the Haskell Weekly
+
+1030
+00:46:25.080 --> 00:46:27.910
+podcast. And we'll see you guys next week, right?
+
+1031
+00:46:28.290 --> 00:46:28.920
+Police?
