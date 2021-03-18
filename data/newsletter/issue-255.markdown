@@ -44,6 +44,9 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 - [The bottom of the Haskell Pyramid](https://gilmi.me/blog/post/2021/03/16/bottom-haskell-pyramid) by Gil Mizrahi
   > I've decided to make a more modest list of things one should be familiar with to be productive with Haskell, the bottom of The Haskell Pyramid if you will, hoping it will help to focus learners of the language that might get loss in the vast amount of information.
 
+- [Chat Wisely](https://haskellweekly.news/episode/40.html) by Haskell Weekly Podcast
+  > Special guests Michael Litchard and Brian Hurt talk with us about their new social networking site Chat Wisely. We hear about their experience using Haskell not only on the backend but also on the frontend through GHCJS.
+
 - [Free book for subscribers](https://typeclasses.com/news/2021-03-sockets-coupon) by Julie Moronuki
   > As our latest Joy of Haskell monograph, Sockets and Pipes, is nearing completion, we have released the coupon that enables all Typeclasses members to download the book for free.
 
