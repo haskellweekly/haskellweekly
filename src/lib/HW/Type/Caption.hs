@@ -20,7 +20,7 @@ import qualified Text.ParserCombinators.ReadP as ReadP
 import qualified Text.Read as Read
 
 data Caption = Caption
-  { identifier :: Natural.Natural
+  { identifier :: Maybe Natural.Natural
   , start :: Time.TimeOfDay
   , end :: Time.TimeOfDay
   , payload :: NonEmpty.NonEmpty Text.Text
@@ -81,8 +81,10 @@ isNewline c = case c of
 -- This parser ensures that the caption ends after it starts.
 captionP :: Parser Caption
 captionP = do
-  identifier <- identifierP
-  newlineP
+  identifier <- maybeP $ do
+    x <- identifierP
+    newlineP
+    pure x
   start <- timestampP
   stringP " --> "
   end <- timestampP
@@ -90,6 +92,9 @@ captionP = do
   Monad.guard $ start < end
   payload <- nonEmptyP lineP
   pure Caption { identifier, start, end, payload }
+
+maybeP :: Parser a -> Parser (Maybe a)
+maybeP = ReadP.option Nothing . fmap Just
 
 -- | Parses a WebVTT identifier, which for our purposes is always a natural
 -- number.
