@@ -70,6 +70,7 @@ episodes = do
     , episode38
     , episode39
     , episode40
+    , episode41
     ]
   checkGuids validEpisodes Set.empty
   checkNumbers validEpisodes 1
@@ -715,3 +716,16 @@ episode40 = Episode.Episode
   <*> Size.fromNatural 46498026
   <*> Summary.fromText "Special guests Michael Litchard and Brian Hurt talk with us about their new social networking site Chat Wisely. We hear about their experience using Haskell not only on the backend but also on the frontend through GHCJS."
   <*> Title.fromText "Chat Wisely"
+
+episode41 :: Either String Episode.Episode
+episode41 = Episode.Episode
+  <$> Articles.fromList
+    [ "https://www.snoyman.com/blog/2021/04/haskell-base-proposal/"
+    ]
+  <*> Date.fromGregorian 2021 3 22
+  <*> Duration.fromTimestamp 24 36
+  <*> Guid.fromText "9b216c63-414c-4830-a09d-083a7230949f"
+  <*> Number.fromNatural 41
+  <*> Size.fromNatural 23625187
+  <*> Summary.fromText "Byte string, text, and vector, oh my! This week we review Michael Snoyman's proposal to unify vector-like types. Learn about boxed versus unboxed values, pinned versus unpinned memory, and more."
+  <*> Title.fromText "Unified Vector"

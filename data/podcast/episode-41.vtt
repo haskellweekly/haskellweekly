@@ -1,0 +1,1581 @@
+WEBVTT
+
+00:00:07.423 --> 00:00:09.523
+>> Welcome to the
+Haskell Weekly podcast.
+
+00:00:09.643 --> 00:00:13.303
+This is a show about Haskell, a purely
+functional programming language.
+
+00:00:13.573 --> 00:00:15.283
+I'm your host Taylor Fausak.
+
+00:00:15.493 --> 00:00:17.463
+I'm an engineer at ITProTV.
+
+00:00:18.103 --> 00:00:21.643
+With me today is Cameron Gera,
+one of the engineers on my team.
+
+00:00:21.883 --> 00:00:23.173
+Thanks for joining me today, Cam.
+
+00:00:23.781 --> 00:00:25.908
+>> Thanks for having me
+Taylor, I'm excited about today.
+
+00:00:25.908 --> 00:00:29.838
+I think, uh, last couple of weeks for
+a Haskell Weekly and interviewing some
+
+00:00:29.838 --> 00:00:31.308
+incredible people in the community.
+
+00:00:31.308 --> 00:00:35.718
+And, uh, today we have something, you
+know, back back more to our roots,
+
+00:00:35.718 --> 00:00:39.888
+what we're used to, what we do day
+in and day out, which is a look at
+
+00:00:39.888 --> 00:00:44.893
+one of the, um, articles from the
+past edition of Haskell weekly.
+
+00:00:44.893 --> 00:00:47.473
+And then we dissected and
+jumped in a little bit.
+
+00:00:47.533 --> 00:00:51.283
+Um, today I'm really excited because,
+you know, we've covered a lot of
+
+00:00:51.343 --> 00:00:53.443
+Michael Snoyman's articles before.
+
+00:00:53.713 --> 00:00:57.943
+Um, and we're going to cover another
+one today, but this one is honestly
+
+00:00:58.003 --> 00:01:00.223
+was a little brain stretching for me.
+
+00:01:00.223 --> 00:01:05.173
+And so I'm excited to kind of ask some
+questions I had from it and get some
+
+00:01:05.173 --> 00:01:07.813
+clarity, um, you know, as well as just.
+
+00:01:08.203 --> 00:01:09.253
+Bounce ideas around with you.
+
+00:01:09.313 --> 00:01:16.453
+Um, but today's article is titled Haskell
+base proposal, unifying vector like types.
+
+00:01:17.293 --> 00:01:18.553
+So we're going to just
+dive right in, right?
+
+00:01:19.098 --> 00:01:19.398
+>> Yeah.
+
+00:01:19.428 --> 00:01:22.788
+And as you mentioned, it's by
+Michael Snoyman, who we frequently
+
+00:01:23.118 --> 00:01:24.498
+talk about on this podcast.
+
+00:01:24.528 --> 00:01:29.358
+Uh, but in relation to this discussion
+today, I think one of the reasons
+
+00:01:29.508 --> 00:01:33.943
+this is even coming up again is that,
+Michael Snoyman is involved with
+
+00:01:33.973 --> 00:01:37.783
+the Haskell Foundation, particularly
+kind of the more tech side of it.
+
+00:01:38.383 --> 00:01:44.503
+And, uh, this is a proposal to
+augment or change the base library
+
+00:01:44.713 --> 00:01:48.613
+to have like a common vector type
+that everything else can use.
+
+00:01:48.643 --> 00:01:51.703
+So I think that's a little bit
+of the broader context under
+
+00:01:51.703 --> 00:01:53.233
+which this article was published.
+
+00:01:54.978 --> 00:01:55.308
+>> Yeah.
+
+00:01:55.308 --> 00:01:58.188
+And I think, you know,
+that, you know, his.
+
+00:02:00.058 --> 00:02:05.218
+Kind of focus and driving force is just
+to like help drive that technical agenda
+
+00:02:05.548 --> 00:02:11.248
+for the Haskell Foundation and really
+find a way to make the quality of life
+
+00:02:11.248 --> 00:02:16.828
+of Haskell a little easier, um, you
+know, and kind of clear up some of the
+
+00:02:17.218 --> 00:02:23.263
+confusion about, you know, boxed versus
+unboxed, pinned versus unpinned memory.
+
+00:02:23.563 --> 00:02:28.243
+Uh, what vector is, why there's so
+many different types and you know,
+
+00:02:28.273 --> 00:02:32.803
+all the variety of libraries we
+have for them and like, what does,
+
+00:02:32.803 --> 00:02:33.913
+what, and what's the side effects.
+
+00:02:33.913 --> 00:02:36.673
+So I think he like really dove in deep.
+
+00:02:36.783 --> 00:02:39.993
+Um, and so I'm looking
+forward to diving in.
+
+00:02:40.408 --> 00:02:43.378
+>> Yeah, it's a lot to
+cover, so we better get started.
+
+00:02:43.468 --> 00:02:47.698
+And I think, uh, again, to contextualize
+just a little bit more actually, before
+
+00:02:47.698 --> 00:02:52.648
+we get in, is that one of the goals of
+the Haskell Foundation is to increase
+
+00:02:52.678 --> 00:02:56.998
+like, uh, industrial or commercial
+adoption of Haskell and try to find some
+
+00:02:56.998 --> 00:03:01.528
+of those things that could be warts or
+paper cuts that new people may run into
+
+00:03:01.528 --> 00:03:03.328
+and minimize those as much as possible.
+
+00:03:03.568 --> 00:03:07.588
+And one of the motivations for
+this discussion is strings.
+
+00:03:07.858 --> 00:03:12.268
+And it's a common meme or complaint about
+Haskell that there's, you know, five
+
+00:03:12.268 --> 00:03:13.768
+string types you have to care about.
+
+00:03:14.248 --> 00:03:16.588
+And that isn't really true.
+
+00:03:16.588 --> 00:03:19.948
+There's string from the prelude,
+which is a linked list of characters,
+
+00:03:19.948 --> 00:03:21.718
+which is a pretty bad representation.
+
+00:03:22.288 --> 00:03:25.918
+And then there's text, which is
+kind of the de facto library for
+
+00:03:25.918 --> 00:03:28.888
+representing textual data in Haskell.
+
+00:03:29.848 --> 00:03:34.078
+Um, and often byte string gets involved
+in the mix there because you can
+
+00:03:34.078 --> 00:03:38.413
+represent strings as byte strings, but
+you lose some information there cause
+
+00:03:38.413 --> 00:03:39.883
+you don't know what encoding it is.
+
+00:03:40.363 --> 00:03:44.293
+Uh, anyway, uh, just, just to
+contextualize, that's like the main
+
+00:03:44.293 --> 00:03:48.913
+motivation here, I think, but behind
+the scenes, regardless of, you know,
+
+00:03:48.913 --> 00:03:52.273
+what you do with strings, they need
+to be represented in memory somehow.
+
+00:03:52.303 --> 00:03:54.283
+And that's what, this is more focused on.
+
+00:03:55.068 --> 00:03:55.518
+>> Right.
+
+00:03:55.848 --> 00:04:00.618
+And so, you know, you've talked about
+string being that meme wart thing
+
+00:04:00.618 --> 00:04:05.598
+that, you know, because it's the only
+textual basis in the base library.
+
+00:04:05.628 --> 00:04:05.988
+Right?
+
+00:04:06.873 --> 00:04:07.473
+>> Yeah.
+
+00:04:07.623 --> 00:04:11.613
+Uh, in the prelude and in the base
+library, the string type is really
+
+00:04:11.613 --> 00:04:16.978
+the only choice and so much of the
+base API uses strings as input or
+
+00:04:16.978 --> 00:04:18.688
+output because it's the only choice.
+
+00:04:19.228 --> 00:04:24.058
+Somewhat recently, like, I don't know,
+in the past couple of years, um, the
+
+00:04:24.058 --> 00:04:29.758
+text library has become a wired in
+library for GHC, which means that when
+
+00:04:29.758 --> 00:04:32.668
+you install GHC you get text for free.
+
+00:04:32.848 --> 00:04:36.418
+So that has helped and that's made it
+more available, but it's still not like
+
+00:04:36.688 --> 00:04:39.868
+actually in base or better yet in the
+prelude where you don't even have to
+
+00:04:39.868 --> 00:04:42.148
+import anything to be able to use text.
+
+00:04:43.968 --> 00:04:44.838
+>> Yeah, yeah.
+
+00:04:44.848 --> 00:04:46.488
+And I know we've, we've
+struggled against that.
+
+00:04:46.488 --> 00:04:51.498
+We've have our own custom prelude now
+that has that, you know, available to us.
+
+00:04:51.978 --> 00:04:58.608
+Um, but what, what is kind of the and
+you know another kind of thing going on?
+
+00:04:58.938 --> 00:05:02.698
+Um, That's like related to
+like all these options, right?
+
+00:05:02.698 --> 00:05:03.058
+Everything.
+
+00:05:03.058 --> 00:05:06.688
+There's so many options with
+different libraries and everything.
+
+00:05:07.138 --> 00:05:10.678
+Um, but nothing really shares
+anything behind the scenes.
+
+00:05:10.678 --> 00:05:12.238
+It's all different representations.
+
+00:05:12.733 --> 00:05:13.273
+>> Right.
+
+00:05:14.053 --> 00:05:15.823
+So that's the key point here.
+
+00:05:15.823 --> 00:05:19.423
+So like, like I've just mentioned,
+string is a linked list of characters and
+
+00:05:19.423 --> 00:05:22.393
+linked lists are baked into the language.
+
+00:05:22.423 --> 00:05:24.403
+You could write your own, but
+there's one in the language.
+
+00:05:24.403 --> 00:05:25.723
+So a lot of people use that.
+
+00:05:26.323 --> 00:05:28.453
+Uh, but linked lists
+have a lot of downsides.
+
+00:05:28.483 --> 00:05:33.613
+They aren't very compact in memory
+and they're not easy to iterate over
+
+00:05:33.613 --> 00:05:36.073
+or rather they're easy to iterate
+over, but you might get a lot of
+
+00:05:36.073 --> 00:05:38.863
+cache misses along the way, and they.
+
+00:05:39.088 --> 00:05:43.138
+Aren't good at random
+access or mutation in place.
+
+00:05:43.468 --> 00:05:45.958
+So that's why there are
+other options for this.
+
+00:05:45.958 --> 00:05:48.778
+The most popular one is
+probably byte string.
+
+00:05:49.168 --> 00:05:54.988
+So if you wanted to represent just a, you
+know, a bunch of memory in your program,
+
+00:05:54.988 --> 00:05:56.218
+you're probably gonna use a byte string.
+
+00:05:56.668 --> 00:05:58.198
+Um, but it's not the only option.
+
+00:05:58.228 --> 00:06:03.778
+You could also use the vector package,
+like a vector of Word8 Uh, values
+
+00:06:04.228 --> 00:06:09.088
+or you could use the array package,
+which is part of the Haskell language
+
+00:06:09.088 --> 00:06:12.928
+report, like the language standard,
+but it's also not a very good library
+
+00:06:12.998 --> 00:06:16.278
+In a lot of ways vector is just
+the array library, but done better.
+
+00:06:17.178 --> 00:06:19.668
+Um, and then there are
+a lot of other options.
+
+00:06:19.698 --> 00:06:22.578
+Um, but those, those are the main players.
+
+00:06:22.638 --> 00:06:25.998
+Uh, and maybe another one that's
+it's worth mentioning at this
+
+00:06:25.998 --> 00:06:28.398
+point is the foundation library.
+
+00:06:28.728 --> 00:06:32.058
+Not to be confused with
+the Haskell foundation.
+
+00:06:32.458 --> 00:06:33.238
+Organization.
+
+00:06:33.688 --> 00:06:37.168
+Um, but there's a library
+called foundation and it has
+
+00:06:37.168 --> 00:06:39.598
+a sub library called basement.
+
+00:06:40.168 --> 00:06:44.128
+And that contains a lot of these more
+primitive array, vector like types.
+
+00:06:44.158 --> 00:06:45.238
+So it's got one of these as well.
+
+00:06:46.023 --> 00:06:46.443
+>> Gotcha.
+
+00:06:47.043 --> 00:06:51.513
+So you talked about, you know,
+byte string and vector Word8 being
+
+00:06:52.323 --> 00:06:53.853
+quote-unquote like synonymous.
+
+00:06:53.943 --> 00:06:58.503
+Um, but you know, in the article
+he talks to that byte string
+
+00:06:58.503 --> 00:07:00.783
+is a pinned foreign pointer.
+
+00:07:01.233 --> 00:07:04.203
+Um, you know, what does that
+mean for someone who hasn't.
+
+00:07:04.978 --> 00:07:05.278
+A lot.
+
+00:07:05.278 --> 00:07:07.498
+It doesn't have a lot of
+programming knowledge or they're
+
+00:07:07.498 --> 00:07:10.578
+still learning the ins and outs
+of pointers and stuff like that.
+
+00:07:11.278 --> 00:07:13.228
+>> Yeah, so pinned is.
+
+00:07:13.693 --> 00:07:19.063
+A, um, property of the memory that
+GHC will allocate for this thing.
+
+00:07:19.573 --> 00:07:25.813
+And what pinned means is that if you
+need to call out to C or just call,
+
+00:07:25.873 --> 00:07:29.713
+call out to anything through Haskell's,
+FFI the foreign function interface.
+
+00:07:30.283 --> 00:07:35.833
+Then if your memory is pinned, that means
+that the garbage collector won't move it
+
+00:07:35.833 --> 00:07:41.683
+around, which means if you hand a pointer
+off to some C program through the FFI.
+
+00:07:42.523 --> 00:07:46.123
+That C program knows that that pointer
+isn't going to move, which is really
+
+00:07:46.123 --> 00:07:49.453
+useful because it's probably going to
+want to do something with that pointer.
+
+00:07:49.933 --> 00:07:53.713
+Um, and of course the other, uh,
+you know, the alternative is to use
+
+00:07:53.743 --> 00:07:58.513
+unpinned memory, which the garbage
+collector is free to move around.
+
+00:07:58.933 --> 00:08:04.753
+And, um, you may wonder why would you
+want to use pinned versus unpinned memory?
+
+00:08:04.813 --> 00:08:07.513
+Like I mentioned, if you're
+making an FFI call, you probably
+
+00:08:07.513 --> 00:08:10.183
+need pinned Um, but another.
+
+00:08:10.873 --> 00:08:13.723
+Or, or one of the downsides of pinned
+memory, I guess the reason you don't
+
+00:08:13.723 --> 00:08:19.183
+use pinned memory everywhere is that
+since the garbage collector can move
+
+00:08:19.183 --> 00:08:26.323
+stuff around, it can, uh, compact
+your heap or, uh, you, people may be
+
+00:08:26.323 --> 00:08:29.893
+familiar with this back in the old days
+when we had spinning rust hard drives,
+
+00:08:30.253 --> 00:08:34.243
+uh, defragmentation where you may have
+a bunch of small files all scattered
+
+00:08:34.243 --> 00:08:36.013
+over your hard drive and you can.
+
+00:08:36.403 --> 00:08:38.533
+Pack them all together, real
+close next to each other.
+
+00:08:38.593 --> 00:08:43.273
+And, um, then you end up with
+more contiguous free space.
+
+00:08:43.483 --> 00:08:45.973
+And in this case, I'm
+talking about GHC's heap.
+
+00:08:46.573 --> 00:08:50.263
+Um, and that's beneficial because then
+if you need to allocate a big chunk
+
+00:08:50.263 --> 00:08:54.043
+of memory, you can do that rather than
+having to, you know, scan over all of
+
+00:08:54.043 --> 00:08:55.543
+your available heap or, or whatever.
+
+00:08:55.693 --> 00:08:58.893
+I don't know too much about garbage
+collection, but that's my, my
+
+00:08:58.903 --> 00:09:00.133
+understanding of what's going on here.
+
+00:09:00.688 --> 00:09:03.688
+>> Yeah, no, I think that
+was a, a great explanation.
+
+00:09:03.748 --> 00:09:08.638
+Um, you know, it makes sense why we'd
+want pinned for the FFI because if that
+
+00:09:08.698 --> 00:09:12.748
+pointer points to something that's not
+there anymore, then we're really, uh, Sol.
+
+00:09:12.778 --> 00:09:15.958
+So, you know, it makes sense
+for, for that situation.
+
+00:09:15.988 --> 00:09:19.768
+And I think, you know, the
+idea of unpinned memory that
+
+00:09:19.768 --> 00:09:21.298
+allows the garbage collector to.
+
+00:09:21.808 --> 00:09:26.248
+Sort of organize the memory
+more or less, um, is great.
+
+00:09:26.248 --> 00:09:32.548
+Cause then yeah, that big giant heap
+or not, it's not actually a heap
+
+00:09:32.548 --> 00:09:36.988
+of memory, but this chunk of memory
+that needs to be allocated no matter
+
+00:09:36.988 --> 00:09:40.468
+what the size can generally be found,
+because everything isn't in the way.
+
+00:09:40.878 --> 00:09:41.358
+>> yes.
+
+00:09:41.478 --> 00:09:45.258
+And it's worth noting that the
+byte string library provides a
+
+00:09:45.258 --> 00:09:48.018
+type that uses unpinned memory.
+
+00:09:48.198 --> 00:09:50.268
+And that type is called short byte string.
+
+00:09:51.198 --> 00:09:56.658
+This I haven't seen this used very
+often and compared to the like data dot
+
+00:09:56.658 --> 00:10:01.398
+byte string API, that's exposed, the
+short byte string exposes very little.
+
+00:10:01.488 --> 00:10:05.388
+It effectively lets you convert
+in and out of normal byte strings.
+
+00:10:05.758 --> 00:10:07.108
+And then just kind of keep it around.
+
+00:10:07.108 --> 00:10:12.058
+So I think the intent is to use this for
+like, uh, interned strings that other
+
+00:10:12.298 --> 00:10:14.908
+programming languages use or like symbol.
+
+00:10:14.908 --> 00:10:18.148
+And I don't know, just something that
+you really only need a reference to.
+
+00:10:18.148 --> 00:10:19.678
+You don't want to do anything with it.
+
+00:10:20.713 --> 00:10:21.013
+>> Okay.
+
+00:10:21.013 --> 00:10:21.223
+Yeah.
+
+00:10:22.548 --> 00:10:25.878
+>> Um, what kind of kicked off
+this discussion was, uh, we were
+
+00:10:25.878 --> 00:10:27.708
+talking about vector also and the other.
+
+00:10:28.138 --> 00:10:30.238
+Representations for this
+stuff behind the scenes.
+
+00:10:30.268 --> 00:10:37.108
+So I mentioned that byte string is kind
+of the same as a vector of Word8 And
+
+00:10:37.108 --> 00:10:42.028
+I think maybe a reasonable question is
+why isn't it that, you know, we have
+
+00:10:42.028 --> 00:10:45.808
+this vector library, why isn't byte,
+string, just a wrapper around that.
+
+00:10:45.868 --> 00:10:51.538
+And that's the crux of a Snoyman's post
+here is that maybe it should be right.
+
+00:10:52.078 --> 00:10:53.338
+>> Maybe it can just
+be a new type wrapper.
+
+00:10:53.743 --> 00:10:54.133
+>> Yeah.
+
+00:10:54.643 --> 00:10:58.583
+Um, but in order to do that, we need
+to solve this pinned versus unpinned
+
+00:10:58.603 --> 00:11:04.693
+problem, because vector is unpinned I
+think, um, I should check that, but I
+
+00:11:04.693 --> 00:11:09.853
+think it's unpinned and, uh, yeah, so
+that's one reason why it's not there.
+
+00:11:09.943 --> 00:11:16.483
+And the other reason, or one other reason
+is that, um, vector is a little expensive
+
+00:11:16.483 --> 00:11:19.513
+to compile and isn't a wired in library.
+
+00:11:19.543 --> 00:11:21.523
+So the GHC team.
+
+00:11:21.943 --> 00:11:24.793
+Can't just like depend on it, Willy
+nilly that, so it's a big deal
+
+00:11:24.793 --> 00:11:26.023
+to get a new library involved.
+
+00:11:26.433 --> 00:11:26.853
+>> Right.
+
+00:11:26.913 --> 00:11:31.383
+I mean, yeah, and Snoyman said Like
+the factor package itself is huge,
+
+00:11:31.383 --> 00:11:32.913
+so it takes a long time to compile.
+
+00:11:33.423 --> 00:11:35.193
+Um, yeah.
+
+00:11:35.193 --> 00:11:42.843
+And, and kind of to your point of vector
+being unpinned um, I know it's, I don't,
+
+00:11:43.033 --> 00:11:47.493
+I can't remember if pinned or unpinned but
+I do know it's boxed or unboxed, which.
+
+00:11:48.193 --> 00:11:50.593
+I don't know exactly what those mean
+So I'm going to ask you a second
+
+00:11:50.593 --> 00:11:56.263
+with those mean, but my hypothesis
+of what those mean is the boxed is a
+
+00:11:56.263 --> 00:11:58.783
+range of memory in which it exists.
+
+00:11:59.143 --> 00:12:03.373
+And then unboxed is kind of, it's just
+wherever it wants to be within the heap.
+
+00:12:04.528 --> 00:12:06.568
+>> Um, I think that's close.
+
+00:12:06.598 --> 00:12:11.728
+So again, I, I'm not too versed in the
+details here, so I may get it wrong.
+
+00:12:11.788 --> 00:12:18.268
+But my understanding is that boxed is what
+we think of for normal Haskell data types.
+
+00:12:18.358 --> 00:12:23.428
+Um, like, and I guess maybe most
+people don't think about the memory
+
+00:12:23.428 --> 00:12:24.988
+representation of data types.
+
+00:12:26.008 --> 00:12:29.338
+day to day I know I, that, that
+I don't, but, uh, boxed means
+
+00:12:29.338 --> 00:12:32.698
+that box means that it's like a.
+
+00:12:33.328 --> 00:12:37.378
+Uh, pointer to some struct
+that has all the fields on
+
+00:12:37.378 --> 00:12:38.398
+it that you're interested in.
+
+00:12:38.698 --> 00:12:41.008
+Uh, and sometimes there's
+only one field on the thing.
+
+00:12:41.008 --> 00:12:45.238
+So like a boxed Word32 is a pointer.
+
+00:12:45.553 --> 00:12:48.853
+To a 32 bit unsigned
+integer, somewhere in memory.
+
+00:12:49.843 --> 00:12:55.153
+Um, and the alternative unboxed means
+that there is no pointer, so it's
+
+00:12:55.153 --> 00:12:57.043
+just stored directly on the thing.
+
+00:12:57.043 --> 00:12:58.333
+There's no indirection there.
+
+00:12:58.963 --> 00:13:03.253
+Um, and this is important when you're
+trying to write high performance stuff
+
+00:13:03.253 --> 00:13:06.643
+with arrays because if you want to
+iterate over an array or a vector or
+
+00:13:06.643 --> 00:13:10.753
+whatever, if it's boxed every time
+you get to a new element, you have
+
+00:13:10.753 --> 00:13:13.483
+to chase another pointer and go to
+somewhere else in memory and get it.
+
+00:13:14.113 --> 00:13:17.413
+Whereas, if it's unboxed, you
+can just loop over, you know,
+
+00:13:17.413 --> 00:13:19.423
+one contiguous chunk of memory.
+
+00:13:19.423 --> 00:13:21.913
+And this is very good for cache hits.
+
+00:13:21.913 --> 00:13:25.963
+So your CPU will load like, you know, that
+line of memory into it's cache and you'll
+
+00:13:25.963 --> 00:13:27.913
+just rip over that thing super fast.
+
+00:13:29.103 --> 00:13:29.553
+>> okay.
+
+00:13:30.213 --> 00:13:34.743
+So it's, I was a little bit
+backwards maybe then on my
+
+00:13:37.173 --> 00:13:37.323
+>> yeah.
+
+00:13:37.323 --> 00:13:40.833
+So box is like, quote, unquote,
+normal for Haskell where.
+
+00:13:41.158 --> 00:13:43.798
+Everything is like a
+pointer to somewhere else.
+
+00:13:43.858 --> 00:13:47.488
+Um, and unboxed is it's
+stored right there.
+
+00:13:47.488 --> 00:13:49.258
+You don't have to chase
+down a pointer to get to it.
+
+00:13:50.263 --> 00:13:50.653
+>> Okay.
+
+00:13:51.633 --> 00:13:51.963
+Yeah.
+
+00:13:52.023 --> 00:13:56.373
+And then what about, um, so
+there's also different types of
+
+00:13:56.403 --> 00:14:01.263
+vectors store, like there's just
+vector there's storable vector.
+
+00:14:01.263 --> 00:14:04.293
+And then there's like, obviously unboxed
+vector, which we kind of talked about it
+
+00:14:05.118 --> 00:14:05.418
+>> yeah.
+
+00:14:05.418 --> 00:14:08.508
+And this is something that
+Snoyman wants to try to clear up.
+
+00:14:08.598 --> 00:14:09.638
+Uh, he doesn't have a very.
+
+00:14:10.003 --> 00:14:14.143
+Concrete proposal for this, but if you
+go poke around with the vector package,
+
+00:14:14.173 --> 00:14:18.543
+you'll see that there's data dot
+vector data dot vector dot unboxed dot.
+
+00:14:18.883 --> 00:14:20.263
+Storable mutable.
+
+00:14:20.263 --> 00:14:22.003
+Like there's lots of different variants.
+
+00:14:22.033 --> 00:14:25.093
+And I think that contributes
+at least a little bit to why
+
+00:14:25.093 --> 00:14:26.203
+this takes so long to compile.
+
+00:14:26.203 --> 00:14:28.903
+There's a lot of code because this
+stuff gets duplicated and it would be
+
+00:14:28.903 --> 00:14:34.123
+nice if we could have one thing, just
+data dot vector, and that can be boxed
+
+00:14:34.123 --> 00:14:38.323
+or unboxed, or it could be pinned or
+unpinned, or it could be storable or
+
+00:14:38.323 --> 00:14:43.183
+primitive or any of these kinds of
+varieties, because really the interface
+
+00:14:43.243 --> 00:14:44.533
+should be the same for all of those.
+
+00:14:44.533 --> 00:14:45.493
+And behind the scenes.
+
+00:14:45.973 --> 00:14:49.843
+We either may not care how it's
+represented or we want it to
+
+00:14:49.843 --> 00:14:52.723
+automatically pick the most
+efficient representation for us.
+
+00:14:53.533 --> 00:14:57.493
+And I, my understanding is that
+with Haskell's type system right
+
+00:14:57.493 --> 00:14:59.653
+now, that may not be possible.
+
+00:14:59.953 --> 00:15:04.723
+Uh, and I can't remember the
+specifics, but I know that when you
+
+00:15:04.723 --> 00:15:09.163
+go to unboxed, you are unable to
+do certain things and everything
+
+00:15:09.163 --> 00:15:10.303
+behaves a little bit differently.
+
+00:15:10.663 --> 00:15:14.263
+Uh, the main thing I can think of
+right now is that like lazy values.
+
+00:15:14.728 --> 00:15:19.408
+I don't think can be unboxed or rather if
+you have an unboxed value, it's not lazy
+
+00:15:19.498 --> 00:15:23.338
+because if it's not a pointer to somewhere
+else, that means you have that value.
+
+00:15:23.338 --> 00:15:24.508
+So it hasn't, it has to
+
+00:15:25.248 --> 00:15:26.743
+>> It doesn't just
+live in a thunk anywhere.
+
+00:15:26.763 --> 00:15:28.953
+It's it is evaluated and available.
+
+00:15:29.673 --> 00:15:30.063
+Okay.
+
+00:15:30.508 --> 00:15:31.348
+Yeah, that makes sense.
+
+00:15:31.438 --> 00:15:35.758
+And I think, um, there's something
+that you said just a second ago
+
+00:15:35.788 --> 00:15:37.438
+and now it's escaping me of course.
+
+00:15:37.648 --> 00:15:43.048
+Uh, but the, wow.
+
+00:15:43.198 --> 00:15:47.158
+I really can't remember, but anyways,
+we'll keep moving on the, um,
+
+00:15:48.028 --> 00:15:49.828
+You know, underlying vector type.
+
+00:15:50.158 --> 00:15:54.118
+Now I remember what it is, uh,
+that, you know, existing vector
+
+00:15:54.118 --> 00:15:59.218
+types now have really complicated
+and convoluted instances for like
+
+00:15:59.398 --> 00:16:02.278
+boxed or unboxed or, and such.
+
+00:16:02.368 --> 00:16:03.718
+Um, because it's, it's not.
+
+00:16:04.153 --> 00:16:06.163
+Necessarily trivial to
+create those things.
+
+00:16:06.193 --> 00:16:09.913
+I know I wouldn't, I haven't looked at
+a type signature, so I don't know, but
+
+00:16:09.913 --> 00:16:14.833
+I would most likely have a hard time
+developing a instance of that thing.
+
+00:16:14.863 --> 00:16:17.863
+Um, because it's dealing with
+memory, it's dealing with things that
+
+00:16:17.863 --> 00:16:19.483
+are just kind of, you know, it's.
+
+00:16:20.068 --> 00:16:21.328
+It's behind the curtain, right?
+
+00:16:21.358 --> 00:16:24.708
+So it's, you know, you have this pretty
+view of what Haskell is, and then you
+
+00:16:24.718 --> 00:16:26.638
+have to put, you know, if you pull
+back the curtain, you'll say, Oh,
+
+00:16:26.638 --> 00:16:30.118
+okay, this is how all these things are
+represented in memory and how they all
+
+00:16:30.118 --> 00:16:34.228
+work together, how GHC manages them
+all, how the garbage collector does
+
+00:16:34.228 --> 00:16:37.288
+things, you know, that's something I
+haven't had necessarily a ton of time
+
+00:16:37.288 --> 00:16:39.208
+to dive into is the behind the scenes.
+
+00:16:39.898 --> 00:16:44.008
+Um, and so I think this was
+a great kind of step, um, for
+
+00:16:44.008 --> 00:16:45.268
+me to get into that direction.
+
+00:16:45.628 --> 00:16:48.688
+Um, and I appreciate Snoyman taking
+the time to kind of just share.
+
+00:16:49.483 --> 00:16:53.893
+Um, you know, some of the thoughts and
+feelings, um, and then you also being
+
+00:16:53.893 --> 00:16:55.323
+able to explain a little bit of the
+
+00:16:57.633 --> 00:16:59.823
+>> Yeah, hopefully
+I've done a good job.
+
+00:16:59.853 --> 00:17:02.103
+And there's one other thing
+that I want to touch on.
+
+00:17:02.133 --> 00:17:05.883
+Um, that is one of those
+behind the scenes things.
+
+00:17:05.943 --> 00:17:11.553
+Uh, if you've ever looked at the
+documentation for data dot text or data
+
+00:17:11.553 --> 00:17:18.243
+dot vector, you may have noticed in a lot
+of places, it says subject to fusion and.
+
+00:17:19.483 --> 00:17:24.043
+Yeah, that, uh, if you aren't
+already familiar with fusion,
+
+00:17:24.073 --> 00:17:25.333
+those may be a little cryptic.
+
+00:17:25.363 --> 00:17:26.953
+Like, what does that mean?
+
+00:17:27.043 --> 00:17:28.963
+Is it good to be subject to fusion?
+
+00:17:28.963 --> 00:17:29.533
+Is it bad?
+
+00:17:29.533 --> 00:17:31.783
+Should I want these functions
+or should I avoid them?
+
+00:17:32.353 --> 00:17:39.313
+Um, and to give a high level
+overview, uh, fusion is where you
+
+00:17:39.313 --> 00:17:44.473
+may have a pipeline of operations
+that you apply to something and.
+
+00:17:45.103 --> 00:17:48.673
+It would be expensive to like
+take your input and apply the
+
+00:17:48.673 --> 00:17:52.753
+first change and then take, you
+know, produce an output from that.
+
+00:17:52.753 --> 00:17:54.643
+And then use that as the
+input to the second thing.
+
+00:17:54.883 --> 00:17:58.423
+And you'd have all of these intermediate,
+uh, text values or vectors or
+
+00:17:58.423 --> 00:18:03.283
+whatever, and fusion is where you
+fuse all of those things together.
+
+00:18:03.433 --> 00:18:04.003
+Hence the name.
+
+00:18:04.933 --> 00:18:10.213
+Um, and I bring this up because
+this is one of the, or let me answer
+
+00:18:10.213 --> 00:18:11.233
+the questions I posed earlier.
+
+00:18:11.233 --> 00:18:12.433
+I guess fusion is good.
+
+00:18:12.433 --> 00:18:13.933
+And you want to use functions that.
+
+00:18:14.203 --> 00:18:15.613
+Are subject to fusion.
+
+00:18:15.973 --> 00:18:20.833
+Um, but it can be very difficult to
+tell when that works or when it doesn't
+
+00:18:20.833 --> 00:18:27.763
+work and text and vector both have
+their own fusion mechanisms behind
+
+00:18:27.763 --> 00:18:28.873
+the scenes and they are different.
+
+00:18:29.623 --> 00:18:33.613
+So one of the upsides potential
+upsides of unifying these vector
+
+00:18:33.613 --> 00:18:37.813
+like types is to have one fusion
+mechanism behind the scenes.
+
+00:18:38.473 --> 00:18:42.673
+Or alternatively have no
+fusion mechanism at all.
+
+00:18:42.703 --> 00:18:47.503
+And instead rely on some type of streaming
+library, a la pipes or conduit to do
+
+00:18:47.503 --> 00:18:49.483
+that fusion more explicitly for you.
+
+00:18:50.593 --> 00:18:54.073
+Um, so that's a super quick overview
+of fusion, but I wanted to bring it
+
+00:18:54.073 --> 00:19:00.213
+up because, um, one of the kind of
+gotchas with text and vector is that if.
+
+00:19:01.078 --> 00:19:02.668
+All of your functions fuse together.
+
+00:19:02.668 --> 00:19:06.958
+You can get really good performance, but
+if you accidentally miss fusion somewhere
+
+00:19:06.958 --> 00:19:11.008
+along the way, then your performance can
+tank, which is very difficult to debug.
+
+00:19:11.613 --> 00:19:11.853
+>> Hmm.
+
+00:19:12.123 --> 00:19:12.303
+Hmm.
+
+00:19:12.903 --> 00:19:15.063
+Yeah, it sounds a little tricky, a
+
+00:19:15.298 --> 00:19:15.778
+>> Yes.
+
+00:19:17.478 --> 00:19:17.838
+Yeah.
+
+00:19:18.438 --> 00:19:21.858
+Um, but yeah, so I just wanted
+to get that in as a quick note.
+
+00:19:21.888 --> 00:19:27.403
+Um, but yeah, overall, um, Again, the
+point here is we have all these different
+
+00:19:27.403 --> 00:19:31.063
+representations of bytes really byte
+string versus vector or whatever.
+
+00:19:31.423 --> 00:19:35.083
+Um, let's have one and then everything
+else can build on top of that.
+
+00:19:35.623 --> 00:19:37.993
+>> Yeah, and include
+it in base so we can get rid
+
+00:19:37.993 --> 00:19:39.763
+of the uses of string in base
+
+00:19:40.143 --> 00:19:41.583
+>> Yes, that would be great.
+
+00:19:41.583 --> 00:19:42.633
+And so many people
+
+00:19:44.473 --> 00:19:44.893
+>> Yeah.
+
+00:19:45.658 --> 00:19:50.638
+The first comment on the blog post uh
+comment section was, Oh, I'm so glad
+
+00:19:50.728 --> 00:19:53.058
+you want to get rid of string in base
+
+00:19:54.393 --> 00:19:55.323
+>> yes so
+
+00:19:55.378 --> 00:20:00.688
+>> be, it can stay in base, but it
+shouldn't be the base, uh, data type, you
+
+00:20:00.903 --> 00:20:01.323
+>> yeah.
+
+00:20:01.803 --> 00:20:07.743
+And like you mentioned earlier, cam
+uh, for us as application authors,
+
+00:20:08.283 --> 00:20:11.643
+we can, we're in kind of a better
+spot because we can just say we're
+
+00:20:11.643 --> 00:20:13.653
+going to use text everywhere and.
+
+00:20:14.023 --> 00:20:18.103
+Most libraries have a text based
+alternative that you can use, or you
+
+00:20:18.103 --> 00:20:22.593
+can reach for an alternative prelude
+entirely like relude by  Kowainik that
+
+00:20:22.593 --> 00:20:24.373
+uses text pretty much everywhere, I think.
+
+00:20:24.433 --> 00:20:26.413
+Or there are other alternatives too.
+
+00:20:26.983 --> 00:20:32.023
+Um, but as a library author, if you
+want your package to be used in as
+
+00:20:32.023 --> 00:20:37.843
+many places as popular or as possible,
+you probably want to depend on the
+
+00:20:37.843 --> 00:20:39.553
+smallest number of things as you can.
+
+00:20:39.883 --> 00:20:43.183
+So, if you don't really need text,
+then you may not depend on it.
+
+00:20:43.183 --> 00:20:45.373
+In which case, your only
+choice is to use string.
+
+00:20:45.883 --> 00:20:49.183
+And then that just perpetuates
+using string everywhere because
+
+00:20:49.453 --> 00:20:51.343
+you know, if somebody else wants
+to write, so I'll write a library
+
+00:20:51.343 --> 00:20:54.013
+that integrates with yours, they
+are kind of forced to use string.
+
+00:20:54.433 --> 00:20:55.063
+So it's a
+
+00:20:58.603 --> 00:20:59.403
+>> Sounds like it.
+
+00:20:59.433 --> 00:20:59.763
+Yeah.
+
+00:21:00.063 --> 00:21:04.383
+And I mean, as you speak of Kowainik I
+wanted to do a quick little shout out
+
+00:21:04.383 --> 00:21:11.638
+to them for developing the, uh, They
+created a diagram of Haskell ideas
+
+00:21:11.638 --> 00:21:15.808
+and things to learn over time and kind
+of the difficulty of those, um, you
+
+00:21:15.808 --> 00:21:17.578
+know, on a, on a scale, like a graph.
+
+00:21:17.698 --> 00:21:19.108
+So it's really cool.
+
+00:21:19.108 --> 00:21:22.738
+It's in this week, week's edition
+of Haskell weekly, which I think
+
+00:21:22.738 --> 00:21:27.328
+is episode or, uh, edition 255
+Um, so you can find it there.
+
+00:21:27.358 --> 00:21:32.748
+It's a really cool, like, Just kind
+of visual, um, and GHCJS is the
+
+00:21:32.748 --> 00:21:34.248
+hardest and longest thing to learn.
+
+00:21:34.638 --> 00:21:37.668
+So, you know, we talked about
+that last week, so it's, you know,
+
+00:21:37.698 --> 00:21:42.468
+everything's so related yeah, just
+wanted to do a quick shout out there.
+
+00:21:42.538 --> 00:21:42.858
+for that
+
+00:21:43.593 --> 00:21:45.303
+>> Yeah, I thought that
+was really well put together.
+
+00:21:45.303 --> 00:21:49.203
+And like you mentioned, it's sort
+of a two-dimensional graph of these
+
+00:21:49.203 --> 00:21:53.643
+concepts in Haskell and how they
+relate, uh, in difficulty and kind
+
+00:21:53.643 --> 00:21:55.053
+of when you may be exposed to them.
+
+00:21:55.323 --> 00:21:57.693
+So if you feel like you're
+looking for something new to
+
+00:21:57.693 --> 00:21:59.363
+learn about Haskell, you could.
+
+00:21:59.668 --> 00:22:03.388
+Find, you know, kind of the edge of where
+you are and pick one of those things.
+
+00:22:03.388 --> 00:22:04.318
+That's just beyond it.
+
+00:22:04.768 --> 00:22:07.468
+Or if you feel like, you know, everything,
+you could look back and say like,
+
+00:22:07.468 --> 00:22:09.518
+wow, I learned this thing way sooner.
+
+00:22:09.518 --> 00:22:10.218
+than I should have.
+
+00:22:10.743 --> 00:22:11.193
+>> right.
+
+00:22:11.253 --> 00:22:11.553
+Yeah.
+
+00:22:11.613 --> 00:22:14.643
+I mean, it's good to just kind
+of see what's out, what's out
+
+00:22:14.643 --> 00:22:15.993
+there that you may not know.
+
+00:22:16.593 --> 00:22:20.103
+Um, or be like looking at me,
+I'm a ball Haskell baller.
+
+00:22:21.303 --> 00:22:22.893
+If you're a Haskell
+baller, please call us.
+
+00:22:22.893 --> 00:22:25.053
+We would love to, uh,
+give you an opportunity.
+
+00:22:27.213 --> 00:22:27.873
+>> for sure.
+
+00:22:28.743 --> 00:22:32.403
+Um, so yeah, I think I've said
+everything I wanted to say about,
+
+00:22:32.493 --> 00:22:37.563
+uh, this shared vector, like type I'm
+sure that, um, I've messed some things
+
+00:22:37.563 --> 00:22:38.763
+up, but those are the broad strokes.
+
+00:22:38.763 --> 00:22:40.923
+I encourage listeners
+to go read this post.
+
+00:22:40.923 --> 00:22:41.373
+It's good.
+
+00:22:41.583 --> 00:22:44.013
+And go discuss it on the
+Haskell discourse if you've got
+
+00:22:44.013 --> 00:22:45.483
+opinions, which I'm sure you do.
+
+00:22:47.898 --> 00:22:49.098
+>> no, I think that's it.
+
+00:22:49.188 --> 00:22:51.258
+I think that it was uh overall great.
+
+00:22:51.673 --> 00:22:55.303
+Um, to kind of dive into this, even
+though it was a little brain melty for
+
+00:22:55.303 --> 00:22:57.403
+those who aren't as technically savvy.
+
+00:22:57.583 --> 00:22:59.953
+Um, and haven't looked
+behind the curtain enough.
+
+00:23:00.403 --> 00:23:05.743
+Uh, but I do think, yeah, but I do think
+it's, you know, really really great
+
+00:23:05.743 --> 00:23:10.063
+knowledge and something that, you know,
+I think the foundation will continue to
+
+00:23:10.063 --> 00:23:16.053
+think about and yeah, GHC contributors
+and all that, will kind of really evaluate
+
+00:23:16.053 --> 00:23:20.373
+and look at, you know, um, is this
+being something they seriously consider?
+
+00:23:22.098 --> 00:23:23.208
+>> agreed a hundred percent.
+
+00:23:24.168 --> 00:23:27.078
+All right, well, uh, that
+will do it for us this week.
+
+00:23:27.228 --> 00:23:30.438
+Thank you so much for listening
+to the Haskell weekly podcast.
+
+00:23:30.558 --> 00:23:36.088
+I've been your host Taylor Fausak And
+with me today was Cameron Gera You can
+
+00:23:36.088 --> 00:23:41.308
+find out more about Haskell Weekly at
+our website, which is HaskellWeekly.News
+
+00:23:41.488 --> 00:23:45.808
+If you enjoyed the show, please rate
+and review us wherever you found us.
+
+00:23:45.988 --> 00:23:48.538
+And if you have any feedback
+for us, you can tweet us.
+
+00:23:48.568 --> 00:23:50.818
+Our handle is HaskellWeekly
+
+00:23:51.673 --> 00:23:56.203
+>> And Haskell weekly is brought
+to you by ITProTV an ACI learning
+
+00:23:56.203 --> 00:23:58.393
+company and also our employer.
+
+00:23:58.633 --> 00:24:03.253
+They would love to extend an offer of 30%
+off the lifetime of your subscription.
+
+00:24:03.583 --> 00:24:10.213
+Uh, all you gotta do is go to ITPro.TV
+purchase, or you can even start a
+
+00:24:10.213 --> 00:24:12.313
+free subscription if you're skeptical.
+
+00:24:12.573 --> 00:24:13.883
+Um, all you gotta do is purchase.
+
+00:24:13.903 --> 00:24:15.853
+And at checkout, if you use.
+
+00:24:16.183 --> 00:24:20.473
+Promo code HaskellWeekly30 you will
+get that 30% off and you can see
+
+00:24:20.473 --> 00:24:22.783
+it, um, in the checkout process.
+
+00:24:22.843 --> 00:24:25.423
+Um, but I think that about does it for us.
+
+00:24:25.423 --> 00:24:29.293
+Thanks for joining us on the Haskell
+Weekly podcast and see you next week!
