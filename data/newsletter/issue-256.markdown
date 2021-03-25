@@ -7,8 +7,8 @@ This is a weekly summary of what's going on in its community.
 - [Welcome to the Haskell Foundation!](https://discourse.haskell.org/t/haskell-foundation-update-2021-03-19/2152?u=taylorfausak) by Andrew Boardman
   > Some of what we’re working on is basic non-profit paperwork, getting payroll up and running, boring but important stuff. Let's get into the fun stuff.
 
-- [Building a Web app with FP - Part V - Configuration with Dhall](https://matsumonkie.fr/post/5) by Iori Matsuhara
-  > We haven't talked about configuration yet. Most of our app parameters are hard coded, and it's time to solve this issue. The goal for this article is to be able to configure our application with a configuration file.
+- [An introduction to typeclass metaprogramming](https://lexi-lambda.github.io/blog/2021/03/25/an-introduction-to-typeclass-metaprogramming/) by Alexis King
+  > This blog post attempts to remedy that by providing an overview of the foundational concepts behind typeclass metaprogramming.
 
 - [Comparing Elm with Reflex](https://blog.typeable.io/posts/2021-03-22-reflex-vs-elm.html) by Volodya Kalnitsky
   > This post deals with two essentially different approaches to reactive programming. Elm, unlike Reflex, is a separate language, not a library, which is why it's not quite correct to compare them.
@@ -43,8 +43,14 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 
 ## In brief
 
+- [Building a Web app with FP - Part V - Configuration with Dhall](https://matsumonkie.fr/post/5) by Iori Matsuhara
+  > We haven't talked about configuration yet. Most of our app parameters are hard coded, and it's time to solve this issue. The goal for this article is to be able to configure our application with a configuration file.
+
 - [Diagrams for Penrose Tiles](https://readerunner.wordpress.com/2021/03/20/diagrams-for-penrose-tiles/) by Chris Reade
   > I thought Haskell diagrams would be helpful here, and that turned out to be an excellent choice.
+
+- [Free Course On Functional Programming in Haskell](https://www.i-programmer.info/news/150-training-a-education/14437-free-course-on-functional-programming-in-haskell-.html) by Nikos Vaggalis
+  > Videos from an introductory course by Professor Graham Hutton from the University of Nottingham have been made freely available on YouTube.
 
 - [How Dyre works with Cabal Nix-style builds](https://frasertweedale.github.io/blog-fp/posts/2021-03-18-dyre-cabal-store.html) by Fraser Tweedale
   > As a result of the experience I decided to write this post about how Nix-style local builds work, and how Dyre works with programs built and installed that way.
