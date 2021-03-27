@@ -4,7 +4,8 @@ This is a weekly summary of what's going on in its community.
 
 ## Featured
 
-undefined
+- [Combining folds using semigroups](https://luctielen.com/posts/combining_folds_using_semigroups/)
+  > In today's post, I will show how to combine many recursion-scheme folds using semigroups.
 
 ## Jobs
 
