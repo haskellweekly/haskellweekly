@@ -1,0 +1,1967 @@
+WEBVTT
+
+00:00:06.965 --> 00:00:09.005
+>> Welcome to
+the Haskell weekly podcast.
+
+00:00:09.065 --> 00:00:12.665
+This is a show about Haskell, a purely
+functional programming language.
+
+00:00:12.815 --> 00:00:14.465
+I'm your host Taylor Fausak.
+
+00:00:14.585 --> 00:00:16.745
+I'm an engineer at ITProTV.
+
+00:00:17.375 --> 00:00:20.435
+With me today is Cameron Gera,
+one of the engineers on my team.
+
+00:00:20.735 --> 00:00:22.055
+Thanks for joining me today, Cam.
+
+00:00:22.390 --> 00:00:23.890
+>> Of course
+Taylor, glad to be here.
+
+00:00:23.920 --> 00:00:27.760
+Uh, we've got an exciting topic
+to talk about today and something
+
+00:00:27.760 --> 00:00:30.230
+that's impacted us here at ITProTV.
+
+00:00:30.550 --> 00:00:33.490
+Uh, and so, you know, I'm really
+excited cause we have a special
+
+00:00:33.490 --> 00:00:39.320
+guest with us today our Haskell
+wizard himself, Cody Goodman is here.
+
+00:00:39.380 --> 00:00:43.250
+Um, and Cody's going to help us kind
+of talk about, um, async control flow,
+
+00:00:43.250 --> 00:00:48.080
+because we discovered some issues with
+some of our code base because of an
+
+00:00:48.140 --> 00:00:52.100
+issue with an underlying, you know,
+the async control flow in Haskell.
+
+00:00:52.130 --> 00:00:54.080
+So, um, welcome Cody.
+
+00:00:55.018 --> 00:00:55.578
+>> Thanks, Cam.
+
+00:00:56.338 --> 00:00:56.668
+Yeah.
+
+00:00:56.698 --> 00:01:02.188
+Uh, like you're saying, um, we
+had an issue with Postgres simple.
+
+00:01:02.753 --> 00:01:05.953
+I guess I'm jumping right
+into it as the YouTubers say.
+
+00:01:05.953 --> 00:01:06.563
+>> That's okay.
+
+00:01:07.020 --> 00:01:08.100
+>> Let's get right into it.
+
+00:01:09.653 --> 00:01:13.223
+>> Um, so we, we got to work.
+
+00:01:13.343 --> 00:01:16.713
+He saw a nice little Sentry
+error in our Teams channel.
+
+00:01:17.423 --> 00:01:21.173
+It said libpq query in progress.
+
+00:01:21.293 --> 00:01:23.123
+And we're like, what?
+
+00:01:24.983 --> 00:01:25.973
+What was going on there?
+
+00:01:26.723 --> 00:01:37.138
+Um, So we, we go and we dig a little
+deeper and eventually we find out that,
+
+00:01:37.738 --> 00:01:48.238
+um, a long running batch process was
+sometimes dying and it was leaking a
+
+00:01:48.268 --> 00:01:51.928
+connection back into the pool, which.
+
+00:01:52.838 --> 00:01:57.518
+Then if another connection tried to
+use that pool, say a web process or
+
+00:01:57.518 --> 00:02:04.058
+something, it would get a libpq failed,
+another command is in process progress,
+
+00:02:04.118 --> 00:02:07.448
+error, uh, which is kind of shocking.
+
+00:02:09.895 --> 00:02:10.315
+>> Yeah.
+
+00:02:10.445 --> 00:02:12.745
+We would only get this sometimes, right?
+
+00:02:12.745 --> 00:02:17.515
+Cause like the bad connection would
+get put back in the pool, but it would
+
+00:02:17.515 --> 00:02:20.455
+be in the process of cleaning up.
+
+00:02:20.605 --> 00:02:24.205
+So if enough time passed, the
+connection would be good again.
+
+00:02:24.235 --> 00:02:25.255
+So you wouldn't see this error.
+
+00:02:26.003 --> 00:02:26.803
+>> Yeah, exactly.
+
+00:02:27.680 --> 00:02:27.860
+>> Yeah.
+
+00:02:27.860 --> 00:02:31.400
+And, uh, you know, and we had a lot
+of various libraries to look at,
+
+00:02:31.400 --> 00:02:36.140
+you know, we had libpq, postgres
+simple, resource pool, resource T,
+
+00:02:36.170 --> 00:02:38.660
+persistent, persistent Postgres SQL.
+
+00:02:38.660 --> 00:02:40.580
+So there was a lot at play here.
+
+00:02:40.580 --> 00:02:44.720
+And Cody, I know you've spent a lot of
+time on this, so I'm really excited that,
+
+00:02:44.720 --> 00:02:47.495
+you know, You can be here and talk to us.
+
+00:02:47.495 --> 00:02:51.245
+Cause I know you worked with Matt
+Parsons, um, after fault, after
+
+00:02:51.245 --> 00:02:56.525
+filing an issue in, um, persistent,
+that then led to our discovery of
+
+00:02:56.525 --> 00:02:57.965
+what was really going on underneath.
+
+00:02:58.625 --> 00:03:01.955
+So, um, you know, talk through,
+you know, the minimal case to
+
+00:03:01.955 --> 00:03:03.385
+reproduce the bug, if you don't mind.
+
+00:03:04.118 --> 00:03:04.568
+>> Yeah.
+
+00:03:04.718 --> 00:03:08.828
+Uh, so the first thing is, uh, you
+know, how do we get that high level
+
+00:03:08.828 --> 00:03:15.208
+description of, we have some process
+that's inserting some things and.
+
+00:03:16.118 --> 00:03:19.028
+It's causing the connection
+pool to become bad.
+
+00:03:19.238 --> 00:03:21.548
+How do we get that into code?
+
+00:03:21.858 --> 00:03:24.548
+And then, you know, you have
+something, try to pull that back
+
+00:03:24.548 --> 00:03:25.808
+out of the pool and reuse it.
+
+00:03:26.198 --> 00:03:30.608
+Uh, one of the first things which, uh,
+actually overlooked at first is just
+
+00:03:30.608 --> 00:03:32.828
+having a pool with only one resource.
+
+00:03:33.158 --> 00:03:39.788
+Um, because otherwise it's sort of like
+gambling, uh, not a good use of your time.
+
+00:03:41.285 --> 00:03:42.765
+>> You don't
+want to play slots at work?
+
+00:03:43.175 --> 00:03:43.765
+Just, pull it.
+
+00:03:43.765 --> 00:03:46.555
+Oh, triple sevens, I win!.
+
+00:03:46.775 --> 00:03:48.780
+>> It might've
+been closer to like Russian
+
+00:03:48.780 --> 00:03:50.400
+roulette with the connection pool
+
+00:03:51.088 --> 00:03:51.658
+>> Yeah.
+
+00:03:52.078 --> 00:03:52.468
+Yeah.
+
+00:03:53.278 --> 00:03:54.298
+All money on red.
+
+00:03:58.320 --> 00:04:01.500
+>> Um, but yeah, we had, like
+Cody mentioned, this was like a background
+
+00:04:01.500 --> 00:04:03.480
+process that was doing this and.
+
+00:04:03.845 --> 00:04:08.075
+As is so common when you want to open
+a bug against one of the open source
+
+00:04:08.075 --> 00:04:12.425
+libraries that you're using, it's not very
+helpful for the maintainer to say, you
+
+00:04:12.425 --> 00:04:16.295
+know, this happens in our closed source
+application and we think it's your fault.
+
+00:04:16.325 --> 00:04:17.615
+So please fix your library.
+
+00:04:17.675 --> 00:04:21.395
+We wanted to have something public
+we could point to and say, look, this
+
+00:04:21.395 --> 00:04:22.625
+is the problem we're running into.
+
+00:04:22.625 --> 00:04:25.505
+So we were trying to take, you know,
+our tens of thousands of lines of
+
+00:04:25.505 --> 00:04:28.985
+code that are under consideration
+for our app and point it to one of
+
+00:04:28.985 --> 00:04:31.595
+those libraries that Cam mentioned
+earlier, one of the seven different
+
+00:04:31.595 --> 00:04:33.215
+libraries that could be at fault here.
+
+00:04:35.480 --> 00:04:35.690
+>> Yeah.
+
+00:04:35.690 --> 00:04:39.170
+So Cody, you were talking though about,
+yeah, you probably, you started with
+
+00:04:39.170 --> 00:04:43.070
+more than one, uh, you know, a pool
+with more than one resource and then
+
+00:04:43.070 --> 00:04:44.660
+you kind of narrowed it down, right.
+
+00:04:44.660 --> 00:04:48.290
+To test with that one,
+like a one resource pool.
+
+00:04:48.523 --> 00:04:49.073
+>> Right.
+
+00:04:49.073 --> 00:04:52.493
+Cause you know, that, that single
+mistake there, not just taking a
+
+00:04:52.493 --> 00:04:55.743
+second to say, okay, let's just
+make sure we get this right.
+
+00:04:56.033 --> 00:04:59.813
+That cost me some time because
+sometimes it wouldn't fail.
+
+00:04:59.813 --> 00:05:01.703
+And I was like, wow, why
+is this not reproducible?
+
+00:05:01.703 --> 00:05:04.553
+I can't just put this example that
+only sometimes fails up there.
+
+00:05:05.153 --> 00:05:06.083
+I guess I could.
+
+00:05:06.083 --> 00:05:06.893
+Matt's a nice guy.
+
+00:05:06.893 --> 00:05:08.493
+He probably would have ran it once.
+
+00:05:08.953 --> 00:05:09.153
+Okay.
+
+00:05:09.863 --> 00:05:10.183
+>> Yeah.
+
+00:05:10.983 --> 00:05:14.560
+But you want it to be easy for
+the maintainer to reproduce this
+
+00:05:14.560 --> 00:05:17.800
+problem so that, you know, maybe
+you'll nerd snipe them and they'll
+
+00:05:17.800 --> 00:05:18.910
+be like, huh, that's weird.
+
+00:05:18.910 --> 00:05:19.780
+That shouldn't happen.
+
+00:05:20.170 --> 00:05:22.150
+And ideally that'll happen the first time.
+
+00:05:22.150 --> 00:05:23.440
+The first time they try it.
+
+00:05:23.870 --> 00:05:27.550
+>> Yeah, which seems to
+be eventually what happened, right.
+
+00:05:27.580 --> 00:05:31.420
+And you know, you partnering and
+working with Matt a lot on this,
+
+00:05:31.660 --> 00:05:36.170
+you know, helped and, you know,
+obviously Matt's got a post about it.
+
+00:05:36.230 --> 00:05:38.360
+You know, you have a lot
+of notes and stuff from it.
+
+00:05:38.360 --> 00:05:42.800
+So, you know, I think there was a
+great experience for, you know, anybody
+
+00:05:42.800 --> 00:05:47.180
+who's working with a library that, you
+know, starting to create some issue.
+
+00:05:47.180 --> 00:05:50.210
+Like it's a good example of say, hey,
+like it's okay to create an issue.
+
+00:05:50.260 --> 00:05:54.890
+And if you can make that reproducible
+bug, you can work with the maintainer to
+
+00:05:55.310 --> 00:06:00.110
+create a solution and help everybody that
+uses the library, not just your own team.
+
+00:06:00.408 --> 00:06:00.888
+>> Right.
+
+00:06:01.188 --> 00:06:04.968
+And it's funny, you bring up nerd
+sniping, Taylor, because really I'm,
+
+00:06:05.208 --> 00:06:09.498
+I'm hoping that this nerd snipes some
+people and we can actually answer this
+
+00:06:09.498 --> 00:06:11.508
+question and improve Haskell as a whole.
+
+00:06:11.808 --> 00:06:13.158
+Uh, so I'll, I'll say.
+
+00:06:13.438 --> 00:06:15.748
+I'll say something provocative here.
+
+00:06:16.168 --> 00:06:19.768
+I don't think many people
+actually know the root cause here.
+
+00:06:19.828 --> 00:06:21.718
+There's still a lot of
+unanswered questions.
+
+00:06:21.718 --> 00:06:25.228
+And I don't think a lot of people know
+about asynchronous exceptions in Haskell.
+
+00:06:25.678 --> 00:06:27.058
+hope to be proven wrong.
+
+00:06:27.148 --> 00:06:30.958
+And we can figure this out
+and add some documentation and
+
+00:06:31.168 --> 00:06:32.398
+improve everything as a whole.
+
+00:06:33.205 --> 00:06:33.625
+>> Yeah.
+
+00:06:33.685 --> 00:06:37.705
+And I think you, you made a good point
+is like, what is like asynchronous
+
+00:06:37.705 --> 00:06:42.115
+exceptions and what are, you know, what's
+the difference between synchronous control
+
+00:06:42.115 --> 00:06:43.615
+flow and asynchronous control flow?
+
+00:06:43.975 --> 00:06:46.795
+Um, could you give us kind of high
+level overview of that Cody or Taylor?
+
+00:06:48.795 --> 00:06:50.750
+>> Cody, I think
+you're the one to answer that.
+
+00:06:50.750 --> 00:06:51.620
+And I'll put you on the spot
+
+00:06:52.018 --> 00:06:54.598
+>> Uh, yeah, kind of
+been drowning them for two weeks.
+
+00:06:54.598 --> 00:06:58.708
+So hopefully I understand, uh, what
+they are well enough to describe it.
+
+00:06:59.098 --> 00:07:05.338
+Um, so synchronous exceptions are
+basically just on the same thread.
+
+00:07:05.638 --> 00:07:10.228
+Uh, there's something like,
+uh, if you use the unsafe head
+
+00:07:10.228 --> 00:07:13.558
+function, um, this list was empty.
+
+00:07:13.948 --> 00:07:20.138
+Uh, an asynchronous exception is easier to
+think about in terms of like your computer
+
+00:07:20.138 --> 00:07:25.088
+telling you, telling your process that
+it ran out of memory and then canceling
+
+00:07:25.088 --> 00:07:29.978
+your thread, where your computer here
+is more specifically the GHC runtime.
+
+00:07:31.325 --> 00:07:31.715
+>> Okay.
+
+00:07:31.925 --> 00:07:36.845
+So I normally conceptualize an
+async exception as coming from a
+
+00:07:36.845 --> 00:07:42.455
+different thread, but it sounds like
+if you think of the GHC runtime as
+
+00:07:42.455 --> 00:07:45.185
+a separate thread, then that kind of
+fits into that understanding as well.
+
+00:07:45.943 --> 00:07:46.423
+>> Right.
+
+00:07:46.543 --> 00:07:50.983
+And analogies are lossy, but hopefully
+that's a good one to sort of start with
+
+00:07:50.983 --> 00:07:53.053
+and, uh, be aware there's more subtleties.
+
+00:07:55.570 --> 00:07:58.360
+>> Um, and is
+there any difference here?
+
+00:07:58.390 --> 00:08:02.650
+You mentioned using unsafe head,
+which throws either undefined or
+
+00:08:02.650 --> 00:08:06.190
+error or something like that, is there
+really any difference between that
+
+00:08:06.220 --> 00:08:08.830
+and control dot exception dot throw.
+
+00:08:08.860 --> 00:08:11.290
+Or for these purposes, are
+those basically the same.
+
+00:08:11.893 --> 00:08:14.473
+>> Yeah, I'm a, I'm a
+little spotty on that you might have
+
+00:08:14.473 --> 00:08:18.913
+to help me out, but, uh, I think it's
+precise versus imprecise exceptions.
+
+00:08:19.795 --> 00:08:20.785
+>> Something like that.
+
+00:08:20.935 --> 00:08:23.545
+And maybe the, the thing we
+should be comparing against is
+
+00:08:23.575 --> 00:08:27.835
+throw IO or like the monad throw
+constraint, that type of thing.
+
+00:08:28.255 --> 00:08:32.485
+Um, but yeah, I think for our purposes,
+as far as this bug is concerned,
+
+00:08:32.875 --> 00:08:36.055
+it didn't really matter if it was
+a precise or imprecise exception.
+
+00:08:36.055 --> 00:08:38.335
+It mattered if it was
+synchronous or asynchronous.
+
+00:08:38.513 --> 00:08:39.503
+>> Right, right.
+
+00:08:42.115 --> 00:08:45.325
+>> Okay, so Cam, are you
+satisfied with that, uh, description
+
+00:08:45.325 --> 00:08:46.585
+of asynchronous control flow?
+
+00:08:46.630 --> 00:08:49.960
+>> Yeah, I appreciate is
+the, the least Haskell-ish wizard
+
+00:08:49.960 --> 00:08:51.760
+here to get that understanding.
+
+00:08:51.760 --> 00:08:56.710
+And I appreciate your analogy
+of, and wording of how that
+
+00:08:56.710 --> 00:08:59.710
+relates GHC runtime versus not.
+
+00:08:59.710 --> 00:09:02.230
+So thank you Cody for that
+explanation, Taylor as well.
+
+00:09:02.860 --> 00:09:03.430
+Um, you
+
+00:09:03.440 --> 00:09:06.350
+>> And maybe one other
+thing we should mention actually,
+
+00:09:06.350 --> 00:09:11.750
+before we move on from async control
+flow is how you manage them, right?
+
+00:09:11.750 --> 00:09:17.150
+So with normal synchronous exceptions,
+you can add a catch or a handle around it.
+
+00:09:17.390 --> 00:09:20.570
+And if you evaluate everything
+at the right time, then you
+
+00:09:20.570 --> 00:09:21.710
+can deal with that exception.
+
+00:09:22.250 --> 00:09:26.420
+And with async exceptions, normally
+you don't catch them that way.
+
+00:09:26.570 --> 00:09:27.020
+Is that right?
+
+00:09:27.020 --> 00:09:27.290
+Cody?
+
+00:09:28.118 --> 00:09:28.718
+>> Right.
+
+00:09:28.898 --> 00:09:33.758
+Uh, you normally, don't, that's,
+that's actually a really big piece
+
+00:09:33.758 --> 00:09:38.828
+of, this is the whole problem of
+bracket and resource finalization.
+
+00:09:39.248 --> 00:09:42.128
+Uh, you really struck a chord
+here, if you can't tell.
+
+00:09:42.458 --> 00:09:50.678
+Um, uh, basically there was a big
+thread on this a while back, uh.
+
+00:09:50.708 --> 00:09:55.763
+Bracket does not use,
+uh, what was it called?
+
+00:09:55.763 --> 00:09:59.213
+Uninterruptible blocking, uh.
+
+00:09:59.380 --> 00:10:00.130
+>> Uninterruptible.
+
+00:10:00.173 --> 00:10:00.893
+>> Masking.
+
+00:10:00.893 --> 00:10:01.463
+There we go.
+
+00:10:01.823 --> 00:10:02.243
+Yeah.
+
+00:10:02.393 --> 00:10:05.183
+Which wasn't named blocking
+because of reasons.
+
+00:10:05.253 --> 00:10:06.503
+I don't remember the reason.
+
+00:10:06.923 --> 00:10:12.233
+Uh, but yes, masking interruptable
+masking versus uninterrupted masking.
+
+00:10:12.503 --> 00:10:16.553
+Uh, that basically means can
+the runtime system block.
+
+00:10:17.348 --> 00:10:23.048
+Uh, what you're doing inside
+of this code or can it not in
+
+00:10:23.245 --> 00:10:23.725
+>> Okay.
+
+00:10:25.225 --> 00:10:27.355
+And let's, let's unwind that a little bit.
+
+00:10:27.355 --> 00:10:29.125
+So starting with the basics.
+
+00:10:29.155 --> 00:10:32.875
+Bracket is a function where you tell.
+
+00:10:33.410 --> 00:10:37.580
+You, you set up how to acquire a resource
+and how to release a resource, and
+
+00:10:37.580 --> 00:10:39.500
+then you use the resource within that.
+
+00:10:39.590 --> 00:10:42.680
+So the most common example
+I think is with file.
+
+00:10:42.710 --> 00:10:46.490
+Like open a file is acquire,
+close a file is release.
+
+00:10:46.520 --> 00:10:49.820
+And then once you have that file
+handle, you can write to it, read
+
+00:10:49.820 --> 00:10:50.810
+from it and do whatever you want.
+
+00:10:52.220 --> 00:10:56.315
+And masking, uh, like you mentioned,
+it has to do with the runtime.
+
+00:10:56.315 --> 00:10:58.565
+Can it interrupt what's
+going on there or not?
+
+00:10:58.655 --> 00:11:04.115
+Um, maybe interrupt is the wrong word to
+use, but, uh, I typically conceptualize
+
+00:11:04.115 --> 00:11:13.315
+masking as, uh, can an exception be thrown
+into like, while this code is running, can
+
+00:11:13.315 --> 00:11:20.335
+it receive an exception or is it, should
+it avoid, should the runtime avoid sending
+
+00:11:20.335 --> 00:11:21.955
+exceptions while this code is running?
+
+00:11:22.625 --> 00:11:23.915
+Should it wait until it finishes.
+
+00:11:24.158 --> 00:11:26.768
+>> Yeah, I think that's a,
+that's a good way of looking at it.
+
+00:11:27.188 --> 00:11:31.568
+Um, and for here specifically, what
+we're concerned with is, uh, the
+
+00:11:31.568 --> 00:11:33.338
+release portion of that bracket.
+
+00:11:33.578 --> 00:11:38.843
+That is when that, that file
+handle that you took, you
+
+00:11:38.843 --> 00:11:40.583
+acquired from the file system.
+
+00:11:41.003 --> 00:11:43.163
+When you're releasing it
+back to the file system.
+
+00:11:43.163 --> 00:11:45.653
+So all the other things
+can make use of it.
+
+00:11:45.983 --> 00:11:50.123
+Uh, can the GHC runtime
+cancel that process?
+
+00:11:50.333 --> 00:11:56.993
+Are you just going to have, uh, these file
+handles out there that can't be reused?
+
+00:11:58.150 --> 00:11:58.420
+>> Right.
+
+00:11:58.800 --> 00:12:03.210
+And the problem could be that you
+start releasing the file handle,
+
+00:12:03.300 --> 00:12:08.520
+and then GHC interrupts that release
+process with an async exception, for
+
+00:12:08.520 --> 00:12:09.990
+instance, saying you're out of memory.
+
+00:12:10.090 --> 00:12:10.750
+Something like that.
+
+00:12:11.410 --> 00:12:17.170
+And then because of that, you don't finish
+releasing that handle, but whatever code
+
+00:12:17.170 --> 00:12:20.740
+around that call to bracket thinks that
+the release has been run successfully.
+
+00:12:20.950 --> 00:12:25.480
+So you have this kind of like a,
+I dunno, Schrodinger's file handle
+
+00:12:25.510 --> 00:12:27.460
+of, it's not open, it's not closed.
+
+00:12:27.460 --> 00:12:29.200
+It's in this weird state that
+it wasn't meant to be in.
+
+00:12:33.360 --> 00:12:33.720
+Okay.
+
+00:12:33.750 --> 00:12:37.890
+So hopefully that kind of
+explains what we're dealing with
+
+00:12:37.890 --> 00:12:39.480
+here with bracket and masking.
+
+00:12:39.965 --> 00:12:40.595
+Right, Cam?
+
+00:12:40.595 --> 00:12:41.945
+You feeling good with that explanation?
+
+00:12:42.640 --> 00:12:44.050
+>> Uh, I'm feeling okay.
+
+00:12:44.050 --> 00:12:44.320
+Yeah.
+
+00:12:44.440 --> 00:12:47.340
+Our communication channel here broke up
+in the middle of your last statement.
+
+00:12:47.360 --> 00:12:52.270
+So I lost a little bit of what you
+said, but overall, I think it's helpful.
+
+00:12:52.510 --> 00:12:56.380
+Um, and you know, obviously
+I think, you know.
+
+00:12:57.860 --> 00:13:00.080
+Async exceptions aren't talked
+about enough kind of like Cody
+
+00:13:00.080 --> 00:13:03.950
+mentioned earlier, which, you
+know, makes it seem like you're,
+
+00:13:04.100 --> 00:13:05.720
+you're all alone in the situation.
+
+00:13:05.720 --> 00:13:06.890
+It's like, wait a second.
+
+00:13:07.190 --> 00:13:08.570
+There are other people who face it.
+
+00:13:08.570 --> 00:13:11.330
+They just don't talk about it
+either because they don't, they're
+
+00:13:11.330 --> 00:13:16.070
+like the community just doesn't
+think about and talk about async
+
+00:13:16.070 --> 00:13:18.530
+exceptions in a regular format.
+
+00:13:18.530 --> 00:13:23.120
+Like they just, it's a kind
+of the, um, Yeah, kind of the
+
+00:13:23.120 --> 00:13:25.010
+black sheep of Haskell, maybe.
+
+00:13:25.010 --> 00:13:29.690
+Like thing that everybody knows is
+wrong, but they just there's, hasn't
+
+00:13:29.690 --> 00:13:33.910
+been the bandwidth time to take care
+of it and find the perfect solution.
+
+00:13:34.210 --> 00:13:39.580
+But I think now with the community
+growing, creating a foundation, you know,
+
+00:13:39.610 --> 00:13:43.990
+with that, we'll start to provide more
+resources and maybe more, uh, platforms
+
+00:13:43.990 --> 00:13:48.920
+for discussion and debate about what
+async control flow should look like and
+
+00:13:48.920 --> 00:13:52.880
+how we should handle async exceptions,
+we'll move the language forward.
+
+00:13:53.270 --> 00:13:56.150
+And so I'm really looking
+forward to seeing how that comes.
+
+00:13:56.210 --> 00:13:59.810
+You know, and maybe make it more
+approachable to other people.
+
+00:13:59.810 --> 00:14:03.800
+Because if you, you know, aren't super
+invested and then you all of a sudden
+
+00:14:03.800 --> 00:14:07.610
+come across this kind of issue and
+you're like, Oh, well now I'm back away.
+
+00:14:07.610 --> 00:14:10.460
+I'm not going to go any closer
+to that because it's not worth
+
+00:14:10.460 --> 00:14:13.550
+it for me because I'm not sure
+what the heck is going on here.
+
+00:14:13.850 --> 00:14:14.180
+Or.
+
+00:14:14.525 --> 00:14:15.755
+Nobody seems to be talking about it.
+
+00:14:15.755 --> 00:14:18.575
+So there's not really
+support for this and I'm out.
+
+00:14:20.060 --> 00:14:21.890
+>> Yeah, it
+could be demoralizing.
+
+00:14:21.950 --> 00:14:24.980
+Like you mentioned, if you're new
+or newer to the language and you
+
+00:14:24.980 --> 00:14:29.060
+run into this problem and nobody
+seems to be talking about it.
+
+00:14:29.060 --> 00:14:31.580
+So you're like, well, this
+is just some insane edge case
+
+00:14:31.580 --> 00:14:32.780
+that I happened to run into.
+
+00:14:32.810 --> 00:14:35.510
+Well, maybe, maybe not, maybe it's
+pretty common, but nobody talks
+
+00:14:35.510 --> 00:14:38.060
+about it or everyone just hopes
+that it doesn't happen to them.
+
+00:14:38.510 --> 00:14:40.310
+And we got unlucky and it happened to us.
+
+00:14:40.698 --> 00:14:41.148
+>> Right.
+
+00:14:41.178 --> 00:14:45.528
+You know, you talk about Haskell
+adoption, uh, is somebody at a big
+
+00:14:45.528 --> 00:14:47.598
+company starts trying to use Haskell.
+
+00:14:47.598 --> 00:14:52.158
+They convinced their team to use Haskell,
+and then they get a Postgres error like
+
+00:14:52.158 --> 00:14:58.508
+this, you know, an issue with what's
+supposed to be a core library, uh, a
+
+00:14:58.508 --> 00:15:03.248
+binding to Postgres that everyone relies
+on, you know, a data dot pool, something
+
+00:15:03.248 --> 00:15:05.318
+everyone thinks of is bulletproof.
+
+00:15:05.798 --> 00:15:08.378
+Um, that's pretty scary.
+
+00:15:08.618 --> 00:15:10.778
+You know, that's gonna make
+you really rethink things.
+
+00:15:10.778 --> 00:15:15.158
+That's not gonna make that person who,
+who put their neck out to, uh, get their
+
+00:15:15.158 --> 00:15:17.138
+team to adopt Haskell look very good.
+
+00:15:18.235 --> 00:15:18.685
+>> Right.
+
+00:15:18.875 --> 00:15:23.275
+Doubly so since Haskell has a reputation
+of being focused on correctness,
+
+00:15:23.750 --> 00:15:27.560
+And if you can immediately run into
+a showstopping bug with, like you
+
+00:15:27.560 --> 00:15:31.910
+mentioned, one of the most popular
+libraries, then that's not a good look.
+
+00:15:32.450 --> 00:15:37.970
+Um, it is worth mentioning that there are
+library level solutions to this problem.
+
+00:15:38.060 --> 00:15:43.760
+I think the unliftio library, um, does
+resource finalization differently with
+
+00:15:43.820 --> 00:15:45.860
+the bracket function that it exposes.
+
+00:15:46.250 --> 00:15:51.525
+So if the persistent library or the
+whole, you know, menagerie of packages we
+
+00:15:51.525 --> 00:15:54.325
+rely on here, happened to use unliftio.
+
+00:15:54.675 --> 00:15:56.055
+We wouldn't have run into this problem.
+
+00:15:56.835 --> 00:16:01.035
+Um, or if unliftio was just part of
+the base library, same situation.
+
+00:16:01.733 --> 00:16:04.133
+>> Yeah, that, that
+was my understanding as well.
+
+00:16:04.353 --> 00:16:06.113
+I have a little bit of doubt though.
+
+00:16:06.113 --> 00:16:09.133
+And the reason for that as I, I
+replaced pretty much everything.
+
+00:16:09.153 --> 00:16:15.053
+The Postgres part of persistent
+with unliftio, including, uh,
+
+00:16:15.083 --> 00:16:18.383
+forking data pool and, uh, or not.
+
+00:16:18.413 --> 00:16:18.923
+Yeah, yeah.
+
+00:16:18.923 --> 00:16:23.783
+Using someone else's PR that replaced
+all of it with unliftio and it
+
+00:16:23.783 --> 00:16:25.433
+still didn't solve the problem.
+
+00:16:25.763 --> 00:16:27.293
+I had a lot of things running.
+
+00:16:27.293 --> 00:16:29.933
+I could have got something
+wrong in there, but.
+
+00:16:30.433 --> 00:16:33.403
+It at least deserves to shake
+that confidence a little, I think.
+
+00:16:35.545 --> 00:16:37.645
+>> Uh, and the reason
+I mentioned unliftio is that.
+
+00:16:38.030 --> 00:16:42.440
+I'm reasonably sure its bracket
+release uses an uninterruptible mask,
+
+00:16:42.470 --> 00:16:45.020
+which means that the runtime wouldn't
+be able to interrupt this release.
+
+00:16:45.440 --> 00:16:49.310
+Um, but some people don't like that as
+a default choice because then if you're
+
+00:16:49.720 --> 00:16:54.110
+release sits there and like has an
+HTTP timeout and takes 30 seconds to do
+
+00:16:54.110 --> 00:16:58.550
+something, your program is completely
+unresponsive for 30 seconds because like
+
+00:16:58.550 --> 00:17:02.750
+hitting control C is an async exception
+thrown from the runtime to your program.
+
+00:17:02.750 --> 00:17:06.080
+So you wouldn't be able to respond
+to that until that release wraps up.
+
+00:17:06.234 --> 00:17:10.854
+>> Uh, I think the answer
+there, um, it seems kind of simple.
+
+00:17:10.854 --> 00:17:15.654
+Maybe someone else's recommended someone
+else probably as is to make bracket
+
+00:17:16.134 --> 00:17:21.564
+use on an uninterruptible mask by
+default, and to take a required timeout.
+
+00:17:24.286 --> 00:17:25.656
+>> That would make me happy.
+
+00:17:25.944 --> 00:17:26.514
+>> Same.
+
+00:17:30.031 --> 00:17:31.051
+>> Um, okay.
+
+00:17:31.051 --> 00:17:35.101
+So, so we've been talking about masking
+and bracketing and interrupting and all
+
+00:17:35.101 --> 00:17:41.101
+this stuff, but let's, um, let's come up
+a little bit and let's talk about how we
+
+00:17:41.101 --> 00:17:46.081
+ran into this problem in the first place,
+because like we mentioned not many people
+
+00:17:46.081 --> 00:17:50.821
+talk about this and I think it's because
+most of the time, in usual circumstances,
+
+00:17:50.821 --> 00:17:54.571
+people aren't going to run into this and
+we were doing something a little unusual.
+
+00:17:54.631 --> 00:17:56.071
+Cody, could you explain
+what we were doing?
+
+00:17:57.444 --> 00:17:58.164
+>> Yeah.
+
+00:17:58.224 --> 00:18:03.864
+If I recall we had an outer
+left join and we didn't have a
+
+00:18:03.864 --> 00:18:06.564
+distinct in combination with that.
+
+00:18:06.564 --> 00:18:10.944
+So we were doing like, uh,
+maybe it was Cartesian, uh,
+
+00:18:11.034 --> 00:18:13.284
+of a thousand or 10,000 rows.
+
+00:18:13.284 --> 00:18:17.574
+And it turned into like 50,000 or a
+hundred thousand queries, one of the two.
+
+00:18:19.176 --> 00:18:23.046
+>> Uh, results, not
+queries, but yeah, yeah, yeah.
+
+00:18:23.046 --> 00:18:28.536
+We had a join and then an aggregation
+and we were duplicating the, uh,
+
+00:18:28.566 --> 00:18:29.976
+that field over and over again.
+
+00:18:30.006 --> 00:18:32.856
+And then we were iterating
+over that aggregation.
+
+00:18:32.886 --> 00:18:37.606
+So, we, we tried to batch something
+up into like 10,000 rows, but each of
+
+00:18:37.606 --> 00:18:41.986
+those rows contained several thousand
+aggregated together fields within it.
+
+00:18:42.436 --> 00:18:46.366
+Uh, so the data set, we were
+looping over was really large.
+
+00:18:46.516 --> 00:18:48.286
+So that, that was a big select, right?
+
+00:18:48.316 --> 00:18:50.716
+And then we're also doing
+an insert at the same time?
+
+00:18:51.049 --> 00:18:51.649
+>> Right.
+
+00:18:51.949 --> 00:18:52.219
+Yeah.
+
+00:18:52.219 --> 00:18:56.329
+We were, uh, we had moved to streaming
+with persistent yet, and we were
+
+00:18:56.329 --> 00:19:00.409
+doing a solution where we did those
+selects and then inserts right after.
+
+00:19:00.409 --> 00:19:01.909
+So it added up to a lot.
+
+00:19:03.796 --> 00:19:04.156
+>> Yeah.
+
+00:19:04.216 --> 00:19:10.126
+So we kind of like accidentally got into
+this situation and, you know, there was a
+
+00:19:10.126 --> 00:19:13.816
+bug in our query and we have since fixed
+it, but that doesn't mean we wouldn't
+
+00:19:13.816 --> 00:19:18.316
+have run into this problem otherwise, just
+that it would have been much less likely.
+
+00:19:18.635 --> 00:19:19.055
+>> Right.
+
+00:19:19.115 --> 00:19:24.095
+We would have had to have more processes
+going that were requiring that thing.
+
+00:19:24.372 --> 00:19:28.002
+I think here, you know,
+this could happen to anyone.
+
+00:19:28.002 --> 00:19:31.602
+Like that's really what we're trying
+to say here is that, you know, you're
+
+00:19:31.602 --> 00:19:34.812
+not alone if this happens to you, or if
+you've struggled with this or anything
+
+00:19:34.812 --> 00:19:39.552
+like that, like we we're all in this
+together as a community and we're trying
+
+00:19:39.552 --> 00:19:44.592
+to like, you know, really you know get,
+get everything figured out, you know,
+
+00:19:44.592 --> 00:19:50.202
+create the best version of Haskell we
+can create and all have happy, fantastic,
+
+00:19:50.622 --> 00:19:52.052
+uh, job satisfaction because we're
+
+00:19:54.288 --> 00:19:56.778
+>> It sounds like we
+may need a support hotline for.
+
+00:19:57.448 --> 00:20:00.898
+Are you or someone, you know, affected
+by async exception handling and Haskell?
+
+00:20:01.018 --> 00:20:02.008
+Call this number now.
+
+00:20:03.092 --> 00:20:04.082
+>> The async helpline.
+
+00:20:04.888 --> 00:20:05.258
+>> Yeah,
+
+00:20:05.401 --> 00:20:09.201
+>> We get, uh, Michael
+Snowman to say some words of support?
+
+00:20:09.201 --> 00:20:12.018
+>> I think it would just be,
+it would be his personal phone number.
+
+00:20:14.627 --> 00:20:15.377
+>> There it is.
+
+00:20:15.437 --> 00:20:15.977
+Sorry.
+
+00:20:15.977 --> 00:20:18.137
+Yeah, uh, Snoyman, but there you go.
+
+00:20:18.767 --> 00:20:19.517
+You're on the hook now.
+
+00:20:20.728 --> 00:20:23.248
+>> But yeah, so, so we ran
+into this problem in a way we were kind
+
+00:20:23.248 --> 00:20:26.488
+of fortunate to have this bug because
+Cam like you mentioned, maybe we, we
+
+00:20:26.488 --> 00:20:30.208
+would have run into this only as our
+dataset got larger and then it would
+
+00:20:30.208 --> 00:20:32.788
+have been like, well, this thing was
+working fine for months and months and
+
+00:20:32.788 --> 00:20:34.118
+then it just exploded, what happened?
+
+00:20:34.578 --> 00:20:36.138
+So that was kind of lucky.
+
+00:20:36.588 --> 00:20:41.203
+Um, And it was also in a way, a
+little encouraging to see that
+
+00:20:41.233 --> 00:20:44.683
+other libraries that we use are
+also susceptible to this problem.
+
+00:20:45.103 --> 00:20:47.503
+And on the flip side of that
+coin, it's a little discouraging
+
+00:20:47.503 --> 00:20:50.263
+because like, well, you know, this
+seems like it's kind of pervasive.
+
+00:20:50.803 --> 00:20:56.053
+Um, but yeah, the queue library that
+we use has, it keeps track of how many
+
+00:20:56.053 --> 00:20:59.323
+times it tries a job so that it doesn't
+try something over and over again.
+
+00:20:59.863 --> 00:21:00.433
+And.
+
+00:21:00.733 --> 00:21:06.403
+That bit of logic wasn't working because
+the like, uh, I, I assume is implemented
+
+00:21:06.403 --> 00:21:07.423
+with bracket behind the scenes.
+
+00:21:07.423 --> 00:21:07.993
+I don't remember.
+
+00:21:08.053 --> 00:21:09.013
+Do you, do you know Cody?
+
+00:21:09.616 --> 00:21:13.606
+>> I'm fairly sure it was
+bracket, but I wouldn't bet money on it.
+
+00:21:13.714 --> 00:21:15.694
+>> But yeah, so it
+would, you know, check the count
+
+00:21:15.694 --> 00:21:18.874
+and then if the count was too high,
+it would put it into this failed
+
+00:21:18.874 --> 00:21:20.764
+state rather than waiting to retry.
+
+00:21:21.214 --> 00:21:25.624
+And we, we have a limit of 10 retries
+on our jobs and these jobs that were
+
+00:21:25.624 --> 00:21:29.224
+failing in this particular way with
+this async exception, we're getting
+
+00:21:29.224 --> 00:21:31.114
+retried hundreds of times instead.
+
+00:21:31.144 --> 00:21:33.874
+And so that was like, huh, that's weird.
+
+00:21:33.904 --> 00:21:37.954
+So we haven't chased that bug down
+yet, but I bet it's going to be
+
+00:21:38.014 --> 00:21:39.994
+the same or a similar root cause.
+
+00:21:40.117 --> 00:21:40.537
+>> Yeah.
+
+00:21:40.537 --> 00:21:44.767
+And when, when I saw that I was,
+I thought, you know, am I going
+
+00:21:44.767 --> 00:21:48.077
+crazy to something else change?
+
+00:21:48.097 --> 00:21:50.767
+You know, what other millions of
+things could I have done wrong?
+
+00:21:53.944 --> 00:21:54.334
+>> Yeah.
+
+00:21:55.684 --> 00:21:59.994
+Um, but yeah, Cody, I think you had
+a good kind of thought experiment
+
+00:21:59.994 --> 00:22:04.974
+here for, um, we, we were lucky in
+a way to run into this bug, but is
+
+00:22:04.974 --> 00:22:09.174
+there a way this could have been
+prevented in the first place, right?
+
+00:22:09.652 --> 00:22:10.102
+>> Right.
+
+00:22:11.722 --> 00:22:13.222
+And I was thinking about that.
+
+00:22:13.252 --> 00:22:16.872
+The only real way I think this
+could have been prevented is if,
+
+00:22:16.902 --> 00:22:21.612
+uh, when writing postgresql-simple,
+you, you write functional tests
+
+00:22:21.612 --> 00:22:23.862
+that presume whatever pattern.
+
+00:22:23.862 --> 00:22:28.632
+It, it should be used in a, uh, I
+guess, a professional space, which
+
+00:22:28.632 --> 00:22:30.762
+would be with, uh, the pool library.
+
+00:22:31.092 --> 00:22:35.232
+So that's kind of a big overhead
+to ask of somebody who's already
+
+00:22:35.262 --> 00:22:37.422
+creating your PostgreSQL bindings.
+
+00:22:38.472 --> 00:22:41.532
+Uh, so it's kind of a hard problem,
+but that that's what would have
+
+00:22:41.532 --> 00:22:43.272
+been necessary to prevent this.
+
+00:22:44.394 --> 00:22:44.814
+>> Right.
+
+00:22:44.874 --> 00:22:51.144
+And we should say that, while that
+test did not exist, it does now exist.
+
+00:22:51.174 --> 00:22:55.744
+So as part of Matt chasing down the
+root cause here, and fixing it in
+
+00:22:55.764 --> 00:22:57.114
+persistent, he wrote a test case.
+
+00:22:57.114 --> 00:23:00.264
+So we're pretty confident there
+won't be a regression there.
+
+00:23:00.534 --> 00:23:04.164
+Um, but you know, it would have
+been nice to have it at the outset.
+
+00:23:05.087 --> 00:23:05.567
+>> right.
+
+00:23:05.897 --> 00:23:10.607
+Uh, and there's a related PR in
+postgresql-simple that it hasn't been
+
+00:23:10.607 --> 00:23:12.887
+merged yet or reviewed, I don't think.
+
+00:23:13.277 --> 00:23:16.817
+Uh, but hopefully there can also
+be a test to put in there since
+
+00:23:17.147 --> 00:23:22.037
+pretty much all the other database
+libraries, you know, opaleye, uh,
+
+00:23:22.077 --> 00:23:27.377
+selda, uh, and I think maybe beam,
+they depend on postgresql-simple too.
+
+00:23:28.524 --> 00:23:28.884
+>> Right.
+
+00:23:30.174 --> 00:23:33.204
+Yeah, it was interesting because
+we reported or Cody, you reported
+
+00:23:33.204 --> 00:23:35.874
+this bug and then there was
+this kind of synchronicity
+
+00:23:35.874 --> 00:23:38.394
+going on where two other people.
+
+00:23:39.019 --> 00:23:41.599
+Reported the bug almost at the
+same time in different libraries.
+
+00:23:41.659 --> 00:23:43.219
+It's like what's happening here?
+
+00:23:45.449 --> 00:23:46.039
+Weird to see.
+
+00:23:46.852 --> 00:23:47.152
+>> Yeah.
+
+00:23:47.182 --> 00:23:51.172
+And, uh, I tried to weave a, a
+tangled web that you can follow and
+
+00:23:51.352 --> 00:23:53.062
+see all the related things there.
+
+00:23:53.422 --> 00:23:57.322
+Um, also include a link to some
+notes where I'm trying to figure
+
+00:23:57.322 --> 00:24:00.262
+out the real reason, the real
+root cause of everything here.
+
+00:24:01.959 --> 00:24:02.109
+>> Yeah.
+
+00:24:02.109 --> 00:24:04.749
+And we'll add those links
+into the show notes.
+
+00:24:04.779 --> 00:24:09.079
+And like you mentioned a while
+ago, Cody, um, If you're listening
+
+00:24:09.079 --> 00:24:11.389
+to this podcast and you're like,
+man, those guys are dummies.
+
+00:24:11.389 --> 00:24:12.799
+The solution is so easy.
+
+00:24:12.799 --> 00:24:13.579
+It's this thing.
+
+00:24:13.849 --> 00:24:17.149
+Uh, please tell us, we would love
+for somebody to just waltz in and
+
+00:24:17.149 --> 00:24:18.649
+tell us what the, what the answer is.
+
+00:24:18.649 --> 00:24:19.129
+That'd be great.
+
+00:24:19.789 --> 00:24:19.999
+>> Yeah.
+
+00:24:19.999 --> 00:24:21.979
+And I think it be insightful
+for everyone, you know.
+
+00:24:22.729 --> 00:24:23.719
+>> Yes, exactly.
+
+00:24:24.499 --> 00:24:27.709
+Uh, we'll, we'll release a follow-up
+episode if that happens with, uh.
+
+00:24:28.379 --> 00:24:29.149
+>> With you as a guest.
+
+00:24:29.149 --> 00:24:29.729
+>> We were dummies.
+
+00:24:29.749 --> 00:24:30.499
+Here's what it is.
+
+00:24:30.529 --> 00:24:30.829
+Yeah.
+
+00:24:30.859 --> 00:24:31.039
+>> Yeah.
+
+00:24:31.079 --> 00:24:31.249
+Yeah.
+
+00:24:31.689 --> 00:24:33.039
+You'd be a first-class guest here.
+
+00:24:33.039 --> 00:24:34.419
+We'll pay for your flight and everything.
+
+00:24:34.449 --> 00:24:35.319
+Come in, studio.
+
+00:24:35.829 --> 00:24:38.079
+Fancy stuff, you know,
+All paid expense trip.
+
+00:24:39.459 --> 00:24:39.639
+I'm
+
+00:24:39.964 --> 00:24:40.654
+>> writing some checks.
+
+00:24:40.654 --> 00:24:42.484
+I don't know if we'll
+be able to them or not.
+
+00:24:42.484 --> 00:24:46.159
+>> I'm just joking, but
+we would love to know if there is a
+
+00:24:46.159 --> 00:24:48.379
+better solution or the right solution.
+
+00:24:49.159 --> 00:24:49.549
+Um,
+
+00:24:49.734 --> 00:24:53.754
+>> Um, well, one, one solution
+is using a different library, right?
+
+00:24:53.784 --> 00:24:58.554
+So Cody, you mentioned that most of
+the ecosystem ultimately relies on
+
+00:24:58.554 --> 00:25:03.174
+postgresql-simple kind of underpins
+everything, but there is an alternative.
+
+00:25:03.417 --> 00:25:04.107
+>> Right.
+
+00:25:04.137 --> 00:25:07.317
+Um, there is a library that.
+
+00:25:07.837 --> 00:25:14.287
+No one seems to know how to pronounce
+in my circle called hasql or hasql.
+
+00:25:14.407 --> 00:25:15.417
+I'm really not sure.
+
+00:25:15.457 --> 00:25:17.644
+>> H A SQL,
+if you want be verbose.
+
+00:25:17.644 --> 00:25:20.377
+>> There, there we H A SQL, um.
+
+00:25:21.054 --> 00:25:24.534
+>> I thought I was
+just laughing SQL, like ha SQL.
+
+00:25:25.227 --> 00:25:25.707
+>> That's cute.
+
+00:25:25.717 --> 00:25:26.517
+I'll take that.
+
+00:25:27.384 --> 00:25:27.894
+>> Yeah.
+
+00:25:28.044 --> 00:25:28.984
+Maybe that's what it's supposed to be.
+
+00:25:29.014 --> 00:25:33.417
+>> Um, so I,
+I was led back to hasql.
+
+00:25:33.507 --> 00:25:34.257
+I'll go with that.
+
+00:25:34.497 --> 00:25:41.677
+Um, because when I was searching for
+this issue, they had libpq command
+
+00:25:41.677 --> 00:25:43.987
+in progress in their test suite.
+
+00:25:44.407 --> 00:25:45.997
+So they had a regression test for it.
+
+00:25:45.997 --> 00:25:49.687
+And I was like that immediately made
+me think, hey, they've been here
+
+00:25:49.687 --> 00:25:55.407
+before, what would it take to, to
+replace postgresql-simple with hasql.
+
+00:25:56.407 --> 00:26:02.407
+And, um, yeah, that was, that was
+a thought, uh, part of me wishes I
+
+00:26:02.407 --> 00:26:09.527
+would have just tried to replace the
+PostgreSQL persistent stuff with hasql.
+
+00:26:10.639 --> 00:26:11.089
+>> Right.
+
+00:26:11.334 --> 00:26:12.874
+>> Yeah, that
+could have been cool.
+
+00:26:12.874 --> 00:26:14.989
+>> Yeah, that could be an
+interesting thing to chase down, make
+
+00:26:15.019 --> 00:26:18.619
+a persistent hasql binding library.
+
+00:26:18.889 --> 00:26:21.559
+And, you know, the whole point of
+persistent is that hopefully we'd would
+
+00:26:21.559 --> 00:26:24.799
+be able to switch that out behind the
+scenes without having to change our code.
+
+00:26:25.429 --> 00:26:27.409
+Um, but we did not do that.
+
+00:26:27.529 --> 00:26:28.009
+Not yet.
+
+00:26:28.507 --> 00:26:32.137
+>> Um, what's what's even
+funnier is I had that thought and
+
+00:26:32.137 --> 00:26:36.097
+then Matt Parsons, while I was talking
+to him, he actually said, you know,
+
+00:26:36.097 --> 00:26:42.927
+unprompted, maybe it would have been
+faster to rewrite this with hasql.
+
+00:26:42.927 --> 00:26:45.447
+>> That's funny.
+
+00:26:45.594 --> 00:26:47.934
+>> So yeah, if you're
+listening to this podcast and
+
+00:26:47.934 --> 00:26:50.394
+that sounds like a fun project
+to you, please take it on.
+
+00:26:51.054 --> 00:26:53.334
+>> Yeah, we would
+adopt, be early adopters.
+
+00:26:55.794 --> 00:27:00.084
+>> I was just going to say
+that hasql is a, um, it's by Nikita
+
+00:27:00.084 --> 00:27:04.794
+Volkov, and it's very focused on
+correctness and it uses, I think the
+
+00:27:04.794 --> 00:27:09.354
+binary protocol to talk to Postgres
+and it tries to represent as much
+
+00:27:09.354 --> 00:27:11.514
+as possible on the value level.
+
+00:27:11.514 --> 00:27:14.904
+So instead of like throwing an exception,
+if something goes wrong, it'll pull
+
+00:27:14.904 --> 00:27:17.394
+back an either and then you have to
+deal with that, however you want.
+
+00:27:17.514 --> 00:27:21.504
+So that's one of the reasons I think that
+it does have this cases, cause Nikita
+
+00:27:21.504 --> 00:27:25.144
+was really going through this with a fine
+tooth comb, try and find stuff like this.
+
+00:27:25.624 --> 00:27:29.762
+>> I'm going to have to
+actually look how he handles things
+
+00:27:29.762 --> 00:27:34.292
+like, uh, asynchronous exception, you
+know, like stack out of memory error or
+
+00:27:34.292 --> 00:27:38.762
+whatever, uh, because one of the common
+criticisms of handling exceptions like
+
+00:27:38.762 --> 00:27:42.842
+that at the value level is, well what are
+you just going to case on some exception?
+
+00:27:46.244 --> 00:27:47.234
+>> Yeah, why not?
+
+00:27:47.488 --> 00:27:51.058
+>> Well, I mean, we kind of
+have some spots in our code base, but.
+
+00:27:51.584 --> 00:27:51.914
+>> Yeah.
+
+00:27:53.003 --> 00:27:53.953
+>> Uh, well, awesome.
+
+00:27:53.963 --> 00:27:57.293
+You guys have anything else you want
+to chat about in regards to async
+
+00:27:57.293 --> 00:27:59.033
+control flow and async exceptions?
+
+00:27:59.994 --> 00:28:00.744
+>> That's it for me.
+
+00:28:01.367 --> 00:28:02.447
+>> I think that's everything.
+
+00:28:02.447 --> 00:28:05.747
+I'll be writing books
+on books in my notes.
+
+00:28:06.898 --> 00:28:07.438
+>> Perfect.
+
+00:28:07.438 --> 00:28:08.848
+Hey, we look forward to seeing that stuff.
+
+00:28:09.208 --> 00:28:12.298
+Uh, thanks Cody for being on the
+show and thank you all for listening
+
+00:28:12.298 --> 00:28:13.738
+to the Haskell Weekly podcast.
+
+00:28:14.068 --> 00:28:15.558
+I've been your host, Cameron Gera.
+
+00:28:15.688 --> 00:28:19.258
+And with me today was Cody
+Goodman and Taylor Fausak.
+
+00:28:19.588 --> 00:28:22.588
+Uh, find out more about Haskell
+Weekly, check out our website,
+
+00:28:22.738 --> 00:28:24.558
+Haskell Weekly dot news.
+
+00:28:24.838 --> 00:28:27.238
+And if you enjoyed the show,
+please, please, please rate us
+
+00:28:27.518 --> 00:28:31.013
+and review us on Apple podcasts
+just helps more people find us.
+
+00:28:31.253 --> 00:28:31.853
+It'd be awesome.
+
+00:28:31.853 --> 00:28:35.213
+And if you have any feedback,
+always feel free to tweet us
+
+00:28:35.213 --> 00:28:36.833
+at Haskell Weekly on Twitter.
+
+00:28:39.219 --> 00:28:42.689
+>> We are brought
+to you by our employer, ITProTV,
+
+00:28:42.789 --> 00:28:44.919
+which is an ACI Learning company.
+
+00:28:45.489 --> 00:28:49.839
+They would like to offer you 30% off
+the lifetime of your subscription.
+
+00:28:49.899 --> 00:28:54.129
+You can redeem that by checking out, going
+through the normal flow and adding the
+
+00:28:54.129 --> 00:28:57.459
+promo code Haskell Weekly 30 at checkout.
+
+00:28:57.969 --> 00:29:02.859
+Um, so please go to it pro dot tv
+and sign up for a subscription.
+
+00:29:03.159 --> 00:29:05.649
+But that'll about do it for us today.
+
+00:29:06.104 --> 00:29:08.684
+Thanks for joining us and
+we'll see you next week.
+
+00:29:08.954 --> 00:29:09.314
+Bye.
+
+00:29:09.764 --> 00:29:10.314
+>> Peace.

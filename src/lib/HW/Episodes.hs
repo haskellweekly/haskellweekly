@@ -729,3 +729,17 @@ episode41 = Episode.Episode
   <*> Size.fromNatural 23625187
   <*> Summary.fromText "Byte string, text, and vector, oh my! This week we review Michael Snoyman's proposal to unify vector-like types. Learn about boxed versus unboxed values, pinned versus unpinned memory, and more."
   <*> Title.fromText "Unified Vector"
+
+_episode42 :: Either String Episode.Episode
+_episode42 = Episode.Episode
+  <$> Articles.fromList
+    [ "https://www.parsonsmatt.org/2021/03/17/async_control_flow.html"
+    , "https://github.com/codygman/tech-roam/blob/master/20210326113249-haskell_persistent_issues_postgres_connections_are_returned_to_pool_too_quickly.org"
+    ]
+  <*> Date.fromGregorian 2021 3 29
+  <*> Duration.fromTimestamp 29 15
+  <*> Guid.fromText "afbf4cb6-64a3-47ec-af03-c479acaa1b8c"
+  <*> Number.fromNatural 42
+  <*> Size.fromNatural 28081468
+  <*> Summary.fromText "Special guest Cody Goodman walks us through an interesting PostgreSQL bug. Handling async exceptions properly is trickier than you might expect!"
+  <*> Title.fromText "Async Exceptions"
