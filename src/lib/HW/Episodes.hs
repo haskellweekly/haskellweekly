@@ -71,6 +71,7 @@ episodes = do
     , episode39
     , episode40
     , episode41
+    , episode42
     ]
   checkGuids validEpisodes Set.empty
   checkNumbers validEpisodes 1
@@ -730,8 +731,8 @@ episode41 = Episode.Episode
   <*> Summary.fromText "Byte string, text, and vector, oh my! This week we review Michael Snoyman's proposal to unify vector-like types. Learn about boxed versus unboxed values, pinned versus unpinned memory, and more."
   <*> Title.fromText "Unified Vector"
 
-_episode42 :: Either String Episode.Episode
-_episode42 = Episode.Episode
+episode42 :: Either String Episode.Episode
+episode42 = Episode.Episode
   <$> Articles.fromList
     [ "https://www.parsonsmatt.org/2021/03/17/async_control_flow.html"
     , "https://github.com/codygman/tech-roam/blob/master/20210326113249-haskell_persistent_issues_postgres_connections_are_returned_to_pool_too_quickly.org"
