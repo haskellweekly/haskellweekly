@@ -24,4 +24,5 @@ undefined
 
 ## Call for participation
 
-undefined
+-   [cryptol: document built-in functions all, any, curry, uncurry, and elem](https://github.com/GaloisInc/cryptol/issues/1141)
+-   [tie: Accept --colour argument in Windows exe](https://github.com/notquiteamonad/tie/issues/33)
