@@ -7,21 +7,6 @@ This is a weekly summary of what's going on in its community.
 - [Combining folds using semigroups](https://luctielen.com/posts/combining_folds_using_semigroups/)
   > In today's post, I will show how to combine many recursion-scheme folds using semigroups.
 
-## Jobs
-
-undefined
-
-Trying to hire a Haskell developer?
-You should [advertise with us](https://haskellweekly.news/advertising.html)!
-
-## In brief
-
-- [Async Exceptions](https://haskellweekly.news/episode/42.html) by Haskell Weekly Podcast
-  > Special guest Cody Goodman walks us through an interesting PostgreSQL bug. Handling async exceptions properly is trickier than you might expect!
-
-- [Continual checking](https://typeclasses.com/phrasebook/continual-checking) by Type Classes
-  > The type checker can provide rapid feedback as you code. We recommend using ghcid.
-
 - [Designing Command Line Interfaces in Haskell](https://www.stephanschiffels.de/posts/2021-03-24-Haskell-CLI/) by Stephan Schiffels
   > As I hope to be able to convince you in this post, a strict and expressive typing system like in Haskell is a huge help with that.
 
@@ -35,9 +20,23 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
   > In GHC 9.2 I have made two improvements which should make the memory usage reported by long-running applications more closely line up with the amount of memory they need.
 
 - [Incubating the Haskell Foundation](https://www.tweag.io/blog/2021-03-26-haskell-foundation-backstory/) by Tweag
+  > What we thought might be like rolling a boulder uphill turned out to be more like kicking a stone and starting a rockslide. It seems the Haskell Foundation is an idea whose time had come.
 
 - [An introduction to typeclass metaprogramming](https://lexi-lambda.github.io/blog/2021/03/25/an-introduction-to-typeclass-metaprogramming/) by Alexis King
   > This blog post attempts to remedy that by providing an overview of the foundational concepts behind typeclass metaprogramming. It does not attempt to be a complete guide to type-level programming in Haskell.
+
+## Jobs
+
+Trying to hire a Haskell developer?
+You should [advertise with us](https://haskellweekly.news/advertising.html)!
+
+## In brief
+
+- [Async Exceptions](https://haskellweekly.news/episode/42.html) by Haskell Weekly Podcast
+  > Special guest Cody Goodman walks us through an interesting PostgreSQL bug. Handling async exceptions properly is trickier than you might expect!
+
+- [Continual checking](https://typeclasses.com/phrasebook/continual-checking) by Type Classes
+  > The type checker can provide rapid feedback as you code. We recommend using ghcid.
 
 - [Linear types AMA](https://www.compositional.fm/linear-types-ama) by Compositional
   > Three core developers from the Haskell linear types team are on this show: Arnaud Spiwack, Richard Eisenberg and Krzysztof Gogolewski. They have conceived, reviewed and implemented the Haskell linear types extension that is shipped with the latest compiler version.
