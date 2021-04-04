@@ -14,6 +14,12 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 
 ## In brief
 
+undefined
+
 ## Show & tell
 
+undefined
+
 ## Call for participation
+
+undefined
