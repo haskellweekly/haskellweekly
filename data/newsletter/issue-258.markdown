@@ -4,7 +4,7 @@ This is a weekly summary of what's going on in its community.
 
 ## Featured
 
-- [Too Much Power Will Kill You (Every Time)](https://dimjasevic.net/marko/2021/04/03/too-much-power-will-kill-you/)
+- [Too Much Power Will Kill You (Every Time)](https://dimjasevic.net/marko/2021/04/03/too-much-power-will-kill-you/) by Marko Dimjašević
   > Today there is a bug, and you won't understand why, you'd give your life, you'd sell your soul, but here it comes again, too much power will kill you every time.
 
 ## Jobs
