@@ -57,4 +57,4 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 
 ## Call for participation
 
-undefined
+-   [LambdaHack: Gut out historyOneMessagePerLine config file option](https://github.com/LambdaHack/LambdaHack/issues/247)
