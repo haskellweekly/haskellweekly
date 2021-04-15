@@ -4,25 +4,8 @@ This is a weekly summary of what's going on in its community.
 
 ## Featured
 
-undefined
-
-## Jobs
-
-undefined
-
-Trying to hire a Haskell developer?
-You should [advertise with us](https://haskellweekly.news/advertising.html)!
-
-## In brief
-
 - [Ad-hoc interpreters with capability](https://www.tweag.io/blog/2021-04-08-capabilities-ad-hoc-interpreters/) by Gaël Deest & Andreas Herrmann
   > The capability library is an alternative to the venerable mtl. It features a set of "mtl-style" type classes, representing effects, along with deriving combinators to define interpreters as type class instances.
-
-- [Alex by example (Write You A Python Lexer)](https://devanla.com/posts/wya-lexer.html) by Guru Devanla
-  > The main goal of this tutorial is to build a lexer for Python 3 language specification. By working towards this goal, the reader should acquire enough familiarity to implement a real world lexer for a serious language using Alex.
-
-- [A brief F# exploration](https://notes.srid.ca/fsharp-exploration) by Sridhar Ratnakumar
-  > That lead me to F#, a hybrid FP language ("hybrid" because it supports OOP, which is essential to integrate with the rest of the .NET ecosystem).
 
 - [External STG Interpreter](https://www.patreon.com/posts/external-stg-49857800) by Csaba Hruska
   > In my previous blog post I mentioned that I'd like to create an interpreter for the external STG IR. That was exactly what I've worked on in the past several months.
@@ -35,9 +18,6 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 
 - [How to replace Proxy with AllowAmbiguousTypes](https://www.haskellforall.com/2021/04/how-to-replace-proxy-with.html) by Gabriel Gonzalez
   > Sometimes in Haskell you need to write a function that "dispatches" only on a type and not on a value of that type. Using the example from the above post, we might want to write a function that, given an input type, prints the name of that type.
-
-- [Introducing Dawn (Part 1)](https://www.dawn-lang.org/posts/introducing-dawn-(part-1)/) by Scott Maddox
-  > I am designing Dawn to be a practical, general-purpose programming language that combines the factorability of Forth, the purity and expressiveness of Haskell, and the performance and control of C, with safety and correctness guarantees beyond those provided by Rust.
 
 - [More on types, typeclasses and the foldable typeclass](https://functional.works-hub.com/learn/more-on-types-typeclasses-and-the-foldable-typeclass-e1862) by Marty Stumpf
   > In this post, we'll learn more about types and typeclasses, and the foldable typeclass, which will help us learn folds, an advanced and important tool.
@@ -53,6 +33,22 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 
 - [Typing polymorphic variants in Giml](https://gilmi.me/blog/post/2021/04/13/giml-typing-polymorphic-variants) by Gil Mizrahi
   > In this blog post we'll take a closer look at another interesting feature and the dual of extensible records - polymorphic variants.
+
+## Jobs
+
+Trying to hire a Haskell developer?
+You should [advertise with us](https://haskellweekly.news/advertising.html)!
+
+## In brief
+
+- [Alex by example (Write You A Python Lexer)](https://devanla.com/posts/wya-lexer.html) by Guru Devanla
+  > The main goal of this tutorial is to build a lexer for Python 3 language specification. By working towards this goal, the reader should acquire enough familiarity to implement a real world lexer for a serious language using Alex.
+
+- [A brief F# exploration](https://notes.srid.ca/fsharp-exploration) by Sridhar Ratnakumar
+  > That lead me to F#, a hybrid FP language ("hybrid" because it supports OOP, which is essential to integrate with the rest of the .NET ecosystem).
+
+- [Introducing Dawn (Part 1)](https://www.dawn-lang.org/posts/introducing-dawn-(part-1)/) by Scott Maddox
+  > I am designing Dawn to be a practical, general-purpose programming language that combines the factorability of Forth, the purity and expressiveness of Haskell, and the performance and control of C, with safety and correctness guarantees beyond those provided by Rust.
 
 ## Show & tell
 
