@@ -62,4 +62,5 @@ As always, there are many internal bug fixes and performance improvements in ghc
 
 ## Call for participation
 
-undefined
+-   [rpki-prover: Replace Options.Generic with something simpler](https://github.com/lolepezy/rpki-prover/issues/42)
+-   [xmonad-contrib: Change `ComplCaseSensitivity` to be a proper sum type](https://github.com/xmonad/xmonad-contrib/issues/509)
