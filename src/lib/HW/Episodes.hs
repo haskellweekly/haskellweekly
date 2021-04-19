@@ -72,6 +72,7 @@ episodes = do
     , episode40
     , episode41
     , episode42
+    , episode43
     ]
   checkGuids validEpisodes Set.empty
   checkNumbers validEpisodes 1
@@ -744,3 +745,16 @@ episode42 = Episode.Episode
   <*> Size.fromNatural 28081468
   <*> Summary.fromText "Special guest Cody Goodman walks us through an interesting PostgreSQL bug. Handling async exceptions properly is trickier than you might expect!"
   <*> Title.fromText "Async Exceptions"
+
+episode43 :: Either String Episode.Episode
+episode43 = Episode.Episode
+  <$> Articles.fromList
+    [ "https://taylor.fausak.me/2021/04/03/default-exception-handler-in-haskell/"
+    ]
+  <*> Date.fromGregorian 2021 4 19
+  <*> Duration.fromTimestamp 13 35
+  <*> Guid.fromText "b6b7b486-9153-48ee-a9d9-36eb601e50e0"
+  <*> Number.fromNatural 43
+  <*> Size.fromNatural 13054582
+  <*> Summary.fromText "What happens to exceptions when you don't explicitly handle them? This week we review Taylor's blog post about default exception handlers."
+  <*> Title.fromText "Default Exception Handlers"

@@ -1,0 +1,941 @@
+WEBVTT
+
+00:00:07.205 --> 00:00:09.755
+>> Hello and welcome to
+the Haskell Weekly podcast.
+
+00:00:09.905 --> 00:00:13.445
+This is a show about Haskell, a purely
+functional programming language.
+
+00:00:13.685 --> 00:00:15.395
+I'm your host Taylor Fausak.
+
+00:00:15.575 --> 00:00:17.495
+I'm an engineer at ITProTV.
+
+00:00:18.065 --> 00:00:21.545
+With me today is Cameron Gera,
+one of the engineers on my team.
+
+00:00:21.815 --> 00:00:23.165
+Thanks for joining me today, Cam.
+
+00:00:24.145 --> 00:00:27.025
+>> Thanks for having me, Taylor, I
+know we've missed a couple of weeks here,
+
+00:00:27.025 --> 00:00:31.495
+so I'm excited for us to be back here,
+recording some Haskell Weekly podcasts.
+
+00:00:31.585 --> 00:00:35.330
+And, uh, You know, I think today
+is just a really special day.
+
+00:00:35.660 --> 00:00:38.330
+You know, I think last episode, we
+kind of talked about asynchronous
+
+00:00:38.330 --> 00:00:44.690
+exceptions and today we're going to
+actually dive into the long lost brother
+
+00:00:44.690 --> 00:00:51.950
+slash brother from another mother,
+um, exception handling in Haskell.
+
+00:00:52.010 --> 00:00:55.990
+And we're going to be talking
+about exception handlers.
+
+00:00:56.225 --> 00:00:59.765
+We're actually going to specifically
+focus on a post by our near and
+
+00:00:59.765 --> 00:01:05.405
+dear friend Taylor Fausak called
+default exception handler in Haskell.
+
+00:01:05.405 --> 00:01:07.715
+So really looking forward
+to diving in today.
+
+00:01:08.345 --> 00:01:09.755
+Thanks for having me on again, Taylor.
+
+00:01:10.415 --> 00:01:11.285
+uh, what do you say?
+
+00:01:11.285 --> 00:01:13.445
+We just kind of jump in and
+we'll give a high level overview
+
+00:01:13.445 --> 00:01:15.395
+of what kind of prompted this.
+
+00:01:15.650 --> 00:01:16.880
+>> Sure it sounds good.
+
+00:01:16.940 --> 00:01:20.330
+And I think this might be the
+first time we're, uh, talking
+
+00:01:20.330 --> 00:01:21.860
+about one of my own posts.
+
+00:01:21.890 --> 00:01:24.440
+So this feels a little
+weird, but let's do it.
+
+00:01:24.920 --> 00:01:29.810
+Um, so as you mentioned previously, we
+were talking about async exceptions and
+
+00:01:30.020 --> 00:01:33.290
+this time around, we're talking about
+exception handlers and in particular,
+
+00:01:33.290 --> 00:01:35.240
+the default exception handler.
+
+00:01:35.360 --> 00:01:37.970
+And I decided to write a
+post about this because.
+
+00:01:38.825 --> 00:01:42.695
+I knew about this concept from
+other programming languages, where
+
+00:01:42.695 --> 00:01:47.645
+you can put in an exception handler
+that will get called if nothing
+
+00:01:47.645 --> 00:01:48.875
+else handles that exception.
+
+00:01:49.265 --> 00:01:52.865
+And for the longest time, I
+thought that Haskell didn't have
+
+00:01:52.865 --> 00:01:54.335
+this, but it turns out it does.
+
+00:01:54.335 --> 00:01:58.115
+And it's had it for a long time,
+but it's in, it's like squirreled
+
+00:01:58.115 --> 00:02:01.985
+away in an internal GHC module
+and it's not documented well.
+
+00:02:01.985 --> 00:02:04.115
+So that's why I wrote this post.
+
+00:02:04.145 --> 00:02:09.410
+And, uh, the motivation actually
+was that we spawn threads
+
+00:02:09.500 --> 00:02:11.030
+on our application at work.
+
+00:02:11.210 --> 00:02:14.600
+And I was curious, are any
+of those threads failing?
+
+00:02:14.660 --> 00:02:17.450
+And are we like, do we
+not know about that?
+
+00:02:17.450 --> 00:02:20.420
+So if we had a default exception
+handler, we could find out.
+
+00:02:20.630 --> 00:02:24.190
+Um, so yeah, that's the motivation
+and that's a big picture of
+
+00:02:24.200 --> 00:02:25.040
+what we'll be talking about.
+
+00:02:26.305 --> 00:02:26.665
+>> Nice.
+
+00:02:26.695 --> 00:02:31.735
+Yeah, I think, um, you know, it's,
+uh, interesting that this is a very,
+
+00:02:31.915 --> 00:02:34.105
+not highly talked about subject.
+
+00:02:34.885 --> 00:02:39.055
+Because in most programming
+languages, they have that default
+
+00:02:39.085 --> 00:02:40.915
+handler for these exceptions.
+
+00:02:40.915 --> 00:02:42.835
+And it's generally a first class thing.
+
+00:02:43.315 --> 00:02:45.865
+Um, because you need to know,
+oh, if something breaks in
+
+00:02:45.865 --> 00:02:47.125
+my code, how do I handle it?
+
+00:02:48.415 --> 00:02:49.795
+Where for Haskell.
+
+00:02:50.525 --> 00:02:53.315
+Most of the time people rely on
+the compiler to say, oh yeah,
+
+00:02:53.315 --> 00:02:57.755
+this is going to quote unquote
+work as far as types lined up.
+
+00:02:57.845 --> 00:03:03.485
+And then you have, you know, the runtime
+environment, which gets kinda messy.
+
+00:03:03.905 --> 00:03:16.040
+Because of like the unknown around
+exceptions and the, more or less, mystery
+
+00:03:16.040 --> 00:03:18.910
+for easily handling stuff with Haskell.
+
+00:03:19.490 --> 00:03:26.480
+Um, and I, I think this brings great
+light and could honestly be, be, uh,
+
+00:03:26.480 --> 00:03:27.740
+what's the word I'm looking for here.
+
+00:03:28.170 --> 00:03:30.020
+It could be the documentation for it.
+
+00:03:30.020 --> 00:03:30.770
+>> Oh, there we go.
+
+00:03:30.790 --> 00:03:36.820
+>> You know, this amazing
+function that, uh, you gotta
+
+00:03:36.820 --> 00:03:38.060
+tell us about what's this.
+
+00:03:38.920 --> 00:03:42.910
+>> So, uh, yeah, to, to what you
+said, I should probably open a pull
+
+00:03:42.910 --> 00:03:48.910
+request against GHC to add documentation
+to this function, or even export it
+
+00:03:48.910 --> 00:03:53.140
+from somewhere more typical, like
+control dot exception or system dot IO.
+
+00:03:53.620 --> 00:03:57.575
+Um, but yeah, the, uh, the function
+we're talking about is called
+
+00:03:57.635 --> 00:04:00.425
+set uncaught exception handler.
+
+00:04:00.575 --> 00:04:01.805
+And it's very well-named.
+
+00:04:01.805 --> 00:04:03.875
+It does exactly what it
+says based on the name.
+
+00:04:04.475 --> 00:04:09.095
+Um, uh, but to the point you were
+making about, um, you know, this
+
+00:04:09.095 --> 00:04:12.635
+doesn't seem to come up that often
+in Haskell, I was trying to puzzle
+
+00:04:12.635 --> 00:04:14.165
+through why that may be the case.
+
+00:04:14.195 --> 00:04:20.165
+And I think part of it is that often
+you just like wrap your entire main
+
+00:04:20.165 --> 00:04:23.345
+function in an exception handler,
+and that will catch most things.
+
+00:04:23.345 --> 00:04:28.355
+But if you spawn a thread and don't,
+uh, wait for that thread to finish or
+
+00:04:28.355 --> 00:04:31.265
+re throw its exceptions on your main
+thread, then you're going to miss those.
+
+00:04:31.355 --> 00:04:36.425
+And fortunately, we have the async
+library that manages that for you.
+
+00:04:36.425 --> 00:04:40.175
+And if you're using the async library
+and using the helpers that it provides,
+
+00:04:40.175 --> 00:04:46.235
+like race or concurrently, then this
+probably isn't a problem for you, but
+
+00:04:46.235 --> 00:04:49.745
+there's always a chance that you're,
+depending on something that uses fork IO
+
+00:04:49.805 --> 00:04:51.635
+and doesn't install an exception handler.
+
+00:04:51.755 --> 00:04:55.535
+So maybe this just
+doesn't come up that much.
+
+00:04:55.595 --> 00:05:00.155
+Um, and for us, I said, I suspected
+that this could be the case that
+
+00:05:00.155 --> 00:05:01.385
+we had some uncaught exceptions.
+
+00:05:01.805 --> 00:05:05.855
+Uh, and after installing this in our
+application, it's not like we had
+
+00:05:05.855 --> 00:05:07.715
+a deluge of new exception reports.
+
+00:05:07.775 --> 00:05:10.805
+Um, so it seems like by and
+large, we were handling this
+
+00:05:10.805 --> 00:05:11.795
+correctly in the first place.
+
+00:05:12.760 --> 00:05:13.150
+>> Right.
+
+00:05:13.150 --> 00:05:16.600
+So this is kind of a thing you
+wouldn't really know you're missing
+
+00:05:16.600 --> 00:05:19.960
+until you'd installed it and found
+out, Oh, look what I've been missing.
+
+00:05:20.215 --> 00:05:20.665
+>> Right.
+
+00:05:20.825 --> 00:05:25.195
+It's like, uh, if you just decided to
+look through the logs one day, or you're
+
+00:05:25.195 --> 00:05:28.345
+looking through for a different reason
+and you see a bunch of exceptions in there
+
+00:05:28.345 --> 00:05:29.635
+and you're like, wait, wait, hold on.
+
+00:05:29.935 --> 00:05:33.235
+I'm not seeing these in our
+exception reporting service.
+
+00:05:33.295 --> 00:05:36.115
+Like we use Sentry, other people
+use, you know, like Honeybadger
+
+00:05:36.115 --> 00:05:37.345
+or Rollbar or whatever.
+
+00:05:37.765 --> 00:05:42.020
+Um, You, you want all of your
+exceptions to end up there because
+
+00:05:42.050 --> 00:05:44.810
+if nothing is in there, then you
+assume everything's going well.
+
+00:05:44.810 --> 00:05:48.890
+But if you're spawning a thread and then
+crashing, then, well, bad things are
+
+00:05:48.890 --> 00:05:50.030
+happening and you don't know about it.
+
+00:05:50.785 --> 00:05:51.745
+>> Right, right.
+
+00:05:52.615 --> 00:05:55.675
+I feel like, you know, obviously
+we've, we've had our fun with
+
+00:05:55.675 --> 00:05:59.695
+the async exception stuff that we
+previously touched on here at ITProTV.
+
+00:06:00.145 --> 00:06:04.525
+The other thing I was thinking
+that, you know, we don't.
+
+00:06:07.050 --> 00:06:07.850
+Losing my train of thought.
+
+00:06:07.850 --> 00:06:10.220
+That's what happens when I decided
+to podcast and I'm a little tired.
+
+00:06:13.750 --> 00:06:15.520
+yeah, no, I'm really, I really lost it.
+
+00:06:15.730 --> 00:06:17.740
+I guess it's energy drink
+really didn't do much for me.
+
+00:06:17.990 --> 00:06:19.460
+>> Not enough energy in that drink.
+
+00:06:19.820 --> 00:06:21.410
+Um, I'll, I'll try to connect the dots.
+
+00:06:21.410 --> 00:06:26.390
+So on our last episode of the podcast,
+which, uh, we're, we're trying to live
+
+00:06:26.390 --> 00:06:30.620
+up to our name of doing weekly shows,
+but you know, every other week, every
+
+00:06:30.620 --> 00:06:32.090
+other other week, it's good enough.
+
+00:06:32.750 --> 00:06:36.320
+Um, Last time around, we were talking
+about async exceptions and those
+
+00:06:36.320 --> 00:06:41.510
+are exceptions that another thread
+throws into your thread or are thrown
+
+00:06:41.510 --> 00:06:44.450
+from pure code that doesn't look
+like it should throw exceptions.
+
+00:06:44.930 --> 00:06:49.880
+And you still can use an exception
+handler to deal with those, but you
+
+00:06:49.880 --> 00:06:53.420
+need to make sure that the exception
+handler is installed in a place where
+
+00:06:53.720 --> 00:06:58.895
+it is actually wrapping around, uh,
+where that exception will be thrown to.
+
+00:06:59.345 --> 00:07:03.575
+Um, and so that's tricky and that's what
+the async library takes care of for you.
+
+00:07:03.575 --> 00:07:06.635
+So there is a little bit overlap with
+what we're talking about this week and
+
+00:07:06.635 --> 00:07:10.295
+what we talked about last time, but
+they're kind of orthogonal concerns.
+
+00:07:12.135 --> 00:07:13.575
+>> Like I said,
+brother from another mother.
+
+00:07:13.795 --> 00:07:14.425
+>> Exactly.
+
+00:07:14.515 --> 00:07:15.505
+Yeah, well said.
+
+00:07:16.195 --> 00:07:21.295
+Um, so yeah, I guess, uh, I should dig
+into what is set uncaught exception
+
+00:07:21.295 --> 00:07:22.465
+handler and how do you use it?
+
+00:07:23.005 --> 00:07:24.365
+Um, and for that.
+
+00:07:24.365 --> 00:07:27.935
+So like I said, it's very well named, uh,
+even though it doesn't have documentation,
+
+00:07:27.935 --> 00:07:29.945
+it says exactly what it's going to do.
+
+00:07:30.455 --> 00:07:33.875
+If there is an exception that is
+uncaught, this is the thing that'll
+
+00:07:33.875 --> 00:07:37.685
+be called, regardless of which
+thread, um, it was thrown from.
+
+00:07:38.255 --> 00:07:44.345
+And the exception handler you install,
+uh, takes as its argument, some
+
+00:07:44.345 --> 00:07:47.405
+exception, which is or wrapper, huh?
+
+00:07:47.855 --> 00:07:48.335
+Oh, no way.
+
+00:07:48.365 --> 00:07:48.575
+Yeah.
+
+00:07:48.995 --> 00:07:49.445
+Who knew?
+
+00:07:50.390 --> 00:07:53.870
+Some exception, which is a
+wrapper around any exception.
+
+00:07:53.990 --> 00:07:56.990
+Uh, and then you just return IO.
+
+00:07:57.020 --> 00:08:02.750
+So the default is to print out the
+exception using the show instance,
+
+00:08:02.750 --> 00:08:03.950
+which is a little surprising.
+
+00:08:03.980 --> 00:08:06.470
+And in fact, it's the only
+reason I found out about this.
+
+00:08:06.470 --> 00:08:13.355
+Was, uh, someone from Serokell wrote
+a blog post about changing the default
+
+00:08:13.355 --> 00:08:18.035
+exception handler to use the display
+exception method rather than show,
+
+00:08:18.095 --> 00:08:21.965
+because a lot of exception types
+use a derived show instance, but
+
+00:08:21.965 --> 00:08:23.945
+then have a fancy display exception.
+
+00:08:24.035 --> 00:08:25.685
+So why not use that?
+
+00:08:27.305 --> 00:08:31.625
+And it turns out you can use the
+same mechanism, uh, to like send the
+
+00:08:31.865 --> 00:08:36.455
+exception report to Sentry, like I
+mentioned, or if you want to like, you
+
+00:08:36.455 --> 00:08:39.905
+know, throw it into a database or, you
+know, literally do anything with it.
+
+00:08:42.065 --> 00:08:42.995
+>> You've got options.
+
+00:08:44.825 --> 00:08:45.485
+>> Um,
+
+00:08:45.485 --> 00:08:47.210
+>> Cause we're in the IO
+monad, which is pretty helpful.
+
+00:08:47.455 --> 00:08:49.945
+>> Yeah, so yeah,
+IO, you can do anything.
+
+00:08:50.335 --> 00:08:53.545
+And I had some questions when I was
+first looking at this, because if you're
+
+00:08:53.545 --> 00:08:58.615
+handling an uncaught exception, clearly
+something has gone wrong and your program
+
+00:08:58.615 --> 00:09:01.045
+is probably about to crash anyway.
+
+00:09:01.375 --> 00:09:06.350
+So I was curious, like, What happens
+if an exception gets thrown from
+
+00:09:06.350 --> 00:09:07.700
+within your exception handler?
+
+00:09:07.730 --> 00:09:10.220
+Or if you take 30 minutes to handle it?
+
+00:09:10.250 --> 00:09:12.170
+Or you, you know, go
+into an infinite loop?
+
+00:09:12.170 --> 00:09:12.920
+Something like that.
+
+00:09:13.460 --> 00:09:17.540
+Um, and the answer to basically all
+the, all of those questions is: it
+
+00:09:17.900 --> 00:09:20.060
+behaves pretty much like normal code.
+
+00:09:20.570 --> 00:09:24.320
+Um, if you throw an exception
+from your uncaught exception
+
+00:09:24.320 --> 00:09:28.250
+handler, it will then be caught by
+your uncaught exception handler.
+
+00:09:28.280 --> 00:09:30.560
+So it's pretty easy to
+get in a loop there.
+
+00:09:30.560 --> 00:09:34.820
+And I would strongly suggest not throwing
+exceptions from your exception handler,
+
+00:09:35.885 --> 00:09:37.085
+>> Seems like a reasonable thing.
+
+00:09:37.085 --> 00:09:40.145
+I mean, if you throw it from the exception
+handler, who's going to handle it.
+
+00:09:40.745 --> 00:09:41.225
+Right?
+
+00:09:41.615 --> 00:09:43.355
+I mean, that's where it's supposed to end.
+
+00:09:43.625 --> 00:09:44.245
+It's not supposed to
+
+00:09:44.655 --> 00:09:44.705
+>> right?
+
+00:09:44.705 --> 00:09:46.235
+>> continually cycle and loop.
+
+00:09:46.790 --> 00:09:50.480
+>> Um, so that being said,
+it's not always practical to avoid
+
+00:09:50.630 --> 00:09:53.570
+throwing exceptions from your exception
+handler, especially if you want
+
+00:09:53.570 --> 00:09:55.100
+to report to an external service.
+
+00:09:55.160 --> 00:09:57.650
+What if that service is down,
+you might throw an exception.
+
+00:09:58.130 --> 00:10:02.300
+Um, so there's actually a
+different function called get
+
+00:10:02.420 --> 00:10:03.740
+uncaught exception handler.
+
+00:10:04.190 --> 00:10:08.210
+And so you can use that to grab the
+original handler or the one that was
+
+00:10:08.210 --> 00:10:09.590
+there before you want to change it.
+
+00:10:10.100 --> 00:10:14.660
+And then you install yours, but you
+wrap yours in the original handler.
+
+00:10:14.690 --> 00:10:16.670
+So there's something goes
+wrong with your custom one.
+
+00:10:16.940 --> 00:10:20.780
+You fall way back to the original
+default one and just use that.
+
+00:10:22.370 --> 00:10:23.600
+So that's what I would suggest doing.
+
+00:10:24.080 --> 00:10:27.290
+Um, if you're, if you're looking
+at doing this, uh, I have
+
+00:10:27.290 --> 00:10:28.440
+that suggestion in the post.
+
+00:10:28.440 --> 00:10:31.850
+You want to like grab the original
+handler and then set the new
+
+00:10:31.850 --> 00:10:35.240
+one and handle exceptions in
+the new one with the old one?
+
+00:10:36.810 --> 00:10:37.740
+>> Yep, awesome.
+
+00:10:37.800 --> 00:10:38.070
+Yeah.
+
+00:10:38.100 --> 00:10:41.640
+Well, I think, is there any, like,
+you've already kind of mentioned, don't
+
+00:10:42.395 --> 00:10:44.375
+fail within your exception handler.
+
+00:10:44.905 --> 00:10:45.635
+It could be bad.
+
+00:10:45.985 --> 00:10:48.605
+We have some thunder here
+in beautiful Florida.
+
+00:10:48.785 --> 00:10:53.735
+So if you hear that in the rumble of the
+background, um, yeah, it's what it is.
+
+00:10:54.035 --> 00:10:57.455
+It's not uh Taylor's belly,
+even though some may say it is.
+
+00:10:58.115 --> 00:10:59.255
+Uh, all right guys.
+
+00:10:59.255 --> 00:11:03.515
+Well, I think really Taylor that's a
+good synopsis of what is covered here.
+
+00:11:03.515 --> 00:11:05.375
+Is there anything else
+that you want to touch on?
+
+00:11:06.560 --> 00:11:07.640
+>> I think that's it.
+
+00:11:07.700 --> 00:11:10.700
+Uh, I feel a little weird
+devoting a whole podcast to this
+
+00:11:10.700 --> 00:11:12.200
+because it's such a short topic.
+
+00:11:12.200 --> 00:11:15.650
+Really, it gets down to there's
+this function that exists.
+
+00:11:15.680 --> 00:11:18.860
+And if you're writing an application,
+you should probably call it, uh,
+
+00:11:18.860 --> 00:11:22.070
+so that if you do have an uncaught
+exception, you'll know about it.
+
+00:11:22.580 --> 00:11:26.360
+Um, but again, I felt motivated to
+write a blog post for it because
+
+00:11:26.390 --> 00:11:27.830
+I hadn't heard of it before.
+
+00:11:28.130 --> 00:11:29.870
+And it's not very well-documented.
+
+00:11:29.870 --> 00:11:31.790
+So I just wanted to
+get the word out there.
+
+00:11:31.790 --> 00:11:34.970
+So if you're listening to this and
+you write a Haskell application,
+
+00:11:35.570 --> 00:11:38.900
+Check out the uncaught exception
+handler and install it into your app.
+
+00:11:39.675 --> 00:11:39.885
+>> Yep.
+
+00:11:40.155 --> 00:11:41.085
+And who knows?
+
+00:11:41.085 --> 00:11:45.075
+It could help you figure out, Oh, there's
+some, some sort of issue you haven't
+
+00:11:45.075 --> 00:11:47.565
+seen yet you haven't been aware of.
+
+00:11:47.565 --> 00:11:53.385
+So, um, yeah, I think it's a
+great little just, Hey, here
+
+00:11:53.385 --> 00:11:55.305
+it is, tada, kind of thing.
+
+00:11:55.540 --> 00:11:55.630
+>> Okay.
+
+00:11:55.995 --> 00:11:57.255
+>> And for those who are interested.
+
+00:11:57.830 --> 00:12:02.420
+Dive in deeper and see how that
+could help you in your daily work
+
+00:12:02.450 --> 00:12:06.080
+or if your side projects, whatever
+you, however you use Haskell.
+
+00:12:06.170 --> 00:12:09.440
+Um, or if you have a desire to
+use Haskell, you can just create
+
+00:12:09.440 --> 00:12:12.800
+a little simple app that installs
+a default exception handler.
+
+00:12:12.860 --> 00:12:13.280
+Why not,
+
+00:12:13.595 --> 00:12:14.015
+>> Yeah.
+
+00:12:14.575 --> 00:12:18.025
+Uh, and please, uh, don't complain
+to me if you find out that your
+
+00:12:18.025 --> 00:12:20.515
+code was actually failing all
+along and you didn't know about it.
+
+00:12:20.545 --> 00:12:21.865
+That's, uh, that's your problem?
+
+00:12:21.865 --> 00:12:22.225
+Not mine.
+
+00:12:23.940 --> 00:12:25.140
+>> A little harsh, but okay.
+
+00:12:25.230 --> 00:12:25.720
+Okay.
+
+00:12:27.305 --> 00:12:27.835
+>> No, I.
+
+00:12:27.995 --> 00:12:30.305
+>> have the, you forgot
+to catch the exception.
+
+00:12:30.335 --> 00:12:30.635
+So.
+
+00:12:31.160 --> 00:12:31.490
+>> true.
+
+00:12:31.550 --> 00:12:32.090
+That's true.
+
+00:12:32.570 --> 00:12:36.380
+Um, but yeah, I think, uh, that
+will do it for us this week.
+
+00:12:36.470 --> 00:12:39.830
+Uh, thank you for listening
+to the Haskell Weekly podcast.
+
+00:12:40.280 --> 00:12:44.780
+I have been your host Taylor Fausak,
+and with me today was Cameron Gera.
+
+00:12:45.200 --> 00:12:48.050
+If you want to find out more
+about us, please check out our
+
+00:12:48.050 --> 00:12:50.100
+website, HaskellWeekly.News.
+
+00:12:50.600 --> 00:12:51.590
+If you liked the show.
+
+00:12:51.785 --> 00:12:54.335
+Please rate and review
+us wherever you found us.
+
+00:12:54.395 --> 00:12:58.225
+And if you have any feedback for
+us, you can tweet us @HaskellWeekly.
+
+00:12:59.380 --> 00:13:01.390
+>> And we are brought
+to you by our employer.
+
+00:13:01.390 --> 00:13:03.790
+ITProTV an ACI learning company.
+
+00:13:04.090 --> 00:13:07.420
+They would love to extend an offer
+of 30% off the lifetime of your
+
+00:13:07.420 --> 00:13:09.430
+subscription on our platform.
+
+00:13:09.460 --> 00:13:14.470
+By using the promo code
+HaskellWeekly30 at checkout, all
+
+00:13:14.470 --> 00:13:17.860
+one word, it is cap sensitive.
+
+00:13:17.860 --> 00:13:22.570
+So a capital H capital W and
+everything else, lowercase.
+
+00:13:22.910 --> 00:13:24.560
+And I think that about does it for us.
+
+00:13:24.590 --> 00:13:27.320
+Thank you all for joining and
+we'll see you next week on
+
+00:13:27.320 --> 00:13:28.580
+the Haskell Weekly podcast
+
+00:13:28.925 --> 00:13:29.315
+>> Bye.
+
+00:13:30.265 --> 00:13:30.825
+>> Peace!
