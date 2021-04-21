@@ -4,7 +4,7 @@ This is a weekly summary of what's going on in its community.
 
 ## Featured
 
-- [Of function instances and abstract syntax](https://www.danielbrice.net/blog/of-function-instances-and-abstract-syntax/)
+- [Of function instances and abstract syntax](https://www.danielbrice.net/blog/of-function-instances-and-abstract-syntax/) by Daniel Brice
   > Some Haskell classes `class Myclass a` admit an instance for functions `instance Myclass a => Myclass (x -> a)` based on the instance for `a`. All of these instances have a few things in common: (1) they implement the class methods in a straightforward way as `mymethod f = \x -> mymethod (f x)`, and (2) they are polarizing among Haskell practitioners. The linked blog post is a case study of why one might find such instances compelling and useful.
 
 ## Jobs
