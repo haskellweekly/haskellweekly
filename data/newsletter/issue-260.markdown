@@ -92,4 +92,6 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 
 ## Call for participation
 
-undefined
+-   [dear-imgui.hs: Add optional arguments to raw bindings](https://github.com/haskell-game/dear-imgui.hs/issues/52)
+-   [persistent: Pass existing `[EntityDef]` into `mkPersist`](https://github.com/yesodweb/persistent/issues/1241)
+-   [wasp: Improve error messaging when `wasp build` detects that SQLite is used](https://github.com/wasp-lang/wasp/issues/213)
