@@ -64,3 +64,6 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 
 - [CFP: Haskell Love](https://www.papercall.io/haskelllove)
   > For the second time, the Haskell Love conference gathers all Haskell enthusiasts from around the globe!
+
+-   [ihp: Link a running, working example of example app built in guide](https://github.com/digitallyinduced/ihp/issues/864)
+-   [tablebot: 8ball plugin](https://github.com/finnbar/tablebot/issues/8)
