@@ -25,4 +25,5 @@ undefined
 
 ## Call for participation
 
-undefined
+-   [ihp: Link a running, working example of example app built in guide](https://github.com/digitallyinduced/ihp/issues/864)
+-   [tablebot: 8ball plugin](https://github.com/finnbar/tablebot/issues/8)
