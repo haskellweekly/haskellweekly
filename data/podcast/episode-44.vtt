@@ -1,0 +1,3070 @@
+WEBVTT
+
+00:00:07.438 --> 00:00:10.168
+>> Hello and welcome to
+the Haskell Weekly podcast.
+
+00:00:10.408 --> 00:00:12.128
+I'm your, host Taylor Fausak.
+
+00:00:12.328 --> 00:00:15.418
+I'm the Director of Software
+Engineering at ACI Learning.
+
+00:00:15.928 --> 00:00:19.108
+And I'm very excited because
+today we have a special guest:
+
+00:00:19.228 --> 00:00:22.738
+Andrew Boardman, the Executive
+Director of the Haskell Foundation.
+
+00:00:23.098 --> 00:00:24.718
+Thanks for joining me today, Andrew.
+
+00:00:25.087 --> 00:00:26.347
+>> I'm really glad to be here.
+
+00:00:27.117 --> 00:00:31.017
+>> We're really glad have you,
+so, uh, let's get right into it.
+
+00:00:31.047 --> 00:00:34.347
+And, uh, could you tell me
+a little about yourself?
+
+00:00:34.377 --> 00:00:35.247
+Let's start with that.
+
+00:00:35.707 --> 00:00:36.337
+>> Yeah!
+
+00:00:36.717 --> 00:00:41.307
+I've been in the industry for
+a very long time at this point.
+
+00:00:41.337 --> 00:00:49.257
+Um, I have a background, mostly in C,
+C++ kind of lower level programming.
+
+00:00:49.797 --> 00:00:54.307
+And, uh, a lot of emphasis on
+communication technologies.
+
+00:00:54.337 --> 00:00:57.997
+So I do a lot of work on
+instant messaging technologies.
+
+00:00:58.477 --> 00:01:02.407
+And I did some on desktop
+publishing, desktop publishing
+
+00:01:02.407 --> 00:01:07.617
+some on, Oh boy, let's see.
+
+00:01:08.037 --> 00:01:11.362
+Um, Vector graphics programs.
+
+00:01:11.452 --> 00:01:15.892
+Uh, for a while, I was a tech
+lead in the Windows build lab.
+
+00:01:15.922 --> 00:01:20.362
+So the lab that actually builds the
+daily builds and the golden masters
+
+00:01:20.362 --> 00:01:22.042
+for the Windows operating system.
+
+00:01:22.837 --> 00:01:23.347
+>> That's cool.
+
+00:01:23.572 --> 00:01:23.932
+>> Yeah.
+
+00:01:23.962 --> 00:01:28.282
+Worked at, uh, Quark software, which
+did the desktop publishing software.
+
+00:01:28.582 --> 00:01:32.722
+Uh, I did, uh, a little
+over six years at Microsoft.
+
+00:01:33.187 --> 00:01:36.457
+Working in a variety of different
+divisions on a variety of different
+
+00:01:36.457 --> 00:01:38.347
+projects, mostly instant messaging.
+
+00:01:39.067 --> 00:01:47.047
+And, uh, I came to functional
+programming, sort of by accident.
+
+00:01:47.047 --> 00:01:54.187
+So, uh, I'm also a serial entrepreneur
+and in one of the, uh, one of my
+
+00:01:54.187 --> 00:02:00.322
+companies, I helped hire a guy out of
+the University of Washington PhD program.
+
+00:02:00.862 --> 00:02:06.022
+And he came and he did some amazing work
+for us, and he knew a lot about functional
+
+00:02:06.022 --> 00:02:12.352
+programming and tried to incorporate that
+into one of the startups that I worked on.
+
+00:02:12.382 --> 00:02:14.992
+And I said, great use
+whatever tools you want.
+
+00:02:15.382 --> 00:02:17.602
+That's not as important
+to me as what you produce.
+
+00:02:18.562 --> 00:02:20.482
+And a little bit later I tried using it.
+
+00:02:20.842 --> 00:02:26.482
+And for the first time I was
+able to do a nested loop without
+
+00:02:26.842 --> 00:02:28.342
+bugs on the first attempt.
+
+00:02:28.612 --> 00:02:30.862
+And that was kind of an eye-opener for me.
+
+00:02:31.302 --> 00:02:38.202
+Uh, and then after that, uh, I,
+I was curious about the state
+
+00:02:38.232 --> 00:02:40.212
+of research in computer science.
+
+00:02:40.602 --> 00:02:46.632
+So I've been very focused on how
+you do things like how you build a
+
+00:02:46.632 --> 00:02:53.232
+software processes, how you manage
+people and less about the technical
+
+00:02:53.232 --> 00:02:55.032
+underpinnings and some of the theory.
+
+00:02:56.272 --> 00:02:59.482
+And honestly, at that time, I didn't
+think the theory was all that important.
+
+00:03:00.862 --> 00:03:06.202
+But what I tried to do was figure out
+how are we going to solve the really
+
+00:03:06.202 --> 00:03:08.062
+big problems in computer science?
+
+00:03:08.062 --> 00:03:11.512
+How are we going to solve
+problems like concurrency, fault
+
+00:03:11.542 --> 00:03:13.522
+tolerance, realtime systems.
+
+00:03:14.182 --> 00:03:18.442
+Uh, the, the things that have kind of
+stymied the industry for a long time and
+
+00:03:18.442 --> 00:03:25.372
+particularly as CPUs become multi-core
+instead of faster on the Silicon.
+
+00:03:25.732 --> 00:03:29.602
+And Moore's law seems to be
+kind of getting to, to its end.
+
+00:03:30.312 --> 00:03:37.032
+Uh, we don't have really great stories
+in most programming about how we're going
+
+00:03:37.032 --> 00:03:41.172
+to take advantage of those multi-cores
+in a way that isn't just running multiple
+
+00:03:41.172 --> 00:03:44.352
+programs on the same computer at the
+same time, having that work better.
+
+00:03:46.362 --> 00:03:49.722
+Having worked on operating
+systems and build systems.
+
+00:03:50.557 --> 00:03:56.227
+Threading and parallelism and
+concurrency are critical to solving
+
+00:03:56.377 --> 00:03:57.727
+some of the harder problems.
+
+00:03:57.907 --> 00:03:59.047
+And they're really tough.
+
+00:03:59.107 --> 00:04:03.247
+Like if you've ever done a lot of
+mutex and semaphore kind of coding, you
+
+00:04:03.247 --> 00:04:09.217
+know, how brittle that can be and how
+difficult it is to actually debug it.
+
+00:04:09.547 --> 00:04:13.057
+Especially when you have to have
+something like a kernel debugger to
+
+00:04:13.057 --> 00:04:17.347
+figure out what's going on at the very
+lowest levels of the operating system.
+
+00:04:18.802 --> 00:04:24.382
+So looking into that, I found functional
+programming as one of the approaches
+
+00:04:24.382 --> 00:04:31.012
+in research that was the most likely to
+tackle these problems in a serious way.
+
+00:04:31.642 --> 00:04:34.862
+And being me, I went for
+the functional-est of the
+
+00:04:34.882 --> 00:04:38.542
+functional programming languages
+and thus found Haskell.
+
+00:04:40.272 --> 00:04:45.532
+Uh, I, you know, I, in my career,
+I've learned maybe three dozen
+
+00:04:45.532 --> 00:04:47.062
+different programming languages.
+
+00:04:47.092 --> 00:04:51.442
+Um, some of them are
+industrial like C, C++ I did.
+
+00:04:51.742 --> 00:04:55.102
+I learned Turbo Pascal, and that's
+where I did some of my first serious
+
+00:04:55.102 --> 00:05:00.292
+programming a long, long time ago, but
+I also have friends who made little toy
+
+00:05:00.322 --> 00:05:02.752
+programming languages for various reasons.
+
+00:05:02.782 --> 00:05:06.682
+Uh, one friend of mine, uh,
+created MOO the MUD Object
+
+00:05:06.712 --> 00:05:08.182
+Oriented programming language.
+
+00:05:09.802 --> 00:05:10.162
+Yeah.
+
+00:05:10.552 --> 00:05:13.972
+Turned into LambdaMOO,
+which was a PARC project.
+
+00:05:14.332 --> 00:05:20.002
+Uh, and it, you know, all of
+these different languages were
+
+00:05:20.932 --> 00:05:23.362
+imperative in different forms.
+
+00:05:23.872 --> 00:05:27.172
+Sometimes they kind of touched on
+little bit of functionalism here
+
+00:05:27.172 --> 00:05:31.102
+and there, but it was basically
+imperative and Haskell was the first
+
+00:05:31.102 --> 00:05:32.212
+one that really kicked my butt.
+
+00:05:32.652 --> 00:05:37.042
+I had a hard time from that
+imperative to functional, uh,
+
+00:05:37.507 --> 00:05:39.637
+mindset change that you have to do.
+
+00:05:40.327 --> 00:05:47.737
+And between different syntax that I've
+really used before, and that mind shift,
+
+00:05:48.277 --> 00:05:52.117
+it took me a long time to really dig
+in and figure out what was going on.
+
+00:05:52.237 --> 00:05:56.197
+And it kind of renewed my
+interest in programming in a way.
+
+00:05:56.647 --> 00:06:00.667
+Uh, because it'd been a little stale,
+like if I learned a new programming
+
+00:06:00.667 --> 00:06:02.137
+language, okay, this is another one.
+
+00:06:02.137 --> 00:06:04.537
+It's just different syntax
+over the same concepts.
+
+00:06:05.632 --> 00:06:08.302
+I'm not sure why they made this
+new programming language, but fine.
+
+00:06:08.812 --> 00:06:10.462
+I'll go ahead and tackle this.
+
+00:06:11.377 --> 00:06:14.647
+Haskell was fundamentally different
+and, and functional programming was
+
+00:06:14.647 --> 00:06:16.447
+a fundamentally different approach.
+
+00:06:16.807 --> 00:06:22.417
+And, uh, that difficulty was also one
+of the things that hooked me and, and
+
+00:06:22.417 --> 00:06:24.387
+made me really want to dig in more.
+
+00:06:25.227 --> 00:06:30.207
+And then in addition to that, um,
+it was actually solving problems
+
+00:06:30.237 --> 00:06:32.307
+in really interesting ways.
+
+00:06:32.697 --> 00:06:39.502
+And, uh, the lazy evaluation, uh,
+and the, the ways that you can avoid
+
+00:06:39.502 --> 00:06:43.682
+recalculating the same value over and
+over by storing things, in thunks.
+
+00:06:43.702 --> 00:06:49.402
+Like th this, this was an approach
+that was actually addressing the
+
+00:06:49.402 --> 00:06:52.102
+problems that I had identified.
+
+00:06:52.707 --> 00:06:53.097
+>> Right.
+
+00:06:53.542 --> 00:06:56.662
+>> And then, so I tried
+to do a startup based on that.
+
+00:06:56.962 --> 00:07:00.262
+Uh, it didn't work out, but not
+necessarily for Haskell reasons.
+
+00:07:00.262 --> 00:07:04.102
+Although I do have to say trying
+to learn Haskell by yourself.
+
+00:07:04.552 --> 00:07:08.092
+From first principles, uh,
+with just books and stuff.
+
+00:07:08.122 --> 00:07:11.962
+Is a very difficult thing, like getting
+into the community, getting on IRC
+
+00:07:11.962 --> 00:07:16.042
+or the FP Slack or, or any of these
+where you can ask questions of people
+
+00:07:16.042 --> 00:07:20.392
+who've been there and done that before
+and, and enjoy mentoring new people.
+
+00:07:20.992 --> 00:07:24.022
+It makes it so much easier
+and highly recommended.
+
+00:07:24.292 --> 00:07:28.612
+But I tried to do it by myself
+and it didn't really work out.
+
+00:07:29.602 --> 00:07:34.142
+And then I did some other consulting
+for awhile in embedded systems of C++.
+
+00:07:34.662 --> 00:07:38.782
+Then when that contract started winding
+down, because the company started winding
+
+00:07:38.782 --> 00:07:43.162
+down, I looked for a job in, in Haskell.
+
+00:07:43.182 --> 00:07:46.302
+Like I figured if I'm going to have
+to get a new job, why don't I try to
+
+00:07:46.302 --> 00:07:48.072
+learn how to do Haskell and production?
+
+00:07:48.462 --> 00:07:50.772
+Why don't I try to do something for real.
+
+00:07:51.612 --> 00:07:57.702
+And, uh, took a couple of stabs at it and
+SimSpace bit, and, uh, had a wonderful
+
+00:07:57.702 --> 00:07:59.712
+two and a half years at some SimSpace.
+
+00:08:00.282 --> 00:08:07.117
+And, uh, when the, when the job opening
+was announced for the Executive Director
+
+00:08:07.567 --> 00:08:13.147
+of the new Haskell Foundation, my first
+reaction was, this is my dream job.
+
+00:08:13.537 --> 00:08:15.037
+This is absolutely my dream job.
+
+00:08:15.067 --> 00:08:19.477
+I won't ever get it, but if I don't
+apply, I certainly won't get it.
+
+00:08:19.477 --> 00:08:21.007
+So I'll give it a shot.
+
+00:08:21.907 --> 00:08:24.067
+And to my amazement, I got shortlisted.
+
+00:08:25.207 --> 00:08:34.507
+And worked on my presentation and my, my,
+uh, my vision statement and put, put my
+
+00:08:34.507 --> 00:08:38.047
+heart and soul into that and then gave
+the presentation to the interim board.
+
+00:08:38.677 --> 00:08:43.657
+And then to my absolute
+amazement, I was offered the job.
+
+00:08:43.687 --> 00:08:46.687
+And, uh, haven't looked back since.
+
+00:08:48.467 --> 00:08:49.727
+>> Congratulations!
+
+00:08:49.817 --> 00:08:51.827
+Always a good thing to
+land your dream job.
+
+00:08:52.017 --> 00:08:53.007
+>> I think so.
+
+00:08:54.922 --> 00:08:55.912
+>> Um, so yeah.
+
+00:08:55.942 --> 00:08:58.582
+Thank you for sharing a
+little about yourself and your
+
+00:08:58.582 --> 00:08:59.902
+story and how you got here.
+
+00:09:00.262 --> 00:09:02.962
+Uh, there were a couple of things
+you mentioned that I wanted to dig
+
+00:09:02.962 --> 00:09:04.492
+into a little bit before we move on.
+
+00:09:04.942 --> 00:09:09.052
+Uh, the first is that coming from a
+Windows background, I feel like Haskell
+
+00:09:09.142 --> 00:09:10.972
+itself is kind of a strange choice.
+
+00:09:10.972 --> 00:09:15.052
+And, you know, maybe for a while, it
+had not the best story on Windows.
+
+00:09:15.082 --> 00:09:17.602
+And I could see, I don't
+know what the timeline was.
+
+00:09:17.602 --> 00:09:19.582
+I don't know when F# came into being, but.
+
+00:09:19.867 --> 00:09:23.017
+That could, that could be, you
+know, a appropriate windows choice.
+
+00:09:23.407 --> 00:09:27.367
+Um, but that being said, one of the things
+that you mentioned about Haskell that
+
+00:09:27.367 --> 00:09:31.687
+was appealing was that it's like the most
+functional of the functional languages.
+
+00:09:32.107 --> 00:09:34.597
+So languages like F# or Scala,
+you know, they make a lot of
+
+00:09:34.597 --> 00:09:35.917
+concessions to other paradigms.
+
+00:09:36.397 --> 00:09:43.837
+Um, so I guess, it is that pure
+functionality what drew you to Haskell
+
+00:09:43.837 --> 00:09:46.477
+or was there, was there anything
+else going on in that consideration?
+
+00:09:46.692 --> 00:09:50.112
+>> I think that the pure
+functionality is a big consideration
+
+00:09:50.142 --> 00:09:56.002
+because when you have that purity,
+it is not the pejorative purity.
+
+00:09:56.072 --> 00:10:00.912
+It is purity in the sense of
+how the runtime system evaluates
+
+00:10:00.912 --> 00:10:03.672
+things and the assumptions that
+that runtime system can make.
+
+00:10:04.122 --> 00:10:09.037
+And so, uh, for example, uh, one of
+the things that I keep hearing about
+
+00:10:09.067 --> 00:10:12.457
+is how STM is this game changer.
+
+00:10:12.487 --> 00:10:15.997
+You know, the killer app for Haskell
+and the more I dig into it, the
+
+00:10:15.997 --> 00:10:21.097
+more I believe that to be the case,
+STM was tried in other languages.
+
+00:10:21.922 --> 00:10:26.572
+It's, it's not unique to Haskell, but
+the implementation in Haskell is unique.
+
+00:10:26.872 --> 00:10:31.042
+Because the choices that have been
+made in both the structure of the
+
+00:10:31.042 --> 00:10:37.042
+language and the runtime mean that you
+can get a real implementation of STM
+
+00:10:37.042 --> 00:10:38.592
+that doesn't have a bunch of warts.
+
+00:10:39.412 --> 00:10:45.952
+And, uh, as, as the, the folks at
+TypeClasses.com say like, it just works.
+
+00:10:45.982 --> 00:10:47.902
+Like you don't ha it just works.
+
+00:10:48.862 --> 00:10:50.422
+You don't have to think about it.
+
+00:10:50.512 --> 00:10:56.872
+You don't, it's not, in some ways, it's
+not a sufficient problem to garnish a
+
+00:10:56.872 --> 00:11:01.732
+lot of attention because you just, it's
+just the thing that you use and then it
+
+00:11:01.732 --> 00:11:03.382
+works and then you move on with your life.
+
+00:11:03.892 --> 00:11:07.462
+And I think this is kind of
+true with Haskell in many ways.
+
+00:11:08.122 --> 00:11:12.712
+We take for granted so many things in
+Haskell that just work and they work great
+
+00:11:12.772 --> 00:11:14.302
+and you don't have to think about them.
+
+00:11:14.902 --> 00:11:19.012
+And then we get to focus on the
+problem areas that we do have.
+
+00:11:19.522 --> 00:11:23.452
+And I think people over-focus on
+those problem areas in some sense,
+
+00:11:23.482 --> 00:11:27.282
+when they're evaluating the language,
+because they're not, you know, you
+
+00:11:27.322 --> 00:11:28.732
+don't see the things that just work.
+
+00:11:29.217 --> 00:11:29.577
+>> Right.
+
+00:11:30.177 --> 00:11:30.477
+Yeah.
+
+00:11:30.507 --> 00:11:34.587
+I, I, I'm familiar with the Type
+Classes article that you're referencing,
+
+00:11:34.587 --> 00:11:40.197
+where they're, you know, writing about
+software transactional memory and
+
+00:11:40.197 --> 00:11:44.127
+what it means and how Haskell does it
+and why it works so well in Haskell.
+
+00:11:44.127 --> 00:11:48.217
+And I like that, it's kind of
+the, um, Yeah, it works so well
+
+00:11:48.217 --> 00:11:49.357
+that you just take it for granted.
+
+00:11:49.387 --> 00:11:51.217
+And so many things in
+Haskell are like that.
+
+00:11:51.457 --> 00:11:56.827
+And like you said, uh, that can cause
+people to, over-focus not even people
+
+00:11:56.827 --> 00:11:59.527
+new to the language, but people that are
+really familiar with it, you know, you
+
+00:11:59.527 --> 00:12:03.427
+get these little paper cuts and you spend
+all your time complaining about them
+
+00:12:03.427 --> 00:12:05.287
+because everything else works so well.
+
+00:12:05.707 --> 00:12:09.097
+Uh, which in a way is kind of good,
+but also kind of gives the wrong
+
+00:12:09.097 --> 00:12:10.477
+impression to people that may be new.
+
+00:12:10.707 --> 00:12:13.467
+>> And what we want to do
+with the Foundation is actually
+
+00:12:13.467 --> 00:12:14.937
+address those  paper cuts.
+
+00:12:15.027 --> 00:12:16.767
+Uh, and it's not so much.
+
+00:12:17.097 --> 00:12:21.717
+I see the, the, the purpose
+of the foundation isn't
+
+00:12:21.717 --> 00:12:22.827
+to solve all the problems.
+
+00:12:22.827 --> 00:12:26.517
+The purpose of the foundation is
+to bring the community together
+
+00:12:26.547 --> 00:12:31.162
+and focus the efforts to make
+sure that we make significant
+
+00:12:31.162 --> 00:12:32.812
+progress on some of these areas.
+
+00:12:33.232 --> 00:12:39.142
+So in, you know, we have issues
+with CI, we have issues with our
+
+00:12:39.142 --> 00:12:44.152
+builds and, and the reproducibility
+and increment ability of those.
+
+00:12:45.082 --> 00:12:51.262
+So what we need to do as a community
+is focus on those problem areas.
+
+00:12:51.292 --> 00:12:56.962
+Stop having wars between different
+points of view and communicate, and
+
+00:12:56.962 --> 00:13:00.112
+really come up with what is the right
+solution for the overall community.
+
+00:13:00.532 --> 00:13:06.232
+And I think that the Foundation has been
+exceptionally, uh, I think that we've
+
+00:13:06.232 --> 00:13:09.382
+been very successful at that already.
+
+00:13:10.162 --> 00:13:16.672
+So we we've brought together a number of
+groups that have been at odds in the past.
+
+00:13:17.302 --> 00:13:22.972
+And getting them to talk constructively
+together and actually figure
+
+00:13:22.972 --> 00:13:24.292
+out what the right solution is.
+
+00:13:24.292 --> 00:13:25.792
+And I think we'll continue to do that.
+
+00:13:26.122 --> 00:13:30.562
+And I give a lot of credit to that, to
+our CTO, Emily Pillmore, who is doing
+
+00:13:30.562 --> 00:13:37.792
+a fantastic job of taking the technical
+approach of, okay, here's our big problem.
+
+00:13:38.332 --> 00:13:40.882
+And here are the right people to
+get into the room to talk about
+
+00:13:40.882 --> 00:13:42.082
+it and figure out the solution.
+
+00:13:42.487 --> 00:13:46.477
+Hash out the solution and then
+try to figure out how to make the
+
+00:13:46.477 --> 00:13:48.197
+technical changes to get it done.
+
+00:13:48.827 --> 00:13:53.097
+>> Yeah, it seems to me like she
+has done an excellent job of that so far.
+
+00:13:53.397 --> 00:13:59.847
+And the Foundation itself has only really
+been together for a few months, right?
+
+00:14:00.087 --> 00:14:04.797
+>> Yeah, we started full time,
+uh, two months ago almost to the day.
+
+00:14:05.167 --> 00:14:09.277
+So, you know, overall we have not
+been in existence very long, but
+
+00:14:09.277 --> 00:14:12.757
+I think that we already have a lot
+to show for, for what we've done.
+
+00:14:13.477 --> 00:14:20.137
+And, uh, you know, one of the things
+you can get into very niche, nerdy
+
+00:14:20.287 --> 00:14:25.027
+areas with, with Haskell in general,
+but with programmers in particular
+
+00:14:25.027 --> 00:14:31.027
+and, uh, you know, our, our text UT-8
+proposal is one of those cases, right?
+
+00:14:31.387 --> 00:14:36.442
+So the idea is that we take our
+internal text representation from
+
+00:14:36.442 --> 00:14:38.762
+UTF-16, turned it into UTF-8.
+
+00:14:39.682 --> 00:14:42.622
+Most of the time, UTF-8
+is the correct solution.
+
+00:14:42.982 --> 00:14:47.362
+It's not only smaller because it
+encodes in a more compressed format.
+
+00:14:47.992 --> 00:14:52.167
+But, in most use cases, it's
+going to be more performant.
+
+00:14:52.747 --> 00:14:57.217
+And when you think about data
+locality, you don't want a giant
+
+00:14:57.487 --> 00:15:01.357
+chunks of memory, when you can have
+it in much smaller chunks of memory.
+
+00:15:01.987 --> 00:15:04.837
+You still need the UTF-16
+representations, and we're not
+
+00:15:04.837 --> 00:15:06.307
+talking about getting rid of them.
+
+00:15:06.847 --> 00:15:10.417
+But those are more for special
+cases where you're taking something
+
+00:15:10.417 --> 00:15:12.697
+from maybe an older encoding.
+
+00:15:13.252 --> 00:15:17.172
+Uh, especially like an East Asian
+encoding and trying to turn it
+
+00:15:17.172 --> 00:15:20.482
+into a UTF kind of encoding.
+
+00:15:20.872 --> 00:15:26.452
+And in those cases, maybe the, uh,
+the default performance will degrade
+
+00:15:26.482 --> 00:15:31.102
+very slightly, but on the other hand,
+almost all the other performance
+
+00:15:31.102 --> 00:15:32.842
+will get significantly better.
+
+00:15:33.202 --> 00:15:35.572
+So this is just something that,
+that has needed to happen.
+
+00:15:35.572 --> 00:15:38.482
+We needed to get the right people
+into the room to make it happen.
+
+00:15:38.992 --> 00:15:41.422
+And at this point we have a
+plan on what we're going to do.
+
+00:15:41.892 --> 00:15:43.182
+>> That's excellent to hear.
+
+00:15:43.182 --> 00:15:47.502
+And I know that's one of those paper
+cuts where I have heard about it a lot.
+
+00:15:47.742 --> 00:15:51.342
+And based on the volume of complaints,
+you might assume that it's some huge
+
+00:15:51.342 --> 00:15:56.002
+problem that like text performance in
+Haskell is abysmal because of UTF-16.
+
+00:15:56.022 --> 00:16:00.052
+But that's not the case in like, as
+I understand it, Windows uses UTF-16
+
+00:16:00.072 --> 00:16:01.542
+behind the scenes or something like it.
+
+00:16:01.542 --> 00:16:03.972
+So it's not a completely unheard of.
+
+00:16:04.152 --> 00:16:04.962
+Um, but yeah.
+
+00:16:05.482 --> 00:16:07.432
+Thanks for giving an overview of that.
+
+00:16:07.492 --> 00:16:11.002
+Uh, what other kind of irons
+in the fire does the Haskell
+
+00:16:11.002 --> 00:16:12.322
+Foundation have going on right now?
+
+00:16:12.637 --> 00:16:14.557
+>> Well, you talked
+about, uh, Windows support.
+
+00:16:14.647 --> 00:16:21.577
+And, uh, we are really, this, this
+is an area that has been interesting.
+
+00:16:21.637 --> 00:16:28.657
+So Windows has been something that has
+been supported by, by GHC and the Haskell
+
+00:16:28.657 --> 00:16:32.377
+community more or less for a long time.
+
+00:16:33.277 --> 00:16:41.002
+But clearly the compiler was built on Unix
+and it's kind of a Unix first situation.
+
+00:16:41.002 --> 00:16:47.002
+So getting this tool set onto Windows,
+which is these days, what I run.
+
+00:16:47.072 --> 00:16:54.322
+I, I come to, I did work at Microsoft for
+a long time, but I was also an extremely
+
+00:16:54.322 --> 00:16:59.422
+early Linux, adopter and Mac programmer
+before I was a Windows programmer.
+
+00:16:59.752 --> 00:17:01.132
+And, uh, uh.
+
+00:17:02.202 --> 00:17:03.252
+>> Got all your bases covered.
+
+00:17:03.312 --> 00:17:05.572
+>> Yeah, I got, I've
+done basically all of them.
+
+00:17:06.487 --> 00:17:11.967
+I like the Windows platform and
+having worked on Windows itself, I
+
+00:17:11.967 --> 00:17:15.717
+understand the technical excellence
+that's going on inside the kernel.
+
+00:17:16.077 --> 00:17:21.287
+It's just different enough from
+Unix that trying to do something
+
+00:17:21.287 --> 00:17:25.407
+Unix-y  on windows is difficult.
+
+00:17:25.437 --> 00:17:26.907
+There's, there's a lot of friction there.
+
+00:17:27.717 --> 00:17:30.807
+And right now, that was
+interesting, right now.
+
+00:17:30.897 --> 00:17:39.282
+Um, we sort of have this, this almost
+emulation layer between the way GHC
+
+00:17:39.282 --> 00:17:44.832
+wants to talk to the operating system,
+which it assumes has Unix style to figure
+
+00:17:44.832 --> 00:17:46.752
+out how to make that work on Windows.
+
+00:17:47.142 --> 00:17:50.472
+Uh, we would like to fix that,
+but that's a longer term thing.
+
+00:17:50.502 --> 00:17:52.182
+That's a, that's a pretty massive change.
+
+00:17:52.602 --> 00:17:56.892
+In the shorter term, we want to make
+it easier to just install GHC and
+
+00:17:56.892 --> 00:17:59.172
+get it up and running on Windows.
+
+00:17:59.532 --> 00:18:05.212
+Uh, and so, Emily again, has gotten a
+bunch of experts in this area together
+
+00:18:05.542 --> 00:18:08.212
+to figure out what the right choice is.
+
+00:18:08.242 --> 00:18:10.582
+And I think we have a
+plan on that as well.
+
+00:18:10.932 --> 00:18:14.142
+It's not the slickest thing.
+
+00:18:14.142 --> 00:18:18.792
+Like it's not, it's not just simple,
+unfortunately, because of the ways
+
+00:18:18.852 --> 00:18:20.622
+that that GHC has been developed.
+
+00:18:20.982 --> 00:18:23.322
+And not just GHC, but the libraries.
+
+00:18:23.352 --> 00:18:26.772
+So there's a lot of libraries out there
+that are very fundamental to the way
+
+00:18:26.982 --> 00:18:28.932
+that people build Haskell applications.
+
+00:18:29.257 --> 00:18:30.817
+That assume Unix  as well.
+
+00:18:31.477 --> 00:18:39.487
+So we've got a lot of work to try to
+make uh GHC a Windows, uh, native,
+
+00:18:39.517 --> 00:18:42.277
+if you will kind of, uh, program.
+
+00:18:42.652 --> 00:18:47.692
+I think we'll get there eventually, but
+that's going to require a lot of work.
+
+00:18:47.992 --> 00:18:53.062
+Uh, probably a lot of money, uh, because
+there's, there's just going to be
+
+00:18:53.242 --> 00:18:56.992
+going out and finding the right experts
+and, and trying to get them to do it.
+
+00:18:57.322 --> 00:19:01.582
+I don't think that there has been
+historically enough volunteer
+
+00:19:01.582 --> 00:19:07.822
+effort to, to make that viable
+as a 100% volunteer project.
+
+00:19:07.842 --> 00:19:08.232
+>> Right.
+
+00:19:08.742 --> 00:19:10.152
+It, it sounds promising.
+
+00:19:10.242 --> 00:19:13.932
+And, uh, it does seem like a lot of
+the volunteer effort, people that are
+
+00:19:13.932 --> 00:19:18.792
+interested in Haskell as a hobby typically
+are on Unix or these days maybe even
+
+00:19:18.792 --> 00:19:24.432
+Nix, uh, or macOS so you don't get a
+lot of that non POSIX representation.
+
+00:19:24.552 --> 00:19:30.607
+Um, that being said, similar to you, I
+have, you know, right now on my desk, a
+
+00:19:30.817 --> 00:19:33.577
+Windows PC, Linux PC, and a Mac laptop.
+
+00:19:33.607 --> 00:19:35.017
+And I use Haskell on all of them.
+
+00:19:35.077 --> 00:19:38.017
+And most of the time, almost all
+the time, in fact, it just works.
+
+00:19:38.047 --> 00:19:42.727
+So again, like this is one of
+those paper cuts that maybe gets
+
+00:19:42.727 --> 00:19:43.717
+talked about a little too much.
+
+00:19:43.717 --> 00:19:47.167
+So, um, but I'm happy to hear that
+the situation will be improving.
+
+00:19:47.262 --> 00:19:47.532
+>> Yeah.
+
+00:19:47.562 --> 00:19:51.042
+If you can, if you can figure
+out how to install it, it
+
+00:19:51.042 --> 00:19:52.302
+generally works really well.
+
+00:19:52.582 --> 00:19:58.752
+I think the, the, the group that, that
+has built Stack, uh, Michael Snoyman
+
+00:19:59.122 --> 00:20:01.842
+and company have done an excellent job.
+
+00:20:01.872 --> 00:20:05.532
+They've got one approach to how
+they do the installations that,
+
+00:20:05.562 --> 00:20:07.897
+that makes it work, uh, quite well.
+
+00:20:08.617 --> 00:20:13.477
+And it may be that we adopt most
+of their approach, uh, in general.
+
+00:20:13.987 --> 00:20:16.027
+But it could get better.
+
+00:20:16.147 --> 00:20:21.097
+And, you know, it's, it's that once you
+get it onto the machine, then it works.
+
+00:20:21.127 --> 00:20:25.957
+But I wonder if there is
+some selection bias there.
+
+00:20:25.957 --> 00:20:33.322
+So if it is difficult to put it onto a
+Windows machine, Therefore people who
+
+00:20:33.322 --> 00:20:35.932
+are very Windows centric, try it out.
+
+00:20:35.932 --> 00:20:36.952
+They get very frustrated.
+
+00:20:36.982 --> 00:20:37.612
+They don't do it.
+
+00:20:37.612 --> 00:20:39.272
+We don't get a lot of
+them in the community.
+
+00:20:40.112 --> 00:20:41.332
+>> Right, they bounce off.
+
+00:20:41.582 --> 00:20:46.012
+>> My, my hope, you know, w as,
+as the, the Haskell Foundation, we are
+
+00:20:46.012 --> 00:20:48.232
+trying to drive more adoption of Haskell.
+
+00:20:49.282 --> 00:20:54.022
+One of the ways that we can do that is
+by making it easier for more people to
+
+00:20:54.667 --> 00:20:57.877
+bring it up and install it and try it out.
+
+00:20:58.627 --> 00:21:04.117
+So one of the big reasons that we're
+making this effort in the Windows
+
+00:21:04.117 --> 00:21:11.197
+installer is to try to make it easier
+for people on Windows to use Haskell
+
+00:21:11.437 --> 00:21:12.877
+so that they can get involved.
+
+00:21:13.087 --> 00:21:17.257
+And then maybe if we get that, if
+we can get that snowball kind of
+
+00:21:17.257 --> 00:21:21.067
+started, then we'll get more and
+then we'll get some people that
+
+00:21:21.067 --> 00:21:22.867
+are very passionate about Windows.
+
+00:21:23.362 --> 00:21:28.252
+And having Haskell on Windows and
+then they'll volunteer and it'll just
+
+00:21:28.252 --> 00:21:29.662
+get easier and easier after that.
+
+00:21:29.662 --> 00:21:31.172
+That that is definitely our goal.
+
+00:21:31.312 --> 00:21:32.382
+>> Sounds like a virtuous cycle.
+
+00:21:32.382 --> 00:21:32.582
+>> Yes.
+
+00:21:32.582 --> 00:21:32.642
+>> Yeah.
+
+00:21:33.292 --> 00:21:37.642
+Um, so that, that sounds again,
+very promising, very exciting.
+
+00:21:37.792 --> 00:21:42.622
+And, uh, it sounds like one of the
+ways that people could help with
+
+00:21:42.652 --> 00:21:46.732
+this, and other things in general, is
+to, you know, be more active in the
+
+00:21:46.732 --> 00:21:52.072
+community, and try to onboard, you
+know, evangelize a little bit, I guess.
+
+00:21:52.612 --> 00:21:56.752
+Um, but what are some other ways
+that individuals could help out?
+
+00:21:56.932 --> 00:22:00.592
+Uh, both the Haskell Foundation
+and the broader Haskell community.
+
+00:22:01.777 --> 00:22:03.337
+>> Well, there, there's
+a few different ways.
+
+00:22:03.367 --> 00:22:08.197
+So volunteering is
+clearly the biggest way.
+
+00:22:08.197 --> 00:22:11.347
+If you can put your time and energy
+into it, you're going to make
+
+00:22:11.347 --> 00:22:14.677
+the biggest, uh, biggest change.
+
+00:22:15.097 --> 00:22:17.587
+Uh, but it doesn't
+necessarily just mean coding.
+
+00:22:17.827 --> 00:22:23.437
+And so one of the ways that you could
+help is by finding an open source
+
+00:22:23.437 --> 00:22:27.217
+project that you are particularly
+passionate about or interested in, or
+
+00:22:27.217 --> 00:22:31.147
+curious about and volunteering to help.
+
+00:22:32.197 --> 00:22:33.427
+Make changes to that.
+
+00:22:33.547 --> 00:22:34.747
+Submit some PRs.
+
+00:22:35.137 --> 00:22:40.177
+That's one way to do it, but there's
+also a big need for documentation
+
+00:22:40.567 --> 00:22:42.607
+improvements and updating.
+
+00:22:42.637 --> 00:22:51.757
+So, uh, we have, uh, one of our board
+members who is doing a fantastic job of
+
+00:22:52.087 --> 00:22:58.327
+rallying the community around updating,
+improving, fixing the documentation.
+
+00:22:58.357 --> 00:23:02.092
+You know, if you go to Haskell.org,
+there have been historically a lot of
+
+00:23:02.092 --> 00:23:05.932
+dead links and, uh, dated material.
+
+00:23:06.352 --> 00:23:11.812
+And so they've been going through and
+fixing the links and updating material
+
+00:23:11.872 --> 00:23:15.862
+and making it much more friendly for
+people to come into the community and
+
+00:23:15.862 --> 00:23:17.542
+find the resources that they need.
+
+00:23:18.352 --> 00:23:27.322
+Uh, one of the things that we're trying
+to, to spearhead is a sense of community.
+
+00:23:27.712 --> 00:23:33.757
+And in particular, we would like people to
+volunteer, to become community moderators.
+
+00:23:34.207 --> 00:23:40.297
+So that when there are conflicts,
+when there are people that are, uh,
+
+00:23:40.357 --> 00:23:45.637
+either arguing or not treating each
+other well, that we have some way of
+
+00:23:45.637 --> 00:23:50.197
+resolving those conflicts in a way that
+is consistent with the Guidelines for
+
+00:23:50.197 --> 00:23:55.457
+Respectful Communication that Simon
+Peyton Jones, and the GHC steering
+
+00:23:55.727 --> 00:24:01.567
+committee came up with, uh, and are
+foundational to the Haskell Foundation.
+
+00:24:01.597 --> 00:24:08.137
+So one of the things that I would like to
+do, one of my goals is to get volunteers.
+
+00:24:08.602 --> 00:24:12.802
+Both in the core Haskell Foundation
+community, as well as affiliated
+
+00:24:12.802 --> 00:24:20.752
+communities to have training on conflict
+resolution, situational deescalation,
+
+00:24:21.082 --> 00:24:26.632
+uh, active listening, and a lot of these
+techniques that are well-known throughout
+
+00:24:26.632 --> 00:24:28.522
+the industry and other industries.
+
+00:24:29.122 --> 00:24:34.762
+Uh, but having those skills is something
+that's great for you personally.
+
+00:24:35.512 --> 00:24:40.462
+Uh, and it means that our
+community is better off overall.
+
+00:24:40.672 --> 00:24:43.582
+So we're exploring ways of
+providing that training.
+
+00:24:43.912 --> 00:24:48.982
+Uh, I know some materials that people
+can look at today to start acquiring
+
+00:24:48.982 --> 00:24:53.782
+those skills, but I think training with
+a mentor also makes a big difference.
+
+00:24:55.482 --> 00:24:58.212
+>> That sounds very, uh, exciting.
+
+00:24:58.602 --> 00:25:02.812
+I am a moderator of the Haskell
+subreddit, which is not, you know,
+
+00:25:02.812 --> 00:25:05.452
+an official community and not
+associated with Foundation in any way.
+
+00:25:05.482 --> 00:25:08.782
+But, um, that's one of the things
+that I have struggled with in that
+
+00:25:08.782 --> 00:25:15.502
+role as well of, seeing a thread
+develop in a direction where you kind
+
+00:25:15.502 --> 00:25:18.922
+of know where it's going to end up
+and it isn't going to be productive.
+
+00:25:18.952 --> 00:25:21.352
+But maybe lacking some of the tools.
+
+00:25:21.932 --> 00:25:25.942
+You know, in my own repertoire to
+deescalate that in a way where people
+
+00:25:26.152 --> 00:25:29.662
+don't feel like they're just getting
+shut down, but that, you know, w
+
+00:25:29.722 --> 00:25:30.832
+we all know where this is going.
+
+00:25:30.832 --> 00:25:32.452
+Let's not, you know, snipe at each other.
+
+00:25:32.452 --> 00:25:33.502
+Let's be productive.
+
+00:25:33.762 --> 00:25:38.232
+>> Yeah, I think we, we want to
+assume good intent most of the time.
+
+00:25:38.652 --> 00:25:43.717
+And oftentimes, it's not bad
+intent that causes these issues.
+
+00:25:44.137 --> 00:25:47.827
+It's the communication styles
+that rub the wrong way.
+
+00:25:48.127 --> 00:25:52.987
+Or it's somebody who makes assumptions
+and those assumptions are not warranted.
+
+00:25:52.987 --> 00:25:57.037
+But how do you help them realize that
+they're making assumptions about this
+
+00:25:57.037 --> 00:25:59.107
+other person or that person's intent?
+
+00:25:59.647 --> 00:26:06.147
+We see this on a regular basis, sadly,
+where, uh, somebody will step up.
+
+00:26:06.717 --> 00:26:09.027
+They'll say, I want to
+help make a difference.
+
+00:26:09.567 --> 00:26:15.787
+They start trying to, to take action
+in the community to, to make things
+
+00:26:15.787 --> 00:26:20.077
+better, and then somebody will get
+defensive about it and make assumptions
+
+00:26:20.077 --> 00:26:23.017
+about their intent, make assumptions
+about what they're intending to
+
+00:26:23.017 --> 00:26:27.157
+do, and then react negatively.
+
+00:26:27.817 --> 00:26:32.977
+Uh, ideally, you know, it's one of
+those classic, like if you have nothing
+
+00:26:32.977 --> 00:26:34.807
+good to say, don't say anything at all.
+
+00:26:36.187 --> 00:26:42.487
+But, once somebody starts down that
+road, if you have the skill sets,
+
+00:26:42.517 --> 00:26:44.347
+you can deescalate the situation.
+
+00:26:44.377 --> 00:26:47.887
+You can say, Hey, think about it from
+the other person's point of view.
+
+00:26:48.127 --> 00:26:50.287
+What do you think that
+they're trying to accomplish?
+
+00:26:51.547 --> 00:26:55.057
+How do you think that the way that
+you reacted comes off to that?
+
+00:26:55.417 --> 00:26:56.827
+What were you trying to do?
+
+00:26:56.887 --> 00:26:58.897
+What, what, what are you worried about?
+
+00:26:59.407 --> 00:27:01.957
+What is the thing that
+is causing you stress?
+
+00:27:03.532 --> 00:27:06.232
+When you get these techniques,
+it becomes much easier.
+
+00:27:06.442 --> 00:27:08.452
+Um, but you need those techniques.
+
+00:27:08.482 --> 00:27:17.122
+And in tech in general, I think we,
+we don't give enough value to the
+
+00:27:17.122 --> 00:27:21.802
+soft skills, the interpersonal skills,
+and they are a set of skill sets.
+
+00:27:22.942 --> 00:27:26.542
+If you're not good at them, you
+can't do well at those skills.
+
+00:27:27.187 --> 00:27:31.417
+So the, the classic example is
+the exceptional engineer who was
+
+00:27:31.417 --> 00:27:36.697
+promoted to lead or manager who has
+no leader manager skills and not
+
+00:27:36.697 --> 00:27:38.167
+enough of the interpersonal skills.
+
+00:27:38.557 --> 00:27:42.067
+And then they flail for a few years
+while they try to acquire them, but
+
+00:27:42.127 --> 00:27:45.967
+they don't necessarily get the support
+and the training that they need to
+
+00:27:45.967 --> 00:27:48.547
+acquire them in a reasonable speed.
+
+00:27:48.967 --> 00:27:52.777
+Uh, I think that's a mistake that
+the industry makes in general.
+
+00:27:52.867 --> 00:27:55.507
+I think we're addressing
+that in, in many cases.
+
+00:27:56.017 --> 00:27:58.357
+But, within the Haskell community.
+
+00:27:58.357 --> 00:28:00.007
+I think we need to get very proactive.
+
+00:28:00.007 --> 00:28:06.487
+I think we need to not only do the
+moderation, but we also need to
+
+00:28:06.487 --> 00:28:09.877
+empower the moderators with the skills
+that they need to do the job well.
+
+00:28:10.447 --> 00:28:15.277
+And then the payoff for that is going
+to be a bigger, happier community that
+
+00:28:15.277 --> 00:28:17.647
+is cooperating more and fighting less.
+
+00:28:18.297 --> 00:28:18.957
+>> Absolutely.
+
+00:28:19.137 --> 00:28:20.607
+I agree with everything you said.
+
+00:28:20.667 --> 00:28:25.737
+And the only additional thing I have
+to throw in the mix is that Haskell,
+
+00:28:26.242 --> 00:28:32.152
+as a community, is very geographically
+distributed, almost surprisingly so.
+
+00:28:32.152 --> 00:28:36.682
+I often, you know, see posts or get up
+profiles from people all over the world.
+
+00:28:37.252 --> 00:28:43.342
+And there's an assumption, I think, that
+if you're communicating online in, in
+
+00:28:43.552 --> 00:28:48.712
+majority English speaking forum, that
+everyone is a native English speaker.
+
+00:28:49.132 --> 00:28:52.942
+And I think a lot of disagreements,
+strife or whatever can come
+
+00:28:52.942 --> 00:28:55.582
+from that translation layer.
+
+00:28:55.612 --> 00:28:59.332
+And, you know, not being familiar
+with idioms or not catching things
+
+00:28:59.332 --> 00:29:00.712
+that a native speaker may catch.
+
+00:29:01.042 --> 00:29:05.482
+So um having a third party moderator
+or arbitrator come in and say,
+
+00:29:05.992 --> 00:29:08.452
+I don't, I don't think you two
+are actually disagreeing here.
+
+00:29:08.452 --> 00:29:10.582
+There's just an impedance
+mismatch going on.
+
+00:29:10.612 --> 00:29:12.042
+That that can be hugely helpful.
+
+00:29:12.252 --> 00:29:14.832
+>> Yeah, we've seen a
+number of violent agreements
+
+00:29:15.292 --> 00:29:17.497
+in the community over time.
+
+00:29:17.557 --> 00:29:20.887
+And I w you know, I love the community.
+
+00:29:20.917 --> 00:29:24.067
+One of the reasons that this is
+my dream job is because of the
+
+00:29:24.067 --> 00:29:25.627
+community around the language.
+
+00:29:25.657 --> 00:29:26.677
+The language is great.
+
+00:29:27.307 --> 00:29:28.027
+Don't get me wrong.
+
+00:29:28.057 --> 00:29:32.137
+The runtime is great, but the thing
+that makes Haskell what it is, is
+
+00:29:32.137 --> 00:29:33.757
+actually the community around it.
+
+00:29:33.757 --> 00:29:38.557
+The people that are absolutely passionate
+and creating all of the foundational
+
+00:29:38.557 --> 00:29:40.357
+libraries that we build upon.
+
+00:29:40.987 --> 00:29:42.877
+We need to support those people.
+
+00:29:42.937 --> 00:29:43.387
+And.
+
+00:29:43.822 --> 00:29:46.662
+Uh, we've had a big problem
+with, for instance, open source
+
+00:29:46.762 --> 00:29:48.412
+project moderator burnout.
+
+00:29:49.552 --> 00:29:54.922
+And one of the reasons I think that
+is, is because we don't give them, we
+
+00:29:54.922 --> 00:29:59.122
+don't proactively give them the skills
+that they need to be able to manage a
+
+00:29:59.122 --> 00:30:01.432
+group of people, a group of volunteers.
+
+00:30:01.762 --> 00:30:08.662
+Uh, help them with their communication
+skills so that they are not constantly
+
+00:30:08.662 --> 00:30:12.142
+feeling like they're fighting defensive
+actions against a bunch of people
+
+00:30:12.142 --> 00:30:17.182
+that don't get their vision or, or are
+trying to do something different with
+
+00:30:17.212 --> 00:30:18.772
+their project than what they want.
+
+00:30:19.282 --> 00:30:21.412
+Where they want it to go or
+where they think it should go.
+
+00:30:22.792 --> 00:30:26.542
+One of the reasons that we want to do this
+affiliation with different communities
+
+00:30:26.752 --> 00:30:32.662
+and projects is so that we can help
+those projects get the same skills, the
+
+00:30:32.662 --> 00:30:34.822
+same people skills, the same training.
+
+00:30:35.092 --> 00:30:44.032
+So that they're not struggling with
+the same problems over and over.
+
+00:30:44.542 --> 00:30:50.092
+Um, and you know, if you, if
+you are in a project where
+
+00:30:50.152 --> 00:30:52.282
+everybody is on the same page.
+
+00:30:52.882 --> 00:30:56.212
+Everybody has a shared vision of
+where they want that project to go.
+
+00:30:56.662 --> 00:31:02.752
+And they're supporting each other and
+ideas are bouncing around and you know,
+
+00:31:03.532 --> 00:31:09.082
+you, you put up a PR and instead of nasty
+comments about how bad your code is.
+
+00:31:09.082 --> 00:31:11.242
+Instead it's have you,
+have you tried this?
+
+00:31:11.242 --> 00:31:12.022
+Have you tried this?
+
+00:31:12.022 --> 00:31:12.922
+Have you tried this?
+
+00:31:13.897 --> 00:31:17.587
+Then it becomes exciting and
+energetic, and everybody wants
+
+00:31:17.587 --> 00:31:19.267
+to spend more time doing it.
+
+00:31:19.327 --> 00:31:24.457
+And you know, you make friends for life
+and you have this close knit community.
+
+00:31:24.457 --> 00:31:26.347
+And that's what we want out of Haskell.
+
+00:31:26.797 --> 00:31:31.717
+So when a project affiliates with
+the Haskell Foundation, part of
+
+00:31:31.717 --> 00:31:35.347
+that is adopting the Guidelines for
+Respectful Communication so that we
+
+00:31:35.347 --> 00:31:38.977
+know we're all on the same page about
+how everybody should be treated.
+
+00:31:39.337 --> 00:31:41.767
+And that does not mean that
+everybody thinks the same.
+
+00:31:42.517 --> 00:31:47.167
+What that means is that we are
+respectful even when we disagree.
+
+00:31:47.772 --> 00:31:48.282
+>> I love it.
+
+00:31:48.462 --> 00:31:50.142
+That's the world that I want to live in.
+
+00:31:51.462 --> 00:31:56.562
+Um, so we've talked a lot about what
+individuals can do to support the
+
+00:31:56.562 --> 00:31:58.452
+Foundation and support the community.
+
+00:31:58.812 --> 00:32:03.582
+Uh, for those of us that are lucky enough
+to be working with Haskell professionally,
+
+00:32:03.762 --> 00:32:09.642
+um, what can we do as companies or as
+individuals in a company to support
+
+00:32:09.942 --> 00:32:11.442
+the Foundation and the community?
+
+00:32:11.912 --> 00:32:14.142
+>> Yeah, we have
+a sponsorship program.
+
+00:32:14.322 --> 00:32:18.772
+So we have a number of wonderful
+companies who have stepped up to
+
+00:32:18.802 --> 00:32:20.842
+support the Foundation financially.
+
+00:32:21.412 --> 00:32:24.112
+Uh, and there's a few
+different ways to do that.
+
+00:32:24.862 --> 00:32:28.312
+Writing a check is, is obviously
+one of the best ways to do it.
+
+00:32:28.372 --> 00:32:32.722
+It gives us the opportunity
+to prioritize and figure out
+
+00:32:32.722 --> 00:32:34.342
+where that money is best used.
+
+00:32:34.822 --> 00:32:37.462
+Uh, we have a list of
+prioritized projects.
+
+00:32:37.462 --> 00:32:42.932
+Like if we get enough money, we
+are going to help the GHC devs
+
+00:32:42.952 --> 00:32:44.692
+with their CI infrastructure.
+
+00:32:45.187 --> 00:32:49.837
+This would make them substantially more,
+uh, more productive because they would
+
+00:32:49.837 --> 00:32:55.297
+spend less time worrying about the dev
+ops related side of what they're doing.
+
+00:32:55.297 --> 00:33:00.487
+And more time working on fixing
+bugs, tracking down issues, enhancing
+
+00:33:00.487 --> 00:33:02.207
+things, working on performance.
+
+00:33:03.287 --> 00:33:07.087
+We want a budget so that we
+can train these moderators.
+
+00:33:07.147 --> 00:33:10.537
+You know, there, there's a lot of
+things that if we have money, we
+
+00:33:10.537 --> 00:33:12.217
+can, we can make a big difference.
+
+00:33:12.277 --> 00:33:17.617
+So, get ahold of us and sponsor
+the Foundation, write a check,
+
+00:33:18.007 --> 00:33:22.657
+uh, encourage your company to
+support the Haskell Foundation.
+
+00:33:23.047 --> 00:33:29.917
+So the way to think about this
+is like any open source project.
+
+00:33:31.237 --> 00:33:35.617
+You're getting it for free and you
+can build your company based on
+
+00:33:35.617 --> 00:33:37.297
+Haskell without having to pay a dime.
+
+00:33:37.807 --> 00:33:38.977
+And that's fantastic.
+
+00:33:39.177 --> 00:33:40.627
+That's actually what we want.
+
+00:33:40.627 --> 00:33:45.787
+We want you to be able to try out
+the language to build your company
+
+00:33:46.147 --> 00:33:48.307
+to gain a huge amount of success.
+
+00:33:48.667 --> 00:33:53.467
+And then after that, we want you to
+look at supporting your community.
+
+00:33:53.767 --> 00:33:56.617
+And that's not necessarily
+just the Haskell Foundation.
+
+00:33:56.617 --> 00:33:59.107
+There are other open
+source projects out there.
+
+00:33:59.407 --> 00:34:04.417
+There are other organizations like, like
+Haskell.org that that could use support.
+
+00:34:05.437 --> 00:34:10.087
+But fundamentally, you know, if you
+make a lot of money using Haskell as
+
+00:34:10.087 --> 00:34:16.432
+your technology stack, You need to give
+back, you need to support those tools.
+
+00:34:16.492 --> 00:34:20.122
+And it's, it's what I call
+enlightened self-interest.
+
+00:34:20.902 --> 00:34:24.352
+You're also going to get better tools.
+
+00:34:24.502 --> 00:34:29.962
+You're also going to, uh, get
+your name out there as one of the
+
+00:34:29.962 --> 00:34:32.122
+companies that uses Haskell and then.
+
+00:34:32.632 --> 00:34:36.562
+In our materials, we have our list of
+sponsors and people that are actively
+
+00:34:36.562 --> 00:34:41.212
+looking for Haskell jobs, know that
+they can go to that list of sponsors and
+
+00:34:41.212 --> 00:34:43.552
+say, Hey, what are your open positions?
+
+00:34:43.552 --> 00:34:44.422
+Can I apply?
+
+00:34:44.872 --> 00:34:53.242
+So it's not pure philanthropy,
+but, uh, I think that if you.
+
+00:34:54.352 --> 00:34:58.822
+Particularly, if you have pet peeves
+about the state of the tool set.
+
+00:34:59.152 --> 00:35:05.167
+About, uh, the, the speed of the
+compiler, you know, whatever it is.
+
+00:35:05.977 --> 00:35:08.317
+You need to support the people that
+are trying to make the difference.
+
+00:35:08.317 --> 00:35:16.897
+You need to support the, the groups and,
+uh, the technical agenda that allows us
+
+00:35:16.897 --> 00:35:18.757
+to address those issues in a big way.
+
+00:35:19.207 --> 00:35:21.397
+We have plenty of ambition.
+
+00:35:21.907 --> 00:35:23.497
+Ambition is not a problem.
+
+00:35:23.797 --> 00:35:26.557
+What we need is resources
+to make it happen.
+
+00:35:26.677 --> 00:35:33.922
+And we know that if we had a, you
+know, In a fantasy world, millions and
+
+00:35:33.922 --> 00:35:35.542
+millions or tens of millions of dollars.
+
+00:35:36.712 --> 00:35:41.302
+I know like the projects that I would
+write checks for, and I w I feel like
+
+00:35:41.332 --> 00:35:46.492
+I would find the right contractors,
+the right consultants, have them write
+
+00:35:46.492 --> 00:35:51.832
+up the plans, maybe go through a re
+refresh request for proposals process.
+
+00:35:52.942 --> 00:35:54.472
+We know what we want to do.
+
+00:35:55.432 --> 00:36:00.922
+And one of the interesting things
+about Haskell is, that there really
+
+00:36:01.132 --> 00:36:04.132
+are no full time developers of GHC.
+
+00:36:04.762 --> 00:36:06.262
+It's all a volunteer effort.
+
+00:36:06.262 --> 00:36:09.632
+There are a few people that
+are paid like a Ben Gamari.
+
+00:36:09.652 --> 00:36:13.972
+For instance, we do support him
+through the Foundation today through
+
+00:36:14.032 --> 00:36:16.072
+a very generous grant from GitHub.
+
+00:36:17.782 --> 00:36:21.412
+But the amount that we're
+talking about is not sufficient
+
+00:36:21.442 --> 00:36:23.842
+for someone of his skillset.
+
+00:36:24.262 --> 00:36:29.002
+So, what I would ideally like to do
+is I would like to have full-time
+
+00:36:29.002 --> 00:36:32.332
+people that work on the compiler
+and that is their full-time job.
+
+00:36:32.722 --> 00:36:34.312
+I think we need a release manager.
+
+00:36:34.522 --> 00:36:38.842
+I think we need a professional
+dev ops person for GHC.
+
+00:36:39.142 --> 00:36:44.092
+Uh, I would like to have a speak, you
+know, calling back to our community
+
+00:36:44.092 --> 00:36:49.132
+efforts in the moderation, I would like
+to have a full-time community manager at
+
+00:36:49.132 --> 00:36:54.757
+Haskell Foundation that helps all of the
+moderators for all of the other groups.
+
+00:36:55.117 --> 00:36:59.227
+And, you know, schedules the training
+and make sure, and is the escalation
+
+00:36:59.227 --> 00:37:02.107
+path, if something goes particularly
+wrong in one of those groups.
+
+00:37:03.007 --> 00:37:10.657
+So I think if you are out in the
+community, if you think that Haskell
+
+00:37:10.657 --> 00:37:17.227
+is a, an amazing language and should
+be adopted more, talk to your companies
+
+00:37:17.227 --> 00:37:19.957
+and say, this is, this is important.
+
+00:37:20.887 --> 00:37:25.147
+This is how we give back to that
+community and write a big check.
+
+00:37:26.977 --> 00:37:32.857
+The other option is if, if the big
+checks are not the, the, the right
+
+00:37:32.887 --> 00:37:36.247
+choice for a particular company, is
+there are other resources that are in
+
+00:37:36.247 --> 00:37:41.177
+kind donations that if, if a company
+wants to support, but you know, is, is
+
+00:37:41.197 --> 00:37:43.087
+maybe still in that bootstrapping phase.
+
+00:37:43.432 --> 00:37:49.492
+Maybe they can encourage their developers,
+uh, in a soft way to volunteer on
+
+00:37:49.492 --> 00:37:52.062
+various, uh, projects in the community.
+
+00:37:52.362 --> 00:37:56.082
+Help make a difference, like be, be
+one of those companies that is there
+
+00:37:56.292 --> 00:37:57.822
+and making the community better.
+
+00:37:58.032 --> 00:38:04.812
+Don't be a company that is using all of
+our tools and the work of all of these
+
+00:38:04.812 --> 00:38:06.792
+volunteers and then not giving back.
+
+00:38:07.402 --> 00:38:07.762
+>> Yeah.
+
+00:38:08.272 --> 00:38:11.382
+So those are all excellent suggestions.
+
+00:38:11.382 --> 00:38:13.272
+And you touched on a lot of
+things in there that I want
+
+00:38:13.272 --> 00:38:14.952
+to dig into a little bit more.
+
+00:38:15.282 --> 00:38:19.422
+Uh, so I guess starting from the back
+there with in kind contributions.
+
+00:38:19.482 --> 00:38:22.902
+Um, so ITProTV uses Haskell.
+
+00:38:22.962 --> 00:38:28.387
+And one of the most valuable things
+that I've found from being a lead
+
+00:38:28.387 --> 00:38:34.177
+there is that when my team struggles
+with something, that's not a, you
+
+00:38:34.177 --> 00:38:36.577
+know, that's not the fault of my team.
+
+00:38:36.757 --> 00:38:40.747
+That's usually the fault of some
+documentation or some process or
+
+00:38:40.777 --> 00:38:42.097
+just something has gone wrong.
+
+00:38:42.127 --> 00:38:47.407
+And so it's really easy to unblock that
+person or unblock the team and say,
+
+00:38:47.407 --> 00:38:48.637
+okay, look, I know the answer here.
+
+00:38:48.637 --> 00:38:52.147
+Let me tell you the answer, but
+it's a lot more valuable to say.
+
+00:38:53.077 --> 00:38:54.907
+Oh, I know the answer.
+
+00:38:54.937 --> 00:38:58.207
+I should give this back to the
+community so that the next person
+
+00:38:58.207 --> 00:38:58.837
+doesn't run into this problem.
+
+00:38:58.837 --> 00:38:59.347
+>> Absolutely.
+
+00:38:59.917 --> 00:39:01.507
+And there's a few
+different levels of that.
+
+00:39:01.507 --> 00:39:08.137
+So I think if you, if you find a
+problem in Haskell and you do a Google
+
+00:39:08.137 --> 00:39:10.447
+search, you will often find results.
+
+00:39:11.527 --> 00:39:15.067
+And you'll go to a blog post or something
+that will say, okay, here, here's how
+
+00:39:15.067 --> 00:39:16.597
+you solve this particular problem.
+
+00:39:17.407 --> 00:39:21.127
+One of the issues is that sometimes
+those are like seven, 10 years
+
+00:39:21.127 --> 00:39:24.397
+old and they don't really relate
+to what's going on anymore.
+
+00:39:24.817 --> 00:39:30.367
+Uh, and one approach is to make a new
+blog post that says, okay, this whole
+
+00:39:30.367 --> 00:39:33.817
+blog post had this information and I'm
+updating it with this other information.
+
+00:39:33.817 --> 00:39:34.837
+And that is valuable.
+
+00:39:34.837 --> 00:39:36.397
+That is absolutely valuable to do.
+
+00:39:37.372 --> 00:39:41.452
+The next level is to try to make
+that more official, to try to get
+
+00:39:41.452 --> 00:39:48.007
+something onto Haskell.org or a related
+website where you can say, okay.
+
+00:39:48.007 --> 00:39:49.207
+I ran into this problem.
+
+00:39:49.207 --> 00:39:51.637
+I'm sure other people are
+going to run into this problem.
+
+00:39:51.637 --> 00:39:53.347
+Here is the correct solution.
+
+00:39:53.347 --> 00:39:58.567
+Or maybe you get onto like the functional
+programming Slack or the IRC, and say,
+
+00:39:58.677 --> 00:40:01.837
+I need to talk to people who really
+understand this area and we need to hash
+
+00:40:01.837 --> 00:40:03.517
+out what is the right solution to this?
+
+00:40:03.967 --> 00:40:08.407
+Uh, absolutely get ahold of the Haskell
+Foundation if you see one of these issues.
+
+00:40:08.437 --> 00:40:11.107
+Because part of what we do is
+connect to the right people to
+
+00:40:11.107 --> 00:40:14.467
+each other so that these problems
+can be solved once and for all.
+
+00:40:14.467 --> 00:40:16.297
+And that gets to my next level, which is.
+
+00:40:17.377 --> 00:40:21.817
+If this is a problem that is
+more fundamental to a technology.
+
+00:40:23.257 --> 00:40:27.457
+Or maybe one of the open source
+libraries that, that we build all
+
+00:40:27.457 --> 00:40:29.557
+of our Haskell, uh, programs on.
+
+00:40:30.217 --> 00:40:34.597
+Let's solve the problem for real,
+let's actually dig in and come up
+
+00:40:34.597 --> 00:40:37.297
+with what is the correct solution.
+
+00:40:37.687 --> 00:40:40.777
+And sometimes those are
+very non-trivial solutions.
+
+00:40:41.167 --> 00:40:45.787
+Uh, I remember something going
+on with, uh, uh, Postgres.
+
+00:40:46.912 --> 00:40:50.542
+And, and I'm, I'm unfortunately
+forgetting off the top of my head,
+
+00:40:50.542 --> 00:40:56.242
+what it was, but, you know, it's,
+it's one of those really subtle
+
+00:40:56.242 --> 00:40:58.552
+issues that can happen at the margins.
+
+00:40:59.122 --> 00:41:02.482
+And I think it was Matt Parsons
+that was saying, yeah, we ran into
+
+00:41:02.482 --> 00:41:07.912
+this and I think we're solving it
+in like persist, but I'm not sure.
+
+00:41:08.392 --> 00:41:12.652
+I I'm I'm I am absolutely not saying
+that Matt Parsons said any of that stuff.
+
+00:41:12.802 --> 00:41:14.572
+I'm trying to paraphrase.
+
+00:41:14.572 --> 00:41:20.017
+But, the point is that people
+were following up with some
+
+00:41:20.017 --> 00:41:24.457
+of these library authors and
+saying, I ran into this problem.
+
+00:41:24.667 --> 00:41:28.027
+Let's figure out what the right
+solution is across the board.
+
+00:41:28.027 --> 00:41:34.687
+And that is the most, the most,
+uh, valuable thing that you can do.
+
+00:41:34.687 --> 00:41:39.907
+And I think for, for a company, that
+runs into any of these problems.
+
+00:41:40.027 --> 00:41:44.137
+One of the most valuable things you
+can do is allow your developers to
+
+00:41:44.137 --> 00:41:50.377
+really track down these problems and,
+uh, you know, run them to ground,
+
+00:41:50.467 --> 00:41:52.927
+as I think it said in the military.
+
+00:41:53.257 --> 00:41:59.227
+And determine what the correct fundamental
+solution is and let them help make
+
+00:41:59.227 --> 00:42:02.107
+that change, help them fix it for real.
+
+00:42:02.682 --> 00:42:04.092
+>> Yeah, it's funny that you.
+
+00:42:04.707 --> 00:42:05.547
+>> Then it's done.
+
+00:42:06.592 --> 00:42:06.982
+>> Right.
+
+00:42:07.042 --> 00:42:08.452
+No one else has to worry about it.
+
+00:42:08.962 --> 00:42:13.912
+Um, it's funny that you bring up that
+Postgres issue because that, I think we
+
+00:42:13.942 --> 00:42:16.872
+kind of spurred that me, uh, ITProTV.
+
+00:42:16.952 --> 00:42:18.642
+>> Uh, previous, uh, Haskell Weekly.
+
+00:42:18.642 --> 00:42:19.752
+That's exactly what it was.
+
+00:42:20.522 --> 00:42:21.822
+Async exceptions, right?
+
+00:42:22.482 --> 00:42:23.322
+>> There you go.
+
+00:42:23.322 --> 00:42:23.712
+Yeah.
+
+00:42:23.802 --> 00:42:26.952
+And we ran into this problem and we
+kind of tilted our head and looked
+
+00:42:26.952 --> 00:42:28.512
+at it and said that that's weird.
+
+00:42:28.602 --> 00:42:29.322
+That shouldn't happen.
+
+00:42:29.652 --> 00:42:34.932
+And, uh, yeah, so we spent some time kind
+of running that to ground, as you said.
+
+00:42:34.962 --> 00:42:38.982
+And fortunately Matt was able to pick it
+up and really get to the bottom of it.
+
+00:42:39.072 --> 00:42:42.352
+Um, But, yeah, that was a great example
+of, we could have fixed it in our
+
+00:42:42.352 --> 00:42:44.062
+application and said, Huh, that was weird.
+
+00:42:44.272 --> 00:42:45.382
+I hope that doesn't happen again.
+
+00:42:45.412 --> 00:42:48.922
+But, uh, we decided to, you know,
+try to help the overall community.
+
+00:42:48.942 --> 00:42:50.562
+>> Yeah, and I think.
+
+00:42:51.127 --> 00:42:54.487
+That that is an incredible way
+of giving back to the community.
+
+00:42:54.487 --> 00:42:59.677
+Another way is to, uh, have like
+an internal library that fixes a
+
+00:42:59.677 --> 00:43:03.577
+problem, or maybe just some internal
+code that fixes a particular problem.
+
+00:43:04.477 --> 00:43:08.317
+Take the time to turn that into
+an open source library, put it out
+
+00:43:08.317 --> 00:43:10.417
+there as an open source solution.
+
+00:43:10.777 --> 00:43:13.882
+Accept contributions from
+people outside of the company.
+
+00:43:14.302 --> 00:43:19.072
+Uh, I I've seen this, uh, both in
+companies that I've worked at before, you
+
+00:43:19.072 --> 00:43:23.002
+know, SimSpaces has, uh, for instance,
+open source some of their libraries and
+
+00:43:23.002 --> 00:43:24.892
+given back to the community that way.
+
+00:43:26.002 --> 00:43:27.982
+But, but that's another
+great way of doing it.
+
+00:43:27.982 --> 00:43:31.492
+And I think this is a
+popular way of doing it.
+
+00:43:31.522 --> 00:43:36.487
+But, you also then have to take
+on the responsibility of properly
+
+00:43:36.487 --> 00:43:37.897
+maintaining those libraries.
+
+00:43:37.897 --> 00:43:40.537
+If you just kind of throw
+something out there and then leave
+
+00:43:40.537 --> 00:43:42.677
+it, uh, it's not as valuable.
+
+00:43:43.727 --> 00:43:46.542
+>> Right, that's like the blog
+post you were talking about where, okay.
+
+00:43:46.602 --> 00:43:48.972
+Seven years ago, this was
+how we'd solve this problem.
+
+00:43:48.972 --> 00:43:50.947
+But maybe things have
+changed in the meantime.
+
+00:43:52.207 --> 00:43:54.607
+Um, and then you said one thing
+earlier that I wanted to follow up
+
+00:43:54.607 --> 00:43:59.347
+on, which was startling to me, which
+is that GHC, there are no full-time
+
+00:43:59.377 --> 00:44:01.777
+maintainers or developers working on GHC.
+
+00:44:01.867 --> 00:44:05.167
+And I know that I see Ben Gamari,
+his name pop up very frequently.
+
+00:44:05.167 --> 00:44:08.407
+He seems to be a release
+manager and a core developer.
+
+00:44:08.407 --> 00:44:09.607
+He, he basically does everything.
+
+00:44:09.607 --> 00:44:10.807
+It's it's phenomenal.
+
+00:44:11.167 --> 00:44:14.377
+Um, but yeah, th th that was
+startling for me to hear, because
+
+00:44:14.377 --> 00:44:19.042
+we get so many improvements to
+GHC and it's such a good compiler.
+
+00:44:19.042 --> 00:44:20.332
+It produces good code.
+
+00:44:20.362 --> 00:44:21.892
+You know, I, I enjoy working with it.
+
+00:44:21.982 --> 00:44:27.352
+Um, so I'm just thinking of this
+hypothetical future where we can
+
+00:44:27.352 --> 00:44:30.562
+have somebody working on it, or many
+somebodies is working on it full time.
+
+00:44:30.682 --> 00:44:31.402
+That would be incredible.
+
+00:44:31.497 --> 00:44:36.237
+>> W, and we have, you know, to, to
+be clear, we have people like Ben that
+
+00:44:36.417 --> 00:44:38.427
+are essentially full-time working on it.
+
+00:44:38.457 --> 00:44:41.367
+Although they, they do other work,
+which is why I'm saying that they're
+
+00:44:41.367 --> 00:44:43.017
+not full-time on the compiler.
+
+00:44:43.017 --> 00:44:48.727
+They, they do have other responsibilities
+as well, but they don't, like it is not,
+
+00:44:50.317 --> 00:44:54.607
+it is not their entire full-time day job.
+
+00:44:54.847 --> 00:44:59.407
+And, uh, I, when I worked at,
+at Microsoft, I worked in the
+
+00:44:59.407 --> 00:45:03.207
+developer division for a while
+and you know, the Visual C++
+
+00:45:03.867 --> 00:45:07.717
+team at that time was a big team.
+
+00:45:07.957 --> 00:45:11.587
+It was tens of hardcore developers.
+
+00:45:12.097 --> 00:45:18.937
+Uh, who they would, you know, and program
+managers and a big test team and the
+
+00:45:18.937 --> 00:45:21.457
+requirements would come in and they
+would think about ways that they wanted
+
+00:45:21.457 --> 00:45:23.767
+to change the compiler or the language.
+
+00:45:23.767 --> 00:45:27.217
+And they would, uh, spend a bunch
+of times speccing out that and
+
+00:45:27.217 --> 00:45:31.357
+figuring out test plans and then,
+you know, writing code and then doing
+
+00:45:31.357 --> 00:45:33.367
+big releases with golden masters.
+
+00:45:34.657 --> 00:45:44.662
+And, the, the work that the GHC team does
+is incredible given the size of the team
+
+00:45:44.932 --> 00:45:46.702
+and the constraints that they're under.
+
+00:45:47.002 --> 00:45:53.092
+And I think we benefit hugely from
+the work of, for instance, graduate
+
+00:45:53.092 --> 00:45:56.602
+students who are working on their
+thesis and their thesis happens to
+
+00:45:56.602 --> 00:45:58.522
+be programming language related.
+
+00:45:58.702 --> 00:46:01.372
+And so they implement some cool new thing.
+
+00:46:01.882 --> 00:46:11.842
+Um, I, yeah, Haskell and GHC are kind
+of a miracle under the circumstances.
+
+00:46:11.932 --> 00:46:19.232
+And, uh, there there's that image that
+is circulated every now and then of what,
+
+00:46:19.232 --> 00:46:21.592
+what would happen if GHC blah, blah, blah.
+
+00:46:21.652 --> 00:46:26.632
+And it's this futuristic
+city, futuristic, uh, image.
+
+00:46:27.562 --> 00:46:34.507
+I think that if we can get enough
+resources to really, we don't need,
+
+00:46:34.597 --> 00:46:41.187
+like, we don't need the same kind of
+team has maybe a Visual C++, right?
+
+00:46:41.187 --> 00:46:42.217
+We don't need that.
+
+00:46:42.877 --> 00:46:47.477
+But I think there are a few key roles,
+like I've mentioned, release manager and
+
+00:46:48.217 --> 00:46:53.137
+dev ops and a few other things where if
+we could get somebody doing that full
+
+00:46:53.137 --> 00:47:04.027
+time, then that allows people like ben or
+Moritz Angermann to leverage their time.
+
+00:47:04.087 --> 00:47:04.837
+Even more.
+
+00:47:04.927 --> 00:47:09.397
+They can concentrate more on the things
+that they are uniquely qualified to do,
+
+00:47:09.997 --> 00:47:15.817
+rather than the stuff that has to be
+done, because things aren't working today.
+
+00:47:16.362 --> 00:47:16.722
+>> Right.
+
+00:47:17.832 --> 00:47:22.452
+So if that sounds like a future that
+you want to be a part of listeners, then
+
+00:47:22.992 --> 00:47:24.702
+convince somebody to write a big check.
+
+00:47:25.812 --> 00:47:26.652
+>> Big, big check.
+
+00:47:28.912 --> 00:47:32.902
+>> Um, so yeah, Andrew, we've
+been covering a lot of topics here.
+
+00:47:32.932 --> 00:47:36.742
+We've touched on everything that I, that
+I wanted to bring up about the Foundation.
+
+00:47:36.772 --> 00:47:41.212
+Uh, so as we're closing up here, is there
+anything that you would like to talk
+
+00:47:41.212 --> 00:47:42.982
+about that I have not asked you about?
+
+00:47:43.662 --> 00:47:45.012
+>> Oh, let's see.
+
+00:47:45.162 --> 00:47:53.692
+Um, I think one of the things that
+we're very interested in is areas
+
+00:47:53.692 --> 00:47:56.302
+where Haskell is uniquely qualified.
+
+00:47:57.382 --> 00:48:02.992
+Has a unique value for an industry
+or a particular, uh, application.
+
+00:48:03.682 --> 00:48:09.247
+So, as an example, uh, we recently,
+uh, uh, announced that we have
+
+00:48:09.307 --> 00:48:11.307
+affiliated with the Clash language.
+
+00:48:11.487 --> 00:48:20.127
+And Clash is a programming language, which
+is in Haskell, that allows you to create
+
+00:48:20.157 --> 00:48:26.487
+hardware designs by writing Haskell code,
+using their libraries and their compilers.
+
+00:48:27.177 --> 00:48:32.877
+Uh, functional language functional
+programming seems to uniquely qualified to
+
+00:48:32.877 --> 00:48:40.132
+do hardware, because it's the same kind of
+thought the same kind of, uh, of approach.
+
+00:48:41.572 --> 00:48:43.852
+I think that there's some
+others, you know, we have
+
+00:48:44.242 --> 00:48:46.702
+inroads in financial software.
+
+00:48:46.942 --> 00:48:51.412
+Uh, if somebody is going to write a
+compiler, I think Haskell is clearly
+
+00:48:51.412 --> 00:48:53.282
+the right language to write a compiler.
+
+00:48:53.992 --> 00:48:55.852
+But there's, there's gotta be others.
+
+00:48:55.882 --> 00:48:56.632
+And I think.
+
+00:48:57.082 --> 00:49:02.422
+If you, you know, calling back to
+the STM conversation, anything doing
+
+00:49:02.422 --> 00:49:04.252
+parallel, concurrent programming.
+
+00:49:04.732 --> 00:49:12.982
+Uh, and I think that we, we have the
+opportunity to showcase Haskell as the
+
+00:49:12.982 --> 00:49:15.502
+premier language in different areas.
+
+00:49:15.502 --> 00:49:18.922
+And, uh, and I encourage your
+listeners to think about that.
+
+00:49:18.982 --> 00:49:22.822
+Like, what is the thing that
+the combinations of the Haskell
+
+00:49:23.422 --> 00:49:26.632
+programming language and the runtime.
+
+00:49:27.127 --> 00:49:30.757
+Make essentially trivial,
+which is actually very
+
+00:49:30.757 --> 00:49:32.077
+difficult in other languages.
+
+00:49:32.077 --> 00:49:34.687
+Let us know because we
+are looking for those.
+
+00:49:35.047 --> 00:49:40.837
+Uh, and I, I am incredibly excited about
+some of the projects that I'm seeing, that
+
+00:49:40.837 --> 00:49:43.087
+I had no idea existed in the community.
+
+00:49:44.212 --> 00:49:47.302
+>> And are you looking for
+something along the lines of
+
+00:49:47.302 --> 00:49:49.612
+like a case study, like Clash?
+
+00:49:49.612 --> 00:49:52.612
+You know, this is a good example of
+how Haskell can be leveraged to do
+
+00:49:52.612 --> 00:49:56.587
+something that it's uniquely, uh,
+You know, it, it can accomplish.
+
+00:49:56.647 --> 00:50:01.897
+Or are you looking for something like
+Haskell could be used in this vertical or
+
+00:50:01.897 --> 00:50:05.257
+this industry, but it's not and why not?
+
+00:50:05.257 --> 00:50:06.027
+Let's dig into that.
+
+00:50:06.287 --> 00:50:06.897
+Or maybe both?
+
+00:50:06.987 --> 00:50:07.527
+>> Both of those.
+
+00:50:07.542 --> 00:50:08.292
+Absolutely.
+
+00:50:08.322 --> 00:50:09.552
+And, uh, if.
+
+00:50:10.477 --> 00:50:16.957
+If you are very excited about some
+emerging market, some emerging
+
+00:50:16.957 --> 00:50:21.097
+technology, that really isn't on anybody's
+radar yet, but you think would be
+
+00:50:21.097 --> 00:50:24.787
+uniquely, uh, applicable for Haskell.
+
+00:50:25.207 --> 00:50:25.967
+Uh, let me know.
+
+00:50:26.277 --> 00:50:30.217
+Those are what we're looking for,
+because if we can get in early, we can
+
+00:50:30.217 --> 00:50:33.937
+be, you can, we can have the language
+be synonymous with a particular market.
+
+00:50:34.642 --> 00:50:37.312
+And then the more of those that
+we get to, the easier it is to
+
+00:50:37.312 --> 00:50:43.252
+sell into existing markets and
+say, look at this, this and this.
+
+00:50:43.822 --> 00:50:46.402
+They're using Haskell almost exclusively.
+
+00:50:46.612 --> 00:50:47.932
+And they're kicking butt.
+
+00:50:48.952 --> 00:50:50.932
+You should use Haskell
+too, for what you're doing.
+
+00:50:51.817 --> 00:50:52.357
+>> I like it.
+
+00:50:53.277 --> 00:50:57.807
+So you mentioned that people should let
+you know when they find things like this.
+
+00:50:57.837 --> 00:51:01.857
+Uh, how should people contact you
+and/or the Foundation at large?
+
+00:51:02.692 --> 00:51:06.462
+>> My, my email address
+is andrew@haskell.foundation.
+
+00:51:06.852 --> 00:51:11.232
+Or, uh, if you want a sort of
+more generic, uh, contact, then
+
+00:51:11.232 --> 00:51:13.122
+contact@haskell.foundation.
+
+00:51:13.542 --> 00:51:22.552
+I'm also often on uh FP Slack,
+the Zulip, uh, IRC, uh, Discourse.
+
+00:51:22.822 --> 00:51:24.442
+I I'm all over the place.
+
+00:51:24.502 --> 00:51:26.302
+Uh, often as MyShoggoth..
+
+00:51:27.062 --> 00:51:29.067
+>> Yeah, I was
+curious about that handle.
+
+00:51:29.067 --> 00:51:30.777
+Could you explain what that means?
+
+00:51:30.817 --> 00:51:38.172
+>> So a shoggoth is a horror from
+the elder gods of HP Lovecraft, uh, fame.
+
+00:51:38.442 --> 00:51:41.152
+And, where it comes from.
+
+00:51:41.302 --> 00:51:44.782
+So like, like a lot of online handles,
+they come from when I was much younger.
+
+00:51:45.382 --> 00:51:48.472
+Uh, and they kind of just
+stick around for a long time.
+
+00:51:48.502 --> 00:51:54.892
+But, uh, a friend of mine, I
+think still owns shoggoths.com.
+
+00:51:55.162 --> 00:51:57.742
+And so I couldn't get that one
+anymore, I couldn't talk him out of it.
+
+00:51:59.062 --> 00:52:02.482
+And this was early two thousands.
+
+00:52:02.512 --> 00:52:07.552
+So this was when like Windows XP
+came out and it had my documents, my
+
+00:52:07.552 --> 00:52:09.352
+pictures, my, this, my, this, my, this.
+
+00:52:09.772 --> 00:52:13.142
+And I thought it was really
+funny to have my shoggoth.
+
+00:52:13.612 --> 00:52:18.442
+Like this very friendly version of
+this, this thing that is supposed to
+
+00:52:18.442 --> 00:52:20.912
+be like insanity, creating horrible.
+
+00:52:21.967 --> 00:52:23.107
+And it just stuck with me.
+
+00:52:23.107 --> 00:52:27.997
+And one of the nice things is that, uh,
+obviously nobody else uses this handle.
+
+00:52:27.997 --> 00:52:29.707
+So it's very easy for me to get.
+
+00:52:29.707 --> 00:52:33.397
+But that's where that's my
+handle on Twitter and basically
+
+00:52:33.397 --> 00:52:35.047
+any social media that I use.
+
+00:52:35.437 --> 00:52:39.217
+And, uh, I, yeah, that's,
+that's where that comes from.
+
+00:52:39.967 --> 00:52:41.857
+And that's also my personal website.
+
+00:52:44.487 --> 00:52:47.997
+>> Uh, well, I will do my best
+to include as many links as I can
+
+00:52:47.997 --> 00:52:51.057
+in the show notes for this episode
+to get to those various places.
+
+00:52:51.057 --> 00:52:51.867
+But there were a lot.
+
+00:52:52.417 --> 00:52:56.107
+Um, so yeah, Andrew, thank you so
+much for being on the show today.
+
+00:52:56.107 --> 00:52:57.337
+This has been excellent.
+
+00:52:57.367 --> 00:52:59.767
+And, uh, it's just been
+great talking with you.
+
+00:52:59.857 --> 00:53:00.397
+>> Thank you.
+
+00:53:00.397 --> 00:53:03.487
+I appreciate this opportunity
+and this has been a lot of fun.
+
+00:53:04.523 --> 00:53:06.383
+>> That does it for us this week.
+
+00:53:06.893 --> 00:53:09.563
+Thank you for listening to
+the Haskell Weekly podcast.
+
+00:53:09.683 --> 00:53:11.503
+I've been your host, taylor Fausak.
+
+00:53:11.843 --> 00:53:13.823
+And with me today was Andrew Boardman.
+
+00:53:14.423 --> 00:53:17.723
+If you want to find out more about
+us, please check out our website,
+
+00:53:17.753 --> 00:53:19.943
+which is HaskellWeekly.News.
+
+00:53:20.490 --> 00:53:25.200
+This week, we are brought to you by
+our employer, ITProTV, the e-learning
+
+00:53:25.230 --> 00:53:27.240
+platform for IT professionals.
+
+00:53:27.720 --> 00:53:32.700
+Use the promo code HaskellWeekly30
+at checkout to get 30% off the
+
+00:53:32.700 --> 00:53:34.230
+lifetime of your subscription.
+
+00:53:34.740 --> 00:53:38.040
+Head over to ITPro.TV
+to get started today.
+
+00:53:38.583 --> 00:53:40.713
+Thanks for joining us and
+we'll see you next week.

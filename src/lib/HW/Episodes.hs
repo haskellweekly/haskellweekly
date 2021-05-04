@@ -73,6 +73,7 @@ episodes = do
     , episode41
     , episode42
     , episode43
+    , episode44
     ]
   checkGuids validEpisodes Set.empty
   checkNumbers validEpisodes 1
@@ -758,3 +759,22 @@ episode43 = Episode.Episode
   <*> Size.fromNatural 13054582
   <*> Summary.fromText "What happens to exceptions when you don't explicitly handle them? This week we review Taylor's blog post about default exception handlers."
   <*> Title.fromText "Default Exception Handlers"
+
+episode44 :: Either String Episode.Episode
+episode44 = Episode.Episode
+  <$> Articles.fromList
+    [ "https://haskell.foundation"
+    , "https://fpchat-invite.herokuapp.com"
+    , "https://funprog.zulipchat.com/login/"
+    , "https://wiki.haskell.org/IRC_channel"
+    , "https://discourse.haskell.org"
+    , "https://twitter.com/myShoggoth"
+    , "https://myshoggoth.com"
+    ]
+  <*> Date.fromGregorian 2021 5 4
+  <*> Duration.fromTimestamp 53 45
+  <*> Guid.fromText "c875e76f-0cfc-42c1-8f9f-b817c45e64bd"
+  <*> Number.fromNatural 44
+  <*> Size.fromNatural 51607137
+  <*> Summary.fromText "Curious about the Haskell Foundation? This week we interview Andrew Boardman, its Executive Director. He explains the Foundation's purpose and how you can help."
+  <*> Title.fromText "Haskell Foundation with Andrew Boardman"
