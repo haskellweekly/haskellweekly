@@ -770,6 +770,7 @@ episode44 = Episode.Episode
     , "https://discourse.haskell.org"
     , "https://twitter.com/myShoggoth"
     , "https://myshoggoth.com"
+    , "https://joyofhaskell.com/posts/2021-02-24-why-stm.html"
     ]
   <*> Date.fromGregorian 2021 5 4
   <*> Duration.fromTimestamp 53 45
