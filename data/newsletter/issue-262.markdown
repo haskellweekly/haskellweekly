@@ -4,7 +4,8 @@ This is a weekly summary of what's going on in its community.
 
 ## Featured
 
-undefined
+- [Errors are Values Too](https://dimjasevic.net/marko/2021/05/05/errors-are-values-too/) by Marko Dimjašević
+  > Errors are values too, just like values we get on a happy path.
 
 ## Jobs
 
