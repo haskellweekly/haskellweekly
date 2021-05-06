@@ -26,4 +26,5 @@ undefined
 
 ## Call for participation
 
-undefined
+-   [postgresql-replicant: Handle custom types](https://github.com/agentultra/postgresql-replicant/issues/5)
+-   [unison: add a regression test for `ucm` command-line argument parsing](https://github.com/unisonweb/unison/issues/1906)
