@@ -1,0 +1,1226 @@
+WEBVTT
+
+00:00:07.328 --> 00:00:09.998
+>> Hello and welcome to
+the Haskell Weekly podcast.
+
+00:00:10.118 --> 00:00:13.748
+This is a show about Haskell, a purely
+functional programming language.
+
+00:00:14.198 --> 00:00:16.038
+I'm your host Taylor Fausak.
+
+00:00:16.208 --> 00:00:19.178
+I'm the Director of Software
+Engineering at ACI Learning.
+
+00:00:19.808 --> 00:00:23.318
+With me today is Cameron Gera,
+one of the engineers on my team.
+
+00:00:23.498 --> 00:00:24.818
+Thanks for joining me today, Cam.
+
+00:00:25.298 --> 00:00:26.258
+>> Thanks for having me, Taylor.
+
+00:00:26.258 --> 00:00:28.348
+It's been a minute since
+we got the podcast.
+
+00:00:28.348 --> 00:00:30.028
+So I'm excited to be back today.
+
+00:00:30.388 --> 00:00:34.648
+Uh, have a good little chat and just,
+uh, spend some quality time together.
+
+00:00:34.738 --> 00:00:35.618
+You know, it's good stuff.
+
+00:00:35.618 --> 00:00:37.198
+>> Yeah, it has been awhile.
+
+00:00:37.198 --> 00:00:38.428
+I'm looking forward to it today.
+
+00:00:38.758 --> 00:00:39.928
+What are we going to be talking about?
+
+00:00:40.378 --> 00:00:44.158
+>> Well, yeah, we're going to
+be talking about something that's the
+
+00:00:44.218 --> 00:00:51.383
+unnamed, known way of, uh, avoiding
+deeply nested error handling code.
+
+00:00:51.413 --> 00:00:57.293
+So, uh, if you're familiar with Haskell
+at all, uh, you've probably written
+
+00:00:57.383 --> 00:01:01.943
+a function or multiple functions
+that have two, three, four layers of
+
+00:01:01.943 --> 00:01:06.203
+nestedness just to get the correct
+error message tossed up through the top.
+
+00:01:06.563 --> 00:01:07.403
+And so.
+
+00:01:08.033 --> 00:01:12.833
+You know, this blog post by Gabriel
+Gonzales is talking about a way to take
+
+00:01:12.833 --> 00:01:18.533
+advantage of either, uh, to, you know,
+avoid some of that as well as do notation.
+
+00:01:18.563 --> 00:01:23.003
+So, uh, you know, I'm gonna shoot my
+best shot here and try to name it.
+
+00:01:23.303 --> 00:01:25.043
+Uh, there's two names I have.
+
+00:01:25.043 --> 00:01:29.963
+So we have the  blah,
+excuse me, advantageous.
+
+00:01:30.458 --> 00:01:30.788
+Yeah.
+
+00:01:30.818 --> 00:01:31.118
+Wow.
+
+00:01:31.148 --> 00:01:32.048
+I can't speak today.
+
+00:01:32.378 --> 00:01:39.188
+Advantageous do notation as one or
+erroneous do notation as the other.
+
+00:01:39.188 --> 00:01:43.308
+So, you know, for those on
+Reddit, Twitter: Yo, vote.
+
+00:01:43.308 --> 00:01:44.068
+>> We'll start a poll.
+
+00:01:44.358 --> 00:01:46.538
+>> See who wants to,
+who wants to take that on?
+
+00:01:46.928 --> 00:01:51.278
+Um, yeah, just a thought I could be
+wrong too, but, uh, yeah, we're going
+
+00:01:51.278 --> 00:01:52.568
+to just talk more about that today.
+
+00:01:53.258 --> 00:01:55.268
+Um, which is something
+we've come across ourselves.
+
+00:01:55.903 --> 00:01:58.493
+>> Yeah,  I wanted to talk about
+this one today, because like you
+
+00:01:58.493 --> 00:02:01.913
+mentioned, this is something we come
+across in our code base frequently.
+
+00:02:01.943 --> 00:02:07.283
+And it's been a difficult refactoring to
+suggest because there isn't a name for it.
+
+00:02:07.553 --> 00:02:11.663
+You can't say, Oh, you should, extract
+a function here or, you know, whatever.
+
+00:02:12.083 --> 00:02:15.013
+And for the benefit of our listeners,
+the pattern we're talking about,
+
+00:02:15.013 --> 00:02:18.733
+which you touched on already, is
+this increasing indentation when
+
+00:02:18.733 --> 00:02:20.173
+you're handling different cases.
+
+00:02:20.653 --> 00:02:23.383
+So very frequently for us,
+that happens when you're
+
+00:02:23.383 --> 00:02:25.903
+casing on a maybe or an either.
+
+00:02:26.293 --> 00:02:30.493
+And in one of the two branches, all you
+want to do is throw an exception and
+
+00:02:30.493 --> 00:02:33.013
+basically stop reporting at that point.
+
+00:02:33.133 --> 00:02:34.093
+Or stop moving forward.
+
+00:02:34.483 --> 00:02:40.073
+So if you'll do like, case some maybe
+of; nothing, throw some error; just
+
+00:02:40.103 --> 00:02:41.993
+some value, carry on with that value.
+
+00:02:42.053 --> 00:02:44.303
+And if you do that a couple of
+times, you get really nested.
+
+00:02:45.263 --> 00:02:47.393
+And I'm saying "throw an exception."
+
+00:02:47.813 --> 00:02:52.143
+For us, in our application that we
+work on, we're in a monad where we
+
+00:02:52.143 --> 00:02:56.443
+can throw exceptions, but the same
+principle can be applied to eithers
+
+00:02:56.703 --> 00:02:58.653
+or maybes or any number of things.
+
+00:02:58.653 --> 00:03:01.473
+So it doesn't necessarily
+involve exceptions.
+
+00:03:02.003 --> 00:03:02.933
+>> Right, right.
+
+00:03:03.263 --> 00:03:07.493
+And you know, there's nothing
+against super nested case statements.
+
+00:03:07.493 --> 00:03:10.043
+Like that's not what we're
+getting against here.
+
+00:03:10.043 --> 00:03:12.023
+We're just trying to say,
+there's some other way.
+
+00:03:12.053 --> 00:03:17.973
+There's a better way for readability and
+maintainability long-term . So that's
+
+00:03:17.973 --> 00:03:20.113
+the only reason we're recommending this.
+
+00:03:20.193 --> 00:03:24.753
+And this is a good pattern, I think for
+Haskell developers to grow in, because it
+
+00:03:24.753 --> 00:03:28.983
+can get really frustrating and confusing
+when you're trying to trace down the
+
+00:03:28.983 --> 00:03:31.263
+exact, what's happening at each case.
+
+00:03:31.683 --> 00:03:36.333
+And so, you know, he's, he's of kind
+of lean into the, either in this
+
+00:03:36.333 --> 00:03:40.173
+blog post, and we'll kind of probably
+piggyback off of that as well as relate
+
+00:03:40.173 --> 00:03:42.483
+it back to what we do on a day to day.
+
+00:03:42.753 --> 00:03:49.683
+But the big idea is the do notation
+allows you to short circuit more or
+
+00:03:49.683 --> 00:03:55.953
+less when you give it a, an error case
+or an exception case to some degree.
+
+00:03:56.313 --> 00:04:05.523
+Um, and so what he uses is the ability to,
+uh, throw that as he's trying to validate
+
+00:04:05.523 --> 00:04:13.233
+a string, that it should be an age, um,
+and should they be alive or not alive?
+
+00:04:13.653 --> 00:04:18.663
+Um, So that is his kind of
+leading motivating example here.
+
+00:04:19.083 --> 00:04:24.843
+And you know, his first one
+is nested to the third degree.
+
+00:04:24.933 --> 00:04:26.193
+I would say a fourth degree.
+
+00:04:26.643 --> 00:04:30.213
+Like there's quite a few there's
+we'll just say there's three
+
+00:04:30.213 --> 00:04:31.773
+layers of left you can get to.
+
+00:04:32.163 --> 00:04:37.623
+And so what he tries to do is extract
+that out and say, all right, if we're
+
+00:04:37.653 --> 00:04:39.603
+going to be not be able to read.
+
+00:04:40.068 --> 00:04:44.748
+The age, we just need to say
+here's, it's an invalidated.
+
+00:04:44.748 --> 00:04:46.638
+Just don't even try anymore of the code.
+
+00:04:47.208 --> 00:04:53.688
+Uh, you know, and then so much, you
+know, same with the Boolean values.
+
+00:04:53.718 --> 00:04:54.888
+Is it alive or not alive?
+
+00:04:54.888 --> 00:05:00.948
+So there's really, honestly it
+brings the code down to like
+
+00:05:00.948 --> 00:05:02.778
+three separate login logic steps.
+
+00:05:02.778 --> 00:05:03.138
+Right.
+
+00:05:03.348 --> 00:05:04.788
+You want to first check?
+
+00:05:05.508 --> 00:05:09.468
+Is that the age a valid
+string and is their age.
+
+00:05:09.778 --> 00:05:10.878
+Greater than zero.
+
+00:05:11.328 --> 00:05:13.068
+And then are they alive?
+
+00:05:13.188 --> 00:05:17.688
+And like, that's, you know, the
+three logical concepts that need
+
+00:05:17.688 --> 00:05:19.458
+to be part of this validation.
+
+00:05:19.458 --> 00:05:22.188
+So I think it separates it really nice.
+
+00:05:22.908 --> 00:05:23.328
+Um,
+
+00:05:24.098 --> 00:05:28.598
+>> Yeah, that's one of the things
+that I think this, uh, this is very
+
+00:05:28.598 --> 00:05:34.928
+explicit, but, um, or this explicit form
+of pattern matching on of these values
+
+00:05:36.338 --> 00:05:39.518
+is clear when you're stepping through
+it, but it also kind of muddles the
+
+00:05:39.518 --> 00:05:43.898
+overall structure of what you're doing
+in the function, because you have to each
+
+00:05:43.898 --> 00:05:46.148
+time there's a case you have to like.
+
+00:05:46.638 --> 00:05:48.138
+Figure out and keep in mind.
+
+00:05:48.168 --> 00:05:48.438
+Okay.
+
+00:05:48.438 --> 00:05:51.288
+There's two or more branches
+that I have to deal with here.
+
+00:05:51.678 --> 00:05:54.288
+So when I'm reading the code,
+I have to keep that in mind.
+
+00:05:54.288 --> 00:05:57.798
+And I don't know if I read one
+branch first and it's really long.
+
+00:05:57.818 --> 00:06:01.458
+I still have to, when I get to the next
+one, kind of like pop my mental stack
+
+00:06:01.458 --> 00:06:04.038
+and go back to the next one or go back.
+
+00:06:04.218 --> 00:06:06.168
+And that clearly it gets harder.
+
+00:06:06.168 --> 00:06:08.778
+The more cases are nested with each other.
+
+00:06:08.778 --> 00:06:11.448
+Cause you have to keep more on that
+mental stack, ready to pop off.
+
+00:06:12.378 --> 00:06:16.698
+Um, and so that's like my,
+um, that's pragmatically.
+
+00:06:16.698 --> 00:06:21.228
+I think why I like this uh refactoring
+technique to remove this layer of
+
+00:06:21.228 --> 00:06:26.808
+nesting, but also, uh, just kind of
+aesthetically code that increasingly
+
+00:06:26.808 --> 00:06:31.188
+indents is a lot more difficult to
+read because you have, if you keep to a
+
+00:06:31.188 --> 00:06:36.828
+particular line length, whether that's 80
+or 120 or whatever, um, you know, you're
+
+00:06:36.828 --> 00:06:38.838
+eating into that line length budget.
+
+00:06:39.273 --> 00:06:41.253
+As you make more of these cases.
+
+00:06:41.313 --> 00:06:44.343
+And some people may argue
+that that's a good thing.
+
+00:06:44.343 --> 00:06:46.443
+You shouldn't have this many nested cases.
+
+00:06:46.503 --> 00:06:50.253
+And that is your programming language
+pushing back on you and saying, you
+
+00:06:50.253 --> 00:06:52.983
+know, break these out into separate
+functions, do something different.
+
+00:06:53.433 --> 00:06:57.603
+Um, but in this case, usually
+it's pretty straightforward.
+
+00:06:57.603 --> 00:07:01.083
+Like if you had a flow chart at each
+point, you'd say, if something goes
+
+00:07:01.083 --> 00:07:02.673
+wrong, you know, go to this error state.
+
+00:07:03.063 --> 00:07:07.503
+And I think that is captured in this
+pattern very well that he describes here.
+
+00:07:09.143 --> 00:07:11.033
+>> Yeah, I think it was, yeah.
+
+00:07:11.183 --> 00:07:12.233
+It's something for us.
+
+00:07:12.233 --> 00:07:16.223
+We've, you know, had code go through
+code review and we're like, Oh yeah.
+
+00:07:16.253 --> 00:07:19.503
+Let's, you know, this
+is a lot of nestedness.
+
+00:07:19.503 --> 00:07:21.833
+How can we resolve this?
+
+00:07:21.893 --> 00:07:27.263
+Uh, and so with time, you know, we we've
+started to have the mental note of,
+
+00:07:27.293 --> 00:07:32.493
+Oh, let's just choose to take advantage
+of the monad we're in with the do
+
+00:07:32.493 --> 00:07:37.343
+notation and short circuit, because we
+don't have to necessarily worry about.
+
+00:07:37.788 --> 00:07:41.448
+Oh, what would happen even if
+there was a success or whatever,
+
+00:07:41.448 --> 00:07:44.358
+because without success, we can't
+go any further, more or less.
+
+00:07:44.898 --> 00:07:45.288
+Um,
+
+00:07:46.418 --> 00:07:49.178
+>> And that, uh, that short
+circuiting behavior that you're
+
+00:07:49.178 --> 00:07:55.358
+describing is one of the like trademark,
+uh, features of Haskell of do notation
+
+00:07:55.388 --> 00:07:59.468
+is you can, I think it's often billed
+as the programmable semi-colon.
+
+00:07:59.498 --> 00:08:03.458
+So like, you get to decide
+what happens for each line
+
+00:08:03.458 --> 00:08:05.108
+and your do notation and for.
+
+00:08:05.538 --> 00:08:10.878
+Maybe, and either when those are used
+in do notation, the behavior is short
+
+00:08:10.878 --> 00:08:14.148
+circuit on nothing or left respectively.
+
+00:08:14.788 --> 00:08:15.328
+>> Right.
+
+00:08:15.628 --> 00:08:21.028
+And for us, we've, you know, worked
+on short-circuiting in, uh, with
+
+00:08:21.028 --> 00:08:24.538
+maybes, but adding, turning that
+maybe into an either with some sort
+
+00:08:24.538 --> 00:08:29.343
+of error message so we can, uh, you
+know, Have some sort of information
+
+00:08:29.343 --> 00:08:30.753
+of what happened or what went wrong.
+
+00:08:31.143 --> 00:08:35.823
+And so, you know, we've created our,
+our functions name, note, um, just
+
+00:08:35.823 --> 00:08:37.443
+takes a string and a maybe value.
+
+00:08:37.443 --> 00:08:40.513
+And we'll either give you that
+value or give you a left or give
+
+00:08:40.513 --> 00:08:41.803
+you a right that value or a left.
+
+00:08:41.913 --> 00:08:48.603
+Um, and so, you know, that's very
+similar to his, uh, or die function.
+
+00:08:48.603 --> 00:08:50.093
+I believe that he mentions in here,
+
+00:08:50.863 --> 00:08:51.223
+>> Yeah,
+
+00:08:51.653 --> 00:08:52.193
+>> um,
+
+00:08:53.103 --> 00:08:56.693
+>> Yeah it's a good way to
+like decorate extra information,
+
+00:08:56.933 --> 00:09:00.803
+because I think for us, a lot of the
+times we use functions that return.
+
+00:09:00.803 --> 00:09:05.243
+A maybe because for that particular
+function, there's only one
+
+00:09:05.243 --> 00:09:06.743
+obvious way that it can fail.
+
+00:09:06.743 --> 00:09:10.523
+So there's no sense in having it
+return, you know, a descriptive message.
+
+00:09:10.943 --> 00:09:12.803
+So as an example, like
+if you want to parse.
+
+00:09:13.173 --> 00:09:14.943
+A string into a number.
+
+00:09:15.843 --> 00:09:19.023
+If you can't do that, then
+really the only reason why is
+
+00:09:19.023 --> 00:09:20.193
+that it's not a valid number.
+
+00:09:20.223 --> 00:09:22.953
+There's not many other cases that
+go on, but if you want to parse
+
+00:09:22.953 --> 00:09:25.863
+it, parse a string into a number,
+and then also validate that that
+
+00:09:25.863 --> 00:09:27.363
+number, meet some other criteria.
+
+00:09:27.783 --> 00:09:31.383
+Suddenly you need to note
+hint hint something additional
+
+00:09:31.383 --> 00:09:33.393
+about that, uh, error case.
+
+00:09:33.423 --> 00:09:36.393
+So that's where we use note to
+turn a, maybe into an either.
+
+00:09:37.883 --> 00:09:41.483
+>> Yeah, and I think it's been
+really helpful, um, as we move forward,
+
+00:09:41.483 --> 00:09:44.453
+but we've talked a lot about case
+expressions here with, you know, just,
+
+00:09:44.453 --> 00:09:49.763
+or nothing turning those into eithers
+there's also the, uh, some helpful
+
+00:09:49.763 --> 00:09:55.313
+functions that allow you to short
+circuit on, uh, a sort of particular
+
+00:09:55.313 --> 00:09:56.723
+failure case in a monadic way.
+
+00:09:56.723 --> 00:09:58.103
+So, um, there's.
+
+00:09:58.443 --> 00:10:04.143
+Guard, when, unless that allow
+you to give it some predicate.
+
+00:10:04.323 --> 00:10:10.023
+And if that predicate fails, it will do
+this thing, which if it's short circuit
+
+00:10:10.023 --> 00:10:14.193
+left and that's what it will do, and
+it will exit out of your function.
+
+00:10:14.223 --> 00:10:14.523
+So.
+
+00:10:15.228 --> 00:10:17.658
+Um, you know, there's also those options.
+
+00:10:17.748 --> 00:10:21.918
+Uh, there was, you know, in, in the
+example, I think he's already gotten
+
+00:10:21.918 --> 00:10:23.688
+some comments on Reddit about it as well.
+
+00:10:23.958 --> 00:10:29.088
+Um, just of using an if to return,
+you know, if it was true, it would.
+
+00:10:29.628 --> 00:10:34.968
+Return on a failure, but if not, it would
+return uh just pure, or return unit.
+
+00:10:35.178 --> 00:10:37.668
+Um, which isn't the
+worst thing in the world.
+
+00:10:37.698 --> 00:10:43.518
+But, um, there are other options
+too, that allow you to short circuit,
+
+00:10:44.088 --> 00:10:45.508
+maybe in a little cleaner fashion.
+
+00:10:46.238 --> 00:10:49.673
+>> One of the things that I really
+like about Haskell and refactoring
+
+00:10:49.673 --> 00:10:53.183
+in Haskell is that you can often do,
+like when you do one refactoring,
+
+00:10:53.183 --> 00:10:54.533
+another one becomes available.
+
+00:10:54.863 --> 00:10:58.713
+So, and this isn't just true in Haskell,
+but it works very well in Haskell.
+
+00:10:58.733 --> 00:11:01.823
+So in this case, if you refactored
+one of these nested expressions
+
+00:11:01.823 --> 00:11:02.903
+to something that says.
+
+00:11:03.483 --> 00:11:09.003
+If some condition, then you throw an error
+or return left or return nothing else.
+
+00:11:09.203 --> 00:11:12.693
+pure unit, that thing is
+really easy to change into.
+
+00:11:12.693 --> 00:11:18.003
+Well, instead use the helper function when
+and say, when that predicate throw the
+
+00:11:18.003 --> 00:11:21.843
+error and then there's no else case it's
+not, you don't have to think about it.
+
+00:11:22.373 --> 00:11:25.773
+And then if your condition is the other
+way around, if it's inverted, you can say,
+
+00:11:25.773 --> 00:11:28.353
+unless some condition throw some error.
+
+00:11:28.833 --> 00:11:31.203
+Uh, for us, we have found that.
+
+00:11:31.638 --> 00:11:35.508
+When is a lot nicer to use
+than unless on our team.
+
+00:11:35.508 --> 00:11:39.918
+It's, it's pretty much use when,
+unless you have a good reason not to.
+
+00:11:40.853 --> 00:11:45.083
+>> Oh, I see what you did there
+with, unless yeah, I think it's just.
+
+00:11:45.753 --> 00:11:50.493
+When it, when it flips to the logic and
+the predicate, it gets confusing to use
+
+00:11:50.493 --> 00:11:57.423
+unless, so we've opted generally to use
+when not, or when not equal to, rather
+
+00:11:57.423 --> 00:12:02.553
+than unless equal to or unless the value.
+
+00:12:03.093 --> 00:12:03.453
+>> Yeah.
+
+00:12:03.633 --> 00:12:08.343
+And the other one that you mentioned
+guard is a helper function.
+
+00:12:08.343 --> 00:12:13.233
+I think it's not built on top of monads
+directly, but uses a related, uh, type
+
+00:12:13.233 --> 00:12:19.733
+class called monad plus and monad plus
+has the concept of something called mzero.
+
+00:12:20.193 --> 00:12:26.453
+And this is usually thought of as
+like the monadic version of a monoid.
+
+00:12:26.643 --> 00:12:31.203
+So you have mzero and you have mplus
+which behave very similarly to.
+
+00:12:32.583 --> 00:12:40.173
+mempty and mappend, um, and mzero
+often is implemented as fail.
+
+00:12:40.383 --> 00:12:45.243
+And so this all sounds kind of crazy,
+but it's often used to implement
+
+00:12:45.273 --> 00:12:50.583
+parsers where you say, try this or try
+this and, or, and then you can connect
+
+00:12:50.583 --> 00:12:54.593
+them together using mplus, and then
+you're like fall back case is mzero.
+
+00:12:55.223 --> 00:12:55.413
+>> Yeah.
+
+00:12:56.793 --> 00:13:02.708
+>> And, and I mention all that
+because guard has the downside of, if
+
+00:13:02.708 --> 00:13:07.028
+you use it to check in one direction
+and then throw an error, if the guard
+
+00:13:07.028 --> 00:13:13.958
+fails or the error you're going to get
+is usually useless because mzero doesn't
+
+00:13:14.288 --> 00:13:15.993
+carry around any particular information.
+
+00:13:15.993 --> 00:13:17.643
+It just means, Hey, something went wrong.
+
+00:13:18.183 --> 00:13:21.933
+Um, which means you might have
+to flip the conditional in
+
+00:13:21.933 --> 00:13:24.633
+your guard so that it succeeds.
+
+00:13:24.633 --> 00:13:26.583
+And then you, uh, I don't
+know, it gets a little tricky.
+
+00:13:26.583 --> 00:13:30.063
+Same problem as when and unless you
+have to kind of like invert your, uh,
+
+00:13:30.453 --> 00:13:31.593
+the way you want to make the check.
+
+00:13:33.368 --> 00:13:33.758
+>> Yeah.
+
+00:13:34.238 --> 00:13:40.388
+So, I mean, the nice thing is there's a
+lot of ways to kind of solve this problem.
+
+00:13:40.448 --> 00:13:44.978
+Um, you know, cause there's if statements
+which when, and unless do really well
+
+00:13:44.978 --> 00:13:48.118
+with as well as guard, am I correct?
+
+00:13:48.138 --> 00:13:48.848
+Am I wrong on that?
+
+00:13:49.628 --> 00:13:49.928
+>> Yeah.
+
+00:13:49.958 --> 00:13:50.288
+Yeah.
+
+00:13:50.678 --> 00:13:52.808
+Uh, guards work well, or, sorry.
+
+00:13:53.288 --> 00:13:55.628
+Did you mean guard the function or guards?
+
+00:13:55.648 --> 00:13:57.008
+The language feature.
+
+00:13:57.878 --> 00:14:00.878
+>> The function, what
+we're speaking about today.
+
+00:14:01.703 --> 00:14:02.423
+>> The function works.
+
+00:14:02.423 --> 00:14:02.963
+All right.
+
+00:14:03.053 --> 00:14:08.513
+I personally would recommend, and
+I prefer to use when instead of
+
+00:14:08.573 --> 00:14:12.713
+unless or guard, but they all end
+up doing basically the same thing.
+
+00:14:13.088 --> 00:14:13.448
+>> Gotcha.
+
+00:14:13.508 --> 00:14:19.498
+And those more or less replace if
+statements, um, that have no drastic
+
+00:14:19.498 --> 00:14:23.068
+difference in between the cases
+or something along those lines.
+
+00:14:23.683 --> 00:14:24.133
+>> Yeah.
+
+00:14:24.223 --> 00:14:29.113
+Uh, I think lisp languages often call
+these like one armed conditionals or
+
+00:14:29.113 --> 00:14:33.163
+something like that, because normally
+when you write an if, uh, expression,
+
+00:14:33.523 --> 00:14:38.593
+you have to say what to do, if it's true
+and what to do, if it's false, but when
+
+00:14:38.593 --> 00:14:44.143
+you write something using when, or unless
+you only have to specify what to do when.
+
+00:14:44.678 --> 00:14:46.538
+You know, one, one side of that condition.
+
+00:14:48.358 --> 00:14:50.548
+>> That's one of
+the nifty things about it.
+
+00:14:52.853 --> 00:14:53.993
+One arm conditionals.
+
+00:14:53.993 --> 00:14:54.593
+That's good to know.
+
+00:14:55.828 --> 00:14:56.548
+>> I hope I got that.
+
+00:14:56.548 --> 00:14:56.758
+Right.
+
+00:14:56.758 --> 00:14:59.038
+I haven't programmed in a lisp in a while.
+
+00:14:59.518 --> 00:15:02.878
+Um, but yeah, we were talking
+about what to name this thing
+
+00:15:02.878 --> 00:15:05.548
+because, uh, Gabe mentions that.
+
+00:15:06.293 --> 00:15:09.443
+He doesn't have a name for this trick,
+even though it's a pretty common
+
+00:15:09.443 --> 00:15:11.123
+one and we have the same experience.
+
+00:15:11.123 --> 00:15:14.783
+We don't have a name for this, even though
+we recommend it in code review frequently.
+
+00:15:15.113 --> 00:15:16.943
+And I liked the names that you gave.
+
+00:15:17.243 --> 00:15:20.663
+Um, my favorite was erroneous do notation.
+
+00:15:20.663 --> 00:15:23.593
+So that, that gets my vote for
+what we should call this trick.
+
+00:15:25.253 --> 00:15:26.198
+>> Easier to say it too.
+
+00:15:26.198 --> 00:15:28.898
+So, you know, it's got that going for it.
+
+00:15:30.103 --> 00:15:31.753
+>> You got to have
+things that are easy to say.
+
+00:15:32.348 --> 00:15:32.648
+>> Yeah.
+
+00:15:32.738 --> 00:15:36.968
+We could do some alliteration
+maybe, but I don't know.
+
+00:15:37.008 --> 00:15:38.333
+>> Dubious do notation.
+
+00:15:40.088 --> 00:15:41.888
+>> Well then what
+you got notation in there.
+
+00:15:41.888 --> 00:15:43.808
+So you're of SOL.
+
+00:15:43.808 --> 00:15:44.478
+>> Oh yeah.
+
+00:15:44.633 --> 00:15:45.083
+Yeah.
+
+00:15:46.373 --> 00:15:46.723
+I don't know.
+
+00:15:46.733 --> 00:15:47.693
+I'll have to think on that.
+
+00:15:47.993 --> 00:15:48.083
+>> Yeah.
+
+00:15:48.388 --> 00:15:48.478
+Okay.
+
+00:15:48.843 --> 00:15:51.463
+>> Listeners, if you
+have any ideas, let us know.
+
+00:15:51.493 --> 00:15:54.393
+We'd be happy to, uh, to shill
+them on our podcast here.
+
+00:15:54.633 --> 00:15:55.933
+>> For sure!
+
+00:15:56.783 --> 00:15:59.443
+We are trying to impact the
+Haskell community for the better.
+
+00:15:59.533 --> 00:15:59.863
+So,
+
+00:16:00.323 --> 00:16:01.583
+>> By giving things names.
+
+00:16:03.223 --> 00:16:06.223
+>> Hey, in development, naming
+things are one of the hardest things.
+
+00:16:06.283 --> 00:16:11.323
+So, you know, nomenclature
+is not arbitrary.
+
+00:16:13.508 --> 00:16:15.818
+Very very challenging sometimes.
+
+00:16:15.848 --> 00:16:19.138
+But yeah, I mean, I think overall
+it's a great post by Gabe.
+
+00:16:19.208 --> 00:16:21.488
+Really appreciate him
+putting this out there.
+
+00:16:21.578 --> 00:16:25.388
+Um, you know, as a community we're
+trying to grow and find, you know,
+
+00:16:25.898 --> 00:16:27.278
+and share the knowledge we all have.
+
+00:16:27.278 --> 00:16:30.608
+So, um, if you're newer to
+Haskell and haven't really heard
+
+00:16:30.608 --> 00:16:33.263
+of this before, It's awesome.
+
+00:16:33.293 --> 00:16:38.663
+We definitely go check out the link
+in the bio or whatever we post.
+
+00:16:38.663 --> 00:16:39.963
+These links show notes.
+
+00:16:39.983 --> 00:16:40.433
+There we go.
+
+00:16:40.763 --> 00:16:44.903
+Um, that way you can read it for yourself
+and kind of see what the example looks
+
+00:16:44.903 --> 00:16:47.243
+like and may be able to apply it yourself.
+
+00:16:47.803 --> 00:16:48.103
+>> Yeah.
+
+00:16:48.133 --> 00:16:49.513
+And I just also want to add that.
+
+00:16:49.543 --> 00:16:53.713
+I really appreciate, um, Gabe taking
+the time to write posts like this,
+
+00:16:53.713 --> 00:16:58.813
+for things that are kind of, um,
+tribal knowledge where a lot of the
+
+00:16:58.813 --> 00:17:02.143
+community, and especially the more
+experienced people in the community
+
+00:17:02.143 --> 00:17:05.623
+are already familiar with this pattern,
+but there hasn't been a name for it.
+
+00:17:05.623 --> 00:17:06.673
+There's no authoritative.
+
+00:17:07.088 --> 00:17:10.988
+Resource that I can point people
+to and say, Hey, like do this.
+
+00:17:11.018 --> 00:17:14.618
+Here's an explanation of why it's a
+good thing or just what's going on.
+
+00:17:15.158 --> 00:17:19.058
+Um, and he also posted another
+thing recently about, uh, proxy
+
+00:17:19.058 --> 00:17:20.918
+arguments and type applications.
+
+00:17:20.948 --> 00:17:24.518
+And I think these are good
+intermediate level resources.
+
+00:17:24.548 --> 00:17:28.148
+And I really liked that he's taken
+the time to write this stuff and I
+
+00:17:28.148 --> 00:17:31.778
+encourage everyone else who knows
+these types of things to write
+
+00:17:31.778 --> 00:17:34.258
+their own posts, describing these
+things because they're great.
+
+00:17:35.648 --> 00:17:37.908
+>> Go intermediate Haskell!
+
+00:17:38.453 --> 00:17:38.633
+>> Yeah.
+
+00:17:39.613 --> 00:17:40.003
+Yeah.
+
+00:17:40.033 --> 00:17:42.763
+Well, uh, that was all the
+notes I had for this one.
+
+00:17:42.763 --> 00:17:43.813
+Cam, do you have anything else?
+
+00:17:44.388 --> 00:17:48.738
+>> Uh, no, no I'm excited
+that we got to talk about it.
+
+00:17:48.738 --> 00:17:51.018
+And, uh, looking forward to next week.
+
+00:17:51.568 --> 00:17:53.098
+>> Yeah, next week.
+
+00:17:53.128 --> 00:17:56.078
+We'll we'll definitely record
+every week from here on out.
+
+00:17:56.258 --> 00:17:57.248
+>> We say that
+
+00:17:57.248 --> 00:17:59.948
+>> every Every time.
+
+00:18:00.718 --> 00:18:01.078
+Alright.
+
+00:18:01.078 --> 00:18:05.008
+Y'all well, thanks so much for
+listening to the Haskell weekly podcast.
+
+00:18:05.098 --> 00:18:07.368
+I have been your host Taylor Fausak.
+
+00:18:07.528 --> 00:18:09.663
+And with me today was Cameron Gera.
+
+00:18:10.343 --> 00:18:14.033
+If you want to find out more about
+us, you can check out our website,
+
+00:18:14.123 --> 00:18:16.613
+which is HaskellWeekly.News.
+
+00:18:17.923 --> 00:18:22.303
+>> Haskell Weekly is brought
+to you by ITProTV, an ACI learning
+
+00:18:22.303 --> 00:18:24.403
+company, and also our employer.
+
+00:18:24.643 --> 00:18:28.153
+They would like to offer you 30% off
+the lifetime of your subscription.
+
+00:18:28.703 --> 00:18:33.923
+At ITPro.TV by using promo code
+HaskellWeekly30 at checkout.
+
+00:18:33.923 --> 00:18:37.403
+So that's 30% off all
+kinds of it training.
+
+00:18:37.403 --> 00:18:38.153
+So check it out.
+
+00:18:38.153 --> 00:18:41.903
+If you're interested, check, uh,
+we also have free membership,
+
+00:18:41.913 --> 00:18:42.893
+so that's also an option.
+
+00:18:43.193 --> 00:18:45.593
+Uh, but I think that about
+does it for us today.
+
+00:18:45.593 --> 00:18:48.243
+Taylor, thanks for joining us
+on the Haskell Weekly podcast
+
+00:18:48.243 --> 00:18:49.153
+and we'll see you next week.
+
+00:18:49.743 --> 00:18:50.023
+>> Bye!
