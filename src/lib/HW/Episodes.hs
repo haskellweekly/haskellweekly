@@ -74,6 +74,7 @@ episodes = do
     , episode42
     , episode43
     , episode44
+    , episode45
     ]
   checkGuids validEpisodes Set.empty
   checkNumbers validEpisodes 1
@@ -779,3 +780,16 @@ episode44 = Episode.Episode
   <*> Size.fromNatural 51607137
   <*> Summary.fromText "Curious about the Haskell Foundation? This week we interview Andrew Boardman, its Executive Director. He explains the Foundation's purpose and how you can help."
   <*> Title.fromText "Haskell Foundation with Andrew Boardman"
+
+episode45 :: Either String Episode.Episode
+episode45 = Episode.Episode
+  <$> Articles.fromList
+    [ "https://www.haskellforall.com/2021/05/the-trick-to-avoid-deeply-nested-error.html"
+    ]
+  <*> Date.fromGregorian 2021 5 10
+  <*> Duration.fromTimestamp 18 55
+  <*> Guid.fromText "da186d83-70e6-4d44-8048-df4f9c8468d0"
+  <*> Number.fromNatural 45
+  <*> Size.fromNatural 18165760
+  <*> Summary.fromText "How can you avoid deeply nested error handling code? This week we review Gabriel Gonzalez's trick for keeping error handling flat."
+  <*> Title.fromText "Avoiding Nested Errors"
