@@ -13,7 +13,7 @@ This is a weekly summary of what's going on in its community.
 - [Haskell Foundation with Andrew Boardman](https://haskellweekly.news/episode/44.html) by Haskell Weekly Podcast
   > Curious about the Haskell Foundation? This week we interview Andrew Boardman, its Executive Director. He explains the Foundation's purpose and how you can help.
 
-- [Haskell: Monoids](https://cstml.github.io/2021/05/03/haskell-monoid.html) by Vlad
+- [Haskell: Monoids](https://cstml.github.io/2021/05/03/haskell-monoid.html) by Vlad Posmangiu Luchian
   > Well believe it or not, Haskell defines a Monoid as a Typeclass, that lets you do funky stuff. Great! Let's have a go and demonstrate these funky useful stuff.
 
 - [Quick and dirty backpropagation in Haskell](https://mazzo.li/posts/haskell-backprop-short.html) by Francesco Mazzoli
