@@ -33,8 +33,8 @@ we got the podcast.
 So I'm excited to be back today.
 
 00:00:30.388 --> 00:00:34.648
-Uh, have a good little chat and just,
-uh, spend some quality time together.
+Have a good little chat and just
+spend some quality time together.
 
 00:00:34.738 --> 00:00:35.618
 You know, it's good stuff.
@@ -53,12 +53,12 @@ What are we going to be talking about?
 be talking about something that's the
 
 00:00:44.218 --> 00:00:51.383
-unnamed, known way of, uh, avoiding
+unnamed, known way of avoiding
 deeply nested error handling code.
 
 00:00:51.413 --> 00:00:57.293
-So, uh, if you're familiar with Haskell
-at all, uh, you've probably written
+So if you're familiar with Haskell
+at all, you've probably written
 
 00:00:57.383 --> 00:01:01.943
 a function or multiple functions
@@ -76,18 +76,18 @@ You know, this blog post by Gabriel
 Gonzalez is talking about a way to take
 
 00:01:12.833 --> 00:01:18.533
-advantage of either, uh, to, you know,
+advantage of either to, you know,
 avoid some of that as well as do notation.
 
 00:01:18.563 --> 00:01:23.003
-So, uh, you know, I'm gonna shoot my
+So, you know, I'm gonna shoot my
 best shot here and try to name it.
 
 00:01:23.303 --> 00:01:25.043
-Uh, there's two names I have.
+There's two names I have.
 
 00:01:25.043 --> 00:01:29.963
-So we have the  blah,
+So we have the blah,
 excuse me, advantageous.
 
 00:01:30.458 --> 00:01:30.788
