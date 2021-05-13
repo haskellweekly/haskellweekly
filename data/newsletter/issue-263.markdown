@@ -70,4 +70,5 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 
 ## Call for participation
 
-undefined
+-   [graphql-engine: console: cannot give whitespace in comment while modifying action](https://github.com/hasura/graphql-engine/issues/6897)
+-   [haskell-opaleye: Replace `viaLateral restrict` with `where_` in tutorial](https://github.com/tomjaguarpaw/haskell-opaleye/issues/504)
