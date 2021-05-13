@@ -31,7 +31,7 @@ This is a weekly summary of what's going on in its community.
 - [The trick to avoid deeply-nested error-handling code ](https://www.haskellforall.com/2021/05/the-trick-to-avoid-deeply-nested-error.html) by Gabriel Gonzalez
   > This post documents a small trick that I use to avoid deeply-nested error-handling code. This trick is a common piece of Haskell folklore that many people either learn from others or figure out on their own.
 
-- [Write your own Discord bot in Haskell with calamity](https://morrowm.github.io/posts/2021-04-29-calamity.html) by Ben Simms
+- [Write your own Discord bot in Haskell with calamity](https://morrowm.github.io/posts/2021-04-29-calamity.html) by MorrowM
   > `calamity` is the most fully-featured library for writing Discord bots on Hackage, rivaling frameworks like `discord.py` and `discord.js` in features, while offering all the benefits of Haskell: a strong type system, pure functions, and risk-free refactoring
 
 ## Jobs
