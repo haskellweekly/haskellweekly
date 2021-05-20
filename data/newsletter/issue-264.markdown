@@ -60,4 +60,6 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 
 ## Call for participation
 
-undefined
+-   [catln: Add debug println to webdocs debugger](https://github.com/zachgk/catln/issues/25)
+-   [ihp: Create Validation function for UNIQUE constraint over multiple fields](https://github.com/digitallyinduced/ihp/issues/877)
+-   [pandoc: Docx writer: add bookmark-marker for table](https://github.com/jgm/pandoc/issues/7285)
