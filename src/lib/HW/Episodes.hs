@@ -75,6 +75,7 @@ episodes = do
     , episode43
     , episode44
     , episode45
+    , episode46
     ]
   checkGuids validEpisodes Set.empty
   checkNumbers validEpisodes 1
@@ -793,3 +794,16 @@ episode45 = Episode.Episode
   <*> Size.fromNatural 18165760
   <*> Summary.fromText "How can you avoid deeply nested error handling code? This week we review Gabriel Gonzalez's trick for keeping error handling flat."
   <*> Title.fromText "Avoiding Nested Errors"
+
+episode46 :: Either String Episode.Episode
+episode46 = Episode.Episode
+  <$> Articles.fromList
+    [ "https://www.haskellforall.com/2021/05/module-organization-guidelines-for.html"
+    ]
+  <*> Date.fromGregorian 2021 5 24
+  <*> Duration.fromTimestamp 26 13
+  <*> Guid.fromText "e90e98b3-00e1-4468-9ec5-61e42fd8d73f"
+  <*> Number.fromNatural 46
+  <*> Size.fromNatural 25174016
+  <*> Summary.fromText "Should you organize modules vertically or horizontally? This week we take a look at another article by Gabriel Gonzalez, this time about organizing projects and packages."
+  <*> Title.fromText "Module Organization Guidelines"
