@@ -31,4 +31,5 @@ undefined
 
 ## Call for participation
 
-undefined
+-   [Carp: performance: test/macros.carp takes a long time to execute](https://github.com/carp-lang/Carp/issues/1215)
+-   [emanote: Add <dl>, <dd> styling to markdown.tpl](https://github.com/srid/emanote/issues/32)
