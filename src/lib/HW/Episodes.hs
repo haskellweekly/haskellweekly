@@ -76,6 +76,7 @@ episodes = do
     , episode44
     , episode45
     , episode46
+    , episode47
     ]
   checkGuids validEpisodes Set.empty
   checkNumbers validEpisodes 1
@@ -807,3 +808,16 @@ episode46 = Episode.Episode
   <*> Size.fromNatural 25174016
   <*> Summary.fromText "Should you organize modules vertically or horizontally? This week we take a look at another article by Gabriel Gonzalez, this time about organizing projects and packages."
   <*> Title.fromText "Module Organization Guidelines"
+
+episode47 :: Either String Episode.Episode
+episode47 = Episode.Episode
+  <$> Articles.fromList
+    [ "https://leanpub.com/simple-haskell-book"
+    ]
+  <*> Date.fromGregorian 2021 6 1
+  <*> Duration.fromTimestamp 42 27
+  <*> Guid.fromText "f0704fa0-c58f-42bc-b1be-d364ab8f6e8f"
+  <*> Number.fromNatural 47
+  <*> Size.fromNatural 40759296
+  <*> Summary.fromText "Special guest Marco Sampellegrini talks with us about his recent book, The Simple Haskell Handbook. The book describes a project driven approach to Haskell development, using a continuous integration server as a motivating example."
+  <*> Title.fromText "Simple Haskell Handbook with Marco Sampellegrini"
