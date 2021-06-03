@@ -80,7 +80,7 @@ template baseUrl episodes =
       : node "link" [] [channelLink]
       : node "description" [] [channelDescription]
       : node "language" [] [text "en-US"]
-      : node "copyright" [] [text "\xa9 2020 Taylor Fausak"]
+      : node "copyright" [] [text "\xa9 2021 Taylor Fausak"]
       : node
           "image"
           []
