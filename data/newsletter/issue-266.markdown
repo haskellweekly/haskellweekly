@@ -87,4 +87,5 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 
 ## Call for participation
 
-undefined
+-   [essence-of-live-coding: Mark several GHC warnings as build failures](https://github.com/turion/essence-of-live-coding/issues/64)
+-   [juvix: Typechecker error when using a primitive directly in main](https://github.com/heliaxdev/juvix/issues/799)
