@@ -8,6 +8,9 @@ This is a weekly summary of what's going on in its community.
 - [What skills will give you an edge in 2022?](https://www.developereconomics.net/?utm_medium=newsletter&utm_source=haskell&utm_campaign=haskell_newsletter) (ad)
   > Take the Developer Nation survey and share your views about the most important coding skills, tools, and platforms for 2022. You will get a virtual goody bag with free resources, plus a chance to win a new smartphone, a laptop, licenses, Amazon vouchers and more.
 
+- [Introducing Haskell in Soisy](https://marcosh.github.io/post/2021/06/04/introducing-haskell-in-soisy.html) by Marco Perone
+  > Soisy is an Italian start-up in the FinTech sector. Some months ago the need to release a new version of our risk engine emerged and we decided to do it in Haskell. In this post we will try to summarise our path, from the initial situation and the perplexities around the usage of a new technology, to the actual release in production.
+
 undefined
 
 ## Jobs
