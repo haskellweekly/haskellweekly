@@ -77,6 +77,7 @@ episodes = do
     , episode45
     , episode46
     , episode47
+    , episode48
     ]
   checkGuids validEpisodes Set.empty
   checkNumbers validEpisodes 1
@@ -821,3 +822,16 @@ episode47 = Episode.Episode
   <*> Size.fromNatural 40759296
   <*> Summary.fromText "Special guest Marco Sampellegrini talks with us about his recent book, The Simple Haskell Handbook. The book describes a project driven approach to Haskell development, using a continuous integration server as a motivating example."
   <*> Title.fromText "Simple Haskell Handbook with Marco Sampellegrini"
+
+episode48 :: Either String Episode.Episode
+episode48 = Episode.Episode
+  <$> Articles.fromList
+    [ "https://github.com/graninas/The-Voids-Of-Haskell/blob/9b401e33af37f991dcb3ab2eedc023661237d845/README.md"
+    ]
+  <*> Date.fromGregorian 2021 6 8
+  <*> Duration.fromTimestamp 30 12
+  <*> Guid.fromText "a8e848db-6382-4a6a-b248-b81bc2123bd6"
+  <*> Number.fromNatural 48
+  <*> Size.fromNatural 28999680
+  <*> Summary.fromText "There's a lot to like about Haskell, but what is it missing? We explore Alexander Granin's post where he suggests some topics for books that "
+  <*> Title.fromText "The Voids of Haskell"

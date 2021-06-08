@@ -1,0 +1,2090 @@
+WEBVTT
+
+00:00:07.729 --> 00:00:10.219
+>> Hello and welcome to
+the Haskell Weekly podcast.
+
+00:00:10.400 --> 00:00:12.129
+I'm your host, taylor Fausak.
+
+00:00:12.290 --> 00:00:15.200
+I'm the Director of Software
+Engineering at ACI Learning.
+
+00:00:15.800 --> 00:00:19.400
+With me today is Cameron Gera,
+one of the engineers on my team.
+
+00:00:19.640 --> 00:00:21.020
+Thanks for joining me today, Cam.
+
+00:00:21.650 --> 00:00:22.610
+>> Thanks for having me, Taylor.
+
+00:00:22.610 --> 00:00:25.040
+I'm excited to get back
+to some podcasting.
+
+00:00:25.430 --> 00:00:27.110
+Uh, today we've got a fun topic.
+
+00:00:27.170 --> 00:00:32.535
+I think it's, uh, A little bit
+on the void side of Haskell.
+
+00:00:32.685 --> 00:00:37.215
+Um, actually the, the article was
+called the voids of Haskell by Alexander
+
+00:00:37.215 --> 00:00:41.895
+Granin, uh, who is the author of
+functional design and architecture.
+
+00:00:42.195 --> 00:00:46.755
+Um, and generally to kind of start
+out this article is very much
+
+00:00:46.755 --> 00:00:49.725
+like Haskell is great and it's
+getting better, but there's still
+
+00:00:49.725 --> 00:00:50.505
+something missing.
+
+00:00:50.505 --> 00:00:54.435
+And there's this void in Haskell and
+that's, you know, the big idea of
+
+00:00:54.435 --> 00:00:55.395
+what we're going to talk about today.
+
+00:00:56.110 --> 00:00:56.320
+>> Yeah.
+
+00:00:56.320 --> 00:01:01.180
+So, uh, he says the voids and
+implying there's more than one,
+
+00:01:01.180 --> 00:01:03.220
+but what are the voids
+that he's talking about?
+
+00:01:04.175 --> 00:01:08.285
+>> Um, the voids that he's
+talking about mostly are the voids
+
+00:01:08.315 --> 00:01:15.274
+in the book world related to Haskell
+and the various design patterns,
+
+00:01:15.274 --> 00:01:19.984
+the various thought processes, the
+various design choices you can make.
+
+00:01:20.374 --> 00:01:21.984
+And, uh, I think.
+
+00:01:22.320 --> 00:01:26.220
+He actually lays out a really good list of
+books that would be really nice to have.
+
+00:01:26.550 --> 00:01:30.119
+And so I think we're going to cover a
+couple of those today, uh, and, you know,
+
+00:01:30.840 --> 00:01:35.820
+give somebody more of a practical resource
+instead of, you know, a blog post, which
+
+00:01:35.850 --> 00:01:40.320
+blog posts can help you with stuff, but
+it doesn't give you the big picture of the
+
+00:01:40.320 --> 00:01:47.300
+language and how it relates to the larger,
+you know, intricacy of the language,
+
+00:01:47.330 --> 00:01:49.490
+because there's things in Haskell that.
+
+00:01:50.205 --> 00:01:53.804
+A lot of languages don't necessarily
+have, and there's a strong type
+
+00:01:53.804 --> 00:02:00.435
+system that allows you to do and
+program in a way that doesn't
+
+00:02:00.435 --> 00:02:02.085
+allow mistakes to happen and stuff.
+
+00:02:02.085 --> 00:02:05.685
+So, um, I think pretty excited about
+the books we're going to talk about
+
+00:02:05.714 --> 00:02:07.695
+today as far as possible books.
+
+00:02:07.695 --> 00:02:11.355
+So for any of our listeners find
+any of these really interesting.
+
+00:02:11.955 --> 00:02:15.915
+Or you guys read the article yourself,
+you know, to try to tackle it, see
+
+00:02:15.915 --> 00:02:17.265
+what you see if you can make that book.
+
+00:02:17.295 --> 00:02:20.025
+Because for me personally, I'm
+not sure what would, what would it
+
+00:02:20.085 --> 00:02:21.105
+take to make a book?
+
+00:02:21.495 --> 00:02:22.655
+Um, what would it make?
+
+00:02:22.725 --> 00:02:23.234
+What would it
+
+00:02:23.234 --> 00:02:24.185
+take for you, Taylor?
+
+00:02:24.204 --> 00:02:24.554
+You think?
+
+00:02:24.605 --> 00:02:24.665
+Yeah.
+
+00:02:25.120 --> 00:02:29.020
+>> uh, for me to
+write a book, I would need.
+
+00:02:29.855 --> 00:02:33.215
+No job, I guess it would
+take a lot of time.
+
+00:02:34.144 --> 00:02:36.424
+Um, but beyond that, I don't know.
+
+00:02:36.424 --> 00:02:37.774
+I've never tried to write a book either.
+
+00:02:37.774 --> 00:02:38.975
+I've written blog posts.
+
+00:02:39.005 --> 00:02:44.765
+And as you mentioned, blog posts, can't go
+into the same amount of detail as a book.
+
+00:02:45.304 --> 00:02:46.535
+And sometimes that's fine.
+
+00:02:46.535 --> 00:02:47.885
+You know, you can have a really.
+
+00:02:48.334 --> 00:02:51.755
+Precise point you're trying
+to make or an example.
+
+00:02:52.204 --> 00:02:57.864
+Um, but sometimes it's more useful to
+have the full worked end to end example,
+
+00:02:57.885 --> 00:03:01.595
+that good gets into all the little caveats
+and the things you actually have to
+
+00:03:01.595 --> 00:03:05.554
+worry about when you're doing something
+that's not just a demo or something
+
+00:03:05.554 --> 00:03:06.875
+you're showing off for a blog post.
+
+00:03:07.685 --> 00:03:12.545
+And, um, one of the things I like about
+what Alexander did here with his posts,
+
+00:03:12.935 --> 00:03:15.935
+It is, he gave a lot of options, right?
+
+00:03:15.935 --> 00:03:19.535
+There's like 20 something
+blog or sorry, book topics.
+
+00:03:20.225 --> 00:03:24.665
+So he's casting a wide net
+and there's lots of different
+
+00:03:24.665 --> 00:03:25.955
+people in the Haskell community.
+
+00:03:25.955 --> 00:03:30.935
+And I think there is a lot of potential
+for good stuff to come out of this.
+
+00:03:31.804 --> 00:03:32.225
+>> Yeah.
+
+00:03:32.225 --> 00:03:36.575
+And I, and I, as you kind of pointed to
+blog posts being pretty limited in scope.
+
+00:03:36.845 --> 00:03:40.475
+When you have a textbook, you can
+generally reference the previous chapters
+
+00:03:40.475 --> 00:03:45.005
+where you said, remember in chapter five,
+when we talked about this, well, here's.
+
+00:03:45.235 --> 00:03:48.805
+Why that was important, um,
+because it impacts chapter seven.
+
+00:03:48.835 --> 00:03:54.325
+So the relationships between concepts
+are much easier to represent in a
+
+00:03:54.325 --> 00:03:58.795
+textbook rather, or a more verbose book
+than a blog post, because it doesn't
+
+00:03:58.795 --> 00:04:02.065
+necessarily have to be a textbook, but
+you know, a handbook, you know, we have
+
+00:04:02.095 --> 00:04:06.445
+learned you a Haskell, which is just
+kind of a step-by-step guide basic.
+
+00:04:06.960 --> 00:04:08.310
+Principals of high school.
+
+00:04:08.580 --> 00:04:12.450
+Um, and they do a lot of like
+referencing to previous chapters of
+
+00:04:12.450 --> 00:04:13.470
+the book and stuff like that.
+
+00:04:13.470 --> 00:04:16.920
+So, um, that's another
+great benefit of books.
+
+00:04:17.404 --> 00:04:18.334
+>> That's a really good point.
+
+00:04:18.454 --> 00:04:21.274
+And you can pull that off with
+blog posts, you know, like,
+
+00:04:21.305 --> 00:04:22.685
+oh, this is part of a series.
+
+00:04:22.685 --> 00:04:25.325
+Go read the previous posts
+if you want to find out more.
+
+00:04:25.745 --> 00:04:29.344
+But more generally I think blog
+posts are intended to be like
+
+00:04:29.344 --> 00:04:31.205
+a drive by resource either.
+
+00:04:31.534 --> 00:04:35.465
+It's something that is approachable
+enough where you can have the whole
+
+00:04:35.465 --> 00:04:40.414
+thing self-contained, or it's a deep
+dive on some really niche topic.
+
+00:04:40.445 --> 00:04:40.955
+So.
+
+00:04:41.690 --> 00:04:45.440
+Only people that are already interested in
+that are going to seek it out and they'll
+
+00:04:45.440 --> 00:04:46.970
+already have all the requisite knowledge.
+
+00:04:47.725 --> 00:04:48.145
+>> right.
+
+00:04:48.205 --> 00:04:48.534
+Yeah.
+
+00:04:48.595 --> 00:04:51.625
+And you know, back to the point of why he.
+
+00:04:52.100 --> 00:04:56.850
+Was kind of saying there's a void here
+or there's voids here in Haskell is a lot
+
+00:04:56.850 --> 00:05:00.870
+of the other mainstream languages have
+a lot of textbooks and a lot of books
+
+00:05:00.870 --> 00:05:05.160
+that reference various concepts, design
+patterns, and, you know, architecture
+
+00:05:05.160 --> 00:05:08.130
+choices that people can use and pick up.
+
+00:05:08.130 --> 00:05:11.280
+And, you know, there's some for the
+functional languages, but a lot of them
+
+00:05:11.280 --> 00:05:13.200
+are for the object oriented languages.
+
+00:05:13.200 --> 00:05:18.540
+So when Haskell can create these
+books, it creates an open door
+
+00:05:18.540 --> 00:05:20.220
+for the functional paradigm to.
+
+00:05:20.535 --> 00:05:21.375
+Kind of move in.
+
+00:05:21.825 --> 00:05:25.635
+Um, you know, I know overall the
+funk programming world is moving
+
+00:05:25.635 --> 00:05:29.595
+more functional, you know, there's
+functional, JavaScript, whatever that is.
+
+00:05:29.955 --> 00:05:33.165
+And, you know, there's all
+kinds of different stuff.
+
+00:05:33.195 --> 00:05:36.345
+That's moving, you know, different
+object oriented programming languages
+
+00:05:36.345 --> 00:05:40.845
+that are implementing functional design
+choices, uh, because it's intuitive.
+
+00:05:40.845 --> 00:05:45.345
+It's, you know, Easy for people who
+have been learning math and it's
+
+00:05:45.345 --> 00:05:48.585
+kindergarten, you know, where you
+learn, you pick up some algebra.
+
+00:05:48.645 --> 00:05:49.125
+Oh, okay.
+
+00:05:49.125 --> 00:05:50.565
+Here's how these things relate.
+
+00:05:50.595 --> 00:05:54.765
+Here's how, you know, I pass my function.
+
+00:05:54.765 --> 00:05:56.115
+I'm going to pass to another function.
+
+00:05:56.535 --> 00:05:57.975
+Well, it's going to
+evaluate and give you a
+
+00:05:57.975 --> 00:05:58.395
+result.
+
+00:05:58.425 --> 00:05:59.025
+That's great.
+
+00:05:59.325 --> 00:06:02.115
+Um, and you, and you'll know
+more or less what's happening.
+
+00:06:03.289 --> 00:06:03.679
+>> Yeah.
+
+00:06:03.979 --> 00:06:09.169
+And, uh, you know, another, uh, another
+angle of this, I think that would be
+
+00:06:09.169 --> 00:06:14.090
+interesting to explore is how many papers
+have been written in or about Haskell?
+
+00:06:14.359 --> 00:06:19.039
+Cause you know, it has kind of academic
+roots and a lot of the things that
+
+00:06:19.039 --> 00:06:23.960
+people do with GHC to add new stuff
+to it are part of their PhD thesis.
+
+00:06:23.989 --> 00:06:25.460
+So they ended up writing a paper for it.
+
+00:06:25.939 --> 00:06:29.030
+I would, I would bet that
+Haskell has more papers.
+
+00:06:29.359 --> 00:06:31.729
+Than most other languages,
+maybe any other language.
+
+00:06:32.090 --> 00:06:36.409
+Um, but clearly those are not as
+valuable of a resource for what
+
+00:06:36.440 --> 00:06:39.200
+Alexander points out in here
+of like a day to day, you know,
+
+00:06:39.210 --> 00:06:41.359
+practitioner more so than a researcher.
+
+00:06:41.810 --> 00:06:44.419
+And that's what he seems to have
+focused on with these topics.
+
+00:06:45.090 --> 00:06:45.450
+>> Right.
+
+00:06:45.450 --> 00:06:49.910
+And I think to the, some of the people
+who may have interest in Haskell kind
+
+00:06:49.910 --> 00:06:54.440
+of shy away from using it in production,
+because it's got such a research
+
+00:06:54.440 --> 00:06:58.935
+heavy background and, you know, People
+may feel like, oh, this is only good
+
+00:06:58.935 --> 00:07:04.995
+for compiling results and, you know,
+enhancing minor speed changes or whatever.
+
+00:07:04.995 --> 00:07:09.885
+Cause as you get know, as hassle gets
+more and more contributed to there's
+
+00:07:09.885 --> 00:07:15.935
+more of, uh, you know, I guess,
+or in the academic sense, there's
+
+00:07:15.935 --> 00:07:18.215
+less like major changes happening.
+
+00:07:18.615 --> 00:07:21.885
+On the academic side, it's just
+like one little thing or one.
+
+00:07:22.095 --> 00:07:22.485
+And so
+
+00:07:23.505 --> 00:07:24.675
+I'm curious if commercial
+
+00:07:24.675 --> 00:07:28.845
+Haskell's really kind of shut
+conventional Haskell uses shied
+
+00:07:28.845 --> 00:07:29.805
+away from because of that.
+
+00:07:30.775 --> 00:07:33.655
+>> Would be, um, and you
+know, major changes I think are
+
+00:07:33.655 --> 00:07:35.155
+still happening, like linear
+
+00:07:35.155 --> 00:07:38.185
+Haskell, or even dependent
+types making its way in.
+
+00:07:38.735 --> 00:07:44.284
+Um, and I just want to point out
+that like, for us at it pro slash
+
+00:07:44.344 --> 00:07:50.165
+ACI, um, we are, we shy away from the
+research heavy stuff, but we still
+
+00:07:50.165 --> 00:07:53.795
+use Haskell and it's been a boon
+for our engineering organization.
+
+00:07:54.005 --> 00:07:59.195
+So even if you're just doing
+normal, you know, HTTP, API stuff,
+
+00:07:59.285 --> 00:08:00.455
+Haskell works great for that.
+
+00:08:01.325 --> 00:08:02.315
+>> Yeah, it really does.
+
+00:08:02.315 --> 00:08:05.285
+And I think, you know, he points
+to that in his kind of introduction
+
+00:08:05.285 --> 00:08:10.175
+to this post of, you know,
+Haskell is a really good tool.
+
+00:08:10.775 --> 00:08:11.075
+Yes.
+
+00:08:11.075 --> 00:08:14.555
+It may have higher overhead
+to learn in the beginning,
+
+00:08:14.675 --> 00:08:18.185
+but the velocity you gain at the
+end of the day is much greater
+
+00:08:18.185 --> 00:08:20.195
+than the time lost in learning it.
+
+00:08:21.805 --> 00:08:24.354
+>> So I think we've set
+the table pretty well here.
+
+00:08:24.445 --> 00:08:26.484
+Uh, do you want to dig
+into some of these book
+
+00:08:26.484 --> 00:08:27.145
+topics?
+
+00:08:27.650 --> 00:08:27.920
+>> Yeah.
+
+00:08:27.920 --> 00:08:30.830
+I mean, we've got a whole entire, a feast
+
+00:08:30.830 --> 00:08:32.990
+hero of topics to choose from as well.
+
+00:08:32.990 --> 00:08:37.820
+You know, I think it's, I mean, we have
+more options and Thanksgiving day, you
+
+00:08:37.940 --> 00:08:38.330
+>> Yeah.
+
+00:08:38.330 --> 00:08:39.380
+So where should we start?
+
+00:08:39.440 --> 00:08:40.310
+What's our appetizer.
+
+00:08:40.670 --> 00:08:43.310
+>> um, well, I I'd
+like to touch on one that.
+
+00:08:44.055 --> 00:08:48.675
+I think it's a very interesting one and
+something that's a little more hidden.
+
+00:08:48.675 --> 00:08:51.555
+We've actually talked about it on
+the Haskell weekly podcast before.
+
+00:08:51.975 --> 00:08:56.415
+Um, but it's a book called
+gain development in Haskell.
+
+00:08:56.655 --> 00:08:58.125
+Wouldn't that be a nice thing to have?
+
+00:08:58.515 --> 00:09:00.885
+You know, you can take it,
+you can see, oh, Hey, I can
+
+00:09:00.885 --> 00:09:03.675
+make a, you know, a 2d game.
+
+00:09:03.705 --> 00:09:05.025
+This is how this works.
+
+00:09:05.055 --> 00:09:05.535
+Okay.
+
+00:09:05.535 --> 00:09:07.065
+Well, you know, cause.
+
+00:09:07.755 --> 00:09:09.015
+I mean, those are kind of fun.
+
+00:09:09.015 --> 00:09:10.965
+They're, they're an easy way to get in.
+
+00:09:10.995 --> 00:09:11.355
+Right.
+
+00:09:11.355 --> 00:09:16.725
+So like, you know, it's a perfect way
+for a teenage person to be like, oh
+
+00:09:16.725 --> 00:09:18.315
+yeah, I want to make a game for myself
+
+00:09:18.315 --> 00:09:18.495
+that I
+
+00:09:18.495 --> 00:09:19.035
+can play.
+
+00:09:19.485 --> 00:09:20.205
+Well, okay.
+
+00:09:20.205 --> 00:09:20.685
+Hey, here's
+
+00:09:20.685 --> 00:09:22.605
+this game development Haskell.
+
+00:09:22.965 --> 00:09:23.985
+Everybody loves games.
+
+00:09:24.015 --> 00:09:24.675
+So why not?
+
+00:09:25.705 --> 00:09:26.665
+>> Yeah, I agree.
+
+00:09:26.665 --> 00:09:29.425
+I think this would be a
+great kind of starter topic.
+
+00:09:29.425 --> 00:09:31.105
+And one of the reasons
+I think that is that.
+
+00:09:31.595 --> 00:09:39.035
+For a library like gloss or, um, even SDL,
+but more so gloss, uh, you can start with
+
+00:09:39.064 --> 00:09:43.865
+nothing and pretty quickly have something
+interactive up on your screen, like
+
+00:09:43.895 --> 00:09:47.944
+visually interactive, where you can click
+on stuff with your mouse and see it react.
+
+00:09:48.515 --> 00:09:54.485
+And that to me, I think is a lot
+more, um, motivating then like
+
+00:09:54.485 --> 00:09:56.035
+writing a command line program that.
+
+00:09:57.035 --> 00:10:01.055
+I don't know, does something, but
+a game with it's instant feedback
+
+00:10:01.085 --> 00:10:04.325
+is really rewarding to see the
+progress you made were like, oh, I
+
+00:10:04.325 --> 00:10:05.615
+want to change how that thing looks.
+
+00:10:05.615 --> 00:10:07.535
+I'll make the change over
+here and then bring it up and,
+
+00:10:07.565 --> 00:10:08.465
+oh, look, it's different now.
+
+00:10:08.495 --> 00:10:09.875
+I made that change happen.
+
+00:10:09.995 --> 00:10:10.655
+That feels good.
+
+00:10:11.465 --> 00:10:12.905
+>> Yeah, that's what I liked to do.
+
+00:10:13.045 --> 00:10:17.135
+And with Alan, cause it's that front
+end language that allows you to see
+
+00:10:17.135 --> 00:10:19.535
+the result of your change quickly.
+
+00:10:19.745 --> 00:10:22.145
+Um, it interacts with the code you
+
+00:10:22.145 --> 00:10:26.975
+wrote rather than be like, it's doing
+something back there, um, in the
+
+00:10:26.975 --> 00:10:28.775
+back end, but I'm not really sure.
+
+00:10:29.735 --> 00:10:30.095
+>> Yeah.
+
+00:10:30.895 --> 00:10:32.365
+Um, so unfortunately neither
+
+00:10:32.365 --> 00:10:34.405
+of us are game developers.
+
+00:10:34.465 --> 00:10:39.235
+Uh, last time on the podcast when
+this was a topic, Dustin and Cody
+
+00:10:39.235 --> 00:10:41.995
+were talking about it, and Dustin has
+some experience with game development.
+
+00:10:41.995 --> 00:10:45.535
+So I'd be curious, uh, you know, he
+may be a good candidate for writing
+
+00:10:45.895 --> 00:10:47.575
+a book about game development.
+
+00:10:47.575 --> 00:10:48.835
+Haskell we'll have to bug him about that.
+
+00:10:50.045 --> 00:10:50.225
+>> yeah,
+
+00:10:50.225 --> 00:10:53.075
+I'll make it part of his,
+uh, annual review process.
+
+00:10:54.005 --> 00:10:55.775
+Hey man, I got this great goal for you,
+
+00:10:55.775 --> 00:10:56.105
+man.
+
+00:10:56.105 --> 00:10:58.745
+I think you should write
+a book called game day.
+
+00:10:58.845 --> 00:11:03.435
+Well in Haskell, you'll make hundreds,
+
+00:11:03.635 --> 00:11:05.225
+>> You'll make hundreds of dollars.
+
+00:11:06.015 --> 00:11:10.605
+>> I can't guarantee thousands
+or millions, but you know, hundreds,
+
+00:11:10.640 --> 00:11:10.940
+>> Yeah.
+
+00:11:11.925 --> 00:11:12.315
+>> you know,
+
+00:11:12.560 --> 00:11:13.670
+>> but yeah, I
+don't have much else to
+
+00:11:13.670 --> 00:11:15.020
+say about game development.
+
+00:11:15.020 --> 00:11:15.950
+I think it would be great.
+
+00:11:15.980 --> 00:11:16.940
+And I would love to see it.
+
+00:11:16.970 --> 00:11:19.310
+And I've tried to write some
+tiny games in high school.
+
+00:11:19.310 --> 00:11:22.010
+So, I mean, maybe I should write
+the book, but I think I wrote
+
+00:11:22.010 --> 00:11:23.150
+blog posts about them at the time.
+
+00:11:23.150 --> 00:11:24.440
+So I'm doing my part.
+
+00:11:26.040 --> 00:11:26.220
+>> Yeah.
+
+00:11:26.670 --> 00:11:28.260
+It's not enough to tell her we need more.
+
+00:11:29.660 --> 00:11:30.050
+Yeah.
+
+00:11:30.080 --> 00:11:33.350
+I mean, we don't want you to quit, so
+you, you're not allowed to write a book.
+
+00:11:34.490 --> 00:11:36.860
+You already said you have to quit
+your job and that's not okay.
+
+00:11:38.330 --> 00:11:38.750
+We'd be.
+
+00:11:39.005 --> 00:11:40.315
+>> I protected myself there.
+
+00:11:40.945 --> 00:11:46.045
+So, so the ne the next potential book
+topic we could talk about, uh, it's
+
+00:11:46.045 --> 00:11:49.915
+a little closer to home for us is
+test-driven development in Haskell.
+
+00:11:50.425 --> 00:11:52.315
+And I think we probably
+talked about testing before.
+
+00:11:52.315 --> 00:11:55.885
+I don't think we've had an entire
+episode devoted to it, but it comes up
+
+00:11:55.885 --> 00:11:57.475
+a lot as a topic here on the podcast.
+
+00:11:58.765 --> 00:11:59.125
+>> Yeah.
+
+00:11:59.235 --> 00:11:59.565
+Yeah.
+
+00:11:59.565 --> 00:12:02.895
+I mean, test driven development is a big.
+
+00:12:04.035 --> 00:12:06.255
+Big thing around the software industry.
+
+00:12:06.255 --> 00:12:06.675
+Right.
+
+00:12:06.735 --> 00:12:11.535
+You know, anytime you go for a coding
+interview or you read a job posting
+
+00:12:11.535 --> 00:12:14.175
+it's oh, are you familiar with TDD?
+
+00:12:14.565 --> 00:12:18.195
+Um, and generally they're
+meaning test driven development.
+
+00:12:18.225 --> 00:12:20.865
+There's other TBDs that
+we'll get to later actually.
+
+00:12:21.285 --> 00:12:26.755
+Um, but they're talking about this concept
+of, you know, red, green refactoring and,
+
+00:12:26.755 --> 00:12:30.675
+and you know, the big names in Haskell
+or in the programming world, you know,
+
+00:12:30.705 --> 00:12:32.925
+Martin Fowler, all those guys have.
+
+00:12:33.570 --> 00:12:36.900
+Written and talked about why test
+driven fellow it's important.
+
+00:12:37.620 --> 00:12:43.950
+And, you know, with Haskell being,
+you know, quote unquote academic,
+
+00:12:44.430 --> 00:12:47.640
+I think people tend to not really
+worry about test driven development.
+
+00:12:47.640 --> 00:12:49.860
+They're more worried about the results.
+
+00:12:49.950 --> 00:12:52.980
+And so we haven't seen that
+from the academic side.
+
+00:12:53.040 --> 00:12:54.960
+Maybe I could be wrong, but.
+
+00:12:55.845 --> 00:12:59.615
+You know, when you're writing a day-to-day
+application and something that you're
+
+00:12:59.615 --> 00:13:04.805
+supposed to maintain longterm, um, you
+know, having a book for test different
+
+00:13:04.805 --> 00:13:08.525
+development Haskell would be really
+helpful to, you know, understand
+
+00:13:08.945 --> 00:13:13.445
+first of all, like the semantics of
+testing and at school, uh, really kind
+
+00:13:13.445 --> 00:13:19.175
+of understanding and clarifying the
+types of tests within Haswell, right.
+
+00:13:19.175 --> 00:13:20.885
+Property unit.
+
+00:13:21.185 --> 00:13:23.405
+Uh, integration, all
+those kinds of things.
+
+00:13:23.405 --> 00:13:25.955
+You know, you want to kind of expand
+upon those and how they relate.
+
+00:13:26.285 --> 00:13:30.815
+Um, and also it'd be nice to kind
+of know how, you know, test driven
+
+00:13:30.815 --> 00:13:34.535
+development works for various like
+
+00:13:35.675 --> 00:13:37.115
+frameworks or,
+
+00:13:37.475 --> 00:13:43.145
+you know, um, things
+we'll just say libraries.
+
+00:13:44.680 --> 00:13:45.010
+>> Yeah.
+
+00:13:45.010 --> 00:13:49.150
+I think there's a huge breadth of
+topics that could be addressed in a
+
+00:13:49.150 --> 00:13:49.900
+book like this.
+
+00:13:49.900 --> 00:13:53.560
+Like you mentioned, just the
+different types of testing.
+
+00:13:53.925 --> 00:13:55.175
+Would be interesting to cover.
+
+00:13:55.385 --> 00:13:59.405
+And then from there you can springboard
+into, these are the libraries that can
+
+00:13:59.405 --> 00:14:03.845
+provide, you know, frameworks to write
+tests of this type in, or that type.
+
+00:14:03.875 --> 00:14:07.265
+And here's why you may prefer
+this library over that library.
+
+00:14:07.745 --> 00:14:11.345
+Um, I think most people reach
+for like H spec, but as a
+
+00:14:11.345 --> 00:14:12.815
+beginner, you may not know that.
+
+00:14:12.905 --> 00:14:15.935
+And as an intermediate
+person, you may not know.
+
+00:14:16.655 --> 00:14:19.475
+What alternatives are there and why
+may you want to use one of them?
+
+00:14:20.195 --> 00:14:23.855
+Um, and similarly touching on like
+integration testing in particular,
+
+00:14:24.005 --> 00:14:28.925
+um, you know, if you follow the
+reader, Tio or Rio, um, kind of
+
+00:14:28.925 --> 00:14:31.235
+framework, how do you test that?
+
+00:14:31.565 --> 00:14:36.835
+And that could also, you know, touch on
+maybe some of the benefits of effects
+
+00:14:36.835 --> 00:14:38.765
+systems and how that impacts testing.
+
+00:14:39.230 --> 00:14:42.680
+Um, but also focus on, okay,
+if you're doing IO, how do you
+
+00:14:42.680 --> 00:14:44.000
+actually test that effectively?
+
+00:14:44.690 --> 00:14:48.770
+Um, and that's just scratching the surface
+of the topics that could be covered here.
+
+00:14:48.770 --> 00:14:51.200
+And there's so much, but
+yeah, I would love to see,
+
+00:14:52.245 --> 00:14:55.185
+>> yeah, this could easily
+turn it into a 500 page book.
+
+00:14:55.570 --> 00:14:55.870
+>> yeah.
+
+00:14:56.355 --> 00:15:00.015
+>> maybe we should start with a
+couple hundred page books to get people.
+
+00:15:00.564 --> 00:15:00.834
+Yeah.
+
+00:15:01.165 --> 00:15:03.365
+A little bit more
+prepared and geared up for
+
+00:15:03.700 --> 00:15:04.870
+>> Like some magazines.
+
+00:15:05.444 --> 00:15:06.555
+>> yeah, yeah.
+
+00:15:07.215 --> 00:15:07.395
+Yeah.
+
+00:15:07.395 --> 00:15:11.084
+I was going to say like, uh, catalogs,
+you know, like, you know, how like
+
+00:15:11.084 --> 00:15:14.655
+series back in the day would just
+mail you a catalog with all the
+
+00:15:14.655 --> 00:15:18.405
+things you could buy, you know,
+maybe we do that for testing Haskell.
+
+00:15:19.415 --> 00:15:19.925
+>> I like it.
+
+00:15:20.324 --> 00:15:20.655
+>> Yeah.
+
+00:15:21.105 --> 00:15:26.625
+Well, I was mentioning earlier at
+the other TDD, um, and this is type
+
+00:15:26.625 --> 00:15:28.185
+driven development with Haskell, which.
+
+00:15:29.130 --> 00:15:36.390
+Is one of the strengths of Haskell
+is its type system and, uh, really
+
+00:15:36.480 --> 00:15:42.510
+kind of understanding and, and yeah,
+I guess understanding and grokking
+
+00:15:42.510 --> 00:15:47.790
+are the same thing, but, uh, really
+getting a deeper knowledge base of how
+
+00:15:49.230 --> 00:15:51.720
+the type system works, how, you know,
+
+00:15:51.720 --> 00:15:56.685
+the type there's tight families
+there's type, uh, Applications
+
+00:15:56.685 --> 00:15:58.785
+there's type all kinds of type.
+
+00:15:59.110 --> 00:15:59.890
+>> Pretty much type.
+
+00:15:59.980 --> 00:16:01.390
+It can be a prefix on anything.
+
+00:16:01.715 --> 00:16:02.495
+>> Right, right.
+
+00:16:02.855 --> 00:16:07.355
+And so why don't we, why don't
+we take some time and create
+
+00:16:08.645 --> 00:16:13.565
+a verbose book on the type type system
+and type driven development in a Haskell.
+
+00:16:14.050 --> 00:16:14.350
+>> Yeah.
+
+00:16:14.770 --> 00:16:17.020
+and not only covering the.
+
+00:16:17.915 --> 00:16:20.495
+Different things you can
+do with the type system.
+
+00:16:20.495 --> 00:16:23.555
+Like what is the type family,
+what does it allow you to do?
+
+00:16:23.615 --> 00:16:25.955
+And then also, why might
+you want to do that?
+
+00:16:25.955 --> 00:16:30.485
+So like I touched on earlier with like
+affect systems and how they affect, pardon
+
+00:16:30.485 --> 00:16:35.795
+the pun, how they influenced testing, um,
+you know, for type different development.
+
+00:16:35.885 --> 00:16:41.555
+Like I know about type families,
+but why might I want to use them?
+
+00:16:41.555 --> 00:16:43.025
+What problems do they solve?
+
+00:16:43.055 --> 00:16:46.205
+What things you know,
+which states are then.
+
+00:16:46.550 --> 00:16:51.260
+On representable because I've chosen to
+use type families or J DTS or, you know,
+
+00:16:51.530 --> 00:16:58.250
+uh, functional dependencies or any number
+of the type based, um, language extensions
+
+00:16:58.310 --> 00:17:02.270
+in GHC and it could be shenanigans yeah.
+
+00:17:02.420 --> 00:17:04.010
+Type based shenanigans.
+
+00:17:04.640 --> 00:17:06.860
+Um, he doesn't list.
+
+00:17:06.860 --> 00:17:10.220
+So in these kind of, uh,
+hypothetical books that we've
+
+00:17:10.220 --> 00:17:11.720
+been talking about, he lists.
+
+00:17:12.140 --> 00:17:15.920
+Some other books from other programming
+languages that touch on these topics.
+
+00:17:16.430 --> 00:17:22.160
+And one that I think could be brought
+up here is not a printed book, but the
+
+00:17:22.160 --> 00:17:29.270
+servant, um, both their like documentation
+for the servant library and the kind of
+
+00:17:29.270 --> 00:17:34.280
+rationale for why they built it and how
+they built it and how you might build your
+
+00:17:34.280 --> 00:17:36.740
+own kind of minimal servant style library.
+
+00:17:37.340 --> 00:17:39.410
+Um, because that is some very advanced.
+
+00:17:39.709 --> 00:17:44.989
+Type level stuff, and they do a very
+good job of motivating why you need
+
+00:17:45.049 --> 00:17:48.080
+each step along the way, like, oh,
+wouldn't it be nice if you could write
+
+00:17:48.169 --> 00:17:50.509
+something like this, it turns out
+you can't, unless you turn on this
+
+00:17:50.509 --> 00:17:51.979
+extension, what does that extension do?
+
+00:17:51.979 --> 00:17:54.679
+It does this and here's
+how it changes the code.
+
+00:17:55.570 --> 00:17:55.840
+>> all right.
+
+00:17:55.840 --> 00:17:59.169
+So we're just pawning this book off
+the serpents in the law library,
+
+00:17:59.169 --> 00:18:01.330
+maintainers of that library.
+
+00:18:01.360 --> 00:18:02.110
+Okay, cool.
+
+00:18:02.189 --> 00:18:02.860
+I'm down.
+
+00:18:02.919 --> 00:18:03.249
+Yeah.
+
+00:18:03.549 --> 00:18:08.350
+And I like that he makes a good point too,
+here in his little, kind of a synopsis
+
+00:18:08.350 --> 00:18:12.669
+of what this book would be about where,
+you know, there's a lot of languages that
+
+00:18:13.029 --> 00:18:16.090
+have kind of taken bits and pieces of.
+
+00:18:16.800 --> 00:18:19.800
+Haskell's type system and implement
+engine at their own language.
+
+00:18:19.889 --> 00:18:25.620
+And so it could be nice to kind of show,
+Hey, this has been in Haskell all along.
+
+00:18:25.649 --> 00:18:29.429
+Here's all the things that
+Haskell's allows you to do that.
+
+00:18:29.429 --> 00:18:32.970
+Yes, you may be able to do now in
+other languages, but Haskell's been
+
+00:18:32.970 --> 00:18:36.540
+doing it longer and they're trying to
+make it better every step of the way.
+
+00:18:36.929 --> 00:18:41.970
+Um, you know, and as we start to come
+out with newer iterations of the Haskell
+
+00:18:41.970 --> 00:18:45.179
+language, um, right, we've got GA she.
+
+00:18:45.540 --> 00:18:49.170
+2020, which is a group of language
+extensions that probably help a
+
+00:18:49.170 --> 00:18:50.880
+lot with the type level of stuff.
+
+00:18:50.970 --> 00:18:56.130
+Um, and getting more examples of
+how that affects, you know, the
+
+00:18:56.130 --> 00:19:00.960
+day-to-day code, writing of Haskell
+and what it allows you to do.
+
+00:19:01.440 --> 00:19:03.540
+Cause I think we're missing
+that and you know, sure.
+
+00:19:03.540 --> 00:19:08.340
+You can read blog post, or you could
+read the specs for every language
+
+00:19:08.340 --> 00:19:12.570
+extension and how this works, but
+unless you can see like, uh, end to
+
+00:19:12.570 --> 00:19:16.679
+end example, And something that's
+walking you through and motivating
+
+00:19:16.679 --> 00:19:21.000
+you, like, like the servant library
+does and the documentation around it.
+
+00:19:21.449 --> 00:19:25.590
+You know, people aren't going to
+really dive in and take that direction
+
+00:19:25.590 --> 00:19:30.510
+unless you have a desire to know that,
+which is if you do that's awesome.
+
+00:19:30.510 --> 00:19:32.909
+Like explore it, take the time, learn it.
+
+00:19:32.939 --> 00:19:33.510
+It's awesome.
+
+00:19:33.510 --> 00:19:34.110
+It's great.
+
+00:19:34.110 --> 00:19:36.600
+We'd ha have you servant here?
+
+00:19:37.740 --> 00:19:38.399
+And we.
+
+00:19:39.074 --> 00:19:42.225
+You know, yes, it was a little bit of a
+headache at first, but now that we have
+
+00:19:42.225 --> 00:19:46.635
+that type safety, we are grateful and
+we've really become accustomed to it.
+
+00:19:46.635 --> 00:19:48.225
+And we've kind of forced our hand at
+
+00:19:48.225 --> 00:19:50.895
+learning the type system
+a little bit deeper.
+
+00:19:51.375 --> 00:19:54.105
+Um, so if we had books
+like this would be helpful.
+
+00:19:54.605 --> 00:19:54.865
+>> it would.
+
+00:19:54.865 --> 00:19:56.915
+And, uh, you know, you mentioned like,
+
+00:19:57.905 --> 00:20:01.024
+These, some of these things are already
+available as blog posts and for the
+
+00:20:01.024 --> 00:20:05.375
+people that are interested in pushing
+the boundaries of the type system, that
+
+00:20:05.495 --> 00:20:08.284
+material is already out there, they
+can go read the papers they came from.
+
+00:20:08.284 --> 00:20:12.695
+They can read the GFC documentation,
+but that motivating example to bring you
+
+00:20:12.695 --> 00:20:15.875
+from why should I care about this at all?
+
+00:20:16.115 --> 00:20:17.105
+All the way to.
+
+00:20:17.435 --> 00:20:18.425
+Man, this is awesome.
+
+00:20:18.425 --> 00:20:20.014
+I'm so glad that Haskell does it.
+
+00:20:20.375 --> 00:20:25.504
+We don't have a resource or even a path
+of resources that can do that for somebody
+
+00:20:25.504 --> 00:20:27.395
+that isn't already steeped in this stuff.
+
+00:20:29.555 --> 00:20:33.095
+Um, so at this point we've talked
+about test driven development
+
+00:20:33.455 --> 00:20:34.655
+type driven development.
+
+00:20:34.895 --> 00:20:39.125
+I think there's a third one in
+this list of domain driven design.
+
+00:20:39.215 --> 00:20:42.725
+So we got TDD, TDD and DDD.
+
+00:20:43.475 --> 00:20:44.315
+So what's DDD.
+
+00:20:47.929 --> 00:20:56.774
+>> um, So domain-driven design is
+really the concept that your code and
+
+00:20:57.615 --> 00:21:03.344
+what you write, describe like the complex
+domains that you're applying it to.
+
+00:21:03.705 --> 00:21:07.635
+Um, so, you know, when you're
+writing functional programming
+
+00:21:07.945 --> 00:21:11.774
+in functional programming, it
+tends to be easier to do this.
+
+00:21:11.804 --> 00:21:12.645
+And so, yeah.
+
+00:21:13.139 --> 00:21:13.429
+Yeah.
+
+00:21:13.499 --> 00:21:18.029
+People try to use domain driven
+design in object oriented languages.
+
+00:21:18.529 --> 00:21:22.999
+It is possible, but they also have
+a crap ton of resources for it.
+
+00:21:23.090 --> 00:21:27.019
+And there's a lot more examples
+of things going on out there.
+
+00:21:27.379 --> 00:21:27.919
+And so.
+
+00:21:28.710 --> 00:21:32.640
+We could show improve to the outside
+world and those other mainstream
+
+00:21:32.640 --> 00:21:36.030
+languages, that high school is the best.
+
+00:21:36.120 --> 00:21:42.060
+Is it one of the best languages to
+be able to use domain driven design?
+
+00:21:42.570 --> 00:21:45.600
+Um, I keep wanting to say
+development, but I know it's not.
+
+00:21:45.600 --> 00:21:53.190
+So I somehow keep correcting myself, but
+you know, those are, you know, because
+
+00:21:53.190 --> 00:21:55.860
+there's no real book out there right now.
+
+00:21:55.860 --> 00:21:56.640
+Not everybody.
+
+00:21:57.314 --> 00:21:59.385
+You know, Nasser's blog
+posts, and we've talked about
+
+00:21:59.385 --> 00:22:02.735
+those a lot, but it'd be nice
+to have the full picture.
+
+00:22:03.334 --> 00:22:06.274
+And I feel like a book on it would help.
+
+00:22:06.844 --> 00:22:10.175
+>> Yeah, I would really
+like to read a book like this.
+
+00:22:10.624 --> 00:22:14.314
+I have a passing familiarity
+with domain-driven design.
+
+00:22:14.465 --> 00:22:17.884
+I'm kind of aware of the concept,
+but I don't think I could explain
+
+00:22:17.884 --> 00:22:23.495
+it that well, um, that being said, I
+feel like Haskell is an exceptionally
+
+00:22:23.495 --> 00:22:27.034
+good language for modeling domains.
+
+00:22:27.094 --> 00:22:30.784
+So if that's what domain-driven design is
+about, then I think Haskell excels at it
+
+00:22:30.814 --> 00:22:32.914
+and having a book that kind of lays out.
+
+00:22:33.319 --> 00:22:37.939
+Why that's the case and how to use
+Haskell's features to effectively
+
+00:22:37.939 --> 00:22:39.679
+model domains would be amazing.
+
+00:22:40.189 --> 00:22:43.969
+Um, but to kind of bolster my own point
+here, one of the reasons why I think
+
+00:22:43.969 --> 00:22:49.129
+Haskell is so good at modeling domains
+is that the combination of product and
+
+00:22:49.129 --> 00:22:53.959
+some types along with pattern matching,
+which other languages have these days
+
+00:22:53.989 --> 00:23:00.395
+swift and rest are, are getting that
+or have that, um, Those relatively
+
+00:23:00.395 --> 00:23:08.814
+simple tools, make it so easy to exclude
+impossible states from your program or
+
+00:23:08.814 --> 00:23:10.314
+push them all the way to the boundary.
+
+00:23:10.345 --> 00:23:12.955
+So like when you talk to the
+database, something could go wrong
+
+00:23:12.955 --> 00:23:14.064
+and you'll handle the error there.
+
+00:23:14.095 --> 00:23:17.665
+But then once it gets into the
+system, you know that you have a
+
+00:23:17.665 --> 00:23:23.605
+bonafide user or, you know, episode
+or whatever your domain object is.
+
+00:23:23.605 --> 00:23:25.735
+You actually have one of those
+things on hand and you don't have
+
+00:23:25.735 --> 00:23:27.054
+to worry about it becoming invalid.
+
+00:23:28.820 --> 00:23:29.300
+>> Right.
+
+00:23:29.390 --> 00:23:29.690
+Yeah.
+
+00:23:30.350 --> 00:23:31.760
+It's provides a lot of safety.
+
+00:23:32.240 --> 00:23:32.600
+>> Yeah.
+
+00:23:33.220 --> 00:23:37.810
+And that means peace of mind for people
+like me, who, uh, came from, you know,
+
+00:23:37.810 --> 00:23:41.949
+I used to program in Ruby doing a lot of
+object oriented stuff and you Taishan,
+
+00:23:41.980 --> 00:23:47.350
+and it was always, uh, a challenge
+to know, okay, I have one of these
+
+00:23:47.350 --> 00:23:52.149
+things on hand that says it's a user,
+but it doesn't have this field set.
+
+00:23:52.149 --> 00:23:54.310
+And this, you know, other fields
+is supposed to mean this thing,
+
+00:23:54.310 --> 00:23:55.240
+but it means this other thing.
+
+00:23:55.240 --> 00:23:58.144
+And it's like, okay, well, What
+am I supposed to do with this?
+
+00:23:58.204 --> 00:23:58.594
+I don't know.
+
+00:23:59.270 --> 00:23:59.570
+>> Yup.
+
+00:23:59.600 --> 00:23:59.899
+Yup.
+
+00:24:00.110 --> 00:24:01.879
+That's the world of JavaScript as well.
+
+00:24:02.480 --> 00:24:02.540
+Yeah.
+
+00:24:03.030 --> 00:24:06.090
+It makes me cry every night.
+
+00:24:07.290 --> 00:24:07.679
+When I
+
+00:24:07.679 --> 00:24:08.879
+think about the past.
+
+00:24:10.139 --> 00:24:11.550
+Sorry, I'm coming back.
+
+00:24:11.850 --> 00:24:12.510
+Let me come back.
+
+00:24:13.080 --> 00:24:14.070
+Oh, okay.
+
+00:24:14.245 --> 00:24:14.334
+>> it.
+
+00:24:15.024 --> 00:24:15.294
+Yeah.
+
+00:24:15.654 --> 00:24:18.414
+Uh, so should we move on to
+the next, uh, hypothetical
+
+00:24:18.414 --> 00:24:18.954
+book topic?
+
+00:24:19.409 --> 00:24:19.620
+>> Yeah.
+
+00:24:19.620 --> 00:24:20.879
+I think, I think this
+will be the last one.
+
+00:24:20.879 --> 00:24:21.750
+We'll probably cover and we're
+
+00:24:22.110 --> 00:24:26.040
+getting there on time, but, uh,
+what's the next one there to
+
+00:24:26.395 --> 00:24:31.254
+>> So the next one is one that I'm
+excited about, which is event sourcing
+
+00:24:31.495 --> 00:24:34.824
+CQRS and reliable systems in Haskell.
+
+00:24:35.034 --> 00:24:41.965
+And for those that don't know, C, Q, R S
+stands for a command query responsibility,
+
+00:24:41.965 --> 00:24:48.145
+segregation, and effectively, what that
+means is you segregate or separate.
+
+00:24:48.485 --> 00:24:52.835
+Your commands, things that change
+your system and your queries, things
+
+00:24:52.835 --> 00:24:56.075
+that ask the system for information.
+
+00:24:56.615 --> 00:25:01.475
+Um, and this is, uh, well and backing
+up even further in the title two event
+
+00:25:01.475 --> 00:25:06.215
+sourcing, what does that, uh, event
+sourcing is like instead of having
+
+00:25:06.215 --> 00:25:11.735
+a database that you update in place,
+you have a stream of events and as
+
+00:25:11.735 --> 00:25:16.475
+new events come in your view of the
+current state of your database changes.
+
+00:25:16.940 --> 00:25:20.660
+But your actual source of
+truth is that stream of events.
+
+00:25:20.960 --> 00:25:26.450
+So a good example of this I think
+is like instead of a user changing
+
+00:25:26.450 --> 00:25:30.889
+their name and you say, okay, update
+table users, set name, equal new
+
+00:25:30.889 --> 00:25:33.470
+name, where ID equals one, two, three.
+
+00:25:34.160 --> 00:25:37.760
+Um, that's kind of the traditional
+way of doing it with event sourcing.
+
+00:25:38.000 --> 00:25:42.590
+Uh, you would say we have a new event
+that came in that says user one, two,
+
+00:25:42.590 --> 00:25:44.240
+three, changed their name to new name.
+
+00:25:44.780 --> 00:25:45.320
+And that's it.
+
+00:25:45.560 --> 00:25:50.240
+And it's up to you to kind of, uh,
+collapse all of your events down into
+
+00:25:50.240 --> 00:25:54.320
+one thing that you can look at and
+deal with like a normal database.
+
+00:25:56.889 --> 00:26:00.490
+So this is kind of an advanced topic,
+but I think it would be a really
+
+00:26:00.490 --> 00:26:01.840
+fun one to explore and Haskell.
+
+00:26:02.590 --> 00:26:02.860
+>> Yeah.
+
+00:26:02.860 --> 00:26:05.860
+I think it would mean just
+from your explanation.
+
+00:26:05.860 --> 00:26:08.469
+It's something that I haven't
+really heard of or dealt with.
+
+00:26:08.469 --> 00:26:09.560
+So I think.
+
+00:26:09.990 --> 00:26:14.399
+Having a book, maybe I'll, um, I may
+look into some blog post after this
+
+00:26:14.580 --> 00:26:20.250
+conversation, but, um, you know, trying
+to have a book that explains this and
+
+00:26:20.250 --> 00:26:25.800
+helps relate it to, you know, really how
+to implement this in Haskell and how that
+
+00:26:25.800 --> 00:26:27.929
+would work, uh, seemed super interesting.
+
+00:26:28.320 --> 00:26:31.199
+Um, I know we have some, I know
+they have like ones for some
+
+00:26:31.320 --> 00:26:33.959
+Azure stuff and stuff like that.
+
+00:26:33.959 --> 00:26:36.959
+So they have something along
+those lines, but it's not,
+
+00:26:38.070 --> 00:26:42.915
+you know, Exactly what we'd like, like it
+to be, um, especially for Haskell, which.
+
+00:26:44.530 --> 00:26:47.020
+>> to give a couple
+more kind of footholds into
+
+00:26:47.020 --> 00:26:49.360
+this area to explore for you.
+
+00:26:49.360 --> 00:26:54.190
+And for other listeners that may be
+interested event sourcing is also
+
+00:26:54.310 --> 00:26:56.590
+often called Kappa architecture.
+
+00:26:56.650 --> 00:26:57.070
+I think.
+
+00:26:57.665 --> 00:27:02.255
+Um, and that's kind of where the stream
+of events is your source of truth.
+
+00:27:02.765 --> 00:27:08.795
+Um, and in Haskell, there is a library
+called acid state that actually implements
+
+00:27:08.795 --> 00:27:12.965
+things like this behind the scenes
+where you can kind of interact with it
+
+00:27:12.965 --> 00:27:14.555
+like a normal database, if you want to.
+
+00:27:14.645 --> 00:27:16.595
+But the way that it works is by storing.
+
+00:27:17.045 --> 00:27:17.735
+Events.
+
+00:27:17.795 --> 00:27:20.945
+And then checkpointing every so
+often so that it doesn't have to
+
+00:27:20.945 --> 00:27:22.475
+roll up all the events every time.
+
+00:27:23.014 --> 00:27:26.254
+And it's kind of a crazy
+way to think about things.
+
+00:27:26.285 --> 00:27:31.445
+Um, but it's actually used in
+production hacking the official
+
+00:27:31.445 --> 00:27:35.764
+package repository for Haskell actually
+uses acid state as its primary.
+
+00:27:37.460 --> 00:27:40.100
+>> you're going to say, ask
+this date was a song by disturbed,
+
+00:27:40.100 --> 00:27:42.830
+you know, cause I've got down with
+the sickness and the other guy.
+
+00:27:43.260 --> 00:27:43.680
+State.
+
+00:27:43.690 --> 00:27:44.010
+So,
+
+00:27:44.035 --> 00:27:44.514
+>> Yeah,
+
+00:27:44.605 --> 00:27:45.145
+it could be.
+
+00:27:45.750 --> 00:27:46.080
+>> I don't know.
+
+00:27:46.440 --> 00:27:47.430
+Anyways, that's cool.
+
+00:27:47.970 --> 00:27:52.260
+I'll have to check out acid state
+and stay away from actual acid
+
+00:27:52.750 --> 00:27:52.959
+>> Yeah.
+
+00:27:52.990 --> 00:27:54.730
+Don't take that as an endorsement.
+
+00:27:54.850 --> 00:28:00.459
+Um, I'm not a huge fan of acid state,
+but it is a mind-bending concept.
+
+00:28:00.459 --> 00:28:01.720
+So check it out for that reason.
+
+00:28:03.260 --> 00:28:06.710
+>> so if you want to have
+your mind bend, go to ass state.
+
+00:28:07.100 --> 00:28:07.370
+Hmm.
+
+00:28:07.490 --> 00:28:08.600
+Now I see why it's named that.
+
+00:28:08.980 --> 00:28:09.580
+>> Exactly.
+
+00:28:09.750 --> 00:28:10.080
+>> right.
+
+00:28:10.620 --> 00:28:10.830
+There.
+
+00:28:10.830 --> 00:28:11.370
+It is.
+
+00:28:11.970 --> 00:28:12.450
+Awesome.
+
+00:28:12.450 --> 00:28:17.040
+Well, uh, yeah, I think that does it, I
+mean, this is a great post by Alexander.
+
+00:28:17.670 --> 00:28:18.330
+Go check it out.
+
+00:28:18.330 --> 00:28:21.030
+There's going to be a
+link in the show notes.
+
+00:28:21.030 --> 00:28:22.740
+So check that out.
+
+00:28:22.830 --> 00:28:27.750
+Uh, and you know, if you find any interest
+in any of these or have experience with
+
+00:28:27.750 --> 00:28:29.940
+these, you'll start writing a book.
+
+00:28:30.660 --> 00:28:31.290
+Well, thank you.
+
+00:28:31.620 --> 00:28:32.430
+Just go on.
+
+00:28:32.430 --> 00:28:35.370
+Leanpub charge 50 bucks for it.
+
+00:28:35.550 --> 00:28:35.670
+You
+
+00:28:35.670 --> 00:28:37.620
+know, you'll make 40 bucks a pop.
+
+00:28:37.680 --> 00:28:38.250
+It'll be good.
+
+00:28:38.945 --> 00:28:39.574
+>> Yeah, I was going to
+
+00:28:39.574 --> 00:28:43.385
+say, it seems like Haskell books
+have a pretty good track record
+
+00:28:43.415 --> 00:28:44.284
+on Leanpub.
+
+00:28:44.705 --> 00:28:49.985
+So we've talked on this show with Marco,
+Sam Pellegrini, author of the simple Ascal
+
+00:28:49.985 --> 00:28:55.445
+handbook, which was recently number one
+on Leanpub and also, uh, Matt Parsons.
+
+00:28:55.955 --> 00:28:58.385
+Uh, and his book I think
+was at number one as well.
+
+00:28:58.385 --> 00:29:01.594
+So it seems like a good way
+to distribute Haskell books.
+
+00:29:03.585 --> 00:29:05.655
+>> go Haskell, go lean pub.
+
+00:29:06.585 --> 00:29:08.835
+I think the Haskell foundation
+may partner with lean
+
+00:29:08.835 --> 00:29:12.225
+pub to help create more content.
+
+00:29:12.790 --> 00:29:14.590
+>> Yeah, that sounds
+like a good idea to me.
+
+00:29:14.955 --> 00:29:15.254
+>> Yeah.
+
+00:29:15.909 --> 00:29:16.090
+>> All right.
+
+00:29:16.090 --> 00:29:16.360
+Gamble.
+
+00:29:16.360 --> 00:29:17.229
+You got anything else?
+
+00:29:17.895 --> 00:29:19.275
+>> Uh, I think
+That's about it for me.
+
+00:29:20.179 --> 00:29:21.229
+>> That's all I got to.
+
+00:29:22.009 --> 00:29:25.879
+Well, listeners, thank you so much for
+listening to the Haskell weekly podcast.
+
+00:29:26.029 --> 00:29:28.050
+I've been your host Taylor Fausak.
+
+00:29:28.159 --> 00:29:30.679
+And with me today, as
+usual was Cameron Gera.
+
+00:29:31.340 --> 00:29:34.850
+If you'd like to find out more
+about us, you can visit our website,
+
+00:29:34.939 --> 00:29:37.019
+which is HaskellWeekly.News.
+
+00:29:37.825 --> 00:29:37.945
+>> Yeah.
+
+00:29:38.115 --> 00:29:42.225
+Yeah, I know you say as usual, but I
+feel like it's been like every other
+
+00:29:42.225 --> 00:29:46.125
+time nowadays, cause you've been doing
+all these cool interviews, but anyways,
+
+00:29:46.125 --> 00:29:51.254
+Haskell weekly is brought to you by it
+pro TV, the e-learning platform for it
+
+00:29:51.254 --> 00:29:53.565
+professionals and also our employer.
+
+00:29:53.775 --> 00:29:56.985
+They would love to extend an offer
+of 30% off the lifetime of your
+
+00:29:56.985 --> 00:30:03.585
+subscription using the promo code Haskell
+weekly 30 at checkout, all one word.
+
+00:30:04.245 --> 00:30:05.145
+I'm pretty sure.
+
+00:30:05.145 --> 00:30:07.545
+All lowercase, if not,
+
+00:30:07.570 --> 00:30:07.870
+>> do.
+
+00:30:09.375 --> 00:30:12.225
+>> did we ever fix that bug anyways?
