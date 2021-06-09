@@ -38,4 +38,5 @@ undefined
 
 ## Call for participation
 
-undefined
+-   [Carp: Add `reductions` (scan) function for Array / StaticArray](https://github.com/carp-lang/Carp/issues/1236)
+-   [unison: Tests that crash should get converted to failures](https://github.com/unisonweb/unison/issues/2089)
