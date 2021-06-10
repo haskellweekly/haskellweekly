@@ -833,5 +833,5 @@ episode48 = Episode.Episode
   <*> Guid.fromText "a8e848db-6382-4a6a-b248-b81bc2123bd6"
   <*> Number.fromNatural 48
   <*> Size.fromNatural 28999680
-  <*> Summary.fromText "There's a lot to like about Haskell, but what is it missing? We explore Alexander Granin's post where he suggests some topics for books that "
+  <*> Summary.fromText "There's a lot to like about Haskell, but what is it missing? We explore Alexander Granin's post where he suggests some topics for books that could benefit the Haskell community."
   <*> Title.fromText "The Voids of Haskell"
