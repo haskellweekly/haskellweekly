@@ -11,7 +11,7 @@ This is a weekly summary of what's going on in its community.
 -->
 
 - [Haskell by Example](https://www.youtube.com/watch?v=OyEkIXFmuNQ&list=PLp2qifo30hMuNgmUUhgl82DTK2JTUqK6M) by Michael Oswald
-  > This is a ongoing video series about creating a Haskell application which processes binary satellite data and displays it in a graphical user interface.
+  > This is a ongoing video series for beginners/intermediates about a possible way to develop a Haskell application which processes binary satellite data and displays the results in a graphical user interface. 
 
 
 ## Jobs
