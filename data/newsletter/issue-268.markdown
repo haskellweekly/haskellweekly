@@ -10,7 +10,9 @@ This is a weekly summary of what's going on in its community.
   > Take the Developer Nation survey and share your views about the most important coding skills, tools, and platforms for 2022. You will get a virtual goody bag with free resources, plus a chance to win a new smartphone, a laptop, licenses, Amazon vouchers and more.
 -->
 
-undefined
+- [Haskell by Example](https://www.youtube.com/watch?v=OyEkIXFmuNQ&list=PLp2qifo30hMuNgmUUhgl82DTK2JTUqK6M) by Michael Oswald
+  > This is a ongoing video series for beginners/intermediates about a possible way to develop a Haskell application which processes binary satellite data and displays the results in a graphical user interface. 
+
 
 ## Jobs
 
