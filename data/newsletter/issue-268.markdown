@@ -77,4 +77,5 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 
 ## Call for participation
 
-undefined
+-   [ema: Use secure websockets when on https](https://github.com/srid/ema/issues/46)
+-   [language-haskell: Qualified infix type operator in export list causes issues](https://github.com/JustusAdam/language-haskell/issues/191)
