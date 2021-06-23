@@ -33,4 +33,5 @@ undefined
 
 ## Call for participation
 
-undefined
+-   [dear-imgui.hs: Bracket for Push/Pop functions](https://github.com/haskell-game/dear-imgui.hs/issues/63)
+-   [servant-util: Add swagger pattern for filtering param](https://github.com/serokell/servant-util/issues/30)
