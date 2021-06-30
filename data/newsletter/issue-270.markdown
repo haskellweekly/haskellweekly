@@ -29,4 +29,4 @@ undefined
 
 ## Call for participation
 
-undefined
+-   [HMock: Simpler API for TH generators](https://github.com/cdsmith/HMock/issues/6)
