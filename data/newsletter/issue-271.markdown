@@ -57,4 +57,5 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 
 ## Call for participation
 
-undefined
+-   [owenbot-hs: Support multiple quote responses](https://github.com/yellowtides/owenbot-hs/issues/40)
+-   [strong-path: Add stripProperPrefix, filename, and dirname operations](https://github.com/wasp-lang/strong-path/issues/24)
