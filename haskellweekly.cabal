@@ -1,7 +1,7 @@
 cabal-version: 2.0
 
 name: haskellweekly
-version: 0.2021.7.1
+version: 0.2021.7.8
 
 build-type: Simple
 category: Web
@@ -30,16 +30,16 @@ source-repository head
 library
   autogen-modules: Paths_haskellweekly
   build-depends:
-    base ^>= 4.14.0
+    base ^>= 4.14.0 || ^>= 4.15.0
     , bytestring ^>= 0.10.10
     , case-insensitive ^>= 1.2.1
     , cmark ^>= 0.6
     , containers ^>= 0.6.2
-    , cryptonite ^>= 0.27
+    , cryptonite ^>= 0.27 || ^>= 0.29
     , filepath ^>= 1.4.2
     , http-types ^>= 0.12.3
     , lucid ^>= 2.9.12
-    , memory ^>= 0.15.0
+    , memory ^>= 0.15.0 || ^>= 0.16.0
     , network-uri ^>= 2.6.3
     , text ^>= 1.2.3
     , time ^>= 1.9.3
