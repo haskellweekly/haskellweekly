@@ -33,7 +33,7 @@ undefined
 
 ## Show & tell
 
-undefined
+- Gitpod [has shipped a template](https://twitter.com/gitpod/status/1412349665266192385), configured for Haskell that gives you pre-built, ephemeral development environments in the cloud.
 
 ## Call for participation
 
