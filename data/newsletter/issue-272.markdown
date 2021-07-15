@@ -37,4 +37,4 @@ undefined
 
 ## Call for participation
 
-undefined
+-   [trivialini: Allow spaces in keys](https://github.com/memowe/trivialini/issues/5)
