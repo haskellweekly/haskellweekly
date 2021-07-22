@@ -57,4 +57,4 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 
 ## Call for participation
 
-undefined
+-   [emanote: Better footnotes UX](https://github.com/srid/emanote/issues/110)
