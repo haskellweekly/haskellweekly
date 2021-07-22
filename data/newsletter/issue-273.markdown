@@ -7,6 +7,9 @@ This is a weekly summary of what's going on in its community.
 - [What skills will give you an edge in 2022?](https://www.developereconomics.net/?utm_medium=newsletter&utm_source=haskell&utm_campaign=haskell_newsletter) (ad)
   > Take the Developer Nation survey and share your views about the most important coding skills, tools, and platforms for 2022. You will get a virtual goody bag with free resources, plus a chance to win a new smartphone, a laptop, licenses, Amazon vouchers and more.
 
+- [Kalvad - Dev + Ops Agency](https://kalvad.com/?source=hs-news) (ad)
+  > Kalvad is a Dubai based tech agency. We talk Python, Elixir and Haskell. Tell us about your scaling and monitoring problems.
+
 - [Cheap interpreter, part 5: mea culpa](https://cuddly-octo-palm-tree.com/posts/2021-07-18-cwafi-5-mea-culpa/) by Gary Verhaegen
   > While trying to write a faster version, I inadvertently discovered that all of my Haskell benchmarking was completely broken, so that will be the topic for this week.
 
