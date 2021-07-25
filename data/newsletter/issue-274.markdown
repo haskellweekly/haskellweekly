@@ -4,7 +4,8 @@ This is a weekly summary of what's going on in its community.
 
 ## Featured
 
-undefined
+- [Static analysis using Haskell and Datalog](https://luctielen.com/posts/static_analysis_using_haskell_and_datalog/) by Luc Tielen
+  > In today's post, I will give a step-by-step tutorial how you can write sophisticated analyses in Soufflé Datalog controlled by Haskell using the souffle-haskell library.
 
 ## Jobs
 
