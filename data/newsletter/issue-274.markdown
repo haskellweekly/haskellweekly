@@ -28,4 +28,5 @@ undefined
 
 ## Call for participation
 
-undefined
+-   [LambdaHack: Display enemy FOV on the map](https://github.com/LambdaHack/LambdaHack/issues/259)
+-   [trifunctors: Extract Nifunctor and Trifunctor into separate modules](https://github.com/lemastero/trifunctors/issues/5)
