@@ -66,6 +66,8 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 - [Functional Design and Architecture: Second Edition](https://discourse.haskell.org/t/functional-design-and-architecture-second-edition-manning-publications/2798?u=taylorfausak) by Alexander Granin
   > I'm thrilled to announce the next era of my book Functional Design and Architecture! It's getting the second edition at Manning Publications, and we've already launched the MEAP program.
 
+- [ghcup version 0.1.16.1](https://np.reddit.com/r/haskell/comments/ottx21/ann_ghcup01161_released/) by Julian Ospald
+
 - [postgresql-resilient](https://github.com/gvolpe/postgresql-resilient/tree/f84f1d6f374b15f0265819b447f3287db33ede90) by Gabriel Volpe
   > Automatic reconnection support for PostgreSQL, built on top of postgresql-simple.
 
