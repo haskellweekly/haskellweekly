@@ -49,7 +49,7 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 - [Convert Cabal-based projects to Bazel automatically](https://www.tweag.io/blog/2021-07-28-gazelle-cabal/) by Facundo Domínguez & Andreas Herrmann
   > If you have a large Haskell code base, organized in multiple Cabal packages, with many system dependencies, and which takes very long to build, then this post is for you. We describe herein gazelle_cabal, a new tool that generates Haskell rules to build with the Bazel build tool.
 
-- [`forall`s in Data Types](https://brandonchinn178.github.io/blog/2021/07/23/foralls-in-data-types.html) by X
+- [`forall`s in Data Types](https://brandonchinn178.github.io/blog/2021/07/23/foralls-in-data-types.html) by Brandon Chinn
   > This post contains a quick guide to using `forall` in a data type.
 
 - [haskell.social](https://www.haskell.social) by Luke Hoersten
