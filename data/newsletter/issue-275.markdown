@@ -67,4 +67,5 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 
 ## Call for participation
 
-undefined
+-   [elab: Use `fold`](https://github.com/Trebor-Huang/elab/issues/1)
+-   [nitta: Show help message on blank run](https://github.com/ryukzak/nitta/issues/175)
