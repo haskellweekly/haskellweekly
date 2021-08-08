@@ -78,6 +78,7 @@ episodes = do
     , episode46
     , episode47
     , episode48
+    , episode49
     ]
   checkGuids validEpisodes Set.empty
   checkNumbers validEpisodes 1
@@ -835,3 +836,17 @@ episode48 = Episode.Episode
   <*> Size.fromNatural 28999680
   <*> Summary.fromText "There's a lot to like about Haskell, but what is it missing? We explore Alexander Granin's post where he suggests some topics for books that could benefit the Haskell community."
   <*> Title.fromText "The Voids of Haskell"
+
+episode49 :: Either String Episode.Episode
+episode49 = Episode.Episode
+  <$> Articles.fromList
+    [ "https://taylor.fausak.me/2021/07/13/witch/"
+    , "https://hackage.haskell.org/package/say-my-name-0.1.0.0"
+    ]
+  <*> Date.fromGregorian 2021 8 9
+  <*> Duration.fromTimestamp 33 37
+  <*> Guid.fromText "b2879572-ac84-454c-9f31-feb518e8145b"
+  <*> Number.fromNatural 49
+  <*> Size.fromNatural 48402853
+  <*> Summary.fromText "Back from summer break, Cameron Gera discusses the Witch library with it's author, Taylor Fausak. Learn about the many motivations behind this simple library for converting values between various types."
+  <*> Title.fromText "Cast Values with Witch"

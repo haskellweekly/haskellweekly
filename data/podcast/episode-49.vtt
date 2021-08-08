@@ -1,0 +1,2174 @@
+WEBVTT
+
+00:00:07.893 --> 00:00:10.503
+>> Hello and welcome to
+the Haskell Weekly podcast.
+
+00:00:10.623 --> 00:00:13.673
+This is a show about Haskell, a
+purely functional programming.
+
+00:00:14.613 --> 00:00:16.253
+I'm your host Taylor Fausak.
+
+00:00:16.413 --> 00:00:19.473
+I'm the Director of Software
+Engineering at ACI Learning.
+
+00:00:20.073 --> 00:00:23.703
+With me today is Cameron Gera,
+one of the engineers on my team.
+
+00:00:23.853 --> 00:00:25.203
+Thanks for joining me today, Cam.
+
+00:00:26.063 --> 00:00:27.083
+>> Thanks for having me, Taylor.
+
+00:00:27.083 --> 00:00:29.933
+I know it's been a long time
+since we've done a podcast.
+
+00:00:29.933 --> 00:00:34.283
+I know our faithful listeners are missing
+it, so I'm excited to be back today.
+
+00:00:35.238 --> 00:00:39.778
+You know, life gets busy sometimes in the
+summer for us, which seems to be the case.
+
+00:00:39.778 --> 00:00:43.878
+But today we're here to talk about
+something that's near and dear to
+
+00:00:43.878 --> 00:00:48.203
+us because it's something we've kind
+of created, more so Taylor than I.
+
+00:00:48.953 --> 00:00:51.183
+But something we also use on the regular.
+
+00:00:51.583 --> 00:00:56.833
+So about four weeks ago, Taylor had
+posted on Reddit about his blog post
+
+00:00:56.853 --> 00:00:58.883
+for this new library he created.
+
+00:00:58.883 --> 00:01:01.143
+So that is going to be our focus today.
+
+00:01:01.973 --> 00:01:05.193
+The library is called Witch, so if
+you're not familiar with it, we'll
+
+00:01:05.193 --> 00:01:08.703
+spend some time talking about that
+as well as just kind of talking
+
+00:01:08.703 --> 00:01:09.633
+about some of the motivations.
+
+00:01:10.758 --> 00:01:13.428
+How it solves some of our problems
+that we are facing on a day to day.
+
+00:01:13.758 --> 00:01:14.958
+So I'm really looking forward to this.
+
+00:01:14.958 --> 00:01:20.418
+So Taylor, you know, thanks for writing
+this library and writing this post and
+
+00:01:21.058 --> 00:01:22.428
+giving us an opportunity to talk about it.
+
+00:01:22.928 --> 00:01:23.498
+>> For sure.
+
+00:01:23.498 --> 00:01:24.278
+It's my pleasure.
+
+00:01:24.578 --> 00:01:28.598
+As you mentioned, I finally got around
+to announcing this about four weeks ago,
+
+00:01:28.598 --> 00:01:33.068
+but we've actually been using this at ACI
+Learning for quite a bit longer than that.
+
+00:01:33.128 --> 00:01:35.948
+I want to say on the order of
+several months, but I don't remember
+
+00:01:35.948 --> 00:01:37.488
+exactly when I introduced it.
+
+00:01:38.068 --> 00:01:47.133
+But yeah, the intent of Witch was to
+make it easier to convert values between
+
+00:01:47.133 --> 00:01:50.943
+various types, which is something we
+end up doing a lot in our code base.
+
+00:01:50.943 --> 00:01:54.093
+And I feel most Haskell
+programmers probably do the same.
+
+00:01:54.693 --> 00:01:58.653
+And when I say convert between types,
+that means really basic conversions, like
+
+00:01:58.653 --> 00:02:04.973
+going from an Int16 into an Int, which
+is a totally safe conversion that you
+
+00:02:04.973 --> 00:02:06.943
+can do with something like fromIntegral.
+
+00:02:07.563 --> 00:02:11.933
+And then sometimes more complicated
+conversions, like going from an
+
+00:02:11.933 --> 00:02:16.563
+Int64 down into an Int16, which
+is something that can fail.
+
+00:02:17.033 --> 00:02:21.443
+And fromIntegral will type check
+for that, but it's actually unsafe.
+
+00:02:21.503 --> 00:02:26.153
+So this kind of a Swiss army knife
+function is the type of thing
+
+00:02:26.153 --> 00:02:28.333
+that Witch is meant to replace.
+
+00:02:28.923 --> 00:02:31.763
+And yeah, like I said, we've
+been using it in our code base.
+
+00:02:31.763 --> 00:02:35.193
+So Cam you've used it more kind
+of as an end-user of the library.
+
+00:02:35.193 --> 00:02:37.233
+What have been your thoughts on it so far?
+
+00:02:38.743 --> 00:02:42.843
+>> Yeah, I think it's comes a
+lot of benefits, because you know,
+
+00:02:42.933 --> 00:02:46.143
+fromIntegral, like you said, like
+there's type checking that happens,
+
+00:02:46.143 --> 00:02:48.453
+but it's actually unsafe underneath.
+
+00:02:48.453 --> 00:02:53.793
+And it also doesn't necessarily
+depict and tell what kind of
+
+00:02:53.793 --> 00:02:54.823
+transformation you're making.
+
+00:02:54.823 --> 00:02:59.253
+You know, I think this, obviously
+you can always use type applications
+
+00:02:59.253 --> 00:03:01.383
+with this function to say, Hey,
+this is what I want to go to.
+
+00:03:01.683 --> 00:03:07.293
+But you know, this library Witch,
+it allows us to kind of explicitly
+
+00:03:07.293 --> 00:03:08.563
+say what we're trying to go into.
+
+00:03:08.973 --> 00:03:14.103
+And using type applications, it really,
+you know, makes it easier to read the
+
+00:03:14.103 --> 00:03:18.933
+code and kind of see how to do these,
+you know, transformations of, you know,
+
+00:03:18.993 --> 00:03:22.923
+in our test, in our data, in our code,
+all of this stuff that, you know, we're,
+
+00:03:22.983 --> 00:03:26.943
+we have JSON instances, we have, you
+know, database conversion functions
+
+00:03:26.943 --> 00:03:34.553
+and all those things require, you
+know, um, primitive types, excuse me.
+
+00:03:34.853 --> 00:03:39.063
+That, you know, you can generally
+transfer, you know, boil it down to.
+
+00:03:39.063 --> 00:03:42.743
+And so, you know, something like
+this allows you to convert from, you
+
+00:03:42.743 --> 00:03:47.213
+know, new type wrappers and between
+primitive types and all these things.
+
+00:03:47.213 --> 00:03:52.818
+And it also gives you another kind of,
+you know, way of maybe even trying some
+
+00:03:52.818 --> 00:03:57.278
+unsafe things and having a failure case,
+it'd be able to modify and handle and,
+
+00:03:57.678 --> 00:04:02.148
+you know, report on those kinds of edge
+cases that you may not see if you're
+
+00:04:02.148 --> 00:04:09.278
+using fromIntegral or, you know, toString
+or show or anything, you know, like all
+
+00:04:09.278 --> 00:04:11.558
+those things have their different caveats.
+
+00:04:11.648 --> 00:04:17.388
+And Witch kind of, you know, has been,
+has allowed me to not be so, kind
+
+00:04:17.388 --> 00:04:21.228
+of hesitant on what code's doing,
+especially when I'm reviewing code.
+
+00:04:21.558 --> 00:04:24.138
+Because, you know, nowadays
+I'm doing a lot more review
+
+00:04:24.138 --> 00:04:26.178
+than I am actually writing.
+
+00:04:26.508 --> 00:04:29.988
+And so it allows me to say, oh
+yeah, we're trying to go from, you
+
+00:04:29.988 --> 00:04:34.338
+know, a string into a course name
+or something along those lines.
+
+00:04:34.638 --> 00:04:39.348
+So aside for us that we use to
+depict meaning through the code base.
+
+00:04:39.698 --> 00:04:42.378
+You know, I think that stuff
+has been really helpful.
+
+00:04:43.053 --> 00:04:48.438
+And it's not as magical as like
+these catch all functions have been.
+
+00:04:48.698 --> 00:04:49.048
+>> Yeah.
+
+00:04:49.658 --> 00:04:52.328
+Yeah, you said a lot there that I want
+to follow up on, but first I actually
+
+00:04:52.328 --> 00:04:58.188
+want to send another question to you,
+which is: So the name, Witch, w-i-t-c-h,
+
+00:04:58.238 --> 00:05:00.198
+like the female version of a wizard.
+
+00:05:00.673 --> 00:05:03.073
+Do you know why the
+library is called Witch?
+
+00:05:04.123 --> 00:05:05.143
+>> Because it's magical.
+
+00:05:07.623 --> 00:05:10.773
+>> That was certainly some of
+the inspiration, but actually in
+
+00:05:10.773 --> 00:05:15.063
+an earlier version of the library,
+the core kind of workhorse function
+
+00:05:15.063 --> 00:05:16.743
+that it provided was called cast.
+
+00:05:16.773 --> 00:05:20.133
+So I thought, you know what, what's
+something that casts between stuff.
+
+00:05:20.163 --> 00:05:21.123
+Oh, a witch can do that.
+
+00:05:21.123 --> 00:05:25.023
+So that's why I went with the name,
+but unfortunately these days, the cast
+
+00:05:25.023 --> 00:05:26.823
+function isn't in the library anymore.
+
+00:05:26.823 --> 00:05:29.083
+So the name just kind of
+seems like a non sequitor.
+
+00:05:30.273 --> 00:05:31.003
+But yeah.
+
+00:05:31.023 --> 00:05:32.373
+>> We refined it, we iterated.
+
+00:05:32.373 --> 00:05:33.243
+Yeah, yeah.
+
+00:05:33.243 --> 00:05:36.543
+I forgot about, that we had it
+named cast, cause now I can think
+
+00:05:36.543 --> 00:05:39.063
+of this from and into, you know?
+
+00:05:39.263 --> 00:05:39.623
+>> Yeah.
+
+00:05:39.773 --> 00:05:43.883
+So, yeah, that was the first thing that I
+wanted to follow up on was, so one of the,
+
+00:05:43.913 --> 00:05:49.203
+kind of, not really a problem, but a rough
+edges with a function like fromIntegral
+
+00:05:49.428 --> 00:05:53.478
+is that there are two type variables
+that you need to pin down when you use
+
+00:05:53.478 --> 00:05:56.688
+it, the source type and the target type.
+
+00:05:56.778 --> 00:05:58.338
+That's not what they're called
+in the function signature.
+
+00:05:58.338 --> 00:06:02.448
+I think they're just a and b, but you
+know, which type am I coming from?
+
+00:06:02.448 --> 00:06:04.328
+And which type am I going into?
+
+00:06:04.853 --> 00:06:09.713
+And usually from context, one or the
+other, and sometimes even both of
+
+00:06:09.713 --> 00:06:12.173
+those, are already pinned down for you.
+
+00:06:12.293 --> 00:06:15.173
+So you know that you're coming from an
+Int, but you're going into something
+
+00:06:15.173 --> 00:06:18.383
+polymorphic, or the other way around
+where you're starting with a polymorphic
+
+00:06:18.383 --> 00:06:19.863
+value and turning it into an Int.
+
+00:06:20.743 --> 00:06:24.593
+And that's why the Witch
+library exposes exactly those
+
+00:06:24.593 --> 00:06:26.843
+two functions, from and into.
+
+00:06:27.143 --> 00:06:31.473
+And they're exactly the same,
+except that their type variables
+
+00:06:31.473 --> 00:06:32.793
+are in opposite orders.
+
+00:06:33.453 --> 00:06:37.083
+And that's so that if you use
+type applications, you can usually
+
+00:06:37.083 --> 00:06:39.993
+get away with only mentioning
+one of the type variables.
+
+00:06:40.023 --> 00:06:45.213
+So you can say from @Int, which means
+I'm coming from an Int and I'm producing
+
+00:06:45.303 --> 00:06:50.793
+some polymorphic value, or you can
+say into @Int, which says I'm coming
+
+00:06:50.793 --> 00:06:55.153
+from some polymorphic value, but I'm
+ultimately gonna get an Int out of it.
+
+00:06:56.073 --> 00:06:59.493
+And that was just like for the
+ergonomics of our day to day
+
+00:06:59.493 --> 00:07:02.223
+usage, that was the easiest thing.
+
+00:07:02.253 --> 00:07:05.943
+And I'll say most of the
+time for us, we use into.
+
+00:07:06.123 --> 00:07:07.713
+Far more often than we use from.
+
+00:07:08.363 --> 00:07:08.693
+>> Yeah.
+
+00:07:08.753 --> 00:07:12.383
+We use from more so in our tests
+because it's a little easier to
+
+00:07:12.383 --> 00:07:16.583
+be like, all right, we know that
+we're using overloaded strings here.
+
+00:07:16.583 --> 00:07:20.933
+So this is going to be text and we
+don't want it into, you know, some sort
+
+00:07:20.933 --> 00:07:24.488
+of test value and that way it's just
+done, we don't have to worry about it.
+
+00:07:25.898 --> 00:07:30.648
+But yeah, most of the time we want
+to end up using into, so we can say
+
+00:07:30.948 --> 00:07:32.148
+this is where we want to end up.
+
+00:07:32.508 --> 00:07:35.568
+And that way, you know, as it's going
+through that function, this is the
+
+00:07:35.568 --> 00:07:37.008
+value that's going to be produced.
+
+00:07:37.298 --> 00:07:37.478
+>> Yep.
+
+00:07:38.018 --> 00:07:41.978
+And as I mentioned, a previous version of
+the library had a function called cast,
+
+00:07:42.028 --> 00:07:46.928
+which, um, it had all three functions
+at that time cast, from, and into.
+
+00:07:47.378 --> 00:07:51.708
+And the difference was that cast did
+not require a type application at all.
+
+00:07:51.988 --> 00:07:55.653
+But from and into did .And I've
+actually removed that restriction.
+
+00:07:55.653 --> 00:07:58.263
+So that's why cast went away,
+cause it's the same as from.
+
+00:07:59.263 --> 00:08:03.573
+But the reason I decided to move away
+from requiring type applications versus
+
+00:08:03.573 --> 00:08:07.803
+just strongly recommending them is that
+I felt like the library was trying to
+
+00:08:07.803 --> 00:08:12.723
+do too many things at once and I wanted
+to keep it really focused and say, no,
+
+00:08:12.723 --> 00:08:15.093
+it's just going do these conversions.
+
+00:08:15.123 --> 00:08:19.293
+And if you, as a consumer of the library,
+decide that you want to require a
+
+00:08:19.293 --> 00:08:21.723
+type applications, then that's on you.
+
+00:08:21.783 --> 00:08:25.823
+You know, if you can configure
+HLint to do that, good luck.
+
+00:08:26.613 --> 00:08:29.133
+If you want to write your own little
+wrapper library that requires them
+
+00:08:29.133 --> 00:08:30.753
+yourself, you can do that as well.
+
+00:08:31.133 --> 00:08:33.513
+So that was part of my motivation.
+
+00:08:33.513 --> 00:08:36.093
+And the other part was that
+requiring type applications is
+
+00:08:36.093 --> 00:08:37.863
+just kind of like a gross hack.
+
+00:08:37.893 --> 00:08:40.733
+There's nothing that you can
+decorate a function to easily say
+
+00:08:41.178 --> 00:08:42.508
+this needs a type application.
+
+00:08:43.008 --> 00:08:44.208
+There is another library.
+
+00:08:44.718 --> 00:08:48.468
+I forget the name of it right now, but
+there's another library that provides
+
+00:08:48.828 --> 00:08:50.578
+kind of a quick way to do that.
+
+00:08:50.758 --> 00:08:53.208
+So if you're using Witch
+and you want to require type
+
+00:08:53.208 --> 00:08:55.528
+applications, you can do that.
+
+00:08:55.528 --> 00:08:58.698
+But we just catch it and code
+review normally of, Hey, this,
+
+00:08:59.028 --> 00:09:00.348
+what type is this converting into?
+
+00:09:00.348 --> 00:09:01.998
+Can you throw a type application on there?
+
+00:09:03.648 --> 00:09:04.038
+>> Yeah.
+
+00:09:04.098 --> 00:09:08.298
+And I wanted to touch back on
+some of those catch-all functions,
+
+00:09:08.298 --> 00:09:10.338
+like fromIntegral and things.
+
+00:09:10.338 --> 00:09:13.488
+You know, switching over to this
+library allowed us to get rid of
+
+00:09:13.488 --> 00:09:14.718
+a lot of little helper functions.
+
+00:09:14.718 --> 00:09:17.208
+Cause through code review,
+we'd see fromIntegral, we're
+
+00:09:17.218 --> 00:09:18.888
+like, ah, what's going on here?
+
+00:09:18.888 --> 00:09:19.098
+You know?
+
+00:09:19.098 --> 00:09:22.128
+And then we'd be like, can you make a
+separate function to kind of explicitly
+
+00:09:22.128 --> 00:09:26.658
+state, you know, going from an Int to an
+Int64 or, you know, anything like that.
+
+00:09:26.658 --> 00:09:29.118
+We would have just like a
+helper function that did that.
+
+00:09:29.388 --> 00:09:32.028
+And so we started to see that,
+you know, there's a lot of these
+
+00:09:32.028 --> 00:09:33.188
+helper functions popping up.
+
+00:09:33.558 --> 00:09:37.563
+And when you review your code, you're
+like, there's gotta be something here.
+
+00:09:37.593 --> 00:09:39.243
+Cause like it's a lot of similarities.
+
+00:09:39.243 --> 00:09:40.173
+There's a lot going on.
+
+00:09:40.173 --> 00:09:43.923
+So like what can we do to simplify that?
+
+00:09:43.923 --> 00:09:47.043
+Because all those little helper
+functions, they were just, you know,
+
+00:09:47.463 --> 00:09:50.343
+adding a little bit more to compile,
+which obviously it's a library, so we're
+
+00:09:50.553 --> 00:09:56.853
+still more or less compiling it, but
+it's, you know, much better, I feel like.
+
+00:09:57.143 --> 00:09:57.503
+>> Yeah.
+
+00:09:57.533 --> 00:10:00.893
+And it's not so much the compilation
+time that was painful there.
+
+00:10:00.893 --> 00:10:01.913
+I'd say it was more just.
+
+00:10:02.973 --> 00:10:05.373
+Those functions aren't
+interesting to write.
+
+00:10:05.523 --> 00:10:09.423
+And when you see one, you know exactly
+what the implementation is or should
+
+00:10:09.423 --> 00:10:11.223
+be, but you still have to write it.
+
+00:10:11.763 --> 00:10:17.173
+And so we would have a function
+called like, you know, intToInt16
+
+00:10:17.193 --> 00:10:21.093
+or integralToNatural or
+whatever the conversion was.
+
+00:10:21.603 --> 00:10:25.863
+And then we'd have the implementation,
+which for these primitive numeric
+
+00:10:25.863 --> 00:10:27.273
+types was often fromIntegral.
+
+00:10:27.363 --> 00:10:34.373
+So my goal with Witch was to have one
+function, which is from or into, they're
+
+00:10:34.493 --> 00:10:38.793
+the same thing, that we could use in
+all of those circumstances, but then
+
+00:10:38.973 --> 00:10:42.333
+have those type applications on there to
+say exactly what conversion we wanted.
+
+00:10:42.633 --> 00:10:45.303
+And then we can just delete all of
+those helper functions along the way.
+
+00:10:45.483 --> 00:10:47.793
+And we're not completely done
+with that transformation.
+
+00:10:47.793 --> 00:10:50.403
+It's still ongoing, but it's
+been very promising so far.
+
+00:10:51.798 --> 00:10:52.218
+>> Yeah.
+
+00:10:52.218 --> 00:10:57.648
+And it's just been like for transforming
+types, from primitive to our new type
+
+00:10:57.648 --> 00:10:59.898
+wrappers, it's been super helpful as well.
+
+00:11:00.258 --> 00:11:04.118
+Uh, you know, because we don't
+have to worry so much about, well,
+
+00:11:04.118 --> 00:11:05.268
+what does this actually mean?
+
+00:11:05.268 --> 00:11:06.198
+What's going on here?
+
+00:11:06.198 --> 00:11:11.208
+Like, we don't have to have a toCourseName
+function or anything like that.
+
+00:11:11.208 --> 00:11:14.538
+Like it's just like into @CourseName
+and yeah, you're good to go.
+
+00:11:15.843 --> 00:11:20.313
+>> Yeah, we've been talking a lot
+about primitive values, but one of the
+
+00:11:20.313 --> 00:11:24.093
+motivating factors for this was, we use
+new types all over the place in our code
+
+00:11:24.093 --> 00:11:28.443
+base to keep things distinct from, you
+know, when we pull them from the database
+
+00:11:28.443 --> 00:11:30.693
+to when we hand them off via our API.
+
+00:11:30.693 --> 00:11:33.363
+Or the other way around, when we
+receive it from the API, until we
+
+00:11:33.363 --> 00:11:36.063
+put it in the database, it's the
+same type all the way through.
+
+00:11:36.093 --> 00:11:38.613
+So as you said, course,
+name is a good example.
+
+00:11:39.003 --> 00:11:42.723
+We have many things in our
+system that can be named.
+
+00:11:42.873 --> 00:11:46.368
+And we want to make sure that we
+don't accidentally assign a course
+
+00:11:46.368 --> 00:11:48.348
+name to an episode, for example.
+
+00:11:48.618 --> 00:11:50.178
+So we have different new
+types for those things.
+
+00:11:50.718 --> 00:11:54.678
+And every time we made one of these new
+types in the past, we would have to write
+
+00:11:54.678 --> 00:11:58.048
+all of these conversion functions like
+stringToCourseName, textToCourseName,
+
+00:11:58.098 --> 00:12:01.908
+you know, all the various other, I mean,
+maybe those are the only ones there, but
+
+00:12:01.998 --> 00:12:03.468
+for integral types, there can be a lot.
+
+00:12:04.953 --> 00:12:08.283
+And when you write those functions,
+you have to decide, is this a
+
+00:12:08.313 --> 00:12:10.593
+total conversion or can it fail?
+
+00:12:10.803 --> 00:12:16.263
+So for instance, with course name, we want
+course names to have something in them.
+
+00:12:16.293 --> 00:12:19.013
+So they need to be non empty and
+they have to contain at least
+
+00:12:19.013 --> 00:12:22.203
+one non blank space character.
+
+00:12:22.263 --> 00:12:22.623
+Right?
+
+00:12:24.033 --> 00:12:28.113
+So that's another thing that
+Witch provides is a like
+
+00:12:28.143 --> 00:12:30.213
+partial conversion function.
+
+00:12:30.303 --> 00:12:33.343
+And we call it, tryFrom or tryInto.
+
+00:12:33.753 --> 00:12:37.893
+So that's  something that says,
+the type you're coming from has
+
+00:12:37.893 --> 00:12:42.183
+values that can't be expressed
+into the type that you're going to.
+
+00:12:42.513 --> 00:12:44.673
+So you need to handle that somehow.
+
+00:12:45.153 --> 00:12:50.793
+And we can handle that in our code
+base with a regular exception,
+
+00:12:50.823 --> 00:12:52.443
+just throw like something in IO.
+
+00:12:52.873 --> 00:12:57.043
+Or an impure exception, if it's something
+that we feel won't ever happen, but you
+
+00:12:57.043 --> 00:12:58.513
+know, we have to appease the compiler.
+
+00:12:58.873 --> 00:13:02.683
+Or if it's a constant, we can lift it
+up to compile time and use a Template
+
+00:13:02.683 --> 00:13:04.203
+Haskell splice to drop it in there.
+
+00:13:04.413 --> 00:13:05.743
+So, yeah.
+
+00:13:06.263 --> 00:13:10.063
+Just to say, like, that was another
+motivation here is that some
+
+00:13:10.063 --> 00:13:14.803
+conversions work all the time and some
+conversions only work some of the time.
+
+00:13:15.163 --> 00:13:17.173
+And I really wanted to
+capture that distinction with
+
+00:13:17.203 --> 00:13:19.123
+two different type classes.
+
+00:13:20.553 --> 00:13:20.823
+>> Yeah.
+
+00:13:20.823 --> 00:13:27.743
+And I think that really has allowed us
+to, not have to worry so much when we're
+
+00:13:27.803 --> 00:13:32.553
+doing a conversion, because we're like, oh
+yeah, let's try to go from Int64 to Int.
+
+00:13:32.963 --> 00:13:35.493
+And we're like, wait, there's not
+an instance for that in Witch.
+
+00:13:35.633 --> 00:13:36.983
+Like what's going on?
+
+00:13:37.293 --> 00:13:41.213
+It makes you think, oh, well
+this is an unsafe thing let's
+
+00:13:41.213 --> 00:13:43.343
+check in, tryFrom, right?
+
+00:13:43.403 --> 00:13:45.113
+Is that what the type class is?
+
+00:13:45.913 --> 00:13:46.123
+Right.
+
+00:13:46.553 --> 00:13:51.633
+So, you know, that gives us the ability
+to see what that, if that works.
+
+00:13:51.663 --> 00:13:54.903
+But if not, then we're not, you
+know, up a creek without a paddle.
+
+00:13:56.513 --> 00:14:00.743
+>> Yeah, and especially as we're
+trying to onboard some new junior
+
+00:14:00.743 --> 00:14:06.573
+developers onto our code base, We
+want to push people toward using typed
+
+00:14:06.573 --> 00:14:10.353
+holes for development and say, if you
+don't know what goes here, just put an
+
+00:14:10.353 --> 00:14:14.253
+underscore there, and the compiler will
+tell you what things can fit in there.
+
+00:14:14.703 --> 00:14:19.683
+And unfortunately, using Int64 to
+Int, as an example, the compiler
+
+00:14:19.683 --> 00:14:21.603
+will happily suggest fromIntegral.
+
+00:14:21.933 --> 00:14:25.503
+And won't give you any indication
+that that is a potentially
+
+00:14:25.503 --> 00:14:27.583
+problematic, conversion.
+
+00:14:28.983 --> 00:14:34.053
+But now in that suggestion list two, or
+I think only one thing will pop up from
+
+00:14:34.353 --> 00:14:41.073
+Witch, and it will say unsafeTryFrom,
+which suggests to whoever's reading that
+
+00:14:41.073 --> 00:14:46.173
+list of, you know, typed hole suggestions
+that this conversion could fail.
+
+00:14:46.203 --> 00:14:47.823
+And so you may need to
+handle that somehow.
+
+00:14:49.343 --> 00:14:52.423
+>> Right, it gives a little
+bit of guardrails around, you
+
+00:14:53.063 --> 00:14:54.183
+know, new engineers learning.
+
+00:14:54.603 --> 00:14:58.503
+So, or even, you know, they
+could be long-time engineers,
+
+00:14:58.503 --> 00:14:59.823
+but not familiar with Haskell.
+
+00:15:00.183 --> 00:15:03.273
+It could be another way to, you
+know, maybe, maybe introduce
+
+00:15:03.273 --> 00:15:06.553
+Haskell into your day to day work
+if you're not doing that day to day.
+
+00:15:07.133 --> 00:15:10.713
+Or you're, you know, trying to do some
+side project with a friend, you know,
+
+00:15:10.713 --> 00:15:14.403
+say, Hey, like let's, let's try Witch,
+and that way, you know, kind of, you
+
+00:15:14.403 --> 00:15:18.253
+can see some conversions that are safe
+and not going to create any issues.
+
+00:15:18.583 --> 00:15:23.078
+You know, I think that will provide
+a lot of stability for them.
+
+00:15:23.788 --> 00:15:26.388
+As they get onboarded
+and ramped up to speed.
+
+00:15:26.868 --> 00:15:29.728
+And, you know, I think there's a
+lot of good things in Witch like
+
+00:15:29.728 --> 00:15:30.748
+we've already kind of touched on.
+
+00:15:31.218 --> 00:15:35.298
+Another one thing I did want to touch on
+real quick before we just flew past it,
+
+00:15:35.298 --> 00:15:40.128
+was the fact that there's just like really
+great documentation on the Witch library.
+
+00:15:40.158 --> 00:15:44.418
+You know, there's explanations of what
+function it's really doing for the
+
+00:15:44.418 --> 00:15:47.008
+instance of, you know, Int to Int64.
+
+00:15:47.028 --> 00:15:51.048
+Or, you know, all these things,
+it gives you a clear definition of
+
+00:15:51.048 --> 00:15:52.248
+what's going on behind the scenes.
+
+00:15:52.248 --> 00:15:53.808
+So it's not as mystic.
+
+00:15:53.868 --> 00:15:56.898
+It's like, obviously you can always look
+at the source and see what it's doing,
+
+00:15:56.898 --> 00:16:01.938
+but, you know, you kind of gave a shortcut
+to just see what was really going on.
+
+00:16:01.938 --> 00:16:06.718
+So, you know, I think you could all
+also call this Shortcut, maybe IO,
+
+00:16:06.768 --> 00:16:09.618
+and take over Clubhouse's attempt.
+
+00:16:10.738 --> 00:16:12.008
+>> Well thanks, I appreciate that.
+
+00:16:12.038 --> 00:16:14.888
+I definitely spent a lot of
+time on the documentation.
+
+00:16:15.278 --> 00:16:20.468
+Partly because I wanted it to be a
+resource for our own team to just
+
+00:16:20.468 --> 00:16:24.318
+point people to it, and say, you know,
+here are, here's some tips for how to
+
+00:16:24.318 --> 00:16:26.248
+convert stuff and why it works this way.
+
+00:16:27.678 --> 00:16:32.448
+But also because the actual implementation
+of Witch isn't that interesting.
+
+00:16:32.448 --> 00:16:34.728
+It's only a couple of lines
+of code for each type class.
+
+00:16:35.118 --> 00:16:39.318
+And most of the utility comes from
+either these related functions that
+
+00:16:39.318 --> 00:16:42.108
+I provide, and there's only a handful
+of them, or the documentation.
+
+00:16:42.108 --> 00:16:45.168
+Or just the existence of one
+instance or the other, like
+
+00:16:45.168 --> 00:16:46.188
+I was talking about earlier.
+
+00:16:46.218 --> 00:16:50.598
+If something has a From instance
+from a to b, then, you know, If it
+
+00:16:50.598 --> 00:16:54.198
+has a TryFrom instance from a to
+b, then, you know, that's not safe.
+
+00:16:54.938 --> 00:16:59.538
+And yeah, in the documentation for
+each instance between a pair of
+
+00:16:59.538 --> 00:17:06.108
+types, I link to the function that's
+used to implement that conversion.
+
+00:17:06.288 --> 00:17:09.148
+So for many of them, it
+ends up being fromIntegral.
+
+00:17:10.338 --> 00:17:15.118
+But for others, you know, like you
+can convert from a list into a set.
+
+00:17:15.428 --> 00:17:17.123
+And that uses Set.fromList.
+
+00:17:17.613 --> 00:17:22.473
+So this was my way of like, adding into
+that documentation, you know, maybe
+
+00:17:22.473 --> 00:17:26.313
+you don't actually want to use Witch in
+your code base, you just want to know,
+
+00:17:26.313 --> 00:17:29.373
+is there a way to convert between these
+things and you can go look at that list
+
+00:17:29.373 --> 00:17:31.233
+of instances and say, yeah, click on that.
+
+00:17:31.233 --> 00:17:31.803
+It's that function.
+
+00:17:31.803 --> 00:17:33.693
+Okay good, I'll go use that one instead.
+
+00:17:34.563 --> 00:17:39.573
+Or even if you are using Witch, but for a
+particular circumstance, you want to use
+
+00:17:39.573 --> 00:17:44.163
+a more concrete monomorphic conversion
+function rather than a type class method.
+
+00:17:45.713 --> 00:17:47.718
+Or just reading through and you're
+wondering, you know, how the
+
+00:17:47.718 --> 00:17:48.768
+heck is this thing implemented?
+
+00:17:48.828 --> 00:17:49.728
+You can see right there.
+
+00:17:50.528 --> 00:17:54.858
+But yeah, in general, if you
+haven't read the documentation, it's
+
+00:17:54.858 --> 00:17:56.898
+definitely meant to be approachable.
+
+00:17:56.958 --> 00:18:01.338
+And at the bottom I put a section that's
+much more conversational about kind
+
+00:18:01.338 --> 00:18:04.278
+of, why did I bother making this thing?
+
+00:18:04.278 --> 00:18:05.658
+What are some of the trade-offs it makes?
+
+00:18:05.658 --> 00:18:07.548
+What are some other things
+you might do instead?
+
+00:18:07.578 --> 00:18:09.438
+And what are some surprises?
+
+00:18:09.468 --> 00:18:15.233
+So like, one that has come up
+a couple of times is the Int32
+
+00:18:15.543 --> 00:18:18.783
+into Int conversion is not total.
+
+00:18:18.843 --> 00:18:21.063
+And many people would probably
+expect it to be total.
+
+00:18:21.063 --> 00:18:24.513
+So go read the documentation, you
+can find out why it is the way it is.
+
+00:18:25.713 --> 00:18:27.573
+>> Ooh, enticing them, I like it.
+
+00:18:29.063 --> 00:18:31.703
+Good, you know, we talk about these
+things on air and we just want to
+
+00:18:31.703 --> 00:18:35.753
+make sure that, you know, you always
+have access to see what we're talking
+
+00:18:35.753 --> 00:18:37.613
+about and validate for yourself.
+
+00:18:37.933 --> 00:18:40.223
+And obviously always ask questions.
+
+00:18:40.223 --> 00:18:43.343
+You know, we put this stuff out in
+the internet so that it can start
+
+00:18:43.343 --> 00:18:46.253
+conversations, not just, you know, be a
+
+00:18:46.778 --> 00:18:48.608
+echo chamber or anything
+along those lines.
+
+00:18:48.608 --> 00:18:51.278
+Like we want you guys to be
+able to express yourself.
+
+00:18:51.278 --> 00:18:54.338
+And as a Haskell community, we
+want to be there for one another.
+
+00:18:54.338 --> 00:18:57.698
+And you know, if we miss something
+great, if you have something you never
+
+00:18:57.698 --> 00:18:59.768
+thought about before that we said, great.
+
+00:19:00.128 --> 00:19:05.478
+You know, like all these things, you
+know, are here for you, as a listener
+
+00:19:05.498 --> 00:19:06.848
+of the Haskell Weekly podcast.
+
+00:19:07.148 --> 00:19:09.758
+And we just want to let you know that.
+
+00:19:09.878 --> 00:19:15.248
+But anyways, I wanted to get back to
+Witch, because I was kind of thinking
+
+00:19:15.248 --> 00:19:22.518
+how Witch actually can allow us to handle
+some conversions that allow us to not have
+
+00:19:22.518 --> 00:19:25.188
+to worry about deriving other instances.
+
+00:19:25.188 --> 00:19:31.818
+So for example, let's say, you know,
+I want to get a sum of episode lengths
+
+00:19:31.848 --> 00:19:33.528
+that would then equal the course length.
+
+00:19:33.888 --> 00:19:39.408
+You know, I could iterate over that
+list, get all of the integer or the
+
+00:19:39.938 --> 00:19:45.408
+Int values out of that, sum them up and
+then convert that to a course length
+
+00:19:45.423 --> 00:19:50.883
+rather than, you know, deriving an
+instance for Num on episode length.
+
+00:19:51.243 --> 00:19:52.083
+>> Yeah, right.
+
+00:19:52.383 --> 00:19:54.463
+Yeah, and that's actually one.
+
+00:19:54.493 --> 00:19:57.833
+I feel like I keep saying, this
+was a motivation for making Witch.
+
+00:19:57.833 --> 00:20:01.773
+There were a lot of motivations,
+and one of them is that, some of
+
+00:20:01.773 --> 00:20:06.293
+the really core type classes like
+Num can be surprising to implement.
+
+00:20:06.293 --> 00:20:12.203
+So like for us, with episode length, as
+one of our integral new type wrappers,
+
+00:20:12.783 --> 00:20:17.913
+we actually don't want to implement
+Num for that because Num lets you
+
+00:20:17.913 --> 00:20:21.963
+multiply values together or divide them
+or add them, take the absolute value.
+
+00:20:22.383 --> 00:20:26.103
+And many of those operations don't
+make sense at all for episode lengths.
+
+00:20:26.433 --> 00:20:29.583
+If I multiply the length of
+this episode with that episode,
+
+00:20:30.093 --> 00:20:31.173
+what does that even mean?
+
+00:20:31.413 --> 00:20:34.793
+Episode length squared, like
+it's a nonsensical value.
+
+00:20:35.963 --> 00:20:39.783
+But we often want to do operations over
+these values, like you just mentioned.
+
+00:20:40.023 --> 00:20:40.893
+Sum all of them up.
+
+00:20:41.808 --> 00:20:46.068
+And, you know, we could implement that
+with a monoid and we may have done that
+
+00:20:46.068 --> 00:20:47.448
+with episode length, I don't remember.
+
+00:20:47.928 --> 00:20:48.558
+But yeah.
+
+00:20:48.558 --> 00:20:51.408
+With Witch you can say,
+
+00:20:52.143 --> 00:20:55.693
+convert all of them into an Int and
+then perform that operation on an Int
+
+00:20:55.713 --> 00:20:57.153
+and then turn that into something else.
+
+00:20:57.603 --> 00:21:00.063
+And we don't have to have a
+function in episode length
+
+00:21:00.063 --> 00:21:01.483
+that says convert it to an Int.
+
+00:21:01.523 --> 00:21:03.903
+And we don't have to have a
+function in course length that
+
+00:21:03.903 --> 00:21:05.713
+says convert it from an Int.
+
+00:21:05.973 --> 00:21:07.713
+We can handle that with the instances.
+
+00:21:09.013 --> 00:21:10.783
+>> Yep, super nice.
+
+00:21:11.223 --> 00:21:13.943
+You know, we aren't sponsored by
+Which Which, just so you know.
+
+00:21:14.843 --> 00:21:17.083
+We have accidentally
+said that a few times.
+
+00:21:17.583 --> 00:21:20.033
+We joked about making a fake
+sponsorship for that, but yeah.
+
+00:21:20.943 --> 00:21:22.233
+We figured we don't want to get sued.
+
+00:21:22.233 --> 00:21:24.333
+So if you like Which Which, awesome.
+
+00:21:24.423 --> 00:21:25.473
+We're not talking about that though.
+
+00:21:25.473 --> 00:21:27.213
+So, sorry to let you down.
+
+00:21:27.863 --> 00:21:28.253
+>> Yeah.
+
+00:21:28.283 --> 00:21:33.693
+It could be tricky if somebody has
+another library called, Which w-h-i-c-h,
+
+00:21:34.493 --> 00:21:37.433
+and then we'd have to talk about, well,
+which which are you talking about?
+
+00:21:37.793 --> 00:21:38.993
+But for now it's just the one.
+
+00:21:39.173 --> 00:21:41.063
+So Witch like a wizard.
+
+00:21:42.433 --> 00:21:45.053
+>> Witch like a wizard, but female.
+
+00:21:46.763 --> 00:21:47.113
+Yeah.
+
+00:21:47.153 --> 00:21:48.953
+But yeah, I mean, I.
+
+00:21:50.328 --> 00:21:51.678
+I'm obviously a big fan of Witch.
+
+00:21:51.828 --> 00:21:55.498
+You know, we've been using it probably
+for four to five months now, I would say.
+
+00:21:55.968 --> 00:21:59.088
+You know, and like I said, we've
+had a ton of motivations for this.
+
+00:21:59.088 --> 00:22:03.228
+There's, you know, it's not gonna,
+not everybody's gonna agree.
+
+00:22:03.228 --> 00:22:03.968
+And that's okay.
+
+00:22:04.138 --> 00:22:07.758
+I know other, there's been other
+kind of conversion libraries that
+
+00:22:07.758 --> 00:22:11.718
+have come out that maybe have made
+some other surprising decisions.
+
+00:22:11.718 --> 00:22:12.698
+So, you know.
+
+00:22:12.988 --> 00:22:16.303
+We did what we felt was
+best for our day to day.
+
+00:22:16.893 --> 00:22:18.063
+If you want to use it, great.
+
+00:22:18.453 --> 00:22:20.423
+If you have feedback, that's also great.
+
+00:22:21.093 --> 00:22:25.163
+But we also know that we can't
+convince you to like our library.
+
+00:22:26.493 --> 00:22:27.933
+But well, Taylor's library.
+
+00:22:27.933 --> 00:22:29.533
+It's not mine, I didn't do it.
+
+00:22:29.533 --> 00:22:35.433
+So, you know, there's, you know, there's
+something that we're going to continue
+
+00:22:35.433 --> 00:22:41.853
+to maintain and, as other things come
+up, we could probably add some more.
+
+00:22:42.283 --> 00:22:45.093
+Is there anything else Taylor, that
+you're trying to add to Witch that
+
+00:22:45.093 --> 00:22:46.353
+you don't already have in there?
+
+00:22:47.333 --> 00:22:50.573
+>> So I think I have most of
+the instances that I want in there.
+
+00:22:50.573 --> 00:22:51.533
+I'm sure there are more.
+
+00:22:52.173 --> 00:22:57.053
+But there are a couple problems
+with Witch that I haven't really
+
+00:22:57.053 --> 00:22:58.373
+figured out how to address.
+
+00:22:58.463 --> 00:23:04.818
+And the first is that, it's not completely
+clear when you should or should not
+
+00:23:04.818 --> 00:23:06.768
+provide an instance of something.
+
+00:23:07.408 --> 00:23:12.468
+And this is a problem because in
+general, with Haskell, your type
+
+00:23:12.468 --> 00:23:14.778
+class is supposed to have laws.
+
+00:23:15.168 --> 00:23:20.478
+And if there is an instance that
+meets all of the laws, then you
+
+00:23:20.478 --> 00:23:21.968
+should probably have that instance.
+
+00:23:22.818 --> 00:23:25.978
+And this can be a problematic viewpoint.
+
+00:23:25.978 --> 00:23:29.448
+So, the foldable type class, for instance.
+
+00:23:30.183 --> 00:23:33.143
+There is an implementation of
+that type class for tuples.
+
+00:23:33.423 --> 00:23:37.443
+So you can ask for the length of a tuple
+and it'll give you a surprising result.
+
+00:23:37.953 --> 00:23:40.203
+This is a huge flame war, so I
+don't really want to get into it.
+
+00:23:40.303 --> 00:23:47.463
+But, suffice to say that the type
+classes in Witch do not have laws.
+
+00:23:48.063 --> 00:23:50.523
+I've typed up a bunch
+of suggestions for them.
+
+00:23:50.673 --> 00:23:56.793
+But at the end of the day, it's
+really like a, it's just a call.
+
+00:23:56.793 --> 00:24:00.153
+Like, do I feel like this
+instance should belong or not?
+
+00:24:00.303 --> 00:24:05.223
+And that's guided me pretty well so
+far, but it leaves the door open of.
+
+00:24:05.553 --> 00:24:09.903
+So using tuples as an example, I
+could write an instance that says
+
+00:24:10.023 --> 00:24:15.933
+you can convert from a tuple of
+a and b into just a value of a.
+
+00:24:15.963 --> 00:24:20.178
+So you could, you could use from
+as sort of like, selector to get
+
+00:24:20.178 --> 00:24:21.498
+the first value out of a tuple.
+
+00:24:21.618 --> 00:24:22.428
+Yeah, exactly.
+
+00:24:23.648 --> 00:24:25.358
+You could have it to
+pull the second one out.
+
+00:24:25.538 --> 00:24:28.778
+Or imagine you have a big record
+with a bunch of fields on it
+
+00:24:28.778 --> 00:24:29.948
+that are all different types.
+
+00:24:29.948 --> 00:24:33.758
+So for us, like an episode that
+we'll have an episode ID and an
+
+00:24:33.758 --> 00:24:35.288
+episode length and an episode name.
+
+00:24:36.098 --> 00:24:40.388
+You could write a from instance that
+says, given an entire episode, I
+
+00:24:40.388 --> 00:24:41.798
+can give you one of those fields.
+
+00:24:41.798 --> 00:24:43.358
+So again, just doing a selector function.
+
+00:24:44.433 --> 00:24:49.413
+I haven't provided any of those yet,
+because my kind of guiding principle
+
+00:24:49.413 --> 00:24:55.023
+for which instances should be provided
+or not is, if you just saw a call to
+
+00:24:55.473 --> 00:25:00.693
+from @Episode in the code base, would
+you be able to tell based on context
+
+00:25:00.693 --> 00:25:04.383
+around there, what value is going
+to come out of that without really
+
+00:25:04.383 --> 00:25:05.713
+having to think about it too hard?
+
+00:25:06.563 --> 00:25:08.718
+And that's super wishy
+washy, I'll grant that.
+
+00:25:08.778 --> 00:25:12.618
+But it's worked well, have, you know,
+in any other programming language.
+
+00:25:12.648 --> 00:25:15.768
+Or not any other in, in like a, you
+know, dynamic programming language, like
+
+00:25:15.768 --> 00:25:21.058
+JavaScript, the automatic type conversions
+that the compiler will insert for you.
+
+00:25:21.058 --> 00:25:25.408
+That's kind of the type of thing
+I'm trying to target with Witch.
+
+00:25:25.458 --> 00:25:26.778
+Those types of conversions.
+
+00:25:27.138 --> 00:25:31.008
+So the fancier stuff that is technically,
+you know, makes sense and you could
+
+00:25:31.008 --> 00:25:32.328
+convince yourself, it's a good idea.
+
+00:25:32.658 --> 00:25:34.338
+I've shied away from that for now.
+
+00:25:35.058 --> 00:25:37.488
+You know, I'd be open to someone
+trying to change my mind there.
+
+00:25:38.438 --> 00:25:38.648
+>> Yeah.
+
+00:25:38.648 --> 00:25:41.918
+So you're saying it's like, uh,
+you know, the wild, wild west
+
+00:25:41.918 --> 00:25:43.508
+with like an enforcer, right?
+
+00:25:43.638 --> 00:25:44.168
+>> Yes.
+
+00:25:44.438 --> 00:25:47.618
+>> Like no laws, but you
+know, there's a gut feeling
+
+00:25:47.618 --> 00:25:49.318
+that this is a good idea.
+
+00:25:49.338 --> 00:25:50.438
+This is not a good idea.
+
+00:25:50.468 --> 00:25:53.158
+So, okay.
+
+00:25:53.388 --> 00:25:58.563
+>> And then the other kind of
+problem with Witch also revolves
+
+00:25:58.563 --> 00:26:00.123
+around type class instances.
+
+00:26:00.173 --> 00:26:02.533
+Unsurprisingly since that's
+really all that it provides.
+
+00:26:03.613 --> 00:26:11.443
+But it has to do with, let's say that I
+wanted to convert from a UUID into JSON.
+
+00:26:12.693 --> 00:26:16.413
+That is arguably something that
+the Witch library could provide.
+
+00:26:16.533 --> 00:26:20.383
+But in order to do that, the Witch
+library would have to depend on
+
+00:26:20.383 --> 00:26:26.323
+both the UUID library and let's say
+Aeson to do the JSON conversion.
+
+00:26:28.063 --> 00:26:32.773
+Usually when somebody makes a new
+library and there's kind of an ecosystem
+
+00:26:32.773 --> 00:26:37.693
+of libraries around it, you'll have
+something like, using lens as an example.
+
+00:26:37.723 --> 00:26:42.063
+You'll have lens or like lens-core,
+microlens or whatever, and then you have
+
+00:26:42.888 --> 00:26:44.698
+the lens library plus JSON.
+
+00:26:44.718 --> 00:26:46.368
+So you'll have lens-aeson.
+
+00:26:46.928 --> 00:26:48.598
+Or you'll have lens-uuid.
+
+00:26:48.648 --> 00:26:49.198
+Or whatever.
+
+00:26:50.138 --> 00:26:53.208
+And that works great because it's
+extending support from this one
+
+00:26:53.208 --> 00:26:55.548
+library to this other library.
+
+00:26:55.998 --> 00:27:00.708
+But with Witch it's problematic because
+you have to connect three libraries
+
+00:27:00.708 --> 00:27:02.238
+together rather than just two.
+
+00:27:03.108 --> 00:27:07.728
+So using the example from before, I would
+need a library that's Witch plus UUID
+
+00:27:07.728 --> 00:27:10.098
+plus Aeson to connect those together.
+
+00:27:11.853 --> 00:27:15.543
+And this obviously doesn't scale
+because as you add more libraries,
+
+00:27:15.543 --> 00:27:20.673
+kind of to the mix of things in
+ecosystem here, you have a huge number
+
+00:27:20.673 --> 00:27:21.573
+of libraries that you're generating.
+
+00:27:23.423 --> 00:27:25.823
+And this isn't a huge problem.
+
+00:27:25.973 --> 00:27:29.963
+And like, for us in our application
+that we're developing, we're not
+
+00:27:29.963 --> 00:27:31.313
+publishing a library after the fact.
+
+00:27:31.313 --> 00:27:33.443
+So we're kind of, the buck stops with us.
+
+00:27:33.923 --> 00:27:38.993
+And if we want to have one module in
+our application that just defines all
+
+00:27:38.993 --> 00:27:42.288
+of these random instances to connect
+stuff together, that's totally fine.
+
+00:27:42.738 --> 00:27:46.608
+But if I wanted to extract those into
+a library and publish them, that's
+
+00:27:46.608 --> 00:27:49.758
+where things get tricky because you
+want to have a minimal dependency
+
+00:27:49.758 --> 00:27:54.318
+footprint, but you also want to be
+maximally useful and provide instances
+
+00:27:54.318 --> 00:27:55.338
+for all these other libraries.
+
+00:27:55.758 --> 00:27:59.358
+And I have not found a good
+way to solve that problem.
+
+00:27:59.418 --> 00:28:02.208
+So if anyone has any
+ideas, please let me know.
+
+00:28:03.178 --> 00:28:04.728
+Yeah, I'm just at a loss there.
+
+00:28:06.068 --> 00:28:06.308
+>> Yep.
+
+00:28:06.338 --> 00:28:10.468
+It's @TaylorFausak on Twitter
+or @HaskellWeekly on Twitter.
+
+00:28:11.378 --> 00:28:13.528
+You know, so check them out.
+
+00:28:13.958 --> 00:28:14.218
+>> Yeah.
+
+00:28:14.438 --> 00:28:18.898
+And actually there was one final thing I
+wanted to go over Cam, which is something
+
+00:28:18.918 --> 00:28:20.318
+you touched on earlier, which is.
+
+00:28:20.818 --> 00:28:24.688
+If you're coming from another
+programming language, I think that
+
+00:28:24.688 --> 00:28:27.498
+Witch is especially useful, or if
+you're trying to convince someone
+
+00:28:27.498 --> 00:28:29.448
+else, Hey, Haskell is a good choice.
+
+00:28:29.838 --> 00:28:32.808
+I think that Witch could be a
+useful tool in your tool belt there.
+
+00:28:33.228 --> 00:28:36.078
+And I tried to make this really
+apparent in the documentation and the
+
+00:28:36.078 --> 00:28:39.888
+announcement that I pretty much stole
+this from the Rust programming language.
+
+00:28:39.918 --> 00:28:43.368
+They have exactly these, they're
+not type classes, they're traits.
+
+00:28:43.728 --> 00:28:46.448
+But they have From and TryFrom.
+
+00:28:47.298 --> 00:28:48.228
+And I thought it was a great idea.
+
+00:28:48.228 --> 00:28:49.728
+And I thought, why
+doesn't Haskell have that?
+
+00:28:49.728 --> 00:28:51.628
+Let's have that.
+
+00:28:51.828 --> 00:28:55.398
+But as I also mentioned, if you're
+coming from a dynamic language often,
+
+00:28:55.668 --> 00:28:59.658
+you know, somebody will want to convert
+an int into a string and that's kind of
+
+00:28:59.658 --> 00:29:01.398
+just automatic in a lot of languages.
+
+00:29:01.428 --> 00:29:04.638
+And with Witch it can sort
+of be automatic, you do have
+
+00:29:04.638 --> 00:29:05.868
+to put a function call there.
+
+00:29:06.188 --> 00:29:09.273
+But at least it just kind of does
+the right thing behind the scenes.
+
+00:29:09.273 --> 00:29:10.653
+You don't have to think about it too much.
+
+00:29:11.223 --> 00:29:14.793
+So if you're trying to convince
+someone to use Haskell, maybe throw
+
+00:29:14.793 --> 00:29:16.623
+a Witch into your argument there.
+
+00:29:16.623 --> 00:29:17.643
+I think it could be useful.
+
+00:29:19.283 --> 00:29:20.423
+>> Yeah, for sure.
+
+00:29:20.783 --> 00:29:22.043
+I would definitely recommend as well.
+
+00:29:22.133 --> 00:29:25.543
+I've had a great time using
+it here and there and, it
+
+00:29:26.283 --> 00:29:27.803
+makes PR review a lot easier.
+
+00:29:27.803 --> 00:29:31.773
+There's not a lot of, mystery
+about what's happening there.
+
+00:29:32.403 --> 00:29:38.718
+So it just makes it a lot easier to work
+with, and I would definitely recommend it.
+
+00:29:39.258 --> 00:29:39.558
+>> Yeah.
+
+00:29:39.708 --> 00:29:42.078
+>> It's probably like the eight time
+I've said I recommend it, but that's okay.
+
+00:29:43.388 --> 00:29:45.978
+>> And actually, I know I
+said that was the last thing, but
+
+00:29:46.058 --> 00:29:47.608
+that what you said reminded me.
+
+00:29:48.728 --> 00:29:53.348
+We use this a lot for new types and
+often there are multiple hops that
+
+00:29:53.348 --> 00:29:55.068
+we want to take between new types.
+
+00:29:55.778 --> 00:30:01.353
+So for instance, we have the let's say
+episode length as an example, we may want
+
+00:30:01.353 --> 00:30:07.533
+to go from, and Int64, that came from
+the database into an arbitrary precision,
+
+00:30:07.893 --> 00:30:13.203
+natural or integer, and then ultimately
+into the episode length type from there.
+
+00:30:15.393 --> 00:30:19.638
+Witch supports this with a
+utility function called via
+
+00:30:19.758 --> 00:30:21.498
+that just does two hops at once.
+
+00:30:21.528 --> 00:30:27.598
+So from and into will only go one
+step at a time, but via does two.
+
+00:30:27.648 --> 00:30:29.658
+And you only have to pick the
+type that's in the middle.
+
+00:30:29.688 --> 00:30:34.218
+So if you're in a situation where the
+source type and the target type are
+
+00:30:34.218 --> 00:30:38.478
+both already pinned down or clear from
+context, you can just say via some
+
+00:30:38.478 --> 00:30:40.228
+other type and it'll convert it for you.
+
+00:30:40.828 --> 00:30:46.438
+And we actually ended up doing
+this a lot with our various ID
+
+00:30:46.508 --> 00:30:47.868
+types that are in the database.
+
+00:30:47.868 --> 00:30:51.988
+Cause they're all just an Int at the end
+of the day or a UUID or whatever it is.
+
+00:30:53.308 --> 00:30:59.043
+And we have a custom type wrapper
+around that, that is for like doing the
+
+00:30:59.043 --> 00:31:00.993
+serialization to, and from our database.
+
+00:31:01.443 --> 00:31:04.533
+And then we have a type wrapper
+around that type wrapper for, you
+
+00:31:04.533 --> 00:31:06.333
+know, an episode ID or course ID.
+
+00:31:06.783 --> 00:31:09.003
+And so when we're pulling something
+from the database, we don't have to
+
+00:31:09.003 --> 00:31:13.383
+say into this, into that, we just
+say via, and it does the right thing.
+
+00:31:13.898 --> 00:31:15.398
+So that's super convenient.
+
+00:31:16.328 --> 00:31:16.868
+>> Yeah, it is.
+
+00:31:16.868 --> 00:31:19.148
+It's definitely saved some time as well.
+
+00:31:19.808 --> 00:31:20.138
+Yeah.
+
+00:31:21.008 --> 00:31:22.028
+10 out of 10 would recommend.
+
+00:31:23.908 --> 00:31:27.498
+>> So I don't know if Cam recommends
+this library or not, but I sure do.
+
+00:31:27.618 --> 00:31:28.908
+>> I don't know.
+
+00:31:29.068 --> 00:31:31.098
+It's only the ninth, 10th, 12th time.
+
+00:31:31.738 --> 00:31:31.998
+>> Yeah.
+
+00:31:32.288 --> 00:31:35.828
+So yeah, I think those are all the
+things that I had to say about Witch.
+
+00:31:36.618 --> 00:31:41.688
+As is apparent from this talk, there were
+a lot of motivations, but it's been a
+
+00:31:41.688 --> 00:31:45.618
+really fun library to develop and really
+rewarding to kind of spread it through our
+
+00:31:45.618 --> 00:31:49.638
+code base and see all of the little paper
+cuts that it cleans up and makes nicer.
+
+00:31:50.768 --> 00:31:52.348
+>> Yeah, ten out of ten.
+
+00:31:52.368 --> 00:31:58.293
+It's really nice for cleaning up all
+this old, like little tiny functions
+
+00:31:58.293 --> 00:32:01.623
+that are just really repetitive and
+there's a lot of boiler plate that
+
+00:32:02.013 --> 00:32:04.273
+really can just kind of get swept away.
+
+00:32:05.683 --> 00:32:10.053
+You know, and gives us that flexibility
+that we didn't really have before, because
+
+00:32:10.113 --> 00:32:14.703
+if you wanted to convert some value into
+a string and into an int or into a text,
+
+00:32:14.703 --> 00:32:18.153
+like that's two different functions
+for us, you know, now it's all right,
+
+00:32:18.163 --> 00:32:21.843
+we have two instances, but it's
+clear what's going on there.
+
+00:32:23.838 --> 00:32:24.108
+>> All right.
+
+00:32:24.108 --> 00:32:26.268
+Well, have you got anything
+else to say about this Cam?
+
+00:32:27.488 --> 00:32:30.818
+>> No, it just feels good to be
+back and recording some podcasts with you.
+
+00:32:31.238 --> 00:32:34.778
+I know we've had a little hiatus,
+so back from summer vacation now,
+
+00:32:34.808 --> 00:32:39.008
+you know, school starts soon and
+Haskell Weekly's raring back up.
+
+00:32:39.993 --> 00:32:42.483
+>> Haskell Weekly, the
+only weekly podcast that comes
+
+00:32:42.483 --> 00:32:44.373
+out at least once a quarter.
+
+00:32:44.583 --> 00:32:48.293
+>> That's a nice, nice tagline.
+
+00:32:48.503 --> 00:32:48.923
+>> Yeah.
+
+00:32:49.763 --> 00:32:50.083
+All right.
+
+00:32:50.083 --> 00:32:53.483
+Well, thank you listeners for
+sticking with us and listening
+
+00:32:53.483 --> 00:32:56.123
+to the Haskell "Weekly" podcast.
+
+00:32:57.173 --> 00:33:01.183
+I have been your host Taylor Fausak
+and with me today was Cameron Gera.
+
+00:33:01.433 --> 00:33:03.833
+If you want to find out more
+about us, please check out our
+
+00:33:03.833 --> 00:33:06.313
+website, HaskellWeekly.News.
+
+00:33:07.308 --> 00:33:09.978
+>> And we are brought to
+you by our employer, ITProTV,
+
+00:33:10.078 --> 00:33:11.628
+an ACI Learning company.
+
+00:33:11.988 --> 00:33:18.078
+They would like to offer you 30% off
+your subscription on ITPro.TV by using
+
+00:33:18.138 --> 00:33:20.748
+promo code HaskellWeekly30 at checkout.
+
+00:33:21.198 --> 00:33:22.818
+And I think that about does it for us.
+
+00:33:22.818 --> 00:33:27.168
+So if you are looking for a good library
+to try out, I would recommend Witch
+
+00:33:27.408 --> 00:33:29.058
+just for another time for good old sake.
+
+00:33:29.088 --> 00:33:31.338
+But, thanks for joining us
+and we'll see you next week.
+
+00:33:31.518 --> 00:33:31.908
+>> Bye.
