@@ -62,4 +62,5 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 
 ## Call for participation
 
-undefined
+-   [LambdaHack: Switch from `#ifdef WITH_EXPENSIVE_ASSERTIONS` to expensiveAssert](https://github.com/LambdaHack/LambdaHack/issues/260)
+-   [streamly: Rename some unfold APIs](https://github.com/composewell/streamly/issues/1183)
