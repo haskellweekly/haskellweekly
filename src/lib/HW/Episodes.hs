@@ -79,6 +79,7 @@ episodes = do
     , episode47
     , episode48
     , episode49
+    , episode50
     ]
   checkGuids validEpisodes Set.empty
   checkNumbers validEpisodes 1
@@ -850,3 +851,16 @@ episode49 = Episode.Episode
   <*> Size.fromNatural 48402853
   <*> Summary.fromText "Back from summer break, Cameron Gera discusses the Witch library with it's author, Taylor Fausak. Learn about the many motivations behind this simple library for converting values between various types."
   <*> Title.fromText "Cast Values with Witch"
+
+episode50 :: Either String Episode.Episode
+episode50 = Episode.Episode
+  <$> Articles.fromList
+    [ "https://www.acilearning.com"
+    ]
+  <*> Date.fromGregorian 2021 8 16
+  <*> Duration.fromTimestamp 39 3
+  <*> Guid.fromText "c0095feb-cfb0-4367-861a-c9c13ba048f6"
+  <*> Number.fromNatural 50
+  <*> Size.fromNatural 46865808
+  <*> Summary.fromText "Stack, HLint, and Brittany, oh my! Cameron Gera and Taylor Fausak go on a deep dive into the ACI Learning tech stack."
+  <*> Title.fromText "Our Tech Stack"

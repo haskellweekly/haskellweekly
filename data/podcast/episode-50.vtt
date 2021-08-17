@@ -1,0 +1,2600 @@
+WEBVTT
+
+00:00:07.306 --> 00:00:09.676
+>> Hello and welcome to
+the Haskell Weekly podcast.
+
+00:00:09.796 --> 00:00:13.006
+This is a show about Haskell, a purely
+functional programming language.
+
+00:00:13.426 --> 00:00:14.966
+I'm your host Taylor Fausak.
+
+00:00:15.016 --> 00:00:17.566
+I'm the director of software
+engineering at ACI learning.
+
+00:00:18.016 --> 00:00:21.046
+With me today is Cameron Gera,
+one of the engineers on my team.
+
+00:00:21.106 --> 00:00:22.456
+Thanks for joining me today, Cam.
+
+00:00:23.676 --> 00:00:24.516
+>> Glad to be back.
+
+00:00:24.516 --> 00:00:26.066
+It's a second week in a row.
+
+00:00:26.066 --> 00:00:28.956
+We're starting to get back into the swing
+of things with Haskell weekly podcast.
+
+00:00:28.976 --> 00:00:30.966
+So thank you guys for listening today.
+
+00:00:31.296 --> 00:00:34.306
+Uh, we're going to do something
+a little different today due to a
+
+00:00:34.306 --> 00:00:37.126
+comment we received from a listener.
+
+00:00:37.216 --> 00:00:40.966
+Uh, and they wanted to kind of
+hear about what does software
+
+00:00:40.966 --> 00:00:43.066
+engineering look like at ACI learning.
+
+00:00:43.066 --> 00:00:46.846
+And what's our processes, and
+how many services do we have,
+
+00:00:46.846 --> 00:00:48.226
+and what do those services do?
+
+00:00:48.226 --> 00:00:51.316
+So we're going to kind of take
+a deep dive into that today.
+
+00:00:51.576 --> 00:00:53.956
+Our hope is to only have
+one episode of this.
+
+00:00:53.956 --> 00:00:57.166
+But if we seem to be coming over,
+uh, just going to give you guys
+
+00:00:57.166 --> 00:00:58.476
+a heads up, that we may have two.
+
+00:00:59.346 --> 00:01:00.166
+But, uh, yeah.
+
+00:01:00.196 --> 00:01:05.716
+So Taylor, why don't you get us started
+with a little high, high level process,
+
+00:01:05.716 --> 00:01:07.396
+infrastructure, that kind of thing.
+
+00:01:07.396 --> 00:01:09.526
+So we can kind of drill
+down into the rest.
+
+00:01:10.316 --> 00:01:14.431
+>> Yeah, as you mentioned, this
+was prompted by a comment and I assume
+
+00:01:14.461 --> 00:01:17.401
+the person was more interested in
+kind of the Haskell side of things.
+
+00:01:17.401 --> 00:01:21.661
+So that's what we're going to focus
+on, but to give context, um, we
+
+00:01:21.691 --> 00:01:25.501
+developed software using the acid,
+uh, excuse me, agile methodology.
+
+00:01:28.001 --> 00:01:28.571
+>> Um,
+
+00:01:29.411 --> 00:01:29.831
+>> acid.
+
+00:01:29.891 --> 00:01:29.981
+Yeah.
+
+00:01:30.611 --> 00:01:33.751
+Uh, well, everyone has a different
+definition of agile, so ours can be added.
+
+00:01:34.201 --> 00:01:38.311
+Uh, but we use agile, which just means
+that we're constantly getting feedback
+
+00:01:38.311 --> 00:01:40.891
+and making improvements and iterating.
+
+00:01:41.511 --> 00:01:44.691
+And the tool that we use to manage
+our workflow from a high level
+
+00:01:44.691 --> 00:01:48.951
+is clubhouse, not the video chat
+application, but the one that is soon
+
+00:01:48.951 --> 00:01:50.571
+going to be called shortcut instead.
+
+00:01:50.991 --> 00:01:55.911
+And we use that more or less as a Kanban
+board to keep track of all the stories
+
+00:01:55.911 --> 00:01:59.121
+or tasks that we want to accomplish
+and track them as they move through
+
+00:01:59.121 --> 00:02:03.141
+our workflow, starting from ready
+for development all the way through.
+
+00:02:03.766 --> 00:02:05.746
+In production in our user's hands.
+
+00:02:06.526 --> 00:02:11.026
+Um, from the code side of things like
+many software shops, we manage our
+
+00:02:11.026 --> 00:02:15.266
+code in GitHub, and most of the code
+goes through kind of the normal GitHub
+
+00:02:15.286 --> 00:02:19.926
+PR process where somebody pushes up
+a branch, they open up a PR for it.
+
+00:02:20.671 --> 00:02:25.141
+So, uh, at least one person on the
+team reviews that PR and then we hit
+
+00:02:25.141 --> 00:02:29.521
+the big green button on GitHub and it
+gets merged into master at that point.
+
+00:02:29.611 --> 00:02:32.611
+Uh, it kicks off a
+continuous integration build.
+
+00:02:32.701 --> 00:02:35.971
+We use Semaphore to manage
+our continuous integration.
+
+00:02:36.091 --> 00:02:39.901
+So if, or sorry, the, the build
+actually happens before that, but
+
+00:02:40.111 --> 00:02:43.581
+also once it's merged into the main
+branch, uh, Semaphore, will build
+
+00:02:43.581 --> 00:02:47.461
+it and produce a build artifact,
+which in our case is a bunch of.
+
+00:02:48.071 --> 00:02:52.541
+Docker container images, and
+it will push those over to AWS.
+
+00:02:52.781 --> 00:02:57.521
+And then we use AWS far gate for
+most of our services, and those
+
+00:02:57.521 --> 00:03:01.571
+will launch all the new versions
+of all those Docker images and
+
+00:03:01.721 --> 00:03:03.161
+get it out into our users' hands.
+
+00:03:03.221 --> 00:03:07.151
+Uh, we use a bunch of AWS services,
+not really worth enumerating all of
+
+00:03:07.151 --> 00:03:11.981
+them right now, but as I mentioned,
+we use far gate and we have several
+
+00:03:11.981 --> 00:03:14.321
+Haskell services running in production.
+
+00:03:14.551 --> 00:03:18.706
+our current Best guest count
+is that we have seven of them.
+
+00:03:19.066 --> 00:03:20.596
+Um, and we may say their names later on.
+
+00:03:20.596 --> 00:03:26.406
+So just for context, their names
+are Urza, ion nucleus, Jeff, Shelob,
+
+00:03:26.506 --> 00:03:28.426
+quantum and buffer processor.
+
+00:03:28.816 --> 00:03:30.256
+So some of them are descriptive.
+
+00:03:30.256 --> 00:03:34.156
+Some of them are a little more imaginative
+and some of them are just people's names.
+
+00:03:34.336 --> 00:03:37.186
+So, um, yeah, those are the.
+
+00:03:39.571 --> 00:03:44.221
+Those are the processes we use, the
+infrastructure we deploy to and the
+
+00:03:44.221 --> 00:03:46.981
+names and number of our Haskell services.
+
+00:03:47.011 --> 00:03:51.571
+But I'm sure the listeners are much more
+interested in how we write that Haskell.
+
+00:03:51.571 --> 00:03:53.551
+So, cam, do you want to
+kind of dive into that?
+
+00:03:54.711 --> 00:03:55.401
+>> Uh, yeah.
+
+00:03:55.431 --> 00:04:00.711
+So with these multiple services,
+they all have multiple functions.
+
+00:04:01.071 --> 00:04:01.721
+Um, and.
+
+00:04:02.401 --> 00:04:07.261
+Through time we've we have kind of a
+set of APIs that are all in Haskell,
+
+00:04:07.261 --> 00:04:11.491
+and then we have some other of these
+services that manage, uh, you know,
+
+00:04:12.361 --> 00:04:17.761
+scheduling and managing like a job queue,
+um, you know, updating some third-party
+
+00:04:17.761 --> 00:04:22.981
+services on a continuous continuous
+basis, uh, allowing us to integrate, uh,
+
+00:04:23.041 --> 00:04:28.891
+the organizations teams, uh, Something
+that it can happen on the backend.
+
+00:04:28.891 --> 00:04:30.721
+So that's kinda what Shelob is.
+
+00:04:30.781 --> 00:04:36.211
+And then, um, something to kind of
+aggregate and handle metrics, which
+
+00:04:36.211 --> 00:04:37.541
+is kind of the buffer processor.
+
+00:04:37.561 --> 00:04:41.731
+So those services are kind
+of like kind of what they do.
+
+00:04:42.031 --> 00:04:46.411
+Um, and Urza, Ion, a nucleus  being
+the APIs, nucleus was the first one.
+
+00:04:46.411 --> 00:04:48.051
+So this was we're all learning Haskell.
+
+00:04:48.051 --> 00:04:50.601
+We were all kind of figuring it out.
+
+00:04:50.601 --> 00:04:54.471
+Like Taylor had been a pro you know,
+kinda had come in to help guide us.
+
+00:04:55.216 --> 00:04:56.326
+Previously started with Elm.
+
+00:04:56.326 --> 00:05:00.716
+So we've been, you know, with nucleus,
+we kind of took some of the, the
+
+00:05:00.996 --> 00:05:06.646
+easier to, to digest, uh, choices like
+using, uh, technologies like half stack
+
+00:05:06.736 --> 00:05:10.096
+and Orville for an ORM for Postgres.
+
+00:05:10.396 --> 00:05:14.686
+Um, and like Happstack being our
+web server, uh, kind of a little
+
+00:05:14.686 --> 00:05:18.796
+more loosey goosey, um, and the
+abilities and what it can do.
+
+00:05:19.216 --> 00:05:24.506
+And so that was where we kind of started
+and we said, okay, like, let's figure out.
+
+00:05:25.136 --> 00:05:26.266
+What we can do better.
+
+00:05:26.266 --> 00:05:28.126
+And that's where new ion came in.
+
+00:05:28.126 --> 00:05:29.116
+And then from there.
+
+00:05:30.091 --> 00:05:32.161
+We have one question
+coming from the audience.
+
+00:05:32.911 --> 00:05:33.031
+>> Yeah.
+
+00:05:33.081 --> 00:05:37.251
+I just wanted to jump in and say that,
+uh, Orville isn't one of the more
+
+00:05:37.251 --> 00:05:40.911
+well-known Haskell ORM, uh, libraries.
+
+00:05:40.941 --> 00:05:45.951
+And that was developed by flip stone,
+which is a contracting firm that was
+
+00:05:45.951 --> 00:05:51.921
+working with it pro TV back in the day
+when I started several years ago and, uh,
+
+00:05:51.981 --> 00:05:55.761
+you know, great library, very happy to
+use it, but similar to hap stack in that,
+
+00:05:55.821 --> 00:05:59.011
+um, most of the checks happen at runtime.
+
+00:05:59.311 --> 00:06:00.901
+Rather than at compile time.
+
+00:06:00.931 --> 00:06:05.981
+So just if y'all want to look it up,
+uh, github.com/flipstone/orville.
+
+00:06:07.251 --> 00:06:07.581
+>> Yep.
+
+00:06:07.851 --> 00:06:11.661
+And uh, if you guys want, we can
+also post the links to all of this
+
+00:06:11.661 --> 00:06:13.791
+kind of stuff we're talking about it.
+
+00:06:13.821 --> 00:06:15.031
+We're not going to post them all.
+
+00:06:15.051 --> 00:06:17.421
+Cause that would be a lot, uh,
+because we're going to talk
+
+00:06:17.421 --> 00:06:18.261
+about a lot of stuff today.
+
+00:06:18.261 --> 00:06:21.201
+So, um, yeah, that's kind of the
+lay of the land with the services.
+
+00:06:21.886 --> 00:06:24.766
+With, you know, Ion we
+made better choices.
+
+00:06:24.766 --> 00:06:27.406
+And then with Urza, we, we
+made even better choices.
+
+00:06:27.406 --> 00:06:31.756
+So, um, I think we'll kind of jump into
+that now of kind of what's what are
+
+00:06:31.756 --> 00:06:36.006
+we libraries that we're using now and,
+um, kind of where have we come from.
+
+00:06:37.896 --> 00:06:38.286
+>> Sure.
+
+00:06:38.586 --> 00:06:41.436
+And we'll start with where
+we started make sense.
+
+00:06:41.646 --> 00:06:45.446
+Uh, as I mentioned for the kind of
+database abstraction, We started
+
+00:06:45.446 --> 00:06:49.586
+with Orville, which is a wrapper
+around, uh, postgresql-simple.
+
+00:06:49.706 --> 00:06:54.086
+If I remember correctly and that
+worked great, uh, has a lot of things
+
+00:06:54.086 --> 00:06:57.686
+that I really like, but one of the
+downsides was that as I mentioned, most
+
+00:06:57.686 --> 00:07:00.716
+of the validation happens at runtime.
+
+00:07:00.866 --> 00:07:06.386
+So for instance, if you mistype a column
+name or you get the column name, correct.
+
+00:07:06.416 --> 00:07:08.186
+But say that it's the wrong type.
+
+00:07:08.186 --> 00:07:12.176
+So you pulled a string, but you
+thought it was an it, um, those checks.
+
+00:07:13.636 --> 00:07:16.406
+Are only going to blow up for you
+at runtime rather than compile time,
+
+00:07:16.456 --> 00:07:20.206
+which, uh, you know, hopefully you
+would cast catch in testing or catch
+
+00:07:20.266 --> 00:07:23.386
+at some point, but it would be nice if
+you could catch them at compile time.
+
+00:07:23.386 --> 00:07:26.446
+So that motivated us to look
+for a different library.
+
+00:07:26.446 --> 00:07:29.866
+And there are many database abstraction
+libraries available in Haskell.
+
+00:07:30.346 --> 00:07:34.156
+Um, the one that we decided
+to go with was persistent and
+
+00:07:34.186 --> 00:07:36.136
+also esky Leto is kind of like.
+
+00:07:36.856 --> 00:07:39.706
+Add on library for doing
+more complicated SQL queries.
+
+00:07:39.706 --> 00:07:42.886
+So we sometimes use that one when we
+need to do a join or something like that.
+
+00:07:43.366 --> 00:07:49.366
+But what persistent got us was the ability
+to have, um, strongly typed queries.
+
+00:07:49.396 --> 00:07:52.936
+So we would know that the
+field we're querying for.
+
+00:07:53.641 --> 00:07:54.481
+We got that name.
+
+00:07:54.481 --> 00:07:54.931
+Correct.
+
+00:07:55.321 --> 00:07:59.011
+And we would know that the type that
+we're comparing that against is also
+
+00:07:59.011 --> 00:08:01.861
+correct, or when we pull it out of the
+database, that part is also correct.
+
+00:08:02.281 --> 00:08:03.901
+So those are huge wins for us.
+
+00:08:04.051 --> 00:08:07.561
+Um, and it means that stuff that you
+used to have to catch either with
+
+00:08:07.561 --> 00:08:11.911
+a test or in code review can now be
+caught by the compiler, which is great.
+
+00:08:12.541 --> 00:08:17.161
+Um, and that's, you know, just
+one part, one little library, and
+
+00:08:17.161 --> 00:08:20.301
+there are many other libraries
+that can do that, but yeah.
+
+00:08:21.111 --> 00:08:21.501
+>> Yeah.
+
+00:08:21.531 --> 00:08:26.926
+And you know, the move, you know, Orville
+with runtime issues to persistent was
+
+00:08:27.016 --> 00:08:32.146
+a little bit of jump due to, you know,
+it's more type level programming, um, in
+
+00:08:32.146 --> 00:08:38.836
+a little bit more, uh, abstraction that
+wasn't as like the Orville library is
+
+00:08:38.836 --> 00:08:44.326
+pretty verbose and like creating tables
+and you know, all these, like what these
+
+00:08:44.326 --> 00:08:46.456
+fields look like and this kind of stuff.
+
+00:08:46.696 --> 00:08:49.546
+Whereas like servant kind of like
+says, okay, what do you want?
+
+00:08:49.786 --> 00:08:50.446
+I'll generate it.
+
+00:08:51.826 --> 00:08:57.486
+Sorry, persistent, but that leads me to
+my next point of kind of the web app,
+
+00:08:57.516 --> 00:09:01.836
+you know, web servers we were using, you
+know, I mentioned earlier hat stack and
+
+00:09:02.346 --> 00:09:05.286
+you know, Ion and Nucleus nucleus were
+built on Happstack and it was great.
+
+00:09:05.346 --> 00:09:06.306
+It started us off.
+
+00:09:06.336 --> 00:09:07.686
+We got moving with it.
+
+00:09:07.986 --> 00:09:12.096
+It, uh, you know, allowed us to
+move a majority of our legacy
+
+00:09:12.126 --> 00:09:14.346
+JavaScript API into Haskell.
+
+00:09:14.346 --> 00:09:19.416
+So it was a great step, but we
+started to see shortcomings with that.
+
+00:09:19.776 --> 00:09:20.556
+Um, we started to.
+
+00:09:21.316 --> 00:09:25.456
+Kind of get our wires crossed with
+what routes were and where they were
+
+00:09:25.576 --> 00:09:27.436
+like, how do they, what the types were.
+
+00:09:27.436 --> 00:09:30.346
+And like you had to go, if you wanted
+to know what something was going
+
+00:09:30.346 --> 00:09:34.426
+to return to, you had to kind of
+search for it by finding that file.
+
+00:09:34.426 --> 00:09:36.826
+And then also you don't have
+documentation out of the box.
+
+00:09:36.826 --> 00:09:40.396
+So it just kind of created a lot
+of little tensions and paper cuts
+
+00:09:40.396 --> 00:09:44.566
+for us that eventually helped
+us choose to go with servant.
+
+00:09:44.926 --> 00:09:49.486
+Um, so servant is a type
+leveled web server, um, or.
+
+00:09:51.136 --> 00:09:55.546
+Yeah, type programming more or less
+where you say, okay, my API, I'm
+
+00:09:55.546 --> 00:09:58.396
+just going to have this type and
+this is what's going to be returned.
+
+00:09:58.696 --> 00:10:01.206
+It's kind of easy to
+read, easy to comprehend.
+
+00:10:01.576 --> 00:10:06.796
+And the handler function is, you
+know, digestible kind of, uh, easy
+
+00:10:06.796 --> 00:10:10.666
+to, to grok rather than having to
+jump through all these hoops to
+
+00:10:10.666 --> 00:10:12.466
+kind of figure out what's happening.
+
+00:10:12.676 --> 00:10:17.536
+Um, and that was, you know, a big step
+for us because we weren't really sure.
+
+00:10:18.496 --> 00:10:20.506
+What servant would look like.
+
+00:10:20.626 --> 00:10:25.096
+Um, but we, we took that step with
+a smaller like side project and we
+
+00:10:25.096 --> 00:10:27.136
+saw, okay, like this isn't too bad.
+
+00:10:27.136 --> 00:10:28.546
+We kind of got the team on board.
+
+00:10:28.936 --> 00:10:32.326
+And, you know, we, we ended up getting
+some really great benefits out of
+
+00:10:32.326 --> 00:10:37.966
+servant one of them being the swagger,
+um, documentation that it can generate.
+
+00:10:38.386 --> 00:10:43.006
+And that has really helped
+with the product that us, as an
+
+00:10:43.006 --> 00:10:44.926
+engineering team delivers to.
+
+00:10:45.661 --> 00:10:49.951
+No, the, the front end team who needs to
+understand and know what our API is doing.
+
+00:10:49.951 --> 00:10:52.981
+So, um, you know, I'm
+a big fan of servant.
+
+00:10:53.071 --> 00:10:56.791
+It was definitely a shift, but I'm
+really glad we ended up where we are.
+
+00:10:57.001 --> 00:11:00.901
+Uh, and I'm looking forward to, uh,
+getting everything into servant and
+
+00:11:00.901 --> 00:11:02.461
+not having half stack any longer.
+
+00:11:03.856 --> 00:11:05.506
+>> Yeah, I'm looking
+forward to that as well.
+
+00:11:05.506 --> 00:11:09.676
+And it's worth pointing out that
+both persistent and servant are, uh,
+
+00:11:09.706 --> 00:11:12.196
+new libraries that we are moving to.
+
+00:11:12.196 --> 00:11:16.576
+So we haven't migrated everything over
+yet, but we're getting there and we have
+
+00:11:16.576 --> 00:11:18.466
+bought in on both of these libraries.
+
+00:11:18.466 --> 00:11:22.246
+So we tried out some of the
+alternatives and we've done like
+
+00:11:22.246 --> 00:11:24.376
+little spikes for these to make
+sure that they'll work for our case.
+
+00:11:25.086 --> 00:11:29.496
+We're doing the tedious work of actually
+moving every model, every end point
+
+00:11:29.496 --> 00:11:32.826
+over into these new things and it's
+going well, but we're just not done yet.
+
+00:11:33.366 --> 00:11:37.476
+Um, and I wanted to mention one
+of the upsides of hap stack was
+
+00:11:37.476 --> 00:11:40.206
+something that we don't really, or
+didn't really take advantage of.
+
+00:11:41.266 --> 00:11:44.416
+It's really cleverly designed
+and everything happens inside
+
+00:11:44.416 --> 00:11:47.196
+this kind of server Monad.
+
+00:11:47.296 --> 00:11:51.106
+So if you want to do routing that's in the
+server, mine, if you want to get something
+
+00:11:51.106 --> 00:11:54.116
+out of the query string or a header
+or the body, that's all in the monad.
+
+00:11:54.136 --> 00:11:57.046
+If you want to return something
+or re uh, throw an exception to.
+
+00:11:57.631 --> 00:12:00.991
+If something is not found, it's all in the
+same Monad and it's actually really clever
+
+00:12:00.991 --> 00:12:06.001
+how that's architected and it lets you
+do some neat tricks to implement things.
+
+00:12:06.031 --> 00:12:08.431
+But for us, like you mentioned, it
+got really challenging to figure
+
+00:12:08.431 --> 00:12:12.601
+out what route, what does the
+route look like for this handler?
+
+00:12:12.661 --> 00:12:15.421
+Or what does the, what does
+the body supposed to look like?
+
+00:12:15.511 --> 00:12:19.351
+Um, which feel like they should
+be simple questions to answer.
+
+00:12:19.621 --> 00:12:22.131
+And they're kind of hard with
+happstack because so that architecture,
+
+00:12:23.211 --> 00:12:23.571
+>> right.
+
+00:12:23.571 --> 00:12:26.001
+And especially, you know, we
+just kind of hit that point.
+
+00:12:26.926 --> 00:12:27.136
+Yeah.
+
+00:12:27.166 --> 00:12:32.536
+Too many routes to kind of like
+quickly parse and digest what we needed
+
+00:12:32.536 --> 00:12:33.826
+to do and wherever you need to go.
+
+00:12:34.516 --> 00:12:36.166
+Um, yeah.
+
+00:12:36.406 --> 00:12:39.706
+So we've talked about those two
+libraries quite a bit, as far as like
+
+00:12:39.856 --> 00:12:43.456
+what's new, uh, you know, and I, and
+I'd like to talk a little bit more,
+
+00:12:43.516 --> 00:12:48.166
+um, we use H spec for testing, so, you
+know, I know there's a lot of different
+
+00:12:48.166 --> 00:12:50.386
+testing options out there for us.
+
+00:12:50.386 --> 00:12:51.796
+hspec has worked the best.
+
+00:12:51.856 --> 00:12:54.736
+Uh, we've kind of just
+started with it and gone.
+
+00:12:55.501 --> 00:13:00.971
+Um, another thing we have created
+for it per TV, ACI is the prolude.
+
+00:13:01.381 --> 00:13:06.721
+Um, so that's our own custom prelude
+and we're a big fans of that kind
+
+00:13:06.721 --> 00:13:11.431
+of all those rote things we use all
+the time from these little smaller
+
+00:13:11.821 --> 00:13:16.471
+base libraries is, you know, nice
+and easy to use or base packages.
+
+00:13:16.471 --> 00:13:16.951
+I'm sorry.
+
+00:13:17.431 --> 00:13:18.211
+Um, yeah.
+
+00:13:19.516 --> 00:13:20.866
+It makes it a little easier to use.
+
+00:13:22.336 --> 00:13:22.636
+>> Yeah.
+
+00:13:22.666 --> 00:13:24.736
+And I wanted to go back
+to hspec really quick.
+
+00:13:24.796 --> 00:13:29.911
+Uh, one of the reasons that we use hspec
+is that uh, not only is the manner of
+
+00:13:29.911 --> 00:13:35.041
+writing the test cases really convenient
+where, you know, it should do this thing
+
+00:13:35.041 --> 00:13:38.581
+and then blah, blah, blah, should be that
+like, it's a nice, uh, DSL for writing
+
+00:13:38.581 --> 00:13:44.821
+tests, but the H spec discover kind
+of, um, extra program that it runs to
+
+00:13:44.821 --> 00:13:46.171
+discover all the tests is really nice.
+
+00:13:46.961 --> 00:13:49.451
+Let's us avoid writing all
+that boiler plate of like,
+
+00:13:49.451 --> 00:13:50.651
+yeah, we wrote the test file.
+
+00:13:51.161 --> 00:13:54.011
+Uh, but you actually have to
+rig it up into the test suite
+
+00:13:54.041 --> 00:13:55.421
+and you can forget to do that.
+
+00:13:55.421 --> 00:13:57.281
+Or if you do remember,
+it's still just tedious.
+
+00:13:57.281 --> 00:13:59.561
+So having that done
+automatically is super nice.
+
+00:14:00.101 --> 00:14:04.201
+Um, and Cam, as you mentioned  with the
+prolude which is our custom prelude.
+
+00:14:04.681 --> 00:14:06.451
+We resisted this for a while.
+
+00:14:06.481 --> 00:14:10.051
+And part of the motivation was
+onboarding new people is probably
+
+00:14:10.051 --> 00:14:13.051
+going to be easier if you don't have
+a custom prelude, because everything
+
+00:14:13.051 --> 00:14:15.001
+is the same as quote unquote normal.
+
+00:14:15.651 --> 00:14:20.571
+But we discovered that we were
+very, very often doing the same
+
+00:14:20.571 --> 00:14:21.501
+things over and over again.
+
+00:14:21.501 --> 00:14:23.851
+So we'd always import the
+same library as the same way.
+
+00:14:24.191 --> 00:14:26.201
+And use lots of the same
+functions from them.
+
+00:14:26.261 --> 00:14:30.791
+And we thought, okay, well, let's
+take a data-driven approach to this
+
+00:14:30.821 --> 00:14:34.841
+and analyze our code base to figure
+out what things do we use the most.
+
+00:14:34.871 --> 00:14:37.241
+And let's push them into a custom
+prelude so that we don't have to
+
+00:14:37.241 --> 00:14:38.501
+import those things all the time.
+
+00:14:38.981 --> 00:14:40.811
+And this worked great for us.
+
+00:14:40.811 --> 00:14:43.841
+It was just awesome way to
+develop a custom prelude.
+
+00:14:44.291 --> 00:14:47.201
+Um, and clearly there are some
+things that are convenient to have
+
+00:14:47.201 --> 00:14:48.341
+that you don't use all the time.
+
+00:14:48.341 --> 00:14:50.711
+So this doesn't get everything,
+but it gets a lot of things.
+
+00:14:51.301 --> 00:14:55.111
+Shout out to Sarah, one of the engineers
+on our team for doing that whole
+
+00:14:55.111 --> 00:14:58.411
+process and developing this prolude
+it's been a huge benefit to our team.
+
+00:14:59.961 --> 00:15:01.671
+>> Agree, agree, agree.
+
+00:15:03.051 --> 00:15:03.591
+Uh, yeah.
+
+00:15:03.621 --> 00:15:08.361
+So, uh, you had mentioned something
+earlier, Taylor, that we use AWS
+
+00:15:08.361 --> 00:15:16.191
+for infrastructure, um, and AWS,
+the library for Haskell really has
+
+00:15:16.191 --> 00:15:19.341
+done the best and is the most well.
+
+00:15:20.746 --> 00:15:26.206
+Explored would be amazonka which, you
+know, they have, they made choices
+
+00:15:26.446 --> 00:15:30.766
+that have made it maybe a little
+harder sometimes for new, you know,
+
+00:15:30.796 --> 00:15:33.046
+Haskell developers to figure it out.
+
+00:15:33.226 --> 00:15:38.326
+But once you kind of start to understand
+and see the conduits and see how kind of,
+
+00:15:38.356 --> 00:15:43.576
+all of the information plays out amazonka
+turns out to be in like all the lenses.
+
+00:15:43.861 --> 00:15:46.111
+Like it turns out to be pretty nice.
+
+00:15:46.171 --> 00:15:51.151
+Um, cause it is so vast and the
+amount of services it supports
+
+00:15:51.151 --> 00:15:51.781
+>> and covers.
+
+00:15:53.181 --> 00:15:53.721
+Oh yeah.
+
+00:15:53.721 --> 00:15:54.711
+It's a great library.
+
+00:15:54.891 --> 00:16:00.051
+Uh, and it's, I'm pretty sure it's built
+from Amazon's own description of their
+
+00:16:00.051 --> 00:16:01.521
+API and their services and everything.
+
+00:16:01.521 --> 00:16:01.881
+So.
+
+00:16:02.731 --> 00:16:06.631
+Very, uh, it's got everything
+it's comprehensive.
+
+00:16:07.231 --> 00:16:11.731
+Um, and as you mentioned, it does have
+some complexity, so it uses conduits and
+
+00:16:11.731 --> 00:16:16.621
+it uses lenses, both of which are more
+advanced concepts, but you notice, we
+
+00:16:16.621 --> 00:16:20.341
+were talking about servant and persistent
+earlier, which also use advanced
+
+00:16:20.341 --> 00:16:23.761
+concepts with type level programming
+and template Haskell, quasi quotes.
+
+00:16:24.361 --> 00:16:27.331
+Um, and that's been kind of the
+story of the development process.
+
+00:16:28.036 --> 00:16:33.466
+Or the engineering process for us,
+where, uh, we started with really simple
+
+00:16:33.466 --> 00:16:38.476
+stuff, the types of things that we felt
+comfortable, we could implement ourselves.
+
+00:16:38.536 --> 00:16:41.116
+You know, if we needed to, obviously
+we didn't write our own libraries for
+
+00:16:41.116 --> 00:16:47.236
+everything, but, uh, we've been reaching
+out to more advanced libraries and
+
+00:16:47.236 --> 00:16:52.576
+techniques to push things into compile
+time errors at the expense of maybe
+
+00:16:52.576 --> 00:16:53.806
+they're a little harder to understand.
+
+00:16:53.806 --> 00:16:54.796
+We feel less confident.
+
+00:16:55.471 --> 00:16:57.511
+You know, could we implement
+this type of thing ourselves?
+
+00:16:57.511 --> 00:17:01.831
+Like, you know, I think given enough time,
+we could probably write our own servant
+
+00:17:01.831 --> 00:17:06.061
+library and there are great resources for
+doing exactly that, but it's not something
+
+00:17:06.061 --> 00:17:07.951
+everyone on the team could comfortably do.
+
+00:17:09.981 --> 00:17:10.341
+>> Yeah.
+
+00:17:10.371 --> 00:17:14.481
+And that's something, you know, like
+you said, we try to keep it simple in
+
+00:17:14.481 --> 00:17:18.231
+the beginning because I mean, myself
+included, we were learning Haskell.
+
+00:17:18.261 --> 00:17:19.421
+Like we didn't have.
+
+00:17:20.506 --> 00:17:24.016
+Really, you know, understanding
+of the functional paradigm
+
+00:17:24.016 --> 00:17:24.976
+and the things going on.
+
+00:17:24.976 --> 00:17:28.276
+So that's what we're wrestling with
+mostly now, but the more advanced
+
+00:17:28.276 --> 00:17:31.966
+things in high school, they were
+way beyond our reach at that point.
+
+00:17:31.966 --> 00:17:36.436
+And so I think as a team, we've done a
+good job communicating with each other,
+
+00:17:36.476 --> 00:17:40.936
+saying, okay, Hey, here's something
+here's a limitation of this library,
+
+00:17:41.206 --> 00:17:44.806
+but here's another one that could, you
+know, it's a little harder, there's a
+
+00:17:44.806 --> 00:17:47.566
+little more, uh, underneath the covers.
+
+00:17:48.376 --> 00:17:52.096
+It's going to give you a little
+bit more safety and benefits.
+
+00:17:52.486 --> 00:17:58.066
+Um long-term um, so it's like a short term
+complexity learn, but a long-term benefit.
+
+00:17:58.366 --> 00:18:02.656
+And I think that's kind of the
+line we tow as an engineering team
+
+00:18:02.656 --> 00:18:04.596
+because we do know we're gonna grow.
+
+00:18:04.646 --> 00:18:06.916
+We're gonna have new
+engineers come on board.
+
+00:18:06.916 --> 00:18:09.826
+And you know, there's not a
+lot of high school developers
+
+00:18:09.826 --> 00:18:10.846
+out there looking for jobs.
+
+00:18:10.846 --> 00:18:14.536
+And so when we are looking for one,
+we want to make sure it's appealing.
+
+00:18:14.746 --> 00:18:19.966
+It's something that's, you know, One
+way or the other, like we like to try
+
+00:18:19.966 --> 00:18:25.306
+to, you know, be a middle ground for,
+um, just how we write Haskell and how
+
+00:18:25.306 --> 00:18:26.596
+we communicate and all those things.
+
+00:18:26.596 --> 00:18:28.546
+So, um, yeah, that's.
+
+00:18:30.961 --> 00:18:33.061
+You know, the reasons we've
+made some of these choices and
+
+00:18:33.061 --> 00:18:34.831
+how we kind of balance that.
+
+00:18:35.751 --> 00:18:36.141
+>> Yeah.
+
+00:18:36.201 --> 00:18:39.771
+And I think a great example of that is
+not even switching libraries, but staying
+
+00:18:39.771 --> 00:18:41.121
+with the whole library at the same time.
+
+00:18:41.181 --> 00:18:47.531
+So like every, you know, web programmer,
+we deal with JSON and we use the aeson
+
+00:18:47.551 --> 00:18:52.431
+library to encode and decode JSON,
+which is kind of the bog standard.
+
+00:18:52.431 --> 00:18:55.821
+Everybody uses it library, but
+the manner in which we use it
+
+00:18:55.821 --> 00:18:56.901
+has changed over the years.
+
+00:18:57.691 --> 00:18:58.951
+Two to four years.
+
+00:19:00.151 --> 00:19:04.471
+Back in the day when we were writing
+more, what you might call simple Haskell.
+
+00:19:04.921 --> 00:19:07.111
+We wrote all of the instances by hand.
+
+00:19:07.171 --> 00:19:11.211
+So we would define a datatype and then
+we would define the, from JSON instance
+
+00:19:11.211 --> 00:19:15.691
+and the to JSON instance, more recently,
+we have moved away from doing that.
+
+00:19:15.751 --> 00:19:18.561
+And instead we use generic
+deriving to do those
+
+00:19:18.826 --> 00:19:19.276
+for us.
+
+00:19:19.276 --> 00:19:20.806
+So we don't have to
+write that code anymore.
+
+00:19:20.806 --> 00:19:25.516
+It gets written automatically, and we
+can be sure that the implementation
+
+00:19:25.516 --> 00:19:28.966
+of those functions matches the
+shape of the data type, which is
+
+00:19:28.966 --> 00:19:31.036
+something that anyone who's written.
+
+00:19:31.036 --> 00:19:35.476
+These instances knows it's pretty easy to
+accidentally, you know, miss name one of
+
+00:19:35.476 --> 00:19:37.936
+the keys or get something flipped around.
+
+00:19:38.566 --> 00:19:42.256
+Um, but another one of the motivations
+for us actually ties in with the different
+
+00:19:42.256 --> 00:19:43.926
+change we made switching to servant.
+
+00:19:44.196 --> 00:19:47.586
+One of the benefits of servant is that
+we get API documentation for free.
+
+00:19:47.826 --> 00:19:52.986
+And part of that is that the types in
+your API need to have schema instances,
+
+00:19:53.576 --> 00:19:58.226
+and we could write those by hand,
+but, and we have to keep not only
+
+00:19:58.226 --> 00:20:01.586
+the data type and the JSON instance
+in sync, but both of those have to
+
+00:20:01.586 --> 00:20:03.176
+be in sync with the schema instance.
+
+00:20:03.206 --> 00:20:05.276
+So that's a lot of code
+that all has to change.
+
+00:20:06.241 --> 00:20:09.541
+And you either have to catch it in
+code review or write tests for it or
+
+00:20:09.541 --> 00:20:14.161
+something, but, um, the easy way out
+and the way that we took is to use
+
+00:20:14.161 --> 00:20:18.631
+generic driving and that way your schema
+instance matches your JSON instance.
+
+00:20:18.631 --> 00:20:21.991
+Cause they both use the same
+mechanism for generating that code.
+
+00:20:22.231 --> 00:20:25.021
+And that's been really nice,
+huge, uh, decrease in the amount
+
+00:20:25.021 --> 00:20:28.081
+of code that we write and huge
+increase in the consistency of it.
+
+00:20:30.481 --> 00:20:31.801
+>> Yeah, it's been nice.
+
+00:20:32.161 --> 00:20:35.101
+Um, we definitely have had some
+tensions here and there with it
+
+00:20:35.101 --> 00:20:36.841
+relating to build times and things.
+
+00:20:37.201 --> 00:20:41.101
+Um, and Taylor's knows, he's been
+working on some stuff to kind of
+
+00:20:41.101 --> 00:20:42.841
+see what we can do about that.
+
+00:20:42.841 --> 00:20:48.121
+But, you know, for the most part, the
+benefits are there and, you know, yes.
+
+00:20:48.151 --> 00:20:51.391
+Maybe a little bit more hand
+wavy, but you have that comfort
+
+00:20:51.391 --> 00:20:52.981
+of it's all, it's all the same.
+
+00:20:53.071 --> 00:20:56.911
+It's all doing the same stuff
+behind the scenes and yeah.
+
+00:20:57.706 --> 00:21:02.926
+When you're dealing with really any,
+any code base, you want to make sure
+
+00:21:02.926 --> 00:21:04.426
+that at least there's consistency.
+
+00:21:04.426 --> 00:21:08.176
+That's another thing within our team
+that like, w we're trying to continue
+
+00:21:08.176 --> 00:21:14.026
+to work towards this consistency in
+naming, you know, imports, um, you
+
+00:21:14.026 --> 00:21:15.826
+know, our style guide, you know?
+
+00:21:15.826 --> 00:21:20.176
+So like there's some things
+that, um, you know, you want to
+
+00:21:20.176 --> 00:21:21.306
+make sure it's consistent and.
+
+00:21:22.171 --> 00:21:23.611
+Generic derive and gives you that.
+
+00:21:23.701 --> 00:21:26.431
+And I'm really grateful for
+it because it's saved me a
+
+00:21:26.431 --> 00:21:27.871
+ton of boiler plate time too.
+
+00:21:28.201 --> 00:21:33.211
+Um, because we were starting to hit more
+hiccups with like our JSON instances
+
+00:21:33.211 --> 00:21:38.491
+and all those things of, oh, we encode
+it one way,  but decode it another,
+
+00:21:38.491 --> 00:21:43.381
+and then that's problematic and you're
+really creating more work for yourself.
+
+00:21:43.381 --> 00:21:46.111
+So, um, you know, yeah.
+
+00:21:46.321 --> 00:21:48.781
+Anyways, uh, did we want to.
+
+00:21:50.536 --> 00:21:55.006
+Kind of in the middle here of, um, you
+know, all of our services, we've really
+
+00:21:55.006 --> 00:21:56.566
+been talking about APIs at this point.
+
+00:21:56.986 --> 00:22:01.846
+Uh, and we have four other services that
+kind of do all four different things.
+
+00:22:02.476 --> 00:22:07.836
+And so the another library that
+we lean into is which, which
+
+00:22:07.846 --> 00:22:08.806
+we talked about last week.
+
+00:22:08.806 --> 00:22:11.476
+So if you miss last week's
+podcast, go check it out.
+
+00:22:11.746 --> 00:22:13.246
+Uh, that was actually written by Taylor.
+
+00:22:13.636 --> 00:22:16.876
+It really allows us to switch
+between, uh, types, a lot
+
+00:22:16.906 --> 00:22:17.986
+easier and a lot more effective.
+
+00:22:18.736 --> 00:22:21.616
+Um, and a little more
+easy on the eyes as well.
+
+00:22:22.156 --> 00:22:23.026
+Um, so yeah,
+
+00:22:23.566 --> 00:22:23.866
+>> Taylor.
+
+00:22:24.396 --> 00:22:24.846
+Yeah.
+
+00:22:24.936 --> 00:22:28.506
+Uh, and that touches on what you had
+mentioned earlier of consistency.
+
+00:22:28.536 --> 00:22:33.426
+So, which as we talked about last
+episode gives a consistent interface to
+
+00:22:33.486 --> 00:22:35.796
+switch between or convert between types.
+
+00:22:36.306 --> 00:22:40.296
+Um, and we've been talking a lot
+about libraries, but that consistency
+
+00:22:40.296 --> 00:22:41.676
+goes to other things as well.
+
+00:22:41.676 --> 00:22:44.616
+So for instance, the
+formatting of our code base.
+
+00:22:45.871 --> 00:22:49.921
+This is contentious, not just in Haskell,
+but in every programming language
+
+00:22:49.951 --> 00:22:52.291
+of how should things be formatted.
+
+00:22:52.291 --> 00:22:54.031
+Should it be up to the
+individual developer?
+
+00:22:54.061 --> 00:22:57.591
+Should you try to match the style
+of the file that you're editing.
+
+00:22:57.976 --> 00:23:00.706
+Uh, should there be kind of a house
+style that everyone follows or should
+
+00:23:00.706 --> 00:23:04.636
+a tool enforce the style and we've
+chosen to have a tool enforce the style.
+
+00:23:04.636 --> 00:23:10.846
+So we use Brittany to format all of
+our source code and, uh, this took
+
+00:23:10.846 --> 00:23:14.716
+some, uh, you know, discussion among
+the team to land on a configuration
+
+00:23:14.716 --> 00:23:15.826
+that we were comfortable with.
+
+00:23:15.826 --> 00:23:18.556
+And then we had to have this big bang PR.
+
+00:23:19.146 --> 00:23:21.606
+Everything gets formatted with Brittany
+and we switched everything over.
+
+00:23:21.906 --> 00:23:24.186
+But I think the end result has been
+really nice and we actually test
+
+00:23:24.186 --> 00:23:26.556
+it in our CI environment as well.
+
+00:23:26.556 --> 00:23:31.176
+So we know that when code gets
+merged into the main branch, it
+
+00:23:31.386 --> 00:23:32.796
+is all formatted the same way.
+
+00:23:33.066 --> 00:23:37.446
+And it may not be anyone's
+preferred format, but everyone
+
+00:23:37.446 --> 00:23:38.436
+is comfortable with it.
+
+00:23:38.526 --> 00:23:40.596
+And you don't have to think
+about formatting anymore.
+
+00:23:40.656 --> 00:23:44.166
+You just run it through
+Brittany and you're done.
+
+00:23:44.646 --> 00:23:46.026
+So that's been really nice.
+
+00:23:46.921 --> 00:23:49.021
+You know, for me, it makes it a
+lot easier to review code because
+
+00:23:49.021 --> 00:23:52.561
+everything has the same visual style
+and I know what expressions should
+
+00:23:52.561 --> 00:23:53.881
+look like, what types should look like.
+
+00:23:53.881 --> 00:23:55.321
+So it's a lot easier to skim over.
+
+00:23:56.241 --> 00:23:56.601
+>> Right.
+
+00:23:56.661 --> 00:23:57.891
+doesn't disorient you.
+
+00:23:58.851 --> 00:23:59.361
+Um, yeah.
+
+00:23:59.421 --> 00:24:04.611
+I know another tool that we use,
+um, for our code base and kind of,
+
+00:24:05.571 --> 00:24:11.531
+kind of creating some sort of rules
+around function, choices or line with.
+
+00:24:12.316 --> 00:24:14.986
+Well, I guess Brittany really
+handles line with, but, uh, you know,
+
+00:24:15.196 --> 00:24:18.856
+restricting functions or restricting
+certain, um, language extension.
+
+00:24:18.856 --> 00:24:25.306
+So those kinds of things we use hlint
+to um, or Clint, if you're read it,
+
+00:24:25.516 --> 00:24:28.606
+read it straight forward, but that
+allows us to have, you know, our own
+
+00:24:28.606 --> 00:24:32.986
+configuration to say, yes, We're okay
+with this, but we're not okay with this.
+
+00:24:33.256 --> 00:24:36.256
+And if you see something like
+this, change it out for this.
+
+00:24:36.376 --> 00:24:41.206
+Um, which is, I know a lot of this
+is, but it does give you that like
+
+00:24:41.296 --> 00:24:44.476
+consistency across the code base,
+that you're not like one file using
+
+00:24:44.476 --> 00:24:48.046
+this function, which is really the
+same as what's doing done in another
+
+00:24:48.046 --> 00:24:49.726
+function, but it's written differently.
+
+00:24:50.086 --> 00:24:53.276
+And so like kind of creating
+that consistencies with hlint
+
+00:24:53.296 --> 00:24:56.146
+has really helped, um, our
+development process as well.
+
+00:24:57.466 --> 00:24:57.736
+>> Yeah.
+
+00:24:57.736 --> 00:25:00.466
+And this also helps with
+onboarding because there are some
+
+00:25:00.466 --> 00:25:01.846
+things that you can rule out.
+
+00:25:01.966 --> 00:25:06.436
+Uh, for instance, since we have our own
+custom prelude, we can exclude functions
+
+00:25:06.436 --> 00:25:10.636
+from the prelude that we don't like,
+you know, like head, which is partial.
+
+00:25:10.666 --> 00:25:13.216
+And instead we want to either
+pattern match on it or use
+
+00:25:13.216 --> 00:25:17.326
+something like, um, safe head or
+one of those various functions.
+
+00:25:17.866 --> 00:25:19.486
+Um, and if we didn't.
+
+00:25:20.236 --> 00:25:24.226
+Or for functions that, uh, are in our
+prelude, but are, you know, questionable.
+
+00:25:24.226 --> 00:25:28.156
+Maybe we can have an hlint rule that
+just says, uh, this isn't preferred.
+
+00:25:28.186 --> 00:25:29.446
+Here's another way to do it.
+
+00:25:29.746 --> 00:25:32.686
+But if you know what you're doing,
+you can disable the hlint rule
+
+00:25:32.686 --> 00:25:34.096
+there and be on your Merry way.
+
+00:25:34.516 --> 00:25:38.556
+So it's a good way of teaching
+more junior developers or people
+
+00:25:38.566 --> 00:25:42.046
+were onboarding about, uh, the
+style that we like to write in.
+
+00:25:42.046 --> 00:25:45.886
+And by and large, we use the same
+community hlint rules as everyone else.
+
+00:25:45.886 --> 00:25:47.446
+So it's the community style.
+
+00:25:48.871 --> 00:25:49.261
+>> Yeah.
+
+00:25:49.381 --> 00:25:56.221
+You know, I know we, um, we have a rule
+in there for the, uh, utterable IO,
+
+00:25:57.131 --> 00:26:01.611
+>> accursed unutterable
+IO that unsafe perform IO yeah.
+
+00:26:01.641 --> 00:26:02.031
+That was,
+
+00:26:03.051 --> 00:26:06.111
+>> can't use those, but,
+uh, you know, maybe next week I'll
+
+00:26:06.111 --> 00:26:07.641
+ask Taylor to, to let us happen.
+
+00:26:09.411 --> 00:26:14.301
+And, uh, yeah, so like, I mean, we're
+just kind of starting on the tools and,
+
+00:26:14.571 --> 00:26:19.066
+you know, Kind of get quick in this next
+little bit, because we're going to kind of
+
+00:26:19.066 --> 00:26:23.956
+talk about our, to day-to-day development
+tools, our editors, and kind of what our
+
+00:26:23.956 --> 00:26:25.876
+locals and local environments look like.
+
+00:26:26.176 --> 00:26:31.336
+Um, so we use stack for
+majority of our services.
+
+00:26:31.336 --> 00:26:37.216
+One of them uses cabal, um, to build and
+manage, um, packages and all that stuff.
+
+00:26:37.576 --> 00:26:39.916
+And then, uh, so that's kind of.
+
+00:26:40.651 --> 00:26:44.701
+Pretty, you know, I know there's people
+who are one side versus the other, but we
+
+00:26:44.701 --> 00:26:47.671
+chose to use stack and it's worked well
+for us, but we're not opposed to cabal.
+
+00:26:47.671 --> 00:26:53.611
+So we have a cabal package, uh, and
+then we have ghcid um, for development
+
+00:26:53.821 --> 00:26:55.511
+as well as HLS or purple yolk.
+
+00:26:55.531 --> 00:27:00.661
+So those three kind of, uh, amongst
+the team are used in different ways.
+
+00:27:00.661 --> 00:27:04.801
+So I'm usually a ghcid
+kind of guy where I run it.
+
+00:27:05.776 --> 00:27:09.586
+Um, I have used purple yolk before, but
+HLS has been, always giving me issue.
+
+00:27:09.596 --> 00:27:12.406
+So I kind of, I kind
+of shy away from that.
+
+00:27:14.166 --> 00:27:14.436
+>> Yeah.
+
+00:27:14.466 --> 00:27:17.706
+And purple yoke, not super well-known
+it's something that I wrote.
+
+00:27:17.706 --> 00:27:18.516
+It's just a vs.
+
+00:27:18.516 --> 00:27:22.831
+Code extension that basically
+works the same as GHC ID, where it
+
+00:27:22.861 --> 00:27:24.721
+fires up, ghci in the background.
+
+00:27:24.751 --> 00:27:28.351
+And when you save a file reloads
+ghci and then shows you the
+
+00:27:28.351 --> 00:27:29.731
+warnings and errors in your editor.
+
+00:27:30.181 --> 00:27:33.991
+And I wrote it because HLS is a fantastic
+piece of software and it's amazing
+
+00:27:33.991 --> 00:27:38.971
+and it's way more powerful than purple
+yoke, but it's also, um, the, I dunno,
+
+00:27:38.971 --> 00:27:43.321
+rickety maybe is the best word I can use
+to describe it where when it works, it
+
+00:27:43.321 --> 00:27:45.691
+is amazing, but it doesn't always work.
+
+00:27:45.751 --> 00:27:46.831
+And that was frustrating to me.
+
+00:27:46.861 --> 00:27:47.281
+I prefer.
+
+00:27:48.036 --> 00:27:51.636
+Uh, more stupid tools
+that are more reliable.
+
+00:27:51.726 --> 00:27:55.176
+So that's why I built purple yolk,
+but we also use GHC ID because
+
+00:27:55.176 --> 00:27:58.236
+it's kind of the quintessential
+stupid tool that just works.
+
+00:27:58.296 --> 00:28:01.626
+So, um, yeah, we, we have a lot
+of options there for our quick
+
+00:28:01.626 --> 00:28:02.886
+feedback loop in development.
+
+00:28:04.106 --> 00:28:04.316
+>> Yeah.
+
+00:28:04.316 --> 00:28:06.926
+I like, I like ghcid cause it's kiss.
+
+00:28:07.196 --> 00:28:08.156
+Keep it stupid.
+
+00:28:08.726 --> 00:28:11.696
+Keep it simple, stupid, not stupid either.
+
+00:28:11.696 --> 00:28:13.346
+I guess either one works, but yeah.
+
+00:28:14.161 --> 00:28:14.461
+Yeah.
+
+00:28:14.491 --> 00:28:18.361
+And like you said, vs code is, you
+know, generally the term, you know,
+
+00:28:18.361 --> 00:28:20.851
+the editor that everybody uses.
+
+00:28:20.941 --> 00:28:22.801
+Um, we do have any max guy.
+
+00:28:23.221 --> 00:28:24.451
+We love him to death.
+
+00:28:25.111 --> 00:28:25.621
+He's awesome.
+
+00:28:25.621 --> 00:28:27.361
+And he also is the next guy as well.
+
+00:28:27.361 --> 00:28:31.591
+So, you know, he he's, he's
+trying to work a sandwich.
+
+00:28:31.651 --> 00:28:33.511
+It's totally, totally admirable.
+
+00:28:33.511 --> 00:28:36.421
+So, um, he's our Emacs nix user.
+
+00:28:36.841 --> 00:28:44.716
+And then for local development, We use
+Docker and Docker compose to lift up
+
+00:28:44.716 --> 00:28:48.466
+our services and create local networks
+that commute, they can communicate
+
+00:28:48.466 --> 00:28:49.876
+with each other and all that stuff.
+
+00:28:49.936 --> 00:28:53.446
+Um, that way it's any machine can run it.
+
+00:28:53.586 --> 00:28:54.886
+Not machine dependent.
+
+00:28:55.666 --> 00:28:59.716
+It's all kind of built into the
+Docker images and those will be run.
+
+00:28:59.776 --> 00:29:04.606
+So that is kind of the
+rundown on our tooling.
+
+00:29:04.816 --> 00:29:05.326
+I'm sorry.
+
+00:29:06.301 --> 00:29:07.921
+Kind of just whizzed by it.
+
+00:29:07.921 --> 00:29:11.711
+But if you guys have any more comments
+or questions or you want us to dive
+
+00:29:11.731 --> 00:29:16.801
+deeper, obviously, you know, you know
+where to find us just comment, we will.
+
+00:29:17.536 --> 00:29:21.796
+Take it into account and look
+at, uh, maybe expounding upon it.
+
+00:29:23.076 --> 00:29:23.406
+>> Yeah.
+
+00:29:23.436 --> 00:29:25.626
+And I just wanted to a
+quick mention about Docker.
+
+00:29:25.896 --> 00:29:29.916
+Um, we use it both for local development
+and for our production deployments,
+
+00:29:30.306 --> 00:29:34.026
+which has been really nice because at
+any point you can grab the Docker image.
+
+00:29:34.026 --> 00:29:37.416
+That's actually running in production
+and run it locally and see, you
+
+00:29:37.416 --> 00:29:39.546
+know, how exactly does it behave.
+
+00:29:40.116 --> 00:29:44.826
+Um, but also for local development, it's
+been really nice to reduce, not entirely
+
+00:29:44.826 --> 00:29:46.566
+eliminate, but almost entirely eliminate.
+
+00:29:47.126 --> 00:29:51.536
+The works on my machine syndrome,
+where one developer has something
+
+00:29:51.536 --> 00:29:53.636
+that works great and then they
+push it up and the other developer
+
+00:29:53.636 --> 00:29:55.226
+pulls it down and doesn't work.
+
+00:29:55.736 --> 00:29:59.876
+Um, we have very, very few of those
+problems and it's mostly due to Docker.
+
+00:29:59.936 --> 00:30:03.476
+Um, not to say that it's the only solution
+to that problem, but that it has more
+
+00:30:03.476 --> 00:30:04.616
+or less solved that problem for us.
+
+00:30:06.796 --> 00:30:07.156
+>> Yup.
+
+00:30:07.426 --> 00:30:07.996
+For sure.
+
+00:30:09.721 --> 00:30:10.021
+Cool.
+
+00:30:10.021 --> 00:30:11.401
+So we talked about tooling.
+
+00:30:11.521 --> 00:30:15.751
+I did want to kind of jump in
+real quick to kind of code layout.
+
+00:30:15.781 --> 00:30:20.551
+How do we structure our code and what
+are some of the choices we made along
+
+00:30:20.551 --> 00:30:23.281
+the way to, to be where we are today?
+
+00:30:23.731 --> 00:30:25.141
+Um, so Taylor, you wanna start
+
+00:30:25.141 --> 00:30:25.351
+>> us off?
+
+00:30:26.791 --> 00:30:27.271
+Sure.
+
+00:30:27.331 --> 00:30:31.201
+Uh, the way that we like to lay
+out code today is to more or
+
+00:30:31.201 --> 00:30:33.901
+less have one module per type.
+
+00:30:34.411 --> 00:30:37.831
+And it's a little tedious because
+there's a certain amount of overhead
+
+00:30:37.831 --> 00:30:39.271
+involved with making a new module.
+
+00:30:39.511 --> 00:30:43.651
+But the benefit is that when you
+want to use that type, you can import
+
+00:30:43.651 --> 00:30:46.501
+that module and you can import it
+qualified, which we normally do.
+
+00:30:47.056 --> 00:30:49.576
+And then you can use really
+short identifiers in that module.
+
+00:30:49.606 --> 00:30:52.576
+So you don't have to make names
+that are globally unique or even
+
+00:30:52.576 --> 00:30:53.596
+unique among a bunch of stuff.
+
+00:30:53.626 --> 00:30:55.456
+It just has to be unique
+within that module, which is
+
+00:30:55.456 --> 00:30:56.416
+usually pretty easy to do.
+
+00:30:57.016 --> 00:31:00.526
+Um, and we actually arrived at this
+because in our list of services up
+
+00:31:00.526 --> 00:31:03.706
+at the top, we had nucleus, uh, we
+used to have another service called
+
+00:31:03.706 --> 00:31:07.636
+metrics, and then they got pushed
+together into one service called ion.
+
+00:31:08.056 --> 00:31:09.436
+Um, and we had.
+
+00:31:10.666 --> 00:31:11.926
+Catch all module.
+
+00:31:11.956 --> 00:31:15.886
+That was the glue between those two
+modules, all the stuff that was common.
+
+00:31:16.426 --> 00:31:19.606
+And that meant that it
+had a lot of stuff in it.
+
+00:31:19.816 --> 00:31:23.206
+And we had to make the names
+unique within that module.
+
+00:31:23.266 --> 00:31:24.286
+And that was painful.
+
+00:31:24.346 --> 00:31:28.546
+Um, and that's part of the reason,
+I guess we didn't say this, but
+
+00:31:28.546 --> 00:31:30.346
+our main code base is called Smurf.
+
+00:31:30.526 --> 00:31:33.796
+And the reason we called it that is
+that we ended up with a lot of repeated
+
+00:31:33.796 --> 00:31:35.056
+names where you'd have something.
+
+00:31:36.241 --> 00:31:41.761
+Person dot person, name of person and are
+like, okay, this is getting ridiculous.
+
+00:31:41.761 --> 00:31:43.351
+Now we need to do something about it.
+
+00:31:43.801 --> 00:31:46.691
+Um, so that's why we're trying to
+move toward the one module per type.
+
+00:31:46.711 --> 00:31:47.761
+We are moving toward that.
+
+00:31:48.121 --> 00:31:51.211
+Um, yeah, that that's for our types
+and stuff, but cam, do you want to
+
+00:31:51.211 --> 00:31:52.591
+talk about how our API is set up?
+
+00:31:54.171 --> 00:31:59.111
+>> Uh, yeah, so, yeah, so, um, like
+Taylor said, we have one module per type.
+
+00:31:59.566 --> 00:32:03.766
+And we have separated like our
+types our queries and our API, uh,
+
+00:32:03.796 --> 00:32:07.546
+handlers in the separate files and
+in a different structure that way.
+
+00:32:07.906 --> 00:32:13.606
+Uh, you know, we're not trying to import
+something from an API that's in another
+
+00:32:13.606 --> 00:32:15.496
+API or anything along those lines.
+
+00:32:15.706 --> 00:32:18.676
+And we also pull out, uh,
+you know, more common actions
+
+00:32:18.916 --> 00:32:20.296
+into separate files as well.
+
+00:32:20.296 --> 00:32:22.876
+So, you know, say you
+want to create a course.
+
+00:32:22.876 --> 00:32:25.546
+Well, you know, or a
+person, you know, like we.
+
+00:32:26.566 --> 00:32:30.196
+The person action, and then
+we'd have a run for it.
+
+00:32:30.196 --> 00:32:32.116
+And that would give us a new person.
+
+00:32:32.296 --> 00:32:37.336
+And so, um, some people would
+say, that's not the way making
+
+00:32:37.336 --> 00:32:40.456
+people work, but you know, we're
+not going to get into that today.
+
+00:32:40.906 --> 00:32:43.816
+Um, it just, uh, came to my head.
+
+00:32:43.816 --> 00:32:48.676
+So I am, but then we also have, uh,
+each handler is in their own file.
+
+00:32:48.676 --> 00:32:53.101
+So with our servant handlers, You know,
+the route and the handler in there.
+
+00:32:53.101 --> 00:32:55.471
+So it's a little easier to
+comprehend what's going on.
+
+00:32:55.921 --> 00:33:01.231
+And then in our nucleus and ion, uh,
+handlers, it's just kinda the handler
+
+00:33:01.441 --> 00:33:03.391
+fabulous supporting functionality.
+
+00:33:03.841 --> 00:33:06.961
+And, you know, I have a dog who likes
+to bark in the middle of a podcast.
+
+00:33:07.051 --> 00:33:09.571
+So, um, we'll see if we can edit that out.
+
+00:33:09.571 --> 00:33:11.191
+If not, that was my dog, Ruth.
+
+00:33:12.541 --> 00:33:12.841
+>> Yep.
+
+00:33:12.961 --> 00:33:13.411
+Hi Ruth.
+
+00:33:13.911 --> 00:33:17.301
+Um, but yeah, one thing I wanted
+to go over there again, was that
+
+00:33:17.301 --> 00:33:20.091
+you mentioned actions in separate
+files for stuff like creating.
+
+00:33:20.091 --> 00:33:20.571
+users.
+
+00:33:20.911 --> 00:33:25.741
+Uh, this is a pattern known as, uh, like
+a command object in a different language.
+
+00:33:25.831 --> 00:33:29.821
+And in fact, at a previous job, I
+worked in Ruby and I worked with a
+
+00:33:29.821 --> 00:33:34.531
+coworker of mine, Aaron, to develop
+a library called active interaction.
+
+00:33:34.681 --> 00:33:38.881
+And so that's kind of, I pushed for
+this in our code base here because I
+
+00:33:38.891 --> 00:33:40.171
+was really familiar with the concept.
+
+00:33:40.171 --> 00:33:44.611
+And it's surprisingly powerful of let's
+take this thing that we want to do.
+
+00:33:44.611 --> 00:33:47.611
+That's complicated and pull it
+out into its own file and have
+
+00:33:47.611 --> 00:33:48.971
+well-defined inputs and outputs.
+
+00:33:49.321 --> 00:33:53.371
+Which granted you get for free in Haskell,
+that's the type system, but, uh, pull it
+
+00:33:53.371 --> 00:33:56.371
+out over there so that if you want to call
+it from the API, or if you wanna call it
+
+00:33:56.371 --> 00:34:00.001
+from a script or you want to call it from
+a job, they can all just use that thing
+
+00:34:00.001 --> 00:34:01.561
+and you don't have to worry like, oh crap.
+
+00:34:01.561 --> 00:34:04.441
+Well, when you make a user in
+the API, it does it this way.
+
+00:34:04.441 --> 00:34:07.171
+But when you call the script,
+it does this other way.
+
+00:34:07.171 --> 00:34:10.021
+And then those things, invariably
+get out of sync with each other.
+
+00:34:11.311 --> 00:34:11.701
+>> Oh, yeah.
+
+00:34:11.761 --> 00:34:11.941
+Yeah.
+
+00:34:11.941 --> 00:34:17.551
+We had that issue, especially when we
+were starting to move, um, kind of legacy
+
+00:34:17.551 --> 00:34:19.881
+end points from ion a nucleus into Urza.
+
+00:34:20.341 --> 00:34:23.731
+We would kind of have this two
+definitions of these things in the
+
+00:34:23.731 --> 00:34:26.671
+meantime, and then change one and
+then the other were having issues.
+
+00:34:26.671 --> 00:34:30.721
+So, uh, kind of moving towards
+that actual file kind of isolate.
+
+00:34:31.591 --> 00:34:36.031
+You know, and, and more or less kind
+of siloed what that, what was happening
+
+00:34:36.331 --> 00:34:40.711
+rather than kind of trying to do
+anything, not the wild wild west.
+
+00:34:41.041 --> 00:34:42.781
+Um, and you did kind of
+touch on the scripts.
+
+00:34:42.841 --> 00:34:49.201
+Um, you know, business needs various needs
+and reports and metrics are returned or,
+
+00:34:49.621 --> 00:34:51.541
+you know, things merged or this or that.
+
+00:34:51.541 --> 00:34:58.231
+So we kind of have a, uh, a whole
+directory of scripts that are just
+
+00:34:58.231 --> 00:34:59.521
+kind of runoff one-off scripts.
+
+00:35:00.226 --> 00:35:04.936
+We can run whenever the person needs
+it or whatever, or we'll create
+
+00:35:04.936 --> 00:35:06.076
+a new one if we don't have it.
+
+00:35:06.106 --> 00:35:08.566
+Uh, and those are kind of also 11 Smurf.
+
+00:35:08.986 --> 00:35:12.466
+That's just like a thing we can run
+on our local machines connect to
+
+00:35:12.466 --> 00:35:14.026
+the database and we're good to go.
+
+00:35:15.426 --> 00:35:15.726
+>> Yeah.
+
+00:35:15.786 --> 00:35:19.416
+And a quick note there about kind
+of the life cycle often we'll get
+
+00:35:19.416 --> 00:35:22.356
+a request for a new report type
+and we'll write a script for it.
+
+00:35:22.566 --> 00:35:24.156
+Cause that's the easiest thing for us.
+
+00:35:24.216 --> 00:35:27.076
+And then if we get a, another
+request for a report of that same.
+
+00:35:28.066 --> 00:35:31.066
+We will start to think, okay, maybe
+we need to put this into a job.
+
+00:35:31.066 --> 00:35:33.466
+Something that can run, you know, every
+week, every month, something like.
+
+00:35:34.306 --> 00:35:39.646
+Or we need to expose it to our internal,
+you know, staff users so that they can
+
+00:35:39.646 --> 00:35:43.486
+just click a button and get that report
+rather than having them to ask us for it.
+
+00:35:43.936 --> 00:35:48.376
+So often things that start off in
+scripts will kind of graduate into
+
+00:35:48.376 --> 00:35:51.736
+becoming an action that then is
+exposed through a job or a web UI.
+
+00:35:53.166 --> 00:35:53.496
+>> Yup.
+
+00:35:53.586 --> 00:35:53.826
+Yup.
+
+00:35:54.276 --> 00:35:58.956
+And you know, that's kinda, uh,
+what quantum does is handles is
+
+00:35:58.956 --> 00:36:03.156
+our it's our job, uh, manager and
+using odd jobs, like we said, right.
+
+00:36:03.851 --> 00:36:09.491
+And so know that's definitely, you know,
+even this week we had a script that was,
+
+00:36:09.491 --> 00:36:12.461
+uh, that was running for about 30 minutes.
+
+00:36:12.491 --> 00:36:14.141
+It was like, that was the runtime for it.
+
+00:36:14.501 --> 00:36:16.151
+And so we kind of evaluated.
+
+00:36:16.151 --> 00:36:16.721
+I said, oh yeah.
+
+00:36:16.721 --> 00:36:20.531
+Like when things start to go like that,
+we say, okay, what can we do differently?
+
+00:36:20.531 --> 00:36:24.491
+And we take a look at the code and we kind
+of dissect it and see what's going on.
+
+00:36:24.491 --> 00:36:27.071
+Well, we saw, we had a re repetitive.
+
+00:36:28.021 --> 00:36:29.881
+We were making database
+calls within a loop.
+
+00:36:30.061 --> 00:36:33.931
+And so rather than just trying to get
+all the information at once, we were
+
+00:36:33.931 --> 00:36:38.131
+trying to do it eat for each company we
+had, which we got a lot of companies.
+
+00:36:38.131 --> 00:36:41.761
+So that was, you know, begging
+our CPU usage on our database
+
+00:36:41.761 --> 00:36:44.791
+and, um, taking forever to run.
+
+00:36:44.791 --> 00:36:49.321
+So, um, we pulled that out, like fix
+that up and then that, that down about
+
+00:36:49.321 --> 00:36:53.521
+42 seconds and turn that into a job
+because it is a monthly report that is
+
+00:36:53.521 --> 00:36:55.951
+asked for a lot in 30 minutes a month.
+
+00:36:57.136 --> 00:37:01.546
+That 30 minutes a month can be expensive,
+especially because if you're trying
+
+00:37:01.546 --> 00:37:04.036
+to do something else and you forget
+to ever send it to the people who
+
+00:37:04.036 --> 00:37:08.326
+need it, there's a lot of things there
+that can kind of create these hiccups.
+
+00:37:08.356 --> 00:37:15.166
+So that is kind of what even bred
+the idea of quantum and our job queue
+
+00:37:15.586 --> 00:37:20.026
+is like this kind of repetitive rote
+thing that was always happening that
+
+00:37:20.146 --> 00:37:21.246
+doesn't really need engineering.
+
+00:37:22.141 --> 00:37:25.741
+And we can kind of push it off
+and automate part parts of our
+
+00:37:25.741 --> 00:37:27.931
+job, which has been a huge, huge.
+
+00:37:29.416 --> 00:37:30.346
+>> Yeah, absolutely.
+
+00:37:31.006 --> 00:37:34.126
+Well, cam, as you mentioned earlier,
+we're always happy to get, uh, questions
+
+00:37:34.126 --> 00:37:36.076
+or comments from our listeners.
+
+00:37:36.076 --> 00:37:39.766
+So if you, you know, we, it sounds like
+we've been talking for a long time about a
+
+00:37:39.766 --> 00:37:42.136
+lot of different things, but really we've
+just been scratching the surface here.
+
+00:37:42.166 --> 00:37:43.786
+If there's any part of this that
+you want to hear more about.
+
+00:37:43.786 --> 00:37:45.256
+If there's something that we
+didn't mention that you're
+
+00:37:45.256 --> 00:37:46.246
+curious about, please let us.
+
+00:37:46.951 --> 00:37:47.641
+We're on Twitter.
+
+00:37:47.671 --> 00:37:49.261
+It's probably the easiest
+way to get ahold of us.
+
+00:37:49.291 --> 00:37:51.811
+Just go to Twitter.com/HaskellWeekly..
+
+00:37:52.201 --> 00:37:54.481
+Um, but I'm pretty sure those
+were all the things that I had
+
+00:37:54.481 --> 00:37:55.551
+to cover at least for today.
+
+00:37:55.601 --> 00:37:56.761
+Cam, was there anything
+else that you wanted to go?
+
+00:37:58.461 --> 00:38:00.921
+>> I mean, like you said,
+we're just scratching the surface.
+
+00:38:00.921 --> 00:38:05.061
+So I think this is a good start
+and, uh, would love to hear your
+
+00:38:05.061 --> 00:38:09.561
+feedback and we can definitely
+expound upon things as you'd like.
+
+00:38:09.561 --> 00:38:12.231
+So just really appreciate
+you guys joining us.
+
+00:38:13.876 --> 00:38:14.656
+>> Yeah, absolutely.
+
+00:38:15.016 --> 00:38:17.866
+So, thanks for listening to
+the Haskell weekly podcast.
+
+00:38:17.956 --> 00:38:19.706
+I have been your host Taylor Fausak.
+
+00:38:19.756 --> 00:38:21.746
+And with me today was Cameron Gera.
+
+00:38:22.066 --> 00:38:24.556
+If you want to find out more about
+us, like I said, we're on Twitter
+
+00:38:24.616 --> 00:38:27.736
+or you can go to our website,
+which is HaskellWeekly.News.
+
+00:38:29.116 --> 00:38:32.346
+>> And we're brought to
+you, by our employer, ITProTV,
+
+00:38:32.446 --> 00:38:34.056
+an ACI Learning company.
+
+00:38:34.356 --> 00:38:39.096
+They would like to offer you 30% off the
+lifetime of your subscription by using the
+
+00:38:39.096 --> 00:38:41.556
+promo code HaskellWeekly30 at checkout.
+
+00:38:42.511 --> 00:38:47.371
+All you gotta do is go to ITPro.TV, and
+you'll see how you can sign up there.
+
+00:38:47.611 --> 00:38:52.081
+Um, and that HaskellWeekly30
+promo code will get you 30% off.
+
+00:38:52.411 --> 00:38:54.451
+So I think that about does it for us.
+
+00:38:54.481 --> 00:38:56.721
+Thanks again for joining us
+on the Haskell Weekly podcast
+
+00:38:56.721 --> 00:38:57.751
+and we'll see you next week.
