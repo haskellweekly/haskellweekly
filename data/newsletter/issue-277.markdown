@@ -76,4 +76,5 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 
 ## Call for participation
 
-undefined
+-   [ticket-management: Better Rendering of Tickets](https://github.com/SamuelSchlesinger/ticket-management/issues/2)
+-   [wasp: We are missing documentation for `app.head`](https://github.com/wasp-lang/wasp/issues/296)
