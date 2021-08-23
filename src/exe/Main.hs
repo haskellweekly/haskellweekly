@@ -5,4 +5,7 @@ module Main
   ( main
   ) where
 
-import HaskellWeekly (main)
+import qualified HaskellWeekly
+
+main :: IO ()
+main = HaskellWeekly.defaultMain

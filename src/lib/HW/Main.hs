@@ -2,7 +2,7 @@
 -- the whole thing is meant to be run as a server, this is where all the
 -- functionality comes together.
 module HW.Main
-  ( main
+  ( defaultMain
   ) where
 
 import qualified Data.IORef as IORef
@@ -14,8 +14,8 @@ import qualified Paths_haskellweekly as Package
 import qualified System.IO as IO
 
 -- | Runs the main Haskell Weekly server. This function never returns.
-main :: IO ()
-main = do
+defaultMain :: IO ()
+defaultMain = do
   IO.hSetBuffering IO.stdout IO.LineBuffering
   putStrLn
     $ "Starting Haskell Weekly version "

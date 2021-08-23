@@ -1,0 +1,3051 @@
+WEBVTT
+
+00:00:07.318 --> 00:00:09.688
+>> Hello and welcome to
+the Haskell Weekly podcast.
+
+00:00:10.048 --> 00:00:13.528
+This is a show about Haskell, a purely
+functional programming language.
+
+00:00:13.708 --> 00:00:15.318
+I'm your host, Taylor Fausak.
+
+00:00:15.758 --> 00:00:18.448
+I'm the Director of Software
+Engineering at ACI Learning.
+
+00:00:18.599 --> 00:00:22.559
+I'm very excited to welcome a special
+guest onto the podcast this week.
+
+00:00:22.539 --> 00:00:26.570
+With me today is Vlad,
+or Vladislav Zavialov.
+
+00:00:27.050 --> 00:00:28.450
+Welcome Vlad, thanks for joining me.
+
+00:00:29.280 --> 00:00:32.970
+>> Hi, I'm very glad to
+be a part of this podcast.
+
+00:00:33.880 --> 00:00:35.470
+>> I'm very glad to have you.
+
+00:00:35.560 --> 00:00:38.440
+And we were talking earlier
+about mispronouncing names.
+
+00:00:38.440 --> 00:00:41.520
+So could you say your own name, just
+so that we got it on the record?
+
+00:00:42.060 --> 00:00:42.390
+>> Sure.
+
+00:00:42.390 --> 00:00:45.030
+So my name is Vladislav Zavialov.
+
+00:00:45.630 --> 00:00:49.400
+It's a Russian name, so no
+worries if you don't get right.
+
+00:00:51.600 --> 00:00:53.370
+I don't worry about it too much myself.
+
+00:00:54.240 --> 00:00:54.780
+>> All right.
+
+00:00:55.020 --> 00:00:56.670
+Well, thanks again for joining me.
+
+00:00:56.760 --> 00:01:01.030
+And for the listeners that haven't heard
+of you, how would you describe yourself?
+
+00:01:02.030 --> 00:01:08.580
+>> So I'm a Haskell developer, and
+mostly I'm a self-taught Haskeller.
+
+00:01:08.580 --> 00:01:18.035
+So I want to make the language
+easy for others to learn as well.
+
+00:01:18.635 --> 00:01:25.085
+And my interest in dependent types
+actually started as a way of simplifying
+
+00:01:25.085 --> 00:01:26.705
+the current Haskell practices.
+
+00:01:27.035 --> 00:01:32.945
+So the more I tried to develop software
+with static guarantees in Haskell, the
+
+00:01:32.945 --> 00:01:37.955
+more I started using extensions, such
+as GADTs, type families, and so on.
+
+00:01:37.985 --> 00:01:40.145
+And I got burned bad by them.
+
+00:01:40.175 --> 00:01:46.610
+So if you're not careful with
+that, then you end up writing
+
+00:01:46.700 --> 00:01:49.260
+basically unmaintainable code.
+
+00:01:49.260 --> 00:01:53.790
+And now I've made my mission to change
+Haskell into a language where you
+
+00:01:53.790 --> 00:01:58.160
+can make — where you can write code
+that is simultaneously maintainable
+
+00:01:58.220 --> 00:02:00.080
+and has good static guarantees.
+
+00:02:01.630 --> 00:02:02.980
+>> That is a good mission.
+
+00:02:02.980 --> 00:02:04.390
+And I'm happy that you're working on it.
+
+00:02:04.720 --> 00:02:07.930
+I've definitely experienced some of
+that pain you're talking about, where
+
+00:02:07.930 --> 00:02:13.195
+as you add more advanced type level
+features,  the program gets simultaneously
+
+00:02:13.195 --> 00:02:14.785
+easier and harder to maintain.
+
+00:02:15.145 --> 00:02:17.725
+So I'm looking forward to
+some — to diving into some of
+
+00:02:17.845 --> 00:02:19.495
+the talk on dependent Haskell.
+
+00:02:19.945 --> 00:02:23.795
+But before we get there, I understand
+that you work for Serokell, which
+
+00:02:23.795 --> 00:02:25.795
+is a Haskell company, more or less.
+
+00:02:25.885 --> 00:02:26.195
+Right?
+
+00:02:26.865 --> 00:02:27.475
+>> Yeah, exactly.
+
+00:02:27.525 --> 00:02:30.135
+So I represent the research
+division of Serokell.
+
+00:02:30.825 --> 00:02:35.775
+We have some commercial clients and
+we work in the areas of financial
+
+00:02:35.775 --> 00:02:42.695
+technology and other areas where high
+security and correctness are required.
+
+00:02:43.705 --> 00:02:49.695
+But myself, I mostly work with
+my team of four people and we
+
+00:02:49.695 --> 00:02:51.595
+are focusing on GHC exclusively.
+
+00:02:52.905 --> 00:03:00.140
+And maybe sometimes we help with
+internal products, and the blog, to write
+
+00:03:00.140 --> 00:03:05.720
+something useful for the public to make
+our work more visible and maybe help
+
+00:03:05.720 --> 00:03:11.940
+others get into this topic, get more
+familiar with dependent types in Haskell.
+
+00:03:12.980 --> 00:03:13.570
+So yeah.
+
+00:03:14.220 --> 00:03:19.030
+Basically I wanted to praise
+my company for giving me this
+
+00:03:19.030 --> 00:03:22.830
+opportunity because it's basically
+my dream job to be working on GHC.
+
+00:03:22.830 --> 00:03:27.070
+And I get to decide
+which tasks to work on.
+
+00:03:27.070 --> 00:03:32.350
+I have basically complete freedom of
+prioritizing what needs to be done in
+
+00:03:32.350 --> 00:03:38.350
+GHC, as long as I can argue why it helps
+us to get closer to dependent types.
+
+00:03:39.670 --> 00:03:41.165
+>> Yeah, that sounds fantastic.
+
+00:03:41.165 --> 00:03:44.935
+It's really encouraging to have
+a private company with so many
+
+00:03:44.935 --> 00:03:47.365
+developers working solely on GHC.
+
+00:03:47.755 --> 00:03:49.255
+I'm merely a consumer.
+
+00:03:49.285 --> 00:03:51.565
+Me and my company are consumers of GHC.
+
+00:03:51.565 --> 00:03:53.365
+So we definitely benefit from your work.
+
+00:03:53.365 --> 00:03:54.415
+So thank you.
+
+00:03:54.525 --> 00:03:55.605
+And thank your company.
+
+00:03:55.605 --> 00:03:56.955
+You're both doing great stuff.
+
+00:03:57.435 --> 00:04:00.855
+So you touched on this already,
+but dependent Haskell is an
+
+00:04:00.855 --> 00:04:02.205
+area that you're interested in.
+
+00:04:02.205 --> 00:04:06.035
+And as you mentioned, I've seen some
+posts on the company blog about that.
+
+00:04:06.245 --> 00:04:09.075
+Both authored by you and
+an interview with you.
+
+00:04:09.315 --> 00:04:14.325
+So, from an extremely high level,
+could you tell us what are dependent
+
+00:04:14.325 --> 00:04:17.415
+types and more specifically,
+what is dependent Haskell?
+
+00:04:18.275 --> 00:04:18.545
+>> Right.
+
+00:04:18.545 --> 00:04:21.975
+So dependent types are a
+feature of the type system.
+
+00:04:22.905 --> 00:04:26.515
+And for any given language, you
+could say that it either has
+
+00:04:26.515 --> 00:04:28.200
+them or it doesn't have them.
+
+00:04:28.680 --> 00:04:34.500
+Haskell is currently in a sort of gray
+area where it technically doesn't have
+
+00:04:34.500 --> 00:04:39.930
+them, but with enough effort and work
+arounds, you can get similar expressivity.
+
+00:04:39.930 --> 00:04:41.450
+That's called Singleton types.
+
+00:04:41.580 --> 00:04:44.570
+And that's current practice
+with GADTs and type families.
+
+00:04:44.870 --> 00:04:52.730
+So, dependently typed programming
+in Haskell is a topic that — well,
+
+00:04:52.730 --> 00:04:54.420
+many people are trying to do it.
+
+00:04:55.220 --> 00:05:00.615
+But one of the ways to get into it
+is to actually start with an actually
+
+00:05:00.615 --> 00:05:05.685
+dependently typed language such as Agda
+or Coq or Idris, and then try to translate
+
+00:05:05.685 --> 00:05:11.175
+those concepts back into Haskell and use
+the Haskell's awkward encoding of them.
+
+00:05:12.225 --> 00:05:20.290
+So that's why basically — I want
+to add dependent types to Haskell.
+
+00:05:20.310 --> 00:05:24.570
+To make the encoding, instead of it being
+awkward, to make it straightforward.
+
+00:05:26.390 --> 00:05:30.520
+And the exact description of the
+feature, what dependent types are,
+
+00:05:30.920 --> 00:05:37.840
+basically boils down to two built
+in types: sigma types and pi types.
+
+00:05:38.480 --> 00:05:40.800
+Or dependent sums and dependent products.
+
+00:05:41.810 --> 00:05:46.560
+So if we could say that Haskell has
+those two types, then we say that
+
+00:05:46.770 --> 00:05:49.670
+Haskell has got dependent types.
+
+00:05:49.670 --> 00:05:56.240
+And the way to understand that — these
+two concepts is that — actually we will
+
+00:05:56.240 --> 00:05:58.985
+also have user defined dependent types.
+
+00:05:59.255 --> 00:06:03.825
+And the analogy I would use
+is algebraic data types.
+
+00:06:03.825 --> 00:06:08.655
+So you have Either which represents
+usual, non-dependent sums.
+
+00:06:08.935 --> 00:06:13.125
+And you have tuples which represent
+normal non-dependent products.
+
+00:06:13.395 --> 00:06:14.835
+And you have functions.
+
+00:06:14.895 --> 00:06:22.935
+And basically when you are defining your
+own algebraic data type, you're just using
+
+00:06:23.055 --> 00:06:25.095
+— you're just doing it for a better API.
+
+00:06:25.335 --> 00:06:29.625
+You could, in theory, just stack
+tuples on top of eithers and do
+
+00:06:29.685 --> 00:06:35.415
+this like giant nested structure,
+where instead of defining like a
+
+00:06:35.415 --> 00:06:39.365
+data type with five constructors,
+you use Either five times nestedly.
+
+00:06:41.235 --> 00:06:44.265
+Yeah, and that's the same
+relationship between dependent
+
+00:06:44.265 --> 00:06:51.300
+types that will be user definable,
+and sigma types, and product types.
+
+00:06:51.300 --> 00:06:53.910
+So those two are the core concepts.
+
+00:06:53.910 --> 00:06:57.570
+If you understand them, you basically get
+the building blocks for dependent types.
+
+00:06:57.940 --> 00:07:05.160
+But then it's up to the users to define
+their own and apply them — apply the type
+
+00:07:05.160 --> 00:07:07.390
+system feature to design better APIs.
+
+00:07:07.620 --> 00:07:08.050
+Now,
+
+00:07:08.350 --> 00:07:13.755
+I will explain first dependent
+sums because they're easier,
+
+00:07:13.875 --> 00:07:15.045
+and then dependent products.
+
+00:07:15.615 --> 00:07:23.935
+So dependent sum, you can think of it
+as a generalization of normal sums.
+
+00:07:25.405 --> 00:07:33.810
+So if you think — you can think about
+an Either value actually as a pair.
+
+00:07:33.930 --> 00:07:38.040
+So as the first component you have the
+constructor, it's either left or right.
+
+00:07:38.460 --> 00:07:42.390
+And as the second component, you have
+the value attached to it, it's either
+
+00:07:42.860 --> 00:07:44.820
+the value of one type or the other type.
+
+00:07:45.180 --> 00:07:50.160
+And in this sense, the first
+value in this pair determines
+
+00:07:50.250 --> 00:07:51.940
+the type of the second value.
+
+00:07:53.020 --> 00:07:57.750
+So if you have for
+example, Either Int Bool.
+
+00:07:58.620 --> 00:08:04.530
+Then Left in the first component means you
+have an Int in the second component and
+
+00:08:04.590 --> 00:08:08.230
+Right in the first component means that
+you have a Bool in the second component.
+
+00:08:08.720 --> 00:08:11.250
+And this is basically the dependency.
+
+00:08:11.250 --> 00:08:15.920
+That's how the type of one
+value can depend on another.
+
+00:08:15.970 --> 00:08:27.180
+And product types like this — well,
+I mean sum types, dependent sum types
+
+00:08:28.060 --> 00:08:34.295
+— are a generalization, because instead
+of just Left or Right, you can have
+
+00:08:34.425 --> 00:08:37.505
+arbitrary values in the first component.
+
+00:08:37.715 --> 00:08:45.885
+So the direct correspondence would
+be between Either and a dependent
+
+00:08:45.975 --> 00:08:49.445
+pair, where the first component is
+Bool because you have two values.
+
+00:08:49.715 --> 00:08:54.695
+It would say that False corresponds
+to Left and True corresponds to Right.
+
+00:08:55.085 --> 00:08:59.015
+And then if you have False, then it's
+one type in the second component.
+
+00:08:59.045 --> 00:09:01.905
+If you have True, it's another
+type in your second component.
+
+00:09:01.975 --> 00:09:03.935
+But it could also be
+
+00:09:05.700 --> 00:09:08.700
+three possible values,
+or four possible values.
+
+00:09:09.430 --> 00:09:13.770
+And as long as you have a finite
+amount of possible values in the first
+
+00:09:13.770 --> 00:09:18.360
+component, you can actually still model
+it as a normal algebraic data types.
+
+00:09:19.230 --> 00:09:23.250
+But if you have an infinite amount of
+possible constructors, if you have an
+
+00:09:23.310 --> 00:09:31.270
+Int in the first component, then that's
+actually — you cannot define an ADT
+
+00:09:31.270 --> 00:09:33.330
+with an infinite amount of constructors.
+
+00:09:34.390 --> 00:09:37.145
+And then you would actually
+use a dependent pair.
+
+00:09:37.425 --> 00:09:43.135
+For example, you may want to
+define a vector, which is at
+
+00:09:43.155 --> 00:09:44.865
+least parameterized by its length.
+
+00:09:45.835 --> 00:09:52.115
+And this length is supposedly
+a compile time parameter.
+
+00:09:52.170 --> 00:09:54.650
+So it's not a part of the structure.
+
+00:09:55.520 --> 00:10:01.440
+And then you have — then maybe in some
+part of the code, you want to produce
+
+00:10:01.440 --> 00:10:04.110
+a vector that is of unknown length.
+
+00:10:04.350 --> 00:10:07.440
+For example, the user has
+entered it from the keyboard.
+
+00:10:08.660 --> 00:10:13.590
+Or you have read it from some other
+sort of file, or downloaded from
+
+00:10:13.590 --> 00:10:19.050
+network, and you are trying to write
+out this type which is a vector
+
+00:10:19.140 --> 00:10:22.750
+of ints for example of length N.
+
+00:10:22.800 --> 00:10:23.730
+But what is N?
+
+00:10:24.175 --> 00:10:28.275
+We do not know what N is at compile time.
+
+00:10:28.875 --> 00:10:32.605
+And that's when we would have to
+use a dependent pair, we would
+
+00:10:32.605 --> 00:10:34.275
+say that, okay, here is a pair.
+
+00:10:34.495 --> 00:10:39.765
+The first  component is some N,
+which is  known only at run time.
+
+00:10:40.085 --> 00:10:44.295
+But then in the second component we
+use this N, which is known — which
+
+00:10:44.295 --> 00:10:46.245
+is a value known only at runtime.
+
+00:10:46.395 --> 00:10:48.075
+We actually use it as part of the type.
+
+00:10:48.075 --> 00:10:51.025
+So we say we have a vector of this length.
+
+00:10:51.055 --> 00:10:53.245
+Length stored in the first component.
+
+00:10:53.725 --> 00:11:00.265
+But even though it's known only at
+runtime, it's still recognized by the
+
+00:11:00.265 --> 00:11:04.165
+type system as some symbolic value.
+
+00:11:04.705 --> 00:11:08.665
+And that's basically what
+dependent types means.
+
+00:11:08.695 --> 00:11:14.790
+It means that the compiler in the type
+system starts reasoning about values,
+
+00:11:14.790 --> 00:11:18.040
+which are actually runtime values.
+
+00:11:18.260 --> 00:11:25.565
+And you get this — the distinction
+between types and values blurs.
+
+00:11:25.995 --> 00:11:31.515
+You basically no longer speak of types
+and values as two separate worlds
+
+00:11:31.515 --> 00:11:33.665
+in which, like, your program lives.
+
+00:11:34.515 --> 00:11:36.135
+It's no longer two sub languages.
+
+00:11:36.435 --> 00:11:42.105
+And instead you start talking about the
+compile time and runtime phase separation.
+
+00:11:42.115 --> 00:11:44.575
+So you still know that you have erasure.
+
+00:11:45.055 --> 00:11:49.205
+And you know that these values will
+be passed around, and they will
+
+00:11:49.205 --> 00:11:51.035
+take memory when your program runs.
+
+00:11:51.245 --> 00:11:57.345
+And these values are only
+during compile time and only the
+
+00:11:57.365 --> 00:11:58.655
+type system makes use of them.
+
+00:11:58.865 --> 00:12:04.385
+But you also can mix and match those
+two as much as your use case requires.
+
+00:12:05.275 --> 00:12:05.605
+>> Right.
+
+00:12:06.295 --> 00:12:06.685
+Okay.
+
+00:12:06.955 --> 00:12:08.995
+Well, thanks for that
+overview of dependent Haskell.
+
+00:12:08.995 --> 00:12:12.295
+I feel like already, I understand
+it better than I did 10 minutes ago.
+
+00:12:12.715 --> 00:12:17.700
+I especially appreciate the analogy you
+drew between kind of the value level
+
+00:12:17.970 --> 00:12:25.680
+ADTs for either and — eithers and tuples,
+versus the type level sigma and pi
+
+00:12:25.710 --> 00:12:29.010
+types, which are terms I've heard before,
+but never really knew what they meant.
+
+00:12:29.190 --> 00:12:30.420
+So I appreciate that.
+
+00:12:31.230 --> 00:12:36.540
+I also like drawing the parallel between
+the ergonomics of being able to define
+
+00:12:36.540 --> 00:12:42.330
+your custom types versus building
+complex types out of eithers and tuples.
+
+00:12:42.960 --> 00:12:46.140
+And I think most Haskell programmers
+can probably realize that those
+
+00:12:46.140 --> 00:12:47.940
+two things are isomorphic.
+
+00:12:47.940 --> 00:12:51.120
+You can convert between them
+without losing any information.
+
+00:12:51.570 --> 00:12:56.560
+But it would be a big pain to always
+work with the eithers and tuples.
+
+00:12:56.580 --> 00:12:58.380
+Using those custom types is very nice.
+
+00:13:00.110 --> 00:13:03.500
+You also mentioned a couple of things
+that I want to dig into a little bit.
+
+00:13:03.570 --> 00:13:08.680
+So one of the things is that you
+noted Haskell is kind of in this
+
+00:13:08.710 --> 00:13:12.760
+weird middle ground between having
+dependent types and not having them.
+
+00:13:13.360 --> 00:13:19.060
+So what motivated you, or really
+the larger community, to want to add
+
+00:13:19.060 --> 00:13:24.040
+dependent types to Haskell, versus
+trying to make another language that
+
+00:13:24.040 --> 00:13:27.680
+already has them, like, let's say
+Idris — you know, bring all the nice
+
+00:13:27.680 --> 00:13:29.250
+stuff that Haskell has to Idris.
+
+00:13:29.270 --> 00:13:32.390
+So, so why bring dependent types to
+Haskell rather than the other way around?
+
+00:13:33.770 --> 00:13:39.410
+>> Yeah, so basically the reason for
+that is that there is always more than
+
+00:13:39.410 --> 00:13:45.650
+one feature that defines a language, and
+Idris is not Haskell plus dependent types.
+
+00:13:46.070 --> 00:13:47.350
+It's a different language.
+
+00:13:47.410 --> 00:13:52.130
+And one of the most notable differences
+is that it has strict evaluation.
+
+00:13:52.950 --> 00:13:55.280
+And it has it by design.
+
+00:13:55.280 --> 00:13:58.230
+There's no plans to
+make it lazy by default.
+
+00:13:58.830 --> 00:14:02.330
+Which is a fine design choice, but
+not the one that I subscribe to.
+
+00:14:02.330 --> 00:14:04.370
+I want to be writing in a lazy language.
+
+00:14:04.580 --> 00:14:07.250
+And in this sense, Haskell is very unique.
+
+00:14:07.250 --> 00:14:11.945
+There are very few other lazy
+languages, and the reason for that
+
+00:14:12.005 --> 00:14:13.985
+is the difficulty of implementation.
+
+00:14:14.315 --> 00:14:19.295
+Basically our hardware is not meant to
+execute lazy programs, and there has
+
+00:14:19.295 --> 00:14:25.535
+been a very large amount of engineering
+effort and insight into developing
+
+00:14:25.535 --> 00:14:30.155
+STG, the intermediate representation,
+the virtual machine,with lazy
+
+00:14:30.155 --> 00:14:34.415
+evaluation semantics and the backend
+that translates it into machine code.
+
+00:14:34.445 --> 00:14:37.785
+And then the runtime system,
+which supports all of that.
+
+00:14:38.035 --> 00:14:42.920
+And it's basically, in my view, a miracle
+that Haskell runs as fast as it does.
+
+00:14:43.420 --> 00:14:48.200
+And it's got lazy evaluation,
+which has all the nice — all the
+
+00:14:48.200 --> 00:14:49.610
+nice denotational properties.
+
+00:14:49.610 --> 00:14:54.500
+So when I'm writing code,
+I often make use of them.
+
+00:14:54.500 --> 00:15:02.865
+And if I wanted to have a language
+that has dependent types and lazy
+
+00:15:02.865 --> 00:15:08.705
+evaluation, Haskell is basically the most
+practical starting point to get there.
+
+00:15:09.155 --> 00:15:13.475
+Another one would be to work on the
+performance of Agda and make — because
+
+00:15:13.525 --> 00:15:18.455
+Agda is also a lazy language, by
+virtue of compiling to Haskell.
+
+00:15:18.915 --> 00:15:24.785
+And that I think is also
+a very nice thing to have.
+
+00:15:24.785 --> 00:15:30.830
+But I'm starting from Haskell because I'm
+more comfortable with Haskell and I have
+
+00:15:30.830 --> 00:15:32.450
+a stronger emotional attachment to it.
+
+00:15:32.450 --> 00:15:35.150
+I've been writing it for so long,
+I just want it to get better.
+
+00:15:36.845 --> 00:15:40.235
+>> Yeah, that makes a lot of sense,
+and I can definitely appreciate that
+
+00:15:40.475 --> 00:15:42.695
+Idris is a completely different language.
+
+00:15:42.725 --> 00:15:46.145
+And, you know, compiling down to
+Haskell maybe isn't the same as having
+
+00:15:46.145 --> 00:15:49.265
+it a part of GHC in the first place.
+
+00:15:50.045 --> 00:15:54.575
+That does make me wonder about
+related kind of advanced type level
+
+00:15:54.575 --> 00:15:59.105
+efforts that have been landing in GHC
+recently, most notably linear types.
+
+00:16:00.695 --> 00:16:05.015
+Does dependent Haskell play nicely
+with linear types, or are they
+
+00:16:05.015 --> 00:16:07.115
+completely orthogonal things?
+
+00:16:07.115 --> 00:16:08.585
+Do they not care about each other at all?
+
+00:16:08.585 --> 00:16:09.395
+How do they fit together?
+
+00:16:09.775 --> 00:16:12.415
+>> Oh, they care about
+each other very much.
+
+00:16:12.595 --> 00:16:16.825
+And it's a very difficult research
+topic of how to combine them.
+
+00:16:17.035 --> 00:16:22.735
+And basically there has been a fresh
+paper by Richard Eisenberg about using
+
+00:16:22.735 --> 00:16:29.785
+a formalism which unites dependent
+types with linear types as a property
+
+00:16:29.805 --> 00:16:32.055
+of quantifiers that introduce variables.
+
+00:16:32.545 --> 00:16:36.975
+But as far as I understand it,
+it currently doesn't handle
+
+00:16:36.975 --> 00:16:38.455
+multiplicity polymorphism.
+
+00:16:39.415 --> 00:16:41.895
+It's closer to what Idris 2 has.
+
+00:16:41.895 --> 00:16:46.905
+So in Idris 2, the second version
+of Idris, they've also combined
+
+00:16:46.935 --> 00:16:48.525
+linear types and dependent types.
+
+00:16:48.705 --> 00:16:56.120
+And every time you write a function you
+annotate the — in the type, whether you
+
+00:16:56.120 --> 00:17:04.770
+can use this function parameter zero
+times, one time, or as many as you want.
+
+00:17:04.770 --> 00:17:09.410
+And zero times corresponds to Haskell's
+forall, which means it's erased.
+
+00:17:09.440 --> 00:17:13.970
+It has parametricity properties
+that we care about, and
+
+00:17:13.970 --> 00:17:16.680
+nice performance properties.
+
+00:17:16.750 --> 00:17:19.070
+As many as you want is
+basically dependent types.
+
+00:17:19.550 --> 00:17:27.230
+It's a normal function value, which
+you can duplicate, ignore, and,
+
+00:17:27.410 --> 00:17:30.680
+since it's Idris, you can also use
+it in the rest of the type signature.
+
+00:17:30.680 --> 00:17:34.640
+That's pi types, which I've just
+realized I've yet to explain.
+
+00:17:34.700 --> 00:17:37.050
+I only explained the sigma types.
+
+00:17:37.050 --> 00:17:44.660
+But anyway, and then there is the
+one multiplicity annotation, which
+
+00:17:44.660 --> 00:17:45.800
+means that you've got to use it
+
+00:17:45.800 --> 00:17:46.530
+exactly once.
+
+00:17:46.740 --> 00:17:47.760
+And that's  linear types.
+
+00:17:49.070 --> 00:17:52.940
+And in Haskell, we are looking
+towards something very similar.
+
+00:17:52.940 --> 00:17:58.340
+So we are going to have annotations on
+the variables introduced by a function.
+
+00:17:59.465 --> 00:18:03.245
+But we've also got to worry about
+multiplicity polymorphism, which has
+
+00:18:03.455 --> 00:18:07.645
+that — we actually don't know if this
+is a linear or a nonlinear value.
+
+00:18:08.125 --> 00:18:14.575
+For example, if we are writing the map
+function for lists, we would like to say,
+
+00:18:14.755 --> 00:18:19.665
+in linear types, that if the function
+provided by the user that we are applying
+
+00:18:19.685 --> 00:18:24.555
+to each list element is linear, then the
+entire mapping of the list is also linear.
+
+00:18:26.405 --> 00:18:30.665
+So if F is linear, then map F
+is also linear, but if F is not
+
+00:18:30.665 --> 00:18:33.385
+linear, then map F is not linear.
+
+00:18:33.915 --> 00:18:39.815
+And in this sense, like, the annotation
+on one function arrow determines
+
+00:18:39.815 --> 00:18:43.025
+the annotation on another, and
+that's where you get a multiplicity
+
+00:18:43.035 --> 00:18:44.815
+variable that's part of linear types.
+
+00:18:44.845 --> 00:18:51.905
+And the current theory doesn't actually
+combine those sort of linearity variables
+
+00:18:51.935 --> 00:18:55.970
+with dependent Haskell in a nice way.
+
+00:18:56.100 --> 00:19:04.470
+So we have like a design in which linear
+types and dependent types are sort of
+
+00:19:04.520 --> 00:19:06.290
+separate — entirely separate features.
+
+00:19:06.290 --> 00:19:09.590
+So if you have like a
+dependent quantifier, you can
+
+00:19:09.590 --> 00:19:11.000
+not use linearity with it.
+
+00:19:12.620 --> 00:19:17.805
+But so basically that's the design
+that was established before linear
+
+00:19:17.805 --> 00:19:19.325
+types were introduced into Haskell.
+
+00:19:19.625 --> 00:19:26.445
+And we're roughly following this as our
+guideline, or more of a fallback plan.
+
+00:19:26.515 --> 00:19:30.695
+Like if we don't figure out how to
+combine linear types with dependent
+
+00:19:31.025 --> 00:19:33.335
+types, then we still can get both of them.
+
+00:19:33.335 --> 00:19:39.245
+They will just not play too nicely,
+but there is like a real opportunity
+
+00:19:39.245 --> 00:19:40.795
+that we will figure it out.
+
+00:19:40.795 --> 00:19:46.035
+And that those will actually have a very
+beautiful interplay between each other.
+
+00:19:46.835 --> 00:19:47.195
+>> Okay.
+
+00:19:47.225 --> 00:19:51.785
+So it sounds like it's still a bit
+of an open research problem, but
+
+00:19:51.965 --> 00:19:53.315
+also it sounds like you're hopeful.
+
+00:19:53.795 --> 00:19:57.715
+And linear types landed in GHC 9.0.
+
+00:19:58.085 --> 00:20:03.065
+Is there an expectation for when dependent
+Haskell may be available to end users?
+
+00:20:05.845 --> 00:20:07.385
+>> Well, no.
+
+00:20:07.785 --> 00:20:16.685
+The problem is that with dependent
+Haskell there is still some design
+
+00:20:16.685 --> 00:20:19.685
+questions that need to be resolved.
+
+00:20:20.225 --> 00:20:23.885
+And that's happening as part
+of the GHC proposals process.
+
+00:20:24.155 --> 00:20:30.895
+So while we have like a general vision
+of where we want to get, we don't have
+
+00:20:30.895 --> 00:20:34.465
+the specifics because the specifics
+that were developed as part of the
+
+00:20:34.465 --> 00:20:37.345
+theory, they were developed in a vacuum.
+
+00:20:37.375 --> 00:20:39.715
+Like that's the dependent
+Haskell that we want.
+
+00:20:39.715 --> 00:20:43.505
+And then there are a million questions
+about backwards compatibility.
+
+00:20:44.365 --> 00:20:50.845
+Because we don't want to suddenly have,
+for example, one namespace for variables.
+
+00:20:51.525 --> 00:20:55.935
+If you're defining a function, you
+can use the same name for a type
+
+00:20:55.935 --> 00:20:57.935
+variable and the term level variable.
+
+00:20:57.995 --> 00:21:03.755
+And that will be like entirely
+non-problematic currently because we have
+
+00:21:03.755 --> 00:21:06.545
+two sub languages, entirely separated.
+
+00:21:06.895 --> 00:21:11.855
+And it doesn't even matter, but
+basically there is no direct
+
+00:21:11.855 --> 00:21:12.945
+interaction between them.
+
+00:21:13.535 --> 00:21:18.500
+And if you have two things with
+the same name, well, no problem.
+
+00:21:18.500 --> 00:21:20.640
+GHC always knows which one to use.
+
+00:21:21.840 --> 00:21:27.260
+But if we want types to depend on
+values, that suddenly means you
+
+00:21:27.260 --> 00:21:29.450
+can reference values in your types.
+
+00:21:29.570 --> 00:21:34.325
+And then it means you can reference
+variable names in your types.
+
+00:21:34.595 --> 00:21:39.795
+And that means that suddenly you
+do care about two variables in two
+
+00:21:39.815 --> 00:21:41.645
+namespaces, which are the same thing.
+
+00:21:42.805 --> 00:21:50.585
+And it's a very tough balancing act,
+how to introduce this and to have
+
+00:21:51.305 --> 00:21:55.340
+Reasonable error messages, reasonable
+user experience, instead of like
+
+00:21:55.370 --> 00:21:59.270
+unleashing this monster patch
+that breaks half of  Hackage.
+
+00:22:00.150 --> 00:22:05.470
+And yeah, basically it has
+terrible error messages.
+
+00:22:05.470 --> 00:22:07.530
+No, we don't want that.
+
+00:22:07.560 --> 00:22:14.290
+So the current efforts are more focused
+towards figuring out how to integrate
+
+00:22:14.560 --> 00:22:20.140
+the dependently typed features and the
+features that exist in Haskell today.
+
+00:22:21.365 --> 00:22:25.685
+And then there is also the
+engineering work required because
+
+00:22:26.105 --> 00:22:33.155
+we will need to modify pretty much
+every bit of the GHC front-end.
+
+00:22:33.185 --> 00:22:39.505
+So that includes parsing, that
+includes name resolution, and
+
+00:22:40.235 --> 00:22:41.765
+that includes type checking.
+
+00:22:42.575 --> 00:22:45.605
+We will also need to modify
+the core language to support
+
+00:22:45.605 --> 00:22:46.805
+dependent quantification.
+
+00:22:47.105 --> 00:22:50.225
+And the core language is
+heavily used by the optimizer.
+
+00:22:50.225 --> 00:22:53.385
+That's like the representation
+on which it operates.
+
+00:22:55.275 --> 00:22:58.805
+But hopefully we will not
+have to change the backend.
+
+00:22:58.805 --> 00:23:03.815
+So STG and everything  past
+that, we will not have to worry
+
+00:23:03.815 --> 00:23:05.405
+about that, it stays the same.
+
+00:23:05.645 --> 00:23:08.555
+But the front-end and the
+internal language, all of it
+
+00:23:08.585 --> 00:23:12.225
+requires some sort of update.
+
+00:23:12.225 --> 00:23:16.025
+There is already existing
+work towards that end.
+
+00:23:16.025 --> 00:23:19.535
+For example, the current
+internal representation that
+
+00:23:19.945 --> 00:23:22.845
+GHC uses is called System FC.
+
+00:23:23.915 --> 00:23:26.125
+Which means System F with coercions.
+
+00:23:26.165 --> 00:23:27.785
+There are very nice papers about it.
+
+00:23:28.825 --> 00:23:34.335
+And there are primitives in it which
+are used to represent type level
+
+00:23:34.355 --> 00:23:37.335
+equalities, which are used to decode
+
+00:23:37.915 --> 00:23:43.655
+—
+basically this is the abstraction
+into which current type level
+
+00:23:43.655 --> 00:23:46.265
+features of Haskell are compiled into.
+
+00:23:46.415 --> 00:23:50.125
+So type families are
+compiled into equalities.
+
+00:23:51.105 --> 00:23:54.235
+And GADTs are compiled into equalities.
+
+00:23:55.365 --> 00:24:00.205
+Data families are also compiled
+to — using coercions and equalities.
+
+00:24:00.455 --> 00:24:05.195
+But this is not expressive enough
+to represent proper dependent
+
+00:24:05.245 --> 00:24:07.705
+types — dependent sums and products.
+
+00:24:08.165 --> 00:24:13.475
+And an alternative formalism
+was developed, called System DC.
+
+00:24:13.475 --> 00:24:14.745
+System D with coercions.
+
+00:24:14.985 --> 00:24:16.475
+D for dependent, I suppose.
+
+00:24:16.915 --> 00:24:22.760
+And it's a new system, which is — like
+it's, it exists only on paper.
+
+00:24:23.980 --> 00:24:29.640
+So we will need to rewrite
+the very like core of GHC.
+
+00:24:29.750 --> 00:24:38.170
+The most basic — the most central
+representation of Haskell programs,
+
+00:24:38.480 --> 00:24:43.320
+through which the — every program
+basically compiles through core.
+
+00:24:43.320 --> 00:24:47.130
+We will — we are changing that
+to include this new feature.
+
+00:24:47.160 --> 00:24:52.430
+And that means we will need to very
+carefully update the optimizer as well.
+
+00:24:53.730 --> 00:24:56.855
+And, like, that's tricky engineering work.
+
+00:24:56.885 --> 00:25:01.085
+And personally, I haven't
+even started looking into it.
+
+00:25:01.115 --> 00:25:04.985
+Like, I'm just observing it from
+a distance and focusing on like
+
+00:25:05.015 --> 00:25:08.375
+the parser and the name resolution
+and more user-facing aspects,
+
+00:25:08.405 --> 00:25:09.635
+more than internal aspect.
+
+00:25:10.165 --> 00:25:20.125
+That's like beyond my current
+capability to tackle these super
+
+00:25:20.125 --> 00:25:23.370
+technical topics, although I'm
+planning to get into it eventually.
+
+00:25:24.100 --> 00:25:27.920
+I'm just like focusing on things
+that I understand right now and
+
+00:25:27.920 --> 00:25:30.680
+which are equally valuable, I think.
+
+00:25:30.710 --> 00:25:31.840
+>> Yeah, yeah.
+
+00:25:31.840 --> 00:25:35.320
+That engineering work does
+sound tricky, to put it mildly.
+
+00:25:35.380 --> 00:25:38.200
+But I'm glad that you're focusing
+on the user facing stuff first.
+
+00:25:38.200 --> 00:25:41.770
+Cause I think, hammering out those
+proposals, and figuring out how should
+
+00:25:41.770 --> 00:25:46.670
+this feature even behave, is really
+important before digging into, how
+
+00:25:46.670 --> 00:25:48.380
+are we going to implement it into GHC?
+
+00:25:48.840 --> 00:25:51.440
+And I'm actually curious
+about that proposal process.
+
+00:25:51.470 --> 00:25:56.570
+Because I know that you're part of the
+GHC steering committee, and that you have
+
+00:25:56.570 --> 00:25:59.210
+authored many GHC proposals yourself.
+
+00:25:59.690 --> 00:26:02.840
+And that's not something that we've
+discussed on the podcast before.
+
+00:26:02.840 --> 00:26:05.870
+So could you tell the listeners
+a little about the proposal
+
+00:26:05.870 --> 00:26:09.470
+process and how, you know, what
+you do as part of the committee?
+
+00:26:11.430 --> 00:26:12.060
+>> Yeah, sure.
+
+00:26:12.210 --> 00:26:18.230
+So the proposal process was conceived
+as a way of getting more community
+
+00:26:18.230 --> 00:26:20.850
+feedback about Haskell features.
+
+00:26:20.910 --> 00:26:25.530
+Because previously, if you've got someone
+who is very motivated and wants to get
+
+00:26:25.530 --> 00:26:32.200
+something into Haskell, they talk to
+Simon and they get it into Haskell.
+
+00:26:32.230 --> 00:26:39.735
+But then it was decided that maybe
+we are now a mature language which
+
+00:26:39.735 --> 00:26:45.315
+needs — which needs a proper process,
+and representatives from industry,
+
+00:26:45.315 --> 00:26:50.685
+from education, and from research
+areas to express their views.
+
+00:26:50.925 --> 00:26:52.845
+Do they actually want this feature?
+
+00:26:52.875 --> 00:26:55.575
+Or maybe they want it, but
+they want it to be different.
+
+00:26:56.015 --> 00:27:02.110
+And that's how the GHC
+steering committee's compiled.
+
+00:27:02.110 --> 00:27:08.460
+From people who represent as
+diverse as possible areas.
+
+00:27:10.080 --> 00:27:12.630
+And then there's also community feedback.
+
+00:27:12.630 --> 00:27:18.810
+So anyone who cares about Haskell
+can comment on any proposal
+
+00:27:18.810 --> 00:27:20.670
+with constructive feedback.
+
+00:27:20.670 --> 00:27:27.440
+Or even just to support it, or say
+that it like — it looks very difficult,
+
+00:27:27.480 --> 00:27:30.060
+please change something
+about its user experience.
+
+00:27:31.790 --> 00:27:35.205
+Every comment is fair game, as
+long as it helps the proposal
+
+00:27:35.235 --> 00:27:37.865
+author to modify his proposal.
+
+00:27:38.985 --> 00:27:45.255
+And the process is that, there is
+also — there is always a person who
+
+00:27:45.345 --> 00:27:49.425
+must have enough time and resources
+to push the proposal forward.
+
+00:27:49.455 --> 00:27:52.215
+So they've got this idea
+and they've got to develop
+
+00:27:52.805 --> 00:27:54.245
+the design for this feature.
+
+00:27:54.805 --> 00:27:59.135
+They've got to write a convincing
+motivation, convincing to everyone,
+
+00:27:59.135 --> 00:28:00.475
+both the committee and the community.
+
+00:28:00.475 --> 00:28:07.845
+They've got to research how this
+feature will affect the ecosystem.
+
+00:28:07.845 --> 00:28:10.635
+So they've got to describe:
+Will it cause breakage?
+
+00:28:11.385 --> 00:28:12.315
+How much breakage?
+
+00:28:12.315 --> 00:28:15.075
+If it does, do we want
+a migration strategy?
+
+00:28:15.195 --> 00:28:19.245
+So that's — and that's  basically
+the sections of the proposal.
+
+00:28:19.275 --> 00:28:22.515
+First you've got motivation, then
+the proposed change specification,
+
+00:28:22.755 --> 00:28:24.585
+and then effects and interactions.
+
+00:28:25.785 --> 00:28:27.435
+And you've got to describe all of that.
+
+00:28:27.735 --> 00:28:32.205
+And hopefully if it's convincing,
+you submit it to the — you first
+
+00:28:32.205 --> 00:28:34.485
+discuss it with the community,
+the committee is involved later.
+
+00:28:34.595 --> 00:28:40.095
+You got the feedback, you incorporate
+it into your proposal, and when you
+
+00:28:40.275 --> 00:28:44.275
+basically get no comments from the
+community for two weeks or something,
+
+00:28:44.745 --> 00:28:46.275
+you decide, okay, it's time.
+
+00:28:46.305 --> 00:28:47.265
+I'm submitting it.
+
+00:28:48.185 --> 00:28:53.965
+You ping the secretary, who relays
+your proposal to the committee's
+
+00:28:53.965 --> 00:28:57.180
+mailing list, which is also open.
+
+00:28:57.180 --> 00:29:00.570
+Everybody can subscribe to
+it and see the deliberations.
+
+00:29:00.900 --> 00:29:01.900
+It's nothing secret.
+
+00:29:01.920 --> 00:29:05.770
+Nothing behind the curtain,
+everything is in the open.
+
+00:29:05.800 --> 00:29:09.700
+So you can see what the committee
+members think about this proposal,
+
+00:29:10.010 --> 00:29:16.260
+and their reasoning for either
+accepting it or sending it back.
+
+00:29:16.410 --> 00:29:19.590
+You don't have to follow the
+committee's deliberations, because
+
+00:29:19.650 --> 00:29:20.820
+in the end you get a report.
+
+00:29:20.850 --> 00:29:24.390
+Basically we either accept it,
+or we say, you first need to
+
+00:29:24.390 --> 00:29:26.190
+change this, that and that.
+
+00:29:26.610 --> 00:29:33.045
+And after some back and forth with
+the author, hopefully we get to some
+
+00:29:33.045 --> 00:29:38.715
+sort of conclusion whether this is the
+future that we want for Haskell or not.
+
+00:29:39.105 --> 00:29:44.415
+And then once it gets accepted to
+the GHC proposals repository, it's
+
+00:29:44.415 --> 00:29:45.915
+waiting for someone to implement it.
+
+00:29:46.125 --> 00:29:51.625
+So maybe if somebody wants to contribute
+to Haskell and they don't know where to
+
+00:29:51.645 --> 00:29:56.355
+start, this person could go through the
+list of accepted, but not implemented
+
+00:29:56.355 --> 00:30:03.615
+proposals and think — think through
+if any of those proposals appeals
+
+00:30:03.615 --> 00:30:05.435
+to them and looks implementable.
+
+00:30:06.505 --> 00:30:11.350
+Maybe they could drop the author
+of this proposal a message, to
+
+00:30:11.550 --> 00:30:16.730
+ask for advice for implementation,
+and basically start hacking.
+
+00:30:16.820 --> 00:30:20.390
+I've got like this page, GHC.dev,
+which helps you set up an
+
+00:30:20.400 --> 00:30:24.910
+environment and start working on GHC.
+
+00:30:25.100 --> 00:30:29.480
+But I suppose we can discuss it later.
+
+00:30:30.580 --> 00:30:31.630
+>> Sure, yeah.
+
+00:30:31.660 --> 00:30:34.420
+Thank you for sharing the
+proposal process and your role
+
+00:30:34.420 --> 00:30:35.570
+and the committee's role in it.
+
+00:30:35.920 --> 00:30:40.170
+I do want to come back to GHC.dev
+later, but suffice to say, it's
+
+00:30:40.170 --> 00:30:43.020
+a valuable resource for getting
+started with GHC development.
+
+00:30:43.020 --> 00:30:47.700
+And as you mentioned, if anyone is
+interested in making a new proposal or
+
+00:30:47.940 --> 00:30:51.090
+implementing a proposal, that website
+should be able to help you out with that.
+
+00:30:51.410 --> 00:30:54.430
+But you mentioned something earlier that
+I want to loop back on, which is, for
+
+00:30:54.450 --> 00:30:59.310
+dependent types you had described what a
+sigma type is, but not what a pi type is.
+
+00:30:59.310 --> 00:31:01.275
+And you said you wanted
+to tell us what that is.
+
+00:31:01.275 --> 00:31:02.355
+So could you tell us now?
+
+00:31:02.815 --> 00:31:03.755
+>> Oh right, exactly.
+
+00:31:03.925 --> 00:31:10.725
+So the sigma types are dependent
+sums and they generalize Either.
+
+00:31:11.145 --> 00:31:16.005
+And in the same manner, pi types
+are dependent product types
+
+00:31:16.065 --> 00:31:17.955
+and they generalize tuples.
+
+00:31:18.405 --> 00:31:25.095
+So with the pi type, in order to
+understand it first, you need to
+
+00:31:25.095 --> 00:31:28.125
+think about tuples as functions.
+
+00:31:29.625 --> 00:31:36.425
+And the isomorphism of tuples
+as functions works as … you
+
+00:31:36.425 --> 00:31:37.595
+can think about it as follows.
+
+00:31:37.685 --> 00:31:41.375
+So if you have a tuple of two
+elements, that's basically a
+
+00:31:41.385 --> 00:31:43.565
+function taking a Bool as input.
+
+00:31:43.595 --> 00:31:47.045
+If you — if you pass it True
+you get the first component.
+
+00:31:47.255 --> 00:31:49.625
+If you pass it False you
+get the second component.
+
+00:31:55.185 --> 00:32:02.590
+But in current Haskell you can — you
+can only use this encoding if both
+
+00:32:02.590 --> 00:32:03.930
+components have the same type.
+
+00:32:05.080 --> 00:32:10.425
+And in dependent Haskell, you can
+actually encode the tuple as a pi type
+
+00:32:10.895 --> 00:32:16.185
+by saying, if you pass True to this
+function, you will get value of one type.
+
+00:32:16.245 --> 00:32:20.085
+If you get — if you pass False to
+it, you get a value of another type.
+
+00:32:20.235 --> 00:32:26.145
+So dependent function is a function
+such that you don't know the result
+
+00:32:26.165 --> 00:32:30.500
+type of this function until you
+know what value it was applied to.
+
+00:32:32.600 --> 00:32:37.690
+And back to this example with vectors.
+
+00:32:37.950 --> 00:32:40.110
+Maybe you have a function replicate.
+
+00:32:40.350 --> 00:32:45.960
+And on lists you have the replicate
+function, which takes an integer, then
+
+00:32:45.960 --> 00:32:52.450
+takes some value, and gives you a list
+with this value repeated this N times.
+
+00:32:52.450 --> 00:32:58.830
+But if you've got the length of the list,
+in the type, you would say, okay, so
+
+00:32:58.830 --> 00:33:05.340
+replicate on vectors takes an int, then
+it takes a value, and it produces a vector
+
+00:33:05.340 --> 00:33:09.630
+of N — a vector of values of length N.
+
+00:33:09.680 --> 00:33:10.605
+But what is N?
+
+00:33:10.745 --> 00:33:12.555
+N is the value that we passed in.
+
+00:33:12.555 --> 00:33:17.175
+So we don't — so we know the
+general shape of the return type.
+
+00:33:17.175 --> 00:33:21.525
+We know it's a vector, and we know the
+type of its elements, but we don't know
+
+00:33:21.555 --> 00:33:27.165
+its length because the length actually
+is referencing the runtime value.
+
+00:33:28.555 --> 00:33:36.195
+And the reason it's called a dependent
+product is basically you can think about
+
+00:33:36.195 --> 00:33:43.205
+it as a giant tuple where … so … and
+since we are dependent on an integer.
+
+00:33:43.265 --> 00:33:49.275
+It means that, the first component of a
+tuple is when we have run replicate zero,
+
+00:33:49.385 --> 00:33:51.055
+and we've got an empty vector there.
+
+00:33:51.375 --> 00:33:55.715
+The second component is
+a vector of one element.
+
+00:33:55.745 --> 00:33:58.715
+Then the third component, a
+vector of two elements, then
+
+00:33:58.715 --> 00:34:00.185
+three elements, four elements.
+
+00:34:00.185 --> 00:34:07.200
+When you are invoking this function,
+you're accessing the Nth component of
+
+00:34:07.200 --> 00:34:13.230
+this infinite tuple and that's like
+the mathematical abstraction behind it.
+
+00:34:13.260 --> 00:34:16.320
+Of course, at runtime
+there will be no tuples.
+
+00:34:16.680 --> 00:34:17.940
+There will be just functions.
+
+00:34:18.590 --> 00:34:25.095
+But that, like — that's the intuition
+behind why it's called a product
+
+00:34:25.125 --> 00:34:26.865
+type, even though it's a function.
+
+00:34:27.415 --> 00:34:34.125
+Similarly a dependent sum, is actually
+a product in the — in the usual sense
+
+00:34:34.125 --> 00:34:37.955
+because you have the first component and
+second component, but it's called the sum
+
+00:34:37.955 --> 00:34:40.585
+because it generalizes the normal sums.
+
+00:34:40.855 --> 00:34:45.425
+And it's easy to get confused with it,
+but only because of the terminology.
+
+00:34:45.535 --> 00:34:48.845
+Actually the concepts themselves
+are not that confusing.
+
+00:34:49.975 --> 00:34:50.335
+>> Yeah.
+
+00:34:50.625 --> 00:34:51.895
+Again, thank you for explaining.
+
+00:34:51.895 --> 00:34:54.325
+And I feel like I
+understand it even better.
+
+00:34:54.535 --> 00:34:58.265
+And having these, you know, analogies
+helps me wrap my head around them.
+
+00:34:58.265 --> 00:35:01.415
+Because again, I've heard of sigma
+and pi types before, but never
+
+00:35:01.415 --> 00:35:03.125
+really understood what they meant.
+
+00:35:03.245 --> 00:35:06.545
+And now I understand why they're
+not called, you know, dependent
+
+00:35:06.885 --> 00:35:07.975
+sums or dependent products.
+
+00:35:07.975 --> 00:35:11.015
+Because while they can model
+those things, maybe that's not
+
+00:35:11.135 --> 00:35:12.575
+the best way to think about them.
+
+00:35:12.905 --> 00:35:14.585
+Or that's not how they're
+actually implemented.
+
+00:35:14.755 --> 00:35:15.135
+>> Wait, wait.
+
+00:35:15.145 --> 00:35:19.845
+Maybe I wasn't clear enough, but
+sigma types are dependent sums, and
+
+00:35:19.845 --> 00:35:21.745
+pi types are dependent products.
+
+00:35:21.745 --> 00:35:23.395
+So that's — those are synonymous.
+
+00:35:23.995 --> 00:35:24.415
+>> Right.
+
+00:35:24.445 --> 00:35:30.135
+But also you said that the, sum types
+are implemented as tuples, right?
+
+00:35:30.135 --> 00:35:32.000
+And the tuples are
+implemented as functions.
+
+00:35:32.360 --> 00:35:32.980
+>> Yeah, yeah.
+
+00:35:33.010 --> 00:35:33.700
+Okay, yeah.
+
+00:35:33.700 --> 00:35:38.540
+So you — you've got like, internally to
+represent a dependent sum you actually
+
+00:35:38.540 --> 00:35:45.250
+have a pair, and to represent a dependent
+product you actually have a function.
+
+00:35:45.640 --> 00:35:50.470
+So you've got like, to — to up
+the — to have the more expressive,
+
+00:35:50.560 --> 00:35:55.090
+like, more general type to
+represent a less expressive type,
+
+00:35:55.150 --> 00:35:56.860
+in order to add dependence to it.
+
+00:35:57.690 --> 00:35:58.050
+>> Right.
+
+00:35:58.500 --> 00:36:01.200
+So a little tricky, but I
+feel like I'm getting it.
+
+00:36:02.010 --> 00:36:06.995
+That reminds me of a maybe similar
+effort, which other people may be
+
+00:36:06.995 --> 00:36:09.035
+familiar with, of Liquid Haskell.
+
+00:36:09.095 --> 00:36:12.815
+And I understand that that's refinement
+types, which are different than dependent
+
+00:36:12.815 --> 00:36:17.835
+types, but it seems to me like there's
+a significant amount of overlap there.
+
+00:36:17.885 --> 00:36:19.475
+But I do understand
+that they are different.
+
+00:36:19.575 --> 00:36:22.445
+Can you explain what the differences
+between, you know, the current
+
+00:36:22.445 --> 00:36:26.895
+implementation of Liquid Haskell and what
+may be in the future dependent Haskell?
+
+00:36:27.415 --> 00:36:27.955
+>> Yes.
+
+00:36:27.995 --> 00:36:34.215
+So, liquid Haskell is also
+— refinement types are basically a
+
+00:36:34.225 --> 00:36:36.085
+limited form of dependent types.
+
+00:36:36.535 --> 00:36:37.045
+Why?
+
+00:36:37.075 --> 00:36:43.285
+Because you are referencing value
+level variables in your types.
+
+00:36:43.675 --> 00:36:51.025
+You are saying that — when you're taking,
+for example, you could assert using
+
+00:36:51.175 --> 00:36:55.685
+Liquid Haskell that when you sort a
+list, this list is of the same length.
+
+00:36:56.185 --> 00:37:02.260
+So in the return type of your — of your
+function, you can reference the length
+
+00:37:02.290 --> 00:37:04.950
+of the input type using refinement types.
+
+00:37:05.270 --> 00:37:12.760
+And this is in fact dependence, but
+unlike full-blown dependent types where
+
+00:37:12.760 --> 00:37:20.530
+you've got sigma and pi types, you
+can only use annotations like this.
+
+00:37:22.050 --> 00:37:26.695
+And this basically means two things.
+
+00:37:26.695 --> 00:37:32.515
+First, for the use cases that — where
+refinement types are applicable,
+
+00:37:32.785 --> 00:37:34.685
+they've got better ergonomics.
+
+00:37:34.705 --> 00:37:38.615
+So whenever it's possible, I
+would rather use refinement
+
+00:37:38.635 --> 00:37:44.075
+types over raw dependent types.
+
+00:37:44.305 --> 00:37:51.095
+Because it's this, like — the same
+thing we've discussed with, using
+
+00:37:51.125 --> 00:37:56.195
+your — user defined data type or
+encoding everything using primitives?
+
+00:37:56.575 --> 00:37:57.045
+Yeah.
+
+00:37:57.405 --> 00:38:01.675
+So dependent types that are introduced
+as part of dependent Haskell,
+
+00:38:01.675 --> 00:38:03.910
+they're a more primitive notion.
+
+00:38:03.970 --> 00:38:10.630
+While refinement types are imagined
+as a more user — like closer to
+
+00:38:10.630 --> 00:38:12.100
+what users will want to write.
+
+00:38:12.460 --> 00:38:16.710
+But that also means that we will
+— we'll be able to combine them.
+
+00:38:16.710 --> 00:38:22.090
+And eventually Liquid Haskell
+can be built on top of dependent
+
+00:38:22.090 --> 00:38:24.020
+Haskell as an extension to it.
+
+00:38:24.500 --> 00:38:27.655
+Which basically adds SMT solving.
+
+00:38:27.865 --> 00:38:32.125
+So every proof in dependent Haskell,
+you would have to write by hand.
+
+00:38:32.485 --> 00:38:36.205
+And if you want to convince the
+compiler that for example, addition
+
+00:38:36.205 --> 00:38:45.325
+commutes, you will have to go through
+the first argument of your addition and
+
+00:38:45.325 --> 00:38:49.745
+structurally recurse over it, and then
+prove associativity or commutativity
+
+00:38:49.765 --> 00:38:52.195
+or whatever property you care about.
+
+00:38:52.195 --> 00:38:57.945
+While with refinement types,
+you're relying on an SMT solver
+
+00:38:57.975 --> 00:38:59.505
+to do all the proving for you.
+
+00:39:00.065 --> 00:39:05.085
+And that also means that with refinement
+types when it works, it's nicer because
+
+00:39:05.085 --> 00:39:07.005
+you didn't have to write out the proofs.
+
+00:39:07.335 --> 00:39:09.435
+But when it doesn't work, you're stuck.
+
+00:39:10.245 --> 00:39:17.025
+You either get the SMT solver to do
+it for you or it's a lost situation.
+
+00:39:17.045 --> 00:39:20.195
+Whereas with dependent types,
+you just think harder and
+
+00:39:20.195 --> 00:39:23.185
+write a more complex proof.
+
+00:39:24.175 --> 00:39:24.565
+>> Okay.
+
+00:39:24.805 --> 00:39:25.555
+Thanks for explaining.
+
+00:39:25.605 --> 00:39:29.685
+It sounds like refinement types, as
+implemented by Liquid Haskell, are
+
+00:39:29.685 --> 00:39:32.205
+a limited subset of dependent types.
+
+00:39:32.205 --> 00:39:34.185
+And they may play nicely
+together in the future.
+
+00:39:34.785 --> 00:39:35.625
+>> Yes, definitely.
+
+00:39:35.655 --> 00:39:40.695
+And my only gripe with Liquid
+Haskell is that it's a separate tool.
+
+00:39:40.725 --> 00:39:45.015
+So it lags a little bit behind
+like the latest version of GHC.
+
+00:39:45.395 --> 00:39:51.195
+And if GHC shipped refinement types
+in its standard distribution, I would
+
+00:39:51.195 --> 00:39:54.195
+be a huge proponent of this feature
+and I would be trying to use it
+
+00:39:54.345 --> 00:39:56.505
+like in as much places as possible.
+
+00:39:57.855 --> 00:39:59.625
+As many places — as
+many places as possible.
+
+00:39:59.625 --> 00:39:59.895
+Yes.
+
+00:40:00.645 --> 00:40:01.035
+>> Yeah.
+
+00:40:01.695 --> 00:40:05.840
+So, I think, you mentioned
+earlier the website you created
+
+00:40:05.840 --> 00:40:09.890
+for getting GHC developers kind
+of onboarded and up and running.
+
+00:40:10.200 --> 00:40:11.340
+Could you tell us more about that?
+
+00:40:12.500 --> 00:40:16.050
+>> Yeah, so basically we
+snatched the domain GHC.dev.
+
+00:40:16.050 --> 00:40:22.070
+And I tried to think of something
+that would be fit for this domain.
+
+00:40:22.200 --> 00:40:27.080
+And I decided that it's got to
+be a page about GHC development.
+
+00:40:27.080 --> 00:40:32.640
+And I've got like, these huge grandiose
+ideas about writing a blog post there
+
+00:40:32.640 --> 00:40:34.850
+with the news about GHC development.
+
+00:40:34.850 --> 00:40:41.400
+And maybe some computed stats
+about contributions, who is the
+
+00:40:41.400 --> 00:40:44.190
+top contributor, what they're
+working on, and stuff like that.
+
+00:40:44.490 --> 00:40:50.320
+And the — and I would just start
+with the instructions, how somebody
+
+00:40:50.320 --> 00:40:56.820
+could — somebody could get hacking,
+and participate in GHC development.
+
+00:40:56.820 --> 00:41:00.310
+But as it happens, like
+that's where it's ended.
+
+00:41:01.660 --> 00:41:08.010
+So I've got this static page, but
+I've also had a lot of people tell me
+
+00:41:08.010 --> 00:41:10.950
+that they found it extremely useful.
+
+00:41:10.950 --> 00:41:14.520
+And it was like the only steps
+they could find online that
+
+00:41:14.520 --> 00:41:16.060
+worked for them to build GHC.
+
+00:41:17.310 --> 00:41:22.500
+So basically it's a very small
+page that's got 10 or so sections.
+
+00:41:22.500 --> 00:41:27.300
+And it says like, for documentation
+go here, for downloading go
+
+00:41:27.300 --> 00:41:29.370
+here, for building go here.
+
+00:41:29.520 --> 00:41:31.710
+Here are two commands
+to test your program.
+
+00:41:31.710 --> 00:41:37.080
+Here are two commands to run GHC
+in debug mode to figure out what's
+
+00:41:37.080 --> 00:41:40.960
+wrong with your patch, and so on.
+
+00:41:40.960 --> 00:41:44.895
+And I made sure that every
+command on this page is copyable.
+
+00:41:45.615 --> 00:41:50.115
+So it's a cheat sheet that
+I use myself frequently.
+
+00:41:50.115 --> 00:41:57.795
+So GHC, it's got this — an
+unfortunate, in my opinion, decision.
+
+00:41:58.455 --> 00:42:00.015
+It uses sub-modules.
+
+00:42:01.005 --> 00:42:03.465
+And it makes Git really flaky.
+
+00:42:03.465 --> 00:42:09.195
+And when I try to change branches,
+it sometimes just tells me no.
+
+00:42:10.895 --> 00:42:16.755
+So my approach to development is to have
+a separate GHC copy — GHC repository copy
+
+00:42:17.145 --> 00:42:19.035
+for each of the features I'm working on.
+
+00:42:19.285 --> 00:42:25.935
+And I — that means I frequently
+need to build from scratch.
+
+00:42:25.935 --> 00:42:29.295
+So I think, okay I need to
+work on yet another feature,
+
+00:42:29.295 --> 00:42:30.045
+I'm building from scratch.
+
+00:42:30.045 --> 00:42:34.755
+And I go to this GHC.dev and
+start copying stuff from there.
+
+00:42:35.095 --> 00:42:45.035
+So I'm not proud of that one, but it
+also means that others get to copy
+
+00:42:45.035 --> 00:42:47.165
+paste as well, which I guess is great.
+
+00:42:48.025 --> 00:42:48.415
+>> Yeah.
+
+00:42:48.715 --> 00:42:49.375
+No, that is great.
+
+00:42:49.375 --> 00:42:54.055
+And I like that you use it yourself
+routinely because that means these
+
+00:42:54.055 --> 00:42:57.745
+commands are likely to continue
+to work moving into the future.
+
+00:42:57.775 --> 00:43:00.655
+Because I know one problem, not just
+with Haskell documentation, but pretty
+
+00:43:00.655 --> 00:43:04.135
+much any documentation, is that they
+may have been accurate at the time
+
+00:43:04.135 --> 00:43:05.485
+they were written, but things change.
+
+00:43:06.025 --> 00:43:08.565
+And the fact that you continue
+to use it means that hopefully if
+
+00:43:08.565 --> 00:43:11.085
+one of those commands doesn't work
+for you, you'll go and update it.
+
+00:43:11.525 --> 00:43:12.295
+>> Yeah, definitely.
+
+00:43:12.865 --> 00:43:18.045
+And by the way, it's — I also wanted
+this page to be as small as possible.
+
+00:43:18.045 --> 00:43:21.365
+So, I mean in terms of download time.
+
+00:43:22.355 --> 00:43:25.260
+And I wrote it in Haskell.
+
+00:43:25.260 --> 00:43:31.610
+So it attests to the existence of CSS
+and the HTML libraries for Haskell.
+
+00:43:31.630 --> 00:43:37.030
+So I didn't use some — so I started
+thinking about writing like raw HTML and
+
+00:43:37.030 --> 00:43:47.475
+CSS and using some sort of Webpack or
+whatever other [JS] tool is currently the
+
+00:43:47.475 --> 00:43:51.135
+favorite one in the — in the JS community.
+
+00:43:51.165 --> 00:43:55.065
+And I like, couldn't get the
+result I wanted from any of them.
+
+00:43:55.365 --> 00:43:58.815
+They keep — they kept inserting
+things that I didn't actually
+
+00:43:58.815 --> 00:44:00.225
+want in my end product.
+
+00:44:00.285 --> 00:44:02.685
+And I decided: screw it,
+I'll write it with Haskell.
+
+00:44:02.685 --> 00:44:05.295
+And that was like the best decision.
+
+00:44:06.315 --> 00:44:13.680
+So Haskell is — turns out it's like a
+good DSL, not only for web services, where
+
+00:44:13.680 --> 00:44:17.970
+you need to generate things dynamically,
+but also if you need a simple static
+
+00:44:17.970 --> 00:44:19.960
+page, Haskell also comes in handy.
+
+00:44:20.780 --> 00:44:21.980
+>> Yeah, I agree.
+
+00:44:22.070 --> 00:44:26.840
+The Haskell Weekly website itself
+is generated or served with Haskell.
+
+00:44:26.900 --> 00:44:28.400
+It used to be generated now it's served.
+
+00:44:29.200 --> 00:44:33.320
+So yeah, if any of the listeners are
+interested in contributing to GHC,
+
+00:44:33.470 --> 00:44:38.700
+I would recommend going to GHC.dev
+and seeing Vlad's copy pasteable
+
+00:44:38.720 --> 00:44:39.870
+commands there to get started.
+
+00:44:42.170 --> 00:44:44.340
+So Vlad, we've covered
+a lot of ground here.
+
+00:44:44.370 --> 00:44:48.620
+And we've talked a lot about dependent
+Haskell, and your contributions
+
+00:44:48.650 --> 00:44:51.620
+via the proposal process, and
+the committee, and this website.
+
+00:44:51.870 --> 00:44:54.090
+Is there anything else that
+I haven't asked you about
+
+00:44:54.090 --> 00:44:55.340
+that you want to talk about?
+
+00:44:57.000 --> 00:45:02.585
+>> Yeah, I guess you have like a
+better sense of what the listeners of the
+
+00:45:02.585 --> 00:45:05.285
+podcast would be interested in hearing.
+
+00:45:05.285 --> 00:45:09.255
+So like I'm open to any questions,
+professional and personal.
+
+00:45:09.275 --> 00:45:10.835
+So fire away.
+
+00:45:11.675 --> 00:45:15.335
+>> Well, I think we've covered
+most of the things — I have been
+
+00:45:15.335 --> 00:45:16.865
+taking notes through this whole thing.
+
+00:45:16.965 --> 00:45:20.895
+One thing you mentioned at the start
+of the episode that I wanted to get a
+
+00:45:20.895 --> 00:45:25.960
+little more clarity on was: you mentioned
+actually simplifying things with dependent
+
+00:45:25.960 --> 00:45:30.790
+types, which was intriguing to me, because
+dependent types themselves feel like a
+
+00:45:30.790 --> 00:45:36.670
+very advanced feature, but it does seem
+like you can use that advanced feature
+
+00:45:36.670 --> 00:45:40.600
+to make your implementation simpler,
+easier to understand, or have fewer bugs.
+
+00:45:40.870 --> 00:45:41.740
+Could you expand on that?
+
+00:45:43.250 --> 00:45:43.440
+>> Yeah.
+
+00:45:43.440 --> 00:45:47.155
+So basically it wouldn't be a
+simplification of the current
+
+00:45:47.155 --> 00:45:48.665
+best practices for Haskell.
+
+00:45:49.005 --> 00:45:53.365
+Because current best practices, in my
+opinion, is to avoid type level features.
+
+00:45:54.295 --> 00:45:56.875
+Cause it's a rabbit hole.
+
+00:45:56.875 --> 00:46:01.775
+And as soon as you start using
+them, you need more and more.
+
+00:46:02.655 --> 00:46:08.300
+Because if you like stick to types where
+not many type parameters are involved,
+
+00:46:08.520 --> 00:46:13.810
+sometimes you just throw runtime errors
+and like you continue development.
+
+00:46:14.140 --> 00:46:19.860
+And sometimes it shows up in tests and you
+have to debug it, but like that's life.
+
+00:46:20.170 --> 00:46:23.440
+Even with dependent types, you will not
+prove every property of your program
+
+00:46:23.440 --> 00:46:25.210
+and you will have runtime failures.
+
+00:46:26.350 --> 00:46:30.070
+And if you want to statically
+guarantee that everything about your
+
+00:46:30.070 --> 00:46:33.380
+program is correct, currently Haskell
+isn't the right language for that.
+
+00:46:34.260 --> 00:46:38.380
+But there is like this gray area
+where you start — where you're trying
+
+00:46:38.380 --> 00:46:45.085
+to get as far as possible with the
+features that GHC currently provides.
+
+00:46:45.145 --> 00:46:48.705
+And you first start by enabling GADTs.
+
+00:46:48.805 --> 00:46:52.625
+And when you enable GADTs,
+you get these type indices.
+
+00:46:52.855 --> 00:46:59.365
+And some — and sometimes to compute
+the type index of some return type,
+
+00:46:59.940 --> 00:47:04.800
+you need to do some computation on
+the type indices of the input type.
+
+00:47:05.070 --> 00:47:09.720
+And you start writing closed type
+families in order to do that.
+
+00:47:09.720 --> 00:47:14.700
+Because that's the current practice
+for writing what would be a term
+
+00:47:14.700 --> 00:47:16.350
+level function, but on the type level.
+
+00:47:17.350 --> 00:47:22.720
+And once you get into type families,
+you are writing in a language
+
+00:47:23.020 --> 00:47:25.180
+with no evaluation semantics.
+
+00:47:25.240 --> 00:47:27.910
+It's not a lazy and not a strict language.
+
+00:47:28.300 --> 00:47:31.370
+It's like,
+whatever-the-type-checker-wants-to-do
+
+00:47:31.390 --> 00:47:31.960
+language.
+
+00:47:32.420 --> 00:47:37.930
+And it means that if you write a
+sort that in terms would have one
+
+00:47:38.210 --> 00:47:43.020
+asymptotic complexity, let's say — let's
+say it's a quadratic sort, maybe
+
+00:47:43.020 --> 00:47:48.240
+you're bad at algorithms, but — oh!
+
+00:47:48.270 --> 00:47:49.840
+But maybe you are not bad at algorithms.
+
+00:47:49.840 --> 00:47:56.290
+Maybe it's just that the features of
+type families are so annoying to use
+
+00:47:56.320 --> 00:48:00.260
+that you just write the minimum amount
+of code possible to get it to compile.
+
+00:48:00.480 --> 00:48:04.250
+Because you don't even have
+like first class case analysis.
+
+00:48:04.950 --> 00:48:05.945
+You don't have lambdas.
+
+00:48:05.945 --> 00:48:08.125
+You don't have any of that.
+
+00:48:08.125 --> 00:48:12.275
+Anyway, you write your sorting
+algorithm and you are thinking to
+
+00:48:12.275 --> 00:48:15.875
+yourself, well, maybe it's not the
+best algorithm, but it's got to
+
+00:48:15.875 --> 00:48:17.545
+work in a reasonable amount of time.
+
+00:48:17.895 --> 00:48:26.305
+But it will not finish compiling
+until the end of universe because in
+
+00:48:26.305 --> 00:48:28.235
+branches that should not be computed,
+
+00:48:28.325 --> 00:48:29.915
+it actually computes them all.
+
+00:48:30.095 --> 00:48:34.925
+And if you have like a condition if,
+and it evaluates — the conditional
+
+00:48:34.925 --> 00:48:38.825
+evaluated to true, the type checker
+will decide to evaluate both
+
+00:48:38.825 --> 00:48:40.805
+branches, both then and false.
+
+00:48:40.805 --> 00:48:45.715
+And as soon as you get something
+recursive, like it's, hopeless.
+
+00:48:46.355 --> 00:48:50.065
+I mean, it might change
+the — its asymptotics with the
+
+00:48:50.065 --> 00:48:52.255
+minor compiler version update.
+
+00:48:53.295 --> 00:48:59.535
+So type families: a great tool in
+a very limited amount of use cases.
+
+00:48:59.565 --> 00:49:04.495
+And I would say the use cases where you
+are not defining recursive type families.
+
+00:49:04.515 --> 00:49:09.615
+So if you just have like flat instances,
+associating one type to another
+
+00:49:09.615 --> 00:49:15.130
+without complex computation, then type
+families are like ready for prime time.
+
+00:49:15.170 --> 00:49:16.260
+Use it in production.
+
+00:49:16.260 --> 00:49:26.530
+But as soon as you start doing it, it's
+very easy to slip, and start writing just
+
+00:49:26.530 --> 00:49:28.390
+a little bit of recursive type families.
+
+00:49:28.660 --> 00:49:33.010
+And maybe like it works in this
+limited amount of circumstances, but
+
+00:49:33.010 --> 00:49:36.480
+then you're — for example, you're
+processing a small type level list.
+
+00:49:36.480 --> 00:49:41.375
+It used to have five elements, but
+now it has six, and now has 10.
+
+00:49:41.375 --> 00:49:45.485
+And with the bad asymptotics, by the
+time it gets to 12 elements, uh-oh.
+
+00:49:46.205 --> 00:49:50.075
+We actually had this problem,
+that we needed 80 gigabytes
+
+00:49:50.075 --> 00:49:51.715
+of RAM to compile our project.
+
+00:49:53.555 --> 00:50:02.505
+Yeah, and we could only use it — we could
+only do it on our CI machine and locally
+
+00:50:02.915 --> 00:50:08.780
+we had to put some unsafe coerces here
+and there just to get it to shut up.
+
+00:50:09.930 --> 00:50:16.380
+Yeah, so that wasn't a pleasant experience
+and I'm hoping that all of that will
+
+00:50:16.530 --> 00:50:18.360
+like go away with dependent Haskell.
+
+00:50:18.360 --> 00:50:23.850
+And one of the things that we are
+planning is that you would be able
+
+00:50:23.850 --> 00:50:28.700
+to use term level functions at
+the type level, and they will have
+
+00:50:28.700 --> 00:50:30.770
+term level evaluation semantics.
+
+00:50:31.060 --> 00:50:34.060
+Which means that you get lazy evaluation.
+
+00:50:34.060 --> 00:50:36.060
+You get reasonable asymptotic behavior.
+
+00:50:37.610 --> 00:50:43.060
+Maybe we could even, on platforms
+that support dynamic linking,
+
+00:50:43.300 --> 00:50:48.760
+maybe we could load the dynamic
+object and execute the actual term
+
+00:50:48.760 --> 00:50:50.650
+level function at native speeds.
+
+00:50:51.100 --> 00:50:56.220
+As long as you don't have any skolems
+in your input, and skolems are basically
+
+00:50:56.520 --> 00:51:02.170
+unknown at the current — in the current
+part of program, it's an unknown variable.
+
+00:51:02.530 --> 00:51:06.390
+And if you don't have any of those
+in your inputs, then we could
+
+00:51:06.420 --> 00:51:08.050
+do this dynamic linking thing.
+
+00:51:08.440 --> 00:51:13.795
+So it wouldn't cover everything,
+but it would be a possible speedup.
+
+00:51:13.795 --> 00:51:17.965
+And that's what basically
+Template Haskell does currently.
+
+00:51:18.245 --> 00:51:23.605
+Because Template Haskell, if you're
+using some function, of course it
+
+00:51:23.665 --> 00:51:26.545
+needs to have some shared object,
+
+00:51:26.545 --> 00:51:31.635
+it loads it, and then every — so
+for example, makeLenses.
+
+00:51:32.015 --> 00:51:37.275
+If — when you run it, the generator
+for your lenses, it runs at
+
+00:51:37.275 --> 00:51:38.855
+native speeds on your machine.
+
+00:51:39.275 --> 00:51:50.695
+And we are basically looking towards
+making this integration seamless.
+
+00:51:50.695 --> 00:51:53.755
+So instead of writing like Template
+Haskell splices, and working
+
+00:51:53.755 --> 00:51:58.245
+on the meta level where you
+are producing ASTs from values.
+
+00:51:58.245 --> 00:52:02.215
+So you get values as input,
+but you're producing ASTs.
+
+00:52:02.585 --> 00:52:06.835
+We are like removing this unnecessary
+abstraction barrier and we are
+
+00:52:06.835 --> 00:52:08.535
+producing values from values.
+
+00:52:09.855 --> 00:52:12.765
+Or types from types.
+
+00:52:13.105 --> 00:52:21.135
+And the hope is that it will have the
+ergonomics of term level of programming,
+
+00:52:21.405 --> 00:52:26.315
+the performance of term level programming,
+but integrated with the type checker.
+
+00:52:27.485 --> 00:52:29.225
+>> That all sounds really promising.
+
+00:52:29.225 --> 00:52:33.145
+And I can definitely empathize with
+some of the problems that you've
+
+00:52:33.175 --> 00:52:35.125
+expressed about type level programming.
+
+00:52:35.425 --> 00:52:38.035
+Just in the last episode, my
+coworker, Cameron, and I were
+
+00:52:38.035 --> 00:52:39.445
+talking about our tech stack.
+
+00:52:39.445 --> 00:52:44.065
+And one of the tools that we use is
+Servant to implement our HTTP server.
+
+00:52:44.485 --> 00:52:48.085
+And I think Servant is kind of
+a poster child for something
+
+00:52:48.085 --> 00:52:51.435
+that's doing — something that's
+approaching dependent Haskell.
+
+00:52:52.085 --> 00:52:54.395
+Using all of these kind
+of weird approaches, type
+
+00:52:54.395 --> 00:52:55.475
+families and stuff like that.
+
+00:52:55.775 --> 00:52:59.645
+And we've actually run into some of those
+problems where either it requires too
+
+00:52:59.645 --> 00:53:04.235
+many resources, whether that's CPU time
+or RAM or whatever, or it's accidentally
+
+00:53:04.235 --> 00:53:07.445
+quadratic in, you know, the number of
+routes we have or something like that.
+
+00:53:07.805 --> 00:53:09.395
+And they've been
+challenging to work around.
+
+00:53:09.395 --> 00:53:14.665
+So I can appreciate that a complicated
+effort, like dependent Haskell, could
+
+00:53:14.665 --> 00:53:18.400
+make that type of programming easier
+and more ergonomic in the future.
+
+00:53:18.400 --> 00:53:19.360
+So I look forward to that.
+
+00:53:21.600 --> 00:53:21.900
+>> Yes.
+
+00:53:21.930 --> 00:53:24.000
+So Servant is a great example.
+
+00:53:24.090 --> 00:53:29.070
+It's a library I absolutely love,
+and I use it whenever possible.
+
+00:53:29.370 --> 00:53:34.660
+And as long as I have not too many
+endpoints, it works beautifully.
+
+00:53:35.100 --> 00:53:39.895
+But like it starts to get slower
+when you get more endpoints.
+
+00:53:40.175 --> 00:53:42.385
+And there is nothing
+wrong with the library.
+
+00:53:42.385 --> 00:53:47.195
+It's just that GHC doesn't have
+the facilities to implement this
+
+00:53:47.535 --> 00:53:51.165
+wonderful type level approach
+in a more direct manner.
+
+00:53:52.475 --> 00:53:56.245
+And I hope that with dependent
+types, this will be a solved issue.
+
+00:53:57.165 --> 00:53:58.845
+>> Yeah, I hope so too.
+
+00:53:58.905 --> 00:54:00.555
+It would make our development life easier.
+
+00:54:02.500 --> 00:54:05.100
+Okay, well, that was the last thing
+that I wanted to loop back on.
+
+00:54:05.100 --> 00:54:06.670
+So I'll throw it back to you, Vlad.
+
+00:54:06.690 --> 00:54:10.410
+Anything else that you
+wanted to talk about?
+
+00:54:10.410 --> 00:54:17.900
+>> Well, I guess I will just abuse this
+platform to say that I'm learning German.
+
+00:54:17.900 --> 00:54:20.870
+So if anyone wants to help me, please do.
+
+00:54:23.420 --> 00:54:25.400
+>> Maybe they can trade,
+they'll teach you German and you
+
+00:54:25.400 --> 00:54:27.410
+can teach them some GHC development.
+
+00:54:27.560 --> 00:54:29.480
+>> That's definitely
+a trade I would do.
+
+00:54:30.190 --> 00:54:30.670
+>> All right.
+
+00:54:31.845 --> 00:54:32.265
+Cool.
+
+00:54:32.295 --> 00:54:34.885
+Well, thank you so much for
+being on the show, Vlad.
+
+00:54:34.885 --> 00:54:38.605
+It's been a pleasure talking with you
+about dependent Haskell and everything
+
+00:54:38.605 --> 00:54:40.285
+else related to GHC development.
+
+00:54:40.435 --> 00:54:41.355
+I hope you had a good time.
+
+00:54:42.215 --> 00:54:45.175
+>> I definitely had, and,
+thank you for having me.
+
+00:54:45.905 --> 00:54:52.645
+So I'll do my best not to
+disappoint with dependent types.
+
+00:54:55.455 --> 00:54:59.695
+Yeah, so I guess, bye everyone.
+
+00:55:01.005 --> 00:55:02.295
+>> Oh, before you go, actually.
+
+00:55:02.595 --> 00:55:05.745
+If people want to find you online,
+where should they look for you?
+
+00:55:06.985 --> 00:55:10.160
+>> So I open Twitter daily,
+
+00:55:10.700 --> 00:55:11.420
+unfortunately.
+
+00:55:11.680 --> 00:55:12.730
+So you can find me there.
+
+00:55:14.070 --> 00:55:14.520
+>> All right.
+
+00:55:14.580 --> 00:55:16.930
+And I think your handle is @int_index.
+
+00:55:16.950 --> 00:55:19.590
+We'll put a link to it in
+the show notes, but yeah.
+
+00:55:19.770 --> 00:55:21.710
+Unfortunately I feel that, with Twitter.
+
+00:55:22.170 --> 00:55:22.440
+>> Yeah.
+
+00:55:22.930 --> 00:55:24.650
+Find me there.
+
+00:55:25.920 --> 00:55:26.430
+>> All right.
+
+00:55:26.940 --> 00:55:27.880
+Well, thanks again, Vlad.
+
+00:55:28.200 --> 00:55:29.160
+Thanks for being on the show.
+
+00:55:29.940 --> 00:55:30.540
+>> Thank you.
+
+00:55:30.610 --> 00:55:30.930
+Bye.
+
+00:55:32.104 --> 00:55:34.294
+>> Thanks for listening
+to the Haskell Weekly podcast.
+
+00:55:34.534 --> 00:55:36.174
+I've been your host Taylor Fausak.
+
+00:55:36.454 --> 00:55:39.674
+And with me today was special
+guest Vladislav Zavialov.
+
+00:55:40.324 --> 00:55:42.724
+If you want to find out more
+about the podcast, please visit
+
+00:55:42.724 --> 00:55:45.104
+our website, HaskellWeekly.News.
+
+00:55:45.724 --> 00:55:48.994
+This week we're brought to
+you by our employer, ITProTV,
+
+00:55:49.154 --> 00:55:50.524
+an ACI Learning company.
+
+00:55:50.974 --> 00:55:54.724
+They would like to offer you 30% off the
+lifetime of your subscription by using the
+
+00:55:54.724 --> 00:55:57.154
+promo code HaskellWeekly30 at checkout.
+
+00:55:57.694 --> 00:56:02.434
+Head over to ITPro.TV to get
+started today, and use promo code
+
+00:56:02.544 --> 00:56:07.204
+HaskellWeekly30 at checkout to get 30%
+off the lifetime of your subscription.
+
+00:56:07.954 --> 00:56:10.234
+Thanks again for listening
+and we'll see you next week.

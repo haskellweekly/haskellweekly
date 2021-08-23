@@ -4,7 +4,7 @@
 module HaskellWeekly
   ( Episodes.episodes
   , Issues.issues
-  , Main.main
+  , Main.defaultMain
   , Caption.parseVtt
   , Caption.renderTranscript
   , Package.getDataDir

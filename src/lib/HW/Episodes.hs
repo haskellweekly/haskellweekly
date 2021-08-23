@@ -80,6 +80,7 @@ episodes = do
     , episode48
     , episode49
     , episode50
+    , episode51
     ]
   checkGuids validEpisodes Set.empty
   checkNumbers validEpisodes 1
@@ -864,3 +865,17 @@ episode50 = Episode.Episode
   <*> Size.fromNatural 46865808
   <*> Summary.fromText "Stack, HLint, and Brittany, oh my! Cameron Gera and Taylor Fausak go on a deep dive into the ACI Learning tech stack."
   <*> Title.fromText "Our Tech Stack"
+
+episode51 :: Either String Episode.Episode
+episode51 = Episode.Episode
+  <$> Articles.fromList
+    [ "https://serokell.io/blog/developing-ghc-for-a-living"
+    , "https://twitter.com/int_index"
+    ]
+  <*> Date.fromGregorian 2021 8 23
+  <*> Duration.fromTimestamp 56 15
+  <*> Guid.fromText "db5b3dce-b223-47a4-b209-9ba7cc17432e"
+  <*> Number.fromNatural 51
+  <*> Size.fromNatural 67501498
+  <*> Summary.fromText "Curious about dependent types? Special guest Vladislav Zavialov from Serokell breaks it down for us. We discuss comparisons to refinement types, sigma and pi types, interactions with linear types, and much more!"
+  <*> Title.fromText "Dependent Haskell with Vladislav Zavialov"
