@@ -72,4 +72,4 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 
 ## Call for participation
 
-undefined
+-   [haskell-language-server: Suggesting "Hiding other imports"-like action when ambiguity includes local definition](https://github.com/haskell/haskell-language-server/issues/2114)
