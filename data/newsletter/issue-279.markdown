@@ -71,4 +71,5 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 
 ## Call for participation
 
-undefined
+-   [concordium-client: Add a check for node version when establishing connection](https://github.com/Concordium/concordium-client/issues/59)
+-   [ihp: Horizontal scrollbars when using pagination](https://github.com/digitallyinduced/ihp/issues/1071)
