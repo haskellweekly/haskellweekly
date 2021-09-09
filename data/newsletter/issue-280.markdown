@@ -35,4 +35,5 @@ undefined
 
 ## Call for participation
 
-undefined
+-   [niv: "Could not read the output of 'nix-prefetch-url'. This is a bug."](https://github.com/nmattia/niv/issues/330)
+-   [pirouette: Implement a more efficient version of `mapM expandDefs`](https://github.com/tweag/pirouette/issues/31)
