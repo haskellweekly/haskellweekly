@@ -81,6 +81,7 @@ episodes = do
     , episode49
     , episode50
     , episode51
+    , episode52
     ]
   checkGuids validEpisodes Set.empty
   checkNumbers validEpisodes 1
@@ -879,3 +880,16 @@ episode51 = Episode.Episode
   <*> Size.fromNatural 67501498
   <*> Summary.fromText "Curious about dependent types? Special guest Vladislav Zavialov from Serokell breaks it down for us. We discuss comparisons to refinement types, sigma and pi types, interactions with linear types, and much more!"
   <*> Title.fromText "Dependent Haskell with Vladislav Zavialov"
+
+episode52 :: Either String Episode.Episode
+episode52 = Episode.Episode
+  <$> Articles.fromList
+    [ "https://taylor.fausak.me/2021/09/10/evoke/"
+    ]
+  <*> Date.fromGregorian 2021 9 13
+  <*> Duration.fromTimestamp 38 55
+  <*> Guid.fromText "e0be1a71-42d2-450c-b7e6-f654072ecca6"
+  <*> Number.fromNatural 52
+  <*> Size.fromNatural 36688462
+  <*> Summary.fromText "Taylor Fausak talks with Cameron Gera about Evoke, Taylor's latest GHC plugin for deriving instances without generics or Template Haskell."
+  <*> Title.fromText "Evoking Instances"
