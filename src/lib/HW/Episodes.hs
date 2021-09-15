@@ -887,9 +887,9 @@ episode52 = Episode.Episode
     [ "https://taylor.fausak.me/2021/09/10/evoke/"
     ]
   <*> Date.fromGregorian 2021 9 13
-  <*> Duration.fromTimestamp 38 55
+  <*> Duration.fromTimestamp 36 20
   <*> Guid.fromText "e0be1a71-42d2-450c-b7e6-f654072ecca6"
   <*> Number.fromNatural 52
-  <*> Size.fromNatural 36688462
+  <*> Size.fromNatural 43593188
   <*> Summary.fromText "Taylor Fausak talks with Cameron Gera about Evoke, Taylor's latest GHC plugin for deriving instances without generics or Template Haskell."
   <*> Title.fromText "Evoking Instances"

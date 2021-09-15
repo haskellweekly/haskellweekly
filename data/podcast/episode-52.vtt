@@ -1,4 +1,2449 @@
 WEBVTT
 
-00:00:00.000 --> 00:00:05.000
->> [No transcript yet.]
+00:00:07.530 --> 00:00:09.750
+>> Hello and welcome to
+the Haskell Weekly podcast.
+
+00:00:09.960 --> 00:00:13.230
+This is a show about Haskell, a purely
+functional programming language.
+
+00:00:13.560 --> 00:00:15.149
+I'm your host, Taylor Fausak.
+
+00:00:15.270 --> 00:00:17.940
+I'm the Director of Software
+Engineering at ACI Learning.
+
+00:00:18.570 --> 00:00:21.810
+And with me today is Cameron Gera,
+one of the engineers on my team.
+
+00:00:22.020 --> 00:00:23.280
+Thanks for joining me today, Cam.
+
+00:00:23.670 --> 00:00:26.190
+>> Thanks for having me
+Taylor, I'm looking forward to
+
+00:00:26.223 --> 00:00:27.483
+diving into our topic today.
+
+00:00:27.483 --> 00:00:29.013
+I think it'll be a fun show.
+
+00:00:29.093 --> 00:00:33.153
+Our last podcast was on an interview,
+so  back to getting to some of the
+
+00:00:33.153 --> 00:00:35.003
+cool work we're doing here at ITProTV.
+
+00:00:35.683 --> 00:00:37.793
+>> I'm excited to
+dive into this as well.
+
+00:00:37.823 --> 00:00:39.743
+We're going to be talking about
+something that I wrote, so
+
+00:00:39.743 --> 00:00:41.063
+naturally I'm excited about it.
+
+00:00:41.613 --> 00:00:44.073
+So I guess I'll give a quick intro
+of what we'll be talking about.
+
+00:00:44.293 --> 00:00:49.548
+I wrote a library that is a GHC
+plugin and I called it Evoke.
+
+00:00:49.908 --> 00:00:54.738
+And what it does is derive type
+class instances without using
+
+00:00:54.738 --> 00:00:56.718
+Template Haskell or generics.
+
+00:00:56.748 --> 00:00:58.248
+So that's what we're going
+to be talking about today.
+
+00:00:59.358 --> 00:01:00.208
+>> Woo-hoo!
+
+00:01:00.228 --> 00:01:05.328
+Yeah, we had a lot of different reasons
+we needed this and had interest in this.
+
+00:01:05.328 --> 00:01:08.688
+And so thank you Taylor, for taking
+it on as kind of a pet project.
+
+00:01:08.688 --> 00:01:12.968
+And really turning it into
+something that's comprehensible,
+
+00:01:13.158 --> 00:01:17.698
+also easy to use, well extended.
+
+00:01:18.088 --> 00:01:21.638
+So I think, you know,
+Evoke is a great plugin.
+
+00:01:21.688 --> 00:01:25.558
+You want to talk more about some
+of the motivations for making a
+
+00:01:25.558 --> 00:01:27.958
+plugin versus another alternative?
+
+00:01:28.498 --> 00:01:28.828
+>> Sure.
+
+00:01:28.858 --> 00:01:29.548
+I'd be happy to.
+
+00:01:29.998 --> 00:01:35.308
+So in our application at work for
+ACI Learning, we have a web app
+
+00:01:35.608 --> 00:01:40.198
+and it has a JSON API, which I
+think is pretty typical these days.
+
+00:01:40.758 --> 00:01:46.828
+And in order for that API to generate
+and consume JSON, it uses a bunch of type
+
+00:01:46.828 --> 00:01:49.858
+class instances for the Aeson library.
+
+00:01:50.158 --> 00:01:52.658
+And those instances are
+ToJSON and FromJSON.
+
+00:01:53.278 --> 00:01:57.438
+And a couple more that we've thrown
+into the mix recently are ToSchema,
+
+00:01:57.748 --> 00:02:00.058
+which comes from the swagger2 library.
+
+00:02:00.523 --> 00:02:03.913
+And arbitrary, which comes
+from the QuickCheck library.
+
+00:02:04.423 --> 00:02:06.973
+And we have these four instances.
+
+00:02:07.033 --> 00:02:11.383
+And usually we define, if not all,
+four of them, three out of four of
+
+00:02:11.383 --> 00:02:13.363
+them, for a lot of our data types.
+
+00:02:13.603 --> 00:02:18.373
+And we do this so that we can
+emit JSON from our end points.
+
+00:02:18.373 --> 00:02:20.503
+We can consume JSON from our end points.
+
+00:02:20.533 --> 00:02:24.223
+And we can generate an API
+specification that describes what
+
+00:02:24.223 --> 00:02:26.533
+those end points either take or emit.
+
+00:02:26.903 --> 00:02:30.083
+And then we can also generate arbitrary
+values of those so that we can test
+
+00:02:30.083 --> 00:02:34.463
+to make sure our encoders and decoders
+actually match the specification.
+
+00:02:34.613 --> 00:02:39.383
+So that's a quick overview of our
+specific use case, the type classes we
+
+00:02:39.383 --> 00:02:41.213
+are using, and why we're using them.
+
+00:02:42.143 --> 00:02:42.653
+>> Right.
+
+00:02:42.983 --> 00:02:50.278
+And I think to kind of, I guess share
+some of, another big, big benefit,
+
+00:02:50.278 --> 00:02:54.878
+which we'll cover more in detail later
+is, using Evoke, keeps those four
+
+00:02:54.893 --> 00:02:57.023
+instances you were speaking of in sync.
+
+00:02:57.483 --> 00:03:04.653
+So you're not deriving one via something
+else and deriving one via another thing.
+
+00:03:04.663 --> 00:03:06.823
+We started to hit some hiccups with that.
+
+00:03:07.213 --> 00:03:11.703
+And so that's another motivation for
+this: the pains and headaches that
+
+00:03:11.943 --> 00:03:13.393
+that could cause every once in a while.
+
+00:03:14.033 --> 00:03:15.303
+>> That's absolutely right.
+
+00:03:15.363 --> 00:03:19.233
+And I wanted to touch briefly on our
+history, both here at work and for me
+
+00:03:19.233 --> 00:03:23.193
+personally, when it comes to writing
+or providing type class instances.
+
+00:03:23.703 --> 00:03:27.333
+And I think it's pretty typical when you
+start programming Haskell, and definitely
+
+00:03:27.333 --> 00:03:31.233
+when I started programming in Haskell,
+I usually wrote the instances by hand.
+
+00:03:31.683 --> 00:03:35.663
+And this works fine if you don't
+have that many instances to define,
+
+00:03:35.693 --> 00:03:36.803
+you don't have that many types.
+
+00:03:37.163 --> 00:03:40.493
+Or your instances don't need
+to agree with each other.
+
+00:03:40.763 --> 00:03:44.243
+But things get a little trickier
+when you have a lot of types.
+
+00:03:44.273 --> 00:03:48.693
+So for us at work, we have over
+400 data types that we need
+
+00:03:48.693 --> 00:03:50.048
+to derive these instances for.
+
+00:03:50.078 --> 00:03:52.898
+We have more data types than that
+in our code base overall, but
+
+00:03:53.168 --> 00:03:56.218
+only a subset of them are affected
+by this plugin that I wrote.
+
+00:03:56.938 --> 00:04:00.358
+And also, like you mentioned,
+we have to keep them in sync.
+
+00:04:00.388 --> 00:04:05.938
+So if we have a FromJSON instance
+and a ToJSON instance, those
+
+00:04:05.938 --> 00:04:07.198
+need to agree with each other.
+
+00:04:07.318 --> 00:04:07.858
+Usually.
+
+00:04:07.888 --> 00:04:09.238
+Not always, but almost all the time.
+
+00:04:09.868 --> 00:04:14.568
+And if we also have a [ToSchema] type
+to generate the schema for it, that
+
+00:04:14.568 --> 00:04:16.303
+needs to agree with the other two.
+
+00:04:16.423 --> 00:04:19.513
+So writing them by hand gets really
+tedious because then if you want to
+
+00:04:19.513 --> 00:04:22.183
+make a simple change, like updating
+one of the field names, you have
+
+00:04:22.183 --> 00:04:23.503
+to update it in three places.
+
+00:04:23.503 --> 00:04:24.493
+And remember to do that.
+
+00:04:24.523 --> 00:04:28.903
+And usually, or I should say by
+default, nothing will make sure that
+
+00:04:28.933 --> 00:04:30.133
+all of them agree with each other.
+
+00:04:30.313 --> 00:04:31.903
+You have to go write
+a test for that thing.
+
+00:04:32.353 --> 00:04:34.123
+Which isn't the end of the world,
+but it would be nice if you
+
+00:04:34.123 --> 00:04:35.233
+didn't have to do that, right?
+
+00:04:36.013 --> 00:04:36.293
+>> Right.
+
+00:04:36.773 --> 00:04:39.483
+That's a huge benefit right there.
+
+00:04:39.513 --> 00:04:43.083
+There's so many touch points when
+you derive things by hand, if you
+
+00:04:43.083 --> 00:04:48.003
+make a simple change, that's twice as
+many code changes as you were, three
+
+00:04:48.003 --> 00:04:50.943
+times, or four times as many code
+changes as you were intending to do.
+
+00:04:51.393 --> 00:04:54.303
+And so letting it happen
+automatically is great.
+
+00:04:54.393 --> 00:04:59.853
+But there's still drawbacks to doing
+it with Template Haskell or generics.
+
+00:05:00.133 --> 00:05:04.593
+And so Evoke allows us to
+still get great performance,
+
+00:05:04.623 --> 00:05:06.843
+both runtime and compile time.
+
+00:05:07.203 --> 00:05:13.543
+And also not have to think too much about,
+oh, we're changing this data type we
+
+00:05:13.593 --> 00:05:15.493
+got to make sure everything's in sync.
+
+00:05:15.773 --> 00:05:20.603
+Obviously you don't want to be changing
+data types willy nilly that requires
+
+00:05:20.603 --> 00:05:24.053
+specific keys on the front end because
+then you're gonna really have some issues.
+
+00:05:24.053 --> 00:05:25.773
+Your front end team is going to hate you.
+
+00:05:26.143 --> 00:05:28.973
+Unless you're, you've got
+a strategic plan for that.
+
+00:05:28.973 --> 00:05:34.453
+But, I think that's kind of the
+thing for us that yes, it's dangerous
+
+00:05:34.453 --> 00:05:36.853
+to extend the data type sometimes.
+
+00:05:37.163 --> 00:05:38.813
+Especially if you change
+an existing field.
+
+00:05:38.843 --> 00:05:43.713
+But, at least in this case, you're
+not worrying about from instance to
+
+00:05:43.713 --> 00:05:48.438
+instance, is the type class going
+to match the related type class.
+
+00:05:48.518 --> 00:05:53.768
+>> And you always have to
+worry about, if your type is part
+
+00:05:53.768 --> 00:05:57.488
+of your API contract, changing that
+type or changing its representation
+
+00:05:57.608 --> 00:05:58.658
+could be a breaking change.
+
+00:05:58.688 --> 00:06:00.278
+That's something that
+you can't get around.
+
+00:06:00.678 --> 00:06:03.168
+And Evoke, doesn't attempt to handle that.
+
+00:06:03.228 --> 00:06:05.778
+It just makes it easier
+to derive the instances.
+
+00:06:06.288 --> 00:06:09.138
+But as you touched on, there
+are other ways to automate this
+
+00:06:09.198 --> 00:06:10.908
+instance definition problem.
+
+00:06:11.248 --> 00:06:16.503
+And I would say in practice, it's pretty
+unusual, especially for large teams,
+
+00:06:16.773 --> 00:06:19.503
+to manually write all of the instances.
+
+00:06:19.533 --> 00:06:21.533
+For some of the reasons
+we've defined and just cause
+
+00:06:21.813 --> 00:06:22.953
+it's a lot of boilerplate code.
+
+00:06:22.953 --> 00:06:24.093
+It's not interesting to write.
+
+00:06:24.093 --> 00:06:25.233
+So why bother writing it?
+
+00:06:26.103 --> 00:06:28.953
+And I'm not claiming that Evoke
+is the only, or even the best
+
+00:06:28.953 --> 00:06:30.363
+way, to solve this problem.
+
+00:06:30.453 --> 00:06:34.073
+And two of the others, very common
+ways to write these instances.
+
+00:06:34.143 --> 00:06:35.913
+The first is Template Haskell.
+
+00:06:36.453 --> 00:06:40.173
+And Template Haskell is like
+compile time meta programming.
+
+00:06:40.223 --> 00:06:43.823
+Usually Haskell programmers I think
+are introduced to it pretty quickly,
+
+00:06:43.873 --> 00:06:45.673
+in their learning curve of Haskell.
+
+00:06:46.303 --> 00:06:50.053
+And essentially what it does
+is let you generate code at
+
+00:06:50.053 --> 00:06:51.433
+compile time, which is great.
+
+00:06:51.533 --> 00:06:56.733
+However, it has one major problem,
+which is, GHC has this concept
+
+00:06:56.763 --> 00:06:59.133
+of recompilation avoidance.
+
+00:06:59.163 --> 00:07:01.023
+Which is if a file changes,
+
+00:07:01.623 --> 00:07:04.893
+how do you know if that
+file needs to be recompiled?
+
+00:07:04.953 --> 00:07:08.543
+Or if any file that depends on
+that one needs to be recompiled.
+
+00:07:09.468 --> 00:07:13.158
+And I bring this up because with
+Template Haskell, it has a big
+
+00:07:13.158 --> 00:07:17.208
+problem, which is that anytime you
+use Template Haskell in a module,
+
+00:07:17.448 --> 00:07:23.118
+that will force it to be recompiled if
+any of that modules dependencies, or
+
+00:07:23.118 --> 00:07:25.728
+transitive dependencies, have changed.
+
+00:07:25.998 --> 00:07:31.358
+So what that means is if I have a module
+A and a module B, that depends on A.
+
+00:07:31.788 --> 00:07:33.658
+And module B uses Template Haskell.
+
+00:07:34.048 --> 00:07:38.098
+If I change module A module
+B will always be recompiled.
+
+00:07:39.128 --> 00:07:43.008
+And this is in contrast to the normal
+recompilation avoidance where, GHC
+
+00:07:43.008 --> 00:07:47.338
+will say, oh well A changed, but the
+thing that changed isn't used in B,
+
+00:07:47.338 --> 00:07:48.518
+so I don't need to recompile B.
+
+00:07:50.343 --> 00:07:54.183
+That long-winded thing to say, Template
+Haskell forces you to recompile more
+
+00:07:54.183 --> 00:07:57.123
+often, and that is a drag on productivity.
+
+00:07:57.123 --> 00:08:00.093
+And it means that if you make a change
+deep in your module hierarchy, you're
+
+00:08:00.093 --> 00:08:02.043
+going to have to recompile a lot of stuff.
+
+00:08:02.163 --> 00:08:03.393
+And that's no fun.
+
+00:08:04.803 --> 00:08:05.163
+>> Yeah.
+
+00:08:05.193 --> 00:08:07.323
+I think that benefit alone is huge.
+
+00:08:07.613 --> 00:08:11.383
+For those who, use Template Haskell and
+experience that pain from day to day.
+
+00:08:11.903 --> 00:08:14.783
+And I think another thing too,
+that benefits here is that
+
+00:08:14.983 --> 00:08:16.873
+it's easy to debug, right?
+
+00:08:16.873 --> 00:08:22.843
+It's using the Haskell plugin
+library that can tell you, okay,
+
+00:08:22.843 --> 00:08:24.133
+this is what's happening here.
+
+00:08:24.133 --> 00:08:26.473
+It's a well-documented library.
+
+00:08:26.553 --> 00:08:28.173
+Obviously every once in a while,
+there's some things you got to
+
+00:08:28.173 --> 00:08:34.573
+figure out, but I think that allows
+you to kind of pull off, the code
+
+00:08:34.573 --> 00:08:35.473
+like you would normally write it.
+
+00:08:35.473 --> 00:08:40.203
+Like it's not a different kind of,
+lower level, deeper kind of programming.
+
+00:08:40.213 --> 00:08:41.133
+It's writing Haskell.
+
+00:08:41.153 --> 00:08:45.383
+It's just writing it in a specific way
+and using all the functions provided.
+
+00:08:46.373 --> 00:08:46.733
+>> Yeah.
+
+00:08:46.793 --> 00:08:50.843
+And this is actually a benefit that is
+shared a little bit with Template Haskell.
+
+00:08:51.173 --> 00:08:55.523
+There are flags you can pass to GHC
+that will convince it to output the
+
+00:08:55.553 --> 00:08:57.423
+generated code from Template Haskell.
+
+00:08:57.693 --> 00:09:02.588
+But usually that code isn't ready to be
+like, copy pasted into your code base.
+
+00:09:02.618 --> 00:09:06.728
+It's a little weird in
+some strange, subtle ways.
+
+00:09:07.268 --> 00:09:12.518
+But I mention this because with Evoke as
+a GHC plugin, it generates source code
+
+00:09:12.908 --> 00:09:17.168
+and you can pass a flag to Evoke and
+it will tell it, not only generate the
+
+00:09:17.168 --> 00:09:21.308
+source code and insert it into the source
+tree, but print it out to standard out.
+
+00:09:21.308 --> 00:09:26.478
+So that, you could use Evoke as a kind
+of code generator to say, I'm going to
+
+00:09:26.478 --> 00:09:29.688
+write out my type, and then I'm going to
+tell Evoke to make the instance for me.
+
+00:09:30.508 --> 00:09:31.773
+But I'm only going to
+do that the first time.
+
+00:09:31.773 --> 00:09:34.623
+I'm just going to copy-paste it
+from Evoke's output and put it
+
+00:09:34.653 --> 00:09:37.413
+into my source module, and then I
+won't have to deal with it anymore.
+
+00:09:38.063 --> 00:09:41.003
+And both of these approaches, the
+Template Haskell one and the Evoke
+
+00:09:41.003 --> 00:09:43.913
+one are in contrast to generics.
+
+00:09:43.973 --> 00:09:47.603
+Because generics is the other
+way to avoid manually writing
+
+00:09:47.603 --> 00:09:48.893
+your instances with Haskell.
+
+00:09:49.463 --> 00:09:55.083
+And it uses, [an] unsurprisingly
+generic representation of your types.
+
+00:09:55.113 --> 00:10:01.758
+And that generic representation only
+has the concepts of products and sums.
+
+00:10:01.848 --> 00:10:04.998
+Where a product type is like a
+tuple and a sum type is like either.
+
+00:10:05.208 --> 00:10:09.138
+So it takes whatever complicated data
+type you have and crunches it down into
+
+00:10:09.138 --> 00:10:11.448
+something that is tuples and eithers.
+
+00:10:12.668 --> 00:10:18.368
+I bring all this context up because
+you can't really convince GHC to
+
+00:10:18.458 --> 00:10:22.238
+spit out what the instance would be
+when you derive it with generics.
+
+00:10:22.298 --> 00:10:24.128
+It all happens inside the compiler.
+
+00:10:24.128 --> 00:10:24.668
+It's magic.
+
+00:10:24.668 --> 00:10:27.758
+You can't really introspect
+into that process.
+
+00:10:28.248 --> 00:10:30.138
+So that's one of the
+downsides of generics.
+
+00:10:30.168 --> 00:10:32.848
+But bringing it back to what I was
+talking about, the downside of Template
+
+00:10:32.848 --> 00:10:34.408
+Haskell is that recompilation thing.
+
+00:10:34.678 --> 00:10:36.448
+Generics does not have that problem.
+
+00:10:37.108 --> 00:10:41.488
+Generics only recompiles when
+necessary, rather than always.
+
+00:10:41.728 --> 00:10:47.458
+But the downside for generics is that
+when it does compile, it's usually slow.
+
+00:10:47.518 --> 00:10:49.138
+Like really, really slow.
+
+00:10:49.708 --> 00:10:52.558
+Especially in comparison to manual
+instances or Template Haskell.
+
+00:10:52.708 --> 00:10:56.848
+So you have this nice abstraction
+that makes it easy to write generic
+
+00:10:56.848 --> 00:10:58.878
+instances for a variety of type classes.
+
+00:10:59.228 --> 00:11:01.098
+And doesn't cause things to recompile.
+
+00:11:01.128 --> 00:11:02.808
+But it's slow.
+
+00:11:02.923 --> 00:11:04.003
+And that's a bummer too.
+
+00:11:05.053 --> 00:11:05.323
+>> Yeah.
+
+00:11:05.363 --> 00:11:10.483
+We were going the route of generics
+because of that compilation
+
+00:11:10.483 --> 00:11:12.593
+issue for the Template Haskell.
+
+00:11:12.883 --> 00:11:19.723
+And then we just realized how slow it
+was and how much time we were spending
+
+00:11:19.723 --> 00:11:22.183
+waiting on compilation to happen.
+
+00:11:22.303 --> 00:11:29.123
+And obviously we can do the classic XKCD
+where they're sword fighting because
+
+00:11:29.123 --> 00:11:30.463
+they're waiting for the thing to compile.
+
+00:11:30.833 --> 00:11:34.273
+And we could do that and that's
+fine, but we'd rather not.
+
+00:11:34.273 --> 00:11:36.273
+We have important things we're working on.
+
+00:11:36.273 --> 00:11:41.183
+We're trying to create a product
+that's cutting edge and ahead of its
+
+00:11:41.183 --> 00:11:44.453
+time, but if you're sitting there
+twiddling your thumbs half the time,
+
+00:11:44.453 --> 00:11:45.293
+it's just no good.
+
+00:11:45.603 --> 00:11:48.813
+I think that was another
+huge motivating factor.
+
+00:11:49.623 --> 00:11:51.063
+>> Absolutely, yeah.
+
+00:11:51.093 --> 00:11:55.333
+And generics being slow
+isn't necessarily a problem.
+
+00:11:55.423 --> 00:12:00.883
+Obviously, if something compiles faster
+and gives you the same result, it's going
+
+00:12:00.883 --> 00:12:02.893
+to be better that it compile faster.
+
+00:12:02.893 --> 00:12:04.933
+Like nobody wants things to be slow.
+
+00:12:05.573 --> 00:12:09.353
+But with generics, yeah we were running
+into the problem you were describing.
+
+00:12:10.283 --> 00:12:14.513
+You would make some change and then
+the project would need to be recompiled
+
+00:12:14.543 --> 00:12:20.633
+either on your local dev machine, as
+part of ghcid, let's say, or even in
+
+00:12:20.763 --> 00:12:24.183
+our continuous integration service,
+when it just rebuilds the whole project
+
+00:12:24.183 --> 00:12:24.573
+anyway.
+
+00:12:25.053 --> 00:12:29.223
+Both of those processes took longer
+than it felt like they should because.
+
+00:12:29.523 --> 00:12:33.573
+Generics is having to
+generate all of this code.
+
+00:12:33.573 --> 00:12:35.673
+And this generic
+representation of our types.
+
+00:12:35.673 --> 00:12:37.353
+In order to produce these instances.
+
+00:12:37.383 --> 00:12:40.173
+And it's basically doing the same
+work over and over again and adding
+
+00:12:40.173 --> 00:12:41.583
+some overhead to those things.
+
+00:12:41.983 --> 00:12:48.063
+So if we could have switched to Template
+Haskell without having the performance
+
+00:12:48.063 --> 00:12:51.303
+hit of recompilation checking, we
+absolutely would have done that.
+
+00:12:51.603 --> 00:12:52.923
+But that wasn't an option.
+
+00:12:52.923 --> 00:12:57.933
+So that's why I looked into doing this
+with a GHC plugin and that became Evoke.
+
+00:12:59.178 --> 00:13:02.138
+>> And another nice benefit
+too is there's no  language
+
+00:13:02.138 --> 00:13:03.738
+extensions required for this.
+
+00:13:03.788 --> 00:13:05.458
+But obviously you have
+to use a plugin instead.
+
+00:13:05.528 --> 00:13:07.918
+But that's a nice little thing.
+
+00:13:07.918 --> 00:13:12.178
+I know there's always, when you have  to
+enable a language extension to use a
+
+00:13:12.178 --> 00:13:14.758
+library, it's always like, wait, why?
+
+00:13:15.118 --> 00:13:19.948
+So I think that's a nice — kind of
+says, okay hey this is a plugin this
+
+00:13:19.948 --> 00:13:23.918
+is isolated to like — this is going
+to run  as your code's compiling.
+
+00:13:24.018 --> 00:13:25.008
+>> Like, right.
+
+00:13:25.338 --> 00:13:28.398
+Yeah, and I actually want to expand
+on that a little bit, because the
+
+00:13:28.398 --> 00:13:33.078
+code that you write in order to get
+Evoke to make the instance for you, it
+
+00:13:33.078 --> 00:13:37.218
+definitely looks like it would require
+at least one language extension.
+
+00:13:37.528 --> 00:13:41.638
+Namely deriving via, cause it
+has the deriving via Evoke.
+
+00:13:41.638 --> 00:13:42.748
+Like that's how you use it.
+
+00:13:43.098 --> 00:13:47.443
+But when Evoke runs, it actually
+removes that clause from the source
+
+00:13:47.443 --> 00:13:51.703
+file and replaces it with the actual
+instance that you asked it to generate.
+
+00:13:52.093 --> 00:13:54.853
+So the end result is that you don't
+need that extension, even though
+
+00:13:54.853 --> 00:13:55.903
+it kind of looks like you do.
+
+00:13:56.383 --> 00:13:59.983
+But yeah, as a result, obviously
+you have to enable the plugin
+
+00:14:00.013 --> 00:14:01.513
+rather than an extension.
+
+00:14:01.573 --> 00:14:04.003
+And you know, it's not that one is
+better than the other, just that
+
+00:14:04.273 --> 00:14:07.763
+it can be nice to not have to pile
+on all these, you know, deriving
+
+00:14:07.783 --> 00:14:09.903
+generic, generalized new type deriving.
+
+00:14:10.338 --> 00:14:11.058
+Yada yada yada.
+
+00:14:11.088 --> 00:14:12.438
+There's a lot of deriving extensions.
+
+00:14:13.338 --> 00:14:13.698
+>> Yeah.
+
+00:14:14.328 --> 00:14:14.568
+Yeah.
+
+00:14:14.568 --> 00:14:16.878
+I mean, we've got  GHC 2021, right?
+
+00:14:16.918 --> 00:14:20.358
+With all those extensions,
+we can just plop those in.
+
+00:14:21.078 --> 00:14:21.198
+>> Yeah.
+
+00:14:21.228 --> 00:14:21.498
+Yeah.
+
+00:14:21.588 --> 00:14:22.878
+No, that helps a little bit.
+
+00:14:23.268 --> 00:14:26.388
+Um, sadly I don't think Evoke
+will be part of GHC 2021.
+
+00:14:27.588 --> 00:14:29.568
+>> Uh, well it's okay.
+
+00:14:29.628 --> 00:14:32.688
+Um, well, you know, we talked
+a lot about the benefits.
+
+00:14:32.968 --> 00:14:35.728
+I have another question, but I think
+we can kind of get to that later.
+
+00:14:36.073 --> 00:14:40.473
+Can we touch first on some of the
+drawbacks with Evoke and maybe some of
+
+00:14:40.473 --> 00:14:45.363
+the gotchas and watch out fors, uh, if
+anybody else is interested in using it?
+
+00:14:46.293 --> 00:14:48.663
+>> I'd be happy to
+talk about the drawbacks.
+
+00:14:48.693 --> 00:14:51.903
+And in fact, like I said earlier,
+I'm not claiming that this is the
+
+00:14:51.903 --> 00:14:55.563
+best way to solve this problem,
+but it has very real benefits for
+
+00:14:55.563 --> 00:14:56.853
+us and that's why we're using it.
+
+00:14:57.343 --> 00:15:01.543
+So the first drawback is really
+fundamental and that's that
+
+00:15:02.248 --> 00:15:04.438
+Evoke works syntactically.
+
+00:15:04.798 --> 00:15:09.988
+It is a plugin for GHC and it only works
+on the parsed module representation,
+
+00:15:10.438 --> 00:15:14.038
+which means you can think of it
+as like a source to source macro.
+
+00:15:14.128 --> 00:15:17.278
+Where if it sees code that looks
+like this, it'll replace it
+
+00:15:17.278 --> 00:15:18.628
+with code that looks like that.
+
+00:15:19.288 --> 00:15:24.148
+And this is simple, but that also
+means it's not very powerful.
+
+00:15:24.298 --> 00:15:30.328
+And in particular, this means that stuff
+doesn't get renamed or type checked, and
+
+00:15:30.328 --> 00:15:34.528
+that Evoke isn't dealing with the renamed
+or type checked version of the code.
+
+00:15:35.548 --> 00:15:40.308
+Which if you're not already familiar
+with the GHC parser or compiler passes,
+
+00:15:40.308 --> 00:15:41.598
+that may not mean anything to you.
+
+00:15:41.628 --> 00:15:45.718
+What it means is, let's say you
+define a type alias called optional
+
+00:15:45.748 --> 00:15:47.338
+that is just a type alias for maybe.
+
+00:15:47.818 --> 00:15:52.948
+Evoke has some special logic in
+it, looking for the word maybe.
+
+00:15:52.948 --> 00:15:55.608
+And it says, okay that's an optional
+field, I'll treat it special.
+
+00:15:56.038 --> 00:16:00.358
+If instead of using maybe you used
+your type alias optional, evoke
+
+00:16:00.358 --> 00:16:01.768
+wouldn't work properly for that.
+
+00:16:01.828 --> 00:16:02.938
+It wouldn't do the same thing.
+
+00:16:03.508 --> 00:16:06.328
+And that's the downside of
+doing a syntactic plugin.
+
+00:16:06.458 --> 00:16:10.178
+If instead it were working on the renamed
+source, it would be able to find out
+
+00:16:10.178 --> 00:16:14.768
+that, oh this was called optional, but
+it is actually the same thing as maybe.
+
+00:16:14.768 --> 00:16:15.938
+So I'm going to treat it the same.
+
+00:16:16.668 --> 00:16:20.933
+So that's one big downside, and
+as I currently see it, there's
+
+00:16:20.933 --> 00:16:22.943
+not really a way around it.
+
+00:16:23.043 --> 00:16:26.283
+Evoke could conceivably work on
+the renamed or the type checked
+
+00:16:26.433 --> 00:16:27.573
+version of the source code.
+
+00:16:27.903 --> 00:16:30.683
+But  it seems like that would be
+a lot more challenging to pull
+
+00:16:30.683 --> 00:16:33.833
+off inside the plugin ecosystem
+than this syntactic approach.
+
+00:16:35.063 --> 00:16:35.423
+>> Yeah.
+
+00:16:35.533 --> 00:16:39.743
+And like you said, that being
+not dealing with the type system
+
+00:16:39.743 --> 00:16:45.063
+really it's all syntactical it's
+very easy to possibly use it wrong.
+
+00:16:45.333 --> 00:16:48.053
+Or expect some behavior and
+not actually get that behavior.
+
+00:16:48.503 --> 00:16:49.493
+Uh, so yeah.
+
+00:16:49.583 --> 00:16:49.853
+Yeah.
+
+00:16:50.063 --> 00:16:51.563
+Just, just be aware of that.
+
+00:16:51.623 --> 00:16:53.093
+Uh, I think that's the biggest gotcha.
+
+00:16:53.153 --> 00:17:00.443
+In my opinion, um, you know, it's also
+very, you know, it's coupled to GHC pretty
+
+00:17:00.443 --> 00:17:05.783
+closely because it's in the GHC plugin
+ecosystem and the parsed module system.
+
+00:17:06.233 --> 00:17:10.383
+Could you, for those who don't know, cause
+I didn't know when we started talking
+
+00:17:10.383 --> 00:17:15.003
+about this idea, talk a quick, like just
+a brief, like, hey here's the stages of
+
+00:17:15.003 --> 00:17:17.463
+the GHC parser at least the first couple.
+
+00:17:18.153 --> 00:17:18.543
+>> Yeah.
+
+00:17:18.633 --> 00:17:20.733
+And a caveat upfront.
+
+00:17:20.733 --> 00:17:22.933
+Maybe I get some of these wrong,
+but this is all off memory.
+
+00:17:22.933 --> 00:17:26.543
+So when you tell GHC to parse a
+Haskell module, it goes through
+
+00:17:26.543 --> 00:17:28.013
+a bunch of different phases.
+
+00:17:28.343 --> 00:17:33.203
+And I think the order of the phases is
+that you start with Literate Haskell
+
+00:17:33.233 --> 00:17:34.883
+and turning that into regular Haskell.
+
+00:17:34.883 --> 00:17:36.403
+That process is called delit.
+
+00:17:37.423 --> 00:17:42.593
+And then you take that Haskell file
+and you run the C preprocessor on it.
+
+00:17:43.493 --> 00:17:45.563
+If you have that language
+extension enabled.
+
+00:17:46.083 --> 00:17:49.223
+And then you have like your
+actual input source file.
+
+00:17:49.223 --> 00:17:53.958
+So you lex and parse that, which
+happen as effectively one step.
+
+00:17:54.498 --> 00:17:57.518
+And then after you have parsed
+the module,  this is where plugins
+
+00:17:57.518 --> 00:17:59.048
+can start getting into the mix.
+
+00:17:59.298 --> 00:18:03.528
+But after parsing you have renaming,
+which is essentially, chasing
+
+00:18:03.528 --> 00:18:07.428
+down imports and saying, this name
+is really that name, resolving
+
+00:18:07.428 --> 00:18:09.048
+type aliases, that kind of thing.
+
+00:18:09.628 --> 00:18:13.108
+And then you have one of the more
+heavyweight phases, which is type checking
+
+00:18:13.138 --> 00:18:17.308
+to make sure that all of these expressions
+make sense and pass the type checker.
+
+00:18:17.858 --> 00:18:21.188
+And then after that you get more into
+the realm of stuff that I haven't really
+
+00:18:21.188 --> 00:18:26.038
+looked into, which is, generating for
+instance, the C minus minus code or
+
+00:18:26.038 --> 00:18:31.858
+the LLVM intermediate representation
+or, you know, whatever the commonly
+
+00:18:31.858 --> 00:18:33.688
+called the backend of the compiler.
+
+00:18:33.688 --> 00:18:37.328
+So actually like generating the
+machine code from the Haskell code.
+
+00:18:39.028 --> 00:18:41.188
+So that's a very brief
+overview of the phases.
+
+00:18:41.248 --> 00:18:46.108
+And as I mentioned, Evoke happens
+after parsing and before renaming.
+
+00:18:46.228 --> 00:18:48.508
+So that's pretty early in the process.
+
+00:18:48.988 --> 00:18:53.568
+And as you mentioned, it is very
+tightly coupled to GHC because the way
+
+00:18:53.568 --> 00:18:56.348
+that you implement a GHC plugin is to —
+
+00:18:56.978 --> 00:18:59.793
+it basically is a function where
+you get the parsed module and
+
+00:18:59.793 --> 00:19:01.473
+you return a new parsed module.
+
+00:19:01.503 --> 00:19:02.853
+And that's what it does.
+
+00:19:03.153 --> 00:19:06.933
+So that means that it has to care a lot
+about what that parsed module looks like.
+
+00:19:07.453 --> 00:19:10.273
+And this isn't a problem
+for users of Evoke.
+
+00:19:10.303 --> 00:19:14.373
+It's really a problem for me or anyone who
+may eventually be a maintainer of Evoke.
+
+00:19:14.723 --> 00:19:17.833
+Because it means you have to
+code against that representation.
+
+00:19:17.863 --> 00:19:21.493
+And supporting multiple versions of it at
+the same time can be problematic if things
+
+00:19:21.493 --> 00:19:22.993
+change or get moved around or whatever.
+
+00:19:23.423 --> 00:19:26.423
+As users of this library, hopefully
+you don't need to care about that.
+
+00:19:26.723 --> 00:19:29.753
+It's really just me and it makes it
+a little more challenging to support.
+
+00:19:31.893 --> 00:19:34.323
+>> Thanks for still being
+there to support it though, you
+
+00:19:34.323 --> 00:19:35.323
+know, that's the important part.
+
+00:19:36.193 --> 00:19:38.793
+You're there to support it and
+hold it and help it grow up to
+
+00:19:38.793 --> 00:19:41.733
+be, um, I mean what, it's Evoke.
+
+00:19:41.733 --> 00:19:44.733
+What's the next evolution of Evoke?
+
+00:19:45.943 --> 00:19:46.643
+>> Evo-evoke?
+
+00:19:46.793 --> 00:19:47.693
+Yeah, I don't know.
+
+00:19:47.813 --> 00:19:47.993
+>> Yeah.
+
+00:19:49.043 --> 00:19:51.233
+Well, uh, anyways, that's, that's cool.
+
+00:19:51.473 --> 00:19:53.303
+Any other drawbacks that
+you wanted to touch on?
+
+00:19:53.303 --> 00:19:56.443
+I mean, I know there's some in the
+post, which, you know, we have.
+
+00:19:56.863 --> 00:20:00.703
+There's a blog post, there's a Twitter
+announcement, there's all kind of stuff.
+
+00:20:00.823 --> 00:20:03.793
+If you have more questions
+about Evoke or you want to take
+
+00:20:03.793 --> 00:20:04.943
+a look at what it's all about.
+
+00:20:05.708 --> 00:20:09.988
+There's those options, but  I just want
+to touch on one more drawback and then
+
+00:20:09.988 --> 00:20:13.408
+maybe go into some of the real cool
+things which are related to performance.
+
+00:20:14.458 --> 00:20:14.848
+>> Sure.
+
+00:20:14.898 --> 00:20:17.218
+I already mentioned one of the
+drawbacks, which was that it's really
+
+00:20:17.218 --> 00:20:19.138
+dependent on the actual name of things.
+
+00:20:19.138 --> 00:20:21.958
+So like maybe is different than
+optional or even a qualified maybe.
+
+00:20:22.448 --> 00:20:27.868
+But another, actually kind of two
+of the same type of problem, is that
+
+00:20:27.928 --> 00:20:32.743
+it only supports particular types
+as input and it can only produce
+
+00:20:32.773 --> 00:20:35.443
+certain type classes as output.
+
+00:20:36.013 --> 00:20:38.743
+And this is in comparison to
+Template Haskell and generics.
+
+00:20:38.743 --> 00:20:42.793
+So with Template Haskell, the
+representation of data types is a little
+
+00:20:42.793 --> 00:20:46.753
+simpler than what GHC has cause Template
+Haskell keeps track of less information.
+
+00:20:46.783 --> 00:20:50.413
+So it is easier to support
+more different kinds of types.
+
+00:20:51.013 --> 00:20:56.503
+And specifically what I mean here is
+like Evoke does not support GADTs.
+
+00:20:56.833 --> 00:21:01.243
+You have to have a quote unquote
+normal data type, a record, that has
+
+00:21:01.303 --> 00:21:02.953
+one constructor and a bunch of fields.
+
+00:21:02.983 --> 00:21:05.353
+That's pretty much the only
+data type that Evoke supports.
+
+00:21:05.873 --> 00:21:09.053
+There's no actual technical
+limitation for why it's this way.
+
+00:21:09.083 --> 00:21:12.563
+It's just, I'm lazy and that's the only
+one I have bothered to implement so far.
+
+00:21:13.823 --> 00:21:14.093
+Yeah.
+
+00:21:15.233 --> 00:21:15.683
+Oh, go ahead.
+
+00:21:16.333 --> 00:21:18.683
+>> I was just going to say
+for us, like, you know, Evoke
+
+00:21:18.953 --> 00:21:23.363
+is pretty specialized to our use
+case, but we do think other people
+
+00:21:23.363 --> 00:21:25.793
+would be able to get use out of it.
+
+00:21:25.973 --> 00:21:27.923
+And therefore that's why we
+kind of went public with it.
+
+00:21:27.953 --> 00:21:33.673
+So, uh, all of the things we're talking
+about, like these are pains we have
+
+00:21:33.673 --> 00:21:37.753
+thought about, but we've accepted the fact
+that, you know, this is how it is because
+
+00:21:37.933 --> 00:21:41.183
+it's something we made for us at ITProTV.
+
+00:21:41.953 --> 00:21:42.553
+>> Absolutely.
+
+00:21:42.553 --> 00:21:46.603
+And as I mentioned, we have over
+400 data types that can use Evoke.
+
+00:21:46.613 --> 00:21:49.693
+So we have that many data types
+that are just one constructor
+
+00:21:49.708 --> 00:21:50.398
+with a bunch of fields.
+
+00:21:50.398 --> 00:21:52.798
+It's a super common
+pattern for our code base.
+
+00:21:53.638 --> 00:21:56.968
+And the other side of the coin
+here is that I've only mentioned
+
+00:21:56.968 --> 00:22:00.388
+four type classes, and those are
+the only four that Evoke supports.
+
+00:22:00.448 --> 00:22:03.778
+And this is kind of in contrast to
+like generics where if you want to,
+
+00:22:03.778 --> 00:22:08.648
+within your own library, like Aeson or
+QuickCheck or whatever, have a generic,
+
+00:22:08.858 --> 00:22:12.488
+implementation of the type classes that
+your library defines, you can do that.
+
+00:22:12.728 --> 00:22:16.718
+But with Evoke, any type class that it
+wants to support has to be supported
+
+00:22:16.778 --> 00:22:19.088
+in the library or the plugin itself.
+
+00:22:19.498 --> 00:22:23.008
+And this is a little less onerous than
+it may sound because Evoke doesn't
+
+00:22:23.008 --> 00:22:27.568
+actually need to depend on, say,
+aeson in order to implement Aeson.
+
+00:22:27.568 --> 00:22:28.978
+Cause it's just generating source code.
+
+00:22:28.978 --> 00:22:30.538
+It doesn't really need the library itself.
+
+00:22:31.178 --> 00:22:35.243
+But it means that Aeson can't
+write that generic implementation.
+
+00:22:36.083 --> 00:22:37.823
+I have to write it inside of Evoke.
+
+00:22:38.193 --> 00:22:41.673
+Which means that it probably
+won't ever have support for every
+
+00:22:41.673 --> 00:22:42.663
+type class you're going to want.
+
+00:22:43.123 --> 00:22:45.943
+But as you mentioned, this was super
+useful for us and I wanted to get it
+
+00:22:45.943 --> 00:22:47.473
+out there as kind of a proof of concept.
+
+00:22:47.473 --> 00:22:51.553
+Cause I hadn't seen anyone do this
+before and maybe someone will come along
+
+00:22:51.553 --> 00:22:54.223
+and be like, oh I have a much better
+idea for how to implement this plugin.
+
+00:22:54.613 --> 00:22:55.333
+Please do that.
+
+00:22:55.333 --> 00:22:56.113
+Please let me know.
+
+00:22:56.143 --> 00:22:58.813
+I'm not convinced this is like the
+greatest way to implement this thing.
+
+00:22:58.813 --> 00:22:59.413
+Just that it works.
+
+00:23:00.333 --> 00:23:04.533
+And yeah, maybe other people will
+fork this and make their own version
+
+00:23:04.533 --> 00:23:07.843
+for their internal tooling that
+supports different type classes.
+
+00:23:07.873 --> 00:23:09.823
+That would be a huge win in my opinion.
+
+00:23:09.853 --> 00:23:11.533
+I'd be very happy with that outcome.
+
+00:23:13.543 --> 00:23:15.643
+>> As promised, we're
+going to get to some of the fun
+
+00:23:15.643 --> 00:23:17.593
+stuff related to performance.
+
+00:23:17.983 --> 00:23:20.503
+I guess the big question
+is: how fast is it?
+
+00:23:20.833 --> 00:23:25.723
+You know, we did all this because
+we've had slow compile times.
+
+00:23:25.723 --> 00:23:27.823
+Like what was, what was the increase?
+
+00:23:27.823 --> 00:23:28.453
+What was better?
+
+00:23:29.503 --> 00:23:30.043
+What are the numbers?
+
+00:23:30.043 --> 00:23:33.803
+>> Yeah, in my opinion, it
+is about as fast as you can get,
+
+00:23:33.893 --> 00:23:37.643
+because the only way to be any faster
+would be to write the code manually.
+
+00:23:37.953 --> 00:23:40.143
+Then it would be faster
+to compile and to run.
+
+00:23:40.403 --> 00:23:42.353
+But it would be a lot slower to write.
+
+00:23:42.543 --> 00:23:46.653
+So in this case, it's fast to write,
+fast to compile, and fast to run.
+
+00:23:47.163 --> 00:23:48.423
+And what do I mean by all that?
+
+00:23:48.723 --> 00:23:53.913
+So I did some benchmarks with our
+repository or our code base when I
+
+00:23:54.033 --> 00:23:55.743
+switched everything over to using Evoke.
+
+00:23:55.803 --> 00:23:57.423
+All those 400 some odd types.
+
+00:23:57.963 --> 00:24:01.583
+And I would recommend anyone
+go look at the blog post or the
+
+00:24:01.583 --> 00:24:02.993
+repo to see the exact numbers.
+
+00:24:02.993 --> 00:24:09.263
+But just focusing on one measurement,
+which was compiling the entire code base
+
+00:24:09.293 --> 00:24:12.503
+with optimizations only using one core.
+
+00:24:12.533 --> 00:24:15.233
+So forcing it to compile
+one module at a time.
+
+00:24:16.043 --> 00:24:21.773
+With generic driving for all of these
+types, it took about 920 seconds.
+
+00:24:22.023 --> 00:24:24.043
+Which is  like 15 minutes, let's say.
+
+00:24:25.153 --> 00:24:30.148
+With Evoke rather than generic
+driving, it took about 750 seconds.
+
+00:24:30.568 --> 00:24:32.628
+Which is, 12 minutes, maybe 13.
+
+00:24:33.108 --> 00:24:38.888
+So that's three minutes of wall
+clock time that we saved just by
+
+00:24:39.038 --> 00:24:40.928
+moving away from generic deriving.
+
+00:24:41.298 --> 00:24:46.208
+And obviously this is not a completely
+realistic benchmark because almost
+
+00:24:46.208 --> 00:24:49.028
+all of the time, we're compiling
+with multiple cores to compile
+
+00:24:49.028 --> 00:24:50.498
+multiple modules at the same time.
+
+00:24:50.528 --> 00:24:54.848
+But I wanted to see, you know, what's
+the overall impact of this approach.
+
+00:24:54.878 --> 00:24:58.508
+So that comes out to
+being about 20% faster.
+
+00:24:58.538 --> 00:25:02.468
+So if you have a lot of data types in your
+code base, and you would like to compile
+
+00:25:02.468 --> 00:25:05.438
+it 20% faster, consider using Evoke.
+
+00:25:07.118 --> 00:25:08.468
+>> The shameless plug, I love it.
+
+00:25:08.978 --> 00:25:09.638
+Awesome, yeah.
+
+00:25:09.748 --> 00:25:11.188
+If you have more questions
+about the numbers,
+
+00:25:12.008 --> 00:25:16.358
+like Taylor said, check the
+blog post out or the repository.
+
+00:25:16.808 --> 00:25:19.898
+So what's it take to
+get set up using Evoke?
+
+00:25:19.898 --> 00:25:21.378
+Like what's that look like?
+
+00:25:22.248 --> 00:25:23.058
+>> It's pretty easy.
+
+00:25:23.058 --> 00:25:25.998
+I had one more comment on performance
+before we move on, which is
+
+00:25:25.998 --> 00:25:27.798
+that the runtime performance.
+
+00:25:27.918 --> 00:25:32.063
+I don't have hard numbers for this because
+it's very challenging to say like, this
+
+00:25:32.063 --> 00:25:35.663
+type class instance is X percent faster
+than that type class instance when
+
+00:25:35.663 --> 00:25:39.613
+you're  comparing generics versus say,
+Template Haskell or Evoke in this case.
+
+00:25:39.983 --> 00:25:43.433
+And I wasn't super interested in
+writing a micro benchmark like that.
+
+00:25:43.463 --> 00:25:48.353
+But what I did instead was: we deployed
+this and then two weeks later I went
+
+00:25:48.353 --> 00:25:53.183
+back and looked at our metrics for how
+quickly are we responding to requests?
+
+00:25:53.543 --> 00:25:57.773
+How much RAM are we using and
+how much CPU are we using?
+
+00:25:58.373 --> 00:26:00.863
+And I don't have any hard
+numbers to give you from that.
+
+00:26:00.863 --> 00:26:05.213
+But the overall result was that we were
+responding a little bit quicker and also
+
+00:26:05.213 --> 00:26:09.623
+more consistently fast, meaning we didn't
+have big outliers that were very slow.
+
+00:26:10.193 --> 00:26:12.413
+And we used less RAM.
+
+00:26:12.473 --> 00:26:15.563
+And we had a lower average CPU usage.
+
+00:26:16.688 --> 00:26:20.018
+All of these things were not like
+slam dunk, man, we killed it, this
+
+00:26:20.018 --> 00:26:23.828
+is so much faster than generics,
+but it definitely was faster.
+
+00:26:23.888 --> 00:26:26.468
+So it's not only faster to compile for us.
+
+00:26:26.468 --> 00:26:29.228
+It's also faster to run, which is awesome.
+
+00:26:29.278 --> 00:26:30.418
+>> I think that's a big win.
+
+00:26:30.948 --> 00:26:35.248
+You know, even though we can't
+easily get those numbers for the
+
+00:26:35.248 --> 00:26:37.158
+difference in CPU and  memory usage.
+
+00:26:38.568 --> 00:26:40.068
+It was the — seeing the graphs was really
+
+00:26:40.068 --> 00:26:40.398
+cool.
+
+00:26:41.298 --> 00:26:42.378
+I was like, oh, okay.
+
+00:26:42.378 --> 00:26:43.818
+Like something changed here.
+
+00:26:44.238 --> 00:26:46.698
+And that was using Evoke over generics.
+
+00:26:47.418 --> 00:26:47.778
+>> Yeah.
+
+00:26:48.058 --> 00:26:50.838
+I wish I could share the graphs,
+but it's like our internal metrics.
+
+00:26:50.838 --> 00:26:52.368
+So you'll just have to
+take my word for it.
+
+00:26:52.548 --> 00:26:53.028
+I'm sorry.
+
+00:26:53.448 --> 00:26:55.998
+I'll uh, maybe get a synthetic
+benchmark one of these days.
+
+00:26:56.998 --> 00:26:59.248
+But Cameron, you asked
+about how do you install?
+
+00:26:59.248 --> 00:27:00.238
+How do you use this thing?
+
+00:27:00.388 --> 00:27:03.628
+So to install it, you add it as
+a package, just like anything
+
+00:27:03.628 --> 00:27:04.608
+else that you depend on.
+
+00:27:04.913 --> 00:27:08.233
+So in your build depends of your,
+Cabal package description or
+
+00:27:08.233 --> 00:27:12.213
+package.yaml or whatever you use,
+just add Evoke to your dependencies.
+
+00:27:12.713 --> 00:27:14.423
+It is published on Hackage right now.
+
+00:27:14.523 --> 00:27:19.003
+And I'll probably fix it
+up to be like more normal.
+
+00:27:19.003 --> 00:27:21.383
+Go through a CI process and
+automate publishing and all that.
+
+00:27:21.383 --> 00:27:23.003
+But for right now it's all very manual.
+
+00:27:24.643 --> 00:27:29.168
+And then to actually use it —  I
+have used plugins in the past.
+
+00:27:29.168 --> 00:27:31.388
+So I was already kind of familiar
+with this process, but I get the
+
+00:27:31.388 --> 00:27:34.928
+feeling most people that use GHC
+probably don't use a lot of plugins.
+
+00:27:35.738 --> 00:27:40.468
+And the way that you enable them is
+through a pragma in the source file,
+
+00:27:40.828 --> 00:27:45.598
+which is OPTIONS_GHC, which maybe people
+are familiar with because you can use
+
+00:27:45.598 --> 00:27:49.438
+it to enable or disable warnings or
+optimizations or various other compiler
+
+00:27:49.438 --> 00:27:51.028
+flags from within a source file.
+
+00:27:51.628 --> 00:27:55.818
+And you pass in this flag called -Fplugin.
+
+00:27:56.283 --> 00:28:01.023
+And then you pass in to that,
+the option is the name of the
+
+00:28:01.023 --> 00:28:02.433
+module that defines the plugin.
+
+00:28:02.433 --> 00:28:03.843
+So it's Evoke with the capital E.
+
+00:28:04.563 --> 00:28:08.853
+It's pretty tedious to put this pragma
+on every source file where you want it.
+
+00:28:08.923 --> 00:28:11.443
+So you can also set it in
+your package description.
+
+00:28:11.473 --> 00:28:14.023
+So right alongside where you
+add the dependency on Evoke.
+
+00:28:14.023 --> 00:28:16.543
+You can tell GHC, hey whenever
+you compile anything in this
+
+00:28:16.543 --> 00:28:19.063
+package, use the Evoke plugin.
+
+00:28:19.093 --> 00:28:20.533
+So that's the way I
+would recommend to do it.
+
+00:28:20.953 --> 00:28:25.513
+In particular, because running Evoke on
+a module where it doesn't generate any
+
+00:28:25.933 --> 00:28:28.603
+instances is basically instantaneous.
+
+00:28:28.603 --> 00:28:31.663
+It just walks over the module
+to guarantee, or to check, is
+
+00:28:31.663 --> 00:28:32.503
+there anything for me to do?
+
+00:28:32.533 --> 00:28:32.773
+Nope.
+
+00:28:32.803 --> 00:28:33.073
+All right.
+
+00:28:33.103 --> 00:28:33.883
+Well then carry on.
+
+00:28:34.303 --> 00:28:37.643
+So I strongly recommend setting
+it in your package description.
+
+00:28:38.603 --> 00:28:38.873
+>> Yep.
+
+00:28:38.903 --> 00:28:41.783
+And then you mentioned this earlier,
+too, about what it looks like
+
+00:28:41.783 --> 00:28:45.553
+to derive something via Evoke.
+
+00:28:45.553 --> 00:28:48.458
+And it looks like you would need
+the language extension driving via.
+
+00:28:49.058 --> 00:28:54.638
+But I mean, cause it looks
+like derive ToJSON via Evoke.
+
+00:28:54.998 --> 00:28:59.078
+But there is something special
+about this, um, how we've
+
+00:28:59.198 --> 00:29:00.818
+named it and how it's written.
+
+00:29:01.208 --> 00:29:04.898
+Uh, can you kind of share a little
+bit about that and, and how it
+
+00:29:04.898 --> 00:29:06.998
+relates to maybe some of the
+drawbacks we talked about earlier?
+
+00:29:07.808 --> 00:29:08.588
+>> Absolutely.
+
+00:29:08.688 --> 00:29:12.648
+So the way that you tell Evoke you
+wanted to make some type class is,
+
+00:29:12.648 --> 00:29:14.608
+like you just said, using deriving via.
+
+00:29:15.088 --> 00:29:19.948
+And normally when you do deriving via
+you provide some type name as sort
+
+00:29:19.948 --> 00:29:21.748
+of like the argument to via, right.
+
+00:29:21.748 --> 00:29:24.208
+You say derive this type
+class via some other type.
+
+00:29:24.758 --> 00:29:30.218
+And I kind of hijacked that syntax
+for Evoke and I went back and
+
+00:29:30.218 --> 00:29:31.988
+forth on what it should look like.
+
+00:29:32.018 --> 00:29:36.128
+Should it use something that
+looks like a type capital E Evoke.
+
+00:29:36.238 --> 00:29:40.178
+Should it use something that looks
+like a  type variable lowercase E
+
+00:29:40.238 --> 00:29:43.088
+Evoke, or should it do something weird?
+
+00:29:43.448 --> 00:29:45.158
+And ultimately I decided
+on the weird approach.
+
+00:29:45.158 --> 00:29:50.318
+So what you have to pass is a string
+with Evoke as the first word in it.
+
+00:29:50.858 --> 00:29:55.778
+And I decided to go with a string because
+it turns out when you have a record that
+
+00:29:55.778 --> 00:29:59.288
+has one constructor and a bunch of fields,
+and you're generating JSON instances.
+
+00:29:59.888 --> 00:30:00.968
+Often you want to
+
+00:30:02.273 --> 00:30:06.103
+change the names of those fields in some
+way, when you generate the instance.
+
+00:30:06.173 --> 00:30:09.793
+So for instance, it's very common
+to have all of the field names
+
+00:30:09.793 --> 00:30:11.263
+prefixed with the type name.
+
+00:30:11.293 --> 00:30:14.983
+So if you had a type called person, you
+may have a field called person name.
+
+00:30:15.743 --> 00:30:19.483
+And that's for the Haskell side, but then
+when you generate the JSON you want it
+
+00:30:19.483 --> 00:30:21.493
+to just say name rather than person name.
+
+00:30:21.733 --> 00:30:24.863
+So I was puzzling over,
+how can I pass this?
+
+00:30:25.333 --> 00:30:28.293
+How can you express this to Evoke so
+that it generates the correct instance?
+
+00:30:28.803 --> 00:30:34.563
+And what I landed on was you call Evoke
+within this string and you sort of
+
+00:30:34.563 --> 00:30:38.123
+pass it command line arguments like you
+would if it was a command line program.
+
+00:30:38.633 --> 00:30:41.933
+And so you would say, you know,
+strip the prefix person off of this
+
+00:30:41.933 --> 00:30:43.283
+and then turn it into camel case.
+
+00:30:44.183 --> 00:30:45.893
+So that's why it's a string.
+
+00:30:45.943 --> 00:30:49.013
+Another reason I went with a string
+is that it means you're not going
+
+00:30:49.013 --> 00:30:54.138
+to accidentally collide with — if
+you happen to have a type in
+
+00:30:54.138 --> 00:30:56.928
+your code base called Evoke, this
+isn't going to overlap with that.
+
+00:30:57.378 --> 00:31:00.978
+And it makes it really clear that
+something weird is going on because
+
+00:31:01.668 --> 00:31:05.958
+how can you derive a type class
+via some static type level string?
+
+00:31:05.958 --> 00:31:07.308
+It doesn't really make any sense.
+
+00:31:07.338 --> 00:31:10.728
+So that should, um, that's
+why I decided to go with that.
+
+00:31:11.538 --> 00:31:11.778
+>> Yeah.
+
+00:31:11.778 --> 00:31:16.188
+It kind of waves a flag like, hey this is
+different than how you normally do this.
+
+00:31:16.248 --> 00:31:17.388
+Um, yeah.
+
+00:31:17.478 --> 00:31:20.328
+And like you said, you have
+options too, which is great.
+
+00:31:21.063 --> 00:31:26.463
+Uh, that you can kind of change the
+JSON format, however you choose.
+
+00:31:26.553 --> 00:31:27.993
+Um, yeah.
+
+00:31:28.023 --> 00:31:30.573
+>> And if people have used — right.
+
+00:31:30.633 --> 00:31:35.743
+If people have used the generic deriving
+or the Template Haskell deriving in Aeson,
+
+00:31:36.003 --> 00:31:37.833
+the options should be pretty similar.
+
+00:31:37.953 --> 00:31:41.553
+Where it's like, hey this is
+how you change a field name
+
+00:31:41.583 --> 00:31:43.253
+when you generate the instance.
+
+00:31:45.153 --> 00:31:45.423
+>> Yeah.
+
+00:31:45.483 --> 00:31:51.303
+And then, uh, you had talked about earlier
+about being able to output the — what
+
+00:31:51.483 --> 00:31:57.393
+Evoke would generate, um, and any, you
+seem to use a plugin option for that,
+
+00:31:57.693 --> 00:31:59.403
+um, with the, verbose flag, correct?
+
+00:32:00.363 --> 00:32:00.663
+>> Yeah.
+
+00:32:00.693 --> 00:32:06.243
+So when GHC calls your plugin, it calls it
+like a command line application, and that
+
+00:32:06.243 --> 00:32:07.893
+means that you can pass options to it.
+
+00:32:08.343 --> 00:32:12.863
+And one of the options that
+Evoke accepts is verbose.
+
+00:32:13.713 --> 00:32:18.843
+And what that does is whenever it
+generates a type class instance, before
+
+00:32:18.843 --> 00:32:23.223
+it shoves that back into the source
+file for GHC to continue processing,
+
+00:32:24.033 --> 00:32:25.593
+it will print it out to standard out.
+
+00:32:25.983 --> 00:32:27.663
+And this is useful for two reasons.
+
+00:32:27.663 --> 00:32:32.013
+One is to just debug it, like if
+something goes wrong and you want to
+
+00:32:32.283 --> 00:32:35.193
+submit a bug report to Evoke, that'd
+be really useful for me to see that.
+
+00:32:35.623 --> 00:32:39.148
+Or if you're just curious, What
+does the instance look like?
+
+00:32:39.218 --> 00:32:40.508
+You can find out pretty quickly.
+
+00:32:40.818 --> 00:32:45.368
+And then the other non debug approaches
+that if you want to use Evoke solely as
+
+00:32:45.368 --> 00:32:49.388
+a code generator, then you can tell it,
+hey generate the instance and print it out
+
+00:32:49.388 --> 00:32:52.058
+and then I'll copy it and paste it myself.
+
+00:32:52.088 --> 00:32:54.548
+And then I won't end up
+calling Evoke anymore.
+
+00:32:54.608 --> 00:32:59.288
+So if you want to write manual instances,
+but you want something else to do the
+
+00:32:59.288 --> 00:33:02.288
+code generation for you the first time
+around, that's a reasonable approach.
+
+00:33:04.178 --> 00:33:07.598
+>> To end the blog post, you
+have, some of the examples are of
+
+00:33:07.598 --> 00:33:09.668
+what the code generation look like.
+
+00:33:10.178 --> 00:33:15.878
+And you know, it's hard to talk about
+code in a post or in a conversation like
+
+00:33:15.878 --> 00:33:17.648
+this, but it's easy to see in a post.
+
+00:33:17.708 --> 00:33:20.828
+So go check it out if
+you have any interest.
+
+00:33:21.218 --> 00:33:25.733
+Um, but yeah, Taylor, great job
+figuring out that we had this
+
+00:33:25.733 --> 00:33:27.263
+issue and finding the solution.
+
+00:33:27.653 --> 00:33:32.573
+Um, you know, like, yes, it's very
+specialized to us, but it is really
+
+00:33:32.573 --> 00:33:38.063
+cool to kind of attack a very common
+problem in Haskell and a different
+
+00:33:38.063 --> 00:33:39.683
+approach than what we've seen.
+
+00:33:39.773 --> 00:33:44.063
+Um, you know, cause everybody generally
+bites the bullet, whether it's slower
+
+00:33:44.063 --> 00:33:49.508
+compile times with generics or constant
+recompilation with Template Haskell.
+
+00:33:49.538 --> 00:33:51.428
+But this kind of circumvents both.
+
+00:33:51.728 --> 00:33:56.678
+And kind of opens up a new avenue for
+others who may feel the tensions of using
+
+00:33:56.678 --> 00:34:02.258
+these other libraries and kind of see
+if they can make Evoke work for them.
+
+00:34:02.948 --> 00:34:04.838
+So I think that's, uh, that's pretty cool.
+
+00:34:04.988 --> 00:34:08.558
+Um, I think it's a big
+win for the community.
+
+00:34:08.918 --> 00:34:13.038
+Big win for just, I mean,
+any level of Haskeller.
+
+00:34:13.038 --> 00:34:15.203
+It's you know, obviously a little magic.
+
+00:34:15.203 --> 00:34:17.603
+If you're brand new to Haskell,
+you're like, wait, what, why are we
+
+00:34:17.603 --> 00:34:21.293
+deriving, you know, but you'll generally
+have team members or someone around
+
+00:34:21.293 --> 00:34:24.383
+you who you can talk to, or if you
+don't have anyone to talk to and you
+
+00:34:24.383 --> 00:34:27.713
+have questions, reach out to Taylor
+on Twitter, he's smarter than me.
+
+00:34:28.253 --> 00:34:28.673
+Um.
+
+00:34:29.723 --> 00:34:31.043
+>> Well I don't know about that.
+
+00:34:31.913 --> 00:34:34.733
+And yeah, one thing that we didn't
+talk about here is like, how
+
+00:34:34.733 --> 00:34:36.253
+is this thing even implemented?
+
+00:34:36.673 --> 00:34:40.423
+And, if you're familiar with GHC plugins,
+it's hopefully not too surprising.
+
+00:34:40.453 --> 00:34:43.003
+If you're not familiar with them,
+it can be a little mysterious.
+
+00:34:43.033 --> 00:34:46.233
+But I tried to document the code and
+make it really clear what it's doing.
+
+00:34:46.233 --> 00:34:50.283
+So if you are curious how it works and
+maybe you wanna write your own or change
+
+00:34:50.283 --> 00:34:53.493
+how this one works, I would encourage
+you to go read the source of Evoke
+
+00:34:53.493 --> 00:34:55.033
+because I tried to make it approachable.
+
+00:34:55.933 --> 00:34:56.223
+>> Yeah.
+
+00:34:56.223 --> 00:34:56.503
+Yeah.
+
+00:34:56.563 --> 00:34:57.673
+I would say you did a good job.
+
+00:34:58.453 --> 00:34:59.043
+Um, thanks.
+
+00:34:59.968 --> 00:35:04.498
+I want to thank all of our
+listeners today for checking us out.
+
+00:35:04.498 --> 00:35:09.208
+And, um, if you have any questions
+or concerns, feel free to
+
+00:35:09.208 --> 00:35:11.788
+reach out to us at, on Twitter.
+
+00:35:11.848 --> 00:35:15.568
+Um, we are readily ready for your input.
+
+00:35:15.658 --> 00:35:18.688
+Um, we care about our listeners
+and we care about what you think.
+
+00:35:18.688 --> 00:35:20.488
+So please, please, please.
+
+00:35:20.638 --> 00:35:24.728
+If you have any questions or
+curiosities never hesitate to reach out.
+
+00:35:25.588 --> 00:35:25.848
+>> Yeah.
+
+00:35:25.908 --> 00:35:28.438
+And our Twitter handle is Haskell Weekly,
+
+00:35:28.468 --> 00:35:32.158
+as you might expect, if you want
+to learn more about the show or the
+
+00:35:32.158 --> 00:35:35.908
+newsletter, please check out our
+website, which is HaskellWeekly.News.
+
+00:35:37.048 --> 00:35:37.258
+>> Yep.
+
+00:35:37.288 --> 00:35:42.508
+And Haskell Weekly podcast is brought to
+you by ITProTV, an ACI Learning company.
+
+00:35:43.183 --> 00:35:48.673
+Um, we would like to offer you 30%
+off the lifetime subscription with the
+
+00:35:48.673 --> 00:35:52.273
+promo code HaskellWeekly30 at checkout.
+
+00:35:52.303 --> 00:35:55.183
+So that's all capitalized, question mark?
+
+00:35:55.513 --> 00:35:55.873
+>> I don't know.
+
+00:35:56.923 --> 00:35:57.543
+I don't think it matters.
+
+00:35:58.263 --> 00:35:58.463
+Yeah.
+
+00:35:58.623 --> 00:36:02.323
+>> I don't think it matters, but,
+uh, you know, that would give you 30% off
+
+00:36:02.383 --> 00:36:04.993
+of an entire library full of IT content.
+
+00:36:05.323 --> 00:36:07.843
+Um, we have some development
+stuff, but no Haskell stuff yet.
+
+00:36:07.843 --> 00:36:11.113
+So, uh, stay tuned for that
+as well, but, uh, yeah.
+
+00:36:11.143 --> 00:36:12.463
+Thank you guys for listening and.
+
+00:36:12.463 --> 00:36:13.663
+we'll see you guys next week.
