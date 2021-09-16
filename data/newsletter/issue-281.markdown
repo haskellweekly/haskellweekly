@@ -93,4 +93,5 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 
 ## Call for participation
 
-undefined
+-   [LambdaHack: Deduplicate gameRestartHuman and gameQuitHuman](https://github.com/LambdaHack/LambdaHack/issues/269)
+-   [dear-imgui.hs: Update examples to safer withXXX actions](https://github.com/haskell-game/dear-imgui.hs/issues/95)
