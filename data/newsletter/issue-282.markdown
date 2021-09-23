@@ -31,4 +31,5 @@ undefined
 
 ## Call for participation
 
-undefined
+-   [dunai: Example in README uses old API](https://github.com/ivanperez-keera/dunai/issues/258)
+-   [explainable-predicates: Add an infix operator for accept](https://github.com/cdsmith/explainable-predicates/issues/6)
