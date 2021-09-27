@@ -66,3 +66,4 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 
 -   [dunai: Example in README uses old API](https://github.com/ivanperez-keera/dunai/issues/258)
 -   [explainable-predicates: Add an infix operator for accept](https://github.com/cdsmith/explainable-predicates/issues/6)
+-   Join the new "Our Foundation Task Force"?  [This is an opportunity](https://drive.google.com/file/d/15IlgIhLM__x5mgM0p-F_jmB7R6itAYjg/view?usp=sharing)  to help the Haskell Foundation expand its support for the community and at the same time encourage community support for the Foundation. <!-- This news item is valid until October 9, 2021, I (Matthias) intend to make a pull request to remove this item at that time -->
