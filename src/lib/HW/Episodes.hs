@@ -82,6 +82,7 @@ episodes = do
     , episode50
     , episode51
     , episode52
+    , episode53
     ]
   checkGuids validEpisodes Set.empty
   checkNumbers validEpisodes 1
@@ -893,3 +894,19 @@ episode52 = Episode.Episode
   <*> Size.fromNatural 43593188
   <*> Summary.fromText "Taylor Fausak talks with Cameron Gera about Evoke, Taylor's latest GHC plugin for deriving instances without generics or Template Haskell."
   <*> Title.fromText "Evoking Instances"
+
+episode53 :: Either String Episode.Episode
+episode53 = Episode.Episode
+  <$> Articles.fromList
+    [ "https://cs-syd.eu/posts/2021-09-11-json-vulnerability"
+    , "https://hackage.haskell.org/package/sydtest-0.4.0.0"
+    , "https://hackage.haskell.org/package/genvalidity-0.11.0.2"
+    , "https://hackage.haskell.org/package/yamlparse-applicative-0.2.0.0"
+    ]
+  <*> Date.fromGregorian 2021 9 27
+  <*> Duration.fromTimestamp 26 13
+  <*> Guid.fromText "fd6830e9-b1e9-4c7d-b3db-54a7576bbcab"
+  <*> Number.fromNatural 53
+  <*> Size.fromNatural 31453184
+  <*> Summary.fromText "Special guest Tom Sydney Kerckhove talks with Taylor Fausak about a denial of service vulnerability in Aeson, a Haskell library for JSON."
+  <*> Title.fromText "Hash Flooding Aeson"

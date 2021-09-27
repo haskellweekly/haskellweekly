@@ -1,0 +1,1803 @@
+WEBVTT
+
+00:00:07.591 --> 00:00:10.021
+>> Hello and welcome to
+the Haskell Weekly podcast.
+
+00:00:10.141 --> 00:00:13.981
+This is a podcast about Haskell, a
+purely functional programming language.
+
+00:00:14.251 --> 00:00:15.841
+I'm your host, Taylor Fausak.
+
+00:00:15.931 --> 00:00:19.141
+I'm the Director of Software
+Engineering at ACI Learning.
+
+00:00:19.531 --> 00:00:22.701
+And with me today is a special
+guest, Tom Sydney Kerchove.
+
+00:00:22.871 --> 00:00:24.121
+Thanks for joining me, Syd!
+
+00:00:25.081 --> 00:00:25.981
+>> Thank you for having me.
+
+00:00:26.461 --> 00:00:28.531
+>> And I'm sorry for
+mispronouncing your last name.
+
+00:00:28.591 --> 00:00:31.411
+As you said, we don't have that
+in English and that's one of
+
+00:00:31.411 --> 00:00:32.521
+the only languages I speak.
+
+00:00:32.521 --> 00:00:33.511
+So apologies.
+
+00:00:34.231 --> 00:00:35.251
+>> No worries, happens a lot.
+
+00:00:36.091 --> 00:00:38.976
+>> I think many people in the
+community are already familiar with
+
+00:00:38.976 --> 00:00:42.906
+you, but for those that aren't, could
+you explain who you are and what
+
+00:00:42.906 --> 00:00:44.286
+you've done in the Haskell community?
+
+00:00:44.946 --> 00:00:45.276
+>> Alright.
+
+00:00:45.516 --> 00:00:47.166
+Uh, so, uh, my name is Syd.
+
+00:00:47.246 --> 00:00:49.266
+I do a lot of testing related work.
+
+00:00:49.716 --> 00:00:52.656
+I am a big voice for
+sustainable Haskell development.
+
+00:00:52.656 --> 00:00:54.156
+So stuff that works basically.
+
+00:00:55.356 --> 00:00:55.746
+>> Nice.
+
+00:00:55.776 --> 00:00:56.946
+And you mentioned testing.
+
+00:00:57.012 --> 00:00:58.722
+This isn't going to be the
+main topic today, but you
+
+00:00:58.722 --> 00:01:00.252
+have a testing library, right?
+
+00:01:00.282 --> 00:01:01.002
+Do you want to plug that?
+
+00:01:01.482 --> 00:01:02.872
+>> Oh yeah, I have many of those.
+
+00:01:03.152 --> 00:01:07.452
+Um, so um, I have, my first bit
+of work in testing was based on
+
+00:01:07.452 --> 00:01:10.422
+validity based testing, which is
+basically property testing with
+
+00:01:10.422 --> 00:01:12.102
+free generators and free shrinking.
+
+00:01:12.492 --> 00:01:17.472
+And then after that, I also built
+syd-test, which is a spiritual successor
+
+00:01:17.562 --> 00:01:21.132
+to hspec with some modern testing
+features and more robust testing.
+
+00:01:22.032 --> 00:01:22.362
+>> Nice.
+
+00:01:22.392 --> 00:01:25.602
+So I'll be sure to include links to
+that in the show notes for this episode.
+
+00:01:25.602 --> 00:01:29.382
+So if you want to up your testing
+game, please check out those libraries.
+
+00:01:29.862 --> 00:01:32.322
+But as I mentioned, that's
+not our main focus today.
+
+00:01:32.352 --> 00:01:35.142
+What we're going to be talking about is
+something you posted in the past couple of
+
+00:01:35.142 --> 00:01:40.962
+weeks, which is about a JSON vulnerability
+in the venerable Aeson library.
+
+00:01:41.532 --> 00:01:46.732
+Um, could you give us a overview from a
+high level of what that vulnerability is?
+
+00:01:47.652 --> 00:01:57.117
+>> Um yup, so when you parse JSON, the
+Aeson library uses a hash map to represent
+
+00:01:57.187 --> 00:02:00.057
+JSON objects, which are key value things.
+
+00:02:00.497 --> 00:02:01.887
+Uh they're stored in a hash map.
+
+00:02:02.247 --> 00:02:04.247
+The hash map comes from
+unordered-containers.
+
+00:02:04.527 --> 00:02:07.057
+unordered-containers uses
+hashable for its hashing.
+
+00:02:07.437 --> 00:02:11.457
+hashable uses a non collision resistant
+hash function, which means that when
+
+00:02:11.457 --> 00:02:15.357
+you find collisions in this hash, and
+you can — and the user can input them,
+
+00:02:15.747 --> 00:02:21.102
+then they can make the insertions into
+the hash map in Aeson uh, occur in
+
+00:02:21.222 --> 00:02:23.022
+quadratic time rather than linear time.
+
+00:02:23.322 --> 00:02:26.462
+And therefore taking down your
+server while parsing the JSON.
+
+00:02:27.612 --> 00:02:27.942
+>> Right.
+
+00:02:27.942 --> 00:02:32.562
+And this can be — this, um,
+vulnerability can be exploited with
+
+00:02:32.952 --> 00:02:35.502
+a like pre crafted input, right?
+
+00:02:35.502 --> 00:02:37.482
+And you actually provided one
+of those in the blog post.
+
+00:02:37.482 --> 00:02:37.902
+Is that right?
+
+00:02:38.322 --> 00:02:38.562
+>> Yep.
+
+00:02:38.592 --> 00:02:39.062
+That's right.
+
+00:02:39.172 --> 00:02:44.977
+So, there is a, um, single digit megabyte
+JSON blob that you can send to any Haskell
+
+00:02:44.997 --> 00:02:46.947
+server that parses JSON to take it down.
+
+00:02:47.307 --> 00:02:51.717
+Because the collisions are built against
+a certain salt for the hash and the
+
+00:02:51.717 --> 00:02:53.577
+salt is fixed in the hashable library.
+
+00:02:54.447 --> 00:02:54.837
+>> Right.
+
+00:02:54.867 --> 00:02:58.827
+So not good news for anyone
+running a Haskell server that
+
+00:02:58.827 --> 00:03:01.317
+accepts input from the public.
+
+00:03:01.617 --> 00:03:03.957
+So what made you start looking into this?
+
+00:03:03.957 --> 00:03:06.587
+What was the context around
+discovering this vulnerability?
+
+00:03:07.062 --> 00:03:10.452
+>> So at the time I was working at
+FP Complete and we were looking into
+
+00:03:11.682 --> 00:03:15.882
+dependencies of one of our clients,
+um, to see if the dependencies
+
+00:03:15.892 --> 00:03:19.152
+would cause them any trouble or
+if they were even appropriate.
+
+00:03:19.722 --> 00:03:23.412
+Um, and there was a comment in
+unordered-containers that says, don't use
+
+00:03:23.412 --> 00:03:26.262
+this for user input because it's not safe.
+
+00:03:27.012 --> 00:03:30.012
+And then I was when thinking,
+well, where is this being used?
+
+00:03:30.012 --> 00:03:32.742
+It turns out it was used in Aeson,
+which is accepting user input.
+
+00:03:32.802 --> 00:03:34.212
+So that's where it all came from.
+
+00:03:34.542 --> 00:03:36.472
+And then that led down a big rabbit hole.
+
+00:03:37.032 --> 00:03:39.972
+Um, that started by going like,
+Hey Aeson maintainers, why don't
+
+00:03:39.972 --> 00:03:43.782
+you use, um, something that
+doesn't have this big warning.
+
+00:03:44.652 --> 00:03:47.982
+Um, and then it ended with
+crafting an exploit so that we
+
+00:03:47.982 --> 00:03:49.482
+had, let's say, more leverage.
+
+00:03:50.412 --> 00:03:50.592
+>> Right.
+
+00:03:51.312 --> 00:03:55.902
+So it seems like, um, you mentioned there
+are multiple libraries involved here.
+
+00:03:55.902 --> 00:03:58.962
+There's Aeson, which is doing
+the JSON parsing and conversion.
+
+00:03:59.352 --> 00:04:02.232
+And there's unordered-containers,
+which is providing the hash map.
+
+00:04:02.322 --> 00:04:07.222
+And then there's hashable, which is the
+hash library for unordered-containers.
+
+00:04:07.242 --> 00:04:10.932
+So it seems like there are multiple
+places this problem could be fixed.
+
+00:04:11.382 --> 00:04:15.792
+Um, I think that you provided a pull
+request, a change set, to fix this,
+
+00:04:15.822 --> 00:04:17.652
+uh, which library did you target?
+
+00:04:18.402 --> 00:04:21.352
+>> Um, I targeted unordered-containers.
+
+00:04:22.002 --> 00:04:24.732
+It's not clear that the fix
+that I proposed is good in
+
+00:04:24.732 --> 00:04:27.462
+general, but it's certainly fixed
+the problem that we exposed.
+
+00:04:28.182 --> 00:04:33.762
+Um, so the idea was to use a different
+structure than a linear array.
+
+00:04:33.822 --> 00:04:38.202
+Then, then, uh, then linear chaining for
+dealing with collisions in the hash map.
+
+00:04:39.312 --> 00:04:42.312
+Um, right now it uses an array.
+
+00:04:42.402 --> 00:04:46.092
+And then whenever the collision is
+detected, uh, the second element or the
+
+00:04:46.092 --> 00:04:50.742
+next element in the array will be used,
+which means that however many elements
+
+00:04:50.742 --> 00:04:54.942
+were already there, they all need to
+be traversed in order to add something.
+
+00:04:55.942 --> 00:04:59.092
+Um, and instead, what I proposed
+is to use a recursive hash map
+
+00:04:59.092 --> 00:05:00.232
+there with a different salt.
+
+00:05:00.952 --> 00:05:05.272
+This means that any collision would have
+to be in order to be a problem, would
+
+00:05:05.272 --> 00:05:09.262
+have to not only be a collision on the
+salt that is at the top level, but also
+
+00:05:09.262 --> 00:05:11.212
+every recursive salt going downwards.
+
+00:05:12.172 --> 00:05:19.882
+Um, this works rather well, assuming
+that crafting collisions on multiple
+
+00:05:19.882 --> 00:05:22.072
+salts at the same time is difficult.
+
+00:05:23.002 --> 00:05:26.767
+And that assumption might breakdown,
+for example, if the salt is ignored.
+
+00:05:28.447 --> 00:05:32.287
+So there are good reasons to reject
+such an approach, even though it would
+
+00:05:32.287 --> 00:05:33.557
+have fixed the Aeson vulnerability.
+
+00:05:34.207 --> 00:05:34.567
+>> Right.
+
+00:05:34.777 --> 00:05:39.847
+And to my knowledge, this is a
+relatively novel, um, solution
+
+00:05:39.847 --> 00:05:42.697
+to this problem, because this
+is something that affects other
+
+00:05:42.697 --> 00:05:44.137
+languages and other libraries as well.
+
+00:05:44.137 --> 00:05:47.917
+Pretty much anything that uses a hash
+map could be susceptible to this problem.
+
+00:05:48.547 --> 00:05:53.497
+Um, You mentioned linear chaining, that's
+the kind of default approach to hash
+
+00:05:53.497 --> 00:05:57.637
+maps where if a key collision occurs,
+you have a linked list or an array
+
+00:05:57.637 --> 00:05:59.587
+or a vector or whatever at that key.
+
+00:05:59.587 --> 00:06:01.087
+And you add stuff to that list.
+
+00:06:01.717 --> 00:06:05.977
+Um, and what you mentioned is kind of
+like a Russian nesting doll scenario
+
+00:06:06.007 --> 00:06:09.877
+where it's hash maps all the way down,
+uh, which is very clever and convenient
+
+00:06:09.877 --> 00:06:14.227
+for Haskell because it means you
+don't need any new constraints, right?
+
+00:06:14.917 --> 00:06:18.487
+And another one of the approaches I've
+seen and I saw suggested in this thread
+
+00:06:18.487 --> 00:06:23.917
+was to use a hash map on the outside
+and a regular ordered map on the inside.
+
+00:06:24.427 --> 00:06:29.497
+Um, and that requires the Ord constraint,
+which, you know, some people want to
+
+00:06:29.497 --> 00:06:31.057
+avoid for hash maps in the first place.
+
+00:06:31.957 --> 00:06:33.397
+Anyway, I mentioned all that for context.
+
+00:06:33.427 --> 00:06:35.587
+Uh, but yeah, the, the approach.
+
+00:06:35.627 --> 00:06:40.132
+Um of your solution, wasn't
+accepted by the maintainers.
+
+00:06:40.192 --> 00:06:44.272
+So, uh, what other approaches
+might be possible here?
+
+00:06:44.782 --> 00:06:47.482
+>> So I think the standard
+solution, if we look at other
+
+00:06:47.482 --> 00:06:51.622
+languages is to use a randomized
+salt, on creation of the hash map.
+
+00:06:52.032 --> 00:06:58.452
+That isn't ideal, because, um, it
+means that the orders, the order of the
+
+00:06:58.452 --> 00:07:02.937
+things in your hash map changes based
+when you created that map, for example.
+
+00:07:02.937 --> 00:07:04.887
+It also causes trouble with unions.
+
+00:07:04.887 --> 00:07:08.247
+And it also means that your code is
+now no longer pure, if you don't,
+
+00:07:08.487 --> 00:07:09.837
+uh, if you keep the current API.
+
+00:07:09.837 --> 00:07:12.297
+So there are all sorts of reasons
+why you might want to avoid that.
+
+00:07:13.077 --> 00:07:18.577
+Um, but it looks like we may need
+an entire new unordered-containers
+
+00:07:18.597 --> 00:07:23.007
+package that just works in IO or
+some state in order to generate,
+
+00:07:23.007 --> 00:07:25.827
+a random salt every time.
+
+00:07:26.497 --> 00:07:30.477
+>> So you're talking about
+a random salt per hash map.
+
+00:07:30.507 --> 00:07:32.997
+So when you make a new hash map,
+it comes with a random salt.
+
+00:07:33.557 --> 00:07:33.937
+Um
+
+00:07:33.977 --> 00:07:37.197
+—
+>> Um that's a, yeah, so
+that's a proposed solution.
+
+00:07:37.197 --> 00:07:40.127
+Another is a random salt
+per application boot.
+
+00:07:40.637 --> 00:07:40.827
+>> Okay.
+
+00:07:41.737 --> 00:07:44.457
+And that wouldn't have the same
+problem with for instance unions
+
+00:07:44.487 --> 00:07:48.707
+because all hash maps during program
+run would have the same salt, but uh,
+
+00:07:48.707 --> 00:07:50.247
+across runs, it would be different.
+
+00:07:50.787 --> 00:07:51.087
+>> Yes.
+
+00:07:51.147 --> 00:07:52.997
+Which also means you can't
+serialize them easily.
+
+00:07:53.937 --> 00:07:54.237
+>> Right.
+
+00:07:54.267 --> 00:07:55.467
+So it's got other problems.
+
+00:07:55.497 --> 00:07:56.727
+Um, and sorry, I interrupted you.
+
+00:07:56.727 --> 00:07:59.307
+You were going to list another,
+a potential solution here.
+
+00:08:00.717 --> 00:08:02.907
+>> Yeah, there are some
+other potential solutions.
+
+00:08:03.047 --> 00:08:06.027
+Um, just not using hash
+maps would be a good one.
+
+00:08:06.537 --> 00:08:10.527
+Um, using a collision resistant
+hash function would also work,
+
+00:08:10.587 --> 00:08:13.737
+except it would defeat the entire
+purpose of using hash maps because
+
+00:08:13.737 --> 00:08:16.077
+now it's actually slower than using
+
+00:08:16.597 --> 00:08:17.802
+regular maps, for example.
+
+00:08:18.062 --> 00:08:20.562
+This is a big mess of a
+solution space, basically.
+
+00:08:22.212 --> 00:08:24.882
+>> Um, and so a collision
+resistant hash, um, I think I've
+
+00:08:24.882 --> 00:08:29.442
+seen like SHA256 recommended for that
+or SipHash or something like that.
+
+00:08:29.982 --> 00:08:33.342
+>> I don't think SipHash is collision
+resistant if I recall correctly.
+
+00:08:33.762 --> 00:08:35.232
+>> Um, I've seen it thrown around.
+
+00:08:35.232 --> 00:08:38.862
+I I'm not, uh, I don't know much
+about this problem space, so
+
+00:08:39.042 --> 00:08:39.342
+>> yeah.
+
+00:08:40.212 --> 00:08:43.902
+>> Um, And yeah, I agree that would
+kind of defeat the purpose of hash map
+
+00:08:43.902 --> 00:08:46.962
+in the first place, which if it gets
+slower than Ord map, which, you know,
+
+00:08:46.962 --> 00:08:50.622
+the default containers map in Haskell,
+you might as well just use Ord map.
+
+00:08:50.922 --> 00:08:56.442
+Um, and there are other Aeson or excuse
+me, other JSON libraries that you could
+
+00:08:56.442 --> 00:09:00.882
+use in Haskell, for example Waargonaut,
+does not give you a hash map by default.
+
+00:09:01.212 --> 00:09:02.982
+Um, so that's another way
+to slice this problem.
+
+00:09:02.982 --> 00:09:05.892
+Just cut un orders, unordered
+containers out of it entirely.
+
+00:09:06.892 --> 00:09:13.537
+Um, I think the Aeson maintainers
+are also pursuing, uh, an avenue
+
+00:09:13.537 --> 00:09:16.807
+that will allow them to change the
+representation behind the scenes.
+
+00:09:16.807 --> 00:09:18.547
+Where they make this an opaque wrapper.
+
+00:09:18.667 --> 00:09:21.397
+Um, could you talk about, you know,
+do you think that's a reasonable
+
+00:09:21.397 --> 00:09:22.507
+approach to this problem as well?
+
+00:09:23.107 --> 00:09:26.647
+>> Yeah, I think just using an
+ordered map in the JSON library
+
+00:09:26.797 --> 00:09:31.177
+is, is the most, um, principled
+approach to fixing this problem.
+
+00:09:31.387 --> 00:09:34.147
+The question is whether the
+resulting performance is good enough
+
+00:09:34.177 --> 00:09:37.237
+for affected, uh, stakeholders.
+
+00:09:37.672 --> 00:09:41.662
+And in my honest opinion, no one should
+care about performance unless they
+
+00:09:41.662 --> 00:09:44.602
+already have correctness and not the
+other way around, but that's personal.
+
+00:09:46.132 --> 00:09:46.942
+>> I agree with that.
+
+00:09:47.002 --> 00:09:49.582
+Uh, you know, if the program
+doesn't need to be correct, I
+
+00:09:49.582 --> 00:09:50.902
+can make it as fast as you want.
+
+00:09:51.322 --> 00:09:53.392
+Uh, but if it's, if it's
+gotta be correct, then yeah,
+
+00:09:54.052 --> 00:09:54.202
+>> yeah.
+
+00:09:54.262 --> 00:09:56.722
+The best way to make your program
+faster, if it doesn't need to be
+
+00:09:56.722 --> 00:09:58.042
+correct is to just not run it.
+
+00:09:58.582 --> 00:09:59.152
+>> Exactly.
+
+00:09:59.182 --> 00:09:59.542
+Yeah.
+
+00:09:59.602 --> 00:10:01.552
+No results at all is, is super fast.
+
+00:10:02.242 --> 00:10:08.857
+Um, And I've run a handful of benchmarks,
+uh, comparing hash map versus Ord map.
+
+00:10:09.097 --> 00:10:13.627
+And it seems like for small
+objects, Ord map is plenty, fast,
+
+00:10:13.627 --> 00:10:15.187
+and often faster than hash map.
+
+00:10:15.577 --> 00:10:18.817
+Um, but that just becomes a
+question for users of what
+
+00:10:18.817 --> 00:10:19.987
+does their workload look like?
+
+00:10:20.017 --> 00:10:23.857
+You know, do you have an object with
+20 keys or does it have 2000 keys?
+
+00:10:24.367 --> 00:10:29.317
+Um, and my expectation is that for most
+people, they don't have a lot of keys.
+
+00:10:31.087 --> 00:10:35.377
+But, yeah, so, so there's a potential
+solution in Aeson there's a potential
+
+00:10:35.377 --> 00:10:37.627
+solution by switching libraries.
+
+00:10:37.687 --> 00:10:40.417
+There's a potential solution in
+unordered-containers and there's
+
+00:10:40.417 --> 00:10:42.437
+a potential solution in hashable.
+
+00:10:42.967 --> 00:10:48.127
+Um, unfortunately I don't think any of
+those solutions have been implemented.
+
+00:10:48.277 --> 00:10:48.847
+Is that right?
+
+00:10:49.387 --> 00:10:50.467
+>> Uh, not as far as I can tell.
+
+00:10:50.467 --> 00:10:54.817
+Well, the solution I proposed has been
+implemented, but it's now both out of
+
+00:10:54.817 --> 00:10:59.837
+date and, um, we seem to have agreed
+that it's not the right solution.
+
+00:11:00.262 --> 00:11:00.652
+>> Okay.
+
+00:11:00.952 --> 00:11:04.432
+And sorry, I didn't mean that,
+uh, the work hasn't been done, you
+
+00:11:04.432 --> 00:11:07.882
+have submitted a PR for this, but
+that it's not in the main line.
+
+00:11:07.882 --> 00:11:11.212
+Like if you just installed
+Aeson today, you would still
+
+00:11:11.212 --> 00:11:12.352
+be vulnerable to this problem
+
+00:11:12.782 --> 00:11:13.672
+>> Oh yes, absolutely.
+
+00:11:13.852 --> 00:11:16.392
+And you can check there is a one-line
+curl command that you can run in the
+
+00:11:16.392 --> 00:11:18.072
+blog post to see if you're vulnerable.
+
+00:11:18.652 --> 00:11:19.012
+>> Yeah.
+
+00:11:19.072 --> 00:11:23.742
+And actually thank you for producing
+that because um, at ACI Learning,
+
+00:11:23.797 --> 00:11:27.457
+we run Haskell back end services
+and we use Aeson and that made
+
+00:11:27.457 --> 00:11:28.807
+it very easy for me to check.
+
+00:11:28.837 --> 00:11:30.277
+Are we susceptible to this problem?
+
+00:11:30.577 --> 00:11:31.147
+We are.
+
+00:11:31.447 --> 00:11:35.587
+And, um, one of the proposed solutions
+that we were talking about of
+
+00:11:35.617 --> 00:11:40.987
+randomizing the seed on program start,
+um, addressed the problem for me.
+
+00:11:41.047 --> 00:11:44.197
+I hesitate to say fixed it, because
+as you mentioned, that relies on
+
+00:11:44.197 --> 00:11:49.237
+the fact of making a collision
+that doesn't care about the salt.
+
+00:11:49.337 --> 00:11:51.457
+Um, Still needs to be hard.
+
+00:11:51.457 --> 00:11:56.107
+So like we randomize the salt on every
+program launch, but maybe there, we
+
+00:11:56.107 --> 00:11:59.707
+know it's still possible for somebody to
+generate hash collisions in that instance.
+
+00:12:00.127 --> 00:12:00.517
+>> Yes.
+
+00:12:00.547 --> 00:12:04.297
+You must somehow guarantee that there
+is no side channel through which
+
+00:12:04.507 --> 00:12:07.627
+your salt is exposed towards a user.
+
+00:12:07.987 --> 00:12:13.087
+And that involves, for example, never
+returning the hash of a empty text to the
+
+00:12:13.087 --> 00:12:15.377
+user, because that is exactly the salt.
+
+00:12:17.307 --> 00:12:20.692
+>> Yes, and I am pretty sure we
+don't do that, but I can't prove it
+
+00:12:21.232 --> 00:12:21.742
+>> exactly.
+
+00:12:21.742 --> 00:12:25.162
+There is always these side channel attacks
+are nasty because there are all sorts
+
+00:12:25.162 --> 00:12:28.792
+of reasons, all sorts of ways through
+which someone might discover this.
+
+00:12:29.512 --> 00:12:32.932
+I'm just even for example, timing
+attacks, if someone is nasty enough
+
+00:12:32.932 --> 00:12:36.442
+about bringing your system down,
+you still want to watch out with
+
+00:12:36.442 --> 00:12:36.712
+this
+
+00:12:37.162 --> 00:12:37.462
+>> right.
+
+00:12:38.812 --> 00:12:43.822
+That's true, but I also don't want
+to be too defeatist here because I
+
+00:12:43.822 --> 00:12:47.312
+feel like, you know, making it harder
+where you need that timing attack or
+
+00:12:47.332 --> 00:12:50.842
+you need that side channel attack is
+a massive improvement over someone
+
+00:12:50.842 --> 00:12:53.662
+just grabbing this JSON file off the
+shelf and bringing your server down.
+
+00:12:54.182 --> 00:12:54.752
+>> Absolutely.
+
+00:12:54.772 --> 00:12:58.882
+So there's a flag you can turn
+on in unordered-containers to
+
+00:12:58.882 --> 00:13:01.762
+randomize the start-up salt.
+
+00:13:02.242 --> 00:13:06.532
+Um, you will notice that a bunch
+of test suites in your dependency
+
+00:13:06.532 --> 00:13:07.762
+chain might start failing.
+
+00:13:08.062 --> 00:13:11.197
+And that's because people somehow assumed
+that unordered containers were ordered.
+
+00:13:12.127 --> 00:13:12.487
+>> Yeah.
+
+00:13:12.697 --> 00:13:18.427
+Um, and actually there, uh, in Stackage
+for all of the packages that were
+
+00:13:18.427 --> 00:13:21.607
+in Stackage I think they tried to
+enable this flag by default and it
+
+00:13:21.607 --> 00:13:22.927
+broke a bunch of those test suites.
+
+00:13:23.527 --> 00:13:26.377
+So many of them have been fixed,
+not all of them, but many of them.
+
+00:13:27.517 --> 00:13:33.157
+Um, and we actually, when we enabled this
+flag for our code base, we saw our own
+
+00:13:33.157 --> 00:13:37.822
+test suite fail and we weren't expecting
+that, you know, we thought uh, we didn't
+
+00:13:38.032 --> 00:13:41.272
+care about the hashing order of any of
+these things, but it turns out that in
+
+00:13:41.272 --> 00:13:45.022
+some of our test cases, we turned it
+into a list and then we accidentally
+
+00:13:45.052 --> 00:13:46.672
+cared about the order of that list.
+
+00:13:46.702 --> 00:13:49.132
+So it's pretty easy to fall prey to that.
+
+00:13:49.942 --> 00:13:52.972
+>> And to be fair, it's entirely
+reasonable to expect the pure function
+
+00:13:52.972 --> 00:13:54.162
+to have the same result every time.
+
+00:13:54.652 --> 00:13:56.842
+>> Yes, very true.
+
+00:13:57.382 --> 00:14:02.392
+Um, so yeah, that, um, is a good overview
+of the problem in the current, uh, state
+
+00:14:02.392 --> 00:14:05.002
+and maybe a quick workaround solution.
+
+00:14:05.422 --> 00:14:12.112
+Um, I want to ask you about kind of the
+broader context here of you have known
+
+00:14:12.112 --> 00:14:15.712
+about this vulnerability for several years
+now, and you've tried to get it fixed.
+
+00:14:16.072 --> 00:14:19.282
+Um, and how does that make you feel
+about the maintainers and the package
+
+00:14:19.312 --> 00:14:20.902
+ecosystem and Haskell as a whole?
+
+00:14:22.402 --> 00:14:25.762
+>> Um, so yes, I've known
+about this for quite a few years.
+
+00:14:25.792 --> 00:14:30.952
+We've gone through the disposal
+responsible disclosure procedure, where
+
+00:14:30.952 --> 00:14:34.372
+we spent the better part of a year
+talking to maintainers in private and.
+
+00:14:35.857 --> 00:14:39.187
+Very secure communication
+channels about that.
+
+00:14:39.187 --> 00:14:42.247
+This thing exists, how we found it,
+how you can check that you have it,
+
+00:14:42.817 --> 00:14:44.947
+um, and how we might be able to fix it.
+
+00:14:45.427 --> 00:14:51.217
+And then, um, the conversation
+kind of fizzled out.
+
+00:14:53.167 --> 00:14:57.897
+Um, and it, it finished somewhere
+between we've proposed the fix
+
+00:14:58.477 --> 00:15:01.297
+and then them saying, we don't
+find your fix good enough.
+
+00:15:01.327 --> 00:15:03.757
+And then also not fixing
+it in a different way.
+
+00:15:04.647 --> 00:15:09.382
+Then a bit later, we stopped working
+on this and just kept it secret
+
+00:15:09.382 --> 00:15:11.332
+in case anyone was vulnerable.
+
+00:15:11.332 --> 00:15:12.442
+We didn't want to expose it.
+
+00:15:14.032 --> 00:15:18.262
+But then for years after
+that still nothing happened.
+
+00:15:18.802 --> 00:15:23.752
+Um, and then I launched this blog post
+because I got permission to publish any
+
+00:15:23.752 --> 00:15:27.562
+way because given that we know we have
+an exploit, we might be able to quote
+
+00:15:27.562 --> 00:15:29.422
+unquote, pressure people into fixing this.
+
+00:15:29.452 --> 00:15:32.632
+If we can just show that they're
+vulnerable to it themselves and
+
+00:15:32.632 --> 00:15:33.812
+create some incentives, you know?
+
+00:15:35.022 --> 00:15:39.787
+And then the big nasty response that
+I didn't necessarily expect was yes.
+
+00:15:39.787 --> 00:15:43.867
+We've known about this for years
+and then still no effort to fix it,
+
+00:15:44.377 --> 00:15:44.797
+>> Right.
+
+00:15:45.367 --> 00:15:45.547
+Yeah.
+
+00:15:45.547 --> 00:15:46.447
+That's discouraging.
+
+00:15:47.077 --> 00:15:47.407
+>> Yes.
+
+00:15:47.587 --> 00:15:51.697
+It wasn't see, I understand that a
+lot of people are doing this work
+
+00:15:51.907 --> 00:15:53.617
+in their spare time as volunteers.
+
+00:15:53.707 --> 00:15:57.157
+And so I completely appreciate
+when people say you can't expect
+
+00:15:57.157 --> 00:15:59.727
+us to solve this because I'm doing
+this for free and I need to eat.
+
+00:16:00.352 --> 00:16:03.972
+But the response wasn't we don't have
+the time to fix this or I need to eat.
+
+00:16:03.972 --> 00:16:05.092
+So I can't do this for free.
+
+00:16:05.242 --> 00:16:10.582
+The response was more like we
+care and then nothing gets fixed.
+
+00:16:10.972 --> 00:16:12.322
+Nothing actually gets fixed.
+
+00:16:12.442 --> 00:16:15.322
+So it was a lot of lip service
+and not a lot of actual fixing
+
+00:16:16.012 --> 00:16:17.032
+that frustrates me a bit.
+
+00:16:17.602 --> 00:16:19.312
+>> Yeah, that does sound frustrating.
+
+00:16:19.402 --> 00:16:23.152
+And I'm hopeful, I've seen,
+uh, the Aeson library.
+
+00:16:23.152 --> 00:16:25.432
+They seem to be making moves
+to suggest that they're moving
+
+00:16:25.432 --> 00:16:26.872
+to that opaque representation.
+
+00:16:26.872 --> 00:16:31.372
+So perhaps in the next major version
+of Aeson, we'll have a fix or a
+
+00:16:31.422 --> 00:16:33.022
+fix will be possible for this.
+
+00:16:33.052 --> 00:16:37.792
+But I suspect also there will be
+a lot of downstream breakage as a
+
+00:16:37.792 --> 00:16:42.022
+result of that, because many things
+rely on the particular representation
+
+00:16:42.022 --> 00:16:43.822
+of objects in the Aeson library.
+
+00:16:44.392 --> 00:16:44.582
+>> Yup.
+
+00:16:45.847 --> 00:16:46.057
+Yeah.
+
+00:16:46.057 --> 00:16:49.387
+So, uh, we outlined the proposed
+solutions and one of them was
+
+00:16:49.537 --> 00:16:51.437
+just use ordered maps in Aeson.
+
+00:16:51.487 --> 00:16:54.757
+And the big downside was that
+that breaks backward compatibility
+
+00:16:54.757 --> 00:16:56.587
+because objects are part of the API.
+
+00:16:57.097 --> 00:16:57.397
+>> Yeah.
+
+00:16:58.397 --> 00:17:02.867
+>> Um, frankly, I couldn't care less
+about backward compatibility in that case.
+
+00:17:03.227 --> 00:17:05.087
+Um, if it means that things get fixed.
+
+00:17:05.747 --> 00:17:08.247
+On the other hand, it's not nice.
+
+00:17:10.537 --> 00:17:10.787
+>> Yeah.
+
+00:17:11.267 --> 00:17:12.657
+Um, I agree.
+
+00:17:12.657 --> 00:17:17.272
+I think that in the presence of a security
+vulnerability, or maybe not security, just
+
+00:17:17.272 --> 00:17:21.502
+a vulnerability like this, um, backwards
+compatibility should take a backseat
+
+00:17:21.502 --> 00:17:23.422
+to, as you said earlier, correctness.
+
+00:17:23.452 --> 00:17:26.302
+Let's make it work correctly
+in more circumstances.
+
+00:17:26.332 --> 00:17:29.422
+And then we can talk about
+supporting other, other stuff.
+
+00:17:29.962 --> 00:17:31.132
+>> Well, you might say that
+
+00:17:31.972 --> 00:17:36.652
+user input, isn't one of the supported
+use cases and then not fix it, but then
+
+00:17:36.682 --> 00:17:42.427
+we have a bigger problem of, we don't have
+any, um, JSON libraries for user input.
+
+00:17:42.457 --> 00:17:44.227
+Uh actually, you mentioned
+one, but I haven't used it.
+
+00:17:44.857 --> 00:17:45.127
+>> Yeah.
+
+00:17:45.157 --> 00:17:46.747
+I actually haven't used it either.
+
+00:17:46.747 --> 00:17:49.417
+It's called  Waargonaut and
+I'll be sure to link to it.
+
+00:17:49.477 --> 00:17:53.107
+And my understanding of
+it is that internally they
+
+00:17:53.107 --> 00:17:55.207
+represent objects as vectors.
+
+00:17:55.537 --> 00:18:01.747
+And when you want to parse one, you can
+either keep it as a vector or choose to
+
+00:18:01.747 --> 00:18:05.617
+change it into an ordered map or a hash
+map or whatever is convenient for you.
+
+00:18:07.527 --> 00:18:08.817
+Which makes a lot of sense to me.
+
+00:18:08.817 --> 00:18:12.837
+And in fact seems like a good
+representation of JSON objects anyway,
+
+00:18:12.837 --> 00:18:17.067
+since although they're nominally
+not ordered, sometimes the order is
+
+00:18:17.067 --> 00:18:20.037
+important of the keys and when you
+turn it into a hash map, you lose that.
+
+00:18:20.607 --> 00:18:20.847
+>> Yup.
+
+00:18:21.297 --> 00:18:21.447
+Yeah.
+
+00:18:21.447 --> 00:18:22.077
+That makes sense.
+
+00:18:22.257 --> 00:18:24.057
+And then there's also
+duplicate keys, I guess.
+
+00:18:24.507 --> 00:18:24.957
+>> Yes.
+
+00:18:25.617 --> 00:18:25.827
+Yeah.
+
+00:18:25.857 --> 00:18:27.597
+Do you want, last one
+wins, first one wins.
+
+00:18:27.597 --> 00:18:28.737
+Do you want to merge them somehow?
+
+00:18:28.797 --> 00:18:31.647
+You are unable to make that
+decision with Aeson library.
+
+00:18:32.307 --> 00:18:32.577
+>> Yeah.
+
+00:18:32.787 --> 00:18:38.167
+And we also talked about replacing Aeson
+entirely internally at the time with
+
+00:18:38.167 --> 00:18:41.887
+something like optparse-applicative,
+but for JSON parsing.
+
+00:18:42.127 --> 00:18:46.567
+So if you know about yamlparse-applicative
+basically that except instead of going
+
+00:18:46.567 --> 00:18:49.447
+through the Aeson representation, you
+would go directly from byte strings
+
+00:18:49.477 --> 00:18:54.157
+to end representation at the cost of
+not being able to do monadic parsing.
+
+00:18:54.877 --> 00:18:54.997
+>> Right.
+
+00:18:55.417 --> 00:18:59.987
+So I'm not familiar with that library,
+but that sounds similar to me in Aeson
+
+00:19:00.037 --> 00:19:02.357
+when you encode so the opposite of decode.
+
+00:19:02.767 --> 00:19:07.252
+You can skip generating a JSON value
+entirely and just generate the bytes.
+
+00:19:07.282 --> 00:19:09.052
+So is it similar to that in reverse?
+
+00:19:09.682 --> 00:19:09.772
+>> Yeah.
+
+00:19:09.802 --> 00:19:10.552
+Yes, exactly.
+
+00:19:10.672 --> 00:19:12.712
+Um, yeah, that's right.
+
+00:19:13.032 --> 00:19:17.512
+I'm trying to find another example of
+this, uh, applicative style parsing,
+
+00:19:17.512 --> 00:19:18.952
+but I can't think of another one right
+
+00:19:18.952 --> 00:19:19.162
+now.
+
+00:19:19.492 --> 00:19:21.682
+>> Well, you've mentioned
+optparse-applicative, which is for
+
+00:19:21.682 --> 00:19:23.122
+parsing command line arguments.
+
+00:19:23.152 --> 00:19:26.692
+And if there's this yamlparse-applicative,
+I hadn't heard of that before, but that
+
+00:19:26.692 --> 00:19:31.492
+sounds similar and I'm sure there's like
+a TOML one and whatever config format.
+
+00:19:32.017 --> 00:19:32.317
+>> Yep.
+
+00:19:32.557 --> 00:19:36.217
+And there, the nice benefit of
+that is that you can generate the
+
+00:19:36.427 --> 00:19:40.657
+schema of the thing you're parsing
+from the same value as the thing
+
+00:19:40.687 --> 00:19:41.937
+that you used to do the parsing.
+
+00:19:42.667 --> 00:19:44.437
+So you get automatic docs.
+
+00:19:44.857 --> 00:19:45.157
+>> Right.
+
+00:19:45.157 --> 00:19:48.637
+It's like a description of how to
+parse the thing, because as you
+
+00:19:48.637 --> 00:19:53.542
+mentioned, since it's not monadic,
+you can't depend on previous values.
+
+00:19:53.662 --> 00:19:56.822
+So then you can describe
+the entire thing statically.
+
+00:19:57.332 --> 00:19:58.082
+>> Yes, exactly.
+
+00:19:58.502 --> 00:20:01.252
+And this gets you in trouble with
+recursive, well the documentation
+
+00:20:01.252 --> 00:20:03.892
+part gets you into trouble with
+recursive parses for example.
+
+00:20:03.922 --> 00:20:04.552
+But that's another
+
+00:20:04.552 --> 00:20:04.852
+story.
+
+00:20:05.392 --> 00:20:05.632
+>> Yeah.
+
+00:20:06.532 --> 00:20:09.262
+Um, so yeah, that would be an
+interesting thing to explore.
+
+00:20:09.262 --> 00:20:13.222
+And I think the Waargonaut developers
+have mentioned that before, because they.
+
+00:20:14.362 --> 00:20:19.282
+They use cursors for parsing
+rather than the more typical, um,
+
+00:20:19.642 --> 00:20:21.322
+monadic stuff that Aeson uses.
+
+00:20:22.342 --> 00:20:24.862
+So yeah, there, there's a lot of
+interesting stuff going on there.
+
+00:20:25.102 --> 00:20:31.162
+Um, but yeah, I, uh, thank you for
+walking us through this vulnerability.
+
+00:20:31.252 --> 00:20:33.532
+Uh, I feel like we've touched all
+the high points that I'm aware of.
+
+00:20:33.532 --> 00:20:35.872
+Is there anything else that we haven't
+covered that you wanna talk about?
+
+00:20:36.422 --> 00:20:37.982
+>> Maybe, but I don't
+know how to phrase it yet.
+
+00:20:38.222 --> 00:20:42.902
+There is some, um, I have certain
+complaints about the way this is
+
+00:20:42.902 --> 00:20:44.972
+handled in terms of communication.
+
+00:20:45.332 --> 00:20:50.402
+There were a lot of, let's say nasty
+responses, or let's say less than
+
+00:20:50.402 --> 00:20:54.392
+polite responses, um, which were.
+
+00:20:55.947 --> 00:20:59.967
+Rather inappropriate in a situation
+of common crisis rather than
+
+00:21:00.327 --> 00:21:02.877
+an attack on any individual.
+
+00:21:03.447 --> 00:21:09.237
+And I feel I did my best to
+address a technical issue
+
+00:21:09.237 --> 00:21:10.557
+rather than a person problem.
+
+00:21:11.127 --> 00:21:14.337
+I also don't think any particular
+individual is at fault for this per se,
+
+00:21:15.777 --> 00:21:17.967
+but it seems like that's how it was.
+
+00:21:19.332 --> 00:21:19.872
+>> I agree.
+
+00:21:19.902 --> 00:21:26.292
+Um, I am a bystander in all of
+this, but I feel like your blog
+
+00:21:26.292 --> 00:21:31.182
+post laid out the vulnerability very
+clearly and how you arrived at it.
+
+00:21:31.212 --> 00:21:34.752
+And it provided a, you
+know, off the shelf.
+
+00:21:34.812 --> 00:21:38.172
+Here's how to test if you're affected
+type of thing, which I think is a
+
+00:21:38.172 --> 00:21:41.742
+really, um, useful thing to have
+in this type of situation, because
+
+00:21:41.742 --> 00:21:45.792
+then nobody can deflect by saying
+this is only a problem in theory.
+
+00:21:46.527 --> 00:21:48.417
+But no, it's actually
+a problem in practice.
+
+00:21:48.957 --> 00:21:49.977
+And then the response.
+
+00:21:49.977 --> 00:21:50.157
+Yeah.
+
+00:21:50.187 --> 00:21:54.447
+I'm not looking to call anyone out
+specifically, but it is frustrating
+
+00:21:54.537 --> 00:21:58.887
+to make something like this
+and then have people say, well,
+
+00:21:59.157 --> 00:22:00.897
+don't use Aeson for user input.
+
+00:22:00.897 --> 00:22:02.967
+Like, are they even.
+
+00:22:04.227 --> 00:22:05.877
+It's extremely common to do that.
+
+00:22:05.937 --> 00:22:08.607
+And I feel like everyone in the
+Haskell community, if somebody
+
+00:22:08.607 --> 00:22:12.067
+has said, Hey, I want to run a web
+server and I want to parse JSON.
+
+00:22:12.387 --> 00:22:13.667
+Everyone  would say use Aeson.
+
+00:22:14.097 --> 00:22:17.067
+So it's not realistic to say,
+oh, this isn't a problem in
+
+00:22:17.067 --> 00:22:18.357
+practice, or you shouldn't do that.
+
+00:22:18.867 --> 00:22:19.287
+>> Yes.
+
+00:22:19.347 --> 00:22:23.247
+And some of the reactions were
+things along the lines of, we've
+
+00:22:23.247 --> 00:22:24.747
+known about this for a long time.
+
+00:22:25.107 --> 00:22:28.127
+And that irked me in a
+different way because that.
+
+00:22:29.277 --> 00:22:32.997
+Where they previously had
+the possible deniability of
+
+00:22:33.027 --> 00:22:34.287
+not knowing about this thing.
+
+00:22:34.497 --> 00:22:37.887
+Now they've gone from not knowing about
+this thing to being someone who didn't
+
+00:22:37.887 --> 00:22:42.357
+raise it or didn't fix it, especially if
+such talk is coming from the maintainers.
+
+00:22:43.017 --> 00:22:43.767
+>> Yeah, I agree.
+
+00:22:43.767 --> 00:22:47.847
+That's, that's a strange comment
+for me to read because it suggests
+
+00:22:47.847 --> 00:22:51.327
+that they knew about it, but they
+didn't care for whatever reason.
+
+00:22:51.677 --> 00:22:54.612
+And I would expect, you know, as
+you mentioned, uh, we're talking
+
+00:22:54.612 --> 00:22:57.432
+about volunteers here, nobody that
+I know of is getting paid to work
+
+00:22:57.432 --> 00:23:01.062
+on Aeson or an unordered-containers
+or hashable, but at the same time,
+
+00:23:01.062 --> 00:23:05.692
+if there is this vulnerability, I'm
+not the person maintaining Aeson.
+
+00:23:05.862 --> 00:23:09.612
+And I may be vaguely aware that
+hash collisions are possible, but I
+
+00:23:09.612 --> 00:23:11.982
+would hope that the maintainers of
+these libraries would address those
+
+00:23:11.982 --> 00:23:13.632
+concerns when they find out about them.
+
+00:23:14.802 --> 00:23:14.982
+>> Yeah.
+
+00:23:15.102 --> 00:23:18.972
+You would, or at least maybe like
+put out a call for funds to fix.
+
+00:23:20.292 --> 00:23:23.322
+If, if, even if like, if they have
+to eat as well, which I'm sure they
+
+00:23:23.322 --> 00:23:28.452
+do, then at least ask, I guess, if
+you don't want it to do, don't want
+
+00:23:28.452 --> 00:23:32.502
+to do it because you're a volunteer
+figure out a way to make it happen
+
+00:23:32.502 --> 00:23:34.062
+without you having to do it for free.
+
+00:23:34.542 --> 00:23:34.872
+>> Right.
+
+00:23:35.562 --> 00:23:38.412
+And, uh, there's two things I
+want to mention on that note.
+
+00:23:38.412 --> 00:23:42.792
+One is that now with the Haskell
+Foundation, I think there is a push
+
+00:23:42.792 --> 00:23:47.192
+to have some funds available for
+maintainers to do that type of thing.
+
+00:23:47.662 --> 00:23:50.067
+Um, I think this is still in
+the kind of the planning phase.
+
+00:23:50.067 --> 00:23:52.317
+So it may, may happen
+sometime in the future.
+
+00:23:52.377 --> 00:23:53.727
+Uh, that could be a possibility.
+
+00:23:53.787 --> 00:24:00.747
+And then, uh, the Dhall library,
+uh, has a similar setup where they
+
+00:24:00.747 --> 00:24:04.077
+are aware of some problems or some
+things they want to fix or improve.
+
+00:24:04.107 --> 00:24:07.917
+And they will put bounties on those and
+say, this is something that if you're
+
+00:24:07.917 --> 00:24:10.257
+in the community and you're reading
+this and you think you could fix it,
+
+00:24:10.287 --> 00:24:12.807
+we'll pay you X many dollars to do that.
+
+00:24:13.047 --> 00:24:15.797
+Um, which I think could be a good
+approach in this type of situation.
+
+00:24:16.797 --> 00:24:23.997
+Um, okay, well, uh, again, I feel like
+we've covered all the high notes here.
+
+00:24:24.027 --> 00:24:28.977
+Um, I personally would recommend,
+although it's not an actual solution to
+
+00:24:28.977 --> 00:24:33.237
+this problem, the flag that we mentioned
+for the hashable library to randomize
+
+00:24:33.237 --> 00:24:38.532
+the initial seed on program, start if
+it's reasonable for your program to
+
+00:24:38.562 --> 00:24:40.452
+enable that flag, I would suggest it.
+
+00:24:40.512 --> 00:24:44.052
+So that some script kiddy can't
+grab this JSON file and bring
+
+00:24:44.062 --> 00:24:45.192
+your production server down.
+
+00:24:45.822 --> 00:24:51.762
+Um, and then as soon as the Aeson
+library itself is updated with
+
+00:24:51.762 --> 00:24:55.692
+this opaque representation of
+objects, I would recommend anyone
+
+00:24:55.692 --> 00:25:01.202
+who depends on Aeson to, uh, handle
+that change as quickly as possible.
+
+00:25:01.202 --> 00:25:05.067
+So that the community at large can move
+forward and move on from this problem.
+
+00:25:06.117 --> 00:25:06.747
+>> Absolutely.
+
+00:25:07.107 --> 00:25:10.947
+And I would personally like to be
+involved in, in, uh, in fixing this,
+
+00:25:10.977 --> 00:25:17.047
+if I can help, um, or even if anyone is
+interested in funding, a, uh secure from
+
+00:25:17.067 --> 00:25:21.507
+the start library for Aeson in particular,
+uh, for JSON in particular, then I'd
+
+00:25:21.507 --> 00:25:22.647
+be happy to help with that as well.
+
+00:25:23.787 --> 00:25:24.327
+>> All right.
+
+00:25:24.957 --> 00:25:28.167
+Well, um, I think that's
+all that I've got.
+
+00:25:28.317 --> 00:25:29.497
+Any closing thoughts, Syd?
+
+00:25:30.677 --> 00:25:30.957
+>> Nope.
+
+00:25:30.957 --> 00:25:33.632
+It was very interesting to
+be involved in this matter.
+
+00:25:35.862 --> 00:25:36.252
+>> All right.
+
+00:25:36.252 --> 00:25:39.642
+Well, thank you so much for joining
+us on the Haskell Weekly podcast.
+
+00:25:40.152 --> 00:25:44.082
+And, uh, this week as every week,
+we're brought to you by our sponsor
+
+00:25:44.082 --> 00:25:45.702
+and my employer, ACI Learning.
+
+00:25:46.062 --> 00:25:50.692
+If you want to get started in IT
+training, you can go over to ITPro.TV
+
+00:25:50.832 --> 00:25:53.172
+and use promo code HaskellWeekly30.
+
+00:25:53.667 --> 00:25:56.787
+To get 30% off the lifetime
+of your subscription.
+
+00:25:56.967 --> 00:26:00.387
+And if you want to learn more about
+Haskell Weekly, please check out our
+
+00:26:00.387 --> 00:26:03.037
+website, which is HaskellWeekly.News.
+
+00:26:03.457 --> 00:26:04.447
+So thanks again, Syd.
+
+00:26:04.527 --> 00:26:05.697
+And we'll see you next week.
