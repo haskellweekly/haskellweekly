@@ -4,7 +4,9 @@ This is a weekly summary of what's going on in its community.
 
 ## Featured
 
-undefined
+- [Making LLVM GEP safer in Haskell](https://luctielen.com/posts/making_llvm_gep_safer_in_haskell/) by Luc Tielen
+  > In today's article, I will showcase how Haskell's typesystem can be used to simplify code generation and reduce the chance of bugs involving the LLVM getelementptr instruction.
+
 
 ## Jobs
 
