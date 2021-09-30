@@ -9,6 +9,9 @@ This is a weekly summary of what's going on in its community.
 
 ## Jobs
 
+- [Software Engineer at ACI Learning](https://acilearning.applytojob.com/apply/kjzAYJ1SPF/Software-Engineer?referrer=20210930010931J0GSUOJG1BPYT5ED)
+  > We are currently accepting applications for full-stack software professionals to join our small, but talented, multidisciplinary team.
+
 <!-- 2021-08-19 through 2021-10-07 -->
 -   [Senior Haskell developer](https://careers.carboncloud.com/jobs/1293869-senior-haskell-developer) (ad)
     > Do you want to put real climate science in the hands of the public? We are looking for more team members who wants to join us as a senior haskell developer. Let's change the world, together!
