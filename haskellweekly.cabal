@@ -1,7 +1,7 @@
 cabal-version: 2.0
 
 name: haskellweekly
-version: 0.2021.9.27
+version: 0.2021.9.30
 
 build-type: Simple
 category: Web
