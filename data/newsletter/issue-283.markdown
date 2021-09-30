@@ -7,7 +7,6 @@ This is a weekly summary of what's going on in its community.
 - [Making LLVM GEP safer in Haskell](https://luctielen.com/posts/making_llvm_gep_safer_in_haskell/) by Luc Tielen
   > In today's article, I will showcase how Haskell's typesystem can be used to simplify code generation and reduce the chance of bugs involving the LLVM getelementptr instruction.
 
-
 ## Jobs
 
 <!-- 2021-08-19 through 2021-10-07 -->
@@ -34,6 +33,9 @@ undefined
 undefined
 
 ## Call for participation
+
+- [Poll for New Cabal Logo](https://discourse.haskell.org/t/poll-for-new-cabal-logo/3287?u=taylorfausak)
+  > As there are plenty of candidates, it seems that it is a good idea to open a public poll and collect more public opinions to choose a new logo. So, here it goes!
 
 -   The new Our Foundation Task Force is looking for its first team. [This is an opportunity](https://discourse.haskell.org/t/join-the-new-our-foundation-task-force/3333) to help the Haskell Foundation expand its support for the community and at the same time encourage community support for the Foundation. <!-- This news item is valid until October 9, 2021 -->
 
