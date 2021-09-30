@@ -35,6 +35,8 @@ undefined
 
 ## Call for participation
 
+-   The new Our Foundation Task Force is looking for its first team. [This is an opportunity](https://discourse.haskell.org/t/join-the-new-our-foundation-task-force/3333) to help the Haskell Foundation expand its support for the community and at the same time encourage community support for the Foundation. <!-- This news item is valid until October 9, 2021 -->
+
 -   [Jikka: Use the same name in generated code when scopes of variables are distinct](https://github.com/kmyk/Jikka/issues/239)
 -   [LambdaHack: dungeonFlavourMap could be self-documenting](https://github.com/LambdaHack/LambdaHack/issues/274)
 -   [swarm: Add an explicit `noop` command](https://github.com/byorgey/swarm/issues/101)
