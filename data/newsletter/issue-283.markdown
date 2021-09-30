@@ -33,4 +33,6 @@ undefined
 
 ## Call for participation
 
-undefined
+-   [Jikka: Use the same name in generated code when scopes of variables are distinct](https://github.com/kmyk/Jikka/issues/239)
+-   [LambdaHack: dungeonFlavourMap could be self-documenting](https://github.com/LambdaHack/LambdaHack/issues/274)
+-   [swarm: Add an explicit `noop` command](https://github.com/byorgey/swarm/issues/101)
