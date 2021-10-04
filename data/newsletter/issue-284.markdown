@@ -4,7 +4,8 @@ This is a weekly summary of what's going on in its community.
 
 ## Featured
 
-undefined
+- [Haskell series part 5](https://blog.kalvad.com/haskell-series-part-5/) by Pierre Guillemot
+  > This is the fifth article of a series on the functional language Haskell for beginners. In this article we are covering pattern matching and guards.
 
 ## Jobs
 
