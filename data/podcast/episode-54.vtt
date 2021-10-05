@@ -1,0 +1,1369 @@
+WEBVTT
+
+00:00:07.400 --> 00:00:09.860
+>> Hello and welcome to
+the Haskell Weekly podcast.
+
+00:00:10.220 --> 00:00:13.670
+This is a show about Haskell, a purely
+functional programming language.
+
+00:00:13.940 --> 00:00:15.710
+I'm your host, Taylor Fausak.
+
+00:00:15.860 --> 00:00:19.010
+I'm the Director of Software
+Engineering at ACI Learning.
+
+00:00:20.390 --> 00:00:22.500
+>> And I'm here
+today — Cameron Gera.
+
+00:00:22.880 --> 00:00:26.660
+Um, a Senior Software
+Engineer at MotoRefi.
+
+00:00:26.990 --> 00:00:34.220
+So um different, uh, title, um, as uh
+the consistent listeners may know, um,
+
+00:00:34.400 --> 00:00:38.210
+I am a new member of the MotoRefi team.
+
+00:00:38.450 --> 00:00:43.520
+And still very passionate about Haskell,
+and actually using Haskell at MotoRefi.
+
+00:00:44.180 --> 00:00:48.710
+And still very committed to the
+podcast, and being able to just
+
+00:00:48.770 --> 00:00:50.030
+bring this to the community.
+
+00:00:50.460 --> 00:00:53.210
+I think it's been a great
+resource for me to learn.
+
+00:00:53.480 --> 00:00:56.720
+Um, I'm sure I've said wrong
+things, and that's good because
+
+00:00:56.720 --> 00:00:58.730
+I've learned from those bad things.
+
+00:00:58.820 --> 00:01:00.030
+Uh, but yeah.
+
+00:01:00.030 --> 00:01:05.120
+So, you know, this is a awesome — I'm
+glad we're getting back to this.
+
+00:01:05.120 --> 00:01:08.060
+We had an interview last week,
+and then we were off for a week.
+
+00:01:08.060 --> 00:01:12.350
+So I'm glad to kind of — hopefully
+continue this and get back into a rhythm.
+
+00:01:12.800 --> 00:01:17.780
+Um, but, yeah, so — I mean,
+I guess enough about me.
+
+00:01:17.780 --> 00:01:20.180
+I guess, we'll — we'll jump
+right in to today's topic.
+
+00:01:20.210 --> 00:01:23.170
+Uh, it is from issued 283.
+
+00:01:23.510 --> 00:01:24.920
+Um, I believe.
+
+00:01:24.950 --> 00:01:27.190
+If I'm wrong, I'm sorry Taylor.
+
+00:01:27.650 --> 00:01:28.390
+>> sounds right to me.
+
+00:01:28.870 --> 00:01:29.490
+>> Um, Cool.
+
+00:01:29.810 --> 00:01:33.800
+Yeah, I've only gone to the website a few
+times this week to check out the issues.
+
+00:01:34.220 --> 00:01:40.610
+Um, but we're going to be talking about
+uh, a post by Drew Olson, who is the, uh,
+
+00:01:40.940 --> 00:01:43.760
+lead — er, chief architect at GoFundMe.
+
+00:01:43.910 --> 00:01:50.750
+Um, and he created a blog post just about,
+uh, looping in Haskell and he called it,
+
+00:01:51.280 --> 00:01:53.920
+very originally, adventures in looping.
+
+00:01:53.950 --> 00:01:56.660
+So going to talk a lot about that today.
+
+00:01:57.050 --> 00:01:57.560
+I guess.
+
+00:01:58.400 --> 00:01:59.030
+Not forever.
+
+00:01:59.090 --> 00:01:59.720
+We promise.
+
+00:02:00.380 --> 00:02:00.710
+But yeah.
+
+00:02:01.420 --> 00:02:02.770
+Anyways Taylor, take — take it away.
+
+00:02:02.970 --> 00:02:04.100
+What — what's this all about?
+
+00:02:04.310 --> 00:02:07.340
+>> We'll try not to get stuck
+in an infinite loop while we're
+
+00:02:07.340 --> 00:02:08.630
+talking about this blog post.
+
+00:02:09.710 --> 00:02:14.660
+Um, yeah, so this is an interesting one
+because in most programming languages,
+
+00:02:15.020 --> 00:02:16.850
+looping is built into the language.
+
+00:02:16.880 --> 00:02:21.290
+You have a while loop or a for
+loop or a do while, or goto even.
+
+00:02:21.380 --> 00:02:25.400
+Um, but in Haskell we don't have
+something like that built in.
+
+00:02:25.460 --> 00:02:27.290
+So you have to do it yourself.
+
+00:02:27.650 --> 00:02:33.620
+And the particular problem that this
+blog post is approaching is: what happens
+
+00:02:33.620 --> 00:02:37.760
+when you're in a loop and you want to
+break out of it, but only sometimes.
+
+00:02:37.820 --> 00:02:42.650
+So in a normal procedural language,
+inside of let's say a while loop,
+
+00:02:42.710 --> 00:02:48.260
+you might use break to say: just get
+me out of this entire loop and we'll
+
+00:02:48.260 --> 00:02:50.300
+continue on with whatever goes after it.
+
+00:02:50.870 --> 00:02:55.490
+Um, that turns out to be, I'm not
+going to call it hard, but there's no
+
+00:02:55.490 --> 00:02:57.050
+built-in support for that in Haskell.
+
+00:02:57.050 --> 00:02:59.570
+So you have to choose: how
+do you want to do that?
+
+00:02:59.660 --> 00:03:03.140
+And that's exactly what
+this post, uh, looks at.
+
+00:03:03.920 --> 00:03:08.270
+So the first step of it is
+just, how do you loop at all?
+
+00:03:08.330 --> 00:03:11.660
+And anybody that's written Haskell
+knows that you're going to do either:
+
+00:03:12.050 --> 00:03:15.920
+manual recursion, where you have a
+function that calls itself when it's
+
+00:03:15.920 --> 00:03:17.600
+done, and then you start over at the top.
+
+00:03:17.960 --> 00:03:22.250
+Or you use something that does
+that for you, and the typical
+
+00:03:22.250 --> 00:03:27.380
+example is from Control.Monad  and
+it is the forever function.
+
+00:03:27.860 --> 00:03:32.450
+Where you pass it an action, and it will
+do that action, and then do it again,
+
+00:03:32.660 --> 00:03:35.480
+and then do it again, and keep doing it.
+
+00:03:36.130 --> 00:03:37.320
+>> Forever?
+
+00:03:38.930 --> 00:03:39.560
+>> You got it.
+
+00:03:39.650 --> 00:03:40.700
+Forever and ever.
+
+00:03:41.060 --> 00:03:42.720
+>> Hmm, that's a good
+function name, I guess.
+
+00:03:42.810 --> 00:03:44.060
+It, uh, makes a lot of sense.
+
+00:03:44.660 --> 00:03:44.990
+>> Yeah.
+
+00:03:45.740 --> 00:03:47.570
+Um, so that's what he starts with.
+
+00:03:47.630 --> 00:03:51.380
+Um, but he pretty quickly runs into
+a problem with that Right, Cam?
+
+00:03:51.410 --> 00:03:54.530
+Where he says forever, but he
+doesn't really mean forever.
+
+00:03:54.530 --> 00:03:55.700
+He actually wants to get out of there.
+
+00:03:56.660 --> 00:03:58.570
+>> Well, he meant
+forever in the beginning.
+
+00:03:59.200 --> 00:04:02.090
+he realized that
+connections aren't forever.
+
+00:04:02.600 --> 00:04:07.790
+Um, and so there he was running into
+some issues and got some unexpected,
+
+00:04:08.060 --> 00:04:13.400
+um, return messages while he was trying
+to create a Slack bot, um, in Haskell.
+
+00:04:13.400 --> 00:04:18.350
+So, you know, he had great intentions
+and he was doing everything he could, and
+
+00:04:18.350 --> 00:04:25.350
+then he was like: oh wait, my connection
+to Slack can get disconnected and Slack
+
+00:04:25.350 --> 00:04:26.540
+is going to actually tell me about that.
+
+00:04:27.050 --> 00:04:29.690
+Um, and we'll get a disconnect message.
+
+00:04:30.620 --> 00:04:35.210
+And so he was getting run — you
+know, exceptions thrown, um, because
+
+00:04:35.330 --> 00:04:36.640
+it wasn't a valid message type.
+
+00:04:37.050 --> 00:04:38.090
+Wasn't listening for it.
+
+00:04:38.480 --> 00:04:39.530
+Was not exhaustive.
+
+00:04:40.040 --> 00:04:43.900
+Um, well, I don't know, I — I'm
+not sure what he did with that.
+
+00:04:43.900 --> 00:04:44.990
+He didn't really talk about it.
+
+00:04:45.440 --> 00:04:51.590
+Uh, but, you know, anyways, he,
+you know, needed to find a way to
+
+00:04:51.620 --> 00:04:58.580
+re — make the connection fresh again,
+um, without, uh, just like — don't
+
+00:04:58.580 --> 00:05:02.030
+know, doing another set of looping.
+
+00:05:02.300 --> 00:05:04.130
+Whether it be recursion or forever.
+
+00:05:04.520 --> 00:05:08.300
+Um, so he kind of had — had
+to rethink that a little bit.
+
+00:05:08.720 --> 00:05:13.820
+Um, you know, and I don't think
+there's — I think there's a couple
+
+00:05:13.850 --> 00:05:15.230
+ways he could have done this.
+
+00:05:15.320 --> 00:05:19.070
+Uh, as far as, like: how does he fix this?
+
+00:05:19.070 --> 00:05:21.910
+Does he go to a manual recursion process?
+
+00:05:22.000 --> 00:05:31.440
+Um, does he choose to, uh — I mean, I feel
+like manual recursion is probably like
+
+00:05:31.460 --> 00:05:33.220
+the quickest one for somebody to reach to.
+
+00:05:33.260 --> 00:05:40.340
+Like if I get the disconnect, let me throw
+— you know, do nothing and make the — my,
+
+00:05:40.760 --> 00:05:42.930
+whatever forever loop I'm in restart.
+
+00:05:43.480 --> 00:05:46.490
+>> And that's actually
+what he reaches for first.
+
+00:05:46.520 --> 00:05:46.910
+Right?
+
+00:05:47.180 --> 00:05:49.280
+He breaks this inner loop.
+
+00:05:49.340 --> 00:05:52.070
+Because as you mentioned,
+he now has two loops.
+
+00:05:52.610 --> 00:05:55.400
+He has the outer one that sets
+up this connection and then the
+
+00:05:55.400 --> 00:05:59.060
+inner one, that handles messages
+that come on that connection.
+
+00:05:59.540 --> 00:06:02.780
+And occasionally you get a message
+that will tell you to disconnect.
+
+00:06:02.810 --> 00:06:07.850
+So you break out of that loop and go
+around your outer loop again and start
+
+00:06:07.850 --> 00:06:10.730
+collecting, or start a new connection
+and start collecting messages on it.
+
+00:06:11.270 --> 00:06:16.760
+So, what he did was for that inner
+loop, he broke that out into a separate
+
+00:06:16.760 --> 00:06:22.670
+function where most of the cases end up
+calling that same function again to loop.
+
+00:06:23.030 --> 00:06:27.350
+But one of the cases, the one that tells
+you to disconnect does nothing instead.
+
+00:06:27.380 --> 00:06:31.460
+So that is effectively breaking the loop
+and then the outer loop can continue.
+
+00:06:31.970 --> 00:06:36.620
+So, like you said, I think that's a
+pretty, um, unsurprising approach to this.
+
+00:06:36.620 --> 00:06:40.310
+So it's natural that that seems to be
+the first thing that he reached for.
+
+00:06:42.020 --> 00:06:42.410
+>> Yeah.
+
+00:06:42.560 --> 00:06:48.650
+And while it's clear what's happening,
+there's some repetitive code there, right?
+
+00:06:48.650 --> 00:06:52.120
+Because you're calling — anything
+with with recursion, you know,
+
+00:06:52.150 --> 00:06:53.060
+it's going to call itself.
+
+00:06:53.060 --> 00:06:57.470
+And the fact that his type he
+was using had two successful
+
+00:06:57.470 --> 00:06:59.150
+cases and one failure case.
+
+00:07:00.080 --> 00:07:05.810
+It was, know, having — you could
+loop from two different places.
+
+00:07:05.870 --> 00:07:10.280
+Which isn't bad, but, you know,
+there's gotta be a better way.
+
+00:07:10.730 --> 00:07:15.290
+Uh, and so, you know, he also takes some
+time to talk about the forever function.
+
+00:07:15.620 --> 00:07:21.380
+Um, it actually is — can work
+with anything that is applicative.
+
+00:07:21.950 --> 00:07:29.030
+And the — really what happens is it
+says: okay, hey, I'm not going to care
+
+00:07:29.030 --> 00:07:32.840
+about what happens on the right side.
+
+00:07:33.750 --> 00:07:35.360
+Or, well left I guess.
+
+00:07:35.870 --> 00:07:38.510
+And I'm going to — yeah, the first thing
+I'm going to execute the second thing.
+
+00:07:38.510 --> 00:07:41.560
+And how it, like, recurses.
+
+00:07:41.750 --> 00:07:42.350
+All the time.
+
+00:07:42.890 --> 00:07:45.740
+Um, So it really just calls itself.
+
+00:07:46.850 --> 00:07:47.060
+>> Yeah.
+
+00:07:47.060 --> 00:07:50.300
+And actually he points out
+that this is — and you said it
+
+00:07:50.300 --> 00:07:52.040
+can work on any applicative.
+
+00:07:52.160 --> 00:07:54.220
+It doesn't actually require a monad.
+
+00:07:54.830 --> 00:07:59.660
+And that is telling because with
+applicatives you can't make a choice
+
+00:07:59.690 --> 00:08:01.550
+based on what the previous result was.
+
+00:08:01.580 --> 00:08:04.970
+That's not a power that the
+applicative type class gives you.
+
+00:08:05.450 --> 00:08:08.300
+So the type signature tells
+you that it can't depend on
+
+00:08:08.300 --> 00:08:09.320
+the result of the first thing.
+
+00:08:09.320 --> 00:08:11.630
+Whereas if it was a monad,
+it could depend on that.
+
+00:08:11.630 --> 00:08:15.170
+Cause that's the thing that
+monad adds on top of applicative.
+
+00:08:15.470 --> 00:08:16.910
+Anyway, I just thought
+that was worth noting.
+
+00:08:17.870 --> 00:08:18.830
+>> No, I think that's great.
+
+00:08:18.830 --> 00:08:19.100
+Yeah.
+
+00:08:19.520 --> 00:08:22.130
+And, um, yeah.
+
+00:08:22.130 --> 00:08:25.520
+So he kind of talks more about the
+forever function and what that means.
+
+00:08:25.520 --> 00:08:30.950
+And, um, you know, just kind of laying
+the groundwork for and explaining
+
+00:08:30.980 --> 00:08:33.140
+what the forever function uses.
+
+00:08:33.560 --> 00:08:41.750
+Um, but with this function, it
+has, with the applicative star, um,
+
+00:08:42.500 --> 00:08:43.370
+>> Star greater than?
+
+00:08:44.120 --> 00:08:44.480
+>> Yeah.
+
+00:08:44.870 --> 00:08:49.550
+Um, that function, or that
+operator, um, will short
+
+00:08:49.550 --> 00:08:52.400
+circuit if something, um, fails.
+
+00:08:52.430 --> 00:08:56.110
+And so, you know, think about
+this working with applicatives.
+
+00:08:56.350 --> 00:08:58.340
+And, you know, also the maybe monad.
+
+00:08:58.340 --> 00:09:01.970
+Like that — you can kind of play
+around with that and see what happens.
+
+00:09:01.970 --> 00:09:05.640
+Where you can say: okay, hey,
+I got, um, you know — I have a
+
+00:09:05.660 --> 00:09:07.190
+nothing value and a just value.
+
+00:09:08.450 --> 00:09:09.710
+You know, and then
+followed by a just value.
+
+00:09:09.800 --> 00:09:12.440
+Well, it's going to short circuit
+and say: oh, you got, you gave
+
+00:09:12.470 --> 00:09:13.760
+me a nothing in this first case.
+
+00:09:14.270 --> 00:09:15.380
+We're done here.
+
+00:09:15.380 --> 00:09:17.960
+I can't, uh, I won't
+evaluate anything else.
+
+00:09:18.080 --> 00:09:18.410
+>> Right.
+
+00:09:18.440 --> 00:09:20.240
+It doesn't matter what's on the right.
+
+00:09:20.360 --> 00:09:24.410
+As soon as you hit a nothing, that's what
+the whole thing is going to evaluate to.
+
+00:09:24.650 --> 00:09:26.720
+I like to think of it — you said
+short circuit, that makes me
+
+00:09:26.720 --> 00:09:28.490
+think of boolean expressions.
+
+00:09:28.790 --> 00:09:33.200
+Where if you and a bunch of things
+together, as soon as you get a false,
+
+00:09:33.260 --> 00:09:36.020
+it doesn't matter what all the other
+stuff is, it's going to be false.
+
+00:09:36.050 --> 00:09:39.110
+So there's no sense to evaluate
+That's how I think about this one.
+
+00:09:40.490 --> 00:09:41.120
+>> Yeah, yeah.
+
+00:09:41.750 --> 00:09:42.440
+I think it's good.
+
+00:09:42.740 --> 00:09:46.610
+And, you know, I think, you know, when,
+when we were thinking about what we want
+
+00:09:46.610 --> 00:09:53.480
+to talk about today, in the podcast — this
+one, this article stuck out to me because,
+
+00:09:53.870 --> 00:09:58.950
+you know, I'm — you know, as I'm starting
+a new role, we have a greenfield project
+
+00:09:58.970 --> 00:10:02.210
+we're doing, and we're going to be doing
+some, some listening for some events.
+
+00:10:02.300 --> 00:10:06.120
+And so, you know, I'm going to
+expect my service to continually
+
+00:10:06.170 --> 00:10:07.310
+look for something new.
+
+00:10:07.610 --> 00:10:11.000
+And if there's nothing, it
+can just wait and try again.
+
+00:10:11.000 --> 00:10:14.600
+And so, you know, I'm not sure yet
+if there's going to be something that
+
+00:10:15.020 --> 00:10:20.900
+may need to be short-circuited or,
+you know, evaluate, er — um, kind of
+
+00:10:20.960 --> 00:10:22.970
+reconnect to something more or less.
+
+00:10:23.290 --> 00:10:24.770
+Um, as this example is showing.
+
+00:10:24.770 --> 00:10:28.490
+But you know it kinda gave me that
+refresher on, you know, what forever
+
+00:10:28.550 --> 00:10:30.320
+was doing and, and how it worked.
+
+00:10:30.320 --> 00:10:35.240
+And, um, you know, gave me some, some
+tips and tricks as I'm, you know,
+
+00:10:35.300 --> 00:10:39.230
+bringing — introducing this function,
+as well as probably explaining and
+
+00:10:39.230 --> 00:10:41.400
+working with the team on this function.
+
+00:10:42.160 --> 00:10:46.730
+And so, know, that was kind of a side
+note, but that's one of the reasons
+
+00:10:46.730 --> 00:10:50.180
+that I was motivated to kind of
+talk about this today a little bit.
+
+00:10:50.870 --> 00:10:52.720
+Um, But yeah, so.
+
+00:10:53.090 --> 00:10:57.770
+We talked about how applicative — or how,
+the forever function works with maybes.
+
+00:10:57.800 --> 00:11:03.170
+Or really the asterisk greater than sign
+that's from applicative talked about that.
+
+00:11:03.530 --> 00:11:10.460
+But, um, he doesn't, er — Drew
+doesn't just kind of stop there.
+
+00:11:10.620 --> 00:11:14.450
+He says, well, you know, there's
+something, you know, my, our experience
+
+00:11:14.480 --> 00:11:19.050
+at ITPro as well was, you know,
+using this other thing called MaybeT.
+
+00:11:20.300 --> 00:11:25.010
+So the trans — the maybe, uh,
+maybe transformer monad, right?
+
+00:11:25.310 --> 00:11:26.410
+Is that what that stands for?
+
+00:11:26.540 --> 00:11:26.720
+>> Yeah.
+
+00:11:26.750 --> 00:11:30.530
+Normally, if there's a T at the
+end of a type name that suggests
+
+00:11:30.530 --> 00:11:32.270
+that it is a monad transformer.
+
+00:11:33.590 --> 00:11:33.980
+>> Right.
+
+00:11:34.340 --> 00:11:38.810
+And so, you know, he kinda goes
+into this to kind of give you the,
+
+00:11:39.230 --> 00:11:41.270
+um — help you be in the monadic state.
+
+00:11:41.540 --> 00:11:44.420
+Um, for this evaluation.
+
+00:11:44.930 --> 00:11:45.260
+>> Yeah.
+
+00:11:45.410 --> 00:11:48.680
+And like him, I don't think we
+need to go into a full explanation
+
+00:11:48.680 --> 00:11:50.030
+of what monad transformers are.
+
+00:11:50.060 --> 00:11:51.440
+That's a little bit out of scope here.
+
+00:11:51.830 --> 00:11:58.010
+But the quick and dirty explanation is
+that: the monad transformer lets you add
+
+00:11:58.310 --> 00:12:03.320
+another capability to your monad stack,
+or whatever context you're operating in.
+
+00:12:03.350 --> 00:12:08.720
+So with MaybeT that means, in addition
+to whatever you're doing, whatever else
+
+00:12:08.720 --> 00:12:11.780
+you're doing, you can express optionality.
+
+00:12:11.780 --> 00:12:13.880
+Something either will be
+there or won't be there.
+
+00:12:14.330 --> 00:12:18.680
+And for MaybeT, it does that behavior
+we were talking about earlier, where as
+
+00:12:18.680 --> 00:12:21.380
+soon as you get a nothing, it will stop.
+
+00:12:22.040 --> 00:12:25.160
+And that sounds really appealing,
+cause that's what we want
+
+00:12:25.160 --> 00:12:26.570
+to do here inside this loop.
+
+00:12:28.980 --> 00:12:32.740
+>> Yup, and so, you
+know, kind of, as he, you know,
+
+00:12:32.740 --> 00:12:33.950
+explains that a little bit.
+
+00:12:34.490 --> 00:12:36.080
+Without going into too much detail.
+
+00:12:36.440 --> 00:12:40.830
+Uh, you know, he just kind of
+said, you know, here's some
+
+00:12:40.850 --> 00:12:42.020
+examples of using MaybeT.
+
+00:12:42.980 --> 00:12:47.990
+You know, contrived, simple
+to understand, um, things.
+
+00:12:47.990 --> 00:12:51.140
+And I'm not going to read them
+out loud because reading code on a
+
+00:12:51.140 --> 00:12:53.270
+podcast just doesn't sound like fun.
+
+00:12:53.690 --> 00:12:59.630
+But, you know, the long and short
+of it is: with MaybeT there's a way
+
+00:12:59.630 --> 00:13:01.550
+to short circuit a forever loop.
+
+00:13:03.350 --> 00:13:03.710
+>> Yeah.
+
+00:13:03.920 --> 00:13:09.170
+And it's a handy little function that
+is actually polymorphic, but in this
+
+00:13:09.170 --> 00:13:15.080
+case: mzero will break you out of
+whatever loop, if you're in a loop.
+
+00:13:15.170 --> 00:13:17.600
+Or break you out of
+your MaybeT transformer.
+
+00:13:17.630 --> 00:13:21.530
+Or stop your maybe uh do
+block or whatever it is.
+
+00:13:22.370 --> 00:13:26.690
+And the name isn't super
+evocative in the same way that
+
+00:13:26.690 --> 00:13:28.850
+forever is as a function name.
+
+00:13:28.970 --> 00:13:33.140
+So you may want to, if this is something
+you do frequently in your code base, you
+
+00:13:33.140 --> 00:13:38.270
+may want to provide an alias for it and
+call it exit or break or get me the heck
+
+00:13:38.270 --> 00:13:40.670
+out of here or whatever you want to call I
+
+00:13:41.360 --> 00:13:42.200
+>> Or just don't.
+
+00:13:42.510 --> 00:13:46.850
+You we have like, do notation
+and then there's don't notation.
+
+00:13:47.030 --> 00:13:47.510
+>> Yeah.
+
+00:13:47.540 --> 00:13:50.660
+>> You know, those are, those are
+fun things to, uh, to work together.
+
+00:13:51.050 --> 00:13:54.680
+>> But mzero does exactly
+what we were discussing earlier of:
+
+00:13:54.920 --> 00:13:59.790
+if you're in MaybeT, and in this
+instance it's IO, so MaybeT IO.
+
+00:14:00.440 --> 00:14:04.370
+mzero will work like break
+and short circuit and stop and
+
+00:14:04.370 --> 00:14:05.600
+not do any of the other stuff.
+
+00:14:05.630 --> 00:14:09.500
+So if you're inside forever, and
+you do a bunch of things, and then
+
+00:14:09.500 --> 00:14:11.770
+one of your branches says mzero.
+
+00:14:12.500 --> 00:14:15.590
+When it hits that branch, it's going to
+break out of that loop, which is exactly
+
+00:14:15.590 --> 00:14:17.180
+the behavior he was looking for here.
+
+00:14:18.020 --> 00:14:20.060
+>> Yeah, I just, I just see it like.
+
+00:14:20.540 --> 00:14:21.560
+Every time this happens.
+
+00:14:21.560 --> 00:14:25.160
+It just like bust out into like
+some high school musical song that.
+
+00:14:25.220 --> 00:14:29.210
+I like breaking free
+or something like that.
+
+00:14:30.200 --> 00:14:35.260
+Uh, but yeah, so that really
+honestly wraps up the blog post.
+
+00:14:35.580 --> 00:14:42.380
+I did want to kind of, uh, reach and kind
+of talk more about maybe some of the other
+
+00:14:42.380 --> 00:14:45.750
+looping, um, options that are out there.
+
+00:14:46.110 --> 00:14:49.010
+You know, I know, at
+ITPro we've used a few.
+
+00:14:49.460 --> 00:14:52.370
+And, you know, I was just kind
+of curious maybe what some of the
+
+00:14:52.370 --> 00:14:53.960
+pros and benefits were to that.
+
+00:14:54.380 --> 00:14:56.960
+And keep it short and simple because,
+you know, we don't want to keep these
+
+00:14:56.960 --> 00:14:58.370
+people in an infinite loop forever.
+
+00:14:59.840 --> 00:15:02.990
+>> So I think the MaybeT
+approach is a good one.
+
+00:15:03.350 --> 00:15:10.340
+And in this blog post Drew links to
+another blog post by Gabriella Gonzales.
+
+00:15:10.460 --> 00:15:15.710
+And in that post, uh, it talks
+about MaybeT, but it also talks
+
+00:15:15.710 --> 00:15:19.400
+about EitherT, which is the
+monad transformer for eithers.
+
+00:15:19.490 --> 00:15:22.940
+And that can do the same thing,
+will it — where it will short
+
+00:15:22.940 --> 00:15:27.170
+circuit and stop as soon as it
+hits a left instead of a nothing.
+
+00:15:28.160 --> 00:15:32.210
+And that can be useful if you
+have a program that normally
+
+00:15:32.270 --> 00:15:36.770
+loops, and when it stops looping
+you need to know why it stopped.
+
+00:15:36.770 --> 00:15:38.420
+Or you want to communicate
+something like that.
+
+00:15:38.420 --> 00:15:41.600
+So imagine that there was
+like a disconnect message that
+
+00:15:41.600 --> 00:15:43.010
+you may hear that's expected.
+
+00:15:43.040 --> 00:15:47.900
+But then maybe there's also like a
+disconnect with some extra metadata, or
+
+00:15:47.900 --> 00:15:50.210
+maybe like a crash or something like that.
+
+00:15:50.600 --> 00:15:55.850
+And you want to communicate back the
+manner in which you stopped looping.
+
+00:15:56.000 --> 00:15:57.780
+That's when you might need
+something like EitherT.
+
+00:15:58.970 --> 00:15:59.450
+>> Gotcha.
+
+00:15:59.510 --> 00:15:59.900
+Okay.
+
+00:16:00.320 --> 00:16:03.920
+>> But fundamentally — fundamentally
+the two approaches are the same.
+
+00:16:03.920 --> 00:16:07.850
+Where it takes advantage of this
+short-circuiting behavior to
+
+00:16:08.600 --> 00:16:10.460
+stop in certain circumstances.
+
+00:16:10.970 --> 00:16:14.270
+Um, and in terms of other approaches,
+I wanted to loop back to the first
+
+00:16:14.270 --> 00:16:18.530
+one we talked about, which is manually
+recursing by pulling out a function
+
+00:16:18.530 --> 00:16:22.730
+definition and calling yourself so
+that you do that uh loop yourself.
+
+00:16:22.760 --> 00:16:24.350
+And then in some branches not doing that.
+
+00:16:25.100 --> 00:16:29.030
+That's often the one that I reach
+for when I end up in this situation.
+
+00:16:29.270 --> 00:16:35.270
+And I can recognize that it's not very,
+um — it's not a very good approach.
+
+00:16:35.300 --> 00:16:36.080
+It's not like
+
+00:16:36.710 --> 00:16:37.490
+—
+Yeah, not fancy.
+
+00:16:37.490 --> 00:16:38.090
+It's not nice.
+
+00:16:38.330 --> 00:16:39.980
+But it works.
+
+00:16:39.980 --> 00:16:41.840
+And you don't really
+have to think about it.
+
+00:16:41.840 --> 00:16:44.720
+And it makes tracing
+execution a lot clearer.
+
+00:16:44.750 --> 00:16:47.850
+And you don't have to pull in
+monad transformers and potentially
+
+00:16:47.960 --> 00:16:49.010
+— potentially explain them.
+
+00:16:49.820 --> 00:16:54.800
+And I feel like this circumstance
+doesn't actually come up that often,
+
+00:16:54.830 --> 00:16:56.600
+in the code that I write at least.
+
+00:16:56.690 --> 00:17:00.200
+Where I have some infinite loop that
+I sometimes need to break out of.
+
+00:17:00.410 --> 00:17:02.810
+Usually when I have an infinite
+loop, it's actually infinite.
+
+00:17:03.140 --> 00:17:08.180
+Or, um, you know, the one or two places
+in my entire application where I need
+
+00:17:08.180 --> 00:17:12.260
+to do this type of looping, it's fine
+to write that recursion manually.
+
+00:17:13.550 --> 00:17:16.010
+>> I don't even know what to add
+to that, but yes, well said, Taylor.
+
+00:17:16.100 --> 00:17:17.460
+That's, that's really what
+I've got to say there.
+
+00:17:17.840 --> 00:17:22.460
+>> Um, and then I wanted to mention:
+for IO and for many other monads,
+
+00:17:22.460 --> 00:17:24.020
+I think there is another approach.
+
+00:17:24.050 --> 00:17:25.580
+Which is to use exceptions.
+
+00:17:26.330 --> 00:17:31.110
+And this is maybe a little less satisfying
+than the MaybeT or EitherT approach..
+
+00:17:31.140 --> 00:17:34.400
+But what you can do is
+have your forever loop.
+
+00:17:34.880 --> 00:17:38.720
+And then wrap that in
+something that catches a like
+
+00:17:39.320 --> 00:17:41.180
+early termination exception.
+
+00:17:41.900 --> 00:17:43.940
+Which is some data type
+that you can write.
+
+00:17:44.480 --> 00:17:48.380
+And then in the branches where
+you want to end early, where you
+
+00:17:48.380 --> 00:17:52.280
+would call mzero or where you would
+not call that recursive function.
+
+00:17:52.670 --> 00:17:55.670
+Instead, you can say throw
+early termination exception.
+
+00:17:56.210 --> 00:18:00.770
+And that will break out of
+the forever loop and be caught
+
+00:18:00.770 --> 00:18:01.970
+by that exception handler.
+
+00:18:02.030 --> 00:18:06.170
+And then that exception handler
+probably will just do nothing with that.
+
+00:18:06.950 --> 00:18:09.920
+And then it'll continue, you know,
+with whatever else is going on.
+
+00:18:09.980 --> 00:18:15.560
+So, uh, I think practically the end
+result is the same as MaybeT or EitherT.
+
+00:18:16.130 --> 00:18:19.400
+But it gets to use machinery
+that you probably are more
+
+00:18:19.400 --> 00:18:22.970
+used to from other contexts, of
+throwing and catching exceptions.
+
+00:18:24.800 --> 00:18:27.800
+>> Yeah, and I feel like it
+could to give you more information.
+
+00:18:28.370 --> 00:18:30.470
+If you had, you know,
+like, hey this failed.
+
+00:18:31.130 --> 00:18:33.590
+We're terminating you this
+because of X, Y, or Z.
+
+00:18:34.400 --> 00:18:34.760
+>> Yeah.
+
+00:18:35.450 --> 00:18:38.240
+That's like the EitherT cause
+EitherT can communicate the
+
+00:18:38.240 --> 00:18:40.040
+exact same amount of information.
+
+00:18:40.100 --> 00:18:41.480
+It's just in a little bit different way.
+
+00:18:41.960 --> 00:18:47.900
+And I think if you're already in IO or
+something that can throw exceptions.
+
+00:18:48.440 --> 00:18:50.150
+You might want to go the exception route.
+
+00:18:50.540 --> 00:18:55.880
+But if you're in a pure monad, something
+that can't throw exceptions, or you
+
+00:18:55.880 --> 00:19:00.080
+don't want to for whatever reason,
+then MaybeT or EitherT are good ones.
+
+00:19:02.360 --> 00:19:06.860
+And I'm sure there are more
+approaches to this problem, but
+
+00:19:06.860 --> 00:19:08.090
+those are the ones that I'm aware of.
+
+00:19:08.090 --> 00:19:10.970
+And those are the ones that I would
+reach for in this circumstance.
+
+00:19:12.200 --> 00:19:13.280
+>> Awesome, well yeah.
+
+00:19:13.430 --> 00:19:17.040
+And I think that really does
+it for the podcast this week.
+
+00:19:17.420 --> 00:19:17.750
+>> Short and
+
+00:19:18.130 --> 00:19:19.410
+—
+>> Short and sweet.
+
+00:19:19.840 --> 00:19:21.920
+Kind of uh probably a breath
+of fresh air for most people.
+
+00:19:21.920 --> 00:19:26.430
+We've rather long lengthy conversations
+the last, uh, three or four episodes.
+
+00:19:26.450 --> 00:19:29.750
+So you know let you guys
+get back to your day.
+
+00:19:30.200 --> 00:19:30.710
+Um, but yeah.
+
+00:19:30.740 --> 00:19:32.870
+Thank you for listening to
+the Haskell Weekly podcast.
+
+00:19:33.200 --> 00:19:36.340
+Um, I've been one of
+your hosts, Cameron Gera.
+
+00:19:36.620 --> 00:19:40.820
+And uh, if you have more interest
+in, maybe what's out there for
+
+00:19:40.820 --> 00:19:42.380
+Haskell Weekly you can follow us.
+
+00:19:42.690 --> 00:19:43.900
+At — uh, on Twitter.
+
+00:19:44.660 --> 00:19:47.120
+And any other social platform maybe.
+
+00:19:47.630 --> 00:19:48.740
+Just call Taylor, really.
+
+00:19:48.740 --> 00:19:49.580
+That's all you gotta do.
+
+00:19:49.970 --> 00:19:51.110
+Google him you'll find him.
+
+00:19:52.040 --> 00:19:52.970
+Uh, but yeah.
+
+00:19:53.280 --> 00:19:56.690
+Haskell, uh — on Twitter we're
+@HaskellWeekly, or you can visit us
+
+00:19:56.690 --> 00:19:59.140
+on the website at HaskellWeekly.News.
+
+00:19:59.500 --> 00:20:03.620
+And that's where you can find all
+the up-to-date information on Haskell
+
+00:20:03.620 --> 00:20:04.820
+and what's going on with community.
+
+00:20:05.090 --> 00:20:06.170
+So please check it out.
+
+00:20:07.190 --> 00:20:11.150
+>> This week as every week, we
+are brought to you, sadly, not by our
+
+00:20:11.150 --> 00:20:15.890
+employer anymore, but by my employer,
+ITProTV, an ACI Learning company.
+
+00:20:16.520 --> 00:20:20.630
+And they would love to extend
+to you and offer for 30% off the
+
+00:20:20.630 --> 00:20:22.490
+lifetime of your subscription.
+
+00:20:22.610 --> 00:20:30.890
+Just head over to ITPro.TV and type in
+uh promo code HaskellWeekly30 to get 30%
+
+00:20:30.890 --> 00:20:32.960
+off the lifetime of your subscription.
+
+00:20:33.860 --> 00:20:35.210
+>> Wow.
+
+00:20:37.370 --> 00:20:40.520
+>> And Cam, I didn't get to say
+it at the top, but congratulations
+
+00:20:40.520 --> 00:20:42.440
+on your new gig at MotoRefi.
+
+00:20:42.650 --> 00:20:43.520
+Super exciting.
+
+00:20:43.520 --> 00:20:47.270
+And I'm looking forward to our future
+conversations about how we use Haskell
+
+00:20:47.270 --> 00:20:49.400
+here versus how you use Haskell there.
+
+00:20:49.460 --> 00:20:51.440
+Think it's some good stuff
+in the — in our future.
+
+00:20:52.250 --> 00:20:53.150
+>> Oh, yeah.
+
+00:20:53.520 --> 00:20:54.470
+Let the debates begin.
+
+00:20:55.280 --> 00:20:55.700
+Just kidding.
+
+00:20:56.330 --> 00:20:57.050
+>> But for now
+
+00:20:57.200 --> 00:20:58.070
+—
+>> By Taylor every time.
+
+00:20:58.070 --> 00:20:58.700
+you guys
+
+00:20:59.980 --> 00:21:01.190
+>> Not so sure that.
+
+00:21:01.430 --> 00:21:02.360
+For now that'll do it.
+
+00:21:02.420 --> 00:21:04.100
+And, uh, we'll see you next week.

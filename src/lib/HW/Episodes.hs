@@ -83,6 +83,7 @@ episodes = do
     , episode51
     , episode52
     , episode53
+    , episode54
     ]
   checkGuids validEpisodes Set.empty
   checkNumbers validEpisodes 1
@@ -910,3 +911,16 @@ episode53 = Episode.Episode
   <*> Size.fromNatural 31453184
   <*> Summary.fromText "Special guest Tom Sydney Kerckhove talks with Taylor Fausak about a denial of service vulnerability in Aeson, a Haskell library for JSON."
   <*> Title.fromText "Hash Flooding Aeson"
+
+episode54 :: Either String Episode.Episode
+episode54 = Episode.Episode
+  <$> Articles.fromList
+    [ "https://blog.drewolson.org/adventures-in-looping"
+    ]
+  <*> Date.fromGregorian 2021 10 4
+  <*> Duration.fromTimestamp 21 11
+  <*> Guid.fromText "485c164a-f0a2-4afb-81a9-13c269aa723b"
+  <*> Number.fromNatural 54
+  <*> Size.fromNatural 25418233
+  <*> Summary.fromText "Cameron Gera and Taylor Fausak discuss Drew Olson's adventures in looping. What should you do if you want to loop forever, but break out of the loop early sometimes?"
+  <*> Title.fromText "Loop Breaker"
