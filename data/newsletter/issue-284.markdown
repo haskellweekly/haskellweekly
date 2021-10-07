@@ -7,6 +7,9 @@ This is a weekly summary of what's going on in its community.
 - [Haskell series part 5](https://blog.kalvad.com/haskell-series-part-5/) by Pierre Guillemot
   > This is the fifth article of a series on the functional language Haskell for beginners. In this article we are covering pattern matching and guards.
 
+- [Tuple Prelude](https://vitez.me/tuple-prelude) by Mitchell Vitez
+  > A Template Haskell Adventure
+
 - [Clang-based GHC 9, done easy](https://discourse.haskell.org/t/clang-based-ghc-9-done-easy/3387?u=taylorfausak) by Koz Ross
   > For various reasons, you might want a Clang-based GHC on a platform where Clang is not the default compiler.
 
@@ -30,9 +33,6 @@ This is a weekly summary of what's going on in its community.
 
 - [Soft Compatibility](https://blog.hetchr.com/soft-compatibility/) by Gautier di Folco
   > After few weeks of work, we released GitLab support last week. We previously integrated GitHub, so we expected that GitLab would be roughly the same, and well, expectations set up for disappointment.
-
-- [Swarm: a lot can happen in a week](https://byorgey.wordpress.com/2021/10/01/swarm-a-lot-can-happen-in-a-week/) by Brent Yorgey
-  > Since then, the response has been fantastic: lots of people have tried it out, a few have even streamed themselves playing it on Twitch, and there has been lots of development activity.
 
 ## Jobs
 
@@ -68,6 +68,9 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 
 - [Monthly Hask Anything (October 2021)](https://np.reddit.com/r/haskell/comments/pzy3py/monthly_hask_anything_october_2021/)
   > This is your opportunity to ask any questions you feel don't deserve their own threads, no matter how small or simple they might be!
+
+- [Swarm: a lot can happen in a week](https://byorgey.wordpress.com/2021/10/01/swarm-a-lot-can-happen-in-a-week/) by Brent Yorgey
+  > Since then, the response has been fantastic: lots of people have tried it out, a few have even streamed themselves playing it on Twitch, and there has been lots of development activity.
 
 ## Show & tell
 
