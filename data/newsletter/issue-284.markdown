@@ -7,6 +7,9 @@ This is a weekly summary of what's going on in its community.
 - [Haskell series part 5](https://blog.kalvad.com/haskell-series-part-5/) by Pierre Guillemot
   > This is the fifth article of a series on the functional language Haskell for beginners. In this article we are covering pattern matching and guards.
 
+- [Tuple Prelude](https://vitez.me/tuple-prelude) by Mitchell Vitez
+  > A Template Haskell Adventure
+
 ## Jobs
 
 - [Software Engineer at ACI Learning](https://acilearning.applytojob.com/apply/kjzAYJ1SPF/Software-Engineer?referrer=20210930010931J0GSUOJG1BPYT5ED)
