@@ -87,4 +87,6 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 - [learn4haskell](https://github.com/kowainik/learn4haskell) by Kowainik
   > Learn4Haskell is a GitHub-located course that will get you into the Haskell Functional Programming world in just 4 Pull Requests.
 
-undefined
+-   [emanote: Disable hashtag in link text](https://github.com/srid/emanote/issues/167)
+-   [wasp: In examples/, modify example apps so that they have links to the Wasp source code](https://github.com/wasp-lang/wasp/issues/323)
+-   [xmonad-contrib: X.L.ShowWName should be a logHook](https://github.com/xmonad/xmonad-contrib/issues/612)
