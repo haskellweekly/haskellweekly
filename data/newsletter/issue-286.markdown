@@ -60,4 +60,4 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 - [learn4haskell](https://github.com/kowainik/learn4haskell) by Kowainik
   > Learn4Haskell is a GitHub-located course that will get you into the Haskell Functional Programming world in just 4 Pull Requests.
 
-undefined
+-   [bytestring-lexing: CI failing for GHC 9.0.1](https://github.com/wrengr/bytestring-lexing/issues/5)
