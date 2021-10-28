@@ -30,4 +30,5 @@ undefined
 - [learn4haskell](https://github.com/kowainik/learn4haskell) by Kowainik
   > Learn4Haskell is a GitHub-located course that will get you into the Haskell Functional Programming world in just 4 Pull Requests.
 
-undefined
+-   [great-problems: Email verification link should be HTTPS instead of HTTP](https://github.com/SlimTim10/great-problems/issues/32)
+-   [unbeliever: Add environment variables to --help output](https://github.com/aesiniath/unbeliever/issues/71)
