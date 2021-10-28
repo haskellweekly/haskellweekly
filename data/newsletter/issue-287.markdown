@@ -4,6 +4,10 @@ This is a weekly summary of what's going on in its community.
 
 ## Featured
 
+<!-- Runs from 2021-10-28 to 2021-11-11. -->
+- [Haskell eXchange — virtual conference (15 – 17 November 2021)](https://events.skillsmatter.com/haskellx2021?utm_campaign=Conferences%20%E2%80%93%20Haskell%20eXchange&utm_source=email&utm_medium=email-ad&utm_content=haskell-weekly) (ad)
+  > Join us at the 10th Haskell eXchange, a 3‑day online conference with content selected _by_ developers _for_ developers. Connect with fellow Haskellers while you learn new skills in practical, coding-based talks by 25 speakers, including keynotes by Simon Peyton Jones, Nadia Polikarpova, and Sukant Hajra.
+
 - [Co-Applicative programming style](https://www.haskellforall.com/2021/10/co-applicative-programming-style.html) by Gabriella Gonzalez
   > This post showcases an upcoming addition to the `contravariant` package that permits programming in a "co-`Applicative`" (`Divisible`) style that greatly resembles `Applicative` style.
 
