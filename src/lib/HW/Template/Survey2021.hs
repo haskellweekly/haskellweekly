@@ -514,6 +514,7 @@ communitySection = makeSection
     , "Stack Overflow"
     , "Telegram"
     , "Twitter"
+    , "Zulip"
     ]
   , Question "Which of the following Haskell topics would you like to see more written about?" $ MultiResponse AllowOther
     [ "Algorithm implementations"
@@ -918,7 +919,7 @@ metaSection = makeSection
     , "2018"
     , "2017"
     ]
-  , Question "How did you hear about this survey?" $ SingleResponse
+  , Question "How did you hear about this survey?" $ MultiResponse AllowOther
     [ "Discord"
     , "Discourse"
     , "GitHub"
@@ -934,7 +935,7 @@ metaSection = makeSection
     , "Slack"
     , "Telegram"
     , "Twitter"
-    , "Other"
+    , "Zulip"
     ]
   ]
 
