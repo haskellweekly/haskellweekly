@@ -533,6 +533,7 @@ communitySection = makeSection
     , "Production infrastructure"
     , "Project maintenance"
     , "Project setup"
+    , "Testing"
     , "Tooling choices"
     , "Web development"
     ]
