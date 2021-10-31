@@ -111,28 +111,33 @@ haskellUsageSection = makeSection
   , "Haskell's performance is not good enough"
   , "My company doesn't use Haskell"
   ]
-  , Question "How long have you been using Haskell?" $ SingleResponse
-  [ "Less than 1 day"
-  , "1 day to 1 week"
-  , "1 week to 1 month"
-  , "1 month to 1 year"
-  , "1 year to 2 years"
-  , "2 years to 3 years"
-  , "3 years to 4 years"
-  , "4 years to 5 years"
-  , "5 years to 6 years"
-  , "6 years to 7 years"
-  , "7 years to 8 years"
-  , "8 years to 9 years"
-  , "9 years to 10 years"
-  , "10 years to 15 years"
-  , "15 years to 20 years"
-  , "More than 20 years"
+  , Question "How many years have you been using Haskell?" $ SingleResponse
+  [ "Less than 1"
+  , "1 to 2"
+  , "2 to 3"
+  , "3 to 4"
+  , "4 to 5"
+  , "5 to 6"
+  , "6 to 7"
+  , "7 to 8"
+  , "8 to 9"
+  , "9 to 10"
+  , "10 to 11"
+  , "11 to 12"
+  , "12 to 13"
+  , "13 to 14"
+  , "14 to 15"
+  , "More than 15"
   ]
   , Question "How frequently do you use Haskell?"
   $ SingleResponse ["Daily", "Weekly", "Monthly", "Yearly", "Rarely"]
   , Question "How would you rate your proficiency in Haskell?" $ SingleResponse
-  ["Beginner", "Intermediate", "Advanced", "Expert", "Master"]
+  [ "I can't write or read Haskell"
+  , "I can write simple programs in Haskell"
+  , "I can write useful, production-ready code but it is a struggle"
+  , "I am productive writing Haskell"
+  , "I'm an expert"
+  ]
   , Question "Where do you use Haskell?"
   $ MultiResponse RejectOther ["Academia", "Home", "Industry", "School"]
   , Question "Do you use Haskell at work?" $ SingleResponse
@@ -167,15 +172,11 @@ haskellUsageSection = makeSection
       , "Erlang"
       , "F#"
       , "Go"
-      , "Groovy"
-      , "Hack"
       , "Java"
       , "JavaScript"
-      , "Julia"
       , "Kotlin"
       , "Lua"
       , "Matlab"
-      , "Objective-C"
       , "Ocaml"
       , "Perl"
       , "PHP"
@@ -188,8 +189,6 @@ haskellUsageSection = makeSection
       , "Shell"
       , "Swift"
       , "TypeScript"
-      , "VBA"
-      , "VB.NET"
       ]
   , Question "Which types of software do you develop with Haskell?"
   $ MultiResponse
@@ -250,7 +249,6 @@ compilersSection = makeSection
       AllowOther
       [ "Source"
       , "Official binaries"
-      , "Minimal installer"
       , "Haskell Platform"
       , "Operating system package"
       , "Stack"
@@ -272,7 +270,7 @@ compilersSection = makeSection
       ]
   , Question "Which versions of GHC do you use?" $ MultiResponse
   RejectOther
-  ["> 8.10", "8.10.x", "8.8.x", "8.6.x", "8.4.x", "8.2.x", "8.0.x", "< 8.0"]
+  ["> 9.2", "9.2", "9.0", "8.10.x", "8.8.x", "8.6.x", "8.4.x", "8.2.x", "< 8.2"]
   , Question
     "Which language extensions would you like to be enabled by default?"
   $ ExtensionResponse
@@ -322,6 +320,7 @@ compilersSection = makeSection
       , "KindSignatures"
       , "LambdaCase"
       , "LiberalTypeSynonyms"
+      , "LinearTypes"
       , "MagicHash"
       , "MonadComprehensions"
       , "MonoLocalBinds"
@@ -331,6 +330,7 @@ compilersSection = makeSection
       , "NamedWildCards"
       , "NegativeLiterals"
       , "NoEmptyDataDecls"
+      , "NoFieldSelectors"
       , "NoImplicitPrelude"
       , "NoMonadFailDesugaring"
       , "NoMonomorphismRestriction"
@@ -344,6 +344,8 @@ compilersSection = makeSection
       , "OverlappingInstances"
       , "OverloadedLabels"
       , "OverloadedLists"
+      , "OverloadedRecordDot"
+      , "OverloadedRecordUpdate"
       , "OverloadedStrings"
       , "PackageImports"
       , "ParallelListComp"
@@ -381,6 +383,7 @@ compilersSection = makeSection
       , "UndecidableInstances"
       , "UndecidableSuperClasses"
       , "UnicodeSyntax"
+      , "UnliftedDatatypes"
       , "UnliftedNewtypes"
       , "Unsafe"
       , "ViewPatterns"
@@ -401,13 +404,12 @@ toolingSection = makeSection
   "Tooling"
   [ Question "Which build tools do you use for Haskell?" $ MultiResponse
   AllowOther
-  ["Bazel", "Cabal", "ghc-pkg", "Mafia", "Make", "Nix", "Shake", "Stack"]
+  ["Bazel", "Cabal", "ghc-pkg", "Make", "Nix", "Shake", "Stack"]
   , Question "Which editors do you use for Haskell?" $ MultiResponse
   AllowOther
   [ "Atom"
   , "Emacs family"
   , "IntelliJ IDEA"
-  , "Notepad++"
   , "Sublime Text"
   , "Vi family"
   , "Visual Studio Code"
@@ -415,7 +417,7 @@ toolingSection = makeSection
   , Question "Which version control systems do you use for Haskell?"
   $ MultiResponse
       AllowOther
-      ["Darcs", "Git", "Mercurial", "Pijul", "Subversion"]
+      ["Darcs", "Git", "Mercurial"]
   , Question "Where do you get Haskell packages from?"
   $ MultiResponse AllowOther ["Hackage", "Nix", "Source", "Stackage"]
   , Question "Which tools do you use to test Haskell code?" $ MultiResponse
@@ -800,18 +802,26 @@ demographicsSection = makeSection
   , "Zambia"
   , "Zimbabwe"
   ]
-  , Question "How old are you?" $ SingleResponse
-  [ "Under 18 years old"
-  , "18 to 24 years old"
-  , "25 to 34 years old"
-  , "35 to 44 years old"
-  , "45 to 54 years old"
-  , "55 to 64 years old"
-  , "Over 65 years old"
-  ]
-  , Question "What is your gender?"
-  $ SingleResponse ["Male", "Female", "Non-binary"]
-  , Question "Do you identify as transgender?" $ SingleResponse ["Yes", "No"]
+  , Question "Do you consider yourself a member of an underrepresented or marginalized group in technology?" $ MultiResponse AllowOther
+    [ "Yes, but I prefer not to say which"
+    , "Cultural beliefs"
+    , "Disabled or person with disability (including physical, mental, and other)"
+    , "Educational background"
+    , "Language"
+    , "Lesbian, gay, bisexual, queer or otherwise non-heterosexual"
+    , "Non-binary gender"
+    , "Older or younger than the average developers I know"
+    , "Political beliefs"
+    , "Racial or ethnic minority"
+    , "Religious beliefs"
+    , "Trans"
+    , "Woman or perceived as a woman"
+    ]
+  , Question "Do you feel your belonging to an underrepresented or marginalized group in technology makes it difficult for you to participate in the Haskell community?" $ SingleResponse
+    [ "Often"
+    , "Sometimes"
+    , "Never"
+    ]
   , Question "Are you a student?"
   $ SingleResponse ["Yes, full time", "Yes, part time", "No"]
   , Question "What is the highest level of education you have completed?"
@@ -868,7 +878,7 @@ metaSection :: Section
 metaSection = makeSection
   "Meta"
   [ Question "Did you take any previous surveys?"
-  $ MultiResponse RejectOther ["2019", "2018", "2017"]
+  $ MultiResponse RejectOther ["2020", "2019", "2018", "2017"]
   , Question "How did you hear about this survey?" $ SingleResponse
   [ "Discord"
   , "Discourse"
