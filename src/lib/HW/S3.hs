@@ -6,6 +6,7 @@ import qualified Conduit
 import qualified Control.Monad as Monad
 import qualified Data.Aeson as Aeson
 import qualified Data.ByteString.Lazy as LazyByteString
+import qualified Data.Char as Char
 import qualified Data.Map as Map
 import qualified Data.Maybe as Maybe
 import qualified Data.Text as Text
@@ -32,11 +33,11 @@ bucketName = "haskellweekly"
 makeObjectKey :: IO S3.ObjectKey
 makeObjectKey = do
   now <- Time.getCurrentTime
-  random <- Monad.replicateM 8 $ Random.randomRIO ('a', 'z')
+  random <- Monad.replicateM 4 $ Random.randomRIO ('a', 'z')
   pure
     . S3.ObjectKey
     . Text.pack
-    $ "survey-"
+    $ "survey/2021/"
     <> Time.formatTime Time.defaultTimeLocale "%Y-%m-%d-%H-%M-%S" now
     <> "-"
     <> random
@@ -48,7 +49,10 @@ toRqBody = Aws.toBody
   . Map.fromListWith (<>)
   . Maybe.mapMaybe (\ (key, maybeValue) -> do
     value <- maybeValue
-    Monad.guard . not $ Text.null value
+    Monad.guard $ present value
     pure (key, [value]))
   . Http.parseQueryText
   . LazyByteString.toStrict
+
+present :: Text.Text -> Bool
+present = not . Text.all Char.isSpace

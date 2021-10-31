@@ -939,7 +939,7 @@ renderSections = mapM_ renderSection
 
 renderSection :: (Int, Section) -> H.Html ()
 renderSection (s, section) = do
-  H.h3_ [H.class_ "f3 mv3 tracked-tight"] . H.toHtml $ sectionTitle section
+  H.h3_ [H.class_ "f3 mv3 tracked-tight", H.id_ $ "section-" <> genericShow s] . H.toHtml $ sectionTitle section
   renderQuestions s $ sectionQuestions section
 
 renderQuestions :: Int -> [(Int, Question)] -> H.Html ()
@@ -949,7 +949,7 @@ genericShow :: (Show a, String.IsString string) => a -> string
 genericShow = String.fromString . show
 
 renderQuestion :: Int -> (Int, Question) -> H.Html ()
-renderQuestion s (q, question) = H.li_ $ do
+renderQuestion s (q, question) = H.li_ [H.id_ $ "section-" <> genericShow s <> "-question-" <> genericShow q] $ do
   H.p_ $ do
     H.strong_ . H.toHtml $ questionPrompt question
     " (optional)"
