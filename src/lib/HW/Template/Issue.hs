@@ -6,6 +6,7 @@ import qualified Data.Text as Text
 import qualified HW.Markdown as Markdown
 import qualified HW.Template.Base as Base
 import qualified HW.Template.Newsletter as Newsletter
+import qualified HW.Template.Survey2021 as Survey2021
 import qualified HW.Type.BaseUrl as BaseUrl
 import qualified HW.Type.Date as Date
 import qualified HW.Type.Issue as Issue
@@ -21,6 +22,7 @@ template baseUrl issue markdown =
       (title issue <> " :: Haskell Weekly Newsletter")
       (Newsletter.header baseUrl $ Just issue)
     $ do
+        Survey2021.callToAction baseUrl
         Html.h2_ [Html.class_ "f2 mv3 tracked-tight"] $ Html.a_
           [ Html.class_ "no-underline purple"
           , Html.href_ $ Route.toText baseUrl Route.Newsletter

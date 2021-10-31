@@ -6,6 +6,7 @@ module HW.Template.Newsletter
 
 import qualified HW.Template.Base as Base
 import qualified HW.Template.Common as Common
+import qualified HW.Template.Survey2021 as Survey2021
 import qualified HW.Type.BaseUrl as BaseUrl
 import qualified HW.Type.Date as Date
 import qualified HW.Type.Issue as Issue
@@ -18,6 +19,7 @@ template :: BaseUrl.BaseUrl -> [Issue.Issue] -> Html.Html ()
 template baseUrl issues =
   Base.template baseUrl "Haskell Weekly Newsletter" (header baseUrl Nothing)
     $ do
+        Survey2021.callToAction baseUrl
         Html.h2_ [Html.class_ "f2 mv3 tracked-tight"] "Newsletter"
         Html.p_ $ do
           "The Haskell Weekly Newsletter covers the Haskell programming language. "

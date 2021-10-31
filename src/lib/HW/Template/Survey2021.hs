@@ -1014,16 +1014,12 @@ renderQuestion s (q, question) = H.li_ [H.id_ $ "section-" <> genericShow s <> "
   H.input_ [H.id_ t, H.name_ t, H.type_ "hidden"]
 
 callToAction :: BaseUrl.BaseUrl -> Html.Html ()
-callToAction baseUrl = do
-  let year = unsafeFromRight $ Number.fromNatural 2021
-  Html.div_ [Html.class_ "ba b--green bg-washed-green center mw6 pa3 tc"] $ do
-    Html.p_ [Html.class_ "mv0"] $ do
+callToAction baseUrl = case Number.fromNatural 2021 of
+  Left _ -> pure ()
+  Right year -> Html.div_
+    [ Html.class_ "ba b--green bg-washed-green center mw6 pa3 tc"
+    ] . Html.p_ [Html.class_ "mv0"] $ do
       "Please take a few minutes to fill out the "
       Html.a_ [Html.href_ . Route.toText baseUrl $ Route.Survey year] $ do
         "2021 State of Haskell Survey"
       ". Thanks, and be sure to tell your friends!"
-
-unsafeFromRight :: Show l => Either l r -> r
-unsafeFromRight e = case e of
-  Left l -> error $ "unsafeFromRight: Left " <> show l
-  Right r -> r
