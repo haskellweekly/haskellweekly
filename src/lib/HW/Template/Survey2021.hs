@@ -439,6 +439,13 @@ toolingSection = makeSection
     , "Vi family"
     , "Visual Studio Code"
     ]
+  , Question "Which IDEs do you use for Haskell?" $ MultiResponse AllowOther
+    [ "IntelliJ"
+    , "Intero"
+    , "ghcid"
+    , "ghcide"
+    , "Haskell Language Server (HLS)"
+    ]
   , Question "Which version control systems do you use for Haskell?" $ MultiResponse AllowOther
     [ "Darcs"
     , "Git"
