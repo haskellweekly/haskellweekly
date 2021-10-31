@@ -426,6 +426,7 @@ toolingSection = makeSection
     [ "Bazel"
     , "Cabal"
     , "ghc-pkg"
+    , "haskell.nix"
     , "Make"
     , "Nix"
     , "Shake"
