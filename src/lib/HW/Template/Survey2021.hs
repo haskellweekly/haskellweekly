@@ -272,6 +272,8 @@ compilersSection = makeSection
     , "Stack"
     , "Nix"
     , "ghcup"
+    , "Chocolatey"
+    , "Homebrew"
     ]
   , Question "Has upgrading your Haskell compiler broken your code in the last year?" $ SingleResponse
     [ "Yes"
