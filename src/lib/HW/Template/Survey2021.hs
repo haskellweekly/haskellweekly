@@ -1052,7 +1052,7 @@ renderQuestion s (q, question) = H.li_ [H.id_ $ "section-" <> genericShow s <> "
   H.input_ [H.id_ t, H.name_ t, H.type_ "hidden"]
 
 callToAction :: BaseUrl.BaseUrl -> Html.Html ()
-callToAction baseUrl = Monad.when False $ case Number.fromNatural 2021 of
+callToAction baseUrl = case Number.fromNatural 2021 of
   Left _ -> pure ()
   Right year -> Html.div_
     [ Html.class_ "ba b--green bg-washed-green center mw6 pa3 tc"
