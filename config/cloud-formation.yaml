@@ -117,6 +117,16 @@ Resources:
             - 20 in2-smtp.messagingengine.com
           TTL: 300
           Type: MX
+        - Name: !Sub k2._domainkey.${DomainName}
+          ResourceRecords:
+            - dkim2.mcsv.net
+          TTL: 300
+          Type: CNAME
+        - Name: !Sub k3._domainkey.${DomainName}
+          ResourceRecords:
+            - dkim3.mcsv.net
+          TTL: 300
+          Type: CNAME
         - Name: !Ref DomainName
           ResourceRecords:
             - '"v=spf1 include:spf.messagingengine.com ?all"'
