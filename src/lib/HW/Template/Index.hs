@@ -5,6 +5,7 @@ module HW.Template.Index
 import qualified HW.Template.Base as Base
 import qualified HW.Template.Newsletter as Newsletter
 import qualified HW.Template.Podcast as Podcast
+import qualified HW.Template.Survey2021 as Survey2021
 import qualified HW.Type.BaseUrl as BaseUrl
 import qualified HW.Type.Config as Config
 import qualified HW.Type.Date as Date
@@ -30,6 +31,7 @@ template config maybeIssue maybeEpisode = do
         , Html.content_ googleSiteVerification
         ]
   Base.template baseUrl "Haskell Weekly" head_ $ do
+    Survey2021.callToAction baseUrl
     Html.h2_ [Html.class_ "f2 mv3 tracked-tight"] $ Html.a_
       [ Html.class_ "no-underline purple"
       , Html.href_ $ Route.toText baseUrl Route.Newsletter

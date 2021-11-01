@@ -7,6 +7,7 @@ import qualified HW.Template.Survey2017 as Survey2017
 import qualified HW.Template.Survey2018 as Survey2018
 import qualified HW.Template.Survey2019 as Survey2019
 import qualified HW.Template.Survey2020 as Survey2020
+import qualified HW.Template.Survey2021 as Survey2021
 import qualified HW.Type.App as App
 import qualified HW.Type.Config as Config
 import qualified HW.Type.Number as Number
@@ -32,6 +33,9 @@ handler number = do
     2020 ->
       respondWith Http.ok200 [(Http.hCacheControl, "public, max-age=900")]
         $ Survey2020.template baseUrl
+    2021 ->
+      respondWith Http.ok200 [(Http.hCacheControl, "public, max-age=900")]
+        $ Survey2021.template baseUrl
     _ -> pure Common.notFound
 
 respondWith
