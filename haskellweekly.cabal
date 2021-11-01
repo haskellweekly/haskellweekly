@@ -86,6 +86,7 @@ library
     HW.Handler.Search
     HW.Handler.Sitemap
     HW.Handler.Survey
+    HW.Handler.SurveyComplete
     HW.Issues
     HW.Main
     HW.Markdown
@@ -107,6 +108,7 @@ library
     HW.Template.Survey2019
     HW.Template.Survey2020
     HW.Template.Survey2021
+    HW.Template.SurveyComplete
     HW.Type.App
     HW.Type.Article
     HW.Type.Articles

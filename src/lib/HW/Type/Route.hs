@@ -31,6 +31,7 @@ data Route
   | Search
   | Sitemap
   | Survey Number.Number
+  | SurveyComplete
   | Tachyons
   deriving (Eq, Show)
 
@@ -55,6 +56,7 @@ toTextRelative route = case route of
   Search -> "/search"
   Sitemap -> "/sitemap.txt"
   Survey number -> "/survey/" <> Number.toText number <> ".html"
+  SurveyComplete -> "/survey/complete.html"
   Tachyons -> "/tachyons.css"
 
 -- | Renders a route as text with the given base URL. Redirects are not
@@ -84,6 +86,7 @@ fromText path = case path of
   ["search"] -> Just Search
   ["sitemap.txt"] -> Just Sitemap
   ["survey", file] -> routeContent "html" Survey file
+  ["survey", "complete.html"] -> Just SurveyComplete
   ["tachyons.css"] -> Just Tachyons
   _ -> Nothing
 
