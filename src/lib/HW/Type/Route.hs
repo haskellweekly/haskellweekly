@@ -85,8 +85,8 @@ fromText path = case path of
   ["robots.txt"] -> Just Robots
   ["search"] -> Just Search
   ["sitemap.txt"] -> Just Sitemap
-  ["survey", file] -> routeContent "html" Survey file
   ["survey", "complete.html"] -> Just SurveyComplete
+  ["survey", file] -> routeContent "html" Survey file
   ["tachyons.css"] -> Just Tachyons
   _ -> Nothing
 
