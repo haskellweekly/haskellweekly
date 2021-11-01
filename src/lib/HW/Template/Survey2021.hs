@@ -99,7 +99,6 @@ haskellUsageSection = makeSection
     , "1 week to 1 month"
     , "1 month to 1 year"
     , "More than 1 year"
-    , "n/a"
     ]
   , Question "If you do not use Haskell, why not?" $ MultiResponse AllowOther
     [ "Haskell does not support the platforms I need"
@@ -882,7 +881,6 @@ demographicsSection = makeSection
     , "10 to 99 employees"
     , "100 to 999 employees"
     , "More than 1,000 employees"
-    , "n/a"
     ]
   , Question "How many years have you been coding?" $ SingleResponse
     [ "0 to 4 years"
@@ -1017,11 +1015,14 @@ renderQuestion s (q, question) = H.li_ [H.id_ $ "section-" <> genericShow s <> "
         , H.placeholder_ "you@example.com"
         , H.type_ "email"
         ]
-    SingleResponse choices -> Monad.forM_ choices $ \choice -> H.div_ $ do
-      H.label_ [H.class_ "pointer"] $ do
+    SingleResponse choices -> do
+      Monad.forM_ choices $ \choice -> H.div_ . H.label_ [H.class_ "pointer"] $ do
         H.input_ [H.class_ "pointer", H.name_ name, H.type_ "radio", H.value_ choice]
         " "
         H.toHtml choice
+      H.div_ . H.label_ [H.class_ "pointer"] $ do
+        H.input_ [H.checked_, H.class_ "pointer", H.name_ name, H.type_ "radio", H.value_ "n/a"]
+        " n/a"
     MultiResponse other choices -> do
       Monad.forM_ choices $ \choice -> H.div_ . H.label_ [H.class_ "pointer"] $ do
         H.input_ [H.class_ "pointer", H.name_ name, H.type_ "checkbox", H.value_ choice]
