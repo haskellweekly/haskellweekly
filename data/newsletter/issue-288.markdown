@@ -26,4 +26,4 @@ undefined
 
 ## Call for participation
 
-undefined
+-   [co-log-polysemy: Update README](https://github.com/co-log/co-log-polysemy/issues/5)
