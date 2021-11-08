@@ -1,0 +1,1970 @@
+WEBVTT
+
+00:00:07.320 --> 00:00:08.730
+>> Hey there
+Haskell Weekly listeners.
+
+00:00:08.820 --> 00:00:10.860
+Welcome back to the
+Haskell Weekly podcast.
+
+00:00:11.070 --> 00:00:14.340
+It's supposed to be weekly, but it's
+been about a month since our last one.
+
+00:00:14.640 --> 00:00:15.480
+Apologies for that.
+
+00:00:16.560 --> 00:00:18.180
+I'm your host Taylor Fausak.
+
+00:00:18.270 --> 00:00:21.300
+I'm the director of software
+engineering at ACI Learning.
+
+00:00:21.390 --> 00:00:23.970
+And with me today as per usual, is Cam.
+
+00:00:24.389 --> 00:00:25.180
+Thanks for joining me, Cam.
+
+00:00:25.710 --> 00:00:26.430
+>> Hello, hello.
+
+00:00:26.430 --> 00:00:27.270
+It's good to be back.
+
+00:00:27.270 --> 00:00:29.190
+I know we've been trying to
+do this for a little bit.
+
+00:00:29.640 --> 00:00:31.860
+Um, but yeah, my name's Cam Gera.
+
+00:00:31.890 --> 00:00:35.760
+Uh, I am a senior software
+engineer at MotoRefi, so, uh,
+
+00:00:35.970 --> 00:00:37.200
+yeah, excited to be here today.
+
+00:00:37.200 --> 00:00:43.140
+And, uh, we got some fun stuff, um, recent
+released in the Haskell, uh, ecosystem.
+
+00:00:43.320 --> 00:00:47.220
+And so we're excited to share that
+with you guys and, um, honestly
+
+00:00:47.220 --> 00:00:50.600
+just spend some time and break it
+down, be a little more casual today.
+
+00:00:51.105 --> 00:00:52.935
+Um, you know, get, get to here.
+
+00:00:52.935 --> 00:00:55.675
+Cause I haven't really heard what
+Taylor's went up to in a minute.
+
+00:00:55.695 --> 00:00:58.335
+So Taylor what's been going
+on over at ACI Learning,
+
+00:00:59.625 --> 00:01:00.585
+>> all kinds of stuff.
+
+00:01:00.735 --> 00:01:07.725
+The big ticket item is merging with
+practice labs, uh, who is not exactly a
+
+00:01:07.725 --> 00:01:11.955
+competitor of ours, but another company
+in the same space who has a complimentary
+
+00:01:11.955 --> 00:01:13.695
+skillset and product offering.
+
+00:01:13.695 --> 00:01:13.935
+So.
+
+00:01:14.910 --> 00:01:19.560
+Uh, my life recently has been talking
+with the folks over at practice labs and
+
+00:01:19.560 --> 00:01:23.130
+trying to identify some commonalities
+between our engineering orgs.
+
+00:01:23.130 --> 00:01:23.850
+What can we share?
+
+00:01:23.850 --> 00:01:24.840
+What do we do differently?
+
+00:01:24.870 --> 00:01:28.365
+What do we each — uh, which unique
+skills do each of us bring to the
+
+00:01:28.365 --> 00:01:29.835
+table and can we share with each other?
+
+00:01:30.255 --> 00:01:33.075
+So that's been going great, really
+looking forward to continuing that.
+
+00:01:33.315 --> 00:01:39.435
+Um, and for me personally, uh, I've been
+doing some work on the Brittany code base,
+
+00:01:39.465 --> 00:01:43.995
+which is a Haskell source code formatter,
+uh, that we use here at ACI Learning.
+
+00:01:44.205 --> 00:01:52.125
+And it hasn't been updated to support
+GHC 9.0, which came out a while ago.
+
+00:01:52.155 --> 00:01:55.815
+And today we're going to be talking
+about 9.2, but, um, I'm trying to
+
+00:01:55.815 --> 00:02:01.215
+bring it up to date and make it work so
+that it can be used as part of H L S.
+
+00:02:01.695 --> 00:02:03.015
+>> Ooh nice.
+
+00:02:03.435 --> 00:02:07.605
+Yeah, we, uh, haven't been using uh
+Brittany and we used it for a minute.
+
+00:02:08.085 --> 00:02:11.925
+Um, but we've been focusing
+more so on fourmolu.
+
+00:02:11.985 --> 00:02:20.670
+So we're using ormolu's I dunno,
+customizable brother fourmolu and,
+
+00:02:20.670 --> 00:02:23.910
+uh, that's been surprisingly good.
+
+00:02:24.000 --> 00:02:26.790
+Um, I know there's a couple more
+things that still need to be
+
+00:02:26.790 --> 00:02:31.740
+implemented in fourmolu to make
+me not, uh, my eyes not burn.
+
+00:02:32.040 --> 00:02:35.850
+Um, when I'm looking at, you know,
+some Haskell code, uh, cause right
+
+00:02:35.850 --> 00:02:41.760
+now like, oh dude, the one that's most
+frustrating to me is the trailing arrows.
+
+00:02:41.790 --> 00:02:45.540
+So if you have a function with
+multiple parameters and in the
+
+00:02:45.540 --> 00:02:46.500
+type signature if you have.
+
+00:02:46.660 --> 00:02:48.209
+you know oh so long.
+
+00:02:48.209 --> 00:02:50.280
+And you want to divvy it up.
+
+00:02:50.309 --> 00:02:52.170
+It's like, everything's
+at the end of the line.
+
+00:02:52.649 --> 00:02:55.350
+And it's, I'm like, ah, I don't like this.
+
+00:02:55.380 --> 00:02:57.299
+It's just, it's just
+different from the norm.
+
+00:02:57.720 --> 00:03:00.380
+Um, if you're a normal user, I get it.
+
+00:03:00.390 --> 00:03:01.230
+You, you like that?
+
+00:03:01.230 --> 00:03:01.410
+That's
+
+00:03:01.410 --> 00:03:01.679
+>> cool.
+
+00:03:02.429 --> 00:03:02.700
+Yeah.
+
+00:03:02.730 --> 00:03:06.329
+I've always said that I don't really
+care what the formatting looks like.
+
+00:03:06.329 --> 00:03:09.149
+I just care that it's automated,
+but, ormolu has really.
+
+00:03:09.855 --> 00:03:12.915
+Pushed that pushed me
+to be honest about that.
+
+00:03:12.915 --> 00:03:16.035
+Like, I do care a little bit about
+how it looks and I don't like
+
+00:03:16.035 --> 00:03:19.365
+how ormolu looks, but I do like
+everything else about that project.
+
+00:03:19.365 --> 00:03:21.945
+Like it's well-maintained and they
+have a lot of good tools and they
+
+00:03:21.945 --> 00:03:24.645
+have like check mode and they have
+a GitHub actions for running it.
+
+00:03:24.855 --> 00:03:25.965
+I think all that stuff is great.
+
+00:03:25.965 --> 00:03:27.495
+And I'm going to try to
+do the same for Brittany.
+
+00:03:28.095 --> 00:03:28.485
+Nice.
+
+00:03:28.685 --> 00:03:29.355
+>> That'll be good.
+
+00:03:29.715 --> 00:03:29.985
+Yeah.
+
+00:03:30.045 --> 00:03:34.485
+I mean, when we were kind of thinking
+since, you know, really last time
+
+00:03:34.515 --> 00:03:38.945
+since the last time we've talked, um,
+you know, at MotoRefi we've just been.
+
+00:03:40.095 --> 00:03:45.455
+All out on, uh, creating a new product
+and that's really what the team I'm
+
+00:03:45.455 --> 00:03:47.115
+on and, and what we're focusing on.
+
+00:03:47.115 --> 00:03:49.875
+So, um, for me, it was all right.
+
+00:03:49.875 --> 00:03:53.265
+We just need to pick a formatter
+for now and go with it.
+
+00:03:53.295 --> 00:03:59.575
+And so we thought about Brittany
+thought about ormolu and then fourmolu
+
+00:03:59.595 --> 00:04:02.084
+was there and I was like, alright,
+I can get on board with fourmolu.
+
+00:04:02.105 --> 00:04:02.685
+Like, that's fine.
+
+00:04:02.685 --> 00:04:03.855
+Let's, let's move forward with it.
+
+00:04:03.855 --> 00:04:06.145
+So, um, you know, I didn't really
+
+00:04:08.010 --> 00:04:09.630
+make too much of a fuss about either.
+
+00:04:09.720 --> 00:04:13.320
+Um, because at the same time, like
+you said, it's automated, like as
+
+00:04:13.320 --> 00:04:14.580
+long as it's automated and it works.
+
+00:04:14.580 --> 00:04:15.060
+We're good.
+
+00:04:15.270 --> 00:04:16.920
+Um, that, that's what we care about.
+
+00:04:16.920 --> 00:04:21.269
+So, um, that's kinda my stance
+on where, where we're at at
+
+00:04:21.269 --> 00:04:21.660
+>> the moment.
+
+00:04:22.230 --> 00:04:24.840
+So other than source code formatting,
+what else have you been up to?
+
+00:04:25.890 --> 00:04:27.060
+You said building a new product.
+
+00:04:27.090 --> 00:04:28.480
+That's exciting greenfield's always fun.
+
+00:04:28.830 --> 00:04:29.150
+Yeah,
+
+00:04:29.150 --> 00:04:29.320
+>> yeah.
+
+00:04:29.320 --> 00:04:29.520
+Yeah.
+
+00:04:29.520 --> 00:04:30.120
+It's been fun.
+
+00:04:30.120 --> 00:04:32.610
+So, um, we've been of.
+
+00:04:33.900 --> 00:04:39.270
+The previous product was a monolith
+with its giant code Ruby code base.
+
+00:04:39.659 --> 00:04:40.799
+Uh, and we're not touching that.
+
+00:04:40.919 --> 00:04:45.479
+So we're actually, um, actually
+going though with a microservice
+
+00:04:45.479 --> 00:04:47.789
+architecture, um, with event sourcing.
+
+00:04:47.909 --> 00:04:51.795
+And so, uh, At the beginning,
+I was a little bit like, wait,
+
+00:04:51.795 --> 00:04:53.445
+what, why, why are we doing this?
+
+00:04:53.775 --> 00:04:57.435
+And I'm still like every once in a
+while, like, ah, I wish we had like more
+
+00:04:57.435 --> 00:05:00.705
+shared code, but we're really trying
+to get better about bounded context.
+
+00:05:00.705 --> 00:05:06.495
+And that's kind of the whole push for,
+uh, event sourcing and, uh, microservices.
+
+00:05:06.495 --> 00:05:11.085
+So, you know, we created four new
+services in the last month that, um,
+
+00:05:11.175 --> 00:05:15.735
+kind of uses event bus as more or
+less or event log as more of a less.
+
+00:05:16.425 --> 00:05:17.805
+Means to do actions.
+
+00:05:17.895 --> 00:05:21.555
+Um, you know, so obviously we have
+an endpoint that will take the
+
+00:05:21.555 --> 00:05:27.435
+information, uh, that is needed and push
+it into this event log event stream.
+
+00:05:28.275 --> 00:05:32.445
+And then we'll have, we have a couple
+services who listened to various,
+
+00:05:32.535 --> 00:05:35.145
+uh, events on that event log.
+
+00:05:35.355 --> 00:05:37.755
+And so that was, uh, it's been fun.
+
+00:05:37.815 --> 00:05:41.565
+It's I was impressed with how
+fast we were able to iterate.
+
+00:05:41.985 --> 00:05:44.925
+Um, we got all four services up with.
+
+00:05:45.840 --> 00:05:47.460
+A week before our deadline.
+
+00:05:47.730 --> 00:05:51.690
+Um, and so, uh, it was yeah.
+
+00:05:52.140 --> 00:05:52.740
+All out.
+
+00:05:53.280 --> 00:05:56.850
+Um, and now we're just kinda
+starting to add some more services
+
+00:05:56.850 --> 00:06:00.810
+and different, uh, things that we
+wanted to be able to do after MVP.
+
+00:06:00.810 --> 00:06:03.570
+So Monday is our official launch.
+
+00:06:04.380 --> 00:06:07.680
+>> You say that's the power
+of Haskell you're able to deliver
+
+00:06:07.680 --> 00:06:10.710
+quick, more quickly than the
+old fashioned Ruby services.
+
+00:06:11.100 --> 00:06:11.430
+>> Yeah.
+
+00:06:11.490 --> 00:06:11.790
+Yeah.
+
+00:06:11.820 --> 00:06:12.540
+I think it's.
+
+00:06:13.859 --> 00:06:16.680
+Proven that, you know, Haskell does
+really work well in production.
+
+00:06:16.830 --> 00:06:21.780
+And, you know, you can start up
+a whole Greenfield project and
+
+00:06:21.780 --> 00:06:23.669
+have it done in three weeks.
+
+00:06:24.120 --> 00:06:27.780
+Uh, and that's cause that's what
+we did, you know, and it's, you
+
+00:06:27.780 --> 00:06:29.280
+know, obviously kudos to our team.
+
+00:06:29.280 --> 00:06:32.880
+Our team did a great job, uh,
+but also kudos to Haskell.
+
+00:06:32.940 --> 00:06:37.950
+It gave us that opportunity just
+to start go, compiler is going to
+
+00:06:37.950 --> 00:06:39.810
+help us hold our hand along the way.
+
+00:06:39.930 --> 00:06:46.919
+And you know, we'll kind of make
+choices and ideally that generally
+
+00:06:46.919 --> 00:06:47.760
+they're pretty good choices.
+
+00:06:47.760 --> 00:06:52.380
+So, you know, we are using
+servant as like our server.
+
+00:06:52.619 --> 00:06:56.280
+Um, and that was kind of, you know,
+repeated through for like a health
+
+00:06:56.280 --> 00:06:59.460
+check for each service, just to make
+sure that the thing is up and running.
+
+00:07:00.000 --> 00:07:02.640
+Um, and so that, you
+know, was all pretty easy.
+
+00:07:02.640 --> 00:07:06.179
+And actually another cool thing
+we got to do in that process was
+
+00:07:06.270 --> 00:07:10.530
+create a stack template because a
+lot of our services have the same.
+
+00:07:11.550 --> 00:07:15.440
+And so we, anytime we need to start up
+a new service, we just use stack new
+
+00:07:15.960 --> 00:07:20.460
+the name of it in the template name and
+boom, you got all the lines of code.
+
+00:07:20.460 --> 00:07:23.850
+You need generator for you, uh,
+what the name populated through.
+
+00:07:23.850 --> 00:07:28.170
+So that was a pretty cool
+like experiment we did.
+
+00:07:28.410 --> 00:07:33.000
+Um, as after we created the
+first service, we did that to
+
+00:07:33.030 --> 00:07:34.080
+create the rest of the services.
+
+00:07:35.205 --> 00:07:37.545
+It, uh, set us up for
+success there, for sure.
+
+00:07:38.235 --> 00:07:38.595
+>> Yeah.
+
+00:07:38.865 --> 00:07:39.135
+Cool.
+
+00:07:39.135 --> 00:07:39.975
+Well, thanks for sharing.
+
+00:07:39.975 --> 00:07:42.645
+I look forward to hearing more in
+the coming weeks about how this
+
+00:07:42.645 --> 00:07:46.935
+project develops, um, cause I'm sure
+like you mentioned, you know, just
+
+00:07:46.935 --> 00:07:50.025
+picking a formatter, just getting some
+something out there is really good.
+
+00:07:50.025 --> 00:07:53.295
+And I think one of the strengths
+of Haskell is being able to change
+
+00:07:53.295 --> 00:07:55.095
+it later, refactor it confidently.
+
+00:07:55.095 --> 00:07:58.755
+So I'm curious if y'all have any
+interesting refactoring stories.
+
+00:07:59.025 --> 00:07:59.294
+>> Oh yeah.
+
+00:07:59.294 --> 00:08:03.854
+That's that's our, after, after
+lunch we have our next sprint is
+
+00:08:03.854 --> 00:08:05.715
+to kind of come back together.
+
+00:08:05.784 --> 00:08:08.414
+Talk about the decisions you made,
+figure out if that's really what
+
+00:08:08.414 --> 00:08:11.835
+we want to do, get some consistency
+in the code base because you
+
+00:08:11.914 --> 00:08:13.104
+do, we want to qualify imports.
+
+00:08:13.125 --> 00:08:16.950
+Do we want to, you know, just
+important, the whole fricking module.
+
+00:08:16.950 --> 00:08:18.810
+It's like, well, how do
+we want to write our code?
+
+00:08:18.810 --> 00:08:21.000
+And so that's something we're
+going to be coming back to.
+
+00:08:21.330 --> 00:08:24.690
+Um, So I'm sure I'll be able to
+update you guys with that next
+
+00:08:24.690 --> 00:08:26.880
+week and the following weeks.
+
+00:08:26.940 --> 00:08:30.870
+So, because our goal is
+to make Haskell weekly.
+
+00:08:30.870 --> 00:08:33.120
+This is the goal weekly
+being the key word there?
+
+00:08:33.810 --> 00:08:34.140
+Well,
+
+00:08:34.169 --> 00:08:38.010
+>> uh, so let's get into
+some of the news from this week.
+
+00:08:38.070 --> 00:08:41.760
+Uh, we'll start with maybe
+the smaller ticket item, which
+
+00:08:41.760 --> 00:08:44.910
+is the Haskell weekly survey.
+
+00:08:44.969 --> 00:08:51.870
+The state of Haskell survey, um, is
+out, I released it on November 1st
+
+00:08:51.930 --> 00:08:56.429
+and it will be open for two weeks,
+which is through November 15th.
+
+00:08:56.939 --> 00:08:58.439
+Uh, I do this every year.
+
+00:08:58.439 --> 00:09:00.060
+I've done it for the past four years.
+
+00:09:00.090 --> 00:09:01.319
+So this is the fifth year.
+
+00:09:01.830 --> 00:09:06.780
+And, um, yeah, it's just a, your
+opportunity as a member of the Haskell
+
+00:09:06.780 --> 00:09:09.360
+community or somebody interested
+in Haskell, if you don't feel
+
+00:09:09.360 --> 00:09:10.350
+like you're part of the community.
+
+00:09:11.535 --> 00:09:15.225
+To weigh in on how you think
+Haskell as a language is what
+
+00:09:15.225 --> 00:09:17.655
+you think of the community, how
+things can be improved, all that.
+
+00:09:18.135 --> 00:09:21.645
+And I'll do what I've done every
+year, which is post the results at the
+
+00:09:21.645 --> 00:09:23.445
+end and do a little bit of analysis.
+
+00:09:23.475 --> 00:09:26.085
+So that cam you asked earlier,
+what, uh, what have I been doing
+
+00:09:26.085 --> 00:09:27.944
+recently, uh, gearing up for that?
+
+00:09:27.944 --> 00:09:31.035
+So, uh, the survey is a little
+bit different this year to
+
+00:09:31.035 --> 00:09:34.185
+overlap more with some other
+programming communities and also.
+
+00:09:34.500 --> 00:09:38.099
+Looking forward to next year,
+the Haskell foundation will
+
+00:09:38.099 --> 00:09:39.780
+likely be taking over the survey.
+
+00:09:39.780 --> 00:09:42.959
+So this year is kind of a
+transitionary period for that.
+
+00:09:43.459 --> 00:09:44.310
+Nice, yeah I was actually
+
+00:09:44.310 --> 00:09:48.990
+>> just about to ask like fast
+Haskell foundation hasn't taken it yet.
+
+00:09:49.589 --> 00:09:50.160
+>> Not yet.
+
+00:09:50.160 --> 00:09:53.459
+So I've been talking with Andrew
+Boardman, who's the executive
+
+00:09:53.459 --> 00:09:55.140
+director of the Haskell foundation.
+
+00:09:55.560 --> 00:09:59.130
+Um, and they're definitely
+interested in taking it over and
+
+00:09:59.310 --> 00:10:00.780
+reshaping it just a little bit.
+
+00:10:01.020 --> 00:10:03.825
+Uh, Yeah, that will happen next year.
+
+00:10:04.095 --> 00:10:05.565
+So this year it's still just me.
+
+00:10:05.595 --> 00:10:08.955
+Um, but I'll continue to do
+what I've done previous years.
+
+00:10:09.285 --> 00:10:09.515
+How much
+
+00:10:09.525 --> 00:10:10.725
+>> did you charge him to take it?
+
+00:10:12.315 --> 00:10:12.885
+I'm just kidding.
+
+00:10:13.815 --> 00:10:14.955
+It's all for the community.
+
+00:10:15.405 --> 00:10:16.005
+>> Yes.
+
+00:10:16.185 --> 00:10:19.455
+Um, so yeah, if you're listening to
+this, please, uh, I'll leave a link
+
+00:10:19.455 --> 00:10:22.545
+in the show notes, or you can just
+head over to Haskell weekly.news
+
+00:10:22.545 --> 00:10:23.725
+and there will be a link there.
+
+00:10:24.120 --> 00:10:26.730
+Go take the survey, tell everyone,
+you know, to take the survey.
+
+00:10:26.819 --> 00:10:30.750
+I think we're up to, we're recording
+this on Friday the fifth and it's up
+
+00:10:30.750 --> 00:10:33.150
+to about eight or 900 respondents.
+
+00:10:33.180 --> 00:10:34.710
+So trying to push that number up.
+
+00:10:35.100 --> 00:10:35.400
+Yeah.
+
+00:10:35.490 --> 00:10:35.790
+Uh,
+
+00:10:35.910 --> 00:10:41.460
+>> I'm guilty of not doing it yet,
+so I need to step up my game apparently,
+
+00:10:41.790 --> 00:10:45.150
+but that's why we do Haskell weekly so
+we can remember to do things like this.
+
+00:10:45.480 --> 00:10:49.250
+So thanks Taylor for that to,
+yeah, I think it's exciting.
+
+00:10:49.470 --> 00:10:50.939
+I always enjoy it.
+
+00:10:50.970 --> 00:10:51.540
+I just need to.
+
+00:10:52.365 --> 00:10:53.235
+Sit down and do it.
+
+00:10:53.625 --> 00:10:53.865
+>> Yeah.
+
+00:10:53.925 --> 00:10:55.365
+It'll take about 10 minutes.
+
+00:10:55.465 --> 00:10:58.185
+>> Just like Shia
+LaBeouf just do it yesterday.
+
+00:10:58.185 --> 00:10:59.325
+You said tomorrow.
+
+00:11:00.645 --> 00:11:01.305
+>> That's right.
+
+00:11:01.965 --> 00:11:05.625
+Um, but yeah, that's not the
+big ticket news from this week.
+
+00:11:05.675 --> 00:11:07.285
+Cam, You want to tee us up?
+
+00:11:07.665 --> 00:11:08.835
+>> Drum roll, please?
+
+00:11:11.715 --> 00:11:14.025
+It's probably like, uh, yeah,
+whoever listens to this.
+
+00:11:14.025 --> 00:11:14.415
+I'm sorry.
+
+00:11:15.840 --> 00:11:16.230
+Yeah.
+
+00:11:16.470 --> 00:11:19.319
+GHC 9.2.1 has been released.
+
+00:11:19.860 --> 00:11:20.700
+Woo.
+
+00:11:21.660 --> 00:11:22.500
+Ooh.
+
+00:11:22.560 --> 00:11:27.180
+So there's a lot of fun, cool things
+that happened with this release of GHC.
+
+00:11:28.319 --> 00:11:30.660
+Obviously it's going to take a
+little bit of time to get Stackage
+
+00:11:30.680 --> 00:11:31.800
+up to date and all that fun stuff.
+
+00:11:31.830 --> 00:11:34.260
+Cause, uh, but yeah.
+
+00:11:35.400 --> 00:11:37.620
+Why don't you share Taylor, since
+you let me do the announcement,
+
+00:11:37.620 --> 00:11:39.780
+why don't you share some of
+the highlights that are coming.
+
+00:11:40.260 --> 00:11:40.800
+Sure.
+
+00:11:40.829 --> 00:11:45.870
+>> So to start, there are just
+so many new things in this release.
+
+00:11:46.020 --> 00:11:48.240
+Uh, we're not going to have
+time to get into all of them.
+
+00:11:48.270 --> 00:11:51.750
+Otherwise, this would be like a two
+hour long episode, but I'll leave
+
+00:11:51.750 --> 00:11:54.720
+a link to the, uh, release notes,
+which I encourage you to go read.
+
+00:11:54.720 --> 00:11:55.980
+We're just going to hit the highlights.
+
+00:11:56.865 --> 00:12:01.035
+Uh, first big one, which isn't,
+um, a change to like the code or
+
+00:12:01.035 --> 00:12:04.334
+anything like that, but a change
+to the code generator on the back
+
+00:12:04.334 --> 00:12:06.725
+end is that GHC can now produce
+
+00:12:07.050 --> 00:12:11.940
+native code for the apple  architecture,
+which means all those fancy new
+
+00:12:11.940 --> 00:12:17.550
+MacBooks and Mac book, uh, excuse me,
+Mac minis and those new MacBook pros.
+
+00:12:17.850 --> 00:12:23.160
+Uh, you can now compile GHC that will
+run natively rather than get interpreted
+
+00:12:23.160 --> 00:12:29.580
+through the Rosetta, um, you know,
+changing from x86 64 into arm 64.
+
+00:12:30.705 --> 00:12:34.485
+So, uh, that just means it'll be
+faster, better tighter integration.
+
+00:12:34.485 --> 00:12:37.845
+I think there were also a lot of
+kind of incidental, um, changes or
+
+00:12:37.845 --> 00:12:39.285
+improvements to the code generator.
+
+00:12:39.285 --> 00:12:45.225
+As a result of this were needing to
+differentiate between arm 64 and x86
+
+00:12:45.225 --> 00:12:48.765
+64 made things more, um, like precise.
+
+00:12:48.765 --> 00:12:52.635
+So one of the things is like
+a word eight data type I think
+
+00:12:52.695 --> 00:12:54.285
+will actually be smaller.
+
+00:12:54.285 --> 00:12:58.845
+Like only use eight bits rather than
+it used to, I think take 64 bits.
+
+00:13:00.150 --> 00:13:01.080
+Go read the release notes.
+
+00:13:01.080 --> 00:13:02.370
+There's way more information about that.
+
+00:13:02.370 --> 00:13:04.070
+Just exciting native on M1
+
+00:13:04.620 --> 00:13:04.860
+>> yeah.
+
+00:13:04.860 --> 00:13:09.930
+So that means a Haskell community can
+be more, uh, more apple purchasers
+
+00:13:11.490 --> 00:13:15.090
+I'm in, I don't know that M1
+Macs and M1 pro look pretty cool.
+
+00:13:15.270 --> 00:13:19.200
+I don't know, per their
+comparisons with like the I9 and
+
+00:13:19.200 --> 00:13:19.560
+>> whatnot.
+
+00:13:20.100 --> 00:13:20.370
+Yeah.
+
+00:13:20.370 --> 00:13:21.540
+They're super fast.
+
+00:13:21.570 --> 00:13:24.570
+I, myself, have an M1 Mac mini at home.
+
+00:13:24.630 --> 00:13:26.850
+Uh, and I also have a windows machine.
+
+00:13:26.850 --> 00:13:27.060
+Also.
+
+00:13:27.060 --> 00:13:31.155
+I have a Linux machine, so I use
+GHC on all those I haven't yet
+
+00:13:31.155 --> 00:13:33.075
+got nine dot two on that Mac mini.
+
+00:13:33.075 --> 00:13:36.465
+So I can't, I don't have an experience
+report for, oh, it's blazing faster.
+
+00:13:36.465 --> 00:13:38.955
+It's super slow, but I
+expect it to be blazing fast.
+
+00:13:39.825 --> 00:13:40.005
+Yeah.
+
+00:13:40.005 --> 00:13:42.155
+>> We'll have to, uh, check
+in with you on that next week.
+
+00:13:42.155 --> 00:13:43.995
+See how That's going a little pet project.
+
+00:13:44.955 --> 00:13:45.705
+Ah, cool.
+
+00:13:45.735 --> 00:13:46.005
+Yeah.
+
+00:13:46.035 --> 00:13:50.415
+Um, I, I don't know if you
+can hear Roomba I just.
+
+00:13:51.090 --> 00:13:54.840
+That's running off in the
+background, DJ Roomba, DJ Roomba.
+
+00:13:55.290 --> 00:13:59.460
+But yeah, so, uh, I know there was a
+lot of changes in the area of records.
+
+00:13:59.820 --> 00:14:02.730
+Um, you want to talk about some
+of the language extensions, um,
+
+00:14:02.880 --> 00:14:05.760
+that they, uh, added and, or
+
+00:14:05.760 --> 00:14:06.210
+>> modified.
+
+00:14:06.600 --> 00:14:06.870
+Yeah.
+
+00:14:07.050 --> 00:14:08.220
+And I apologize in advance.
+
+00:14:08.220 --> 00:14:11.280
+If I get any of these wrong, I
+haven't been paying close attention
+
+00:14:11.280 --> 00:14:13.500
+to all of the proposals and
+implementations of these things,
+
+00:14:13.500 --> 00:14:15.360
+but yes, there are a lot of changes.
+
+00:14:16.200 --> 00:14:18.240
+Records and record fields.
+
+00:14:18.840 --> 00:14:25.050
+And the end result is that you can now
+write code in Haskell with the more
+
+00:14:25.050 --> 00:14:31.590
+typical record dot field notation that is
+popular in most object oriented languages.
+
+00:14:32.100 --> 00:14:37.380
+And you can have that read
+a real field on a record.
+
+00:14:37.440 --> 00:14:40.710
+So if you define like a person type
+and they have a name and you can now
+
+00:14:40.710 --> 00:14:43.695
+say person.name, Read that field out.
+
+00:14:44.295 --> 00:14:49.605
+Um, or you can have synthetic
+fields where it's computed when
+
+00:14:49.605 --> 00:14:50.895
+you call it or something like that.
+
+00:14:51.795 --> 00:14:55.005
+Um, like I said, I haven't been
+paying super close attention to this,
+
+00:14:55.005 --> 00:14:56.565
+but that's my understanding of it.
+
+00:14:56.835 --> 00:15:02.055
+And this also rounds off some of
+the rough edges when it comes to
+
+00:15:02.055 --> 00:15:06.495
+records where you can have, um,
+multiple fields with the same name.
+
+00:15:06.495 --> 00:15:10.905
+And then when you do that dot access
+into them, it will disambiguate based on
+
+00:15:11.340 --> 00:15:14.640
+which thing it is that you're calling.
+
+00:15:15.480 --> 00:15:18.870
+Um, and, uh, I think record updates.
+
+00:15:18.870 --> 00:15:21.630
+Are they also changed in this release?
+
+00:15:21.630 --> 00:15:25.740
+I think they're still changing, but the
+idea is that, uh, you will be able to do
+
+00:15:25.740 --> 00:15:30.090
+a record update, which is in the curly
+brackets where you say like a nested
+
+00:15:30.090 --> 00:15:34.740
+field in there where you can say person
+dot, name dot first equals something.
+
+00:15:34.740 --> 00:15:36.360
+And it will do a deep update into that.
+
+00:15:37.230 --> 00:15:40.170
+Rather than forcing you to like
+unwrap each level along the way
+
+00:15:40.170 --> 00:15:41.370
+and update the very inner thing.
+
+00:15:42.080 --> 00:15:46.290
+>> That'll be nice I feel like,
+uh, one thing that, one other language
+
+00:15:46.290 --> 00:15:49.400
+that could use something like that
+would be, uh, at least for like the.
+
+00:15:50.235 --> 00:15:52.365
+Changing of fields would be Elm.
+
+00:15:52.665 --> 00:15:53.204
+Yes.
+
+00:15:53.595 --> 00:15:57.345
+Gotta to like unwrap each section and then
+go to do the thing and then rewrap it.
+
+00:15:57.345 --> 00:15:58.905
+And it's like, uh,
+
+00:15:59.415 --> 00:16:02.235
+>> yeah, it's all this boiler
+plate for basically no reason.
+
+00:16:02.295 --> 00:16:06.074
+And in Elm, you can't even use
+lenses, which is the common
+
+00:16:06.074 --> 00:16:07.574
+Haskell way around this problem.
+
+00:16:07.665 --> 00:16:10.875
+And maybe the best way to talk
+about the record updates in GHC
+
+00:16:10.875 --> 00:16:12.305
+nine dot two is that it gets.
+
+00:16:13.260 --> 00:16:18.719
+Core language with some extensions,
+closer to what you can currently
+
+00:16:18.719 --> 00:16:20.910
+do with lenses as a library.
+
+00:16:20.939 --> 00:16:24.959
+So I'm sure that people who use lens
+may see that as a downside, like,
+
+00:16:24.989 --> 00:16:27.540
+Hey, you know, we have this powerful
+thing that we were able to implement
+
+00:16:27.540 --> 00:16:31.349
+without language support, but I know
+that a lot of people in the Haskell
+
+00:16:31.349 --> 00:16:34.560
+community are they shy away from lenses.
+
+00:16:34.560 --> 00:16:36.869
+And so having it built into
+the language is a big plus.
+
+00:16:38.655 --> 00:16:41.715
+>> That's been something for us
+is like, kind of figuring out, alright,
+
+00:16:41.745 --> 00:16:43.395
+what packages do we want to use?
+
+00:16:43.395 --> 00:16:44.985
+And what are the side effects with that?
+
+00:16:45.015 --> 00:16:48.765
+Oh, what's going to, you know, use
+lenses to, for updating documentation
+
+00:16:48.765 --> 00:16:52.315
+with swagger and it's like, all
+right, what is the dot tilde?
+
+00:16:52.365 --> 00:16:52.815
+Do?
+
+00:16:52.935 --> 00:16:55.815
+What about the dot till
+the curly or question mark?
+
+00:16:56.115 --> 00:16:56.505
+Oh yeah.
+
+00:16:56.535 --> 00:16:57.285
+That's what all these do.
+
+00:16:57.325 --> 00:17:02.775
+So, uh, yeah, I think, uh, creating
+some more language support for things
+
+00:17:02.775 --> 00:17:04.835
+like that without having to use lenses.
+
+00:17:06.030 --> 00:17:11.110
+Um, another thing one we've already
+talked about previously, uh, in a,
+
+00:17:11.110 --> 00:17:16.080
+in a previous episode is the GHC
+20, 21, uh, language extension set.
+
+00:17:16.440 --> 00:17:22.020
+And so I think with 9.2 0.1,
+that is now a supported thing.
+
+00:17:22.500 --> 00:17:24.720
+Um, and yeah.
+
+00:17:24.960 --> 00:17:25.290
+What
+
+00:17:25.320 --> 00:17:26.010
+>> do you think about that?
+
+00:17:26.760 --> 00:17:28.230
+I'm really excited about this.
+
+00:17:28.230 --> 00:17:33.600
+And in fact, uh, in reading the release
+notes, Discovered something about this
+
+00:17:33.600 --> 00:17:39.960
+that I didn't know before, which is that
+when you're defining a Haskell project or
+
+00:17:39.960 --> 00:17:46.320
+package, I should say, in your cabal file
+or your package dot yaml, you typically
+
+00:17:46.320 --> 00:17:50.100
+say what your default languages and
+you pick one of the language reports.
+
+00:17:50.130 --> 00:17:52.740
+It's either Haskell 98,
+or it's Haskell 2010.
+
+00:17:52.950 --> 00:17:56.070
+And for the most part, those are
+interchangeable uh Haskell 2010.
+
+00:17:56.130 --> 00:17:58.410
+Isn't a radical departure from Haskell 98.
+
+00:17:58.500 --> 00:18:00.140
+It just shores up some things and enables.
+
+00:18:01.170 --> 00:18:06.570
+Um, I'm small extensions, but I think
+with this new release, if you don't
+
+00:18:06.570 --> 00:18:11.430
+specify a default language, you're
+going to get GHC 20, 21 by default,
+
+00:18:11.940 --> 00:18:14.880
+which means a lot of new extensions.
+
+00:18:14.910 --> 00:18:18.330
+They don't actually list the whole
+extension set here, but there are.
+
+00:18:19.140 --> 00:18:23.490
+Tens of extensions that this enables
+and it's, you know, there was a lot
+
+00:18:23.520 --> 00:18:28.050
+of feedback that went into this, um,
+partially motivated by the Haskell survey.
+
+00:18:28.080 --> 00:18:29.580
+So again, please fill that out.
+
+00:18:29.580 --> 00:18:31.410
+If you haven't shameless plug.
+
+00:18:31.440 --> 00:18:31.710
+I love it.
+
+00:18:31.710 --> 00:18:32.430
+Exactly.
+
+00:18:32.640 --> 00:18:38.050
+Um, but yeah, so it's stuff like, you
+know, uh, Lambda case or like multiparam
+
+00:18:38.100 --> 00:18:41.250
+type classes, I'm rattling these off,
+but I don't actually know that these
+
+00:18:41.280 --> 00:18:44.670
+in particular are enabled, but they
+kind of quality of life improvements
+
+00:18:44.700 --> 00:18:46.560
+that feel like they should be on.
+
+00:18:47.639 --> 00:18:50.970
+But haven't been because it's such
+a conservative language standard.
+
+00:18:51.240 --> 00:18:54.720
+Now they're bundled into this GHC 20,
+21 language set and I'm really excited.
+
+00:18:55.830 --> 00:18:56.190
+>> Yeah.
+
+00:18:56.220 --> 00:18:57.870
+I know numeric underscores is in there.
+
+00:18:58.020 --> 00:19:03.540
+I was, uh, working with a buddy
+and I was like, he enabled uh that,
+
+00:19:03.540 --> 00:19:05.129
+and I was like, this is weird.
+
+00:19:05.129 --> 00:19:06.750
+Like I just haven't used this before.
+
+00:19:07.080 --> 00:19:09.450
+And he's like, yeah,
+well it's in GHC 2021.
+
+00:19:09.450 --> 00:19:10.800
+I was like, all right, cool.
+
+00:19:10.800 --> 00:19:11.370
+Let's do it.
+
+00:19:11.730 --> 00:19:16.490
+Uh, so yeah, I've definitely
+had my fair share.
+
+00:19:17.560 --> 00:19:20.145
+like hm this could be
+nice, just to be here.
+
+00:19:20.175 --> 00:19:24.764
+Uh, I think we've got quite a few language
+extensions ourselves, so be cool to
+
+00:19:24.764 --> 00:19:28.695
+see how many of those overlap with GHC
+20, 21 and how many we're not using.
+
+00:19:28.695 --> 00:19:32.175
+And maybe that would be another helpful
+thing to, you know, iterate quickly.
+
+00:19:32.745 --> 00:19:32.955
+>> Yeah.
+
+00:19:33.405 --> 00:19:37.485
+And one of the things I really like
+about this is that it provides a
+
+00:19:38.024 --> 00:19:42.225
+common base or common subset for the
+community to kind of rally around.
+
+00:19:43.065 --> 00:19:45.905
+So right now I think the status quo is.
+
+00:19:46.980 --> 00:19:52.889
+Everyone has kind of their own mental
+checklist of that's a okay extension.
+
+00:19:52.919 --> 00:19:53.909
+That's a bad one.
+
+00:19:53.909 --> 00:19:57.870
+And this one I'm kind of ambivalent
+about, and maybe not for every extension,
+
+00:19:57.870 --> 00:20:01.230
+there are a bunch, but you know, you
+say undecidable instances and some
+
+00:20:01.230 --> 00:20:02.699
+people are like, Ooh, I hate that.
+
+00:20:02.760 --> 00:20:03.780
+Or, oh yeah, that's fine.
+
+00:20:03.810 --> 00:20:04.830
+I'll enable that, whatever.
+
+00:20:05.340 --> 00:20:09.600
+Um, and by having a group of
+stuff altogether in GHC 20, 21,
+
+00:20:10.110 --> 00:20:13.310
+we can as a community, just say
+like, this is what I'm using
+
+00:20:13.725 --> 00:20:15.195
+you're probably already
+familiar with all of it.
+
+00:20:15.225 --> 00:20:16.215
+This is our new baseline.
+
+00:20:16.215 --> 00:20:16.455
+All right.
+
+00:20:16.455 --> 00:20:19.845
+Let's have all these features and
+make development life better for
+
+00:20:19.845 --> 00:20:20.145
+>> us.
+
+00:20:20.535 --> 00:20:21.795
+Yep, exactly.
+
+00:20:22.275 --> 00:20:22.545
+Yeah.
+
+00:20:22.605 --> 00:20:23.655
+So that's, that's good.
+
+00:20:23.745 --> 00:20:28.125
+Uh, that's another great
+win for GHC 9.2 0.1.
+
+00:20:28.665 --> 00:20:31.395
+Uh, are there any other
+like topic talking points?
+
+00:20:31.395 --> 00:20:33.765
+I mean, like you said, we
+could talk for hours on this.
+
+00:20:34.574 --> 00:20:38.205
+And I want to be cognizant of
+everyone's time, including yours.
+
+00:20:38.534 --> 00:20:41.804
+Now you're a busy man with talking
+to people over the pond and whatnot.
+
+00:20:43.064 --> 00:20:45.584
+>> You're busy too working
+on that new product, but there is
+
+00:20:45.584 --> 00:20:50.534
+one more thing I wanted to talk
+about, um, which is GHC exact print.
+
+00:20:50.865 --> 00:20:53.745
+And at the top of the show, I was
+talking about Brittany, the source
+
+00:20:53.745 --> 00:20:59.024
+code formatter Brittany is actually
+built on top of GHC exact print,
+
+00:20:59.294 --> 00:21:01.675
+which used to be a separate library.
+
+00:21:02.070 --> 00:21:06.360
+And if you're not familiar with
+it, GHC exact print is sort of like
+
+00:21:06.389 --> 00:21:09.929
+the pretty printer that doesn't
+actually make things prettier.
+
+00:21:10.379 --> 00:21:15.570
+All that it does is parse your
+source file into an AST and then
+
+00:21:15.810 --> 00:21:18.209
+give you back exactly the same thing.
+
+00:21:18.419 --> 00:21:19.830
+Hence the name, exact print.
+
+00:21:20.969 --> 00:21:23.909
+This seems kind of useless,
+but it's actually really
+
+00:21:23.909 --> 00:21:26.100
+useful for doing refactorings.
+
+00:21:26.129 --> 00:21:32.190
+So if you want to parse a file and
+then say, Something that HLint does
+
+00:21:32.190 --> 00:21:36.870
+a lot, for example, is like, if you
+have an expression where you say, when
+
+00:21:36.960 --> 00:21:42.270
+not something do this, you can replace
+that with, unless something do this.
+
+00:21:43.140 --> 00:21:47.220
+And HLint actually leans on a different
+tool to do those refactorings.
+
+00:21:47.250 --> 00:21:50.190
+But with GHC exact print, you
+could implement those types of
+
+00:21:50.190 --> 00:21:53.670
+refactorings by parsing the AST, and
+then transforming the little part
+
+00:21:53.670 --> 00:21:56.730
+of the AST you're interested in, and
+then writing it back out to a file.
+
+00:21:58.245 --> 00:22:03.075
+Or obviously you can use it as the basis
+for a pretty printer where you parse the
+
+00:22:03.075 --> 00:22:10.755
+AST and then transform not the, um, like
+not what it means, but what it looks like.
+
+00:22:10.785 --> 00:22:12.165
+And then write that back out to a file.
+
+00:22:12.735 --> 00:22:17.205
+So, uh, I mentioned all this, the, the
+actual change in GHC nine dot two is
+
+00:22:17.205 --> 00:22:20.295
+that exact print is now part of GHC.
+
+00:22:20.355 --> 00:22:22.245
+So it's no longer a separate library.
+
+00:22:22.755 --> 00:22:23.595
+And that just means.
+
+00:22:24.315 --> 00:22:25.575
+More widely available.
+
+00:22:25.635 --> 00:22:26.355
+You're guaranteed.
+
+00:22:26.355 --> 00:22:27.285
+It's going to be up to date.
+
+00:22:27.465 --> 00:22:28.185
+Those are good things.
+
+00:22:28.605 --> 00:22:28.785
+>> Yeah.
+
+00:22:28.785 --> 00:22:32.295
+So in there, in that explanation,
+you did use a couple acronyms
+
+00:22:32.295 --> 00:22:33.465
+that I wasn't sure of.
+
+00:22:33.795 --> 00:22:35.775
+Um, and for the listeners, I
+want to make sure that they
+
+00:22:35.775 --> 00:22:37.875
+are also not in the dark there.
+
+00:22:37.995 --> 00:22:39.795
+Um, I think you said AST.
+
+00:22:40.575 --> 00:22:40.995
+>> Yes.
+
+00:22:41.025 --> 00:22:45.015
+So AST stands for abstract syntax tree.
+
+00:22:45.675 --> 00:22:48.495
+And what that means is typically the.
+
+00:22:49.185 --> 00:22:52.504
+Like the source code you have in
+a file is just a bunch of bytes,
+
+00:22:52.504 --> 00:22:55.245
+they're characters, whatever, how
+are you, however you encode them.
+
+00:22:55.725 --> 00:22:59.785
+And then the compiler doesn't want
+to deal with those bytes directly.
+
+00:22:59.805 --> 00:23:01.965
+It wants to deal with an
+abstract representation of them.
+
+00:23:02.024 --> 00:23:05.115
+So programming languages are typically
+typically pretty complicated, but
+
+00:23:05.115 --> 00:23:09.284
+the same thing is true for like JSON,
+you have like curly bracket, double
+
+00:23:09.284 --> 00:23:13.245
+quote, something close, double quote
+colon, and like, okay, that's great.
+
+00:23:13.245 --> 00:23:18.435
+But really what I'm representing here is
+JSON object, key name is this and value.
+
+00:23:19.274 --> 00:23:25.215
+So an AST is essentially like a
+abstract representation of the syntax.
+
+00:23:25.725 --> 00:23:26.145
+Gotcha.
+
+00:23:26.625 --> 00:23:29.835
+>> I feel like there was something
+else, but I can't quite call it out.
+
+00:23:29.835 --> 00:23:32.085
+And I know it's not an NDA
+cause that's something else.
+
+00:23:32.415 --> 00:23:37.695
+Uh, so, well, if whoever's
+listening and they re see which
+
+00:23:37.695 --> 00:23:38.835
+one that was and have a question.
+
+00:23:39.615 --> 00:23:40.245
+Pink Taylor.
+
+00:23:40.245 --> 00:23:41.385
+He'll, he'll answer it for you.
+
+00:23:41.385 --> 00:23:44.535
+Cause I mean, you can pay
+me, I'll research it, but I
+
+00:23:44.545 --> 00:23:45.615
+can't guarantee the answer.
+
+00:23:45.645 --> 00:23:48.975
+>> So ping you and then you can ask
+me and then I'll tell you and perfect.
+
+00:23:48.975 --> 00:23:49.095
+Tell
+
+00:23:49.095 --> 00:23:51.195
+>> them I will just
+play telephone with this.
+
+00:23:51.295 --> 00:23:52.125
+Sounds like a great idea.
+
+00:23:53.085 --> 00:23:53.505
+Awesome.
+
+00:23:53.505 --> 00:23:58.305
+Well thank you, uh, for kind of diving
+into those, uh, today and sharing
+
+00:23:58.305 --> 00:24:04.950
+with us, uh, Really are some of the
+highlights and top points of GHC 9.2 0.1.
+
+00:24:05.310 --> 00:24:10.470
+Please do go look at the full spec
+if you're interested in what changed.
+
+00:24:10.860 --> 00:24:13.050
+Um, cause there's a
+laundry list of things.
+
+00:24:13.050 --> 00:24:15.240
+So, uh, definitely check it out.
+
+00:24:15.690 --> 00:24:21.300
+Uh, hopefully soon we'll continue
+to get every stack supporting 9.2
+
+00:24:21.300 --> 00:24:23.070
+0.1 and, and all that fun stuff.
+
+00:24:23.070 --> 00:24:23.370
+So.
+
+00:24:24.615 --> 00:24:28.004
+Now that it's officially been released,
+we can kind of wait for that ball roll
+
+00:24:28.004 --> 00:24:31.485
+for all the, the full support for normal.
+
+00:24:31.605 --> 00:24:36.315
+Uh, you know, obviously you can still use
+9.2 0.1, but if you want it, you know,
+
+00:24:37.125 --> 00:24:40.445
+>> it's a lot easier when
+stackage has at least a nightly
+
+00:24:40.445 --> 00:24:42.115
+snapshot for nine dot two dot one.
+
+00:24:42.135 --> 00:24:45.735
+Cause that means most of the
+libraries you probably depend on
+
+00:24:45.885 --> 00:24:47.205
+have been updated to support it.
+
+00:24:47.655 --> 00:24:49.754
+Um, and my expectation.
+
+00:24:50.835 --> 00:24:55.365
+As someone who maintains a handful of
+libraries is that upgrading to nine dot
+
+00:24:55.395 --> 00:24:58.875
+two is probably going to be a little
+bit easier than upgrading to nine dot.
+
+00:24:58.915 --> 00:24:59.294
+Oh.
+
+00:24:59.985 --> 00:25:03.735
+Um, from the change from eight
+dot 10 to nine dot, oh, there were
+
+00:25:03.735 --> 00:25:06.675
+a lot of internal changes in GHC
+restructuring and stuff like that.
+
+00:25:06.885 --> 00:25:10.125
+And so that made it hard for libraries
+that depend on those internals to update.
+
+00:25:10.125 --> 00:25:12.465
+And it seems like there aren't
+as many with nine dot two.
+
+00:25:14.804 --> 00:25:15.135
+>> Cool.
+
+00:25:15.254 --> 00:25:17.225
+Well, thank you guys for listening.
+
+00:25:18.090 --> 00:25:19.110
+Uh, yeah, you want
+
+00:25:22.230 --> 00:25:24.840
+>> well, uh, I want to add one
+thing to the outro and then you can
+
+00:25:24.840 --> 00:25:30.060
+do the normal bit, which is, um, if
+you guys have you listening, have any
+
+00:25:30.060 --> 00:25:33.570
+questions about, you know, stuff we
+talk about on this show, or if you have
+
+00:25:33.570 --> 00:25:36.750
+suggestions for things you would like
+us to talk about, please let one of
+
+00:25:36.750 --> 00:25:39.120
+us know or tweet us at Haskell weekly.
+
+00:25:39.480 --> 00:25:40.620
+Um, I would really.
+
+00:25:41.850 --> 00:25:45.300
+Like to get into questions from
+our listeners and, you know,
+
+00:25:45.360 --> 00:25:46.710
+I, should we do this or that?
+
+00:25:46.710 --> 00:25:48.389
+Or should we architect
+things this way or that way?
+
+00:25:48.629 --> 00:25:51.210
+I think Cameron and I have a fair
+amount of experience working in
+
+00:25:51.210 --> 00:25:52.530
+professional environments with Haskell.
+
+00:25:52.530 --> 00:25:54.720
+And I'd love to share that with
+the larger community, but it's
+
+00:25:54.720 --> 00:25:56.940
+hard to just jump off of nothing.
+
+00:25:56.940 --> 00:25:58.170
+You know, we need a need a prompt.
+
+00:25:58.590 --> 00:25:58.860
+>> Yeah.
+
+00:25:59.220 --> 00:25:59.700
+I would agree.
+
+00:26:00.060 --> 00:26:01.320
+Um, yeah.
+
+00:26:02.379 --> 00:26:03.000
+Sounds great to me.
+
+00:26:03.330 --> 00:26:03.930
+Well, awesome.
+
+00:26:03.930 --> 00:26:06.389
+Thank you guys for listening
+to the Haskell weekly podcast.
+
+00:26:06.720 --> 00:26:08.790
+Uh, we are a show about Haskell.
+
+00:26:09.750 --> 00:26:10.260
+It's in the name.
+
+00:26:10.260 --> 00:26:10.830
+That's pretty cool.
+
+00:26:11.160 --> 00:26:16.110
+Uh, if you guys are interested,
+please follow us @HaskellWeekly.
+
+00:26:16.440 --> 00:26:20.900
+Um, or you can find us
+online at HaskellWeekly.News
+
+00:26:21.600 --> 00:26:22.260
+>> you got it.
+
+00:26:22.350 --> 00:26:27.300
+And, uh, as per usual, we are brought
+to you by my employer, ACI Learning.
+
+00:26:27.870 --> 00:26:33.600
+Uh, if you want to go over to it
+pro.tv and fill in promo code Haskell
+
+00:26:33.600 --> 00:26:37.840
+weekly 30, you can get 30% off
+the lifetime of your subscription.
+
+00:26:38.280 --> 00:26:39.510
+So thank you for
+
+00:26:39.510 --> 00:26:43.649
+>> using, because our
+domain is it pro.tv and we
+
+00:26:43.649 --> 00:26:44.879
+were purchased by ACI Learning.
+
+00:26:44.879 --> 00:26:50.669
+So for, well, yeah, they were, uh,
+my previous employer, one of us, one
+
+00:26:50.669 --> 00:26:51.210
+>> of us,
+
+00:26:52.440 --> 00:26:54.690
+>> but yeah, I mean, I spent,
+I spent a long time there, so I feel
+
+00:26:54.690 --> 00:26:58.830
+like even if I'm not there, it's
+still part of it for some reason.
+
+00:26:59.520 --> 00:27:01.260
+Um, I mean, I did just walk
+into the building the other
+
+00:27:01.260 --> 00:27:03.050
+day and just walk on in.
+
+00:27:03.629 --> 00:27:06.450
+>> Security's really light
+there, lose a ping pong game.
+
+00:27:07.410 --> 00:27:07.800
+I did
+
+00:27:08.550 --> 00:27:15.390
+>> Taylor Fausak beat me
+on November 3rd, around 12:45 PM.
+
+00:27:15.450 --> 00:27:15.660
+Not a
+
+00:27:15.660 --> 00:27:16.090
+>> big deal.
+
+00:27:16.120 --> 00:27:17.700
+We made a plaque, but it's not a big deal.
+
+00:27:17.820 --> 00:27:18.120
+Yeah.
+
+00:27:18.150 --> 00:27:18.610
+>> It's no biggie.
+
+00:27:19.710 --> 00:27:23.010
+I was the reigning champion, but
+you know, now I'll cry away, but
+
+00:27:23.010 --> 00:27:24.750
+anyways, thank you guys for listening.
+
+00:27:24.960 --> 00:27:26.580
+We'll catch you guys next week.
+
+00:27:27.120 --> 00:27:27.780
+Peace.

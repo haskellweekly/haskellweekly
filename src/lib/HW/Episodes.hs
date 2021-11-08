@@ -84,6 +84,7 @@ episodes = do
     , episode52
     , episode53
     , episode54
+    , episode55
     ]
   checkGuids validEpisodes Set.empty
   checkNumbers validEpisodes 1
@@ -924,3 +925,17 @@ episode54 = Episode.Episode
   <*> Size.fromNatural 25418233
   <*> Summary.fromText "Cameron Gera and Taylor Fausak discuss Drew Olson's adventures in looping. What should you do if you want to loop forever, but break out of the loop early sometimes?"
   <*> Title.fromText "Loop Breaker"
+
+episode55 :: Either String Episode.Episode
+episode55 = Episode.Episode
+  <$> Articles.fromList
+    [ "https://www.haskell.org/ghc/blog/20211029-ghc-9.2.1-released.html"
+    , "https://haskellweekly.news/survey/2021.html"
+    ]
+  <*> Date.fromGregorian 2021 11 8
+  <*> Duration.fromTimestamp 27 32
+  <*> Guid.fromText "5eca8eef-e273-4b87-aafa-ed67d1e654cb"
+  <*> Number.fromNatural 55
+  <*> Size.fromNatural 33043376
+  <*> Summary.fromText "We're back! After a month off, Cameron and Taylor get together to talk about what's new in the Haskell world."
+  <*> Title.fromText "GHC 9.2.1"
