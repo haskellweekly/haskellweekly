@@ -14,7 +14,8 @@ This is a weekly summary of what's going on in its community.
 - [Haskell eXchange Online Conference (November 15--17, 2021)](https://events.skillsmatter.com/haskellx2021?utm_campaign=Conferences%20%E2%80%93%20Haskell%20eXchange&utm_source=email&utm_medium=email-ad&utm_content=haskell-weekly) (ad)
   > This year's conference includes a number of talks exploring Haskell's use in enterprise from companies like SimSpace, JUSPAY, Chordify, CarbonCloud, Flipstone, Foxhound Systems and more. Join us as we discover why sometimes Haskell is actually the best business decision.
 
-undefined
+- [How To Use a Record Field Name Within a Haskell Module Twice](https://lambdablob.com/posts/haskell-duplicate-record-fields-extension/) by Malte Neuss
+  > We take a beginner-friendly, detailed look at what you can and cannot do with the `DuplicateRecordFields` extension without resorting to field labels or lens libraries.
 
 ## Jobs
 
