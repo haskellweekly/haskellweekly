@@ -45,4 +45,5 @@ undefined
 
 ## Call for participation
 
-undefined
+-   [errata: Add styling options for "extra" lines](https://github.com/1Computer1/errata/issues/8)
+-   [swarm: Add toggle key for hiding 0 in inventory](https://github.com/byorgey/swarm/issues/282)
