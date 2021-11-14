@@ -85,6 +85,7 @@ episodes = do
     , episode53
     , episode54
     , episode55
+    , episode56
     ]
   checkGuids validEpisodes Set.empty
   checkNumbers validEpisodes 1
@@ -939,3 +940,16 @@ episode55 = Episode.Episode
   <*> Size.fromNatural 33043376
   <*> Summary.fromText "We're back! After a month off, Cameron and Taylor get together to talk about what's new in the Haskell world."
   <*> Title.fromText "GHC 9.2.1"
+
+episode56 :: Either String Episode.Episode
+episode56 = Episode.Episode
+  <$> Articles.fromList
+    [ "https://join.slack.com/t/haskell-foundation/shared_invite/zt-mjh76fw0-CEjg2NbyVE8rVQDvR~0F4A"
+    ]
+  <*> Date.fromGregorian 2021 11 15
+  <*> Duration.fromTimestamp 23 35
+  <*> Guid.fromText "610fce3c-eb75-43a5-803f-90f20c027c09"
+  <*> Number.fromNatural 56
+  <*> Size.fromNatural 22683648
+  <*> Summary.fromText "This week Cameron and Taylor answer our first listener question: How should you structure large applications? We compare ReaderT with MTL along with other approaches."
+  <*> Title.fromText "Monad Architecture"
