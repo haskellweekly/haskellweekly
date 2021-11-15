@@ -6,7 +6,6 @@ module HW.Template.Podcast
 
 import qualified HW.Template.Base as Base
 import qualified HW.Template.Common as Common
-import qualified HW.Template.Survey2021 as Survey2021
 import qualified HW.Type.BaseUrl as BaseUrl
 import qualified HW.Type.Date as Date
 import qualified HW.Type.Episode as Episode
@@ -18,7 +17,6 @@ import qualified Lucid as Html
 template :: BaseUrl.BaseUrl -> [Episode.Episode] -> Html.Html ()
 template baseUrl episodes =
   Base.template baseUrl "Haskell Weekly Podcast" (header baseUrl Nothing) $ do
-    Survey2021.callToAction baseUrl
     Html.h2_ [Html.class_ "f2 mv3 tracked-tight"] "Podcast"
     Html.p_ $ do
       "The Haskell Weekly Podcast covers the Haskell programming language. "
