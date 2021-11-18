@@ -34,4 +34,6 @@ undefined
 
 ## Call for participation
 
-undefined
+-   [LambdaHack: Split the long Content.ModeKind texts into lines](https://github.com/LambdaHack/LambdaHack/issues/283)
+-   [lamdu: Status bar should collapse for narrow layouts](https://github.com/lamdu/lamdu/issues/132)
+-   [tablebot: Shibe plugin](https://github.com/WarwickTabletop/tablebot/issues/49)
