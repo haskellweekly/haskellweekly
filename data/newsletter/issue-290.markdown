@@ -79,6 +79,9 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 - [Dovetail](https://hackage.haskell.org/package/dovetail-0.1.0.0) by Phil Freeman
   > Dovetail is a general-purpose PureScript interpreter written in Haskell. It has excellent support for interop with Haskell code via PureScript's foreign function interface, along with a high-level Haskell API for integrating such code.
 
+- [Haskell Language Server version 1.5.0](https://discourse.haskell.org/t/ann-haskell-language-server-1-5-0-release/3683?u=taylorfausak) by Javier Neira
+  > Time for another HLS release: Pepe Iborra has done an epic work to improve performance, redefining some of the core pieces of HLS.
+
 - [Prune Juice version 0.7](https://dfithian.github.io/2021/11/12/prune-juice-0.7-released.html) by Dan Fithian
   > Since releasing prune-juice, I have received a number of requests asking to apply the unused dependencies directly to the cabal files. It ended up being a lot harder than I expected to implement, and I'm proud to say that it's finally supported!
 
