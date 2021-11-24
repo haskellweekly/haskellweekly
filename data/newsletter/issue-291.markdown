@@ -4,7 +4,8 @@ This is a weekly summary of what's going on in its community.
 
 ## Featured
 
-undefined
+- [Haskell series part 7](https://blog.kalvad.com/haskell-series-part-7/) by Pierre Guillemot
+  > This is the seventh article of a series on the functional language Haskell for beginners. In this article we are covering map, filter, foldl and function composition.
 
 ## Jobs
 
