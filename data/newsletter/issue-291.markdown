@@ -67,4 +67,4 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 
 ## Call for participation
 
-undefined
+-   [safe-json: `SafeJSON a` constraint in Product instance superfluous?](https://github.com/Vlix/safe-json/issues/30)
