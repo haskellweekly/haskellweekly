@@ -30,4 +30,5 @@ undefined
 
 ## Call for participation
 
-undefined
+-   [bytestring: Add `_since_` info to functions in doc](https://github.com/haskell/bytestring/issues/442)
+-   [haskell-language-server: Import extension plugin: don't suggest imports from deprecated modules](https://github.com/haskell/haskell-language-server/issues/2415)
