@@ -86,6 +86,7 @@ episodes = do
     , episode54
     , episode55
     , episode56
+    , episode57
     ]
   checkGuids validEpisodes Set.empty
   checkNumbers validEpisodes 1
@@ -953,3 +954,16 @@ episode56 = Episode.Episode
   <*> Size.fromNatural 22683648
   <*> Summary.fromText "This week Cameron and Taylor answer our first listener question: How should you structure large applications? We compare ReaderT with MTL along with other approaches."
   <*> Title.fromText "Monad Architecture"
+
+episode57 :: Either String Episode.Episode
+episode57 = Episode.Episode
+  <$> Articles.fromList
+    [ "https://taylor.fausak.me/2021/11/16/haskell-survey-results/"
+    ]
+  <*> Date.fromGregorian 2021 12 6
+  <*> Duration.fromTimestamp 34 57
+  <*> Guid.fromText "570d1a46-29e9-490d-9e45-103cedf9b922"
+  <*> Number.fromNatural 57
+  <*> Size.fromNatural 41943294
+  <*> Summary.fromText "Thanks to everyone who filled out the 2021 State of Haskell Survey! This week Cameron and Taylor review the results."
+  <*> Title.fromText "2021 Survey Results"

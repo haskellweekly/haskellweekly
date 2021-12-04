@@ -1,0 +1,2379 @@
+WEBVTT
+
+00:00:04.240 --> 00:00:08.790
+>> Hey there
+Haskell weekly listeners.
+
+00:00:08.850 --> 00:00:12.150
+Welcome to another episode of
+the Haskell weekly podcast.
+
+00:00:12.300 --> 00:00:13.950
+I'm your host Taylor Fausak.
+
+00:00:14.010 --> 00:00:17.040
+I am the director of software
+engineering at ACI Learning.
+
+00:00:18.119 --> 00:00:18.299
+And
+
+00:00:18.299 --> 00:00:19.390
+>> I'm Cameron Gera.
+
+00:00:19.730 --> 00:00:25.799
+I am a senior software engineer at
+caribou, which is a fantastic place to
+
+00:00:25.799 --> 00:00:28.229
+be and no longer it pro, but it's okay.
+
+00:00:28.229 --> 00:00:31.470
+We're still doing the podcast here
+and, uh, excited to be here today.
+
+00:00:31.680 --> 00:00:32.310
+How's it going today?
+
+00:00:33.210 --> 00:00:34.080
+>> It's going good.
+
+00:00:34.110 --> 00:00:37.379
+Glad to be back on a new episode
+with you cam, we took a few weeks
+
+00:00:37.379 --> 00:00:38.400
+off there around Thanksgiving.
+
+00:00:39.270 --> 00:00:40.110
+Things are going well.
+
+00:00:40.320 --> 00:00:40.470
+Yeah.
+
+00:00:40.470 --> 00:00:40.740
+It seems
+
+00:00:40.740 --> 00:00:41.220
+>> like we do that.
+
+00:00:41.220 --> 00:00:43.040
+We get like two weeks
+pretty good in a row.
+
+00:00:43.040 --> 00:00:45.270
+And then all of a sudden
+it's like two, three weeks.
+
+00:00:45.330 --> 00:00:46.620
+We're like, oh yeah, Nope.
+
+00:00:46.620 --> 00:00:47.190
+Hasn't happened.
+
+00:00:47.190 --> 00:00:49.740
+So, uh, we've got the
+holidays coming up as well.
+
+00:00:49.740 --> 00:00:53.690
+So we'll see how, uh, the
+rest of this, uh, time goes
+
+00:00:53.760 --> 00:00:54.780
+>> for the rest of this year.
+
+00:00:54.780 --> 00:00:58.019
+I think in retrospect, calling it high
+school weekly was a mistake on my part.
+
+00:00:58.019 --> 00:01:00.390
+It should have been Haskell semi-weekly.
+
+00:01:00.720 --> 00:01:02.190
+Haskell sometimes.
+
+00:01:04.364 --> 00:01:04.754
+But yeah.
+
+00:01:04.785 --> 00:01:08.235
+Um, so yeah, we'll be probably off
+a little bit around the holidays,
+
+00:01:08.295 --> 00:01:09.885
+so prepare yourself for that.
+
+00:01:09.945 --> 00:01:14.895
+Uh, but this week we're going to be
+reviewing the Haskell survey results.
+
+00:01:14.985 --> 00:01:20.235
+Um, I published the survey results just
+after they, the survey closed, which
+
+00:01:20.235 --> 00:01:22.545
+was, uh, in the first half of November.
+
+00:01:22.995 --> 00:01:25.875
+But, uh, we haven't got a chance to
+go over them here on the podcast.
+
+00:01:25.875 --> 00:01:27.045
+So I figured we'd do that today?
+
+00:01:27.315 --> 00:01:27.735
+Yeah.
+
+00:01:27.755 --> 00:01:28.025
+Yeah.
+
+00:01:28.035 --> 00:01:28.425
+I think
+
+00:01:28.425 --> 00:01:31.185
+>> it's, uh, got
+some fascinating insights.
+
+00:01:31.275 --> 00:01:31.995
+Um, you know, this.
+
+00:01:33.104 --> 00:01:35.714
+It was actually lower
+response than previous.
+
+00:01:36.074 --> 00:01:38.874
+Um, and I'm also a guilty party
+for not actually have done it.
+
+00:01:38.955 --> 00:01:40.604
+So, uh, whoops.
+
+00:01:40.815 --> 00:01:46.215
+It's, uh, you know, we have little
+over 1100 responses, um, which is just
+
+00:01:46.365 --> 00:01:47.835
+a few hundred down from last year.
+
+00:01:47.835 --> 00:01:53.384
+So, uh, you know, a little
+less, uh, participation, but
+
+00:01:53.384 --> 00:01:55.695
+still great fascinations.
+
+00:01:55.824 --> 00:01:57.324
+Trying to make some rhymes here.
+
+00:01:59.565 --> 00:02:03.075
+>> I'm not too concerned about
+the dip in participation this year.
+
+00:02:03.105 --> 00:02:05.025
+It doesn't portend anything to me.
+
+00:02:05.025 --> 00:02:08.475
+I think it just waxes and wanes
+and we've had it go up a little
+
+00:02:08.475 --> 00:02:09.764
+bit and now it's gone back down.
+
+00:02:10.305 --> 00:02:15.735
+Um, also before we get into looking at
+the results, um, the Haskell foundation
+
+00:02:15.735 --> 00:02:18.795
+is actually hiring a data scientist
+to come through these and provide.
+
+00:02:19.620 --> 00:02:23.760
+Better, I would say second or third
+level, you know, analysis of these things.
+
+00:02:23.760 --> 00:02:28.079
+So rather than looking at one question
+in isolation, looking at some types of
+
+00:02:28.079 --> 00:02:32.549
+things, like if they answered one question
+this way, how does that impact their, the
+
+00:02:32.549 --> 00:02:34.109
+way they answered these other questions?
+
+00:02:34.680 --> 00:02:38.609
+And in particular, that could be
+really useful, um, by splitting people
+
+00:02:38.609 --> 00:02:42.820
+up based on their experience level
+or, you know, any number of facets.
+
+00:02:43.755 --> 00:02:44.055
+>> Dang.
+
+00:02:44.265 --> 00:02:45.015
+That's pretty cool.
+
+00:02:45.645 --> 00:02:49.215
+And this next year is going to be probably
+something the Haskell foundation runs
+
+00:02:49.275 --> 00:02:49.725
+>> correct?
+
+00:02:50.385 --> 00:02:51.165
+I think so.
+
+00:02:51.195 --> 00:02:55.245
+That's my goal is to hand off this
+survey, I've done it for five years
+
+00:02:55.245 --> 00:02:59.745
+now and I have got it down to the point
+where I don't have to spend a lot of
+
+00:02:59.745 --> 00:03:01.425
+time doing it, but that means also that.
+
+00:03:02.339 --> 00:03:04.859
+Really actively working on
+continually improving it.
+
+00:03:04.859 --> 00:03:08.010
+You know, I'll make little changes
+and tweaks here and there, but for
+
+00:03:08.010 --> 00:03:11.100
+the most part, I just ask the same
+questions every year and post the same,
+
+00:03:11.220 --> 00:03:13.529
+um, results formatted in the same way.
+
+00:03:13.769 --> 00:03:14.070
+Right.
+
+00:03:14.549 --> 00:03:14.910
+>> Cool.
+
+00:03:15.329 --> 00:03:15.630
+Yeah.
+
+00:03:15.660 --> 00:03:19.859
+So, uh, I guess with that, we
+can get started what's uh, what
+
+00:03:19.859 --> 00:03:21.899
+was one of the first things that
+kind of caught you by surprise?
+
+00:03:24.950 --> 00:03:26.430
+>> Something that got me by surprise.
+
+00:03:26.480 --> 00:03:31.490
+It wasn't necessarily new this year,
+but that I want to call out and
+
+00:03:31.640 --> 00:03:35.060
+just appreciate is there were a good
+chunk of people who took the survey,
+
+00:03:35.060 --> 00:03:37.070
+who don't currently use Haskell.
+
+00:03:37.130 --> 00:03:40.670
+And that's both people that used
+it in the past and don't anymore
+
+00:03:40.970 --> 00:03:42.620
+or people that have never used it.
+
+00:03:42.829 --> 00:03:46.964
+And I'm really curious how those people
+that never used it ended up taking the
+
+00:03:46.994 --> 00:03:48.795
+survey, but I appreciate their viewpoint.
+
+00:03:49.184 --> 00:03:52.695
+And I also appreciate the viewpoint of
+people who used it in the past and kind
+
+00:03:52.695 --> 00:03:55.994
+of either left it for whatever reason
+or gave up on it or whatever it is.
+
+00:03:57.584 --> 00:03:58.815
+Those are really valuable viewpoints.
+
+00:03:58.815 --> 00:04:01.815
+So I just want to thank the people that
+have done that and who, you know, I
+
+00:04:01.815 --> 00:04:04.515
+wouldn't expect them to be listeners
+of the podcast, but maybe they are.
+
+00:04:04.755 --> 00:04:04.905
+Yeah.
+
+00:04:04.905 --> 00:04:05.355
+Maybe they're
+
+00:04:05.715 --> 00:04:10.635
+>> just dreaming to get into Haskell
+more, you know, providing their feedback,
+
+00:04:10.755 --> 00:04:15.375
+whether they don't have any experience
+or if they have had experience in the
+
+00:04:15.375 --> 00:04:18.015
+past and it's, they left for some reason.
+
+00:04:18.284 --> 00:04:21.885
+Uh, so yeah, I think that's
+been pretty interesting.
+
+00:04:22.275 --> 00:04:24.105
+Um, you know, I think.
+
+00:04:25.755 --> 00:04:27.044
+Looking at the breakdown.
+
+00:04:27.075 --> 00:04:30.914
+Obviously there's a lot of
+variation in, in the demographic
+
+00:04:30.974 --> 00:04:33.614
+that we, that are filling this out.
+
+00:04:33.674 --> 00:04:39.945
+Um, whether it's experience
+or it's, um, you know, kind of
+
+00:04:40.094 --> 00:04:45.135
+frequency or, or the reason to use
+Haskell or, you know, what be it.
+
+00:04:45.495 --> 00:04:51.060
+Um, but I did also like that, the fact
+that like, you know, Tying into your
+
+00:04:51.150 --> 00:04:55.110
+people who used to use Haskell, or may
+not even use Haskell and filling this out.
+
+00:04:55.110 --> 00:05:00.210
+Like the question about, do you
+use Haskell at work like 36, 33.
+
+00:05:01.245 --> 00:05:04.215
+36% of the people who answered the
+question were like, no, but I'd like
+
+00:05:04.215 --> 00:05:07.905
+to, you know, which is more than
+the, yes, most of the time, you know?
+
+00:05:08.565 --> 00:05:09.825
+Uh, so that was kind of interesting.
+
+00:05:10.155 --> 00:05:11.354
+>> Um, yeah, that's huge.
+
+00:05:11.385 --> 00:05:15.375
+And I really wish I had an answer
+for those people of like, how
+
+00:05:15.405 --> 00:05:18.104
+can you use Haskell at work?
+
+00:05:18.104 --> 00:05:19.365
+You know, is it a problem with Haskell?
+
+00:05:19.365 --> 00:05:21.825
+Is it a problem with the company or
+is it not really a problem at all?
+
+00:05:21.825 --> 00:05:23.205
+It's just the way the chips fell.
+
+00:05:24.455 --> 00:05:27.544
+That would be an interesting thing
+to dig into and get some qualitative
+
+00:05:27.544 --> 00:05:30.455
+answers from those people rather
+than the quantitative numbers.
+
+00:05:31.085 --> 00:05:31.474
+Yeah.
+
+00:05:31.474 --> 00:05:34.984
+>> And I think too, that
+like, yeah, it's that barrier of
+
+00:05:34.984 --> 00:05:36.995
+entry, is it there's that too high?
+
+00:05:37.685 --> 00:05:42.245
+Um, you know, is there something like my,
+my recommendation for those people would
+
+00:05:42.245 --> 00:05:43.945
+be like, just see if there's some way.
+
+00:05:45.525 --> 00:05:49.545
+Have a spike of a Haskell project
+and kind of show the power.
+
+00:05:49.935 --> 00:05:53.594
+I think that's something here at caribou
+we've done is that we've kind of showed
+
+00:05:53.594 --> 00:06:00.045
+how powerful, you know, Haskell can be for
+both like speed and, you know, consistency
+
+00:06:00.055 --> 00:06:02.265
+and performance and all these things.
+
+00:06:02.265 --> 00:06:06.585
+And so we've really created a
+nice kind of, we advocated well
+
+00:06:06.585 --> 00:06:08.655
+for the language in our job.
+
+00:06:09.465 --> 00:06:12.885
+But I just kind of starting with little
+things and seeing the payoff there.
+
+00:06:12.885 --> 00:06:16.815
+So you know, that would give you my
+recommendation to those who would like
+
+00:06:16.815 --> 00:06:21.195
+to it, just say like, Hey, you know,
+you guys have a company hackathon or
+
+00:06:21.615 --> 00:06:24.975
+something comes up and you're like,
+Hey, let me, can I, can I try this with
+
+00:06:24.975 --> 00:06:30.645
+Haskell and just see, um, you know, and
+I feel like there's a lot of resources
+
+00:06:30.645 --> 00:06:33.975
+out there too for, you know, higher
+ups who you're trying to convince.
+
+00:06:33.975 --> 00:06:36.465
+You can work with them,
+kind of say, Hey, okay.
+
+00:06:36.465 --> 00:06:37.005
+Hey, here's.
+
+00:06:38.595 --> 00:06:40.545
+Here's the parameters for success.
+
+00:06:41.025 --> 00:06:44.865
+And, you know, we're going to try to,
+you know, spend a month on this, you
+
+00:06:44.865 --> 00:06:49.755
+know, and hopefully with that month, you
+have the opportunity to kind of really
+
+00:06:49.755 --> 00:06:55.125
+expand your knowledge and the company's
+knowledge of Haskell and, uh, you know,
+
+00:06:55.155 --> 00:06:56.415
+create a great product out of it as well.
+
+00:06:57.495 --> 00:06:57.945
+>> I agree.
+
+00:06:57.945 --> 00:07:01.724
+I think that's great advice and it's
+worth reiterating, or maybe not even
+
+00:07:01.724 --> 00:07:06.885
+reiterating, just if you weren't aware
+with ACI Learning, which, um, I came from
+
+00:07:06.885 --> 00:07:14.325
+the it pro TV side of ACI Learning and
+ITProTV, wasn't always a Haskell shop.
+
+00:07:14.414 --> 00:07:16.935
+It actually started as a WordPress site.
+
+00:07:16.965 --> 00:07:24.244
+So PHP and then had a, not too brief
+stint as a Node JS shop using Sails JS.
+
+00:07:24.750 --> 00:07:28.680
+And very briefly used Golang
+and then got over to Haskell.
+
+00:07:28.680 --> 00:07:33.660
+So I think people may have this impression
+that in order to use Haskell at a company,
+
+00:07:33.660 --> 00:07:35.700
+it has to be founded by somebody who is.
+
+00:07:36.780 --> 00:07:39.870
+Gung-ho about using Haskell
+and that's not the case.
+
+00:07:39.900 --> 00:07:40.770
+It wasn't the case for us.
+
+00:07:41.250 --> 00:07:41.549
+>> Yeah.
+
+00:07:42.000 --> 00:07:42.299
+Yeah.
+
+00:07:42.359 --> 00:07:46.409
+I mean, and I'm currently in a place
+where we're a Ruby and TypeScript
+
+00:07:46.409 --> 00:07:49.320
+shop, so it's kind of like, you
+know, pushing our way through.
+
+00:07:49.739 --> 00:07:52.859
+Um, and you know, we have a lot of people
+in the organization who are interested in
+
+00:07:52.859 --> 00:07:57.150
+what we're doing on our team, um, since
+that's where our Haskell is currently,
+
+00:07:57.150 --> 00:08:01.380
+but we're gonna continue to do book clubs
+and things like that to spread Haskell
+
+00:08:01.380 --> 00:08:02.549
+through the rest of the organization.
+
+00:08:02.940 --> 00:08:03.810
+And we're hoping that.
+
+00:08:04.510 --> 00:08:06.820
+We're kind of going to a
+microservice architecture as it is.
+
+00:08:06.820 --> 00:08:11.300
+Cause they kinda got their wires
+crossed and uh, you know, when
+
+00:08:11.300 --> 00:08:13.570
+you're in a startup, you're
+trying to get a product out there.
+
+00:08:13.570 --> 00:08:17.170
+So there's choices made that kind of
+created a lot of coupling and, and things.
+
+00:08:17.170 --> 00:08:20.350
+So I know we're trying to spend
+some time to clean that up and then
+
+00:08:20.710 --> 00:08:24.040
+ideally pull some of that, you know,
+those things out into maybe services.
+
+00:08:24.040 --> 00:08:25.990
+And, you know, there, there's
+an opportunity there to
+
+00:08:25.990 --> 00:08:27.430
+also use Haskell, you know?
+
+00:08:28.270 --> 00:08:28.600
+>> So, yeah.
+
+00:08:28.840 --> 00:08:31.030
+That's one of the benefits
+of microservices is that you.
+
+00:08:32.069 --> 00:08:35.669
+A small piece of your infrastructure
+written in a different language and,
+
+00:08:35.669 --> 00:08:37.230
+uh, just try it out, see how it works.
+
+00:08:38.459 --> 00:08:38.730
+Yep.
+
+00:08:39.539 --> 00:08:43.409
+So moving on a little bit, uh, one of the
+other questions that's interesting to me,
+
+00:08:43.409 --> 00:08:44.939
+I don't know if I'd call it surprising.
+
+00:08:45.000 --> 00:08:48.750
+Is the, how many years have
+you been using Haskell?
+
+00:08:49.110 --> 00:08:53.160
+And I, I guess I was surprised
+to see that a lot of people that
+
+00:08:53.160 --> 00:08:56.270
+answered this survey had been using
+Haskell for less than two years.
+
+00:08:56.640 --> 00:09:01.199
+Which means there's a big group of
+people that are really new to Haskell.
+
+00:09:01.350 --> 00:09:06.689
+And for me as someone who's been using
+it for several years, like on, in the
+
+00:09:06.689 --> 00:09:12.089
+five to 10 range at this point, it's easy
+to forget what it felt like to be, you
+
+00:09:12.089 --> 00:09:14.069
+know, in year one of learning Haskell.
+
+00:09:14.160 --> 00:09:19.920
+And I think so much of the, um, material
+in the community blogposts and stuff like.
+
+00:09:20.760 --> 00:09:23.790
+Caters to those experts, the people
+who've been using it forever and
+
+00:09:23.790 --> 00:09:25.470
+really want to push it to its limits.
+
+00:09:25.950 --> 00:09:30.210
+But it's important to remember a
+big chunk of the community is new
+
+00:09:30.210 --> 00:09:34.200
+and just needs help with the basics
+and, you know, comparative analysis.
+
+00:09:34.260 --> 00:09:38.700
+How, how do you do something and how do
+you choose which way to do something?
+
+00:09:38.700 --> 00:09:39.960
+How do you choose a library?
+
+00:09:40.230 --> 00:09:41.550
+All those things are challenging.
+
+00:09:41.640 --> 00:09:44.790
+And there, there isn't a lot
+of material written for that.
+
+00:09:45.240 --> 00:09:45.660
+>> Yeah.
+
+00:09:45.720 --> 00:09:45.960
+Yeah.
+
+00:09:45.960 --> 00:09:48.810
+And I think, I mean, I would have
+those same questions and, um,
+
+00:09:49.935 --> 00:09:51.105
+Almost at the three-year mark.
+
+00:09:51.135 --> 00:09:57.915
+So it's kind of that like finding the
+resources that give the beginner a chance.
+
+00:09:58.064 --> 00:10:02.145
+Um, and that's kind of, you know, I think
+if you're going into an organization that
+
+00:10:02.145 --> 00:10:07.215
+has high school, a lot of, I mean, I think
+it depends on what they're doing, but
+
+00:10:07.515 --> 00:10:14.205
+you can kind of find a niche of simple
+Haskell and kind of keep to that so that
+
+00:10:14.415 --> 00:10:17.955
+as you're bringing on new hires and you're
+bringing in interns or whoever they may.
+
+00:10:18.810 --> 00:10:21.300
+They have a little easier
+handhold into Haskell.
+
+00:10:21.300 --> 00:10:27.510
+Cause it's not, you know, crazy bind
+syntax that you're trying to figure out,
+
+00:10:27.510 --> 00:10:33.060
+okay, this applicatives to this and what,
+and I left bind and arrow star ship.
+
+00:10:33.150 --> 00:10:33.959
+Oh my goodness.
+
+00:10:34.199 --> 00:10:36.109
+You know, there, there's a
+lot of, you know, operators in
+
+00:10:36.109 --> 00:10:37.410
+Haskell that can create confusion.
+
+00:10:37.740 --> 00:10:40.709
+And there's also, I mean, I've, I
+feel like that's in any language you
+
+00:10:40.709 --> 00:10:42.120
+can write things to be confusing.
+
+00:10:42.150 --> 00:10:46.079
+So um choosing to kind of fight
+for simple Haskell is going to help
+
+00:10:46.079 --> 00:10:50.760
+those beginners you know really feel
+confident in the language and, and
+
+00:10:50.760 --> 00:10:54.270
+probably take that next step of,
+okay, now I understand the basics.
+
+00:10:54.390 --> 00:10:57.570
+What do I need to do to
+get to the next level?
+
+00:10:57.690 --> 00:10:59.340
+I've got to be a 10 X developer.
+
+00:10:59.760 --> 00:11:00.000
+Yo.
+
+00:11:01.710 --> 00:11:03.420
+>> Yeah, that's absolutely true.
+
+00:11:03.420 --> 00:11:09.450
+And I think even simple Haskell is already
+a much more powerful and expressive
+
+00:11:09.450 --> 00:11:11.100
+language than many other programming.
+
+00:11:11.100 --> 00:11:11.220
+Like.
+
+00:11:12.015 --> 00:11:16.275
+That you would do well, just sticking
+to that and yeah, there's going to be
+
+00:11:16.495 --> 00:11:21.194
+edge cases here and there that you can't
+that feel like they should be able to
+
+00:11:21.194 --> 00:11:26.834
+be prevented, uh, like from the type
+level to turn them into compiler errors,
+
+00:11:26.865 --> 00:11:30.495
+but the price you'd have to pay to turn
+them into compile errors is pretty high.
+
+00:11:30.495 --> 00:11:35.235
+So just deal with the runtime error
+or potential runtime error and
+
+00:11:35.235 --> 00:11:36.675
+keep the code simple for awhile.
+
+00:11:36.704 --> 00:11:39.824
+And then eventually you and your team
+will have enough experience to be
+
+00:11:39.824 --> 00:11:44.760
+able to say, are we comfortable um,
+increasing the complexity in order
+
+00:11:44.760 --> 00:11:47.750
+to also increase the safety or the
+guarantees we get from the code.
+
+00:11:48.010 --> 00:11:48.310
+Right.
+
+00:11:49.090 --> 00:11:51.810
+>> Take advantage of
+some of those deeper things.
+
+00:11:53.130 --> 00:11:53.490
+Yeah.
+
+00:11:54.990 --> 00:11:55.260
+>> Cool.
+
+00:11:55.620 --> 00:11:58.500
+So, which is the next question
+that stood out to you Cam?
+
+00:11:59.160 --> 00:12:03.780
+>> Um, yeah, well, I was just
+looking through and kind of perusing here,
+
+00:12:03.780 --> 00:12:05.910
+but, uh, it's interesting to me that.
+
+00:12:07.125 --> 00:12:12.915
+62% of the participants answered
+that they develop command
+
+00:12:12.915 --> 00:12:14.655
+line programs with Haskell.
+
+00:12:15.285 --> 00:12:16.665
+Uh, that was kind of interesting to me.
+
+00:12:17.205 --> 00:12:19.905
+I mean, I definitely can see
+why it would be that way.
+
+00:12:20.145 --> 00:12:24.735
+I was just expecting API services
+to kind of run the roost there, but
+
+00:12:25.395 --> 00:12:29.265
+you know, everybody's got, you know,
+different ways of, of using it.
+
+00:12:29.295 --> 00:12:31.035
+So I thought that was pretty interesting.
+
+00:12:31.515 --> 00:12:36.245
+Um, have you, like, I know you've
+done some stuff with kind of CLI.
+
+00:12:36.825 --> 00:12:41.055
+And Haskell, um, with your
+rocket league parser, right?
+
+00:12:41.925 --> 00:12:42.285
+>> Yeah.
+
+00:12:42.435 --> 00:12:45.255
+Uh, and I'm in the same boat as you.
+
+00:12:45.645 --> 00:12:50.385
+My, you know, I programmed API services
+for most of my professional career.
+
+00:12:50.415 --> 00:12:53.295
+And so that's my bias and
+that's what I expected to see
+
+00:12:53.295 --> 00:12:54.495
+at the top of the list here.
+
+00:12:55.065 --> 00:13:00.015
+But, um, I think command line programs
+are probably the least common denominator.
+
+00:13:00.045 --> 00:13:03.225
+Like even though I typically
+write API services, I also
+
+00:13:03.225 --> 00:13:04.625
+write command line programs and.
+
+00:13:05.385 --> 00:13:08.655
+Right libraries, you you'll also probably
+write some command line programs.
+
+00:13:08.655 --> 00:13:11.985
+So it's like everything else
+involves some manner of that.
+
+00:13:11.985 --> 00:13:13.344
+So that's probably why it's up at the top.
+
+00:13:13.965 --> 00:13:16.905
+Um, but as to like my experience
+writing command line programs with
+
+00:13:16.905 --> 00:13:20.385
+Haskell, I found it to be a very
+nice programming language for it.
+
+00:13:20.775 --> 00:13:25.485
+And it, you know, works well
+and gets out of your way.
+
+00:13:25.875 --> 00:13:27.555
+Um, I'm not sure.
+
+00:13:28.425 --> 00:13:29.895
+What else to say about it?
+
+00:13:29.895 --> 00:13:33.915
+Like there, there are good libraries
+for parsing command line arguments,
+
+00:13:34.305 --> 00:13:38.595
+um, optparse-applicative, or
+optparse-generic are both pretty good.
+
+00:13:39.015 --> 00:13:42.465
+Uh, and there's actually a module
+built into the base library.
+
+00:13:42.645 --> 00:13:47.685
+That's just a reimplementation of
+getopt, which is a common C or C++
+
+00:13:48.125 --> 00:13:49.935
+way to parse command line flags.
+
+00:13:50.385 --> 00:13:56.790
+And it's not very like, uh, Advanced or
+nice to use, but it gets the job done.
+
+00:13:56.790 --> 00:14:00.999
+So if you're trying to avoid dependencies
+for whatever reason, there is something
+
+00:14:01.020 --> 00:14:02.310
+in base that can let you do that.
+
+00:14:02.790 --> 00:14:03.000
+>> Hmm.
+
+00:14:03.930 --> 00:14:04.439
+Nice.
+
+00:14:05.849 --> 00:14:08.520
+Um, yeah.
+
+00:14:08.520 --> 00:14:10.970
+W what was the next question
+that kind of stood out to you?
+
+00:14:12.375 --> 00:14:13.365
+>> Yeah, I'm still looking around.
+
+00:14:13.395 --> 00:14:18.015
+Um, there's a couple that are not
+surprising, but I want to highlight,
+
+00:14:18.015 --> 00:14:23.775
+which are that most people develop on
+Linux and most people deploy to Linux.
+
+00:14:24.135 --> 00:14:26.865
+So that's been true every year.
+
+00:14:26.865 --> 00:14:30.375
+I've done this and I suspect it will
+continue to be true for a long time.
+
+00:14:30.735 --> 00:14:35.175
+But, um, one thing I've said before
+about this, that was probably a little
+
+00:14:35.175 --> 00:14:40.275
+controversial is that if you're trying
+to build some tooling for Haskell.
+
+00:14:41.370 --> 00:14:46.079
+And you feel like you may not be
+able to make headway or support all
+
+00:14:46.079 --> 00:14:49.860
+three major operating systems, Linux,
+Mac, and windows at the same time.
+
+00:14:50.310 --> 00:14:51.839
+Just build it for Linux at first.
+
+00:14:51.900 --> 00:14:55.770
+And then if it catches on and
+the community seems to like it.
+
+00:14:56.040 --> 00:15:00.120
+Yeah, go ahead and also make it work on
+Mac and windows, but don't feel obligated
+
+00:15:00.120 --> 00:15:04.469
+to do that out of the gate because you're
+going to hit almost, I don't know, 80%.
+
+00:15:04.469 --> 00:15:08.040
+So four out of five Haskell developers
+you'll hit with just getting Linux.
+
+00:15:09.960 --> 00:15:12.450
+>> Yeah, I think that's
+definitely something that's pretty cool.
+
+00:15:13.140 --> 00:15:18.660
+Uh, yeah, the next one I wanted to
+dive into, if you're okay with jumping
+
+00:15:18.660 --> 00:15:23.490
+into it is the language extensions,
+which one people would like enabled
+
+00:15:23.490 --> 00:15:30.090
+by default and lo and behold, our,
+uh, our Lambda cases up at the top.
+
+00:15:31.605 --> 00:15:33.165
+Which is interesting to me.
+
+00:15:34.215 --> 00:15:35.775
+>> I mean, I guess
+why is that interesting?
+
+00:15:36.105 --> 00:15:36.675
+It's just because it's
+
+00:15:36.675 --> 00:15:40.725
+>> something I've never really
+used or try to use, uh, because it's,
+
+00:15:41.535 --> 00:15:44.805
+I don't know, seems like it can create
+a little more confusion and chaos than
+
+00:15:44.805 --> 00:15:49.725
+it's worth, but, uh, you know, I know
+there's obviously use cases for it.
+
+00:15:49.725 --> 00:15:54.255
+It's just interesting that that was
+like the one that most people wanted.
+
+00:15:56.354 --> 00:15:58.755
+Instead of, you know,
+enabled instead of disabled.
+
+00:15:59.564 --> 00:16:03.675
+>> Um, yeah, I have an opinion
+about Lambda case, but before I launch
+
+00:16:03.675 --> 00:16:07.485
+into it, um, a quick note, if you're
+listening to this and you go look at
+
+00:16:07.485 --> 00:16:11.055
+the results on the website, because
+there will be a link in the show notes.
+
+00:16:11.505 --> 00:16:14.594
+Um, I want to explain briefly
+the visualization here, because
+
+00:16:14.594 --> 00:16:15.615
+I had a question about it.
+
+00:16:16.890 --> 00:16:21.240
+Uh, with all of the other questions,
+it was just like a bar chart for who,
+
+00:16:21.300 --> 00:16:25.530
+how many responses did I get for each
+answer choice in this one, there are
+
+00:16:25.530 --> 00:16:31.350
+kind of two bar charts at once, because
+for each question or for each language
+
+00:16:31.350 --> 00:16:36.330
+extension, people were able to select,
+yes, I want this enabled by default or no.
+
+00:16:36.795 --> 00:16:40.785
+I don't want to, I don't want this
+enabled by default, or I would resist
+
+00:16:40.814 --> 00:16:43.395
+a proposal to enable this by default.
+
+00:16:44.235 --> 00:16:48.405
+Um, and that lets us say,
+okay, like Lambda case.
+
+00:16:48.464 --> 00:16:53.625
+Um, we had a lot of votes in favor of
+enabling it by default and almost no
+
+00:16:53.625 --> 00:16:55.875
+votes opposed to enabling it by default.
+
+00:16:55.875 --> 00:16:59.895
+So that means it's widely, uh,
+a lot of people like it and
+
+00:16:59.895 --> 00:17:01.354
+not too many people dislike it.
+
+00:17:01.990 --> 00:17:04.670
+So if you go look at these results
+online, that's what the two bars mean.
+
+00:17:04.700 --> 00:17:06.190
+The blue one means yes.
+
+00:17:06.250 --> 00:17:07.450
+And the orange one means no.
+
+00:17:08.290 --> 00:17:08.560
+Gotcha.
+
+00:17:08.589 --> 00:17:14.800
+So with that caveat out of the way
+Lambda case, um, I feel like I see
+
+00:17:14.800 --> 00:17:16.599
+why so many people voted for this.
+
+00:17:16.599 --> 00:17:21.129
+It's just a pure syntactic sugar thing
+that lets you write expressions that.
+
+00:17:21.899 --> 00:17:25.770
+More or less on ambiguous
+and avoid naming variables.
+
+00:17:26.159 --> 00:17:30.600
+Um, but I personally dislike it
+cause I feel like it complicates the
+
+00:17:30.600 --> 00:17:32.850
+grammar for such a small benefit.
+
+00:17:33.210 --> 00:17:40.790
+Like to me, the downside of writing
+backslash X arrow case X of, I
+
+00:17:40.800 --> 00:17:45.929
+have no desire to replace that
+with backslash case, like, okay, I
+
+00:17:45.929 --> 00:17:48.570
+saved a couple of keystrokes, but
+it doesn't really change anything.
+
+00:17:50.010 --> 00:17:50.159
+>> Yeah.
+
+00:17:51.555 --> 00:17:58.485
+Yeah, and yeah, I haven't had, I
+haven't used it in anchor, so I
+
+00:17:58.485 --> 00:18:01.245
+wouldn't know if I would like it or not.
+
+00:18:01.725 --> 00:18:08.865
+Um, I think my opinion on that has been
+probably based on your opinion of that as
+
+00:18:08.865 --> 00:18:12.835
+well, just cause it's, you know, I was,
+you know, we worked together for so long.
+
+00:18:12.885 --> 00:18:16.845
+It was kind of like, Hey, I know a Lambda
+case isn't really worth it kind of thing.
+
+00:18:16.845 --> 00:18:19.125
+So that's probably where
+my opinion comes in.
+
+00:18:20.385 --> 00:18:23.745
+But I'm also the advocate
+for simple Haskell.
+
+00:18:23.745 --> 00:18:29.025
+So like, I feel like for the
+benefits, it just doesn't like.
+
+00:18:31.064 --> 00:18:31.514
+It's not worth
+
+00:18:31.514 --> 00:18:32.534
+>> it in my opinion.
+
+00:18:32.595 --> 00:18:32.925
+Right?
+
+00:18:33.195 --> 00:18:34.665
+Because you have to teach people.
+
+00:18:34.665 --> 00:18:38.685
+Okay, well, there's this whole
+separate syntax now for when you have
+
+00:18:38.685 --> 00:18:41.895
+a Lambda that has one argument and
+you're just casing on that argument.
+
+00:18:41.895 --> 00:18:44.264
+You can get rid of all
+this stuff around it.
+
+00:18:44.834 --> 00:18:48.554
+And I feel like it's simpler to just
+say, if you don't care what the name
+
+00:18:48.554 --> 00:18:51.675
+of this argument is, just put an X
+in there and move on with your life.
+
+00:18:53.084 --> 00:18:58.875
+Um, and I feel like this kind of goes
+with the Haskell community's overall.
+
+00:18:59.639 --> 00:19:01.740
+Dislike of naming arguments.
+
+00:19:01.740 --> 00:19:05.610
+So there's a lot of, you know, writing
+stuff in point free syntax, lets you
+
+00:19:05.610 --> 00:19:09.810
+avoid naming arguments, um, currying
+or partially applying functions
+
+00:19:09.810 --> 00:19:11.550
+lets you avoid naming arguments.
+
+00:19:11.909 --> 00:19:14.399
+And I think those are all all right.
+
+00:19:14.429 --> 00:19:16.409
+But I try not to take them to the.
+
+00:19:17.250 --> 00:19:19.200
+>> Yeah, simplify everything.
+
+00:19:19.200 --> 00:19:21.090
+Point free, nothing is variables.
+
+00:19:21.120 --> 00:19:23.970
+It's all you have one input to
+the system and then everything
+
+00:19:23.970 --> 00:19:25.830
+else is just point free.
+
+00:19:27.630 --> 00:19:31.650
+>> Um, so one of the extensions
+that stood out to me was a little further
+
+00:19:31.650 --> 00:19:37.260
+down the list, which is applicative do,
+it's a relatively new extension where if
+
+00:19:37.260 --> 00:19:40.450
+you write a expression in, do notation.
+
+00:19:40.950 --> 00:19:44.430
+But you don't actually use any
+features that would require a Mon ad.
+
+00:19:44.670 --> 00:19:49.140
+It will infer an applicative constraint
+to that thing and rewrite it using the
+
+00:19:49.140 --> 00:19:51.570
+applicative operators, which are pure.
+
+00:19:51.630 --> 00:19:54.780
+And, um, people call it all kinds
+of different things, spaceship
+
+00:19:54.870 --> 00:19:59.550
+or a tie fighter, or a less than
+asterisk greater than anyway.
+
+00:19:59.730 --> 00:20:01.560
+Um, that's what applicative do.
+
+00:20:02.580 --> 00:20:05.639
+And I wanted to highlight it because
+it's one of the few language extensions
+
+00:20:05.639 --> 00:20:07.710
+that was really, really contentious.
+
+00:20:07.710 --> 00:20:10.800
+There were a lot of votes to enable
+it by default, but also a lot of
+
+00:20:10.800 --> 00:20:12.810
+votes not to enable it by default.
+
+00:20:12.840 --> 00:20:14.610
+And I don't really know why that is.
+
+00:20:14.790 --> 00:20:15.350
+Do you Cam?
+
+00:20:17.250 --> 00:20:18.149
+>> I don't.
+
+00:20:18.180 --> 00:20:24.930
+Um, unless people are, are more focused
+on, I mean, I honestly have no idea.
+
+00:20:25.290 --> 00:20:34.020
+Uh, so can, can you kinda talk
+about like, Yeah, I guess for me,
+
+00:20:34.020 --> 00:20:38.250
+I'm, haven't really, I didn't even
+know this was really a language
+
+00:20:38.250 --> 00:20:41.040
+extension, so you know how cool I am.
+
+00:20:41.490 --> 00:20:46.379
+Um, but you know, what, what would
+be like a big downside to this?
+
+00:20:47.909 --> 00:20:51.750
+>> I'm not well-versed in the
+downsides of applicative do I think
+
+00:20:52.469 --> 00:20:56.969
+probably, and this is true with
+many language extensions, probably,
+
+00:20:57.060 --> 00:20:59.865
+uh, Error messages get worse.
+
+00:20:59.895 --> 00:21:02.745
+If you have this turned on and
+you do something wrong because
+
+00:21:02.745 --> 00:21:05.774
+the implied constraint will be
+different than what you might expect.
+
+00:21:06.524 --> 00:21:11.294
+Um, also I think I have a memory, so
+this could be wrong, but I have a memory
+
+00:21:11.294 --> 00:21:15.764
+of when this was first rolled out, that
+it was buggy in certain circumstances.
+
+00:21:15.794 --> 00:21:20.054
+So like it, wasn't generally
+safe to enable, applicative do
+
+00:21:20.205 --> 00:21:21.435
+for an entire project because.
+
+00:21:22.605 --> 00:21:23.715
+Suddenly behave differently.
+
+00:21:24.435 --> 00:21:31.004
+Um, and maybe that's why, or even, uh,
+if your oper— or if your constraint
+
+00:21:31.095 --> 00:21:34.725
+is something that's a monad, but it
+relaxes it down to an applicative.
+
+00:21:34.725 --> 00:21:39.584
+That means things may happen in parallel
+when it looks like they should happen in
+
+00:21:39.584 --> 00:21:42.615
+sequence, because if your monad doesn't.
+
+00:21:44.550 --> 00:21:48.389
+Use the result of a previous
+binding, then applicative do will
+
+00:21:48.389 --> 00:21:50.220
+infer that those things can be done.
+
+00:21:50.399 --> 00:21:53.370
+You know, they don't really depend on each
+other, so they could be done at the same
+
+00:21:53.370 --> 00:21:55.139
+time or one before the other, whatever.
+
+00:21:55.620 --> 00:22:00.629
+And that may break programs that do
+depend on that, um, specific ordering of.
+
+00:22:01.740 --> 00:22:02.190
+Gotcha.
+
+00:22:03.360 --> 00:22:03.840
+>> Cool.
+
+00:22:03.900 --> 00:22:08.730
+Yeah, no, I think, I feel like that's
+some valid concerns for, for people.
+
+00:22:08.760 --> 00:22:14.190
+I mean, so it makes sense that
+it would be such a tight race.
+
+00:22:14.400 --> 00:22:17.490
+Uh, and you know, I know.
+
+00:22:18.824 --> 00:22:23.804
+I mean, we we've talked about, uh,
+GHC 2021, many times on this podcast.
+
+00:22:24.314 --> 00:22:28.395
+Um, which is just this, for those who
+haven't, who don't know, it's a default
+
+00:22:28.395 --> 00:22:33.165
+set of language extensions that are
+going to ship with the language, uh, kind
+
+00:22:33.165 --> 00:22:36.855
+of like Haskell 2010 and Haskell 96 or
+
+00:22:37.455 --> 00:22:38.804
+>> 98 90 is the first one.
+
+00:22:38.804 --> 00:22:39.014
+Yeah.
+
+00:22:39.435 --> 00:22:39.915
+So
+
+00:22:40.004 --> 00:22:43.605
+>> you know that that's like
+a preset and you know, on here, we
+
+00:22:43.605 --> 00:22:49.425
+didn't like mark that, whether it's
+part of it or not, uh, But yeah, I
+
+00:22:49.425 --> 00:22:53.190
+think it was kind of interesting that
+like, Maybe the, maybe the committee
+
+00:22:53.190 --> 00:22:56.970
+who kind of decided what Haskell 20,
+21, has they take a look at this?
+
+00:22:56.970 --> 00:23:00.480
+And if it has any like,
+correlation, like, okay.
+
+00:23:00.480 --> 00:23:03.570
+Yeah, we see a majority of
+people want tuple sections.
+
+00:23:03.810 --> 00:23:04.140
+All right.
+
+00:23:04.140 --> 00:23:06.720
+Well then we're going to
+maybe we'll consider that or
+
+00:23:07.020 --> 00:23:07.800
+maybe it's already in there.
+
+00:23:07.830 --> 00:23:08.190
+So,
+
+00:23:08.550 --> 00:23:09.180
+>> um, yeah.
+
+00:23:09.630 --> 00:23:13.320
+And in fact, they did look at it
+last year as they were compiling
+
+00:23:13.350 --> 00:23:15.870
+the extension set for GHC 2021.
+
+00:23:16.170 --> 00:23:18.900
+This wasn't the only thing in the
+mix, but this was one data point
+
+00:23:19.350 --> 00:23:20.910
+a and they also took a look at.
+
+00:23:22.080 --> 00:23:26.580
+Packages on hackage to see which
+language extensions they enabled by
+
+00:23:26.580 --> 00:23:30.840
+default and which ones were enabled
+within modules, uh, explicitly.
+
+00:23:30.899 --> 00:23:35.189
+So, um, yeah, your, the people
+who responded to this survey,
+
+00:23:35.189 --> 00:23:38.649
+your voice was heard and it
+got incorporated into GHC 2021.
+
+00:23:38.669 --> 00:23:41.280
+And hopefully this will get
+incorporated into future
+
+00:23:41.280 --> 00:23:43.770
+versions of the Haskell language.
+
+00:23:43.800 --> 00:23:47.550
+It's not a standard now because that's
+not what GHC 2021 is, but like extension
+
+00:23:47.550 --> 00:23:48.719
+set, I don't know what to call it.
+
+00:23:50.355 --> 00:23:50.625
+>> Yeah.
+
+00:23:50.635 --> 00:23:55.105
+Like, uh, just kind of like
+a pre-packaged situation.
+
+00:23:56.185 --> 00:24:01.014
+So it's like, it's like you ordered it on
+Amazon and now it's at your front door in
+
+00:24:01.014 --> 00:24:01.495
+>> two days.
+
+00:24:01.975 --> 00:24:02.334
+Yeah.
+
+00:24:02.665 --> 00:24:04.524
+Well, I'm sure we could talk
+about language extensions all
+
+00:24:04.524 --> 00:24:06.925
+day, but do you want to move on
+to another, another question?
+
+00:24:07.524 --> 00:24:08.245
+Um,
+
+00:24:08.304 --> 00:24:13.195
+>> you know, I think one that
+probably gets a lot of conversation
+
+00:24:13.195 --> 00:24:16.465
+in the Haskell community as probably,
+I mean, I think there's a, quite
+
+00:24:16.465 --> 00:24:17.695
+a few, but I think one that is.
+
+00:24:18.660 --> 00:24:19.230
+Pretty common.
+
+00:24:19.230 --> 00:24:20.150
+It's probably tooling.
+
+00:24:20.790 --> 00:24:22.440
+It's like the question around tooling.
+
+00:24:22.440 --> 00:24:29.340
+And, um, I think in 2021, we
+had a huge kind of swing towards
+
+00:24:29.340 --> 00:24:30.960
+like some better tooling.
+
+00:24:31.080 --> 00:24:34.620
+Um, and that being in HLS,
+Haskell language server, I
+
+00:24:34.620 --> 00:24:38.610
+think that has really taken off.
+
+00:24:38.610 --> 00:24:43.230
+I think, you know, early in the
+year in 2020 as well, it was.
+
+00:24:44.310 --> 00:24:46.320
+To buggy, there's some issues with it.
+
+00:24:46.380 --> 00:24:51.540
+And so, you know, I think in 2021, it's
+really solidified as for me, my go-to
+
+00:24:51.600 --> 00:24:59.880
+IDE, um, you know, and I'll use GHG ID
+or I'll use just stack, um, sometimes,
+
+00:24:59.880 --> 00:25:04.380
+but really if I'm trying to iterate
+quickly, HLS is, you know, where I'm at.
+
+00:25:04.800 --> 00:25:05.370
+That's my bread and
+
+00:25:05.370 --> 00:25:05.640
+>> butter.
+
+00:25:06.510 --> 00:25:06.750
+Yeah.
+
+00:25:06.750 --> 00:25:07.320
+I agree.
+
+00:25:07.410 --> 00:25:13.110
+It is both an amazing project and it has
+improved so much even just in the past.
+
+00:25:14.235 --> 00:25:18.465
+I feel like it's gained so many
+features and it's gotten much faster.
+
+00:25:18.885 --> 00:25:22.095
+So if you've looked at it before and
+had trouble with it, take another look.
+
+00:25:22.095 --> 00:25:25.995
+But most people have looked
+at it almost 65% of people
+
+00:25:25.995 --> 00:25:26.955
+that responded to the survey.
+
+00:25:27.735 --> 00:25:29.355
+Use HLS and that's huge.
+
+00:25:29.445 --> 00:25:29.834
+>> Yeah.
+
+00:25:30.165 --> 00:25:34.334
+And I think too, it's funny that
+like, uh, you know, Adam, you know,
+
+00:25:34.334 --> 00:25:36.675
+I don't know what four, four years
+ago, five years ago, it was like
+
+00:25:36.675 --> 00:25:38.715
+one of the top editors in general.
+
+00:25:38.715 --> 00:25:41.385
+And now, you know, it's just 2% of people.
+
+00:25:42.105 --> 00:25:42.345
+>> Yeah.
+
+00:25:42.554 --> 00:25:45.345
+And I think all those people switched
+over to vs code, which is now the most
+
+00:25:45.345 --> 00:25:48.615
+popular one, beaten out both VI and Emacs.
+
+00:25:48.675 --> 00:25:49.695
+So yeah.
+
+00:25:50.970 --> 00:25:53.730
+>> Better not tell Jason or Cody.
+
+00:25:55.260 --> 00:25:58.920
+>> And, uh, another big upset
+this year was the cabal overtook
+
+00:25:58.920 --> 00:26:01.320
+stack as the most popular build tool.
+
+00:26:01.620 --> 00:26:05.550
+And I think there were two big
+reasons for this one is that.
+
+00:26:06.629 --> 00:26:07.950
+Improved quite a bit.
+
+00:26:08.129 --> 00:26:12.070
+And with the newer versions of the
+cabal spec and cabal library and cabal
+
+00:26:12.150 --> 00:26:16.770
+install, command line tool, they've
+gotten a lot of nice new features.
+
+00:26:17.220 --> 00:26:23.990
+Um, but also I think the ghcup project
+helped with this because if you use ghcup,
+
+00:26:24.120 --> 00:26:28.230
+that can manage your GHC installation
+and then also install cabal for you.
+
+00:26:28.230 --> 00:26:29.250
+And then you're ready to go.
+
+00:26:29.860 --> 00:26:32.950
+Um, and for me that was one
+of the big upsides of stack.
+
+00:26:32.950 --> 00:26:36.370
+Was it managed GHC for me and
+just drop me in an environment
+
+00:26:36.370 --> 00:26:37.510
+that was ready to build stuff.
+
+00:26:37.930 --> 00:26:44.230
+And now I usually reach for ghcup
+and cabal rather than stack.
+
+00:26:44.260 --> 00:26:46.540
+So that's been a big
+change for me at work.
+
+00:26:46.540 --> 00:26:47.290
+We still use stack.
+
+00:26:47.290 --> 00:26:50.860
+So I'm still very comfortably switching
+between them, but for personal projects,
+
+00:26:50.860 --> 00:26:52.330
+I've tried it out and I liked it.
+
+00:26:52.330 --> 00:26:53.230
+So I'm sticking with it.
+
+00:26:54.210 --> 00:26:54.660
+Nice.
+
+00:26:54.870 --> 00:26:58.890
+>> Yeah, I have not looked into
+ghcup so I'll have to check it out.
+
+00:26:59.070 --> 00:27:02.670
+We use stack uh, with templates.
+
+00:27:02.700 --> 00:27:05.070
+So we have a stack template
+that we generally build all
+
+00:27:05.070 --> 00:27:06.720
+of our Haskell projects with.
+
+00:27:07.170 --> 00:27:07.710
+Um, cool.
+
+00:27:08.010 --> 00:27:11.340
+So that's been pretty nice, especially
+for microservice architecture.
+
+00:27:11.340 --> 00:27:15.000
+which kind of gets the skeleton up and
+then we can, uh, hear it from there.
+
+00:27:15.810 --> 00:27:16.170
+>> Yeah.
+
+00:27:16.500 --> 00:27:20.160
+One of the most popular things I've ever
+worked on in the Haskell community is.
+
+00:27:21.195 --> 00:27:24.805
+Stack template for setting up a new
+project that I called Haskeleton.
+
+00:27:25.365 --> 00:27:27.585
+Um, I'm not sure if it's
+still a stack template.
+
+00:27:27.585 --> 00:27:29.925
+I haven't worked on it
+in awhile, but yeah.
+
+00:27:29.955 --> 00:27:30.075
+Um,
+
+00:27:31.065 --> 00:27:36.215
+>> Haskeleton were, were they're
+very, uh, I feel like the Haskell
+
+00:27:36.215 --> 00:27:38.115
+community is very good at naming.
+
+00:27:40.125 --> 00:27:40.575
+>> Yes.
+
+00:27:40.575 --> 00:27:41.385
+hasql
+
+00:27:41.695 --> 00:27:43.525
+>> hasql Hakyll?
+
+00:27:43.845 --> 00:27:44.895
+Well, the blog
+
+00:27:45.545 --> 00:27:47.245
+>> HASQL HASQL.
+
+00:27:47.265 --> 00:27:47.505
+Yeah.
+
+00:27:47.565 --> 00:27:48.855
+I never know how to pronounce that one.
+
+00:27:50.625 --> 00:27:52.875
+It's a great name, but I don't
+know how to say it out loud.
+
+00:27:53.025 --> 00:27:53.235
+Yeah.
+
+00:27:53.895 --> 00:27:54.495
+>> It's always fun.
+
+00:27:54.525 --> 00:27:56.025
+It's like, it makes it
+really easy to talk about.
+
+00:27:58.305 --> 00:28:01.755
+>> Um, so related to tooling,
+another one of the things that really
+
+00:28:01.755 --> 00:28:07.275
+surprised me this year and every
+year is I ask which tools do you
+
+00:28:07.275 --> 00:28:09.855
+use to deploy Haskell applications?
+
+00:28:10.545 --> 00:28:14.805
+And many, many people say that
+they deploy static binary.
+
+00:28:15.585 --> 00:28:16.335
+But I'm not sure.
+
+00:28:16.335 --> 00:28:16.995
+I believe them.
+
+00:28:16.995 --> 00:28:20.835
+It's really hard to build a
+fully static binary for Haskell.
+
+00:28:21.285 --> 00:28:24.675
+And I think people are deploying
+mostly static binaries.
+
+00:28:24.705 --> 00:28:27.765
+So I don't know if that's a distinction
+worth making, but that surprised me.
+
+00:28:28.095 --> 00:28:28.365
+Yeah.
+
+00:28:28.635 --> 00:28:28.935
+>> Yeah.
+
+00:28:28.935 --> 00:28:33.225
+I mean, from my, my experience it's
+been Docker images all the way.
+
+00:28:34.065 --> 00:28:34.515
+>> Yeah.
+
+00:28:34.785 --> 00:28:36.225
+And those are very popular as well.
+
+00:28:36.465 --> 00:28:39.755
+But, um, I'm curious, like when
+people say static, binaries are.
+
+00:28:40.500 --> 00:28:46.840
+Building inside of Alpine and statically
+linking glibc or not glibc, but musl libc.
+
+00:28:47.280 --> 00:28:52.200
+Um, or are they statically linking
+everything except libc um, I'd be
+
+00:28:52.200 --> 00:28:53.670
+really curious to dig into that one.
+
+00:28:54.420 --> 00:28:54.720
+>> Yeah.
+
+00:28:55.410 --> 00:28:58.379
+So if anybody answered that and
+has uh an example you want to be
+
+00:28:58.379 --> 00:29:00.120
+on the podcast, please reach out.
+
+00:29:00.210 --> 00:29:01.200
+>> We'd love to have.
+
+00:29:02.145 --> 00:29:04.304
+You know, maybe they really are
+doing static binaries cause a good
+
+00:29:04.304 --> 00:29:08.085
+chunk of people use Nix and so
+nix can produce a static binary.
+
+00:29:08.294 --> 00:29:09.425
+So maybe that's how they're doing it.
+
+00:29:09.745 --> 00:29:09.945
+Yeah.
+
+00:29:10.624 --> 00:29:13.814
+>> Still, could be a
+fun episode to dive into.
+
+00:29:15.585 --> 00:29:16.215
+Um, cool.
+
+00:29:16.245 --> 00:29:18.825
+Well, that was kind of a touch
+on infrastructure as well.
+
+00:29:19.185 --> 00:29:24.365
+Um, is there, I mean, we've got
+kind of community as a section
+
+00:29:24.365 --> 00:29:31.855
+here in the, in the, um, results
+on the survey and, uh, you know.
+
+00:29:31.875 --> 00:29:36.585
+I think one that's always interesting
+every year is the, which of the following
+
+00:29:36.585 --> 00:29:38.595
+topics would you like to see written more?
+
+00:29:40.004 --> 00:29:41.895
+Cause it's always like, okay.
+
+00:29:41.925 --> 00:29:44.355
+Like what could it be?
+
+00:29:44.355 --> 00:29:47.805
+Cause that's, you know, luckily it's a
+multi-select cause everybody has opinions
+
+00:29:47.805 --> 00:29:49.365
+on what they want to see more of.
+
+00:29:49.905 --> 00:29:55.274
+Um, what I'm surprised about those
+is really low that people are like,
+
+00:29:55.335 --> 00:29:56.565
+eh, it would be game development.
+
+00:29:56.565 --> 00:29:58.395
+I feel like it could be kind
+of fun to figure out if that's.
+
+00:29:59.325 --> 00:30:02.205
+A viable possibility using
+game, having game development.
+
+00:30:03.135 --> 00:30:03.524
+>> Yeah.
+
+00:30:04.004 --> 00:30:07.905
+I mean, I think it would be fun,
+but also what's the, you know, the
+
+00:30:08.055 --> 00:30:11.115
+Venn diagram of people that are
+Haskell Haskell developers and game
+
+00:30:11.115 --> 00:30:12.975
+developers is probably pretty small.
+
+00:30:13.605 --> 00:30:17.175
+And that's actually one of the things
+I like about this question is that I
+
+00:30:17.175 --> 00:30:21.495
+think it gets to the heart of often
+people will write about things that
+
+00:30:21.705 --> 00:30:24.675
+are interesting to them, which is good.
+
+00:30:24.764 --> 00:30:27.615
+Cause it's easy to be jazzed up about
+that and write something good about it.
+
+00:30:28.470 --> 00:30:33.780
+Um, I think it'd be better to
+direct or, or maybe even pay for
+
+00:30:34.379 --> 00:30:37.530
+articles that focus on these things
+that people in the community want.
+
+00:30:37.540 --> 00:30:39.480
+So like best practices is far and away.
+
+00:30:39.480 --> 00:30:42.870
+The most popular thing that people
+wish there were things written about.
+
+00:30:43.379 --> 00:30:46.710
+So why, why doesn't
+anybody write about them?
+
+00:30:46.710 --> 00:30:48.240
+Or why do we not write enough about them?
+
+00:30:48.240 --> 00:30:49.470
+I guess would be the better question.
+
+00:30:49.530 --> 00:30:49.710
+>> Yeah.
+
+00:30:49.710 --> 00:30:53.669
+The hard thing I feel like with best
+practices is it's all opinion-based,
+
+00:30:54.330 --> 00:30:58.229
+but hopefully, you know, with the
+Haskell foundation and the committee
+
+00:30:58.229 --> 00:31:03.000
+there and the team, it'd be nice to
+see if something from that foundation
+
+00:31:03.000 --> 00:31:06.000
+could kind of help lead the charge
+in the best practices, movement.
+
+00:31:06.540 --> 00:31:11.850
+And then, you know, kind of keep a series
+of blog posts or, you know, video series
+
+00:31:11.850 --> 00:31:17.159
+or something to kind of illustrate, you
+know, as a whole, like what's the Haskell
+
+00:31:17.159 --> 00:31:18.629
+foundation thinks about these things.
+
+00:31:19.139 --> 00:31:19.409
+Um,
+
+00:31:19.439 --> 00:31:19.500
+>> yeah.
+
+00:31:20.340 --> 00:31:23.190
+I think best practices
+are inherently subjective.
+
+00:31:23.190 --> 00:31:27.300
+So it doesn't bother me too much that,
+you know, there, it best practices may
+
+00:31:27.300 --> 00:31:31.740
+change or may depend on who you ask, but
+I still think it'd be really valuable.
+
+00:31:32.160 --> 00:31:33.780
+And you know, I'm guilty of this as well.
+
+00:31:33.780 --> 00:31:38.010
+I run a team of Haskell developers and we
+haven't written much about what we do or
+
+00:31:38.010 --> 00:31:40.560
+why we do it, but, uh, we probably should.
+
+00:31:40.710 --> 00:31:43.560
+And maybe I'll try to make that
+a focus in the coming year.
+
+00:31:44.350 --> 00:31:48.000
+>> Maybe so we'll have to keep,
+we can make Haskell weekly podcast,
+
+00:31:48.030 --> 00:31:49.650
+a accountability partner to that.
+
+00:31:51.060 --> 00:31:51.960
+>> Yes, I like it.
+
+00:31:51.990 --> 00:31:52.200
+Yeah.
+
+00:31:53.340 --> 00:31:58.410
+Um, so the next big section of the
+survey results were for feelings
+
+00:31:58.410 --> 00:32:00.930
+and I feel like, uh, these haven't
+changed too much year over year.
+
+00:32:01.695 --> 00:32:05.055
+And the only thing I want to point out is
+that overall, when they're presented here
+
+00:32:05.055 --> 00:32:07.305
+in the survey results, they're sorted.
+
+00:32:07.305 --> 00:32:11.745
+So the ones that are most positive or that
+most people agree with are toward the top.
+
+00:32:11.805 --> 00:32:14.805
+And then the ones that people mostly
+disagree with are at the bottom.
+
+00:32:15.315 --> 00:32:18.405
+So as you scroll through things,
+get more and more bleak, and then
+
+00:32:18.405 --> 00:32:21.915
+you get down to the bottom and it's
+like, oh, I can find Haskell jobs.
+
+00:32:21.915 --> 00:32:24.125
+And I can reason about the
+performance of my Haskell code.
+
+00:32:24.125 --> 00:32:26.835
+Those are the things people
+disagree with the most.
+
+00:32:27.075 --> 00:32:27.315
+>> Yeah.
+
+00:32:27.345 --> 00:32:32.264
+Well, I mean, if you're interested
+in a Haskell job, Caribou's hiring.
+
+00:32:32.264 --> 00:32:37.185
+So is ACI Learning, so there's Haskell
+jobs out there for you, if you want.
+
+00:32:37.315 --> 00:32:38.385
+you know, Hit
+
+00:32:38.385 --> 00:32:38.745
+>> us up.
+
+00:32:39.645 --> 00:32:40.695
+Yeah, please do.
+
+00:32:42.054 --> 00:32:43.514
+All right, Cam, was there
+anything else in the survey
+
+00:32:43.514 --> 00:32:44.745
+results you wanted to talk about?
+
+00:32:45.225 --> 00:32:45.735
+Um,
+
+00:32:46.365 --> 00:32:47.145
+>> I don't think so.
+
+00:32:47.145 --> 00:32:50.175
+I mean, I think this
+survey is really cool.
+
+00:32:50.235 --> 00:32:52.905
+I mean, thank you for kind of
+putting it all together and kind
+
+00:32:52.905 --> 00:32:57.344
+of, you know, keeping it organized
+and, you know, displaying results.
+
+00:32:57.344 --> 00:32:59.324
+I think that's a big Testament to.
+
+00:32:59.324 --> 00:33:04.304
+like, to just how much impact you
+have on the Haskell community.
+
+00:33:04.304 --> 00:33:05.084
+And we appreciate
+
+00:33:05.084 --> 00:33:05.324
+>> that.
+
+00:33:05.745 --> 00:33:06.344
+Uh, thanks.
+
+00:33:06.614 --> 00:33:07.125
+I appreciate it.
+
+00:33:07.125 --> 00:33:07.245
+It's
+
+00:33:07.245 --> 00:33:10.125
+>> nice to have someone who's
+willing to kind of take that on.
+
+00:33:10.425 --> 00:33:14.385
+Um, and for you to spearhead it
+for five years is impressive.
+
+00:33:14.475 --> 00:33:15.314
+Uh, needless to say.
+
+00:33:15.975 --> 00:33:20.864
+Um, so yeah, I don't, I don't think
+I have anything else on the survey.
+
+00:33:20.864 --> 00:33:22.395
+Do you have anything else you wanted to
+
+00:33:22.844 --> 00:33:23.145
+>> share?
+
+00:33:24.315 --> 00:33:25.065
+No, that was it.
+
+00:33:25.095 --> 00:33:28.605
+And, uh, again, thanks for the kind words
+I enjoy running the survey, but I will
+
+00:33:28.605 --> 00:33:31.785
+also enjoy handing it off to the Haskell
+foundation if they want to pick it up
+
+00:33:31.875 --> 00:33:35.805
+and the secret to doing something like
+this from my point of view is automate
+
+00:33:35.805 --> 00:33:39.945
+as much as you can, because that's what
+lets you do it over and over again.
+
+00:33:40.365 --> 00:33:40.635
+Yep.
+
+00:33:41.415 --> 00:33:45.284
+>> Yeah, it sounds like,
+uh, a good programmer's motto
+
+00:33:46.935 --> 00:33:47.534
+>> for sure.
+
+00:33:47.895 --> 00:33:48.135
+Yeah.
+
+00:33:48.375 --> 00:33:48.524
+All right.
+
+00:33:48.524 --> 00:33:50.955
+Well, I think that'll
+do it for us this week.
+
+00:33:51.014 --> 00:33:51.435
+Is that right?
+
+00:33:51.465 --> 00:33:51.675
+Yeah.
+
+00:33:51.675 --> 00:33:51.975
+That'll,
+
+00:33:51.985 --> 00:33:52.605
+>> that'll be it.
+
+00:33:52.784 --> 00:33:53.235
+Yeah.
+
+00:33:53.594 --> 00:33:56.705
+Thank you all for listening
+to the Haskell weekly podcast.
+
+00:33:56.735 --> 00:34:00.995
+Uh, I Camera Gera and
+Taylor, have been your hosts.
+
+00:34:01.334 --> 00:34:05.804
+Um, and if you are curious about where you
+can find Haskell weekly, just check out
+
+00:34:05.804 --> 00:34:12.014
+our website at haskellweekly.news, um, and
+also sign up for the weekly newsletter.
+
+00:34:12.255 --> 00:34:14.374
+And you can hear more about the
+articles we're talking about.
+
+00:34:14.940 --> 00:34:18.300
+Um, As my dog is running into this room.
+
+00:34:18.330 --> 00:34:18.570
+So,
+
+00:34:18.960 --> 00:34:22.110
+>> um, your dog is so excited,
+wants to sign up for the newsletter
+
+00:34:22.380 --> 00:34:22.680
+>> ready?
+
+00:34:22.950 --> 00:34:24.389
+So, um, but yeah,
+
+00:34:25.680 --> 00:34:26.280
+>> toss it over to you.
+
+00:34:26.310 --> 00:34:30.090
+And this week, as every week,
+we are brought to you by
+
+00:34:30.090 --> 00:34:31.990
+my employer, ACI Learning.
+
+00:34:32.550 --> 00:34:37.600
+If you'd like to get started in IT
+training, head over to ITPro.TV and use
+
+00:34:37.600 --> 00:34:42.719
+promo  code HaskellWeekly30 to get 30%
+off the lifetime of your subscription.
+
+00:34:43.529 --> 00:34:47.590
+That's ITPro.TV, promo
+code HaskellWeekly30.
+
+00:34:48.389 --> 00:34:48.719
+Awesome.
+
+00:34:48.900 --> 00:34:49.679
+Thanks for listening.
+
+00:34:49.889 --> 00:34:52.750
+And we'll see you next week, peace.
