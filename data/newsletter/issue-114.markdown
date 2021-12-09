@@ -27,7 +27,7 @@ Open an issue or pull request [on GitHub](https://github.com/haskellweekly/haske
 
     > Seven years is how long it has taken me to "get" Haskell. I would like to document and share an overview of my journey in case it helps another frustrated soul.
 
--   [Keep your laziness in check](http://very.science/pdf/StrictCheck_arxiv.pdf) [pdf]
+-   [Keep your laziness in check](http://very.science/pdf/StrictCheck_arxiv.pdf) (pdf)
 
     > We introduce StrictCheck: a property-based random testing framework for observing, specifying, and testing the strictness of Haskell functions.
 

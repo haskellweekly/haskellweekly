@@ -50,7 +50,7 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 - [API JSON calls with Haskell](https://dev.to/csaltos/haskell-http-response-either-4ncg) by Carlos Saltos
   > What: A simple project showing how to make calls to an API and parsing JSON using HTTP Conduit and Aeson.
 
-- [Haskell lectures](https://www.youtube.com/channel/UCBDp7ydYTHi1dh4Gnf3VTPA) by Graham Hutton (video)
+- [Haskell lectures](https://www.youtube.com/channel/UCBDp7ydYTHi1dh4Gnf3VTPA) (video) by Graham Hutton
   > For the last few months, I've been preparing YouTube videos for the introductory and advanced Haskell courses that I teach to students at the University of Nottingham
 
 - [An Interview With Avi Press of Scarf](https://console.substack.com/p/console-51) by Console

@@ -57,7 +57,7 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 - [Generalized Church is the Curry-Howard of Knaster-Tarski](https://youzicha.tumblr.com/post/624180258328002560/generalized-church-is-the-curry-howard-of)
   > The proofs-as-programs principle (also known as the Curry-Howard isomorphism) sets up a correspondence between logical proof systems and type systems for programming languages.
 
-- [Hacking on PKF files](http://blog.stermon.com/assets/talks/2020-07-16_hackmadrid27_hacking-on-pkf-files.pdf) by Ramón Soto Mathiesen (pdf)
+- [Hacking on PKF files](http://blog.stermon.com/assets/talks/2020-07-16_hackmadrid27_hacking-on-pkf-files.pdf) (pdf) by Ramón Soto Mathiesen
   > PCx-Utils are a set of tools to help update old PCx (PCF/PCB) games data.
 
 - [Haskell Love conference, registration is open](https://np.reddit.com/r/haskell/comments/humznn/haskell_love_conference_registration_is_open/)

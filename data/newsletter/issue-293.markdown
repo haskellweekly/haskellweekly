@@ -11,14 +11,20 @@ This is a weekly summary of what's going on in its community.
 - [Christmas of Code --- Haskell for Mobile](https://np.reddit.com/r/haskell/comments/r82ji7/christmas_of_code_haskell_for_mobile_a_3000_grant/)
   > Tweag and SimpleX Chat offer a 4-weeks grant to create an open-source project template for a cross-platform mobile app (iOS and Android), using native UI (SwiftUI and Jetpack Compose) with a shared Haskell core, connected to SQLite database, network (TCP/TLS and HTTPS/WebSocket) and push notifications.
 
-- [Why and How the External STG Interpreter is Useful](https://www.youtube.com/watch?v=wt6iCgYmVGA) by Csaba Hruska
-  > ([slides](https://docs.google.com/presentation/d/1Lmfpwtx_7TbIAGYnSE0HqkawRu75y2GGwbObuu0xYPY/edit?usp=sharing)) The External STG Interpreter is a from scratch implementation of the STG machine in Haskell. It can profile and debug real world Haskell programs.
+- [Why and How the External STG Interpreter is Useful](https://www.youtube.com/watch?v=wt6iCgYmVGA) (video) by Csaba Hruska
+  > ([slides](https://docs.google.com/presentation/d/1Lmfpwtx_7TbIAGYnSE0HqkawRu75y2GGwbObuu0xYPY/edit?usp=sharing), [repo](https://github.com/grin-compiler/ext-stg-interpreter-presentation-demos/tree/ac060c17ed41e340fe639867ab29674bab78f70e)) The External STG Interpreter is a from scratch implementation of the STG machine in Haskell. It can profile and debug real world Haskell programs.
 
 - [Haskell Foundation November Update](https://discourse.haskell.org/t/haskell-foundation-november-update/3797?u=taylorfausak) by Andrew Boardman
   > Meta has sponsored at the Monad level! Meta uses Haskell in Sigma, an anti-abuse platform, and Glean, a system for collecting and working with facts about source code.
 
 - [Haskell's Type System Standing Alone](https://vitez.me/hts-language) by Vitez
   > When you treat it as its own separate programming language, Haskell's type system has some strange syntax, weird fundamental choices, and occasionally bad ergonomics.
+
+- [SimpleX Chat - the first chat platform that is 100% private by design](https://np.reddit.com/r/haskell/comments/rc0xkn/simplex_chat_the_first_chat_platform_that_is_100/) by Evgeny Poberezkin
+  > SimpleX Chat just released v0.5 that supports long-term user addresses. SimpleX Chat is the most private messaging platform --- it has no access to your contacts network, and it has protected E2E encryption. The new feature allows users create the link via which multiple other users can send contact requests.
+
+- [Type-checking plugins, part II: GHC's constraint solver](https://www.tweag.io/blog/2021-12-09-tcplugins-2/) by Sam Derbyshire
+  > In this post, we will attempt to demystify this constraint solving process, as well as review a few aspects of type-family reduction, to facilitate the development of type-checking plugins.
 
 ## Jobs
 

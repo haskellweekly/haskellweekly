@@ -64,17 +64,17 @@ Open an issue or pull request [on GitHub](https://github.com/haskellweekly/haske
 -   [Contributing to GHC 3: Hacking syntax and parsing](https://mmhaskell.com/blog/2018/6/25/contributing-to-ghc-3-hacking-syntax-and-parsing)
 -   [Domain modeling with abstract algebra](https://medium.com/@reidev275/domain-modeling-with-abstract-algebra-47f8f9e0d012)
 -   [FHPC18 call for presentations and demonstrations](https://icfp18.sigplan.org/track/FHPC-2018-papers#FHPC18-Call-for-Presentations-and-Demonstrations)
--   [Fold: HaskellRank #05.1](https://www.youtube.com/watch?v=24XK4LPoCXc) [video]
+-   [Fold: HaskellRank #05.1](https://www.youtube.com/watch?v=24XK4LPoCXc) (video)
 -   [Haskell: Build tools](https://kowainik.github.io/posts/2018-06-21-haskell-build-tools.html)
 -   [How I finally learned what a "monad" is](https://www.bsima.me/clog/how-i-learned-monads.html)
 -   [Introduction to Haskell: Why you should learn it if you are a Javascript developer](https://medium.com/@manojsinghnegi/introduction-to-haskell-why-you-should-learn-it-if-you-are-a-javascript-developer-a7f7410c16c4)
--   [Literature review of GHC Core](https://github.com/xnning/GHC-Core-Literature-Review/blob/e650e0d26f45242a0705722f533403dac3a069f7/doc/doc.pdf) [pdf]
+-   [Literature review of GHC Core](https://github.com/xnning/GHC-Core-Literature-Review/blob/e650e0d26f45242a0705722f533403dac3a069f7/doc/doc.pdf) (pdf)
 -   [Monads and more in 5 minutes or less](https://hackernoon.com/monads-and-more-in-5-minutes-or-less-80d71f19dc11)
 -   [The Haskell stack ecosystem in 30 seconds or less](https://chrisconlan.com/the-haskell-package-ecosystem-in-30-seconds-or-less/)
 -   [Using mutable global variable in Haskell](https://siskam.link/2018-06-22-using-mutable-global-variable-in-haskell.html)
 -   [We liked it so we put a lens on it](https://np.reddit.com/r/haskell/comments/8sxxsu/we_liked_it_so_we_put_a_lens_on_it/)
 -   [Why laziness matters](https://benlynn.blogspot.com/2018/06/why-laziness-matters.html)
--   [ZuriHac 2018: Haskell keynotes](https://www.youtube.com/playlist?list=PLOvRW_utVPVlMaey1LnM1FWGnJwztEz5O) [video]
+-   [ZuriHac 2018: Haskell keynotes](https://www.youtube.com/playlist?list=PLOvRW_utVPVlMaey1LnM1FWGnJwztEz5O) (video)
 
 ## Package of the week
 

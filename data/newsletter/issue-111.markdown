@@ -55,19 +55,19 @@ Open an issue or pull request [on GitHub](https://github.com/haskellweekly/haske
 
 ## In brief
 
--   [A promise checked is a promise kept: Inspection Testing](https://arxiv.org/pdf/1803.07130.pdf) [pdf]
+-   [A promise checked is a promise kept: Inspection Testing](https://arxiv.org/pdf/1803.07130.pdf) (pdf)
 -   [Announce: Haskell Platform 8.4.3](https://mail.haskell.org/pipermail/haskell-cafe/2018-June/129256.html)
 -   [ASCII-Runner: An infinite runner in your terminal](https://github.com/smallhadroncollider/ascii-runner/tree/52d8b04fd875e2756645ac45167591ad41800a05)
--   [Between two sets: HaskellRank #05](https://www.youtube.com/watch?v=40kpc90ZzDg) [video]
--   [CoRecursive: Dependent types in Haskell with Stephanie Weirich](https://corecursive.com/015-dependant-types-in-haskell-with-stephanie-weirich) [audio]
--   [Functional pearl: Ghosts of departed proofs](https://github.com/matt-noonan/gdp-paper/releases/download/june-2018-draft/gdp.pdf) [pdf]
+-   [Between two sets: HaskellRank #05](https://www.youtube.com/watch?v=40kpc90ZzDg) (video)
+-   [CoRecursive: Dependent types in Haskell with Stephanie Weirich](https://corecursive.com/015-dependant-types-in-haskell-with-stephanie-weirich) (audio)
+-   [Functional pearl: Ghosts of departed proofs](https://github.com/matt-noonan/gdp-paper/releases/download/june-2018-draft/gdp.pdf) (pdf)
 -   [Gamgee: Your sidekick for managing multi-factor authentication tokens](https://github.com/rkaippully/gamgee/tree/87ba29549bcd682cacf6d45346eb80e8110912a7)
 -   [Hackathon review and Stack maintenance](https://www.fpcomplete.com/blog/2018/06/hackathon-review-and-stack-maintenance)
--   [Monadic.Party 2018](https://www.youtube.com/playlist?list=PLcAu_kKy-krz3t2teYyCM0Lt4015DF-Zp) [video]
+-   [Monadic.Party 2018](https://www.youtube.com/playlist?list=PLcAu_kKy-krz3t2teYyCM0Lt4015DF-Zp) (video)
 -   [servant-dhall: Accept and return Dhall expressions](https://hackage.haskell.org/package/servant-dhall-0.1)
--   [Suggesting valid hole fits for typed holes](https://mpg.is/papers/gissurarson2018suggesting.pdf) [pdf]
--   [Type variables in patterns](https://arxiv.org/pdf/1806.03476.pdf) [pdf]
--   [ZuriHac 2018 beginner track Friday](https://www.youtube.com/watch?v=4fNIhrDhaYA) [video]
+-   [Suggesting valid hole fits for typed holes](https://mpg.is/papers/gissurarson2018suggesting.pdf) (pdf)
+-   [Type variables in patterns](https://arxiv.org/pdf/1806.03476.pdf) (pdf)
+-   [ZuriHac 2018 beginner track Friday](https://www.youtube.com/watch?v=4fNIhrDhaYA) (video)
 
 ## Package of the week
 
