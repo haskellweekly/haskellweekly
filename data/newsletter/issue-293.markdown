@@ -68,5 +68,4 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 
 ## Call for participation
 
--   [bytestring: Add `_since_` info to functions in doc](https://github.com/haskell/bytestring/issues/442)
--   [haskell-language-server: Import extension plugin: don't suggest imports from deprecated modules](https://github.com/haskell/haskell-language-server/issues/2415)
+-   [LambdaHack: Deduplicate stub game arena elements in tests](https://github.com/LambdaHack/LambdaHack/issues/286)
