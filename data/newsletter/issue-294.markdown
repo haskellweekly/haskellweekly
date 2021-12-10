@@ -26,7 +26,8 @@ undefined
 
 ## Show & tell
 
-undefined
+- [tn-fp-haskell-course](https://github.com/smelc/tn-fp-haskell-course) by Clément Hurlin
+  > I gave an 8 hours introduction to functional programming using Haskell to Senior students at [Telecom Nancy](https://telecomnancy.univ-lorraine.fr/). Students had a Java and python background, reception was very positive.
 
 ## Call for participation
 
