@@ -31,4 +31,6 @@ undefined
 
 ## Call for participation
 
-undefined
+-   [ema: Allow exceptions and logging in render function](https://github.com/srid/ema/issues/64)
+-   [tablebot: Website links](https://github.com/WarwickTabletop/tablebot/issues/73)
+-   [unison: Better error message for "names" command when a hash exists but has no names](https://github.com/unisonweb/unison/issues/2763)
