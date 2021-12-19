@@ -4,7 +4,8 @@ This is a weekly summary of what's going on in its community.
 
 ## Featured
 
-undefined
+- [Write your GDB scripts in Haskell](https://luctielen.com/posts/write_your_gdb_scripts_in_haskell/) by Luc Tielen
+  > In this post, I will show how you can use the new debugger-hs library in Haskell to generate GDB scripts.
 
 ## Jobs
 
