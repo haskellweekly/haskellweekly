@@ -65,4 +65,5 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 
 ## Call for participation
 
+- [pedant: Pretty Printing evaluation expressions](https://github.com/Hazelfire/pedant/issues/9)
 - [renovate: PVP implementation for the Stack build tool](https://github.com/renovatebot/renovate/pull/13224)
