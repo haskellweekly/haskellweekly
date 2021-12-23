@@ -31,4 +31,4 @@ undefined
 
 ## Call for participation
 
-undefined
+- [renovate: PVP implementation for the Stack build tool](https://github.com/renovatebot/renovate/pull/13224)
