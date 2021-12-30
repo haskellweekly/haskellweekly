@@ -30,4 +30,4 @@ undefined
 
 ## Call for participation
 
-undefined
+- [sslang: Add tuple literal syntax](https://github.com/ssm-lang/sslang/issues/68)
