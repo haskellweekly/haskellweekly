@@ -14,6 +14,9 @@ This is a weekly summary of what's going on in its community.
 - [A Christmas Story](https://github.com/zw3rk/mobile-core-log/blob/c65940599f2fb480ee8f08ea5a5f812db36a6b15/LOG.md) by Moritz Angermann
   > The following is a story about me, stumbling around ghc, fileformats, libc's, linking and debuggers and overcoming challenges and finding bugs, trying to get the bare minmum of an iOS and Android toolchain to work for compiling Haskell code into libraries to be used on aarch64 mobile devices.
 
+- [Scoped effect resources for Polysemy](https://www.tweag.io/blog/2022-01-05-polysemy-scoped/) by Torsten Schmits
+  > For some kinds of effects, it can be hard to design an expressive interface due to the semantics of their primitive resources. One instance of those are resources whose lifetime is scoped to a small part of a program (called a region in this post), like a database connection.
+
 ## Jobs
 
 - [Junior Haskell Engineer](https://acilearning.applytojob.com/apply/IuGQtn7Tkh/Junior-Software-Engineer-Remote?referrer=20211202012454J4X0XKJBEFJUJTGT) at ACI Learning
