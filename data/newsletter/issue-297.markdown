@@ -30,4 +30,5 @@ undefined
 
 ## Call for participation
 
-undefined
+- [pandoc: asciidoc checklists](https://github.com/jgm/pandoc/issues/7798)
+- [tablebot: Allow users to delete their own reminders](https://github.com/WarwickTabletop/tablebot/issues/96)
