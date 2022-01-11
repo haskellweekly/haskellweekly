@@ -10,7 +10,8 @@ This is a weekly summary of what's going on in its community.
   > Take the Developer Nation survey and share your views about the most important coding skills, tools, and platforms for 2022. You will get a virtual goody bag with free resources, plus a chance to win an iPhone 13, a Nintendo Switch, licenses, Amazon vouchers and more.
 -->
 
-undefined
+- [Haskell series part 8](https://blog.kalvad.com/haskell-series-part-8/) by Pierre Guillemot
+  > This is the eighth article of a series on the functional language Haskell for beginners. In this article we are introducing IO.
 
 ## Jobs
 
