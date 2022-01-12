@@ -41,4 +41,4 @@ undefined
 
 ## Call for participation
 
-undefined
+- [ihp: Improve generation of enum migrations](https://github.com/digitallyinduced/ihp/issues/1312)
