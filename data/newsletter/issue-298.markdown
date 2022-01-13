@@ -34,6 +34,9 @@ This is a weekly summary of what's going on in its community.
 - [A new future for cryptography in Haskell](https://discourse.haskell.org/t/a-new-future-for-cryptography-in-haskell/3888?u=taylorfausak) by Théophile Choutri
   > Several members of the Haskell Foundation have decided to take action regarding the precarious state of cryptography tooling in Haskell, and we are working on rejuvenating the maintenance of highly important projects that have lacked the means to keep up with new GHC releases and new features.
 
+- [SimpleX announces SimpleX Chat v1](https://github.com/simplex-chat/simplex-chat/blob/8a859044cb8b4ed46df9db5aee62e8f1c56d6d99/blog/20220112-simplex-chat-v1-released.md) by Evgeny Poberezkin
+  > We are building a new platform for distributed Internet applications where privacy of the messages and the network matter. SimpleX Chat is our first application, a messaging application built on the SimpleX platform.
+
 ## Jobs
 
 - [Junior Haskell Engineer](https://acilearning.applytojob.com/apply/IuGQtn7Tkh/Junior-Software-Engineer-Remote?referrer=20211202012454J4X0XKJBEFJUJTGT) at ACI Learning
