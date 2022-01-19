@@ -8,7 +8,8 @@ This is a weekly summary of what's going on in its community.
 - [What skills will give you an edge in 2022?](https://www.developereconomics.net/?member_id=haskell) (ad)
   > Take the Developer Nation survey and share your views about the most important coding skills, tools, and platforms for 2022. You will get a virtual goody bag with free resources, plus a chance to win an iPhone 13, a Nintendo Switch, licenses, Amazon vouchers and more.
 
-undefined
+- [Haskell series part 9](https://blog.kalvad.com/haskell-series-part-9/) by Pierre Guillemot
+￼  > This is the ninth article of a series on the functional language Haskell for beginners. In this article we discover modules and exceptions.
 
 ## Jobs
 
