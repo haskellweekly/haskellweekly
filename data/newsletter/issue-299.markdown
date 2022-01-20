@@ -72,4 +72,4 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 
 ## Call for participation
 
-undefined
+- [wasp: Show a nice error message when email address is unavailable during signup](https://github.com/wasp-lang/wasp/issues/429)
