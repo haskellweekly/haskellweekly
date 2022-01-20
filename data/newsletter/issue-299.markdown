@@ -59,6 +59,9 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 - [Transposing Rows](https://mmhaskell.com/blog/2022/1/17/transposing-rows) by Monday Morning Haskell
   > The transpose function takes a list of lists, which we can think of as a "matrix". Then it transposes the matrix so that the rows are now the columns.
 
+- [TypeVille conference](https://www.typeville.io)
+  > Join the Scalar descendant, a 3-day conference full of programming and fun! We’re opening the event to other strongly typed languages: Java, Haskell, Kotlin, Rust and TypeScript, while Scala remains a focal point of the event & our TypeVille community. [Editor's note: Use promo code `typeville_loves_haskellweekly` for 10% off. First come first served.]
+
 ## Show & tell
 
 - [Haskell Spotlight](https://discourse.haskell.org/t/haskell-spotlight-new-browser-extension-to-search-over-hoogle-and-hackage/3915?u=taylorfausak) by Kiryl Valkovich
