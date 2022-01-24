@@ -4,7 +4,8 @@ This is a weekly summary of what's going on in its community.
 
 ## Featured
 
-undefined
+- [Haskell series part 10](https://blog.kalvad.com/haskell-series-part-10/) by Pierre Guillemot
+￼  > This is the tenth and last article of a series on the functional language Haskell for beginners. In this article we discover data types and Maybe.
 
 ## Jobs
 
