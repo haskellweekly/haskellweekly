@@ -32,17 +32,17 @@ This is a weekly summary of what's going on in its community.
 - [Haskell Software Engineer at Bitnomial (Chicago,IL,US Remote)](https://bitnomial.com/jobs/) (ad)
   > Bitnomial is looking for Haskell Software Engineers. Bitnomial is a US based, CFTC licensed and regulated bitcoin derivatives exchange, headquartered in Chicago. Bitnomial develops and operates exchange, clearing, and settlement infrastructure for physically settled bitcoin futures and options.
 
-<!-- Runs on 2022-01-26 only. -->
+<!-- Runs on 2022-01-27 only. -->
 - [Haskell Developer at Sonatype](https://jobs.lever.co/sonatype?lever-via=biCBZiP_R3) (ad)
   > Sonatype uses Haskell to provide turn-key [static analysis tooling](https://github.com/apps/sonatype-lift). Growing and 100% remote including Canada, US, UK, and Columbia, Lift's openings include research, data science, and engineering.
   >
   > Questions? Find Tom on Haskell's discourse or twitter @MDTom.
 
-<!-- Runs on 2022-01-26 only. -->
+<!-- Runs on 2022-01-27 only. -->
 - [Make the world a better place, outside of the crypto space. Join us!](https://bellroy.com/careers/developer-haskell) (ad)
   > Bellroy helps people carry better. We're Australia's Best Place to Work, we've grown rapidly & we're looking to expand our Tech Team. We're not a software company, but software is one of our core competencies. Join us in our Melbourne office or work remotely from anywhere in the world.
 
-<!-- Runs from 2022-01-26 to 2022-02-17. -->
+<!-- Runs from 2022-01-27 to 2022-02-17. -->
 - [Backend Developer at Holmusk](https://jobs.lever.co/holmusk/6eefb29c-4302-40ca-aff1-8cb11def0223) (ad)
   > Holmusk is using Haskell to build digital health products. We are looking for remote Haskellers to join our team across Europe for now, but also in the US soon. Are you excited about using Haskell to improve the mental health of millions of people? Do you want to work alongside smart and mission-driven people across 20 countries? Please apply [here](https://jobs.lever.co/holmusk/6eefb29c-4302-40ca-aff1-8cb11def0223) or visit [our website](https://www.holmusk.com)! For any questions please email me at <adam.cooke@holmusk.com>.
 
