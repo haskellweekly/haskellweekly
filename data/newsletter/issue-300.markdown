@@ -32,4 +32,5 @@ undefined
 
 ## Call for participation
 
-undefined
+- [hoff: Expose Prometheus metrics for Hoff's state](https://github.com/channable/hoff/issues/99)
+- [strong-path: Make StrongPath Hasheable](https://github.com/wasp-lang/strong-path/issues/43)
