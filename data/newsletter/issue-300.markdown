@@ -5,7 +5,22 @@ This is a weekly summary of what's going on in its community.
 ## Featured
 
 - [Haskell series part 10](https://blog.kalvad.com/haskell-series-part-10/) by Pierre Guillemot
-￼  > This is the tenth and last article of a series on the functional language Haskell for beginners. In this article we discover data types and Maybe.
+  > This is the tenth and last article of a series on the functional language Haskell for beginners. In this article we discover data types and Maybe.
+
+- [Automating Wordle](https://reasonablypolymorphic.com/blog/wordle/index.html) by Sandy Maguire
+  > After two days of doing it by hand, like a damn pleb, I decided it would be more fun to try to automate this game.
+
+- [A case study on correctness and safety testing of stateful systems](https://www.tweag.io/blog/2022-01-26-property-based-testing-of-monadic-code/) by Victor Miraldo
+  > In this post I will present a technique to do testing using traces which can can be used with arbitrary stateful systems.
+
+- [The computation of appending lists at the type and value level](https://bor0.wordpress.com/2022/01/24/the-computation-of-appending-lists-at-the-type-and-value-level/) by Boro Sitnikovski
+  > In this post, I will show different implementations of appending two lists together, written both in Haskell and in Idris, as well as some observations around the differences.
+
+- [Databass, Part 3: Using the database](https://blog.josephmorag.com/posts/databass3/) by Joseph Morag
+  > We're going to port the professional hitmen example from William Yao's which type-safe database library should you use blog post to Databass and see how it stacks up.
+
+- [Monoids are Composable List Summarizers](https://cdsmithus.medium.com/monoids-are-composable-list-summarizers-77d2baf23ffc) by Chris Smith
+  > It goes something like this: a monoid is any way to summarize a list so that you can combine just the summaries of two lists to get a summary of their concatenation.
 
 ## Jobs
 
@@ -17,18 +32,41 @@ This is a weekly summary of what's going on in its community.
 - [Haskell Software Engineer at Bitnomial (Chicago,IL,US Remote)](https://bitnomial.com/jobs/) (ad)
   > Bitnomial is looking for Haskell Software Engineers. Bitnomial is a US based, CFTC licensed and regulated bitcoin derivatives exchange, headquartered in Chicago. Bitnomial develops and operates exchange, clearing, and settlement infrastructure for physically settled bitcoin futures and options.
 
-undefined
+- [DevOps Engineer at The Haskell Foundation](https://haskell.foundation/careers/devops.html)
+
+- [Haskell Developer at Evoli](https://evoli.se/om-oss/jobb-och-karriar/haskell-developer/)
+
+- [Haskell Developer at Sonatype](https://discourse.haskell.org/t/hiring-haskell-devs-to-work-on-sonatype-lift/3945?u=taylorfausak)
+
+- [Haskell Developer at Well-Typed](https://well-typed.com/blog/2022/01/haskell-teaching-and-development-jobs-with-well-typed/)
 
 Trying to hire a Haskell developer?
 You should [advertise with us](https://haskellweekly.news/advertising.html)!
 
 ## In brief
 
-undefined
+- [Folding the unfoldable](https://oleg.fi/gists/posts/2022-01-25-folding-unfoldable.html) by Oleg Grenrus
+  > This (just a little) tongue-in-cheek post is "inspired" by the fact that statistics package wants unboxed vectors everywhere, for "performance" reasons, and that is soooo inconvenient.
+
+- [Math-y List Operations](https://mmhaskell.com/blog/2022/1/24/math-y-list-operations) by Monday Morning Haskell
+  > Earlier this month we explored some functions related to booleans and lists. Today we'll consider a few simple helpers related to lists of numbers.
+
+- [Nixpkgs overlays are monoids](https://www.haskellforall.com/2022/01/nixpkgs-overlays-are-monoids.html) by Gabriella Gonzalez
+  > Nixpkgs supports overriding sets of packages using overlays and these overrides bear many similarities to object-oriented inheritance.
+
+- [Review: Clowns to the Left of Me, Jokers to the Right](https://reasonablypolymorphic.com/blog/clowns-jokers/index.html) by Sandy Maguire
+  > At a high level, CJ generalizes the results from The Derivative of a Regular Type is its Type of One-Hole Contexts, wondering about what happens to a zipper when we don't require the elements on either side to have the same type.
+
+- [Type-level DI Container prototype](https://blog.ploeh.dk/2022/01/24/type-level-di-container-prototype/) by Mark Seemann
+  > People sometimes ask me how to do Dependency Injection (DI) in Functional Programming, and the short answer is that you don't.
 
 ## Show & tell
 
-undefined
+- [PureNix](https://github.com/purenix-org/purenix/tree/11bfb8b00997c61511d06d18000199aa34a41bda) by Jonas Carpay
+  > PureNix allows you to write that code in a fully-featured, strongly-typed language instead, and then compile to Nix.
+
+- [WebAuthn server library for public key-based authentication](https://discourse.haskell.org/t/webauthn-server-library-for-public-key-based-authentication/3976?u=taylorfausak) by Silvan Mosberger
+  > If you have a web server written in Haskell that allows users to create and log into accounts, this library might interest you, and we'd love to have feedback as we refine the interface of the library.
 
 ## Call for participation
 
