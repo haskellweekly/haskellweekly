@@ -38,6 +38,10 @@ This is a weekly summary of what's going on in its community.
   >
   > Questions? Find Tom on Haskell's discourse or twitter @MDTom.
 
+<!-- Runs on 2022-01-26 only. -->
+- [Make the world a better place, outside of the crypto space. Join us!](https://bellroy.com/careers/developer-haskell) (ad)
+  > Bellroy helps people carry better. We're Australia's Best Place to Work, we've grown rapidly & we're looking to expand our Tech Team. We're not a software company, but software is one of our core competencies. Join us in our Melbourne office or work remotely from anywhere in the world.
+
 - [DevOps Engineer at The Haskell Foundation](https://haskell.foundation/careers/devops.html)
 
 - [Haskell Developer at Evoli](https://evoli.se/om-oss/jobb-och-karriar/haskell-developer/)
