@@ -16,6 +16,10 @@ undefined
 - [Haskell Software Engineer at Bitnomial (Chicago,IL,US Remote)](https://bitnomial.com/jobs/) (ad)
   > Bitnomial is looking for Haskell Software Engineers. Bitnomial is a US based, CFTC licensed and regulated bitcoin derivatives exchange, headquartered in Chicago. Bitnomial develops and operates exchange, clearing, and settlement infrastructure for physically settled bitcoin futures and options.
 
+<!-- Runs from 2022-01-26 to 2022-02-17. -->
+- [Backend Developer at Holmusk](https://jobs.lever.co/holmusk/6eefb29c-4302-40ca-aff1-8cb11def0223) (ad)
+  > Holmusk is using Haskell to build digital health products. We are looking for remote Haskellers to join our team across Europe for now, but also in the US soon. Are you excited about using Haskell to improve the mental health of millions of people? Do you want to work alongside smart and mission-driven people across 20 countries? Please apply [here](https://jobs.lever.co/holmusk/6eefb29c-4302-40ca-aff1-8cb11def0223) or visit [our website](https://www.holmusk.com)! For any questions please email me at <adam.cooke@holmusk.com>.
+
 undefined
 
 Trying to hire a Haskell developer?
