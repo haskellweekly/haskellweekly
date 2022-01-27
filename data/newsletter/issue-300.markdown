@@ -32,11 +32,15 @@ This is a weekly summary of what's going on in its community.
 - [Haskell Software Engineer at Bitnomial (Chicago,IL,US Remote)](https://bitnomial.com/jobs/) (ad)
   > Bitnomial is looking for Haskell Software Engineers. Bitnomial is a US based, CFTC licensed and regulated bitcoin derivatives exchange, headquartered in Chicago. Bitnomial develops and operates exchange, clearing, and settlement infrastructure for physically settled bitcoin futures and options.
 
+<!-- Runs on 2022-01-26 only. -->
+- [Haskell Developer at Sonatype](https://jobs.lever.co/sonatype?lever-via=biCBZiP_R3) (ad)
+  > Sonatype uses Haskell to provide turn-key [static analysis tooling](https://github.com/apps/sonatype-lift). Growing and 100% remote including Canada, US, UK, and Columbia, Lift's openings include research, data science, and engineering.
+  >
+  > Questions? Find Tom on Haskell's discourse or twitter @MDTom.
+
 - [DevOps Engineer at The Haskell Foundation](https://haskell.foundation/careers/devops.html)
 
 - [Haskell Developer at Evoli](https://evoli.se/om-oss/jobb-och-karriar/haskell-developer/)
-
-- [Haskell Developer at Sonatype](https://discourse.haskell.org/t/hiring-haskell-devs-to-work-on-sonatype-lift/3945?u=taylorfausak)
 
 - [Haskell Developer at Well-Typed](https://well-typed.com/blog/2022/01/haskell-teaching-and-development-jobs-with-well-typed/)
 
