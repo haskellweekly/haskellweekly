@@ -76,4 +76,5 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 
 ## Call for participation
 
-undefined
+- [DSLsofMath: Correct the new W0n_code.hs file imports](https://github.com/DSLsofMath/DSLsofMath/issues/77)
+- [hackage-cli: How-to documentation would be nice](https://github.com/hackage-trustees/hackage-cli/issues/31)
