@@ -35,4 +35,5 @@ undefined
 
 ## Call for participation
 
-undefined
+- [concordium-node: Collector to keep querying](https://github.com/Concordium/concordium-node/issues/244)
+- [ema: Add generic deriving](https://github.com/srid/ema/issues/76)
