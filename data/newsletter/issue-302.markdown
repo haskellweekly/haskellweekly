@@ -19,6 +19,9 @@ This is a weekly summary of what's going on in its community.
 - [Learn You a Haskell](https://learnyouahaskell.github.io)
   > Hey yo! This is an open-source fork of the original Learn You a Haskell (LYAH for short) by Miran Lipovača, "the funkiest way to learn Haskell, the best functional programming language around".
 
+- [Ormolu: the challenge of formatting operator chains](https://www.tweag.io/blog/2022-02-10-ormolu-and-operators/) by Thomas Bagrel
+  > This blog post will be focusing on the challenge of formatting infix operator chains in Haskell, which is notoriously difficult and has been my primary goal for the last two months.
+
 - [ReaderT pattern is just extensible effects](https://喵.世界/2022/02/03/readert-is-extensible-effects/) by Xy Ren
   > In this blog post I'll show how `ReaderT` pattern can be simply transformed into extensible effects.
 
