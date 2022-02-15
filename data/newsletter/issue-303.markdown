@@ -4,7 +4,8 @@ This is a weekly summary of what's going on in its community.
 
 ## Featured
 
-undefined
+- [Analyses are arrows](https://luctielen.com/posts/analyses_are_arrows/) by Luc Tielen
+  > In today's post, I explore how we can use Haskell to compose multiple Soufflé Datalog analyses in an elegant and principled way using various Haskell type-classes.
 
 ## Jobs
 
