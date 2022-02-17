@@ -36,4 +36,5 @@ undefined
 
 ## Call for participation
 
-undefined
+- [hledger-locker: Consider adding `DATE open|close ACCT` directive format](https://github.com/ShrykeWindgrace/hledger-locker/issues/1)
+- [postgrest: JSONB column should not have type "string" but "{}"](https://github.com/PostgREST/postgrest/issues/2165)
