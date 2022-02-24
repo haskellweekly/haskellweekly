@@ -37,7 +37,7 @@ jobs:
 
       - run: cabal build
 
-      - run: cabal test --test-show-details direct
+      - run: cabal run haskellweekly-test-suite
 
       - run: cabal install --installdir docker --install-method copy
 
