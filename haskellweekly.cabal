@@ -2,14 +2,14 @@ cabal-version: 2.0
 
 name: haskellweekly
 version: 0.2022.2.17
+synopsis: Publishes curated news about Haskell.
+description:
+  Haskell Weekly publishes curated news about the Haskell programming language.
 
 build-type: Simple
 category: Web
-description:
-  Haskell Weekly publishes curated news about the Haskell programming language.
 license: MIT
 maintainer: Taylor Fausak
-synopsis: Publishes curated news about Haskell.
 
 data-dir: data
 data-files:
