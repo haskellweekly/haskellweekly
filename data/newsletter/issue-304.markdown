@@ -4,7 +4,8 @@ This is a weekly summary of what's going on in its community.
 
 ## Featured
 
-undefined
+- [Conditional Coding](https://blockscope.com/posts/2022-02-23-iffy-diffy.html) by Phil de Joux
+  > How to avoid *iffy* Haskell code with cabal conditionals.
 
 ## Jobs
 
