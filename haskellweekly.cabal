@@ -136,7 +136,7 @@ executable haskellweekly
   hs-source-dirs: src/exe
   main-is: Main.hs
 
-test-suite test
+test-suite haskellweekly-test-suite
   build-depends:
     base
     , bytestring
