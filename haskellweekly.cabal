@@ -62,7 +62,7 @@ library
     -Wno-missing-exported-signatures
     -Wno-safe
     -Wno-unsafe
-  hs-source-dirs: src/lib
+  hs-source-dirs: source/library
   other-modules:
     HW.Application
     HW.Episodes
@@ -133,7 +133,7 @@ executable haskellweekly
   build-depends: base, haskellweekly
   default-language: Haskell2010
   ghc-options: -rtsopts -threaded
-  hs-source-dirs: src/exe
+  hs-source-dirs: source/executable
   main-is: Main.hs
 
 test-suite haskellweekly-test-suite
@@ -147,6 +147,6 @@ test-suite haskellweekly-test-suite
     , text
   default-language: Haskell2010
   ghc-options: -rtsopts -threaded
-  hs-source-dirs: src/test
+  hs-source-dirs: source/test-suite
   main-is: Main.hs
   type: exitcode-stdio-1.0
