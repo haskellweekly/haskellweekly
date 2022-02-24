@@ -7,7 +7,7 @@ build-type: Simple
 category: Web
 description:
   Haskell Weekly publishes curated news about the Haskell programming language.
-license: ISC
+license: MIT
 maintainer: Taylor Fausak
 synopsis: Publishes curated news about Haskell.
 
