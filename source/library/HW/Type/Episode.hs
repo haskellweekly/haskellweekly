@@ -29,7 +29,7 @@ data Episode = Episode
 audioUrl :: Episode -> Text.Text
 audioUrl episode =
   "https://media.haskellweekly.news/"
-  <> Date.toShortText (date episode)
-  <> "-episode-"
-  <> Number.toText (number episode)
-  <> ".mp3"
+    <> Date.toShortText (date episode)
+    <> "-episode-"
+    <> Number.toText (number episode)
+    <> ".mp3"

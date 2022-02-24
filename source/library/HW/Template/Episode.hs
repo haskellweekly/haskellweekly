@@ -54,9 +54,7 @@ template baseUrl episode captions =
             ]
           $ do
               Html.source_
-                [ Html.src_ $ Episode.audioUrl episode
-                , Html.type_ "audio/mpeg"
-                ]
+                [Html.src_ $ Episode.audioUrl episode, Html.type_ "audio/mpeg"]
               Html.track_
                 [ Html.makeAttribute "default" ""
                 , Html.makeAttribute "kind" "captions"
