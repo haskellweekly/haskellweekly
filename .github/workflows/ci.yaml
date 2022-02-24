@@ -39,7 +39,7 @@ jobs:
 
       - run: cabal run haskellweekly-test-suite
 
-      - run: cabal install --installdir docker --install-method copy
+      - run: cabal exec -- sh -c 'cp -v "$( command -v haskellweekly )" docker'
 
       - uses: actions/upload-artifact@v2
         with:
