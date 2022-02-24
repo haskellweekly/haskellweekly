@@ -19,6 +19,9 @@ This is a weekly summary of what's going on in its community.
 - [Lenses with OverloadedRecordDot](https://quasimal.com/posts/2022-02-23-overloadedrecorddot-is-evil.html) by Mike Ledger
   > We have a very powerful extension in `OverloadedRecordDot`. But there is a drawback. What happens to all my code that's been using `lens` or `optics`?
 
+- [Named routes in Servant](https://www.tweag.io/blog/2022-02-24-named-routes/) by Gaël Deest
+  > Servant 0.19 was released earlier this month. It features a new combinator, called `NamedRoutes`, which allows you to structure your APIs with records.
+
 - [The Unreasonable Effectiveness of Haskell](https://medium.com/pragmatic-programmers/the-unreasonable-effectiveness-of-haskell-48d92c2fe266) by Rebecca Skinner
   > Once you learn how to use Haskell, you start to realize that it's an amazingly effective tool for building software.
 
