@@ -13,10 +13,11 @@ jobs:
     strategy:
       matrix:
         os:
-          - ubuntu-latest
+          - ubuntu
         ghc:
           - 8.10.7
-    runs-on: ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}-latest
+    name: GHC ${{ matrix.ghc }} on ${{ matrix.os }}
     steps:
       - id: haskell
         uses: haskell/actions/setup@v1
