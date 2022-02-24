@@ -15,7 +15,7 @@ jobs:
         os:
           - ubuntu-latest
         ghc:
-          - 8.10.3
+          - 8.10.7
     runs-on: ${{ matrix.os }}
     steps:
       - id: haskell
