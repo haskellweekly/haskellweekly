@@ -36,4 +36,5 @@ undefined
 
 ## Call for participation
 
-undefined
+- [pretty-simple: Add "deprecation" warnings to `Debug.Pretty.Simple`?](https://github.com/cdepillabout/pretty-simple/issues/101)
+- [strict: Noncanonical mappend](https://github.com/haskellari/strict/issues/35)
