@@ -16,15 +16,12 @@ jobs:
           - ubuntu-latest
         ghc:
           - 8.10.3
-        cabal:
-          - 3.2.0.0
     runs-on: ${{ matrix.os }}
     steps:
       - id: haskell
         uses: haskell/actions/setup@v1
         with:
           ghc-version: ${{ matrix.ghc }}
-          cabal-version: ${{ matrix.cabal }}
 
       - uses: actions/checkout@v2
 
@@ -35,10 +32,8 @@ jobs:
       - uses: actions/cache@v2
         with:
           path: ${{ steps.haskell.outputs.cabal-store }}
-          key: ${{ matrix.os }}-${{ matrix.ghc }}-${{ matrix.cabal }}-${{ hashFiles('cabal.project.freeze') }}
-          restore-keys: |
-            ${{ matrix.os }}-${{ matrix.ghc }}-${{ matrix.cabal }}-
-            ${{ matrix.os }}-${{ matrix.ghc }}-
+          key: ${{ matrix.os }}-${{ matrix.ghc }}-${{ hashFiles('cabal.project.freeze') }}
+          restore-keys: ${{ matrix.os }}-${{ matrix.ghc }}-
 
       - run: cabal test --test-show-details direct
 
