@@ -16,7 +16,9 @@ undefined
 - [Haskell Software Engineer at Bitnomial (Chicago,IL,US Remote)](https://bitnomial.com/jobs/) (ad)
   > Bitnomial is looking for Haskell Software Engineers. Bitnomial is a US based, CFTC licensed and regulated bitcoin derivatives exchange, headquartered in Chicago. Bitnomial develops and operates exchange, clearing, and settlement infrastructure for physically settled bitcoin futures and options.
 
-undefined
+<!-- Runs from 2022-03-03 to 2022-03-10. -->
+- [Senior/Staff Software Engineer](https://www.lumi.com/jobs) (ad)
+  > Lumi is looking for Haskell and PureScript engineers to grow our supply chain platform. Lumi helps manufacturers around the world make their capabilities available directly to ecommerce brands.  We are open to remote candidates in the US and UK.
 
 Trying to hire a Haskell developer?
 You should [advertise with us](https://haskellweekly.news/advertising.html)!
