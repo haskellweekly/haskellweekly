@@ -4,6 +4,10 @@ This is a weekly summary of what's going on in its community.
 
 ## Featured
 
+<!-- 2022-03-03 to 2022-03-24. Changes weekly! -->
+- [Scalable web crawling and scraping. Available on-premises or in the cloud.](https://www.isoxya.com/pro/) (ad)
+  > Isoxya Pro brings high availability, error recovery, and horizontal scaling to crawling and scraping. It is available on-premises for installation on Kubernetes, or in the cloud via SaaS. Isoxya Pro is able to scale crawlers, processors, and streamers, and adds many features such as list crawls.
+
 undefined
 
 ## Jobs

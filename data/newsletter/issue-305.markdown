@@ -4,6 +4,10 @@ This is a weekly summary of what's going on in its community.
 
 ## Featured
 
+<!-- 2022-03-03 to 2022-03-24. Changes weekly! -->
+- [Scalable web crawling and scraping. Available on-premises or in the cloud.](https://www.isoxya.com/) (ad)
+  > Isoxya is an extensible data processing system for crawling and scraping the internet. It is written in Haskell for speed and reliability. Isoxya is free, open-source, and packaged as a container. The JSON API is simple to control. Various plugins are available, many also open-source.
+
 - [Failing in Haskell](https://jappie.me/failing-in-haskell.html) by Jappie Klooster
   > Recently I encountered some dubious error handling code. Not only was it failing, it was failing WRONG.
 
