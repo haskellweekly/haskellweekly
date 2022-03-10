@@ -60,4 +60,5 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 
 ## Call for participation
 
-undefined
+- [koak: No strings?](https://github.com/nasso/koak/issues/87)
+- [xmonad-contrib: Document how we handle fonts (in the prompt, tabs, etc.)](https://github.com/xmonad/xmonad-contrib/issues/692)
