@@ -11,6 +11,24 @@ This is a weekly summary of what's going on in its community.
 - [GHC 9.2.2 is now available](https://discourse.haskell.org/t/announce-ghc-9-2-2-is-now-available/4163?u=taylorfausak) by Ben Gamari
   > The GHC developers are very happy to at announce the availability of GHC 9.2.2. This release includes many bug-fixes and other improvements to 9.2.1.
 
+- [15 Resources to Help You Learn Haskell in 2022](https://serokell.io/blog/how-to-learn-haskell-in-10-minutes) by Gints Dreimanis
+  > If you want to learn Haskell and finally understand what people mean by monads in all those Hacker News comments, it's possible.
+
+- [Applicatives should usually implement Semigroup and Monoid](https://www.haskellforall.com/2022/03/applicatives-should-usually-implement.html) by Gabriella Gonzalez
+  > The above instances come in handy in conjunction with utilities from Haskell’s standard library that work with `Monoid`s.
+
+- [Beginning Haskell Type System, part 1](https://towardsdev.com/beginning-haskell-type-system-part-1-198b2bb42d9e) by C. L. Beard
+  > To grasp why the type system is so crucial, we must first explore the benefits and drawbacks of static typing.
+
+- [Haskell for extreme idea brainstorming](https://www.tomwells.org/blog/haskell_for_prototyping) by Tom Wells
+  > I suggested we extreme program a prototype using haskell - it was pretty amazing to pair program with because it's so frikkin simple to describe data structures / algorithms with.
+
+- [How to Use Monads without Understanding Them](https://elbear.com/how-to-use-monads-without-understanding-them.html) by Lucian Ursu
+  > I wanted to write it, because I believe you can write monadic code without understanding monads. Instead, you need to know 2 things.
+
+- [SimpleX Chat now as mobile apps, created with Haskell (+ native UIs)!](https://np.reddit.com/r/haskell/comments/t9ljld/simplex_chat_the_first_chat_platform_that_is_100/) by Evgeny Poberezkin
+  > Huge "thank you" to 137 people who helped us test and improve the apps and to u/angerman who helped a lot by compiling our Haskell code to mobile platforms and getting it accepted by app stores
+
 ## Jobs
 
 <!-- Runs from 2021-11-04 to 2022-04-14. -->
@@ -29,26 +47,6 @@ This is a weekly summary of what's going on in its community.
 
 Trying to hire a Haskell developer?
 You should [advertise with us](https://haskellweekly.news/advertising.html)!
-
-## In brief
-
-- [15 Resources to Help You Learn Haskell in 2022](https://serokell.io/blog/how-to-learn-haskell-in-10-minutes) by Gints Dreimanis
-  > If you want to learn Haskell and finally understand what people mean by monads in all those Hacker News comments, it's possible.
-
-- [Applicatives should usually implement Semigroup and Monoid](https://www.haskellforall.com/2022/03/applicatives-should-usually-implement.html) by Gabriella Gonzalez
-  > The above instances come in handy in conjunction with utilities from Haskell’s standard library that work with `Monoid`s.
-
-- [Beginning Haskell Type System, part 1](https://towardsdev.com/beginning-haskell-type-system-part-1-198b2bb42d9e) by C. L. Beard
-  > To grasp why the type system is so crucial, we must first explore the benefits and drawbacks of static typing.
-
-- [Haskell for extreme idea brainstorming](https://www.tomwells.org/blog/haskell_for_prototyping) by Tom Wells
-  > I suggested we extreme program a prototype using haskell - it was pretty amazing to pair program with because it's so frikkin simple to describe data structures / algorithms with.
-
-- [How to Use Monads without Understanding Them](https://elbear.com/how-to-use-monads-without-understanding-them.html) by Lucian Ursu
-  > I wanted to write it, because I believe you can write monadic code without understanding monads. Instead, you need to know 2 things.
-
-- [SimpleX Chat now as mobile apps, created with Haskell (+ native UIs)!](https://np.reddit.com/r/haskell/comments/t9ljld/simplex_chat_the_first_chat_platform_that_is_100/) by Evgeny Poberezkin
-  > Huge "thank you" to 137 people who helped us test and improve the apps and to u/angerman who helped a lot by compiling our Haskell code to mobile platforms and getting it accepted by app stores
 
 ## Show & tell
 
