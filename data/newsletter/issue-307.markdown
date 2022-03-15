@@ -8,6 +8,9 @@ This is a weekly summary of what's going on in its community.
 - [Scalable web crawling and scraping. Available on-premises or in the cloud.](https://www.isoxya.com/pro/) (ad)
   > Isoxya Pro brings high availability, error recovery, and horizontal scaling to crawling and scraping. It is available on-premises for installation on Kubernetes, or in the cloud via SaaS. Isoxya Pro is able to scale crawlers, processors, and streamers, and adds many features such as list crawls.
 
+- [Calling Zig from Haskell](https://luctielen.com/posts/calling_zig_from_haskell/) by Luc Tielen
+  > In today's article, I will show how you can interface Zig code with Haskell.
+
 undefined
 
 ## Jobs
