@@ -38,4 +38,4 @@ undefined
 
 ## Call for participation
 
-undefined
+- [dunai: Make cabal files conform to style guide](https://github.com/ivanperez-keera/dunai/issues/271)
