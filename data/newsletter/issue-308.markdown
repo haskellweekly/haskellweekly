@@ -35,4 +35,4 @@ undefined
 
 ## Call for participation
 
-undefined
+- [swarm: `Enter` on inventory item should pop up fullscreen dialog with description](https://github.com/swarm-game/swarm/issues/319)
