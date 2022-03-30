@@ -1,0 +1,8 @@
+cradle:
+  cabal:
+    - path: source/executable
+      component: exe:haskellweekly
+    - path: source/library
+      component: lib:haskellweekly
+    - path: source/test-suite
+      component: test:haskellweekly-test-suite

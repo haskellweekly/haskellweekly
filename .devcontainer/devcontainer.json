@@ -2,5 +2,8 @@
   "build": {
     "dockerfile": "Dockerfile"
   },
-  "postCreateCommand": "cabal update"
+  "extensions": [
+    "dramforever.vscode-ghc-simple",
+    "Edka.haskutil"
+  ]
 }

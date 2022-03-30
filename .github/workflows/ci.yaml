@@ -15,7 +15,7 @@ jobs:
         os:
           - ubuntu
         ghc:
-          - 8.10.7
+          - 9.2.2
     runs-on: ${{ matrix.os }}-latest
     name: GHC ${{ matrix.ghc }} on ${{ matrix.os }}
     steps:
