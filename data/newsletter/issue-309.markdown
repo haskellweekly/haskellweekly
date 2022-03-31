@@ -73,4 +73,4 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 
 ## Call for participation
 
-undefined
+- [semantic: Remove typed-paths interface and use FilePath for everything](https://github.com/github/semantic/issues/673)
