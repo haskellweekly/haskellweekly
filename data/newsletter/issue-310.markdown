@@ -35,4 +35,5 @@ undefined
 
 ## Call for participation
 
-undefined
+- [haskell-curl-aeson: Include payload in exception](https://github.com/zouppen/haskell-curl-aeson/issues/1)
+- [unison: `patch help` should describe optional argument](https://github.com/unisonweb/unison/issues/3030)
