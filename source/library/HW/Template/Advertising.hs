@@ -23,8 +23,8 @@ template baseUrl =
           "Reach an engaged audience by advertising with Haskell Weekly!"
         " (ad)"
       Html.p_ $ do
-        "As of November 2020, over 4,100 people subscribe to Haskell Weekly. "
-        "Over the last five issues, the average open rate was 37% and the average click rate was 16%."
+        "As of April 2022, over 4,600 people subscribe to Haskell Weekly. "
+        "Over the last five issues, the average open rate was 41% and the average click rate was 12%."
     Html.p_ "Each sponsored link has three required pieces:"
     Html.ol_ $ do
       Html.li_ . Html.p_ $ do
