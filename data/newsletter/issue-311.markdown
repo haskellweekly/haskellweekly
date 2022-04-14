@@ -52,4 +52,4 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 
 ## Call for participation
 
-undefined
+- [flora-server: Tabs or groups for dependencies?](https://github.com/flora-pm/flora-server/issues/82)
