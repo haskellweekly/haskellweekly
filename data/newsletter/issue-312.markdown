@@ -5,7 +5,7 @@ This is a weekly summary of what's going on in its community.
 ## Featured
 
 - [Create recursion schemes using comonads](https://luctielen.com/posts/create_recursion_schemes_using_comonads/) by Luc Tielen
-  > In today's post, I explain how comonads can be used to create a taylor-made recursion scheme to perform computations based on multiple simultaneous folds over a single recursive datatype.
+  > In today's post, I explain how comonads can be used to create a tailor-made recursion scheme to perform computations based on multiple simultaneous folds over a single recursive datatype.
 
 ## Jobs
 
