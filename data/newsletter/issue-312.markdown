@@ -23,4 +23,5 @@ undefined
 
 ## Call for participation
 
-undefined
+- [LambdaHack: Add more details to a highscore summary](https://github.com/LambdaHack/LambdaHack/issues/297)
+- [wasp: Change the error code on auth/me to 401](https://github.com/wasp-lang/wasp/issues/575)
