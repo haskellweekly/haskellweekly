@@ -7,6 +7,9 @@ This is a weekly summary of what's going on in its community.
 - [Create recursion schemes using comonads](https://luctielen.com/posts/create_recursion_schemes_using_comonads/) by Luc Tielen
   > In today's post, I explain how comonads can be used to create a tailor-made recursion scheme to perform computations based on multiple simultaneous folds over a single recursive datatype.
 
+- [Announcing webauthn](https://www.tweag.io/blog/2022-04-21-webauthn/) by Erin van der Veen & Silvan Mosberger
+  > Tweag and Mercury are happy to announce a server-side library for the the WebAuthn specification (part of the FIDO2 project), available as webauthn on Hackage!
+
 - [Combining Ideas: mapAccum](https://mmhaskell.com/blog/2022/4/18/combining-ideas-mapaccum) by Monday Morning Haskell
   > In the last couple weeks, we've learned about folding and scanning, which are valuable tools for replacing conventional for loops in our Haskell code. Today we'll go over a lesser known idea that sort of combines folding and scanning (or just folding and mapping).
 
