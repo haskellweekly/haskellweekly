@@ -23,4 +23,5 @@ undefined
 
 ## Call for participation
 
-undefined
+- [hpack: Make `autogen-modules` a deprecated alias for `generated-exposed-modules`](https://github.com/sol/hpack/issues/509)
+- [xmonad-contrib: `XMonad.Actions.FloatKeys` Add simpler functions](https://github.com/xmonad/xmonad-contrib/issues/712)
