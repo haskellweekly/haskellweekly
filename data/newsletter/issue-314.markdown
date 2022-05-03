@@ -23,4 +23,5 @@ undefined
 
 ## Call for participation
 
-undefined
+- [bytestring: Error calling `toConstr` method for ByteString](https://github.com/haskell/bytestring/issues/513)
+- [hoff: Make Hoff post the URL to the CI run when merging](https://github.com/channable/hoff/issues/109)
