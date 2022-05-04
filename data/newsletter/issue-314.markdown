@@ -4,7 +4,8 @@ This is a weekly summary of what's going on in its community.
 
 ## Featured
 
-undefined
+- [Playground for Haskell](https://play-haskell.tomsmeding.com/play) by Tom Smeding & Julian Ospald
+  > In the spirit of [play.rust-lang.org](https://play.rust-lang.org/). Run a snippet of Haskell code without installing anything, and share executable snippets with others. In [active development](https://github.com/tomsmeding/pastebin-haskell/blob/scalable-play/TODO.txt). (Know `bwrap`? Help us!)
 
 ## Jobs
 
