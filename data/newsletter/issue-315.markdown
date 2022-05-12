@@ -81,4 +81,5 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 
 ## Call for participation
 
-undefined
+- [haskell-language-server: Plugin tutorial outdated](https://github.com/haskell/haskell-language-server/issues/2901)
+- [safe-json: Add convenience function(s) that also `removeVersion`](https://github.com/Vlix/safe-json/issues/36)
