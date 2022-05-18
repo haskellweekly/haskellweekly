@@ -4,7 +4,8 @@ This is a weekly summary of what's going on in its community.
 
 ## Featured
 
-undefined
+- [How to lower an IR](https://luctielen.com/posts/how-to-lower-an-ir/) by Luc Tielen
+  > In today's article, I show the approach I use when writing a compiler to lower one intermediary representation into another.
 
 ## Jobs
 
