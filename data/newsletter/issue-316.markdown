@@ -61,4 +61,4 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 
 ## Call for participation
 
-undefined
+- [swarm: Add sand entity](https://github.com/swarm-game/swarm/issues/336)
