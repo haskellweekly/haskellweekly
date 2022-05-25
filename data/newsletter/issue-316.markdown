@@ -13,13 +13,13 @@ This is a weekly summary of what's going on in its community.
   > - Model domains with types
   > - How to create production-ready solutions
   >
-  > Apply here аnd get the opportunity for employment at Quanterall: <https://academy.quanterall.com/application>
+  > Apply here and get the opportunity for employment at Quanterall: <https://academy.quanterall.com/application>
 
 - [How to lower an IR](https://luctielen.com/posts/how-to-lower-an-ir/) by Luc Tielen
   > In today's article, I show the approach I use when writing a compiler to lower one intermediary representation into another.
 
 - [Announcing monad-logger-aeson: Structured logging in Haskell for cheap](https://jship.github.io/posts/2022-05-17-announcing-monad-logger-aeson/) by Jason Shipman
-  > Structured logging is one of those things where once we have it, it’s hard to imagine going back to not having it.
+  > Structured logging is one of those things where once we have it, it's hard to imagine going back to not having it.
 
 - [Comparing strict and lazy](https://www.tweag.io/blog/2022-05-12-strict-vs-lazy/) by Arnaud Spiwack
   > I first conceived of writing (well, talking, initially) on this subject after one too many person told me "lazy is better than strict because it composes". You see, this is a sentence that simply doesn't make much sense to me, but it is oft repeated.
