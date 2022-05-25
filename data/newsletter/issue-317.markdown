@@ -23,4 +23,5 @@ undefined
 
 ## Call for participation
 
-undefined
+- [monad-schedule: Create Control.Monad.Schedule module](https://github.com/turion/monad-schedule/issues/9)
+- [xeno: Account for interface changes in mtl-2.3](https://github.com/ocramz/xeno/issues/59)
