@@ -23,4 +23,5 @@ undefined
 
 ## Call for participation
 
-undefined
+- [emanote: Categorize examples by features used](https://github.com/srid/emanote/issues/291)
+- [purenix: bump to purescript-0.15](https://github.com/purenix-org/purenix/issues/50)
