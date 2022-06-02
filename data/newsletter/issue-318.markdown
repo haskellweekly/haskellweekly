@@ -27,7 +27,8 @@ This is a weekly summary of what's going on in its community.
 
 ## Jobs
 
-undefined
+- [Full-Stack Engineer at NoRedInk](https://www.noredink.com/job_post?gh_jid=3032749) (ad)
+  > Teaching kids to think critically and communicate effectively has never been more important, and NoRedInk helps students become better writers in more than 60% of middle and high schools in the U.S. We're looking for a talented Full-Stack Engineer excited to build features as part of a collaborative team of engineers, product managers and designers focused on furthering our quest to help every student harness the power of the written word.
 
 Trying to hire a Haskell developer?
 You should [advertise with us](https://haskellweekly.news/advertising.html)!
@@ -42,6 +43,9 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 
 - [Monthly Hask Anything (June 2022)](https://www.reddit.com/r/haskell/comments/v285t1/monthly_hask_anything_june_2022/)
   > This is your opportunity to ask any questions you feel don't deserve their own threads, no matter how small or simple they might be!
+
+- [Smooth, non-invasive Haskell Stack and Nix shell integration](https://www.tweag.io/blog/2022-06-02-haskell-stack-nix-shell/) by Julien Debon
+  > This blog post is for developers who want to build their Haskell project with Stack and provide system dependencies and tools with Nix.
 
 - [Unit Testing User Interactions](https://mmhaskell.com/blog/2022/5/30/unit-testing-user-interactions) by Monday Morning Haskell
   > To round out our month of IO, I'd like to bring together several of the topics I've mentioned over the course of the month.
