@@ -27,7 +27,7 @@ This is a weekly summary of what's going on in its community.
 
 ## Jobs
 
-- [Full-Stack Engineer at NoRedInk](https://www.noredink.com/job_post?gh_jid=3032749) (ad)
+- [NoRedInk is hiring for Full Stack Engineers!](https://www.noredink.com/job_post?gh_jid=3032749) (ad)
   > Teaching kids to think critically and communicate effectively has never been more important, and NoRedInk helps students become better writers in more than 60% of middle and high schools in the U.S. We're looking for a talented Full-Stack Engineer excited to build features as part of a collaborative team of engineers, product managers and designers focused on furthering our quest to help every student harness the power of the written word.
 
 Trying to hire a Haskell developer?
