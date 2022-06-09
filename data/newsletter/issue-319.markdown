@@ -54,4 +54,5 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 
 ## Call for participation
 
-undefined
+- [purebred-email: add support for Author header field (RFC 9057)](https://github.com/purebred-mua/purebred-email/issues/77)
+- [swarm: Seed is not reset between multiple new games](https://github.com/swarm-game/swarm/issues/369)
