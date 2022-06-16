@@ -45,4 +45,5 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 
 ## Call for participation
 
-undefined
+- [flora-server: Implement OpenSearch](https://github.com/flora-pm/flora-server/issues/127)
+- [hoff: Include git fetch in rebase instructions](https://github.com/channable/hoff/issues/122)
