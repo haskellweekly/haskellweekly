@@ -29,4 +29,5 @@ undefined
 
 ## Call for participation
 
-undefined
+- [swarm: Document recommended terminal settings](https://github.com/swarm-game/swarm/issues/447)
+- [unison: reflog output could show a tip that you can do `diff.namespace 1 7` to see namespace diff between two points in history](https://github.com/unisonweb/unison/issues/3145)
