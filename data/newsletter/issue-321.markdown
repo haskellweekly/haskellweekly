@@ -19,6 +19,9 @@ This is a weekly summary of what's going on in its community.
 - [The list of monoids pattern](https://blog.ocharles.org.uk/posts/2022-06-22-list-of-monoids-pattern.html) by Ollie Charles
   > In this post, I want to share a small little pattern that I've found to have a surprisingly high quality-of-life improvement, and I call it the list of monoids pattern.
 
+- [Chameleon](https://chameleon.typecheck.me) by Tony Fu
+  > A tool to make solving type errors in Haskell simple and fun.
+
 ## Jobs
 
 - [Senior Software Engineer at Well](https://boards.greenhouse.io/well/jobs/4913319002)
