@@ -27,4 +27,6 @@ undefined
 
 ## Call for participation
 
-undefined
+- [flora-server: Release changelog support](https://github.com/flora-pm/flora-server/issues/147)
+- [liquidhaskell: Collect bfq files in CI](https://github.com/ucsd-progsys/liquidhaskell/issues/2020)
+- [yt-mirror: Improve logger for downloading process](https://github.com/soanvig/yt-mirror/issues/30)
