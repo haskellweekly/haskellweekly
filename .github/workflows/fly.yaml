@@ -53,8 +53,6 @@ jobs:
 
       - run: cabal build
 
-      - run: echo '::add-matcher::.github/hspec-problem-matcher.json'
-
       - run: cabal run -- haskellweekly-test-suite --fail-on-focused --randomize
 
       - run: cp "$( cabal list-bin haskellweekly )" ${{ steps.artifact.outputs.directory }}
