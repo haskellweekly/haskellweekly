@@ -106,13 +106,14 @@ jobs:
         with:
           context: docker
           labels: ${{ steps.meta.outputs.labels }}
+          push: true
           tags: ${{ steps.meta.outputs.tags }}
 
   deploy:
     needs: docker
     runs-on: ubuntu-22.04
     name: Deploy
-    if: github.ref == 'refs/heads/haskellweekly'
+    # if: github.ref == 'refs/heads/haskellweekly'
     steps:
       - uses: actions/checkout@v3
 
