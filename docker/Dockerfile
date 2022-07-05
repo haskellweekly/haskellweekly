@@ -1,4 +1,4 @@
-FROM ubuntu:20.04
+FROM ubuntu:22.04
 ENV LANG C.UTF-8
 ENV haskellweekly_datadir /opt/haskellweekly
 RUN apt-get update && apt-get install --assume-yes ca-certificates
