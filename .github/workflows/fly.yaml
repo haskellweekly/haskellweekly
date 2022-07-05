@@ -5,6 +5,24 @@ on:
 
 jobs:
 
+  brittany:
+    runs-on: ubuntu-latest
+    name: Brittany
+    steps:
+      - uses: actions/checkout@v2
+      - uses: tfausak/brittany-action@v1
+        with:
+          config: config/brittany.yaml
+
+  hlint:
+    runs-on: ubuntu-latest
+    name: HLint
+    steps:
+      - uses: actions/checkout@v2
+      - uses: tfausak/hlint-action@v1
+        with:
+          config: config/hlint.yaml
+
   build:
     strategy:
       matrix:
