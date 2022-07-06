@@ -47,7 +47,7 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 - [CircleCI and Haskell](https://dev.to/codenoodle/circleci-and-haskell-46g6) by Nate May
   > I've tried several different approaches to using CircleCI for Haskell projects and it's taken me a while to find a solution that works well.
 
-- [Cleaning up threads in Haskell](https://chrismwendt.github.io/blog/2020/05/31/cleaning-up-threads-in-haskell.html) by Chris Wendt
+- [Cleaning up threads in Haskell](https://dev.to/chrismwendt/cleaning-up-threads-in-haskell-1ng6) by Chris Wendt
   > If you don't keep track of your threads and kill them when the main thread receives an exception, you can accidentally hold on to resources that should be released.
 
 - [CodeWorld as a Haskell Playground: Call for Package Requests](https://medium.com/@cdsmithus/codeworld-as-a-haskell-playground-call-for-package-requests-3b9ae3bcd840) by Chris Smith
