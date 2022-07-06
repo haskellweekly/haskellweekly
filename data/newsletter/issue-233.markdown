@@ -7,7 +7,7 @@ This is a weekly summary of what's going on in its community.
 - [[ANN] "Production Haskell" alpha book release](https://leanpub.com/production-haskell) (ad)
   > Are you excited about Haskell, but don't know where to begin? Are you thrilled by the technical advantages, but worried about the unknown pitfalls? This book has you covered. The early release has 240 pages of excellent content to get you started building production applications, with much more to come.
 
-- [Neuron 1.0](https://www.srid.ca/neuron-v1.html) by Sridhar Ratnakumar
+- [Neuron 1.0](https://srid.ca/neuron-v1) by Sridhar Ratnakumar
   > Neuron is a note-taking app with static site publishing; version 1.0 comes with wiki-links and static binary via Nix.
 
 - [GHC Generics Cheat Sheet](https://generics.jasperwoudenberg.com) by Jasper Woudenberg

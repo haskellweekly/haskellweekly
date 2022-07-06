@@ -44,7 +44,7 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 - [Alex by example (Write You A Python Lexer)](https://devanla.com/posts/wya-lexer.html) by Guru Devanla
   > The main goal of this tutorial is to build a lexer for Python 3 language specification. By working towards this goal, the reader should acquire enough familiarity to implement a real world lexer for a serious language using Alex.
 
-- [A brief F# exploration](https://notes.srid.ca/fsharp-exploration) by Sridhar Ratnakumar
+- [A brief F# exploration](https://srid.ca/fsharp-exploration) by Sridhar Ratnakumar
   > That lead me to F#, a hybrid FP language ("hybrid" because it supports OOP, which is essential to integrate with the rest of the .NET ecosystem).
 
 - [Introducing Dawn (Part 1)](https://www.dawn-lang.org/posts/introducing-dawn-(part-1)/) by Scott Maddox

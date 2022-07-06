@@ -97,7 +97,7 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 - [Monads Are Just Fancy Semicolons](https://medium.com/better-programming/monads-are-just-fancy-semicolons-ffe38401fd0e) by Marcel Moosbrugger
   > Monads are programmable semicolons. That's it. For a programmer, a monad provides functions that allow for sequencing actions.
 
-- [Neuron 0.6 released](https://www.srid.ca/cbf057a6.html) by Sridhar Ratnakumar
+- [Neuron 0.6 released](https://srid.ca/neuron-v06) by Sridhar Ratnakumar
   > Neuron is a note-taking tool based on Zettelkasten, that aims to be future-proof. Version 0.6 just got released.
 
 - [Tutorial: Transparent interfaces in Haskell](https://boxbase.org/entries/2020/jul/29/hasked/) by Henri Tuhola
