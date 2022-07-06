@@ -28,7 +28,7 @@ This is a weekly summary of what's going on in its community.
 - [Moments in time](https://typeclasses.com/phrasebook/moments-in-time) by Type Classes
   > Here we demonstrate getting the current time, comparing two moments in time, and converting between a few different timestamp representations.
 
-- [Nix recipes for Haskellers](https://www.srid.ca/haskell-nix.html) by Sridhar Ratnakumar
+- [Nix recipes for Haskellers](https://srid.ca/haskell-nix) by Sridhar Ratnakumar
   > The goal of this article is to get you comfortable managing simple Haskell programs and projects using the Nix package manager without going too much into the details.
 
 - [Table of Contents in Hakyll](https://svejcar.dev/posts/2019/11/27/table-of-contents-in-hakyll/) by Vaclav Svejcar

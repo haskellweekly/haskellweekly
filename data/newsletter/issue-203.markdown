@@ -4,7 +4,7 @@ This is a weekly summary of what's going on in its community.
 
 ## Featured
 
-- [Announcing Neuron - Zettelkasten in Haskell](https://www.srid.ca/2010101.html) by Sridhar Ratnakumar
+- [Announcing Neuron - Zettelkasten in Haskell](https://srid.ca/neuron-announce) by Sridhar Ratnakumar
   > Two weeks ago I learned of a note-taking method called Zettelkasten, which aims to be a superior alternative to traditional methods like outliners and mindmaps.
 
 - [Evolving Import Style For Diff Friendliness](https://www.parsonsmatt.org/2020/03/17/gradual_import_style_improvements.html) by Matt Parsons

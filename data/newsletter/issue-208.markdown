@@ -55,7 +55,7 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 - [Build systems à la carte: Theory and practice](https://www.cambridge.org/core/journals/journal-of-functional-programming/article/build-systems-a-la-carte-theory-and-practice/097CE52C750E69BD16B78C318754C7A4) by Andrey Mokhov
   > In this paper, we offer a systematic, and executable, framework for developing and comparing build systems, viewing them as related points in a landscape rather than as isolated phenomena.
 
-- [Coming to PureScript from Haskell/Reflex/Nix](https://www.srid.ca/2015401.html) by Sridhar Ratnakumar
+- [Coming to PureScript from Haskell/Reflex/Nix](https://srid.ca/purescript-nix) by Sridhar Ratnakumar
   > The initial feel for what it is like to develop PureScript as a Haskeller who comes from the world of Nix and GHCJS.
 
 ## Show & tell

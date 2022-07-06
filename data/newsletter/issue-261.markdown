@@ -4,7 +4,7 @@ This is a weekly summary of what's going on in its community.
 
 ## Featured
 
-- [Announcing Ema - Static Sites in Haskell](https://notes.srid.ca/ema-announce) by Sridhar Ratnakumar
+- [Announcing Ema - Static Sites in Haskell](https://srid.ca/ema-announce) by Sridhar Ratnakumar
   > Announcing Ema, a new static site generator in Haskell with hot reload destined to develop an unique kind of apps.
 
 - [Consider the Ellipse](https://tonyday567.github.io/posts/ellipse/) by Tony Day
