@@ -31,7 +31,7 @@ jobs:
             platform: ubuntu
             version: 22.04
     runs-on: ${{ matrix.platform }}-${{ matrix.version }}
-    name: GHC ${{ matrix.ghc }} on ${{ matrix.os }}
+    name: GHC ${{ matrix.ghc }} on ${{ matrix.platform }}
     steps:
       - uses: actions/checkout@v3
 
