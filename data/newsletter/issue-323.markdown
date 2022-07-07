@@ -59,3 +59,5 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 ## Call for participation
 
 - [ema: Add `deriveIsRoute` TH](https://github.com/EmaApps/ema/issues/103)
+- [haskell-language-server: Add placeholders for all class instance methods](https://github.com/haskell/haskell-language-server/issues/3017)
+- [swarm: Ability to quickly restart scenarios with win conditions](https://github.com/swarm-game/swarm/issues/549)
