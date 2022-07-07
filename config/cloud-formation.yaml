@@ -17,13 +17,6 @@ Parameters:
     Type: String
     Default: haskellweekly.news
 
-  PortNumber:
-    Type: Number
-    Default: 8080
-
-  TagName:
-    Type: String
-
 Resources:
 
   ApexCertificate:
@@ -80,11 +73,6 @@ Resources:
       Name: !Ref DomainName
       Type: A
 
-  Cluster:
-    Type: AWS::ECS::Cluster
-    Properties:
-      ClusterName: !Sub ${AWS::StackName}-cluster
-
   EmailRecordGroup:
     Type: AWS::Route53::RecordSetGroup
     Properties:
@@ -126,37 +114,6 @@ Resources:
             - '"v=spf1 include:spf.messagingengine.com ?all"'
           TTL: 300
           Type: TXT
-
-  InternetGateway:
-    Type: AWS::EC2::InternetGateway
-
-  Listener:
-    Type: AWS::ElasticLoadBalancingV2::Listener
-    Properties:
-      Certificates:
-        - CertificateArn: !Ref OriginCertificate
-      DefaultActions:
-        - TargetGroupArn: !Ref TargetGroup
-          Type: forward
-      LoadBalancerArn: !Ref LoadBalancer
-      Port: 443
-      Protocol: HTTPS
-
-  LoadBalancer:
-    Type: AWS::ElasticLoadBalancingV2::LoadBalancer
-    Properties:
-      Name: !Sub ${AWS::StackName}-load-balancer
-      SecurityGroups:
-        - !Ref SecurityGroup
-      Subnets:
-        - !Ref Subnet1
-        - !Ref Subnet2
-
-  LogGroup:
-    Type: AWS::Logs::LogGroup
-    Properties:
-      LogGroupName: !Sub ${AWS::StackName}-log-group
-      RetentionInDays: 30
 
   MediaBucket:
     Type: AWS::S3::Bucket
@@ -219,180 +176,6 @@ Resources:
       HostedZoneId: !Ref Zone
       Name: !Sub media.${DomainName}
       Type: A
-
-  OriginCertificate:
-    Type: AWS::CertificateManager::Certificate
-    Properties:
-      DomainName: !Sub origin.${DomainName}
-      ValidationMethod: DNS
-
-  OriginRecordSet:
-    Type: AWS::Route53::RecordSet
-    Properties:
-      AliasTarget:
-        DNSName: !GetAtt LoadBalancer.DNSName
-        HostedZoneId: !GetAtt LoadBalancer.CanonicalHostedZoneID
-      HostedZoneId: !Ref Zone
-      Name: !Sub origin.${DomainName}
-      Type: A
-
-  Repository:
-    Type: AWS::ECR::Repository
-    Properties:
-      ImageTagMutability: IMMUTABLE
-      RepositoryName: !Sub ${AWS::StackName}-repository
-
-  Route:
-    Type: AWS::EC2::Route
-    Properties:
-      DestinationCidrBlock: 0.0.0.0/0
-      GatewayId: !Ref InternetGateway
-      RouteTableId: !Ref RouteTable
-
-  RouteTable:
-    Type: AWS::EC2::RouteTable
-    Properties:
-      VpcId: !Ref Vpc
-
-  SecurityGroup:
-    Type: AWS::EC2::SecurityGroup
-    Properties:
-      GroupDescription: !Sub security group for ${AWS::StackName} stack
-      GroupName: !Sub ${AWS::StackName}-security-group
-      SecurityGroupEgress:
-        CidrIp: 0.0.0.0/0
-        FromPort: -1
-        IpProtocol: -1
-        ToPort: -1
-      SecurityGroupIngress:
-        CidrIp: 0.0.0.0/0
-        FromPort: -1
-        IpProtocol: -1
-        ToPort: -1
-      VpcId: !Ref Vpc
-
-  Service:
-    Type: AWS::ECS::Service
-    Properties:
-      Cluster: !Ref Cluster
-      DesiredCount: 1
-      LaunchType: FARGATE
-      LoadBalancers:
-        - ContainerName: !Sub ${AWS::StackName}-container-definition
-          ContainerPort: !Ref PortNumber
-          TargetGroupArn: !Ref TargetGroup
-      NetworkConfiguration:
-        AwsvpcConfiguration:
-          AssignPublicIp: ENABLED
-          SecurityGroups:
-            - !Ref SecurityGroup
-          Subnets:
-            - !Ref Subnet1
-            - !Ref Subnet2
-      ServiceName: !Sub ${AWS::StackName}-service
-      TaskDefinition: !Ref TaskDefinition
-
-  Subnet1:
-    Type: AWS::EC2::Subnet
-    Properties:
-      AvailabilityZone: !Select
-        - 0
-        - Fn::GetAZs: !Ref AWS::Region
-      CidrBlock: 10.0.1.0/24
-      MapPublicIpOnLaunch: true
-      VpcId: !Ref Vpc
-
-  Subnet2:
-    Type: AWS::EC2::Subnet
-    Properties:
-      AvailabilityZone: !Select
-        - 1
-        - Fn::GetAZs: !Ref AWS::Region
-      CidrBlock: 10.0.2.0/24
-      MapPublicIpOnLaunch: true
-      VpcId: !Ref Vpc
-
-  SubnetRouteTableAssociation1:
-    Type: AWS::EC2::SubnetRouteTableAssociation
-    Properties:
-      RouteTableId: !Ref RouteTable
-      SubnetId: !Ref Subnet1
-
-  SubnetRouteTableAssociation2:
-    Type: AWS::EC2::SubnetRouteTableAssociation
-    Properties:
-      RouteTableId: !Ref RouteTable
-      SubnetId: !Ref Subnet2
-
-  TargetGroup:
-    Type: AWS::ElasticLoadBalancingV2::TargetGroup
-    Properties:
-      HealthCheckPath: /health-check
-      Name: !Sub ${AWS::StackName}-target-group
-      Port: !Ref PortNumber
-      Protocol: HTTP
-      TargetGroupAttributes:
-        - Key: deregistration_delay.timeout_seconds
-          Value: 30
-      TargetType: ip
-      VpcId: !Ref Vpc
-
-  TaskDefinition:
-    Type: AWS::ECS::TaskDefinition
-    Properties:
-      ContainerDefinitions:
-        - Environment:
-            - Name: BASE_URL
-              Value: !Sub https://${DomainName}
-            - Name: PORT
-              Value: !Ref PortNumber
-          Essential: true
-          Image: !Sub ${AWS::AccountId}.dkr.ecr.${AWS::Region}.amazonaws.com/${Repository}:${TagName}
-          LogConfiguration:
-            LogDriver: awslogs
-            Options:
-              awslogs-group: !Ref LogGroup
-              awslogs-region: !Ref AWS::Region
-              awslogs-stream-prefix: !Ref TagName
-          Name: !Sub ${AWS::StackName}-container-definition
-          PortMappings:
-            - ContainerPort: !Ref PortNumber
-      Cpu: 256
-      ExecutionRoleArn: !Ref TaskRole
-      Family: !Sub ${AWS::StackName}-task-definition
-      Memory: 512
-      NetworkMode: awsvpc
-      RequiresCompatibilities:
-        - FARGATE
-
-  TaskRole:
-    # Note that this is the task's *execution* role.
-    Type: AWS::IAM::Role
-    Properties:
-      AssumeRolePolicyDocument:
-        Statement:
-          - Action:
-              - sts:AssumeRole
-            Effect: Allow
-            Principal:
-              Service:
-                - ecs-tasks.amazonaws.com
-        Version: 2012-10-17
-      ManagedPolicyArns:
-        - arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy
-      RoleName: !Sub ${AWS::StackName}-task-role
-
-  Vpc:
-    Type: AWS::EC2::VPC
-    Properties:
-      CidrBlock: 10.0.0.0/16
-      EnableDnsHostnames: true
-
-  VpcGatewayAttachment:
-    Type: AWS::EC2::VPCGatewayAttachment
-    Properties:
-      InternetGatewayId: !Ref InternetGateway
-      VpcId: !Ref Vpc
 
   Zone:
     Type: AWS::Route53::HostedZone
