@@ -46,8 +46,8 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 - [defaultable-map: An Applicative wrapper for Maps](https://www.haskellforall.com/2022/06/defaultable-map-applicative-wrapper-for.html) by Gabriella Gonzalez
   > I'm announcing a small utility Haskell package I created that can wrap arbitrary `Map`-like types to provide `Applicative` and `Alternative` instances.
 
-- [Episode 14: Ryan Trickle](https://haskell.foundation/podcast/14/) by The Haskell Interlude
-  > Ryan Trickle is interviewed by Joachim Breitner and Niki Vazou. Ryan Trickle has co-founded Obsidian Systems, a company that not just uses Haskell but even more exotic tech that as Functional Reactive Programming (FRP) and Nix.
+- [Episode 14: Ryan Trinkle](https://haskell.foundation/podcast/14/) by The Haskell Interlude
+  > Ryan Trinkle is interviewed by Joachim Breitner and Niki Vazou. Ryan Trinkle has co-founded Obsidian Systems, a company that not just uses Haskell but even more exotic tech that as Functional Reactive Programming (FRP) and Nix.
 
 ## Show & tell
 
