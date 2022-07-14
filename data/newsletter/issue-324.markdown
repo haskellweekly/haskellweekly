@@ -44,4 +44,4 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 
 ## Call for participation
 
-undefined
+- [servant-oauth2: Add the `Gitlab` provider](https://github.com/tweag/servant-oauth2/issues/7)
