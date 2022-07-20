@@ -23,4 +23,5 @@ undefined
 
 ## Call for participation
 
-undefined
+- [dbmonitor: Different colors in logs](https://github.com/pandora-mccme/dbmonitor/issues/19)
+- [doctest-parallel: Turn some comments into haddock](https://github.com/martijnbastiaan/doctest-parallel/issues/44)
