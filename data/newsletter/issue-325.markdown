@@ -4,31 +4,8 @@ This is a weekly summary of what's going on in its community.
 
 ## Featured
 
-undefined
-
-## Jobs
-
-undefined
-
-Trying to hire a Haskell developer?
-You should [advertise with us](https://haskellweekly.news/advertising.html)!
-
-## In brief
-
 - [Configuration of a Polysemy application](https://thma.github.io/posts/2022-07-17-configuration-of-a-polysemy-app.html) by Thomas Mahler
   > One question that came up: why did I explicitly load configuration before starting the Polysemy effect interpreter? Wouldn’t it be much more in line with the overall idea of my Polysemy Clean Architecture to handle this loading also as an effect?
-
-- [Data Structures: Hash Maps!](https://mmhaskell.com/blog/2022/7/18/data-structures-hash-maps) by Monday Morning Haskell
-  > Today we're taking the next logical step in the progression and looking at Hash Maps. Starting later this week, we'll start looking as lesser-known Haskell structures that don't fit some of the common patterns we've been seeing so far!
-
-- [Episode 15](https://haskell.foundation/podcast/15/) by Facundo Dominguez
-  > Facundo Dominguez is interviewed by Niki Vazou and Joachim Breitner. Facundo Dominguez tells us the difference between STM and SMT.
-
-- [Haskell Foundation board minutes, July 14, 2022](https://discourse.haskell.org/t/haskell-foundation-board-minutes-july-14-2022/4769) by Hécate Moonlight
-  > You can check out the minutes and agenda for the Board meeting that took place on the 2022-07-14.
-
-- [Haskell Foundation DevOps Weekly Log, 2022-07-15](https://discourse.haskell.org/t/haskell-foundation-devops-weekly-log-2022-07-15/4782) by Bryan Richter
-  > This week I moved into phase 2 of CI failure reporting. Following on last week's CI failure dashboard, I'm now working on a system to backfill new errors as they are categorized.
 
 - [The Lazy Way to Solve Differential Equations](https://iagoleal.com/posts/calculus-symbolic-ode/) by Iago Leal de Freitas
   > By the end of this post we gonna be able to solve this differential equation simply by writing the equivalent Haskell definition
@@ -41,6 +18,27 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 
 - [Universal and Existential Quantification in Haskell](https://serokell.io/blog/universal-and-existential-quantification) by Stepan Prudnikov
   > In logic, there are two common quantifiers: the universal quantifier and the existential quantifier. You might recognize them as ∀ (for all) and ∃ (there exists).
+
+## Jobs
+
+- [Software Engineer at Freckle](https://jobs.smartrecruiters.com/Renaissance/743999839561186-software-engineer-i)
+
+Trying to hire a Haskell developer?
+You should [advertise with us](https://haskellweekly.news/advertising.html)!
+
+## In brief
+
+- [Data Structures: Hash Maps!](https://mmhaskell.com/blog/2022/7/18/data-structures-hash-maps) by Monday Morning Haskell
+  > Today we're taking the next logical step in the progression and looking at Hash Maps. Starting later this week, we'll start looking as lesser-known Haskell structures that don't fit some of the common patterns we've been seeing so far!
+
+- [Episode 15](https://haskell.foundation/podcast/15/) by Facundo Dominguez
+  > Facundo Dominguez is interviewed by Niki Vazou and Joachim Breitner. Facundo Dominguez tells us the difference between STM and SMT.
+
+- [Haskell Foundation board minutes, July 14, 2022](https://discourse.haskell.org/t/haskell-foundation-board-minutes-july-14-2022/4769) by Hécate Moonlight
+  > You can check out the minutes and agenda for the Board meeting that took place on the 2022-07-14.
+
+- [Haskell Foundation DevOps Weekly Log, 2022-07-15](https://discourse.haskell.org/t/haskell-foundation-devops-weekly-log-2022-07-15/4782) by Bryan Richter
+  > This week I moved into phase 2 of CI failure reporting. Following on last week's CI failure dashboard, I'm now working on a system to backfill new errors as they are categorized.
 
 ## Show & tell
 
