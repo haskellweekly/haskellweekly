@@ -15,7 +15,8 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 
 ## In brief
 
-undefined
+- [Episode 141: Shriram Krishnamurthi](https://www.functionalgeekery.com/episode-141-shriram-krishnamurthi/) by Functional Geekery
+  > In this episode, I talk with Shriram Krishnamurthi. We cover his introduction to functional programming, Racket and #lang, Static vs Dynamic Typing, Bootstrap and Pyret, _How to Design Programs_, and much, much, more.
 
 ## Show & tell
 
