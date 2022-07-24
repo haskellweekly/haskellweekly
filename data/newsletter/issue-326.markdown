@@ -20,7 +20,8 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 
 ## Show & tell
 
-undefined
+- [cabal-hoogle](https://github.com/kokobd/cabal-hoogle) by kokobd
+  > Miss `stack hoogle`? `cabal-hoogle` generates hoogle database for cabal project, including dependencies.
 
 ## Call for participation
 
