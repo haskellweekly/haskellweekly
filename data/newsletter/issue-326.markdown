@@ -23,6 +23,9 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 - [cabal-hoogle](https://github.com/kokobd/cabal-hoogle) by kokobd
   > Miss `stack hoogle`? `cabal-hoogle` generates hoogle database for cabal project, including dependencies.
 
+- [Type-Signature](https://type-signature.com) by andys8
+  > A functional programming game: Basically "Who Wants to Be a Millionaire?" - but with types.
+
 ## Call for participation
 
 undefined
