@@ -53,4 +53,6 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 
 ## Call for participation
 
-undefined
+- [pandoc: org-mode Reader/Metadata: abstract](https://github.com/jgm/pandoc/issues/8204)
+- [swarm: Tell users that Ctrl-Q can be used to progress to the next challenge](https://github.com/swarm-game/swarm/issues/595)
+- [toml-reader: Add Exception TOMLError instance](https://github.com/brandonchinn178/toml-reader/issues/13)
