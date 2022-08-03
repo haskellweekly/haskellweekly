@@ -66,7 +66,7 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 - [Autodocodec](https://twitter.com/kerckhove_ts/status/1456944356812808195) by Tom Sydney Kerckhove
   > Get correct-by-construction JSON encoding, decoding, and documentation of your type using a single instance!
 
-- [Copilot version 3.6](https://www.reddit.com/r/haskell/comments/qq52p6/ann_copilot_36/) by Ivan Perez
+- [Copilot version 3.6](https://np.reddit.com/r/haskell/comments/qq52p6/ann_copilot_36/) by Ivan Perez
   > We are pleased to announce the release of Copilot 3.6, a stream-based DSL for writing and monitoring embedded C programs, with an emphasis on correctness and hard realtime requirements.
 
 - [IHP version 0.16](https://github.com/digitallyinduced/ihp/releases/tag/v0.16.0) by Marc Scholten

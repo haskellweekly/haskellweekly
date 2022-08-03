@@ -39,7 +39,7 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 
 ## In brief
 
-- [Monthly Hask Anything (January 2022)](https://www.reddit.com/r/haskell/comments/rtbzbl/monthly_hask_anything_january_2022/)
+- [Monthly Hask Anything (January 2022)](https://np.reddit.com/r/haskell/comments/rtbzbl/monthly_hask_anything_january_2022/)
   > This is your opportunity to ask any questions you feel don't deserve their own threads, no matter how small or simple they might be!
 
 ## Show & tell

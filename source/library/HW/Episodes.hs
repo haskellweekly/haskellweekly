@@ -579,7 +579,7 @@ episode30 =
     <$> Articles.fromList
           [ "https://lexi-lambda.github.io/blog/2020/11/01/names-are-not-type-safety/"
           , "https://www.youtube.com/watch?v=MEmRarBL9kw"
-          , "https://www.reddit.com/r/haskell/comments/jnwg7i/haskell_foundation_ama/"
+          , "https://np.reddit.com/r/haskell/comments/jnwg7i/haskell_foundation_ama/"
           ]
     <*> Date.fromGregorian 2020 11 9
     <*> Duration.fromTimestamp 24 25

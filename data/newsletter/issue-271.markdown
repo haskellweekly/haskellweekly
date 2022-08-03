@@ -45,7 +45,7 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 
 - [Haskell Foundation June Update](https://discourse.haskell.org/t/haskell-foundation-june-update/2722?u=taylorfausak) by Andrew Boardman
 
-- [Monthly Hask Anything (July 2021)](https://www.reddit.com/r/haskell/comments/ocz5s5/monthly_hask_anything_july_2021/)
+- [Monthly Hask Anything (July 2021)](https://np.reddit.com/r/haskell/comments/ocz5s5/monthly_hask_anything_july_2021/)
 
 ## Show & tell
 

@@ -54,7 +54,7 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 
 - [acts: Semigroup actions, groups, and torsors](https://np.reddit.com/r/haskell/comments/f3b0ie/ann_acts_semigroup_actions_groups_and_torsors/)
 - [base16, base16-lens, base32, base32-lens](https://np.reddit.com/r/haskell/comments/f5j395/ann_base16_base16lens_base32_base32lens/)
-- [fakedata: Library for producing quality faked data](https://www.reddit.com/r/haskell/comments/f4ohc9/fakedata060_haskell_library_for_producing_quality/)
+- [fakedata: Library for producing quality faked data](https://np.reddit.com/r/haskell/comments/f4ohc9/fakedata060_haskell_library_for_producing_quality/)
 - [mod: Modular arithmetic, promoting moduli to the type level](https://github.com/Bodigrim/mod/tree/c2ae98f07e7eb5492990af3752d4545657efd10a)
 
 ## Call for participation

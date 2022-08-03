@@ -41,7 +41,7 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 - [Haskell Foundation DevOps Weekly Log, 2022-05-27](https://discourse.haskell.org/t/haskell-foundation-devops-weekly-log-2022-05-27/4599?u=taylorfausak) by Bryan Richter
   > As promised, today will be a shorter update. I'm still getting plugged into the vast CI machinery surrounding GHC, and progress is about as fast as to be expected on the second week of the job.
 
-- [Monthly Hask Anything (June 2022)](https://www.reddit.com/r/haskell/comments/v285t1/monthly_hask_anything_june_2022/)
+- [Monthly Hask Anything (June 2022)](https://np.reddit.com/r/haskell/comments/v285t1/monthly_hask_anything_june_2022/)
   > This is your opportunity to ask any questions you feel don't deserve their own threads, no matter how small or simple they might be!
 
 - [Smooth, non-invasive Haskell Stack and Nix shell integration](https://www.tweag.io/blog/2022-06-02-haskell-stack-nix-shell/) by Julien Debon

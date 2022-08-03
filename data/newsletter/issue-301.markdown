@@ -47,7 +47,7 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 - [Haskell Beginners 2022: Free online Haskell course](https://discourse.haskell.org/t/haskell-beginners-2022-free-online-haskell-course/4013?u=taylorfausak) by Dmitrii Kovanikov
   > In January 2022 I was teaching a free Haskell course for complete beginners. No prior knowledge of Haskell was required.
 
-- [Monthly Hask Anything (February 2022)](https://www.reddit.com/r/haskell/comments/shmn9z/monthly_hask_anything_february_2022/)
+- [Monthly Hask Anything (February 2022)](https://np.reddit.com/r/haskell/comments/shmn9z/monthly_hask_anything_february_2022/)
   > This is your opportunity to ask any questions you feel don't deserve their own threads, no matter how small or simple they might be!
 
 - [Simple property-based tests for Plutus validators](https://iohk.io/en/blog/posts/2022/01/27/simple-property-based-tests-for-plutus-validators/) by Victor Cacciari Miraldo

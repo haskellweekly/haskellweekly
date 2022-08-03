@@ -52,7 +52,7 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 
 ## Show & tell
 
-- [GHCup version 0.1.12](https://www.reddit.com/r/haskell/comments/jyaxri/ann_ghcup_0112/) by Julian Ospald
+- [GHCup version 0.1.12](https://np.reddit.com/r/haskell/comments/jyaxri/ann_ghcup_0112/) by Julian Ospald
 
 ## Call for participation
 

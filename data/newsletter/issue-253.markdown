@@ -49,7 +49,7 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 
 ## Show & tell
 
-- [ghcup version 0.1.13](https://www.reddit.com/r/haskell/comments/lsz7ml/ann_ghcup0113_release_experimental_arm_support/) by Julian Ospald
+- [ghcup version 0.1.13](https://np.reddit.com/r/haskell/comments/lsz7ml/ann_ghcup0113_release_experimental_arm_support/) by Julian Ospald
 
 - [HGeometry version 0.12](https://np.reddit.com/r/haskell/comments/lue7y7/ann_hgeometry012/) by David Himmelstrup
   > HGeometry is a swiss army knife for computational geometry. Wondering if a point is inside a polygon? HGeometry will tell you.

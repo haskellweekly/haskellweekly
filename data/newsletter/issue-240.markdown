@@ -50,7 +50,7 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 - [The Haskell Foundation](https://www.snoyman.com/blog/2020/12/haskell-foundation) by Michael Snoyman
   > This post is not about past mistakes and regrets, though I have both. It's about forging a path forward.
 
-- [Monthly Hask Anything (December 2020)](https://www.reddit.com/r/haskell/comments/k3zxqy/monthly_hask_anything_december_2020/)
+- [Monthly Hask Anything (December 2020)](https://np.reddit.com/r/haskell/comments/k3zxqy/monthly_hask_anything_december_2020/)
   > This is your opportunity to ask any questions you feel don't deserve their own threads, no matter how small or simple they might be!
 
 ## Show & tell

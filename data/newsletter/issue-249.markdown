@@ -50,7 +50,7 @@ is something both very right, and very wrong about it.
 - [Haskell.org nomination results](https://discourse.haskell.org/t/haskell-org-nomination-results/1835?u=taylorfausak) by Alexandre Garcia de Oliveira
   > I'm here to announce the results for the Haskell.org committee.
 
-- [Monthly Hask Anything (February 2021)](https://www.reddit.com/r/haskell/comments/laur0s/monthly_hask_anything_february_2021/) by Taylor Fausak
+- [Monthly Hask Anything (February 2021)](https://np.reddit.com/r/haskell/comments/laur0s/monthly_hask_anything_february_2021/) by Taylor Fausak
   > This is your opportunity to ask any questions you feel don't deserve their own threads, no matter how small or simple they might be!
 
 - [Plutus Tx: compiling Haskell into Plutus Core](https://iohk.io/en/blog/posts/2021/02/02/plutus-tx-compiling-haskell-into-plutus-core/) by Michael Peyton Jones

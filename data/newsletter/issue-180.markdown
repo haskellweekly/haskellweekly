@@ -27,7 +27,7 @@ This is a weekly summary of what's going on in its community.
 - [Interos- We're Hiring!!!](https://interos.applicantpro.com/jobs/986650.html) (ad)
   > Full Stack Haskell Software Engineer
 
-- [Haskell Programmer at Riskbook](https://www.reddit.com/r/haskell/comments/den2le/job_haskell_programmer_at_riskbook_remote/)
+- [Haskell Programmer at Riskbook](https://np.reddit.com/r/haskell/comments/den2le/job_haskell_programmer_at_riskbook_remote/)
 
 Trying to hire a Haskell developer?
 You should [advertise with us](https://haskellweekly.news/advertising.html)!

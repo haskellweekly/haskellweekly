@@ -85,7 +85,7 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 
 ## Show & tell
 
-- [BerylliumBlueberry](https://www.reddit.com/r/haskell/comments/fuz94i/berylliumblueberry_a_simple_blogging_software/) by Chris Stryczynski
+- [BerylliumBlueberry](https://np.reddit.com/r/haskell/comments/fuz94i/berylliumblueberry_a_simple_blogging_software/) by Chris Stryczynski
   > A simple blogging software using Scotty, Lucid and Postgresql-orm.
 
 - [coercible-subtypes](https://github.com/viercc/coercible-subtypes/tree/25505c0b59606fc2edea7eebb5897f2205693394) by Koji Miyazato

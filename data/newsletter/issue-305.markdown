@@ -41,7 +41,7 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 
 ## In brief
 
-- [Monthly Hask Anything (March 2022)](https://www.reddit.com/r/haskell/comments/t3zw0x/monthly_hask_anything_march_2022/)
+- [Monthly Hask Anything (March 2022)](https://np.reddit.com/r/haskell/comments/t3zw0x/monthly_hask_anything_march_2022/)
   > This is your opportunity to ask any questions you feel don't deserve their own threads, no matter how small or simple they might be!
 
 - [PureScript Annual Survey 2022](https://surveyhero.com/c/wzajwjpd)

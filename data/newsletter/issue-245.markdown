@@ -55,7 +55,7 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 - [HTTP share with S3 and Haskell](https://anardil.net/2019/http-share-with-s3-and-haskell.html) by Austin
   > At work, we use Apache HTTP indexing for easy sharing of files internally; sometimes you just want a link rather than full NFS access.
 
-- [Monthly Hask Anything (January 2021)](https://www.reddit.com/r/haskell/comments/kntpkm/monthly_hask_anything_january_2021/)
+- [Monthly Hask Anything (January 2021)](https://np.reddit.com/r/haskell/comments/kntpkm/monthly_hask_anything_january_2021/)
   > This is your opportunity to ask any questions you feel don't deserve their own threads, no matter how small or simple they might be!
 
 - [Solving Advent of Code "Handy Haversacks" in Type-level Haskell](https://abhinavsarkar.net/posts/type-level-haskell-aoc7/) by Abhinav Sarkar

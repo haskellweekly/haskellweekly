@@ -68,7 +68,7 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 - [It's not a no-op to unmask an interruptible operation](https://github.com/effectfully-ou/sketches/tree/a2db26a23946e816d010549f3cf5fe7be58d775d/restore-interruptible)
   > This post discusses one very subtle gotcha related to asynchronous exceptions and masking.
 
-- [Monthly Hask Anything (June 2021)](https://www.reddit.com/r/haskell/comments/nqjp2c/monthly_hask_anything_june_2021/)
+- [Monthly Hask Anything (June 2021)](https://np.reddit.com/r/haskell/comments/nqjp2c/monthly_hask_anything_june_2021/)
   > This is your opportunity to ask any questions you feel don't deserve their own threads, no matter how small or simple they might be!
 
 - [Representable Functors: Practical Examples](https://functional.works-hub.com/learn/representable-functors-by-example-6c5c0) by Siddharth Bhat

@@ -61,7 +61,7 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 -   [Haskell From Scratch Re-Opened!](https://mmhaskell.com/blog/2019/7/29/haskell-from-scratch-re-opened)
 -   [Haskell Weekly Podcast episode 16: Game Development](https://haskellweekly.news/podcast/episodes/16.html)
 -   [In Praise of Strong FP](https://queuea9.wordpress.com/2019/07/25/in-praise-of-strong-fp/)
--   [Monthly Hask Anything (August 2019)](https://www.reddit.com/r/haskell/comments/ckba3b/monthly_hask_anything_august_2019/)
+-   [Monthly Hask Anything (August 2019)](https://np.reddit.com/r/haskell/comments/ckba3b/monthly_hask_anything_august_2019/)
 -   [Not made for this world](https://magnusson.io/blog/6.html)
 -   [Practical deforestation for fixed-point structures -- introducing tungsten](https://blog.nyarlathotep.one/2019/07/practical-deforestation-for-fixed-point-structures/)
 -   [Purescript-native can now target Golang](https://discourse.purescript.org/t/purescript-native-can-now-target-golang/878)

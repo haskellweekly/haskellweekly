@@ -69,7 +69,7 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 - [souffle-haskell](https://github.com/luc-tielen/souffle-haskell/tree/f16a6ed025d778452cbad1289e2aa39e0b7200ef) by Luc Tielen
   > Bindings for the Souffle Datalog language.
 
-- [telegram-raw-api](https://www.reddit.com/r/haskell/comments/g2wkch/ann_bindings_to_the_telegram_bot_api/) by Poscat
+- [telegram-raw-api](https://np.reddit.com/r/haskell/comments/g2wkch/ann_bindings_to_the_telegram_bot_api/) by Poscat
   > I'm announcing my rewrite of the telegram-api library, which divides into 2 packages: telegram-types and telegram-raw-api.
 
 ## Call for participation

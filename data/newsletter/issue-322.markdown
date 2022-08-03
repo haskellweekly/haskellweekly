@@ -30,7 +30,7 @@ This is a weekly summary of what's going on in its community.
 
 - [Functional Developer at Visonum](https://discourse.haskell.org/t/functional-developer-purescript-halogen-100-remote-full-time/4711?u=taylorfausak)
 
-- [Internship at Benaco](https://www.reddit.com/r/haskell/comments/vklj9d/benaco_offering_remote_internship_3d/)
+- [Internship at Benaco](https://np.reddit.com/r/haskell/comments/vklj9d/benaco_offering_remote_internship_3d/)
 
 Trying to hire a Haskell developer?
 You should [advertise with us](https://haskellweekly.news/advertising.html)!
@@ -54,7 +54,7 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 - [Announcing our Elm/Haskell app in production!](https://np.reddit.com/r/haskell/comments/vjoj24/announcing_our_elmhaskell_app_in_production/) by Caribou
   > We're excited to announce our Elm/Haskell app is in production!
 
-- [An Asteroids-inspired, space battle game written in Haskell](https://www.reddit.com/r/haskell/comments/vmomhk/an_asteroidsinspired_space_battle_game_written_in/) by Pedro Vinícius
+- [An Asteroids-inspired, space battle game written in Haskell](https://np.reddit.com/r/haskell/comments/vmomhk/an_asteroidsinspired_space_battle_game_written_in/) by Pedro Vinícius
   > Hi guys, a while ago I wrote a simple space battle game that features 2 ships and 2 big asteroids.
 
 ## Call for participation

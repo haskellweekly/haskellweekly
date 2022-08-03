@@ -58,7 +58,7 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 - [acme-dont version 1.2](https://mail.haskell.org/pipermail/haskell-cafe/2020-April/132060.html) by Jack Kelly
   > acme-dont provides a `don't` function, which does not execute its argument.
 
-- [aeson-schemas version 1.1.0](https://www.reddit.com/r/haskell/comments/frvgzp/ann_aesonschemas_v110_released_with_union_support/) by Brandon Chinn
+- [aeson-schemas version 1.1.0](https://np.reddit.com/r/haskell/comments/frvgzp/ann_aesonschemas_v110_released_with_union_support/) by Brandon Chinn
   > Easily consume JSON data on-demand with type-safety.
 
 - [constrained-normal](https://hackage.haskell.org/package/constrained-normal-1.0.2) by Neil Sculthorpe

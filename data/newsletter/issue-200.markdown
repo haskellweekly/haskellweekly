@@ -56,7 +56,7 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 - [Haskell and Hadoop the Aftermath](https://blog.samibadawi.com/2020/02/haskell-and-hadoop-aftermath.html) by Sami Badawi
   > Some of it comes down to understanding the power and limitation of functional programming.
 
-- [Headroom - License header manager written in Haskell](https://www.reddit.com/r/haskell/comments/f6yf4a/ann_headroom_license_header_manager_written_in/) by Vaclav Svejcar
+- [Headroom - License header manager written in Haskell](https://np.reddit.com/r/haskell/comments/f6yf4a/ann_headroom_license_header_manager_written_in/) by Vaclav Svejcar
   > Many software projects have some sort of license headers in source code files.
 
 - [Looking for Google Summer of Code/Tweag Fellowship students](http://big-data-biology.org/positions/gsoc-tweag/) by Big Data Biology Lab at Fudan University
