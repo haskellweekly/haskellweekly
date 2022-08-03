@@ -19,7 +19,7 @@ This is a weekly summary of what's going on in its community.
 - [GHC activities report: December--January 2020/2021](https://www.well-typed.com/blog/2021/02/ghc-2020-12-2021-01/) by Well-Typed
   > This is the fourth edition of our GHC activities report, which is intended to provide regular updates on the work on GHC and related projects that we are doing at Well-Typed. This edition covers roughly the months of December 2020 and Janary 2021.
 
-- [GHC development in 2020: My retrospective](https://glitchbra.in/post/ghc-development-in-2020-retrospective/) by Hécate
+- [GHC development in 2020: My retrospective](https://glitchbra.in/post/ghc-development-in-2020-retrospective/) by Théophile Choutri
   > This article is written for the release of GHC 9.0.1. While this is an important release, it also marks a year, or so, since I have started to contribute to the GHC project.
 
 - [Open-sourcing Thrift for Haskell](https://engineering.fb.com/2021/02/05/open-source/hsthrift/) by Noam Zilberstein & Simon Marlow

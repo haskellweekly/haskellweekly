@@ -47,7 +47,7 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 - [Algorithm Design with Haskell](https://www.cambridge.org/core/books/algorithm-design-with-haskell/824BE0319E3762CE8BA5B1D91EEA3F52) by Richard Bird and Jeremy Gibbons
   > This book is devoted to five main principles of algorithm design: divide and conquer, greedy algorithms, thinning, dynamic programming, and exhaustive search.
 
-- [Documentation plans](https://mail.haskell.org/pipermail/ghc-devs/2020-May/018852.html) by Hécate
+- [Documentation plans](https://mail.haskell.org/pipermail/ghc-devs/2020-May/018852.html) by Théophile Choutri
   > You may have seen me on various community channels and on social media to recruit motivated volunteers to help improve the documentation of the `base` library.
 
 - [Frozen Lake in Haskell](https://mmhaskell.com/blog/2020/4/20/frozen-lake-in-haskell) by Monday Morning Haskell

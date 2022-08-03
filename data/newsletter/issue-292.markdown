@@ -10,7 +10,7 @@ This is a weekly summary of what's going on in its community.
 - [Fallback of actions](https://magnus.therning.org/2021-11-27-fallback-of-actions.html) by Magnus Therning
   > In a tool I'm writing I want to load a file that may reside on the local disk, but if it isn't there I want to fetch it from the web. Basically it's very similar to having a cache and dealing with a miss, except in my case I don't populate the cache.
 
-- [Flora.pm --- An alternative package index for Haskell](https://ko-fi.com/post/Dev-blog-Flora-pm-An-alternative-package-index-X8X477DXT) by Hécate
+- [Flora.pm --- An alternative package index for Haskell](https://ko-fi.com/post/Dev-blog-Flora-pm-An-alternative-package-index-X8X477DXT) by Théophile Choutri
   > For a little less than a month now, I have been working on a fantastic project: An alternative package index for the Haskell ecosystem: Flora.
 
 - [Jet - A Structural JSON editor](https://github.com/ChrisPenner/jet/tree/4dc00e9bc58a6df522afd1742a6786a762af508a) by Chris Penner

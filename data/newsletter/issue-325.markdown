@@ -34,7 +34,7 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 - [Episode 15](https://haskell.foundation/podcast/15/) by Facundo Dominguez
   > Facundo Dominguez is interviewed by Niki Vazou and Joachim Breitner. Facundo Dominguez tells us the difference between STM and SMT.
 
-- [Haskell Foundation board minutes, July 14, 2022](https://discourse.haskell.org/t/haskell-foundation-board-minutes-july-14-2022/4769) by Hécate Moonlight
+- [Haskell Foundation board minutes, July 14, 2022](https://discourse.haskell.org/t/haskell-foundation-board-minutes-july-14-2022/4769) by Théophile Choutri
   > You can check out the minutes and agenda for the Board meeting that took place on the 2022-07-14.
 
 - [Haskell Foundation DevOps Weekly Log, 2022-07-15](https://discourse.haskell.org/t/haskell-foundation-devops-weekly-log-2022-07-15/4782) by Bryan Richter

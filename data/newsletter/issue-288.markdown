@@ -98,7 +98,7 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 - [jordan](https://hackage.haskell.org/package/jordan-0.1.0.0) by Anthony Super
   > Jordan provides an abstract interface for converting to or from JSON.
 
-- [text-display](https://hackage.haskell.org/package/text-display-0.0.1.0) by Hécate Moonlight
+- [text-display](https://hackage.haskell.org/package/text-display-0.0.1.0) by Théophile Choutri
   > The `Display` typeclass provides a solution for user-facing output that does not have to abide by the rules of the `Show` typeclass.
 
 ## Call for participation

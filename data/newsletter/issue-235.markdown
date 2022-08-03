@@ -53,7 +53,7 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 - [Overriding Process Handlings and Terminal Colors](https://mmhaskell.com/blog/2020/10/26/overriding-process-handlings-and-terminal-colors) by Monday Morning Haskell
   > For this week's video blog, we'll dig in a bit deeper to the process to give the user better information.
 
-- [Proposal: Strict `sum` and `product`](https://mail.haskell.org/pipermail/libraries/2020-October/030862.html) by Hécate
+- [Proposal: Strict `sum` and `product`](https://mail.haskell.org/pipermail/libraries/2020-October/030862.html) by Théophile Choutri
   > I wish to present what is certainly a controversial proposal for the `base` library: Making the `sum` and `product` functions from the `base` library strict.
 
 ## Show & tell

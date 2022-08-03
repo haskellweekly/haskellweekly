@@ -44,7 +44,7 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 - [Buffering...Please Wait...](https://mmhaskell.com/blog/2022/5/16/bufferingplease-wait) by Monday Morning Haskell
   > Today we continue our exploration of more obscure IO concepts with the idea of buffering. Buffering determines the more precise mechanics of how our program reads and writes with files.
 
-- [Deprecation of GHCi's tags generation feature](https://discourse.haskell.org/t/deprecation-of-ghcis-tags-generation-feature-starting-with-ghc-9-4/4535?u=taylorfausak) by Hécate Moonlight
+- [Deprecation of GHCi's tags generation feature](https://discourse.haskell.org/t/deprecation-of-ghcis-tags-generation-feature-starting-with-ghc-9-4/4535?u=taylorfausak) by Théophile Choutri
   > The deprecation process starts with GHC 9.4, which adds warning messages in the console, and follows a three-releases cycle.
 
 - [Episode 12: Gergő Érdi](https://haskell.foundation/podcast/12/) by The Haskell Interlude
