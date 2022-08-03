@@ -6,11 +6,11 @@
 
     > Typed, elegant and efficient --- we can have all three.
 
--   [Incremental API Takeover with Haskell Servant](http://www.parsonsmatt.org/2016/06/24/take_over_an_api_with_servant.html)
+-   [Incremental API Takeover with Haskell Servant](https://www.parsonsmatt.org/2016/06/24/take_over_an_api_with_servant.html)
 
     > We'll put the old API behind a reverse proxy that's handled in Haskell by Servant, and take over an endpoint at a time.
 
--   [Haskell meets large scale distributed analytics](http://blog.tweag.io/posts/2016-02-25-hello-sparkle.html)
+-   [Haskell meets large scale distributed analytics](https://www.tweag.io/blog/2016-02-25-hello-sparkle/)
 
     > Implement a robust and scalable distributed computing middleware for Haskell, by reusing Apache Spark.
 

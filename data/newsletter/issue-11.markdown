@@ -6,7 +6,7 @@
 
     > This program reads a C source file and prints an equivalent module in Rust syntax.
 
--   [Dive into GHC: Intermediate Forms](http://www.stephendiehl.com/posts/ghc_02.html)
+-   [Dive into GHC: Intermediate Forms](https://www.stephendiehl.com/posts/ghc_02.html)
 
     > This time let's zoom into the pieces that comprise the front end of the compilation pipeline.
 

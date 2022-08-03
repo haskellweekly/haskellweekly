@@ -1,4 +1,4 @@
--   [Add files to GitHub releases](http://taylor.fausak.me/2016/05/09/add-files-to-github-releases/)
+-   [Add files to GitHub releases](https://taylor.fausak.me/2016/05/09/add-files-to-github-releases/)
 
     > A walkthrough for adding Haskell binaries to GitHub releases via Travis CI. Because "where's the fun in using a Go program to deploy a Haskell program"?
 
@@ -22,7 +22,7 @@
 
     > Stack can now sign package uploads to Hackage with GPG keys. "Now that we have our online secret keys ready, we can sign our Hackage-bound packages with Stack."
 
--   [A Farewell to FRP](http://elm-lang.org/blog/farewell-to-frp)
+-   [A Farewell to FRP](https://elm-lang.org/news/farewell-to-frp)
 
     > Elm, a Haskell-like language for the web front end, ditches FRP in favor of subscriptions and commands. "Elm does more than ever, but is also simpler than ever"
 

@@ -6,7 +6,7 @@
 
     > Using only HTML, CSS, and JavaScript, you can use Electron to develop a desktop application. The nice part about Movie Monad, however, is that we will create the HTML, CSS, and JavaScript using Haskell.
 
--   [Lens and Linear: 2048's logic in 22 lines](http://www.nmattia.com/posts/2016-08-19-lens-linear-2048.html)
+-   [Lens and Linear: 2048's logic in 22 lines](https://www.nmattia.com/posts/2016-08-19-lens-linear-2048.html)
 
     > It is actually a problem that can be solved elegantly in Haskell using a few Isos and Traversals. We'll use the linear library for representing the data and the lens library for accessing it.
 

@@ -1,4 +1,4 @@
--   [A founder's perspective on 4 years with Haskell](http://baatz.io/posts/haskell-in-a-startup/)
+-   [A founder's perspective on 4 years with Haskell](https://baatz.io/2016/haskell-in-a-startup/)
 
     > The Better platform gets around half a million learning actions every week and it has been running for well over a year with no downtime or maintenance. We still don't know of any bugs.
 

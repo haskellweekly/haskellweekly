@@ -2,7 +2,7 @@
 
     > An old article I occasionally see cited today is Repeat after me: "Cabal is not a Package Manager". Many of the complaints don't apply to cabal-install 1.24's new Nix-style local builds.
 
--   [hindent 5: One style to rule them all](http://chrisdone.com/posts/hindent-5)
+-   [hindent 5: One style to rule them all](https://chrisdone.com/posts/hindent-5/)
 
     > But once the JohanTibell style in hindent was quite stable, I found that I didn't mind using it while collaborating with people who prefer that style.
 

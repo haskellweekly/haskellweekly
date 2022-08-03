@@ -14,11 +14,11 @@
 
     > Any time your code or other dependencies return a bottom value from a function you have violated the contract that allows you to reason mathematically about your code.
 
--   [Implementing HTTP/2 server push](http://www.yesodweb.com/blog/2016/07/http2-server-push)
+-   [Implementing HTTP/2 server push](https://www.yesodweb.com/blog/2016/07/http2-server-push)
 
     > I created a middleware for HTTP/2 server push based on referrer.
 
--   [Auto-generate service API endpoints from records](http://www.haskellforall.com/2016/07/auto-generate-service-api-endpoints.html)
+-   [Auto-generate service API endpoints from records](https://www.haskellforall.com/2016/07/auto-generate-service-api-endpoints.html)
 
     > I just wanted to make it as easy as possible for people to get started with back-end development in Haskell and also show off how cool and powerful GHC generics can be.
 

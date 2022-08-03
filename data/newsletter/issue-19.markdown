@@ -6,7 +6,7 @@
 
     > The idea is to test how many concurrent clients a single websocket server can serve and how efficiently it can broadcast messages to all the clients.
 
--   [Programming in Haskell: 2nd Edition](http://www.cs.nott.ac.uk/~pszgmh/pih.html)
+-   [Programming in Haskell: 2nd Edition](https://www.cs.nott.ac.uk/~pszgmh/pih.html)
 
     > This book is based on the author's experience of teaching Haskell for more than twenty years. All concepts are explained from first principles and no programming experience is required, making this book accessible to a broad spectrum of readers.
 

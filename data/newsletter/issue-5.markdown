@@ -4,7 +4,7 @@
 
 -   [PureScript 0.9.1 released](https://github.com/purescript/purescript/releases/tag/v0.9.1)
 
--   [Measuring GC latencies in Haskell, OCaml, Racket](http://prl.ccs.neu.edu/blog/2016/05/24/measuring-gc-latencies-in-haskell-ocaml-racket/)
+-   [Measuring GC latencies in Haskell, OCaml, Racket](https://prl.ccs.neu.edu/blog/2016/05/24/measuring-gc-latencies-in-haskell-ocaml-racket/)
 
     > I thought it would be amusing to reproduce the synthetic benchmark in OCaml and Racket, to see how other GCs handle this.
 

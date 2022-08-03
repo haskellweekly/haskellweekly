@@ -14,7 +14,7 @@
 
     > The goal of the Haskell Language committee together with the Core Libraries Committee is to work towards a new Haskell 2020 Language Report.
 
--   [Haskell Sucks!](http://paul.bone.id.au/pub/pbone-2016-haskell-sucks/)
+-   [Haskell Sucks!](https://paul.bone.id.au/pub/pbone-2016-haskell-sucks/)
 
     > People have a tendency to over-complicate things, then they reward themselves for solving difficult problems rather than avoiding them.
 

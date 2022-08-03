@@ -1,4 +1,4 @@
--   [A Sticky Stringy Quandary](http://www.stephendiehl.com/posts/strings.html)
+-   [A Sticky Stringy Quandary](https://www.stephendiehl.com/posts/strings.html)
 
     > This is not only a bad representation, it's quite possibly the least efficient (non-contrived) representation of text data possible and has horrible performance in both time and space.
 

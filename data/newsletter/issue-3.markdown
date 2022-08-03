@@ -14,7 +14,7 @@
 
     > Adding quick datatypes --- without all these instances and auxiliary functions --- often makes code easier to read.
 
--   [Are unused import warnings harmful?](http://www.yesodweb.com/blog/2016/05/are-unused-import-warnings-harmful)
+-   [Are unused import warnings harmful?](https://www.yesodweb.com/blog/2016/05/are-unused-import-warnings-harmful)
 
     > While removing unused imports is a nice thing to do, their presence does not actually indicate any potential issues with our code.
 

@@ -22,6 +22,6 @@
 
     > A 2D game engine written in and for Haskell.
 
--   [How is Data.Void.absurd different from undefined?](http://stackoverflow.com/q/38556531)
+-   [How is Data.Void.absurd different from undefined?](https://stackoverflow.com/q/38556531/1274282)
 
     > Thankfully, it doesn't actually matter in the end, because the whole old definition is a bit of a silly exercise.

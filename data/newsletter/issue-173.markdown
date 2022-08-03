@@ -52,7 +52,7 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 -   [Python iterators: A Big Finale](https://typeclasses.com/python) by Type Classes
     > Today we add five new pages to the series on iterators, bringing the total up to 11 pages and completing the series.
 
--   [How GHC type inference engine actually works](https://youtu.be/x3evzO8O9e8) by Simon Peyton Jones
+-   [How GHC type inference engine actually works](https://www.youtube.com/watch?v=x3evzO8O9e8) by Simon Peyton Jones
 
 -   [Monadic Party 2019 videos](https://www.youtube.com/playlist?list=PLcAu_kKy-krxDD1WwRX_9rc0knAFK3nHs) by Monadic Warsaw
 
