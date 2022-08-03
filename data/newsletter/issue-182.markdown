@@ -96,9 +96,6 @@ Browse [Haskell Hacktoberfest issues](https://github.com/issues?q=is%3Aissue+is%
 
 ## Events
 
-- [Haskell talks at Mercury!](https://www.meetup.com/Bay-Area-Haskell-Users-Group/events/265110367) on October 29 in San Francisco
-  > It's finally time for another meetup! Come watch three great Haskell talks at Mercury's brand new office.
-
 - [Functional Conf 2019](https://confengine.com/functional-conf-2019) on November 13--17 in Bengaluru
   > Functional Conf is designed to bring together the growing community of functional programmers under one roof.
 

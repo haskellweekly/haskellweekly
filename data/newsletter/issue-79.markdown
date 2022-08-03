@@ -94,15 +94,3 @@ a tool that helps you to manage the import section of your Haskell project modul
 
 Do you have a beginner-friendly issue you want some help with?
 Email <info@haskellweekly.news> to get it included here!
-
-## Events
-
--   November 2: [Regensburg Haskell Meetup: Digesting past events](https://www.meetup.com/Regensburg-Haskell-Meetup/events/244377298/)
--   November 5: [Berlin Functional Programming Group: Haskell Programming From First Principles Study Group](https://www.meetup.com/Berlin-Functional-Programming-Group/events/244432243/)
--   November 6: [Heidelberg &#x3bb; Meetup: How to have fun with type-level Haskell, and adventure to Coq](https://www.meetup.com/Heidelberg-Lambda/events/244584584/)
--   November 7: [Haskallywags: Chapter 3 & 4 ("Strings", "Basica Datatypes")](https://www.meetup.com/Haskallywags/events/244117419/)
--   November 8: [Haskell DC: Functional Reactive Programming](https://www.meetup.com/Haskell-DC/events/244173483/)
--   November 9: [Haskell Hackers: The South SF Bay Haskell User Group: Jon Coens: Hotswapping Haskell](https://www.meetup.com/haskellhackers/events/244525354/)
-
-Know of an event that Haskell users would enjoy?
-Let <info@haskellweekly.news> know about it!

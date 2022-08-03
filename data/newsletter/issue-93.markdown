@@ -81,12 +81,4 @@ It offers variants of functions with parameter orders more conducive to finishin
 
 ## Events
 
--   February 8: [Gotta test fast: Property testing in Haskell with Hedgehog](https://www.meetup.com/Buenos-Aires-Haskell-Meetup/events/247285652/) in Buenos Aires, Argentina
--   February 9: [Intro to the lambda calculus](https://www.meetup.com/Decatur-Makers/events/247133844/) in Decatur, Georgia, United States
--   February 10: [A magical pairing: Bitcoin and Haskell](https://www.meetup.com/Haskell-MAD/events/247121455/) in Madrid, Spain
--   February 12: [Introduction to Datomic](https://www.meetup.com/lambda-luminaries/events/246609855/) in Sandton, South Africa
--   February 13: [Your everyday Scala & Show me the monoids](https://www.meetup.com/Brisbane-Functional-Programming-Group/events/244996226/) in Brisbane, Australia
--   February 14: [Category theory study group](https://www.meetup.com/fp-ams/events/246865418/) in Amstelveen, Netherlands
--   February 15: [Functional programming interview questions](https://www.meetup.com/Detroit-Functional-Developers/events/247421273/) in Detroit, Michigan, United States
--   February 22: [PureScript happy hour with Justin Woo](https://www.meetup.com/Berlin-Functional-Programming-Group/events/246441427/) in Berlin, Germany
 -   February 23: [BOB Konferenz](http://bobkonf.de/2018/en/) in Berlin, Germany

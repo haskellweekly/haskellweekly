@@ -81,4 +81,3 @@ a library that provides lift control operations (like exception catching) throug
 ## Events
 
 -   August 28: [Compose :: Melbourne](http://www.composeconference.org/2017-melbourne/)
--   August 30: [Quito Lambda: La programaci&#xf3;n funcional](https://www.meetup.com/Quito-Lambda-Meetup/events/238781847/)

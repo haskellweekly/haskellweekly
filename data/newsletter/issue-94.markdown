@@ -85,12 +85,4 @@ a library for parsing, querying, and rendering RSS and Atom feeds.
 
 ## Events
 
--   February 15: [Functional programming interview questions](https://www.meetup.com/Detroit-Functional-Developers/events/247421273/) in Detroit, Michigan, United States
--   February 16: [Utah Elm lunch](https://www.meetup.com/utah-elm/events/246490047/) in Lehi, Utah, United States
--   February 17: [SEAHUG: General discussion](https://www.meetup.com/SEAHUG/events/247062614/) in Seattle, Washington, United States
--   February 19: [Charlottesville Haskell Book Reading Club - Chapter 5](https://www.meetup.com/Charlottesville-Haskell-Book-Reading-Group/events/247634074/) in Charlottesville, Virginia, United States
--   February 20: [Using PureScript to help Alexa take over the world](https://www.meetup.com/ny-purescript/events/247385149/) in New York City, New York, United States
--   February 21: [Better embedded languages with modal type theory](https://www.meetup.com/Boston-Haskell/events/247821517/) in Boston, Massachusetts, United States
--   February 22: [PureScript happy hour with Justin Woo](https://www.meetup.com/Berlin-Functional-Programming-Group/events/246441427/) in Berlin, Germany
 -   February 23: [BOB Konferenz](http://bobkonf.de/2018/en/) in Berlin, Germany
--   February 27: [Auckland FP Meetup 3-topic event: Nix/NixOS; Haskell web dev; Lisp](https://www.meetup.com/Functional-Programming-Auckland/events/247729046/) in Auckland, New Zealand

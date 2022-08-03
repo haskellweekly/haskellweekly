@@ -73,10 +73,4 @@ a testing framework inspired by Ruby's RSpec library.
 
 ## Events
 
--   April 26: [Seriously, the Haskell Type Checker is Your Friend](https://www.meetup.com/denverfp/events/248406761/)
 -   April 27-29: [BayHac 2018](https://wiki.haskell.org/BayHac2018) in San Francisco, California, United States
--   April 30: [Building Haskell projects with Nix](https://www.meetup.com/NixOS-London/events/249577540/) in London, United Kingdom
--   May 1: [Learn Haskell Hands-on](https://www.meetup.com/Functional-Programming-Auckland/events/249857325/) in Auckland, New Zealand
--   May 2: [Haskell Learners' Group](https://www.meetup.com/SEAHUG/events/249048859/) in Seattle, Washington, United States
--   May 3: [Haskell talk](https://www.meetup.com/STL-Polyglots/events/247260162/) in St. Louis, Missouri, United States
--   May 7: [Auckland FP Meetup: Functional Reactive Programming in TypeScript; followed by Property testing made simple(r) in Clojure](https://www.meetup.com/Functional-Programming-Auckland/events/249958154/) in Auckland, New Zealand

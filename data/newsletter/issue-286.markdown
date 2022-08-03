@@ -46,9 +46,6 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 - [Using IO without the IO Monad!](https://mmhaskell.com/blog/2021/10/18/using-io-without-the-io-monad) by Monday Morning Haskell
   > In this article we're going to demonstrate how we can get limited IO effects within our function. That is, we'll write our type signature to allow a couple specific IO actions, without opening the door to all kinds of craziness.
 
-- [Virtual Haskell Cohack](https://www.meetup.com/NY-Haskell/events/280998863) by Chris Smith
-  > Tackle a personal project, ask or answer your Haskell questions, help a newbie get up and running (or get help yourself), or start a new collaboration with other community members.
-
 ## Show & tell
 
 - [IHP version 0.15](https://github.com/digitallyinduced/ihp/releases/tag/v0.15.0) by Marc Scholten

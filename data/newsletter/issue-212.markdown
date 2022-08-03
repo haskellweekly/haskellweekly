@@ -65,9 +65,6 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 - [Functional Fika --- Nix and Haskell](https://maxfieldchen.com/posts/2020-05-16-Functional-Fika-Haskell-Nix-Cabal.html) by Maxfield Chen
   > Learn how to use Nix to create the perfect Haskell dev environment.
 
-- [Haskell Programming From First Principles, 2nd Study Group](https://www.meetup.com/Berlin-Functional-Programming-Group/events/hcrbsrybchblc/) by Berlin Functional Programming Group
-  > This is the 2nd study group for learning the Haskell programming language.
-
 - [Haskenthetical](http://reasonableapproximation.net/2020/05/19/haskenthetical.html) by Phil Hazelden
   > This is a toy language I've been designing, or at least implementing, for about a year.
 

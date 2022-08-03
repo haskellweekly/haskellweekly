@@ -84,4 +84,3 @@ a minimal host for SDL2-based Reflex apps.
 ## Events
 
 -   September 3 - September 9: [Oxford, United Kingdom: International Conference on Functional Programming](http://conf.researchr.org/home/icfp-2017)
--   September 6: [Berlin Haskell Programming From First Principles Study Group](https://www.meetup.com/Berlin-Functional-Programming-Group/events/242559370/)

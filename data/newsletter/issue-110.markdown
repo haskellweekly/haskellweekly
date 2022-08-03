@@ -72,13 +72,3 @@ a library that provides convenient access to high-resolution clock and timer fun
 
 -   [hledger: run doctests with fast flag](https://github.com/simonmichael/hledger/issues/802)
 -   [FuncMorph: Setup stack and stack.yaml](https://github.com/sam46/FuncMorph/issues/1)
-
-## Events
-
--   June 7: [Haskell.SG June meetup](https://www.meetup.com/HASKELL-SG/events/248176887/)
--   June 8: [Going through Software Foundations by Benjamin Pierce](https://www.meetup.com/Austin-Types-Theorems-and-Programming-Languages/events/249706445/)
--   June 9: [Norcross Haskathon](https://www.meetup.com/Atlanta-Functional-Programming-Meetup/events/251380293/)
--   June 10: [Haskell 101](https://www.meetup.com/Bangalore-Functional-Programmers-Meetup/events/251298040/)
--   June 11: [Haskell in 2018: A software engineering perspective](https://www.meetup.com/HK-Functional-programming/events/250875066/)
--   June 12: [Hedgehog state machine testing & Typescript Sodium](https://www.meetup.com/Brisbane-Functional-Programming-Group/events/248688760/)
--   June 13: [Haskell Wednesday](https://www.meetup.com/berlinhug/events/251260401/)

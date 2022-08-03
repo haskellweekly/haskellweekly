@@ -66,13 +66,3 @@ an eDSL for writing 65(C)02 bytecode.
 
 -   [rhine: Remove/refactor Count and FixedRate](https://github.com/turion/rhine/issues/66)
 -   [stack: no-run-tests in stack.yaml does nothing](https://github.com/commercialhaskell/stack/issues/4044)
-
-## Events
-
--   May 31: [GHC Newcomers Guide](https://www.meetup.com/HaskellerZ/events/250661375/) in Z&#xfc;rich, Switzerland
--   June 2: [Hang out, chat FP, work on some code](https://www.meetup.com/Weekly-Functional-Programming-Meetup/events/251158667/) in Boston, Massachusetts, United States
--   June 3: [Why Scala?](https://www.meetup.com/SoftDev/events/249946846/) in Naperville, Illinois, United States
--   June 4: [Haskell Peer Study Group](https://www.meetup.com/Vancouver-Functional-Programmers/events/251197121/) in Vancouver, British Columbia, Canada
--   June 5: [Monadic Warsaw #14](https://www.meetup.com/Monadic-Warsaw/events/249543097/) in Warsaw, Poland
--   June 6: [Auckland FP Meetup: 3 Talks: Remote Haskell; Prototyping for Radar; Pure TensorFlow Combinators](https://www.meetup.com/Functional-Programming-Auckland/events/250854233/) in Auckland, New Zealand
--   June 7: [Haskell.SG June Haskell Meetup](https://www.meetup.com/HASKELL-SG/events/248176887/) in Signapore

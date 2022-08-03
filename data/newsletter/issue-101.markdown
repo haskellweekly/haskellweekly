@@ -81,14 +81,3 @@ a library providing in-order, pre-order, post-order, level-order, and reversed l
 
 -   [purebred-email: Tab character in subject header shows as whitespace](https://github.com/purebred-mua/purebred-email/issues/13)
 -   [shake: Error message could contain stdin](https://github.com/ndmitchell/shake/issues/577)
-
-## Events
-
--   April 5: [April Meetup](https://www.meetup.com/HASKELL-SG/events/248176854/) in Singapore
--   April 6: [Learn and Teach Coding for Mid / High school Aged Kids](https://www.meetup.com/Coding-in-Education-Bay-Area/events/248717027/) in Fremont, California, United States
--   April 7: [First Official Weekly Functional Programming Meetup](https://www.meetup.com/Weekly-Functional-Programming-Meetup/events/249373356/) in Cambridge, Massachusetts, United States
--   April 9: [Mini-meetup: Type Classes in Scala and Haskell](https://www.meetup.com/Scala-Berlin-Brandenburg/events/248699720/) in Berlin, Germany
--   April 10: [Haskell Hangout: Getting Started with Yesod and Haskell Web Development](https://www.meetup.com/Haskell-Hangout/events/248547064/) in San Diego, California, United States
--   April 11: [Type Driven Development](https://www.meetup.com/Boulder-Haskell-Programmers/events/249090504/) in Boulder, Colorado, United States
--   April 12: [Why do Functional Programmers always talk about Algebras?](https://www.meetup.com/Eastside-Fun-c-tional-Programming-Group/events/248722662/) in Bellevue, Washington, United States
--   April 18: [Self-paced Haskell Study Group](https://www.meetup.com/haskell-dublin-meetup/events/249428074/) in Dublin, Ireland

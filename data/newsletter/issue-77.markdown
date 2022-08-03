@@ -78,14 +78,3 @@ a library providing phantom types to avoid unsafely passing dummy arguments.
 Looking for something to contribute to?
 Check out [the Hacktoberfest issues](https://github.com/search?l=Haskell&type=Issues&state=open&q=label%3Ahacktoberfest
 ) on GitHub!
-
-## Events
-
--   October 19: [San Diego Functional Programmers: October meetup: Intro to functional programming](https://www.meetup.com/San-Diego-Functional-Programmers/events/243077781/)
--   October 21: [Seattle Area Haskell Users' Group: General discussion](https://www.meetup.com/SEAHUG/events/243434593/)
--   October 22: [Berlin Functional Programming Group: Haskell Programming From First Principles study group](https://www.meetup.com/Berlin-Functional-Programming-Group/events/244227642/)
--   October 23: [Functional Programming Montpellier: Second functional programming meetup](https://www.meetup.com/Functional-Programming-Montpellier/events/244080708/)
--   October 24: [Haskell Paris: Meetup Haskell mensuel](https://www.meetup.com/haskell-paris/events/244053318/)
--   October 25: [New York Haskell Users Group: Squeal: A deep embedding of SQL in Haskell](https://www.meetup.com/NY-Haskell/events/244117814/)
--   October 25: [Quito Lambda: M&#xe1;s all&#xe1; de las funciones puras, c&#xf3;mo Haskell lo resolvi&#xf3;](https://www.meetup.com/Quito-Lambda-Meetup/events/238781838/)
--   October 26: [Melbourne Haskell Users Group: Haskell Halloween "Haskoween": Lightning talks](https://www.meetup.com/Melbourne-Haskell-Users-Group/events/244014417/)

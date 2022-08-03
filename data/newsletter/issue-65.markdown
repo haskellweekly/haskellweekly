@@ -81,15 +81,3 @@ a universal un-archiving utility application.
 
 Do you have a beginner-friendly issue you want some help with?
 Email <info@haskellweekly.news> to get it included here!
-
-## Events
-
--   July 27: [Buenos Aires Haskell Meetup: &#xa1;Yo te elijo (en producci&#xf3;n)!](https://www.meetup.com/Buenos-Aires-Haskell-Meetup/events/241562308/)
--   July 28: [Austin Types, Theorems, and Programming Languages: Organizational Session, Installation of Coq](https://www.meetup.com/Austin-Types-Theorems-and-Programming-Languages/events/241617089/)
--   July 29: [Budapest Haskell User Group: Haskell Hackathon 2017](https://www.meetup.com/Bp-HUG/events/240707746/)
--   July 31: [Beaverton Haskell Meetup: Haskell Learning Exercises Continued](https://www.meetup.com/Beaverton-Haskell-Meetup/events/241822925/)
--   August 1: [Functional First Phoenix: Elm REST request processing](https://www.meetup.com/Functional-First-Phoenix/events/241113125/)
--   August 2: [Haskell.SG: August Meetup](https://www.meetup.com/HASKELL-SG/events/241782361/)
-
-Know of an event that Haskell users would enjoy?
-Let <info@haskellweekly.news> know about it!

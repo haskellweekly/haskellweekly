@@ -73,14 +73,3 @@ a library for optics with the most amazing type errors you've seen.
 
 -   [purescript: KindsDoNotUnify error is vague](https://github.com/purescript/purescript/issues/3281)
 -   [stack: Modify "recommended packages" output to include revision info](https://github.com/commercialhaskell/stack/issues/3925)
-
-## Events
-
--   March 22: [Haskell Talks and Hangout at Formation](https://www.meetup.com/Bay-Area-Haskell-Users-Group/events/248014098/) in San Francisco, California, United States
--   March 23: [Functional Friday: Category Theory for Programmers](https://www.meetup.com/Functional-Study-Group/events/248777457/) in Pleasanton, California, United States
--   March 24: [Open Programming Session](https://www.meetup.com/codeselfstudy/events/248683126/) in Berkeley, California, United States
--   March 26: [Haskell Peer Study Group](https://www.meetup.com/Vancouver-Functional-Programmers/events/248944739/) in Vancouver, British Columbia, Canada
--   March 27: [Auckland FP Meetup: Learn FP Hands-on](https://www.meetup.com/Functional-Programming-Auckland/events/248322238/) in Auckland, New Zealand
--   March 28: [Haskell Study Group](https://www.meetup.com/haskell-dublin-meetup/events/248659838/) in Dublin, Ireland
--   March 29: [Interactive data exploration using Jupyter, Haskell and Nix](https://www.meetup.com/HaskellerZ/events/248510184/) in Z&#xfc;rich, Switzerland
--   April 10: [Haskell Hangout: Getting Started with Yesod and Haskell Web Development](https://www.meetup.com/Haskell-Hangout/events/248547064/) in San Diego, California, United States

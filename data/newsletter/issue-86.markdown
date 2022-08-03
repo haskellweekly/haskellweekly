@@ -82,9 +82,3 @@ a clone of Criterion on a diet.
 -   [Allure: Add/improve cave description texts](https://github.com/AllureOfTheStars/Allure/issues/77)
 -   [dejafu: Use LTS-10 in travis](https://github.com/barrucadu/dejafu/issues/166)
 -   [stack: Show resolver being used when `stack ghci` is invoked outside of a project directory](https://github.com/commercialhaskell/stack/issues/3651)
-
-## Events
-
--   December 21: Formal Methods and Verified software meetup: [Presentation of Idris, a Programing language with dependent types](https://www.meetup.com/Formal-Methods-and-Verified-software-meetup/events/245917235/)
--   December 26: Kyiv Haskell Learning Group: [Haskell Programming From First Principles Study Group](https://www.meetup.com/Kyiv-Haskell-Learning-Group/events/244284234/)
--   December 27: Quito Lambda: [La programaci&#xf3;n funcional](https://www.meetup.com/Quito-Lambda-Meetup/events/238781827/)

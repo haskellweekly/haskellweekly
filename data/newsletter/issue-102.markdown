@@ -78,12 +78,4 @@ a script for universal build and CI testing of Haskell packages.
 
 ## Events
 
--   April 12: [Why do Functional Programmers always talk about Algebras?](https://www.meetup.com/Eastside-Fun-c-tional-Programming-Group/events/248722662/) in Bellevue, Washington, United States
--   April 13: [Going through Software Foundations by Benjamin Pierce](https://www.meetup.com/Austin-Types-Theorems-and-Programming-Languages/events/249172494/) in Austin, Texas, United States
--   April 14: [Hang && (Maybe Hack)](https://www.meetup.com/Weekly-Functional-Programming-Meetup/events/249414785/) in Cambridge, Massachusetts, United States
--   April 15: [Tokyo Haskell April meetup](https://www.meetup.com/Tokyo-Haskell-Meetup/events/248833521/) in Tokyo, Japan
--   April 16: [Type-driven Development with Idris](https://www.meetup.com/FP-North-East/events/xwwjfpyxgbvb/) in Newcastle Upon Tyne, United Kingdom
--   April 17: [What is a Monad? Learning Monads Without Analogies](https://www.meetup.com/Indy-FP/events/249371555/) in Carmel, Indiana, United States
--   April 18: [Self-paced Haskell Study Group](https://www.meetup.com/haskell-dublin-meetup/events/249428074/) in Dublin, Ireland
--   April 25: [Getting started with testing in Haskell](https://www.meetup.com/Gainesville-Functional-Programming-Meetup/events/dhnnnpyxgbhc/) in Gainesville, Florida, United States
 -   April 27-29: [BayHac 2018](https://wiki.haskell.org/BayHac2018) in San Francisco, California, United States

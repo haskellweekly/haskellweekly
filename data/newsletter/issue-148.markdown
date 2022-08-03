@@ -54,7 +54,7 @@ This is a weekly summary of what's going on in its community.
 
 -   [Software Developer at VLC in Brisbane](https://vlc.bamboohr.com/jobs/view.php?id=41)
 
-    > VLC is looking for a Software Developer to join its Future Transport Lab. In this position, you will work with numerous technologies in supporting delivery of a wide range of Research and Development projects across the Transport Modelling and Analytics and Out of Home (OOH) media sectors.  
+    > VLC is looking for a Software Developer to join its Future Transport Lab. In this position, you will work with numerous technologies in supporting delivery of a wide range of Research and Development projects across the Transport Modelling and Analytics and Out of Home (OOH) media sectors.
 
 ## In brief
 
@@ -82,51 +82,3 @@ a library for flexible, precise, and efficient JSON decoding/encoding.
 
 -   [exercism/haskell: Bank Account: Hard to guess approach to exercise](https://github.com/exercism/haskell/issues/799)
 -   [purebred: Replace `selectedItemHelper` with over and L.listModify](https://github.com/purebred-mua/purebred/issues/258)
-
-## Events
-
-### North America
-
-- 2019-02-28 in Raleigh, NC, USA by Raleigh Haskell Meetup: [(hack . yack)](https://www.meetup.com/Raleigh-Haskell-Meetup/events/nsfsnqyzdblc/)
-- 2019-02-28 in Portland, OR, USA by Portland Functional Programming Study Group: [PDX Func Theory Track - Logic and Proof](https://www.meetup.com/Portland-Functional-Programming-Study-Group/events/mpwwbqyzdbkc/)
-- 2019-02-28 in Chicago, IL, USA by The Project Euler Sprint: [Project Euler Sprint](https://www.meetup.com/Project-Euler-Sprint/events/ngwzxmyzdblc/)
-- 2019-02-28 in Calgary, AL, Canada by Functional Programmers YYC: [Unconf (YYC.FP)](https://www.meetup.com/Functional-Programmers-YYC/events/tqfjpqyzdbsb/)
-- 2019-03-02 in Boston, MA, USA by Weekly Functional Programming Meetup: [Hang out + short talk (A Whirlwind Tour of Type Theory by Ian Denhardt)](https://www.meetup.com/Weekly-Functional-Programming-Meetup/events/vdlnqpyzfbdb/)
-- 2019-03-04 in Irvine, CA by Orange Combinator - Functional Programming In OC: [Combinating - The Weekly Function](https://www.meetup.com/orange-combinator/events/lxvjrpyzfbgb/)
-- 2019-03-04 in Portland, OR, USA by Portland Functional Programming Study Group: [PDX Func Practice Track - Parallel and Concurrent Programming in Haskell](https://www.meetup.com/Portland-Functional-Programming-Study-Group/events/rtfghqyzfbgb/)
-- 2019-03-05 in Santa Monica, CA, USA by Santa Monica Haskell Users Group: [Haskell Hack Night](https://www.meetup.com/santa-monica-haskell/events/259283993/)
-- 2019-03-05 in Madison, WI, USA by Haskallywags: [TypeScript](https://www.meetup.com/Haskallywags/events/258731416/)
-- 2019-03-06 in Austin, TX, USA by Austin Haskell Users Group: [Haskell Beginner-Friendly Lab](https://www.meetup.com/ATX-Haskell/events/dsldppyzfbjb/)
-- 2019-03-06 in Washington, DC, USA by The Joy of Programming Meetup: [Next Round (TBD)](https://www.meetup.com/Joy-of-Programming-DC/events/xpnxbpyzfbjb/)
-- 2019-03-06 in Bellevue, WA, USA by SeaLang: [Exploring the type system of ReasonML/OCaml](https://www.meetup.com/SeaLang/events/255357257/)
-- 2019-03-06 in New York, NY, USA by New York Haskell Users Group: [Implementing In-memory Caches in Haskell with Jasper Van Der Jeugt](https://www.meetup.com/NY-Haskell/events/259189477/)
-- 2019-03-07 in Raleigh, NC, USA by Raleigh Haskell Meetup: [(hack . yack)](https://www.meetup.com/Raleigh-Haskell-Meetup/events/nsfsnqyzfbkb/)
-- 2019-03-07 in Las Vegas, NV, USA by Las Vegas Functional Programming User Group: [Functional Programming Meetup](https://www.meetup.com/las-vegas-functional-programming/events/jkznkqyzfbkb/)
-- 2019-03-27 in Toronto, ON, Canada by Toronto Haskell Meetup: [Haskell Meetup: Lightning Talks and Hack Night 2](https://www.meetup.com/meetup-group-evRITRtT/events/259124679/)
-
-### Europe
-
-- 2019-02-28 in Zürich, Switzerland by HaskellerZ: [Zurich Friends of Haskell - General Assembly](https://www.meetup.com/HaskellerZ/events/258665750/)
-- 2019-02-28 in Zürich, Switzerland by HaskellerZ: [Artem Chirkin - Experimenting with Constraints](https://www.meetup.com/HaskellerZ/events/258850066/)
-- 2019-02-28 in Son, Netherlands by F#P Eindhoven: [Introduction to Fable and an applied use-case using F# and FP techniques](https://www.meetup.com/F-P-Eindhoven/events/258893932/)
-- 2019-02-28 in Göteborg, Sweden by Got.λ - Göteborg Functional Programming Group: [All about monads, and Phocate: A monadic parser in and for PHP](https://www.meetup.com/got-lambda/events/258446674/)
-- 2019-02-28 in London, United Kingdom by London Functional Programmers: [LDN Functionals Meetup #16 - Hosted by Revolut, E14 4HD ](https://www.meetup.com/London-Functionals/events/258555586/)
-- 2019-03-02 in Berlin, Germany by Study Haskell: [Weekly Haskell-studying session](https://www.meetup.com/Study-Haskell/events/gwtsqqyzfbdb/)
-- 2019-03-02 in Amsterdam, Netherlands by FP AMS: [Talks & Drinks with John de Goes](https://www.meetup.com/fp-ams/events/258492088/)
-- 2019-03-04 in București, Romania by Bucharest FP: [Bucharest FP #44 --- Haskell Book Study Group 05](https://www.meetup.com/bucharestfp/events/259325521/)
-- 2019-03-04 in Delft, Netherlands by Delft Haskell Study Group: [Haskell Study Session #2](https://www.meetup.com/Delft-Haskell-Study-Group/events/259291636/)
-- 2019-03-06 in Berlin, Germany by Berlin Haskell Users Group: [Haskell Wednesday](https://www.meetup.com/berlinhug/events/pvpwqpyzfbjb/)
-- 2019-03-06 in Amsterdam, Netherlands by FP AMS: [Category theory study group: Yoneda Embedding](https://www.meetup.com/fp-ams/events/258696139/)
-- 2019-03-06 in Berlin, Germany by Friendly Functional Programming Meetup Berlin: [Friendly Functional Programming](https://www.meetup.com/Friendly-Functional-Programming-Meetup-Berlin/events/wtnkmqyzfbjb/)
-- 2019-03-06 in Brighton, United Kingdom by Functional Brighton: [Double bill: tagless final, monad transformers](https://www.meetup.com/Functional-Brighton/events/258704210/)
-
-### Asia
-
-- 2019-02-28 in Tōkyō-to, Japan by Tokyo Scala Developers: [Types, Scala & Haskell!](https://www.meetup.com/Tokyo-Scala-Developers/events/258586177/)
-- 2019-03-04 in Hong Kong Island, Hong Kong by Hong Kong Functional Programming: [Come and meet the IOHK Rust team!](https://www.meetup.com/HK-Functional-programming/events/259326860/)
-- 2019-03-06 in Singapore, Singapore by HASKELL.SG: [March Singapore Haskell Meetup](https://www.meetup.com/HASKELL-SG/events/258491197/)
-- 2019-03-06 in Singapore, Singapore by University of Glasgow: [Functional Programming Day 2019](https://www.facebook.com/UoGSingapore/photos/a.368638043207103/2523953804342172/)
-
-### Oceania
-
-- 2019-02-28 in Melbourne, Australia by Melbourne Haskell Users Group: [Melbourne Haskell Users Group Meetup](https://www.meetup.com/Melbourne-Haskell-Users-Group/events/qfptslyzdblc/)

@@ -69,13 +69,3 @@ a library that makes invariants explicit by providing a function to check whethe
 -   [persistent: Provide scripts to reproduce errors for each backend](https://github.com/yesodweb/persistent/issues/746)
 
 Check out [24 Pull Requests](https://24pullrequests.com/languages/haskell) for some additional Haskell projects to work on!
-
-## Events
-
--   November 30: HaskellerZ: [Tom Sydney Kerckhove: An overview of validity based testing](https://www.meetup.com/HaskellerZ/events/245248358/)
--   December 1: Austin Types, Theorems, and Programming Languages: [Going through Software Foundations by Benjamin Pierce et al](https://www.meetup.com/Austin-Types-Theorems-and-Programming-Languages/events/245019617/)
--   December 2: [FPConf 2017](https://www.meetup.com/Functional-programming-Moscow-Tech-Meetup/events/244760125/)
--   December 4: [YOW 2017](https://www.meetup.com/Brisbane-Functional-Programming-Group/events/244438498/)
--   December 5: LA PureScript: [Nathan Faubion on Async Programming in PureScript](https://www.meetup.com/LA-PureScript/events/244935247/)
--   December 6: Berlin Functional Programming Group: [FP Forum: Learn, Teach, Share, Grow](https://www.meetup.com/Berlin-Functional-Programming-Group/events/244991423/)
--   December 7: Haskell.SG: [December Meetup](https://www.meetup.com/HASKELL-SG/events/244959310/)

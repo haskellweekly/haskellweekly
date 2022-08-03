@@ -72,14 +72,3 @@ a declarative terminal user interface library.
 
 -   [purebred: Simple version which build/version of purebred users are running](https://github.com/purebred-mua/purebred/issues/124)
 -   [universum: Change arguments order for foldl'](https://github.com/serokell/universum/issues/91)
-
-## Events
-
--   December 14: Las Vegas Functional Programming User Group: [Functional Programming Meetup](https://www.meetup.com/las-vegas-functional-programming/events/245590893/)
--   December 15: Utah Elm Lunch: [Utah Elm Lunch](https://www.meetup.com/utah-elm/events/245478804/)
--   December 16: The Bangalore Haskell User Group: [Web Apps, Concurrency and Compilers](https://www.meetup.com/The-Bangalore-Haskell-User-Group/events/245777992/)
--   December 17: SPACE meetups: [F(by) Conference 2017](https://www.meetup.com/SPACE-meetups/events/244079672/)
--   December 18: Karlsruhe Haskell Lerngruppe: [Funktional Muster, Rekursion - Kapitel 7 und 8](https://www.meetup.com/Karlsruhe-Haskell-Lerngruppe/events/244433396/)
--   December 19: Monadic Warsaw: [Monadic Warsaw #13](https://www.meetup.com/Monadic-Warsaw/events/244200180/)
--   December 20: Houston Functional Programmers: [Pre-holiday social meeting](https://www.meetup.com/Houston-Functional-Programmers/events/242817187/)
--   December 21: Brisbane Functional Programming Group: [Brisbane Tech Drinks](https://www.meetup.com/Brisbane-Functional-Programming-Group/events/244907684/)

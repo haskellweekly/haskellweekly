@@ -71,11 +71,3 @@ a library that provides Erlang/OTP-style supervision trees.
 
 -   [Idris-dev: foreign function calls section in docs-tutorial needs an update](https://github.com/idris-lang/Idris-dev/issues/4270)
 -   [stack: `stack init` doesn't use its own cabal](https://github.com/commercialhaskell/stack/issues/3734)
-
-## Events
-
--   January 4: Papers we love San Diego: [Monads for functional programming](https://www.meetup.com/Papers-We-Love-San-Diego/events/245744661/)
--   January 8: Pittsburgh functional programming meetup: [The "M" word and other assorted profanities](https://www.meetup.com/Pittsburgh-Functional-Programming-Meetup/events/245815085/)
--   January 9: East Bay Haskell meetup: [Persistent data structures in system design](https://www.meetup.com/East-Bay-Haskell-Meetup/events/246216186/)
--   January 10: Cluj.fp: [Category theory: The foundations of composition distilled](https://www.meetup.com/Cluj-fp/events/245735090/)
--   January 11: Haskell.sg: [January meetup](https://www.meetup.com/HASKELL-SG/events/246341959/)

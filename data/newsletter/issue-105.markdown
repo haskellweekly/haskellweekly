@@ -73,13 +73,3 @@ a library for saving and loading different picture formats.
 
 -   [hledger: vague amount parse error message](https://github.com/simonmichael/hledger/issues/747)
 -   [Lambency: Create more generalized transforms.](https://github.com/Mokosha/Lambency/issues/15)
-
-## Events
-
--   May 3: [Haskell talk](https://www.meetup.com/STL-Polyglots/events/247260162/) in St. Louis, Missouri, United States
--   May 4: [International startup hackers](https://www.meetup.com/Hackers-beyond-professor-level/events/249490982/) in Seoul, South Korea
--   May 5: [Getting started with Ocaml](https://www.meetup.com/fosscafe/events/248985815/) in Bangalore, India
--   May 7: [Auckland FP Meetup: Functional Reactive Programming in TypeScript; followed by Property testing made simple(r) in Clojure](https://www.meetup.com/Functional-Programming-Auckland/events/249958154/) in Auckland, New Zealand
--   May 8: [Haskell Stockholm's early summer reunion](https://www.meetup.com/Haskell-Stockholm/events/249828457/) in Stockholm, Sweden
--   May 9: [Amanj Sherwany shows you how to write yourself a parser combinator library](https://www.meetup.com/lambda-montreal/events/249711194/) in Montreal, Quebec, Canada
--   May 10: [Haskell.SG's monthly meetup](https://www.meetup.com/HASKELL-SG/events/248176876/) in Singapore

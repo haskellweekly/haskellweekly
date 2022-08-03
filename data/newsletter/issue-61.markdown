@@ -61,8 +61,3 @@ a library that provides a simple extensible product system.
 -   [Streaming combinators and extracting flat parallelism](https://futhark-lang.org/blog/2017-06-25-futhark-at-pldi.html)
 -   [Typing Nix](https://www.tweag.io/posts/2017-05-23-typing-nix.html)
 -   [When competing with C, fudge the benchmark](https://medium.com/@n0mad/when-competing-with-c-fudge-the-benchmark-16d3a91b437c)
-
-## Events
-
--   July 1: [Berlin Functional Programming Group's first meeting](https://www.meetup.com/Berlin-Functional-Programming-Group/events/241040383/)
--   July 5: [Haskell.SG's July meetup](https://www.meetup.com/HASKELL-SG/events/240959693/)

@@ -66,18 +66,10 @@ Open an issue or pull request [on GitHub](https://github.com/haskellweekly/haske
 ## Package of the week
 
 This week's package of the week is [csv-conduit](https://www.stackage.org/lts-10.1/package/csv-conduit-0.6.7),
-a flexible, fast, Conduit-based CSV parser library. 
+a flexible, fast, Conduit-based CSV parser library.
 
 ## Call for participation
 
 -   [extensible-effects: Remove usage of deprecated `OverlappingInstances`](https://github.com/suhailshergill/extensible-effects/issues/77)
 -   [ghcid: Add timestamp to "All good" message](https://github.com/ndmitchell/ghcid/issues/124)
 -   [stack: `stack setup --verbose` should also cause verbose output of GHC configure process if possible](https://github.com/commercialhaskell/stack/issues/3716)
-
-## Events
-
--   December 28: Las Vegas Functional Programming User Group: [Functional Programming Meetup](https://www.meetup.com/las-vegas-functional-programming/events/245932762/)
--   January 1: Orange Combinator: [Combinating](https://www.meetup.com/orange-combinator/events/246058258/)
--   January 2: Austin Haskell Users Group: [Haskell Beginner-Friendly Lab](https://www.meetup.com/ATX-Haskell/events/245951419/)
--   January 3: Haskell DC: [Web Application Development with Yesod](https://www.meetup.com/Haskell-DC/events/245436061/)
--   January 4: Papers We Love San Diego: [Monads for Functional Programming](https://www.meetup.com/Papers-We-Love-San-Diego/events/245744661/)

@@ -80,10 +80,3 @@ We are considering removing this section.
 If you are interested in maintaining this section,
 or simply don't want to see it go,
 please let us know [on GitHub](https://github.com/haskellweekly/haskellweekly.github.io/issues/207)!
-
--   August 2 in Singapore: [August Haskell meetup](https://www.meetup.com/HASKELL-SG/events/252824929/)
--   August 4 in Boston, Massachusetts: [Hang out, chat FP, work on some code](https://www.meetup.com/Weekly-Functional-Programming-Meetup/events/253005369/)
--   August 6 in Melbourne, Australia: [Elm hack night](https://www.meetup.com/Elm-Melbourne/events/250594838/)
--   August 7 in Singapore: [Building GraphQL APIs with Hasura](https://www.meetup.com/API-Craft-Singapore/events/253334006/)
--   August 8 in Boulder, Colorado: [Bound for greatness](https://www.meetup.com/Boulder-Haskell-Programmers/events/253035578/)
--   August 9 in Hamburg, Germany: [Lambda Pi's initial meetup](https://www.meetup.com/Lambda-Pi/events/252428689/)

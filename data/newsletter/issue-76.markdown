@@ -82,10 +82,4 @@ an efficient PostgreSQL driver and a flexible mapping API.
 
 ## Events
 
--   October 12 -- 13: [Haskell eXchange 2017](https://www.meetup.com/skillsmatter/events/241083527/)
--   October 15: [Berlin Functional Programming Group](https://www.meetup.com/Berlin-Functional-Programming-Group/events/244033083/)
--   October 16: [Vancouver Functional Programmers](https://www.meetup.com/Vancouver-Functional-Programmers/events/243510247/)
--   October 17: [Austin Haskell Users Group](https://www.meetup.com/ATX-Haskell/events/243783455/)
--   October 18: [Atlanta Functional Programming Meetup](https://www.meetup.com/Atlanta-Functional-Programming-Meetup/events/244126614/)
--   October 19: [San Diego Functional Programmers](https://www.meetup.com/San-Diego-Functional-Programmers/events/243077781/)
 -   October 26 -- 28: [Haskell in Leipzig 2017](https://hal2017.softbase.org)

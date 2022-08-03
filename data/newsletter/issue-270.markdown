@@ -38,9 +38,6 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 - [Awesome list of Haskell mentors](https://willbasky.github.io/Awesome-list-of-Haskell-mentors/) by Vladislav Sabanov
   > An amazing list of Haskell developers who would like to mentor beginner-contributors in open source projects.
 
-- [Virtual Haskell Cohack](https://www.meetup.com/NY-Haskell/events/279067287/) by Chris Smith
-  > Tackle a personal project, ask or answer your Haskell questions, help a newbie get up and running (or get help yourself), or start a new collaboration with other community members.
-
 ## Call for participation
 
 -   [HMock: Simpler API for TH generators](https://github.com/cdsmith/HMock/issues/6)

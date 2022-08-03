@@ -78,14 +78,3 @@ a static site generator written and configured using Haskell.
 
 -   [aeson: `{-# ANN otations #-}` cause interpreter to load.](https://github.com/bos/aeson/issues/654)
 -   [haskell-ide-engine: Get tests working on windows](https://github.com/haskell/haskell-ide-engine/issues/713)
-
-## Events
-
--   July 26 in Z&#xfc;rich, Switzerland: [Alex Silva: A tour of dependent types with Idris](https://www.meetup.com/HaskellerZ/events/251632689/)
--   July 27 in Ahmedabad, India: [GraphQL engine on Postgres](https://www.meetup.com/Ahmedabad-Web-and-Mobile-Developers-Meetup/events/253092538/)
--   July 28 in Boston, Massachusetts: [Hang out, chat FP, work on some code](https://www.meetup.com/Weekly-Functional-Programming-Meetup/events/253005360/)
--   July 29 in Bangalore, India: [Functors](https://www.meetup.com/Bangalore-Functional-Programmers-Meetup/events/252925681/)
--   July 30 in Portland, Oregon: [Chapter 2 of Parallel and Concurrent Programming in Haskell](https://www.meetup.com/Portland-Functional-Programming-Study-Group/events/253039606/)
--   July 31 in Detroit, Michigan: [Intro to Haskell types with drinks to follow](https://www.meetup.com/Detroit-Functional-Developers/events/253127083/)
--   August 1 in Dublin, Ireland: [Self-paced Haskell study group with special talk](https://www.meetup.com/haskell-dublin-meetup/events/252468400/)
--   August 2 in Singapore: [August Haskell meetup](https://www.meetup.com/HASKELL-SG/events/252824929/)

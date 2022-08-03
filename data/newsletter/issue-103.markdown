@@ -84,11 +84,4 @@ a build-time Cabal library that bundles executables with assets.
 
 ## Events
 
--   April 19: [Experience Report: Large Data Processing in a Managed Language](https://www.meetup.com/Boston-Haskell/events/249401719/) in Boston, Massachusetts, United States
--   April 20: [Utah Elm Lunch](https://www.meetup.com/utah-elm/events/249194089/) in Lehi, Utah, United States
--   April 21: [Seattle Area Haskell Users' Group: General discussion](https://www.meetup.com/SEAHUG/events/249336363/) in Seattle, Washington, United States
--   April 23: [Haskell Peer Study Group](https://www.meetup.com/Vancouver-Functional-Programmers/events/249877500/) in Vancouver, British Columbia, Canada
--   April 24: [Learn Haskell](https://www.meetup.com/fp-ams/events/249345027/) in Amsterdam, Netherlands
--   April 25: [Getting started with testing in Haskell](https://www.meetup.com/Gainesville-Functional-Programming-Meetup/events/dhnnnpyxgbhc/) in Gainesville, Florida, United States
--   April 26: [Seriously, the Haskell Type Checker is Your Friend](https://www.meetup.com/denverfp/events/248406761/)
 -   April 27-29: [BayHac 2018](https://wiki.haskell.org/BayHac2018) in San Francisco, California, United States

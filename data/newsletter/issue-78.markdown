@@ -79,12 +79,3 @@ Looking for something to contribute to?
 Check out [the Hacktoberfest issues](https://github.com/search?l=haskell&type=issues&state=open&q=label%3Ahacktoberfest) on GitHub!
 
 The [call for proposals](https://linux.conf.au/programme/miniconfs/functional-programming/) for the Real World Functional Programming miniconf at LCA2018 is open from now until November 27.
-
-## Events
-
--   October 26: [Madrid Haskell Users Group: Lambda World 2017](https://www.meetup.com/Haskell-MAD/events/241904145/)
--   October 28: [Tokyo Haskell Meetup](https://www.meetup.com/Tokyo-Haskell-Meetup/events/243672954/)
--   October 30: [Vancouver Functional Programmers: Haskell peer study group](https://www.meetup.com/Vancouver-Functional-Programmers/events/243897045/)
--   October 31: [CodeHub Bristol: Haskell study group](https://www.meetup.com/CodeHub-Bristol/events/244462576/)
--   November 1: [London Haskell: Verifiable computing in Haskell](https://www.meetup.com/London-Haskell/events/244273090/)
--   November 2: [Melbourne Functional User Group: Monthly meetup](https://www.meetup.com/Melbourne-Functional-User-Group-MFUG/events/243901112/)

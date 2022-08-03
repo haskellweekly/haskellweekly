@@ -10,9 +10,6 @@ This is a weekly summary of what's going on in its community.
 - [Getting Started with Haskell on Fedora](https://fedoramagazine.org/getting-started-with-haskell-on-fedora/) by Tristan de Cacqueray
   > Let's see how to get started with Haskell on Fedora.
 
-- [Hacking on PKF files](https://www.meetup.com/HackMadrid-27/events/271140296/) by Ramón Soto Mathiesen
-  > In this talk I will showcase how i have been able to create some tools that will ease data updates of these awesome games in an almost no time and letting the computer do all the work.
-
 - [8 years of Haskell](https://osa1.net/posts/2020-06-30-8-years-of-haskell.html) by Ömer Sinan Ağacan
   > Here's the summary of my 8 years writing Haskell pretty much non-stop.
 

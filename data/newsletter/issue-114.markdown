@@ -65,13 +65,3 @@ a full-featured framework and embedded domain-specific language for creating dec
 
 -   [goat-guardian: add a logout handler](https://github.com/arow-oss/goat-guardian/issues/8)
 -   [hlint: Require specified prefix](https://github.com/ndmitchell/hlint/issues/508)
-
-## Events
-
--   July 5 in Frankfurt, Germany: [Dhall: The functional configuration language](https://www.meetup.com/Frankfurt-Haskell-User-Group/events/251622624/)
--   July 7 in Boston, Massachusetts: [Hang out, chat FP, work on some code](https://www.meetup.com/Weekly-Functional-Programming-Meetup/events/252320186/)
--   July 9 in Sandton, South Africa: [Logic programming in Haskell's type system](https://www.meetup.com/lambda-luminaries/events/251751195/)
--   July 10 in Santa Monica, California: [Haskell study group: Introduction](https://www.meetup.com/santa-monica-haskell/events/251932782/)
--   July 11 in Montreal, Quebec: [Michael Blazejczyk talks about "Introduction to Elm"](https://www.meetup.com/lambda-montreal/events/251882603/)
--   July 12 in Bellevue, Washington: [Functional programming discussion](https://www.meetup.com/fun-c-group/events/251564565/)
--   July 16 in Auckland, New Zealand: [Two Talks: FP in JS-land; and The unusual effectiveness of the Haskell type system](https://www.meetup.com/Functional-Programming-Auckland/events/252103853/)
