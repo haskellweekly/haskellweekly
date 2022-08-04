@@ -27,10 +27,9 @@ jobs:
     strategy:
       matrix:
         include:
-          - ghc: 9.2.3
+          - ghc: 9.2.4
             platform: ubuntu
-            version: 22.04
-    runs-on: ${{ matrix.platform }}-${{ matrix.version }}
+    runs-on: ${{ matrix.platform }}-latest
     name: GHC ${{ matrix.ghc }} on ${{ matrix.platform }}
     steps:
       - uses: actions/checkout@v3
@@ -86,10 +85,7 @@ jobs:
 
   docker:
     needs: build
-    # This uses ubuntu-20.04 rather than ubuntu-22.04 because the Docker daemon
-    # does not seem to be running on ubuntu-22.04.
-    # https://github.com/actions/virtual-environments/issues/5490#issuecomment-1118319996
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     name: Docker
     steps:
       - uses: actions/checkout@v3
@@ -151,7 +147,7 @@ jobs:
 
   fly:
     needs: docker
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
     name: Deploy to Fly.io
     if: github.ref == 'refs/heads/haskellweekly'
     steps:
