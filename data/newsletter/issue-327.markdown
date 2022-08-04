@@ -63,4 +63,5 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 
 ## Call for participation
 
-undefined
+- [dr-cabal: Add 'Parallelism level' to profile summary](https://github.com/chshersh/dr-cabal/issues/14)
+- [klister: "check-equal?" macro](https://github.com/gelisam/klister/issues/152)
