@@ -1,4 +1,5 @@
 /.stack-work/
+/.vscode/
 /cabal.project.freeze
 /cabal.project.local*
 /dist-newstyle/

@@ -3,7 +3,11 @@
     "dockerfile": "Dockerfile"
   },
   "extensions": [
-    "dramforever.vscode-ghc-simple",
-    "Edka.haskutil"
-  ]
+    "taylorfausak.purple-yolk"
+  ],
+  "settings": {
+    "purple-yolk.haskell.formatter.command": "false",
+    "purple-yolk.haskell.linter.command": "false",
+    "purple-yolk.haskell.linter.onSave": false
+  }  
 }
