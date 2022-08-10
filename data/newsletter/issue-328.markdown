@@ -23,4 +23,4 @@ undefined
 
 ## Call for participation
 
-undefined
+- [cabal: Support extension DeepSubsumption from GHC 9.2.4](https://github.com/haskell/cabal/issues/8341)
