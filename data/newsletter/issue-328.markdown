@@ -74,3 +74,5 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 ## Call for participation
 
 - [cabal: Support extension DeepSubsumption from GHC 9.2.4](https://github.com/haskell/cabal/issues/8341)
+- [iris: Add test for '--help' option parser](https://github.com/chshersh/iris/issues/56)
+- [swarm: Update to brick 1.0](https://github.com/swarm-game/swarm/issues/634)
