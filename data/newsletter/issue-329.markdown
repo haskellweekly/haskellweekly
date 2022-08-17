@@ -23,4 +23,5 @@ undefined
 
 ## Call for participation
 
-undefined
+- [dunai: Re-structure API: `InternalCore` and `Util`](https://github.com/ivanperez-keera/dunai/issues/305)
+- [fourmolu: Optionally indent with tabs](https://github.com/fourmolu/fourmolu/issues/230)
