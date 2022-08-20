@@ -18,8 +18,8 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 undefined
 
 ## Show & tell
-
-undefined
+- [Ema 0.8, with composability and generic routes](https://srid.ca/ema-0.8) by Sridhar Ratnakumar
+  > Announcing a rewrite of [Ema](https://ema.srid.ca/) (a static site generator in Haskell with hot reload destined to develop an unique kind of apps) with support for generic route encoders and composability.
 
 ## Call for participation
 
