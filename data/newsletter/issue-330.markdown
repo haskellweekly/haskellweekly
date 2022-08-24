@@ -6,6 +6,9 @@ This is a weekly summary of what's going on in its community.
 - [Ema 0.8, with composability and generic routes](https://srid.ca/ema-0.8) by Sridhar Ratnakumar
   > Announcing a rewrite of [Ema](https://ema.srid.ca/) (a static site generator library in Haskell with hot-reload, destined to develop an unique kind of apps) with support for generic route encoders and composable sites.
 
+- [Implementing array reverse in PureScript](https://github.com/adrianen-ucm/purescript-array-reverse) by Adrián Enríquez
+  > A quick overview of stack safety in PureScript through a simple example.
+
 ## Jobs
 
 undefined
