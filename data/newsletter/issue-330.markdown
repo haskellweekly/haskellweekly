@@ -61,4 +61,5 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 
 ## Call for participation
 
-undefined
+- [hstream: Provide version info command for binaries (like `-v`, `--version`)](https://github.com/hstreamdb/hstream/issues/1045)
+- [wybe: Allow a type to have identically named members in multiple constructors, and produce accessors and mutators that work for all appropriate constructors](https://github.com/pschachte/wybe/issues/354)
