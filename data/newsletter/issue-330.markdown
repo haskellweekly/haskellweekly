@@ -27,6 +27,9 @@ This is a weekly summary of what's going on in its community.
 
 ## Jobs
 
+- [Haskell Engineer/Researcher at Galois](https://galois.com/careers/haskell-engineer-researcher/) (ad)
+  > Galois is hiring a Software Engineer/Researcher to join our team! This role will primarily focus on extending the capabilities of the Software Analysis Workbench. Our engineers develop in programming languages including functional languages, designing and developing advanced technologies for safety- and security-critical systems, networks, and applications.
+
 - [Senior Library Developer at Enso](https://np.reddit.com/r/haskell/comments/wvw7jo/senior_library_developer/)
 
 - [Haskell Senior Software Engineer at Flint](https://withflint.com/join/senior-software-engineer-haskell-elm-nix-remote)
@@ -44,7 +47,7 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 
 ## Show & tell
 
-- [bearriver version 0.13.6](https://np.reddit.com/r/haskell/comments/wu5fi1/ann_dunai090_dunaitest090_bearriver0136/) by X
+- [bearriver version 0.13.6](https://np.reddit.com/r/haskell/comments/wu5fi1/ann_dunai090_dunaitest090_bearriver0136/) by Ivan Perez
   > For those unfamiliar, `dunai` is a reactive programming library structured around a notion of Monadic Stream Functions. `bearriver` itself is an API-compatible implementation of Yampa.
 
 - [breakpoint](https://np.reddit.com/r/haskell/comments/wtrbu8/breakpoint_plugin_released/) by Aaron Allen
