@@ -19,7 +19,8 @@ undefined
 
 ## Show & tell
 
-undefined
+- [purescript-backend-optimizer](https://github.com/aristanetworks/purescript-backend-optimizer) by Arista Networks
+  > An optimizing backend toolkit and modern ECMASCript backend for PureScript.
 
 ## Call for participation
 
