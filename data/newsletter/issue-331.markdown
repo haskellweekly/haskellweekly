@@ -53,4 +53,5 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 
 ## Call for participation
 
-undefined
+- [unison: Error message says "vector" instead of "list"](https://github.com/unisonweb/unison/issues/3360)
+- [xmonad: TUTORIAL: Add {poly,taffy,…}bar example](https://github.com/xmonad/xmonad/issues/415)
