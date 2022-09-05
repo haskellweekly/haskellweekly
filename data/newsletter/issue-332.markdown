@@ -23,4 +23,4 @@ undefined
 
 ## Call for participation
 
-undefined
+- [Cabal: user manual: text on images is unhelpful](https://github.com/haskell/cabal/issues/8453)
