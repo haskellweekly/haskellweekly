@@ -90,7 +90,7 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 - [Request for Nominations to the GHC Steering Committee](https://mail.haskell.org/pipermail/haskell-cafe/2019-December/131729.html) by Joachim Breitner
   > The GHC Steering committee is seeking nominations for one new member.
 
-- [Dhall version 1.28.0 released](https://github.com/dhall-lang/dhall-haskell/releases/tag/1.28.0) by Gabriel Gonzalez
+- [Dhall version 1.28.0 released](https://github.com/dhall-lang/dhall-haskell/releases/tag/1.28.0) by Gabriella Gonzalez
 
 ## Package of the week
 

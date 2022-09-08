@@ -16,7 +16,7 @@ This is a weekly summary of what's going on in its community.
 - [OCaml vs Haskell](https://blog.regnat.ovh/posts/ocaml-vs-haskell/) by Théophane Hufschmitt
   > This is a parodic answer to _Haskell vs OCaml_. I wouldn't go as far as pretend that everything here is written in good faith.
 
-- [Prefer to use `fail` for IO exceptions](http://www.haskellforall.com/2019/12/prefer-to-use-fail-for-io-exceptions.html) by Gabriel Gonzalez
+- [Prefer to use `fail` for IO exceptions](http://www.haskellforall.com/2019/12/prefer-to-use-fail-for-io-exceptions.html) by Gabriella Gonzalez
   > This post briefly explains why I commonly suggest that people replace `error` with `fail` when raising `IOException`s.
 
 - [Runtime Support for Multicore Haskell: a Retrospective](https://blog.sigplan.org/2019/12/16/runtime-support-for-multicore-haskell-a-retrospective/) by Simon Marlow, Simon Peyton Jones, and Satnam Singh

@@ -16,7 +16,7 @@ This is a weekly summary of what's going on in its community.
 
     > As best I can tell, the community roughly fragments itself along four lines --- those who like `mtl`, those who say "just do everything in `Reader` `IO`", those who like the three layer cake, and those who think free(r) monads are worth their weight in gold.
 
--   [Haskell command-line utility using GHC generics](http://www.haskellforall.com/2019/02/haskell-command-line-utility-using-ghc.html) by Gabriel Gonzalez
+-   [Haskell command-line utility using GHC generics](http://www.haskellforall.com/2019/02/haskell-command-line-utility-using-ghc.html) by Gabriella Gonzalez
 
     > My aim is to convince you that this Haskell feature improves code clarity without increasing the difficulty. If anything, I consider this version less difficult both to read and write.
 

@@ -70,7 +70,7 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 - [Trying to compose non-composable: monads](https://iokasimov.github.io/posts/2021/01/composable-monad-transformers) by Murat Kasimov
   > How many times have you heard "monads do not compose"? I've spent a lot of time trying to contradict this statement.
 
-- [The visitor pattern is essentially the same thing as Church encoding](https://www.haskellforall.com/2021/01/the-visitor-pattern-is-essentially-same.html) by Gabriel Gonzalez
+- [The visitor pattern is essentially the same thing as Church encoding](https://www.haskellforall.com/2021/01/the-visitor-pattern-is-essentially-same.html) by Gabriella Gonzalez
   > This post explains how the visitor pattern is essentially the same thing as Church encoding (or Böhm-Berarducci encoding).
 
 ## Show & tell

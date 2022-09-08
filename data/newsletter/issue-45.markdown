@@ -16,7 +16,7 @@ or open an issue [on GitHub](https://github.com/haskellweekly/haskellweekly.gith
 
 -   [LambdaConf 2017 Winter Retreat](https://www.youtube.com/playlist?list=PL7DZ7q3nEWhy9wMify6MXW6F339W4g4Eo)
 
-    Videos of 11 talks by Chris Allen, Gabriel Gonzalez, John DeGoes, and others.
+    Videos of 11 talks by Chris Allen, Gabriella Gonzalez, John DeGoes, and others.
 
 -   [REST API in Haskell](http://maciek.io/rest-api-in-haskell/)
 

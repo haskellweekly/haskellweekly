@@ -7,7 +7,7 @@ This is a weekly summary of what's going on in its community.
 - [Announcing the Haskell Foundation Board](https://discourse.haskell.org/t/announcing-the-haskell-foundation-board/1811?u=taylorfausak) by Simon Peyton Jones
   > I am delighted to announce the membership of the newly-constituted Haskell Foundation Board.
 
-- [Dynamic type errors lack relevance](https://www.haskellforall.com/2021/01/dynamic-type-errors-lack-relevance.html) by Gabriel Gonzalez
+- [Dynamic type errors lack relevance](https://www.haskellforall.com/2021/01/dynamic-type-errors-lack-relevance.html) by Gabriella Gonzalez
   > The fundamental issue is that in a dynamically typed language you cannot explain errors to the user in terms of the source code they wrote.
 
 - [Fuzzing me wrong --- How QuickCheck destroyed my favourite theory](https://thma.github.io/posts/2021-01-30-How-QuickCheck-destroyed-my-favourite-theory.html) by Thomas Mahler

@@ -24,7 +24,7 @@ This is a weekly summary of what's going on in its community.
 - [Haskell Proposal: Simplify Deriving](https://www.parsonsmatt.org/2020/11/10/simplifying_deriving.html) by Matt Parsons
   > This post outlines a change to the language that would hopefully be adopted with the next version of the language standard.
 
-- [Pretty-print syntax trees with this one simple trick](http://www.haskellforall.com/2020/11/pretty-print-syntax-trees-with-this-one.html) by Gabriel Gonzalez
+- [Pretty-print syntax trees with this one simple trick](http://www.haskellforall.com/2020/11/pretty-print-syntax-trees-with-this-one.html) by Gabriella Gonzalez
   > I want to share a simple trick for pretty-printing syntax trees with the correct precedence that I've been using in my own interpreter projects.
 
 - [Pure destination-passing style in Linear Haskell](https://www.tweag.io/blog/2020-11-11-linear-dps/) by Arnaud Spiwack

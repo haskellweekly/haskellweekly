@@ -78,7 +78,7 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 - [Whole Haskell is Best Haskell](https://semantic.org/post/whole-haskell-is-best-haskell/) by Ashley Yakeley
   > To take full advantage of what Haskell has to offer, you have to embrace the whole language.
 
-- [Why I prefer functional programming](http://www.haskellforall.com/2020/10/why-i-prefer-functional-programming.html) by Gabriel Gonzalez
+- [Why I prefer functional programming](http://www.haskellforall.com/2020/10/why-i-prefer-functional-programming.html) by Gabriella Gonzalez
   > This post explains why I stick with functional programming, using a rationale that a non-functional programmer can relate to.
 
 ## Show & tell

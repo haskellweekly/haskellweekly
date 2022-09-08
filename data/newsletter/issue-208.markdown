@@ -4,7 +4,7 @@ This is a weekly summary of what's going on in its community.
 
 ## Featured
 
-- [Blazing fast Fibonacci numbers using Monoids](http://www.haskellforall.com/2020/04/blazing-fast-fibonacci-numbers-using.html) by Gabriel Gonzalez
+- [Blazing fast Fibonacci numbers using Monoids](http://www.haskellforall.com/2020/04/blazing-fast-fibonacci-numbers-using.html) by Gabriella Gonzalez
   > This post illustrates a nifty application of Haskell's standard library to solve a numeric problem.
 
 - [Continuous Integration in Haskell](https://medium.com/@_KtorZ_/continuous-integration-in-haskell-9ad2a73e8e46) by Matthias Benkort

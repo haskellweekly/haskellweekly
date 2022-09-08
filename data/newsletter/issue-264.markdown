@@ -22,7 +22,7 @@ This is a weekly summary of what's going on in its community.
 - [How I reduced my Haskell CI time by 84%](https://arifordsham.com/how-i-reduced-my-ci-time-by-84-percent/) by Ari Fordsham
   > I know how confounded I was by CI before I got into it, and how straightforward it seems now, so I thought I'd write down my experiences for anyone following in my footsteps.
 
-- [Module organization guidelines for Haskell projects](https://www.haskellforall.com/2021/05/module-organization-guidelines-for.html) by Gabriel Gonzalez
+- [Module organization guidelines for Haskell projects](https://www.haskellforall.com/2021/05/module-organization-guidelines-for.html) by Gabriella Gonzalez
   > This post collects a random assortment of guidelines I commonly share for how to organize Haskell projects.
 
 - [The Simple Haskell Handbook](https://leanpub.com/simple-haskell-book) by Marco Sampellegrini

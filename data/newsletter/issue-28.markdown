@@ -18,9 +18,9 @@
 
     > Visualizing profiling data is a common problem, and one neat solution is to use flame graphs to get a high-level view of where time is spent, and why it is spent there. That's why we wrote ghc-prof-flamegraph, a new utility useful for turning textual .prof reports into a pretty picture.
 
--   [Functional Geekery Episode 72: Gabriel Gonzalez](https://www.functionalgeekery.com/episode-72-gabriel-gonzalez/)
+-   [Functional Geekery Episode 72: Gabriella Gonzalez](https://www.functionalgeekery.com/episode-72-gabriel-gonzalez/)
 
-    > In this episode I talk with Gabriel Gonzalez. We cover numerous topics around Haskell from stumbling blocks for beginners, to co-routines, to shell scripting with Haskell, to equational reasoning, and much, much more.
+    > In this episode I talk with Gabriella Gonzalez. We cover numerous topics around Haskell from stumbling blocks for beginners, to co-routines, to shell scripting with Haskell, to equational reasoning, and much, much more.
 
 -   [Type bombs in Elm](http://blog.jenkster.com/2016/11/type-bombs-in-elm.html)
 

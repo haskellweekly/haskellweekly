@@ -49,7 +49,7 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
   > An Applicative is short for a strong lax monoidal functor or some people might call it an Applicative Functor.
 
 - [Module Organization Guidelines](https://haskellweekly.news/episode/46.html) by Haskell Weekly Podcast
-  > Should you organize modules vertically or horizontally? This week we take a look at another article by Gabriel Gonzalez, this time about organizing projects and packages.
+  > Should you organize modules vertically or horizontally? This week we take a look at another article by Gabriella Gonzalez, this time about organizing projects and packages.
 
 ## Show & tell
 

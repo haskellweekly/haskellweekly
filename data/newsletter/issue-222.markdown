@@ -77,7 +77,7 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 - [Functional Programming at LeapYear](https://leapyear.io/resources/blog-posts/functional-programming-at-leapyear/) by Christopher Hockenbrocht
   > Haskell, the foundational language for core programs at LeapYear, is up to the task, and delivers fundamental correctness guarantees, security, and efficiency.
 
-- [The golden rule of software quality](http://www.haskellforall.com/2020/07/the-golden-rule-of-software-quality.html) by Gabriel Gonzalez
+- [The golden rule of software quality](http://www.haskellforall.com/2020/07/the-golden-rule-of-software-quality.html) by Gabriella Gonzalez
   > The golden rule is: Prefer to push fixes upstream instead of working around problems downstream.
 
 - [Haskeller Competency Matrix](https://gist.github.com/graninas/833a9ff306338aefec7e543100c16ea1/86bcd2da3cd5d25073622316206b3fbfbd181b9e) by Alexander Granin

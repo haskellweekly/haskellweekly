@@ -16,7 +16,7 @@
 
 -   [Beautiful folds are practical, too](https://www.youtube.com/watch?v=6a5Ti0r8Q2s)
 
-    > A keynote talk at MuniHac 2016 given by Gabriel Gonzalez. This talk covers an analytics trick that commonly arises in distributed/parallel programming. Haskell permits an elegant, efficient, and general implementation of this trick which also has useful applications outside of high-performance computing.
+    > A keynote talk at MuniHac 2016 given by Gabriella Gonzalez. This talk covers an analytics trick that commonly arises in distributed/parallel programming. Haskell permits an elegant, efficient, and general implementation of this trick which also has useful applications outside of high-performance computing.
 
 -   [Adventures in enumerating balanced brackets](https://byorgey.wordpress.com/2016/10/25/adventures-in-enumerating-balanced-brackets/)
 

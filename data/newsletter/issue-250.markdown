@@ -41,7 +41,7 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 - [Extensible Record in Haskell using Vinyl for Noob](https://dev.to/soriyeak/extensible-record-in-haskell-using-vinyl-for-noob-1l65)
   > In this tutorial, I'm going to show how to use `vinyl` to create an extensible record within haskell.
 
-- [Folds are constructor substitution](https://www.haskellforall.com/2021/02/folds-are-constructor-substitution.html) by Gabriel Gonzalez
+- [Folds are constructor substitution](https://www.haskellforall.com/2021/02/folds-are-constructor-substitution.html) by Gabriella Gonzalez
   > I notice that functional programming beginners and experts understand the word "fold" to mean subtly different things, so I'd like to explain what experienced functional programmers usually mean when they use the term "fold".
 
 - [Haskell On Google Cloud Is Great](https://alistairb.dev/haskell-on-google-cloud-is-great/) by Alistair Burrowes

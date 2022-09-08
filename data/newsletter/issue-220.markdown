@@ -73,7 +73,7 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 - [Navigatable breadcrumbs and technical debts](https://dev.to/german1608/navigatable-breadcrumbs-and-technical-debts-4ike) by German Robayo
   > In this new post, I'm going to explain about two new features on dhall-docs: Cleaner Haskell API; Navigatable breadcrumbs; Test-setup.
 
-- [Record constructors](http://www.haskellforall.com/2020/07/record-constructors.html) by Gabriel Gonzalez
+- [Record constructors](http://www.haskellforall.com/2020/07/record-constructors.html) by Gabriella Gonzalez
   > This is a short post documenting various record-related idioms in the Haskell ecosystem.
 
 ## Show & tell

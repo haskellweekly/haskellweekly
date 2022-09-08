@@ -16,7 +16,7 @@ This is a weekly summary of what's going on in its community.
 - [Haskell Foundation Board - Meeting Minutes - April 8, 2021](https://www.snoyman.com/blog/2021/04/haskell-foundation-board-meeting-minutes-april-8/) by Michael Snoyman
   > This is the first time I'm writing these up, and potentially the only time I'm putting them on this blog. So this post is going to be a bit weird; we'll start with some questions.
 
-- [How to replace Proxy with AllowAmbiguousTypes](https://www.haskellforall.com/2021/04/how-to-replace-proxy-with.html) by Gabriel Gonzalez
+- [How to replace Proxy with AllowAmbiguousTypes](https://www.haskellforall.com/2021/04/how-to-replace-proxy-with.html) by Gabriella Gonzalez
   > Sometimes in Haskell you need to write a function that "dispatches" only on a type and not on a value of that type. Using the example from the above post, we might want to write a function that, given an input type, prints the name of that type.
 
 - [More on types, typeclasses and the foldable typeclass](https://functional.works-hub.com/learn/more-on-types-typeclasses-and-the-foldable-typeclass-e1862) by Marty Stumpf

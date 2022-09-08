@@ -25,7 +25,7 @@ This is a weekly summary of what's going on in its community.
 - [Parse, dont validate](https://lexi-lambda.github.io/blog/2019/11/05/parse-don-t-validate/) by Alexis King
   > Historically, Ive struggled to find a concise, simple way to explain what it means to practice type-driven design.
 
-- [Tech Evangelism with Gabriel Gonzalez](https://corecursive.com/040-tech-evangelism-with-gabriel-gonzalez/) by CoRecursive
+- [Tech Evangelism with Gabriella Gonzalez](https://corecursive.com/040-tech-evangelism-with-gabriel-gonzalez/) by CoRecursive
   > What makes some pieces of technology take off? Why is java popular and not small talk or Haskell?
 
 - [Trying to compose non-composable: joint schemes](https://iokasimov.github.io/posts/2019/11/joint) by Murat Kasimov

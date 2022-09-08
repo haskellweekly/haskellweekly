@@ -5,7 +5,7 @@ This is a weekly summary of what's going on in its community.
 ## Featured
 
 - [Avoiding Nested Errors](https://haskellweekly.news/episode/45.html) by Haskell Weekly Podcast
-  > How can you avoid deeply nested error handling code? This week we review Gabriel Gonzalez's trick for keeping error handling flat.
+  > How can you avoid deeply nested error handling code? This week we review Gabriella Gonzalez's trick for keeping error handling flat.
 
 - [Community Chat with Lyndon Maydwell](https://www.compositional.fm/lyndonmaydwell) by Compositional
   > Kicking off the first "Community Chat" session, Noon chats to Melbourne-based Hasura engineer Lyndon Maydwell (aka "sordina") about his journey into functional programming, and a recent blog post where Lyndon advocates for the philosophy of avoiding success at all costs via an incremental process.

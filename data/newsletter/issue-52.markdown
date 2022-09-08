@@ -16,7 +16,7 @@ or open an issue [on GitHub](https://github.com/haskellweekly/haskellweekly.gith
 
 -   [BayHac 2017](https://www.youtube.com/playlist?list=PL5lgjzYOvyYNchlkMzvDqd1F6gS-COCDo)
 
-    Presentations by Julie Moronuki, John Wiegley, R&#xfa;nar Bjarnason, Gabriel Gonzalez, Chris Smith, Doug Beardsley, James Bowen, Luite Stegeman, Greg Hale, Tikhon Jelvis, Dimitri DeFigueiredo, Adelbert Chang, John Leo, Judah Jacobson, Frederick Mayle, and Sandy Maguire.
+    Presentations by Julie Moronuki, John Wiegley, R&#xfa;nar Bjarnason, Gabriella Gonzalez, Chris Smith, Doug Beardsley, James Bowen, Luite Stegeman, Greg Hale, Tikhon Jelvis, Dimitri DeFigueiredo, Adelbert Chang, John Leo, Judah Jacobson, Frederick Mayle, and Sandy Maguire.
 
 -   [Become a curator](https://github.com/fpco/stackage/blob/8b9d77980df221f393580438bedb9787f50922fc/become-a-curator.md)
 

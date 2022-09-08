@@ -58,7 +58,7 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 - [Haskell.org Committee Nomination Results](https://np.reddit.com/r/haskell/comments/er8n8a/haskellorg_committee_nomination_results/) by Emily Pillmore
   > I'm pleased to announce that the results for the Haskell.org committee nominations are in, and voting has completed.
 
-- [Why Dhall advertises the absence of Turing-completeness](http://www.haskellforall.com/2020/01/why-dhall-advertises-absence-of-turing.html) by Gabriel Gonzalez
+- [Why Dhall advertises the absence of Turing-completeness](http://www.haskellforall.com/2020/01/why-dhall-advertises-absence-of-turing.html) by Gabriella Gonzalez
   > Several people have asked why I make a big deal out of the Dhall configuration language being "total" (i.e. not Turing-complete) and this post will summarize the two main reasons.
 
 ## Packages of the week

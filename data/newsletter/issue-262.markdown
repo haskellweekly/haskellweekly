@@ -28,7 +28,7 @@ This is a weekly summary of what's going on in its community.
 - [SSA transformation for GHC's native code generator (Part 2)](https://cptwunderlich.github.io/2021/04/30/ssa_for_ncg_part2.html) by Benjamin Maurer
   > In the first part, I explained the motivation to bring SSA-transformation to GHC's NCG. Here, I want to look at the implementation challenges, decisions and results.
 
-- [The trick to avoid deeply-nested error-handling code ](https://www.haskellforall.com/2021/05/the-trick-to-avoid-deeply-nested-error.html) by Gabriel Gonzalez
+- [The trick to avoid deeply-nested error-handling code ](https://www.haskellforall.com/2021/05/the-trick-to-avoid-deeply-nested-error.html) by Gabriella Gonzalez
   > This post documents a small trick that I use to avoid deeply-nested error-handling code. This trick is a common piece of Haskell folklore that many people either learn from others or figure out on their own.
 
 - [Write your own Discord bot in Haskell with calamity](https://morrowm.github.io/posts/2021-04-29-calamity.html) by MorrowM

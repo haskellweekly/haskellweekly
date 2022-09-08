@@ -54,7 +54,7 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 - [New Hackage Server Features](https://discourse.haskell.org/t/new-hackage-server-features/2621?u=taylorfausak) by Gershom Bazerman
   > After a pandemic-adjacent interregnum, hackage server is now again being maintained a bit more regularly with occasional feature updates and plans for the future.
 
-- [Probability for Slay the Spire fanatics](https://www.haskellforall.com/2021/06/probability-for-slay-spire-fanatics.html) by Gabriel Gonzalez
+- [Probability for Slay the Spire fanatics](https://www.haskellforall.com/2021/06/probability-for-slay-spire-fanatics.html) by Gabriella Gonzalez
   > In this post I'll first present the solution to the above probability question (both as a mathematical formula and as code) and then explain why the formula works.
 
 - [The Voids of Haskell](https://haskellweekly.news/episode/48.html) by Haskell Weekly Podcast

@@ -20,7 +20,7 @@ This is a weekly summary of what's going on in its community.
 
     > If a list is guaranteed to not be empty, then we can take advantage of this invariant to make a cursor that looks at an element, instead of between two elements.
 
--   [Dhall - Year in review (2018-2019)](http://www.haskellforall.com/2019/01/dhall-year-in-review-2018-2019.html) by Gabriel Gonzalez
+-   [Dhall - Year in review (2018-2019)](http://www.haskellforall.com/2019/01/dhall-year-in-review-2018-2019.html) by Gabriella Gonzalez
 
     > The Dhall configuration language is now two years old and this post will review progress in 2018 and the future direction of the language in 2019.
 

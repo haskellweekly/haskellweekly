@@ -53,7 +53,7 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 - [Deploying a Nixified Haskell binary on AWS Lambda](https://www.hjdskes.nl/blog/haskell-nix-aws-lambda/) by Jente Hidskes
   > For a current project (which I will be writing about soon!), I need to deploy a Haskell binary to AWS Lambda.
 
-- [The end of history for programming](https://www.haskellforall.com/2021/04/the-end-of-history-for-programming.html) by Gabriel Gonzalez
+- [The end of history for programming](https://www.haskellforall.com/2021/04/the-end-of-history-for-programming.html) by Gabriella Gonzalez
   > I spend quite a bit of time thinking about what the end of history for programming might look like. By the "end of history" I mean the point beyond which programming paradigms would not evolve significantly.
 
 - [Global IORef in Template Haskell](https://www.parsonsmatt.org/2021/04/21/global_ioref_in_template_haskell.html) by Matt Parsons

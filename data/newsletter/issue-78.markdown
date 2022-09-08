@@ -34,7 +34,7 @@ Tweet us at [@HaskellWeekly](https://twitter.com/haskellweekly) or [open a pull 
 
 -   [Scrap all your type classes but one](http://h2.jaguarpaw.co.uk/posts/scrap-all-your-typeclasses-but-one/)
 
-    > In "Scrap your type classes" Gabriel Gonzales explains how we can replace type classes with dictionary passing. In this article I describe a sort of "halfway house" to scrapping all our type classes. Suppose we were only allowed one type class. Which would we choose?
+    > In "Scrap your type classes" Gabriella Gonzales explains how we can replace type classes with dictionary passing. In this article I describe a sort of "halfway house" to scrapping all our type classes. Suppose we were only allowed one type class. Which would we choose?
 
 -   [Optimizing free monad programs using `Plated`](https://qfpl.io/posts/optimising-free-with-plated/)
 

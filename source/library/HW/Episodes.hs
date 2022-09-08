@@ -824,7 +824,7 @@ episode45 =
     <*> Number.fromNatural 45
     <*> Size.fromNatural 18165760
     <*> Summary.fromText
-          "How can you avoid deeply nested error handling code? This week we review Gabriel Gonzalez's trick for keeping error handling flat."
+          "How can you avoid deeply nested error handling code? This week we review Gabriella Gonzalez's trick for keeping error handling flat."
     <*> Title.fromText "Avoiding Nested Errors"
 
 episode46 :: Either String Episode.Episode
@@ -839,7 +839,7 @@ episode46 =
     <*> Number.fromNatural 46
     <*> Size.fromNatural 25174016
     <*> Summary.fromText
-          "Should you organize modules vertically or horizontally? This week we take a look at another article by Gabriel Gonzalez, this time about organizing projects and packages."
+          "Should you organize modules vertically or horizontally? This week we take a look at another article by Gabriella Gonzalez, this time about organizing projects and packages."
     <*> Title.fromText "Module Organization Guidelines"
 
 episode47 :: Either String Episode.Episode

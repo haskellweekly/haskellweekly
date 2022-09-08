@@ -55,7 +55,7 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 
 - [ghcups (ghcup for PowerShell on Windows) released](https://github.com/kakkun61/ghcups/tree/17435e4c8ed5b6196c0798018c08764a53f9d6d9) by Kazuki Okamoto
 
-- [Dhall version 12.0.0 released](https://github.com/dhall-lang/dhall-lang/releases/tag/v12.0.0) by Gabriel Gonzalez
+- [Dhall version 12.0.0 released](https://github.com/dhall-lang/dhall-lang/releases/tag/v12.0.0) by Gabriella Gonzalez
 
 ## Package of the week
 

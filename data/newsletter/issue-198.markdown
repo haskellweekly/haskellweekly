@@ -52,7 +52,7 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 - [arduino-copilot combinators](https://joeyh.name/blog/entry/arduino-copilot_combinators/) by Joey Hess
   > It's feeling like I'm laying the keystone on this project. It's all about the combinators now.
 
-- [Dhall Survey Results (2019-2020)](http://www.haskellforall.com/2020/02/dhall-survey-results-2019-2020.html) by Gabriel Gonzalez
+- [Dhall Survey Results (2019-2020)](http://www.haskellforall.com/2020/02/dhall-survey-results-2019-2020.html) by Gabriella Gonzalez
   > The main thing I concluded from the survey feedback is that people want us to focus on ease of integration, especially language bindings, and especially Python language bindings.
 
 - [Farewell](https://blog.qfpl.io/posts/farewell/index.html) by Dave Laing
