@@ -42,3 +42,5 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 ## Call for participation
 
 - [Cabal: user manual: text on images is unhelpful](https://github.com/haskell/cabal/issues/8453)
+- [agda: Mark small functions as INLINABLE](https://github.com/agda/agda/issues/6091)
+- [swarm: Void type](https://github.com/swarm-game/swarm/issues/665)
