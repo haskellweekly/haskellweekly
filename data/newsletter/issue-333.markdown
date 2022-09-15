@@ -56,4 +56,5 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 
 ## Call for participation
 
-undefined
+- [emanote: Support regular Markdown links sans `.md` (or `.org`) extension](https://github.com/EmaApps/emanote/issues/347)
+- [flora-server: Support markdown tables](https://github.com/flora-pm/flora-server/issues/205)
