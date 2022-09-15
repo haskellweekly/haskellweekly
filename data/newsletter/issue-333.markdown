@@ -27,8 +27,6 @@ This is a weekly summary of what's going on in its community.
 
 ## Jobs
 
-undefined
-
 Trying to hire a Haskell developer?
 You should [advertise with us](https://haskellweekly.news/advertising.html)!
 
