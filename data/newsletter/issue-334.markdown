@@ -23,4 +23,4 @@ undefined
 
 ## Call for participation
 
-undefined
+- [cabal: cabal init fails when git not installed (regression in 3.8)](https://github.com/haskell/cabal/issues/8478)
