@@ -47,3 +47,4 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 ## Call for participation
 
 - [cabal: cabal init fails when git not installed (regression in 3.8)](https://github.com/haskell/cabal/issues/8478)
+- [hapistrano: Hapistrano can fail at rollback if `ctoken` points to a release that does not exists](https://github.com/stackbuilders/hapistrano/issues/206)
