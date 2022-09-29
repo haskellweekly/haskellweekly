@@ -41,4 +41,5 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 
 ## Call for participation
 
-undefined
+- [helio: Upgrade dependencies](https://github.com/helvm/helio/issues/21)
+- [postgrest: Allow full reponse control when raising exceptions (HTTP body + HTTP return headers)](https://github.com/PostgREST/postgrest/issues/2492)
