@@ -4,6 +4,9 @@ This is a weekly summary of what's going on in its community.
 
 ## Featured
 
+- [Don't worry (about writing Haskell), be happy (writing Agda instead)!](https://jesper.sikanda.be/posts/agda2hs.html) by Jesper Cockx
+  > As we all know, static type systems are great to ensure correctness of our programs. Sadly, in industry many people are forced to work in languages with a weak type system, such as Haskell.
+
 - [Haskell and Visual Studio](https://mmhaskell.com/blog/2022/10/3/haskell-and-visual-studio) by Monday Morning Haskell
   > Most of the IDEs out there use graphical interfaces that let you use the mouse. Today we'll explore one of those options - Visual Studio (aka VS Code).
 
@@ -34,6 +37,9 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 
 - [Haskell Foundation August and September 2022 Update](https://discourse.haskell.org/t/haskell-foundation-august-and-september-2022-update/5116?u=taylorfausak) by David Thrane Christiansen
   > August and September were less busy than usual in the Haskell Foundation. I was on vacation for most of August, and September was spent attending ICFP, the Haskell Implementor's Workshop, and delivering a keynote address to the Haskell Symposium in Ljubljana.
+
+- [ICFP 2022 videos](https://www.youtube.com/playlist?list=PLyrlk8Xaylp4ee6ZAtFD9XMD2EZ02K9xK)
+  > The 27th ACM SIGPLAN International Conference on Functional Programming
 
 - [Monthly Hask Anything (October 2022)](https://np.reddit.com/r/haskell/comments/xslhig/monthly_hask_anything_october_2022/)
   > This is your opportunity to ask any questions you feel don't deserve their own threads, no matter how small or simple they might be!
