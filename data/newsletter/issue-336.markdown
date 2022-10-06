@@ -51,4 +51,5 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 
 ## Call for participation
 
-undefined
+- [funflow: Use Stack for building tutorials](https://github.com/tweag/funflow/issues/211)
+- [hie-bios: Log at INFO before running commands](https://github.com/haskell/hie-bios/issues/372)
