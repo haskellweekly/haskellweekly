@@ -23,4 +23,4 @@ undefined
 
 ## Call for participation
 
-undefined
+- [copilot: `copilot-core`: replace uses of `Copilot.Core.Type.Equality` with definitions from `base`](https://github.com/Copilot-Language/copilot/issues/379)
