@@ -23,6 +23,11 @@ undefined
 Trying to hire a Haskell developer?
 You should [advertise with us](https://haskellweekly.news/advertising.html)!
 
+## Upcoming events
+
+- [Haskell Talks at Mercury](https://www.eventbrite.com/e/haskell-talks-at-mercury-tickets-424633328717)
+  In Portland, OR on October 20.
+
 ## In brief
 
 - [Flashing Octopuses and BFS](https://mmhaskell.com/blog/2022/10/10/flashing-octopuses-and-bfs) by Monday Morning Haskell
