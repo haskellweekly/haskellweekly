@@ -35,7 +35,7 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 - [Beginner-friendly Haskell contributions](https://np.reddit.com/r/haskell/comments/xst3o5/hacktoberfest_beginnerfriendly_haskell/) by Dmitrii Kovanikov
   > This year, I'm participating in Hacktoberfest as a mentor and maintainer.
 
-- [Haskell Foundation August and September 2022 Update](https://discourse.haskell.org/t/haskell-foundation-august-and-september-2022-update/5116?u=taylorfausak) by David Thrane Christiansen
+- [Haskell Foundation August and September 2022 Update](https://discourse.haskell.org/t/haskell-foundation-august-and-september-2022-update/5116?u=taylorfausak) by David Christiansen
   > August and September were less busy than usual in the Haskell Foundation. I was on vacation for most of August, and September was spent attending ICFP, the Haskell Implementor's Workshop, and delivering a keynote address to the Haskell Symposium in Ljubljana.
 
 - [ICFP 2022 videos](https://www.youtube.com/playlist?list=PLyrlk8Xaylp4ee6ZAtFD9XMD2EZ02K9xK)
