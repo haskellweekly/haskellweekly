@@ -23,4 +23,5 @@ undefined
 
 ## Call for participation
 
-undefined
+- [heidi: unincorporate generic-trie and just import the latest version](https://github.com/ocramz/heidi/issues/22)
+- [xmonad-contrib: Support arbitrary unicode input in EZConfig parser](https://github.com/xmonad/xmonad-contrib/issues/764)
