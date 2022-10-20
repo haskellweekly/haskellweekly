@@ -4,6 +4,9 @@ This is a weekly summary of what's going on in its community.
 
 ## Featured
 
+- [Announcing the Haskell Error Index](https://discourse.haskell.org/t/announcing-the-haskell-error-index/5195?u=taylorfausak) by David Christiansen
+  > The Haskell Error Index is a community-driven web site for improving the documentation of Haskell tooling.
+
 - [Improving the probabilistic programming language Monad-Bayes](https://www.tweag.io/blog/2022-10-18-monad-bayes-fellowship/) by Reuben Cohn-Gordon
   > I've spent some time this summer extending Monad-Bayes, a probabilistic programming library in Haskell.
 
