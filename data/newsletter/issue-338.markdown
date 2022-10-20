@@ -26,9 +26,16 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 
 ## In brief
 
+- [Haskell Foundation DevOps Weekly Update, 2022-10-14](https://discourse.haskell.org/t/haskell-foundation-devops-weekly-update-2022-10-14/5179?u=taylorfausak) by Bryan Richter
+
 - [The Haskell Implementors' Workshop 2022 videos](https://www.youtube.com/playlist?list=PLyrlk8Xaylp4kkqJltshENjF_SL7-fDTn)
 
+- [Haskell Symposium 2022 videos](https://www.youtube.com/playlist?list=PLyrlk8Xaylp4zxdY-QEh_g6CHlhkAsBya)
+
 ## Show & tell
+
+- [An overengineered Servant REST API for counters](https://discourse.haskell.org/t/an-overengineered-servant-rest-api-for-counters/5186?u=taylorfausak) by Daniel Díaz Carrete
+  > I've written a horribly overengineered REST API using Servant. The API lets you create, update and delete counter values.
 
 - [Learn Me a Haskell, Finally](https://github.com/keithfancher/haskell-notes/blob/3d8bd3de99cd5723f7a138e6e861c4ef650284f9/haskell-notes.md) by Keith Fancher
   > Notes about things I keep forgetting, or continue to find confusing, while learning Haskell.
