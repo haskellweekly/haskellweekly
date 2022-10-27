@@ -23,4 +23,4 @@ undefined
 
 ## Call for participation
 
-undefined
+- [xmonad-contrib: Add usage examples for `X.H.IndependentScreens.onCurrentScreen`](https://github.com/xmonad/xmonad-contrib/issues/767)
