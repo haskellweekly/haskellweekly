@@ -4,7 +4,8 @@ This is a weekly summary of what's going on in its community.
 
 ## Featured
 
-undefined
+- [Template metaprogramming in LLVM with Haskell](https://luctielen.com/posts/template_metaprogramming_in_llvm_with_haskell/) by Luc Tielen
+  > In today's article, I show how a single monad transformer can be used to gain template metaprogramming capabilities à la C++ when generating LLVM code in Haskell.
 
 ## Jobs
 
