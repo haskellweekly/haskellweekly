@@ -1,6 +1,7 @@
 module HW.Handler.Robots
-  ( handler
-  ) where
+  ( handler,
+  )
+where
 
 import qualified Data.Text as Text
 import qualified HW.Handler.Common as Common
@@ -16,7 +17,7 @@ handler = do
   pure
     . Common.text Http.ok200 [(Http.hCacheControl, "public, max-age=86400")]
     $ Text.unlines
-        [ "User-agent: *"
-        , "Allow: /"
-        , "Sitemap: " <> Route.toText (Config.baseUrl config) Route.Sitemap
-        ]
+      [ "User-agent: *",
+        "Allow: /",
+        "Sitemap: " <> Route.toText (Config.baseUrl config) Route.Sitemap
+      ]

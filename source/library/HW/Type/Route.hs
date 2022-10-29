@@ -2,11 +2,12 @@
 -- about. By representing the possible routes as a type, it's possible to do
 -- type safe routing.
 module HW.Type.Route
-  ( Route(..)
-  , toText
-  , fromText
-  , routeContent
-  ) where
+  ( Route (..),
+    toText,
+    fromText,
+    routeContent,
+  )
+where
 
 import qualified Data.Text as Text
 import qualified HW.Type.BaseUrl as BaseUrl
@@ -89,8 +90,8 @@ fromText path = case path of
 
 -- | Handles routing content by stripping the given extension, parsing what's
 -- left of the path, and wrapping the result in a route.
-routeContent
-  :: Text.Text -> (Number.Number -> Route) -> Text.Text -> Maybe Route
+routeContent ::
+  Text.Text -> (Number.Number -> Route) -> Text.Text -> Maybe Route
 routeContent extension route file =
   case Text.stripSuffix ("." <> extension) file of
     Nothing -> Nothing

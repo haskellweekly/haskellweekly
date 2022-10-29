@@ -1,13 +1,14 @@
 module HW.Type.BaseUrl
-  ( BaseUrl
-  , toText
-  , fromText
-  ) where
+  ( BaseUrl,
+    toText,
+    fromText,
+  )
+where
 
 import qualified Data.Text as Text
 
-newtype BaseUrl =
-  BaseUrl Text.Text
+newtype BaseUrl
+  = BaseUrl Text.Text
   deriving (Eq, Show)
 
 toText :: BaseUrl -> Text.Text

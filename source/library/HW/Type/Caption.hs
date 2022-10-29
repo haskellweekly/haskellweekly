@@ -4,10 +4,11 @@
 -- very many of the features. It felt better to write simple parsers and
 -- renderers rather than relying on a fully fledged library.
 module HW.Type.Caption
-  ( Caption
-  , parseVtt
-  , renderTranscript
-  ) where
+  ( Caption,
+    parseVtt,
+    renderTranscript,
+  )
+where
 
 import qualified Control.Monad as Monad
 import qualified Data.Char as Char
@@ -20,10 +21,10 @@ import qualified Text.ParserCombinators.ReadP as ReadP
 import qualified Text.Read as Read
 
 data Caption = Caption
-  { identifier :: Maybe Natural.Natural
-  , start :: Time.TimeOfDay
-  , end :: Time.TimeOfDay
-  , payload :: NonEmpty.NonEmpty Text.Text
+  { identifier :: Maybe Natural.Natural,
+    start :: Time.TimeOfDay,
+    end :: Time.TimeOfDay,
+    payload :: NonEmpty.NonEmpty Text.Text
   }
   deriving (Eq, Show)
 
@@ -91,7 +92,7 @@ captionP = do
   newlineP
   Monad.guard $ start < end
   payload <- nonEmptyP lineP
-  pure Caption { identifier, start, end, payload }
+  pure Caption {identifier, start, end, payload}
 
 maybeP :: Parser a -> Parser (Maybe a)
 maybeP = ReadP.option Nothing . fmap Just
@@ -154,19 +155,19 @@ stringP = Monad.void . ReadP.string . Text.unpack
 -- | Converts a timestamp (hours, minutes, seconds, milliseconds) into an
 -- integral number of picoseconds. This is mainly useful for conversion into
 -- other time types.
-timestampToPicoseconds
-  :: Natural.Natural
-  -> Natural.Natural
-  -> Natural.Natural
-  -> Natural.Natural
-  -> Integer
+timestampToPicoseconds ::
+  Natural.Natural ->
+  Natural.Natural ->
+  Natural.Natural ->
+  Natural.Natural ->
+  Integer
 timestampToPicoseconds hours minutes seconds milliseconds =
   toInteger
     . millisecondsToPicoseconds
     $ hoursToMilliseconds hours
-    + minutesToMilliseconds minutes
-    + secondsToMilliseconds seconds
-    + milliseconds
+      + minutesToMilliseconds minutes
+      + secondsToMilliseconds seconds
+      + milliseconds
 
 -- | Converts hours into milliseconds.
 hoursToMilliseconds :: Natural.Natural -> Natural.Natural
@@ -203,10 +204,11 @@ renderCaptionPayload =
     . filter (not . null)
     . uncurry (:)
     . foldr
-        (\text (buffer, list) -> if text == Text.pack ">>"
-          then ([], (text : buffer) : list)
-          else (text : buffer, list)
-        )
-        ([], [])
+      ( \text (buffer, list) ->
+          if text == Text.pack ">>"
+            then ([], (text : buffer) : list)
+            else (text : buffer, list)
+      )
+      ([], [])
     . Text.words
     . Text.unwords

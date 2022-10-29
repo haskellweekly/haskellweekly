@@ -5,14 +5,11 @@ on:
 
 jobs:
 
-  brittany:
+  ormolu:
     runs-on: ubuntu-latest
-    name: Brittany
     steps:
       - uses: actions/checkout@v2
-      - uses: tfausak/brittany-action@v1
-        with:
-          config: config/brittany.yaml
+      - uses: mrkkrp/ormolu-action@v7
 
   hlint:
     runs-on: ubuntu-latest

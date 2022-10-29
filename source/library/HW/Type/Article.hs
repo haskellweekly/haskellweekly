@@ -2,16 +2,17 @@
 -- of content. It is helpful to have a separate type for this we can analyze
 -- linked content rather than all outbound links.
 module HW.Type.Article
-  ( Article
-  , toText
-  , fromText
-  ) where
+  ( Article,
+    toText,
+    fromText,
+  )
+where
 
 import qualified Data.Text as Text
 import qualified Network.URI as Uri
 
-newtype Article =
-  Article Uri.URI
+newtype Article
+  = Article Uri.URI
   deriving (Eq, Show)
 
 -- | Converts an article URL into text.

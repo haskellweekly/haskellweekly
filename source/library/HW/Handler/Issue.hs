@@ -1,7 +1,8 @@
 module HW.Handler.Issue
-  ( handler
-  , readIssueFile
-  ) where
+  ( handler,
+    readIssueFile,
+  )
+where
 
 import qualified Data.Map as Map
 import qualified Data.Text as Text
@@ -32,10 +33,9 @@ handler number = do
 
 readIssueFile :: Number.Number -> App.App Markdown.Markdown
 readIssueFile number = do
-  let
-    name = "issue-" <> Number.toText number
-    file = FilePath.addExtension (Text.unpack name) "markdown"
-    path = FilePath.combine "newsletter" file
+  let name = "issue-" <> Number.toText number
+      file = FilePath.addExtension (Text.unpack name) "markdown"
+      path = FilePath.combine "newsletter" file
   byteString <- App.readDataFile path
   case Text.decodeUtf8' byteString of
     Left exception -> fail $ show exception

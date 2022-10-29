@@ -1,8 +1,9 @@
 -- | This module defines the application that the server, uh, serves.
 -- Applications take in requests and give out responses.
 module HW.Application
-  ( application
-  ) where
+  ( application,
+  )
+where
 
 import qualified Control.Monad.Trans.Reader as Reader
 import qualified Data.IORef as IORef
@@ -53,27 +54,26 @@ requestMethod = Text.decodeUtf8With Text.lenientDecode . Wai.requestMethod
 requestRoute :: Wai.Request -> Maybe (Either Redirect.Redirect Route.Route)
 requestRoute request =
   let path = Wai.pathInfo request
-  in
-    case Route.fromText path of
-      Just route -> Just $ Right route
-      Nothing -> Left <$> Redirect.fromText path
+   in case Route.fromText path of
+        Just route -> Just $ Right route
+        Nothing -> Left <$> Redirect.fromText path
 
 -- | Handles a particular route by calling the appropriate handler and
 -- returning the response.
-handle
-  :: Either Redirect.Redirect Route.Route
-  -> Wai.Request
-  -> App.App Wai.Response
+handle ::
+  Either Redirect.Redirect Route.Route ->
+  Wai.Request ->
+  App.App Wai.Response
 handle routeOrRedirect request = case routeOrRedirect of
   Left redirect -> Redirect.handler redirect
   Right route -> case route of
     Route.Advertising -> Advertising.handler
     Route.AppleBadge -> Common.file "image/svg+xml" "apple-podcasts.svg"
     Route.Captions number ->
-      Common.file "text/vtt"
-        $ "podcast/episode-"
-        <> Text.unpack (Number.toText number)
-        <> ".vtt"
+      Common.file "text/vtt" $
+        "podcast/episode-"
+          <> Text.unpack (Number.toText number)
+          <> ".vtt"
     Route.Episode number -> Episode.handler number
     Route.Favicon -> Common.file "image/x-icon" "favicon.ico"
     Route.GoogleBadge -> Common.file "image/svg+xml" "google-podcasts.svg"

@@ -2,9 +2,10 @@
 -- published on the website. Collecting them here makes it easy to create
 -- "draft" issues by simply not including them here.
 module HW.Issues
-  ( Issues
-  , issues
-  ) where
+  ( Issues,
+    issues,
+  )
+where
 
 import qualified Data.Bool as Bool
 import qualified Data.Map as Map
@@ -22,347 +23,348 @@ type Issues = Map.Map Number.Number Issue.Issue
 -- reasonably sure that no 'Left's have snuck in.
 issues :: Either String Issues
 issues = do
-  validIssues <- Traversable.sequenceA
-    [ issue1
-    , issue2
-    , issue3
-    , issue4
-    , issue5
-    , issue6
-    , issue7
-    , issue8
-    , issue9
-    , issue10
-    , issue11
-    , issue12
-    , issue13
-    , issue14
-    , issue15
-    , issue16
-    , issue17
-    , issue18
-    , issue19
-    , issue20
-    , issue21
-    , issue22
-    , issue23
-    , issue24
-    , issue25
-    , issue26
-    , issue27
-    , issue28
-    , issue29
-    , issue30
-    , issue31
-    , issue32
-    , issue33
-    , issue34
-    , issue35
-    , issue36
-    , issue37
-    , issue38
-    , issue39
-    , issue40
-    , issue41
-    , issue42
-    , issue43
-    , issue44
-    , issue45
-    , issue46
-    , issue47
-    , issue48
-    , issue49
-    , issue50
-    , issue51
-    , issue52
-    , issue53
-    , issue54
-    , issue55
-    , issue56
-    , issue57
-    , issue58
-    , issue59
-    , issue60
-    , issue61
-    , issue62
-    , issue63
-    , issue64
-    , issue65
-    , issue66
-    , issue67
-    , issue68
-    , issue69
-    , issue70
-    , issue71
-    , issue72
-    , issue73
-    , issue74
-    , issue75
-    , issue76
-    , issue77
-    , issue78
-    , issue79
-    , issue80
-    , issue81
-    , issue82
-    , issue83
-    , issue84
-    , issue85
-    , issue86
-    , issue87
-    , issue88
-    , issue89
-    , issue90
-    , issue91
-    , issue92
-    , issue93
-    , issue94
-    , issue95
-    , issue96
-    , issue97
-    , issue98
-    , issue99
-    , issue100
-    , issue101
-    , issue102
-    , issue103
-    , issue104
-    , issue105
-    , issue106
-    , issue107
-    , issue108
-    , issue109
-    , issue110
-    , issue111
-    , issue112
-    , issue113
-    , issue114
-    , issue115
-    , issue116
-    , issue117
-    , issue118
-    , issue119
-    , issue120
-    , issue121
-    , issue122
-    , issue123
-    , issue124
-    , issue125
-    , issue126
-    , issue127
-    , issue128
-    , issue129
-    , issue130
-    , issue131
-    , issue132
-    , issue133
-    , issue134
-    , issue135
-    , issue136
-    , issue137
-    , issue138
-    , issue139
-    , issue140
-    , issue141
-    , issue142
-    , issue143
-    , issue144
-    , issue145
-    , issue146
-    , issue147
-    , issue148
-    , issue149
-    , issue150
-    , issue151
-    , issue152
-    , issue153
-    , issue154
-    , issue155
-    , issue156
-    , issue157
-    , issue158
-    , issue159
-    , issue160
-    , issue161
-    , issue162
-    , issue163
-    , issue164
-    , issue165
-    , issue166
-    , issue167
-    , issue168
-    , issue169
-    , issue170
-    , issue171
-    , issue172
-    , issue173
-    , issue174
-    , issue175
-    , issue176
-    , issue177
-    , issue178
-    , issue179
-    , issue180
-    , issue181
-    , issue182
-    , issue183
-    , issue184
-    , issue185
-    , issue186
-    , issue187
-    , issue188
-    , issue189
-    , issue190
-    , issue191
-    , issue192
-    , issue193
-    , issue194
-    , issue195
-    , issue196
-    , issue197
-    , issue198
-    , issue199
-    , issue200
-    , issue201
-    , issue202
-    , issue203
-    , issue204
-    , issue205
-    , issue206
-    , issue207
-    , issue208
-    , issue209
-    , issue210
-    , issue211
-    , issue212
-    , issue213
-    , issue214
-    , issue215
-    , issue216
-    , issue217
-    , issue218
-    , issue219
-    , issue220
-    , issue221
-    , issue222
-    , issue223
-    , issue224
-    , issue225
-    , issue226
-    , issue227
-    , issue228
-    , issue229
-    , issue230
-    , issue231
-    , issue232
-    , issue233
-    , issue234
-    , issue235
-    , issue236
-    , issue237
-    , issue238
-    , issue239
-    , issue240
-    , issue241
-    , issue242
-    , issue243
-    , issue244
-    , issue245
-    , issue246
-    , issue247
-    , issue248
-    , issue249
-    , issue250
-    , issue251
-    , issue252
-    , issue253
-    , issue254
-    , issue255
-    , issue256
-    , issue257
-    , issue258
-    , issue259
-    , issue260
-    , issue261
-    , issue262
-    , issue263
-    , issue264
-    , issue265
-    , issue266
-    , issue267
-    , issue268
-    , issue269
-    , issue270
-    , issue271
-    , issue272
-    , issue273
-    , issue274
-    , issue275
-    , issue276
-    , issue277
-    , issue278
-    , issue279
-    , issue280
-    , issue281
-    , issue282
-    , issue283
-    , issue284
-    , issue285
-    , issue286
-    , issue287
-    , issue288
-    , issue289
-    , issue290
-    , issue291
-    , issue292
-    , issue293
-    , issue294
-    , issue295
-    , issue296
-    , issue297
-    , issue298
-    , issue299
-    , issue300
-    , issue301
-    , issue302
-    , issue303
-    , issue304
-    , issue305
-    , issue306
-    , issue307
-    , issue308
-    , issue309
-    , issue310
-    , issue311
-    , issue312
-    , issue313
-    , issue314
-    , issue315
-    , issue316
-    , issue317
-    , issue318
-    , issue319
-    , issue320
-    , issue321
-    , issue322
-    , issue323
-    , issue324
-    , issue325
-    , issue326
-    , issue327
-    , issue328
-    , issue329
-    , issue330
-    , issue331
-    , issue332
-    , issue333
-    , issue334
-    , issue335
-    , issue336
-    , issue337
-    , issue338
-    , issue339
-    ]
+  validIssues <-
+    Traversable.sequenceA
+      [ issue1,
+        issue2,
+        issue3,
+        issue4,
+        issue5,
+        issue6,
+        issue7,
+        issue8,
+        issue9,
+        issue10,
+        issue11,
+        issue12,
+        issue13,
+        issue14,
+        issue15,
+        issue16,
+        issue17,
+        issue18,
+        issue19,
+        issue20,
+        issue21,
+        issue22,
+        issue23,
+        issue24,
+        issue25,
+        issue26,
+        issue27,
+        issue28,
+        issue29,
+        issue30,
+        issue31,
+        issue32,
+        issue33,
+        issue34,
+        issue35,
+        issue36,
+        issue37,
+        issue38,
+        issue39,
+        issue40,
+        issue41,
+        issue42,
+        issue43,
+        issue44,
+        issue45,
+        issue46,
+        issue47,
+        issue48,
+        issue49,
+        issue50,
+        issue51,
+        issue52,
+        issue53,
+        issue54,
+        issue55,
+        issue56,
+        issue57,
+        issue58,
+        issue59,
+        issue60,
+        issue61,
+        issue62,
+        issue63,
+        issue64,
+        issue65,
+        issue66,
+        issue67,
+        issue68,
+        issue69,
+        issue70,
+        issue71,
+        issue72,
+        issue73,
+        issue74,
+        issue75,
+        issue76,
+        issue77,
+        issue78,
+        issue79,
+        issue80,
+        issue81,
+        issue82,
+        issue83,
+        issue84,
+        issue85,
+        issue86,
+        issue87,
+        issue88,
+        issue89,
+        issue90,
+        issue91,
+        issue92,
+        issue93,
+        issue94,
+        issue95,
+        issue96,
+        issue97,
+        issue98,
+        issue99,
+        issue100,
+        issue101,
+        issue102,
+        issue103,
+        issue104,
+        issue105,
+        issue106,
+        issue107,
+        issue108,
+        issue109,
+        issue110,
+        issue111,
+        issue112,
+        issue113,
+        issue114,
+        issue115,
+        issue116,
+        issue117,
+        issue118,
+        issue119,
+        issue120,
+        issue121,
+        issue122,
+        issue123,
+        issue124,
+        issue125,
+        issue126,
+        issue127,
+        issue128,
+        issue129,
+        issue130,
+        issue131,
+        issue132,
+        issue133,
+        issue134,
+        issue135,
+        issue136,
+        issue137,
+        issue138,
+        issue139,
+        issue140,
+        issue141,
+        issue142,
+        issue143,
+        issue144,
+        issue145,
+        issue146,
+        issue147,
+        issue148,
+        issue149,
+        issue150,
+        issue151,
+        issue152,
+        issue153,
+        issue154,
+        issue155,
+        issue156,
+        issue157,
+        issue158,
+        issue159,
+        issue160,
+        issue161,
+        issue162,
+        issue163,
+        issue164,
+        issue165,
+        issue166,
+        issue167,
+        issue168,
+        issue169,
+        issue170,
+        issue171,
+        issue172,
+        issue173,
+        issue174,
+        issue175,
+        issue176,
+        issue177,
+        issue178,
+        issue179,
+        issue180,
+        issue181,
+        issue182,
+        issue183,
+        issue184,
+        issue185,
+        issue186,
+        issue187,
+        issue188,
+        issue189,
+        issue190,
+        issue191,
+        issue192,
+        issue193,
+        issue194,
+        issue195,
+        issue196,
+        issue197,
+        issue198,
+        issue199,
+        issue200,
+        issue201,
+        issue202,
+        issue203,
+        issue204,
+        issue205,
+        issue206,
+        issue207,
+        issue208,
+        issue209,
+        issue210,
+        issue211,
+        issue212,
+        issue213,
+        issue214,
+        issue215,
+        issue216,
+        issue217,
+        issue218,
+        issue219,
+        issue220,
+        issue221,
+        issue222,
+        issue223,
+        issue224,
+        issue225,
+        issue226,
+        issue227,
+        issue228,
+        issue229,
+        issue230,
+        issue231,
+        issue232,
+        issue233,
+        issue234,
+        issue235,
+        issue236,
+        issue237,
+        issue238,
+        issue239,
+        issue240,
+        issue241,
+        issue242,
+        issue243,
+        issue244,
+        issue245,
+        issue246,
+        issue247,
+        issue248,
+        issue249,
+        issue250,
+        issue251,
+        issue252,
+        issue253,
+        issue254,
+        issue255,
+        issue256,
+        issue257,
+        issue258,
+        issue259,
+        issue260,
+        issue261,
+        issue262,
+        issue263,
+        issue264,
+        issue265,
+        issue266,
+        issue267,
+        issue268,
+        issue269,
+        issue270,
+        issue271,
+        issue272,
+        issue273,
+        issue274,
+        issue275,
+        issue276,
+        issue277,
+        issue278,
+        issue279,
+        issue280,
+        issue281,
+        issue282,
+        issue283,
+        issue284,
+        issue285,
+        issue286,
+        issue287,
+        issue288,
+        issue289,
+        issue290,
+        issue291,
+        issue292,
+        issue293,
+        issue294,
+        issue295,
+        issue296,
+        issue297,
+        issue298,
+        issue299,
+        issue300,
+        issue301,
+        issue302,
+        issue303,
+        issue304,
+        issue305,
+        issue306,
+        issue307,
+        issue308,
+        issue309,
+        issue310,
+        issue311,
+        issue312,
+        issue313,
+        issue314,
+        issue315,
+        issue316,
+        issue317,
+        issue318,
+        issue319,
+        issue320,
+        issue321,
+        issue322,
+        issue323,
+        issue324,
+        issue325,
+        issue326,
+        issue327,
+        issue328,
+        issue329,
+        issue330,
+        issue331,
+        issue332,
+        issue333,
+        issue334,
+        issue335,
+        issue336,
+        issue337,
+        issue338,
+        issue339
+      ]
   checkNumbers validIssues
   pure $ foldr insertIssue Map.empty validIssues
 

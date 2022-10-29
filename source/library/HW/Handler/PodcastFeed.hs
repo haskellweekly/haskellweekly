@@ -1,6 +1,7 @@
 module HW.Handler.PodcastFeed
-  ( handler
-  ) where
+  ( handler,
+  )
+where
 
 import qualified Data.List as List
 import qualified Data.Map as Map
@@ -18,15 +19,14 @@ import qualified Text.XML as Xml
 handler :: App.App Wai.Response
 handler = do
   state <- App.getState
-  let
-    baseUrl = Config.baseUrl $ State.config state
-    episodes =
-      List.sortOn (Ord.Down . Episode.date) . Map.elems $ State.episodes state
+  let baseUrl = Config.baseUrl $ State.config state
+      episodes =
+        List.sortOn (Ord.Down . Episode.date) . Map.elems $ State.episodes state
   pure
     . Common.lbs
-        Http.ok200
-        [ (Http.hCacheControl, "public, max-age=900")
-        , (Http.hContentType, "application/rss+xml; charset=utf-8")
-        ]
+      Http.ok200
+      [ (Http.hCacheControl, "public, max-age=900"),
+        (Http.hContentType, "application/rss+xml; charset=utf-8")
+      ]
     . Xml.renderLBS Xml.def
     $ PodcastFeed.template baseUrl episodes

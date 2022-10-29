@@ -1,6 +1,7 @@
 module HW.Handler.Redirect
-  ( handler
-  ) where
+  ( handler,
+  )
+where
 
 import qualified Data.Text.Encoding as Text
 import qualified HW.Handler.Common as Common
@@ -14,11 +15,12 @@ import qualified Network.Wai as Wai
 handler :: Redirect.Redirect -> App.App Wai.Response
 handler redirect = do
   config <- App.getConfig
-  pure $ Common.status
-    Http.found302
-    [ ( Http.hLocation
-      , Text.encodeUtf8
-      . Route.toText (Config.baseUrl config)
-      $ Redirect.toRoute redirect
-      )
-    ]
+  pure $
+    Common.status
+      Http.found302
+      [ ( Http.hLocation,
+          Text.encodeUtf8
+            . Route.toText (Config.baseUrl config)
+            $ Redirect.toRoute redirect
+        )
+      ]

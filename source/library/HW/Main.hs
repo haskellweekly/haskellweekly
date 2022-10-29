@@ -2,8 +2,9 @@
 -- the whole thing is meant to be run as a server, this is where all the
 -- functionality comes together.
 module HW.Main
-  ( defaultMain
-  ) where
+  ( defaultMain,
+  )
+where
 
 import qualified Data.IORef as IORef
 import qualified Data.Version as Version
@@ -17,10 +18,10 @@ import qualified System.IO as IO
 defaultMain :: IO ()
 defaultMain = do
   IO.hSetBuffering IO.stdout IO.LineBuffering
-  putStrLn
-    $ "Starting Haskell Weekly version "
-    <> Version.showVersion Package.version
-    <> " ..."
+  putStrLn $
+    "Starting Haskell Weekly version "
+      <> Version.showVersion Package.version
+      <> " ..."
   config <- Config.getConfig
   state <- State.configToState config
   stateRef <- IORef.newIORef state

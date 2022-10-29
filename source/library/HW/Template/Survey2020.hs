@@ -1,6 +1,7 @@
 module HW.Template.Survey2020
-  ( template
-  ) where
+  ( template,
+  )
+where
 
 import qualified HW.Template.Base as Base
 import qualified HW.Type.BaseUrl as BaseUrl

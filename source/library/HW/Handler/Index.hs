@@ -1,6 +1,7 @@
 module HW.Handler.Index
-  ( handler
-  ) where
+  ( handler,
+  )
+where
 
 import qualified Data.List as List
 import qualified Data.Map as Map
@@ -18,17 +19,16 @@ import qualified Network.Wai as Wai
 handler :: App.App Wai.Response
 handler = do
   state <- App.getState
-  let
-    maybeIssue =
-      Maybe.listToMaybe
-        . List.sortOn (Ord.Down . Issue.issueDate)
-        . Map.elems
-        $ State.issues state
-    maybeEpisode =
-      Maybe.listToMaybe
-        . List.sortOn (Ord.Down . Episode.date)
-        . Map.elems
-        $ State.episodes state
+  let maybeIssue =
+        Maybe.listToMaybe
+          . List.sortOn (Ord.Down . Issue.issueDate)
+          . Map.elems
+          $ State.issues state
+      maybeEpisode =
+        Maybe.listToMaybe
+          . List.sortOn (Ord.Down . Episode.date)
+          . Map.elems
+          $ State.episodes state
   pure
     . Common.html Http.ok200 [(Http.hCacheControl, "public, max-age=900")]
     $ Index.template (State.config state) maybeIssue maybeEpisode

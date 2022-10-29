@@ -3,18 +3,19 @@
 -- precision than that. It's easier to say that something was published on
 -- "July 6th, 2019" without adding the unnecessarily precise "at 7:54 AM ET".
 module HW.Type.Date
-  ( Date
-  , toLongText
-  , toRfc2822
-  , toShortText
-  , fromGregorian
-  ) where
+  ( Date,
+    toLongText,
+    toRfc2822,
+    toShortText,
+    fromGregorian,
+  )
+where
 
 import qualified Data.Text as Text
 import qualified Data.Time as Time
 
-newtype Date =
-  Date Time.Day
+newtype Date
+  = Date Time.Day
   deriving (Eq, Ord, Show)
 
 -- | Unwraps a date to get at the day on the inside.

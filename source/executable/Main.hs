@@ -2,8 +2,9 @@
 -- server. Typically you won't call this directly. Instead you'll run the
 -- @haskellweekly@ executable.
 module Main
-  ( main
-  ) where
+  ( main,
+  )
+where
 
 import qualified HaskellWeekly
 

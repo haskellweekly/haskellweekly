@@ -3,16 +3,17 @@
 -- feed to uniquely identify podcast episodes by something other than their
 -- URL, which may change.
 module HW.Type.Guid
-  ( Guid
-  , toText
-  , fromText
-  ) where
+  ( Guid,
+    toText,
+    fromText,
+  )
+where
 
 import qualified Data.Text as Text
 import qualified Data.UUID as Uuid
 
-newtype Guid =
-  Guid Uuid.UUID
+newtype Guid
+  = Guid Uuid.UUID
   deriving (Eq, Ord, Show)
 
 -- | Converts a GUID into text. This is the opposite of 'fromText'.

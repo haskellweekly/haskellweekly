@@ -1,6 +1,7 @@
 module HW.Handler.Episode
-  ( handler
-  ) where
+  ( handler,
+  )
+where
 
 import qualified Data.Map as Map
 import qualified Data.Text as Text
@@ -27,18 +28,17 @@ handler number = do
       pure
         . Common.html Http.ok200 [(Http.hCacheControl, "public, max-age=900")]
         $ Episode.template
-            (Config.baseUrl $ State.config state)
-            episode
-            captions
+          (Config.baseUrl $ State.config state)
+          episode
+          captions
 
 -- | Reads a caption file and parses it as WebVTT. This will return nothing if
 -- the file doesn't exist. If parsing fails, this will raise an exception.
 readCaptionFile :: Number.Number -> App.App [Caption.Caption]
 readCaptionFile number = do
-  let
-    name = "episode-" <> Number.toText number
-    file = FilePath.addExtension (Text.unpack name) "vtt"
-    path = FilePath.combine "podcast" file
+  let name = "episode-" <> Number.toText number
+      file = FilePath.addExtension (Text.unpack name) "vtt"
+      path = FilePath.combine "podcast" file
   byteString <- App.readDataFile path
   text <- case Text.decodeUtf8' byteString of
     Left exception -> fail $ show exception

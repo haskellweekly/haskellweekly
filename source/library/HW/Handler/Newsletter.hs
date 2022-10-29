@@ -1,6 +1,7 @@
 module HW.Handler.Newsletter
-  ( handler
-  ) where
+  ( handler,
+  )
+where
 
 import qualified Data.List as List
 import qualified Data.Map as Map
@@ -17,11 +18,11 @@ import qualified Network.Wai as Wai
 handler :: App.App Wai.Response
 handler = do
   state <- App.getState
-  let
-    baseUrl = Config.baseUrl $ State.config state
-    issues =
-      List.sortOn (Ord.Down . Issue.issueNumber) . Map.elems $ State.issues
-        state
+  let baseUrl = Config.baseUrl $ State.config state
+      issues =
+        List.sortOn (Ord.Down . Issue.issueNumber) . Map.elems $
+          State.issues
+            state
   pure
     . Common.html Http.ok200 [(Http.hCacheControl, "public, max-age=900")]
     $ Newsletter.template baseUrl issues

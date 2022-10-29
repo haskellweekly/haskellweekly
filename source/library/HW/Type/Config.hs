@@ -1,9 +1,10 @@
 -- | This module defines a type for capturing all of the configuration
 -- necessary to start the Haskell Weekly server.
 module HW.Type.Config
-  ( Config(..)
-  , getConfig
-  ) where
+  ( Config (..),
+    getConfig,
+  )
+where
 
 import qualified Data.Text as Text
 import qualified HW.Type.BaseUrl as BaseUrl
@@ -13,10 +14,10 @@ import qualified System.Environment as Environment
 import qualified Text.Read as Read
 
 data Config = Config
-  { baseUrl :: BaseUrl.BaseUrl
-  , dataDirectory :: FilePath
-  , googleSiteVerification :: Maybe Text.Text
-  , port :: Warp.Port
+  { baseUrl :: BaseUrl.BaseUrl,
+    dataDirectory :: FilePath,
+    googleSiteVerification :: Maybe Text.Text,
+    port :: Warp.Port
   }
   deriving (Eq, Show)
 
@@ -30,15 +31,16 @@ getConfig = do
   googleSiteVerification <- getGoogleSiteVerification
   port <- getPort
   baseUrl <- getBaseUrl
-  pure Config { baseUrl, dataDirectory, googleSiteVerification, port }
+  pure Config {baseUrl, dataDirectory, googleSiteVerification, port}
 
 -- | Gets the base URL that the server will be available at. This is necessary
 -- because the server could be behind a reverse proxy or in a container or
 -- something.
 getBaseUrl :: IO BaseUrl.BaseUrl
 getBaseUrl =
-  BaseUrl.fromText . maybe Text.empty Text.pack <$> Environment.lookupEnv
-    "BASE_URL"
+  BaseUrl.fromText . maybe Text.empty Text.pack
+    <$> Environment.lookupEnv
+      "BASE_URL"
 
 -- | This is used to verify that I actually own the website as far as Google is
 -- concerned. The verification is useful for Google's webmaster tools.

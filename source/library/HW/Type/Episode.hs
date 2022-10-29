@@ -1,8 +1,9 @@
 -- | This module defines a type for an episode of the podcast.
 module HW.Type.Episode
-  ( Episode(..)
-  , audioUrl
-  ) where
+  ( Episode (..),
+    audioUrl,
+  )
+where
 
 import qualified Data.Text as Text
 import qualified HW.Type.Articles as Articles
@@ -15,14 +16,14 @@ import qualified HW.Type.Summary as Summary
 import qualified HW.Type.Title as Title
 
 data Episode = Episode
-  { articles :: Articles.Articles
-  , date :: Date.Date
-  , duration :: Duration.Duration
-  , guid :: Guid.Guid
-  , number :: Number.Number
-  , size :: Size.Size
-  , summary :: Summary.Summary
-  , title :: Title.Title
+  { articles :: Articles.Articles,
+    date :: Date.Date,
+    duration :: Duration.Duration,
+    guid :: Guid.Guid,
+    number :: Number.Number,
+    size :: Size.Size,
+    summary :: Summary.Summary,
+    title :: Title.Title
   }
   deriving (Eq, Show)
 

@@ -1,16 +1,17 @@
 -- | This module defines a type for handling HTTP redirects.
 module HW.Type.Redirect
-  ( Redirect
-  , toRoute
-  , fromRoute
-  , fromText
-  ) where
+  ( Redirect,
+    toRoute,
+    fromRoute,
+    fromText,
+  )
+where
 
 import qualified Data.Text as Text
 import qualified HW.Type.Route as Route
 
-newtype Redirect =
-  Redirect Route.Route
+newtype Redirect
+  = Redirect Route.Route
   deriving (Eq, Show)
 
 -- | Converts a redirect into a route so that it can be used somewhere like an
