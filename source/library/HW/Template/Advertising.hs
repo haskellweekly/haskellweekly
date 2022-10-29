@@ -4,6 +4,7 @@ module HW.Template.Advertising
 where
 
 import qualified HW.Template.Base as Base
+import qualified HW.Template.Survey2022 as Survey2022
 import qualified HW.Type.BaseUrl as BaseUrl
 import qualified HW.Type.Route as Route
 import qualified Lucid as Html
@@ -11,6 +12,7 @@ import qualified Lucid as Html
 template :: BaseUrl.BaseUrl -> Html.Html ()
 template baseUrl =
   Base.template baseUrl "Advertising :: Haskell Weekly" mempty $ do
+    Survey2022.callToAction baseUrl
     Html.h2_ [Html.class_ "f2 mv3 tracked-tight"] "Advertising"
     Html.h3_ [Html.class_ "f3 mv3 tracked-tight"] "Newsletter"
     Html.p_ $ do

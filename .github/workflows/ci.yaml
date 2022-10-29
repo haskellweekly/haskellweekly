@@ -154,4 +154,7 @@ jobs:
 
       - run: flyctl deploy --image ghcr.io/haskellweekly/haskellweekly:sha-${{ github.sha }}
         env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_REGION: us-east-1
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
