@@ -13,12 +13,12 @@ jobs:
 
   hlint:
     runs-on: ubuntu-latest
-    name: HLint
     steps:
-      - uses: actions/checkout@v2
-      - uses: tfausak/hlint-action@v1
-        with:
-          config: config/hlint.yaml
+    - uses: actions/checkout@v3
+    - uses: haskell/actions/hlint-setup@v2
+    - uses: haskell/actions/hlint-run@v2
+      with:
+        fail-on: status
 
   build:
     strategy:
