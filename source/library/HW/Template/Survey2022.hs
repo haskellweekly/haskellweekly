@@ -995,7 +995,8 @@ metaSection =
     [ Question "Did you take any previous surveys?" $
         MultiResponse
           RejectOther
-          [ "2020",
+          [ "2021",
+            "2020",
             "2019",
             "2018",
             "2017"
