@@ -23,4 +23,4 @@ undefined
 
 ## Call for participation
 
-undefined
+- [cabal: v2-run should not print "Up to date" by default](https://github.com/haskell/cabal/issues/4994)
