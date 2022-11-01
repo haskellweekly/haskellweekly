@@ -1,8 +1,9 @@
 -- | This module defines all the server middlewares, which wrap around the
 -- application to change requests, responses, or both.
 module HW.Middleware
-  ( middleware
-  ) where
+  ( middleware,
+  )
+where
 
 import qualified Control.Monad as Monad
 import qualified Crypto.Hash as Crypto
@@ -44,22 +45,22 @@ middleware ref =
 
 addCaching :: IORef.IORef State.State -> Wai.Middleware
 addCaching ref application request respond = do
-  let
-    method = requestMethod request
-    key = (method, requestPath request)
+  let method = requestMethod request
+      key = (method, requestPath request)
   cache <- State.responseCache <$> IORef.readIORef ref
   now <- Time.getCurrentTime
   case Map.lookup key cache of
     Just (expires, response) | expires >= now -> respond response
     _ -> application request $ \response -> do
-      let
-        fifteenMinutes = 900 :: Time.NominalDiffTime
-        expires = Time.addUTCTime fifteenMinutes now
+      let fifteenMinutes = 900 :: Time.NominalDiffTime
+          expires = Time.addUTCTime fifteenMinutes now
       Monad.when (method == "GET" && responseStatus response == 200)
         . State.modifyState ref
-        $ \state -> state
-            { State.responseCache = Map.insert key (expires, response)
-              $ State.responseCache state
+        $ \state ->
+          state
+            { State.responseCache =
+                Map.insert key (expires, response) $
+                  State.responseCache state
             }
       respond response
 
@@ -136,8 +137,9 @@ addEntityTagHeader :: Wai.Middleware
 addEntityTagHeader application request respond =
   application request $ \response ->
     case (getEntityTag request, makeEntityTag response) of
-      (Just expected, Just actual) | expected == actual ->
-        respond $ Wai.responseLBS Http.notModified304 [] LazyByteString.empty
+      (Just expected, Just actual)
+        | expected == actual ->
+            respond $ Wai.responseLBS Http.notModified304 [] LazyByteString.empty
       (_, Just entityTag) ->
         respond $ Wai.mapResponseHeaders ((Http.hETag, entityTag) :) response
       _ -> respond response
@@ -149,11 +151,13 @@ getEntityTag = lookup Http.hIfNoneMatch . Wai.requestHeaders
 -- | Makes an ETag for the @ETag@ header on a response.
 makeEntityTag :: Wai.Response -> Maybe ByteString.ByteString
 makeEntityTag response = case response of
-  Wai.ResponseBuilder _ _ builder -> Just $ mconcat
-    [ ByteString.pack [0x57, 0x2f, 0x22]
-    , base64 . sha1 $ Builder.toLazyByteString builder
-    , ByteString.singleton 0x22
-    ]
+  Wai.ResponseBuilder _ _ builder ->
+    Just $
+      mconcat
+        [ ByteString.pack [0x57, 0x2f, 0x22],
+          base64 . sha1 $ Builder.toLazyByteString builder,
+          ByteString.singleton 0x22
+        ]
   _ -> Nothing
 
 base64 :: (ByteArray.ByteArrayAccess a, ByteArray.ByteArray b) => a -> b
@@ -168,52 +172,54 @@ addSecurityHeaders =
   Wai.modifyResponse
     . Wai.mapResponseHeaders
     $ addHeader "Content-Security-Policy" contentSecurityPolicy
-    . addHeader "Feature-Policy" featurePolicy
-    . addHeader "Referrer-Policy" "no-referrer"
-    . addHeader "X-Content-Type-Options" "nosniff"
-    . addHeader "X-Frame-Options" "deny"
-    . addHeader "X-XSS-Protection" "1; mode=block"
+      . addHeader "Feature-Policy" featurePolicy
+      . addHeader "Referrer-Policy" "no-referrer"
+      . addHeader "X-Content-Type-Options" "nosniff"
+      . addHeader "X-Frame-Options" "deny"
+      . addHeader "X-XSS-Protection" "1; mode=block"
 
 -- | The value of the @Content-Security-Policy@ header.
 -- <https://scotthelme.co.uk/content-security-policy-an-introduction/>
 -- <https://www.ctrl.blog/entry/safari-csp-media-controls.html>
 contentSecurityPolicy :: Text.Text
-contentSecurityPolicy = Text.intercalate
-  "; "
-  [ "base-uri 'none'"
-  , "default-src 'none'"
-  , "form-action https://duckduckgo.com https://news.us10.list-manage.com 'self'"
-  , "frame-ancestors 'none'"
-  , "img-src data: 'self'"
-  , "media-src https://media.haskellweekly.news 'self'"
-  , "script-src 'unsafe-inline'"
-  , "style-src 'self'"
-  ]
+contentSecurityPolicy =
+  Text.intercalate
+    "; "
+    [ "base-uri 'none'",
+      "default-src 'none'",
+      "form-action https://duckduckgo.com https://news.us10.list-manage.com 'self'",
+      "frame-ancestors 'none'",
+      "img-src data: 'self'",
+      "media-src https://media.haskellweekly.news 'self'",
+      "script-src 'unsafe-inline'",
+      "style-src 'self'"
+    ]
 
 -- | The value of the @Feature-Policy@ header.
 -- <https://scotthelme.co.uk/a-new-security-header-feature-policy/>
 featurePolicy :: Text.Text
-featurePolicy = Text.intercalate
-  "; "
-  [ "camera 'none'"
-  , "fullscreen 'none'"
-  , "geolocation 'none'"
-  , "gyroscope 'none'"
-  , "magnetometer 'none'"
-  , "microphone 'none'"
-  , "midi 'none'"
-  , "notifications 'none'"
-  , "payment 'none'"
-  , "push 'none'"
-  , "speaker 'self'"
-  , "sync-xhr 'none'"
-  , "vibrate 'none'"
-  ]
+featurePolicy =
+  Text.intercalate
+    "; "
+    [ "camera 'none'",
+      "fullscreen 'none'",
+      "geolocation 'none'",
+      "gyroscope 'none'",
+      "magnetometer 'none'",
+      "microphone 'none'",
+      "midi 'none'",
+      "notifications 'none'",
+      "payment 'none'",
+      "push 'none'",
+      "speaker 'self'",
+      "sync-xhr 'none'",
+      "vibrate 'none'"
+    ]
 
 -- | Adds a header to a response. This doesn't remove any existing headers with
 -- the same name, so it's possible to end up with duplicates.
-addHeader
-  :: Text.Text -> Text.Text -> Http.ResponseHeaders -> Http.ResponseHeaders
+addHeader ::
+  Text.Text -> Text.Text -> Http.ResponseHeaders -> Http.ResponseHeaders
 addHeader name value headers = makeHeader name value : headers
 
 -- | Makes a single header value. This function is mostly for convenience

@@ -1,6 +1,7 @@
 module HW.Handler.NewsletterFeed
-  ( handler
-  ) where
+  ( handler,
+  )
+where
 
 import qualified Data.List as List
 import qualified Data.Map as Map
@@ -22,19 +23,19 @@ handler = do
   let baseUrl = Config.baseUrl $ State.config state
   issues <-
     mapM
-      (\issue -> do
-        node <- Issue.readIssueFile $ Issue.issueNumber issue
-        pure (issue, node)
+      ( \issue -> do
+          node <- Issue.readIssueFile $ Issue.issueNumber issue
+          pure (issue, node)
       )
-    . take 13
-    . List.sortOn (Ord.Down . Issue.issueDate)
-    . Map.elems
-    $ State.issues state
+      . take 13
+      . List.sortOn (Ord.Down . Issue.issueDate)
+      . Map.elems
+      $ State.issues state
   pure
     . Common.lbs
-        Http.ok200
-        [ (Http.hCacheControl, "public, max-age=900")
-        , (Http.hContentType, "application/atom+xml; charset=utf-8")
-        ]
+      Http.ok200
+      [ (Http.hCacheControl, "public, max-age=900"),
+        (Http.hContentType, "application/atom+xml; charset=utf-8")
+      ]
     . Xml.renderLBS Xml.def
     $ NewsletterFeed.template baseUrl issues

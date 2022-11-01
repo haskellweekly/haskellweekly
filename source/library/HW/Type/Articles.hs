@@ -1,9 +1,10 @@
 -- | This module defines a type alias for a collection of articles. These are
 -- typically associated with podcast episodes.
 module HW.Type.Articles
-  ( Articles
-  , fromList
-  ) where
+  ( Articles,
+    fromList,
+  )
+where
 
 import qualified Data.List.NonEmpty as NonEmpty
 import qualified Data.Text as Text

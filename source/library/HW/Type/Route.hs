@@ -2,11 +2,12 @@
 -- about. By representing the possible routes as a type, it's possible to do
 -- type safe routing.
 module HW.Type.Route
-  ( Route(..)
-  , toText
-  , fromText
-  , routeContent
-  ) where
+  ( Route (..),
+    toText,
+    fromText,
+    routeContent,
+  )
+where
 
 import qualified Data.Text as Text
 import qualified HW.Type.BaseUrl as BaseUrl
@@ -31,6 +32,7 @@ data Route
   | Search
   | Sitemap
   | Survey Number.Number
+  | SurveyComplete
   | Tachyons
   deriving (Eq, Show)
 
@@ -55,6 +57,7 @@ toTextRelative route = case route of
   Search -> "/search"
   Sitemap -> "/sitemap.txt"
   Survey number -> "/survey/" <> Number.toText number <> ".html"
+  SurveyComplete -> "/survey/complete.html"
   Tachyons -> "/tachyons.css"
 
 -- | Renders a route as text with the given base URL. Redirects are not
@@ -83,14 +86,15 @@ fromText path = case path of
   ["robots.txt"] -> Just Robots
   ["search"] -> Just Search
   ["sitemap.txt"] -> Just Sitemap
+  ["survey", "complete.html"] -> Just SurveyComplete
   ["survey", file] -> routeContent "html" Survey file
   ["tachyons.css"] -> Just Tachyons
   _ -> Nothing
 
 -- | Handles routing content by stripping the given extension, parsing what's
 -- left of the path, and wrapping the result in a route.
-routeContent
-  :: Text.Text -> (Number.Number -> Route) -> Text.Text -> Maybe Route
+routeContent ::
+  Text.Text -> (Number.Number -> Route) -> Text.Text -> Maybe Route
 routeContent extension route file =
   case Text.stripSuffix ("." <> extension) file of
     Nothing -> Nothing

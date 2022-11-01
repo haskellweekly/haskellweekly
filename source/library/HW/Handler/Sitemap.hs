@@ -1,6 +1,7 @@
 module HW.Handler.Sitemap
-  ( handler
-  ) where
+  ( handler,
+  )
+where
 
 import qualified Data.Map as Map
 import qualified Data.Text as Text
@@ -27,19 +28,19 @@ allRoutes state =
 
 normalRoutes :: [Route.Route]
 normalRoutes =
-  [ Route.Advertising
-  , Route.AppleBadge
-  , Route.Favicon
-  , Route.GoogleBadge
-  , Route.Index
-  , Route.Logo
-  , Route.Newsletter
-  , Route.NewsletterFeed
-  , Route.Podcast
-  , Route.PodcastFeed
-  , Route.Robots
-  , Route.Sitemap
-  , Route.Tachyons
+  [ Route.Advertising,
+    Route.AppleBadge,
+    Route.Favicon,
+    Route.GoogleBadge,
+    Route.Index,
+    Route.Logo,
+    Route.Newsletter,
+    Route.NewsletterFeed,
+    Route.Podcast,
+    Route.PodcastFeed,
+    Route.Robots,
+    Route.Sitemap,
+    Route.Tachyons
   ]
 
 episodeRoutes :: State.State -> [Route.Route]

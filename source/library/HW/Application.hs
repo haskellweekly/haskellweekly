@@ -1,8 +1,9 @@
 -- | This module defines the application that the server, uh, serves.
 -- Applications take in requests and give out responses.
 module HW.Application
-  ( application
-  ) where
+  ( application,
+  )
+where
 
 import qualified Control.Monad.Trans.Reader as Reader
 import qualified Data.IORef as IORef
@@ -24,6 +25,8 @@ import qualified HW.Handler.Robots as Robots
 import qualified HW.Handler.Search as Search
 import qualified HW.Handler.Sitemap as Sitemap
 import qualified HW.Handler.Survey as Survey
+import qualified HW.Handler.SurveyComplete as SurveyComplete
+import qualified HW.S3 as S3
 import qualified HW.Type.App as App
 import qualified HW.Type.Number as Number
 import qualified HW.Type.Redirect as Redirect
@@ -40,6 +43,11 @@ application ref request respond =
     ("GET", Just routeOrRedirect) -> do
       response <- Reader.runReaderT (handle routeOrRedirect request) ref
       respond response
+    ("POST", Just (Right (Route.Survey year))) | Number.toNatural year == 2022 -> do
+      body <- Wai.strictRequestBody request
+      S3.upload body
+      response <- Reader.runReaderT (Redirect.handler $ Redirect.fromRoute Route.SurveyComplete) ref
+      respond response
     _ -> respond Common.notFound
 
 -- | Gets the request method as a string. This is convenient because request
@@ -53,27 +61,26 @@ requestMethod = Text.decodeUtf8With Text.lenientDecode . Wai.requestMethod
 requestRoute :: Wai.Request -> Maybe (Either Redirect.Redirect Route.Route)
 requestRoute request =
   let path = Wai.pathInfo request
-  in
-    case Route.fromText path of
-      Just route -> Just $ Right route
-      Nothing -> Left <$> Redirect.fromText path
+   in case Route.fromText path of
+        Just route -> Just $ Right route
+        Nothing -> Left <$> Redirect.fromText path
 
 -- | Handles a particular route by calling the appropriate handler and
 -- returning the response.
-handle
-  :: Either Redirect.Redirect Route.Route
-  -> Wai.Request
-  -> App.App Wai.Response
+handle ::
+  Either Redirect.Redirect Route.Route ->
+  Wai.Request ->
+  App.App Wai.Response
 handle routeOrRedirect request = case routeOrRedirect of
   Left redirect -> Redirect.handler redirect
   Right route -> case route of
     Route.Advertising -> Advertising.handler
     Route.AppleBadge -> Common.file "image/svg+xml" "apple-podcasts.svg"
     Route.Captions number ->
-      Common.file "text/vtt"
-        $ "podcast/episode-"
-        <> Text.unpack (Number.toText number)
-        <> ".vtt"
+      Common.file "text/vtt" $
+        "podcast/episode-"
+          <> Text.unpack (Number.toText number)
+          <> ".vtt"
     Route.Episode number -> Episode.handler number
     Route.Favicon -> Common.file "image/x-icon" "favicon.ico"
     Route.GoogleBadge -> Common.file "image/svg+xml" "google-podcasts.svg"
@@ -89,4 +96,5 @@ handle routeOrRedirect request = case routeOrRedirect of
     Route.Search -> Search.handler request
     Route.Sitemap -> Sitemap.handler
     Route.Survey number -> Survey.handler number
+    Route.SurveyComplete -> SurveyComplete.handler
     Route.Tachyons -> Common.file "text/css; charset=utf-8" "tachyons.css"

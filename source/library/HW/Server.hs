@@ -1,7 +1,8 @@
 -- | This module defines the main Haskell Weekly web server.
 module HW.Server
-  ( server
-  ) where
+  ( server,
+  )
+where
 
 import qualified Data.ByteString as ByteString
 import qualified Data.IORef as IORef
@@ -57,4 +58,4 @@ serverName =
   Text.encodeUtf8
     . Text.pack
     $ "haskellweekly/"
-    <> Version.showVersion Package.version
+      <> Version.showVersion Package.version

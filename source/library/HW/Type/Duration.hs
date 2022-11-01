@@ -3,17 +3,18 @@
 -- provide that information to the RSS feed or browser media player without
 -- having to ask the source audio files.
 module HW.Type.Duration
-  ( Duration
-  , toText
-  , fromTimestamp
-  ) where
+  ( Duration,
+    toText,
+    fromTimestamp,
+  )
+where
 
 import qualified Data.Text as Text
 import qualified Numeric.Natural as Natural
 import qualified Text.Printf as Printf
 
-newtype Duration =
-  Duration Natural.Natural
+newtype Duration
+  = Duration Natural.Natural
   deriving (Eq, Show)
 
 -- | Unwraps a duration and gives back the underlying natural number of seconds
@@ -27,15 +28,16 @@ durationToNatural (Duration natural) = natural
 toText :: Duration -> Text.Text
 toText duration =
   let (minutes, seconds) = quotRem (durationToNatural duration) 60
-  in Text.pack $ Printf.printf "%d:%02d" minutes seconds
+   in Text.pack $ Printf.printf "%d:%02d" minutes seconds
 
 -- | Converts a natural number of seconds into a duration. This can fail if the
 -- duration is zero seconds, because what's the point of having an empty
 -- duration?
 naturalToDuration :: Natural.Natural -> Either String Duration
-naturalToDuration seconds = if seconds < 1
-  then Left $ "invalid Duration: " <> show seconds
-  else Right $ Duration seconds
+naturalToDuration seconds =
+  if seconds < 1
+    then Left $ "invalid Duration: " <> show seconds
+    else Right $ Duration seconds
 
 -- | Converts a timestamp into a duration. This is kind of the opposite of
 -- 'toText' except that it takes in two numbers rather than one string.
@@ -43,6 +45,7 @@ naturalToDuration seconds = if seconds < 1
 -- seconds. This can fail if the seconds is greater than 59; they don't roll
 -- over into minutes.
 fromTimestamp :: Natural.Natural -> Natural.Natural -> Either String Duration
-fromTimestamp minutes seconds = if seconds >= 60
-  then Left $ "invalid Duration: " <> show (minutes, seconds)
-  else naturalToDuration $ (minutes * 60) + seconds
+fromTimestamp minutes seconds =
+  if seconds >= 60
+    then Left $ "invalid Duration: " <> show (minutes, seconds)
+    else naturalToDuration $ (minutes * 60) + seconds

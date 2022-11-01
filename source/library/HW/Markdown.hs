@@ -1,8 +1,9 @@
 module HW.Markdown
-  ( Markdown
-  , fromText
-  , toHtml
-  ) where
+  ( Markdown,
+    fromText,
+    toHtml,
+  )
+where
 
 import qualified CMark
 import qualified Data.Text as Text

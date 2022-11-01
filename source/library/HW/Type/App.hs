@@ -1,9 +1,10 @@
 module HW.Type.App
-  ( App
-  , getConfig
-  , getState
-  , readDataFile
-  ) where
+  ( App,
+    getConfig,
+    getState,
+    readDataFile,
+  )
+where
 
 import qualified Control.Monad.IO.Class as IO
 import qualified Control.Monad.Trans.Reader as Reader
@@ -35,15 +36,15 @@ readDataFile file = do
     Nothing -> do
       contents <- readDataFileWithoutCache file
       stateRef <- Reader.ask
-      IO.liftIO . State.modifyState stateRef $ \oldState -> oldState
-        { State.fileCache = Map.insert file contents $ State.fileCache oldState
-        }
+      IO.liftIO . State.modifyState stateRef $ \oldState ->
+        oldState
+          { State.fileCache = Map.insert file contents $ State.fileCache oldState
+          }
       pure contents
 
 readDataFileWithoutCache :: FilePath -> App ByteString.ByteString
 readDataFileWithoutCache file = do
   config <- getConfig
-  let
-    directory = Config.dataDirectory config
-    path = FilePath.combine directory file
+  let directory = Config.dataDirectory config
+      path = FilePath.combine directory file
   IO.liftIO $ ByteString.readFile path
