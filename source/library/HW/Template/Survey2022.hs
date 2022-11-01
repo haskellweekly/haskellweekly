@@ -323,15 +323,14 @@ compilersSection =
       Question "Which versions of GHC do you use?" $
         MultiResponse
           RejectOther
-          [ "> 9.2",
+          [ "> 9.4",
+            "9.4",
             "9.2",
             "9.0",
             "8.10.x",
             "8.8.x",
             "8.6.x",
-            "8.4.x",
-            "8.2.x",
-            "< 8.2"
+            "< 8.6"
           ],
       Question "Which language extensions would you like to be enabled by default?" $
         ExtensionResponse
