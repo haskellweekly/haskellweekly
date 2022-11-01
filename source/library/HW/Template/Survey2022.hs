@@ -1116,7 +1116,7 @@ renderQuestion s (q, question) = H.li_ [H.id_ $ "section-" <> genericShow s <> "
         RejectOther -> pure ()
         AllowOther -> H.div_ . H.label_ [H.class_ "pointer"] $ do
           "Other: "
-          H.input_ [H.name_ name]
+          H.textarea_ [H.class_ "db h2 mw-100 w5", H.name_ name] ""
     ExtensionResponse choices -> do
       Monad.forM_ (withIndex choices) $ \(c, choice) -> H.div_ $ do
         let n = name <> "-choice-" <> genericShow c
