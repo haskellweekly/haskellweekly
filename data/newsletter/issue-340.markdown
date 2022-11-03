@@ -23,4 +23,4 @@ undefined
 
 ## Call for participation
 
-undefined
+- [termonad: Feature request: Vim mode key bindings](https://github.com/cdepillabout/termonad/issues/224)
