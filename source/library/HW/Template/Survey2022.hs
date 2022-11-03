@@ -524,7 +524,8 @@ toolingSection =
           AllowOther
           [ "Bench",
             "Criterion",
-            "Gauge"
+            "Gauge",
+            "tasty-bench"
           ]
     ]
 
