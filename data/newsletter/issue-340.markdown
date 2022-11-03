@@ -35,6 +35,9 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 - [Break Gently with Pattern Synonyms](https://www.parsonsmatt.org/2022/11/02/break-gently-pattern-syn.html) by Matt Parsons
   > This is a really brief post to call out a nice trick for providing users a nice migration message when you delete a constructor in a sum type.
 
+- [Haskell Foundation DevOps Weekly Update, 2022-11-02](https://discourse.haskell.org/t/haskell-foundation-devops-weekly-update-2022-11-02/5264?u=taylorfausak) by Brian Richter
+  > The last few days have been challenging due to operational issues and looming deadlines, but I made a lot of progress nonetheless.
+
 - [Monthly Hask Anything (November 2022)](https://np.reddit.com/r/haskell/comments/yiy6sk/monthly_hask_anything_november_2022/)
   > This is your opportunity to ask any questions you feel don't deserve their own threads, no matter how small or simple they might be!
 
