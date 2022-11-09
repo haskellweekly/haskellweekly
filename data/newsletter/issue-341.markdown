@@ -29,4 +29,4 @@ undefined
 
 ## Call for participation
 
-undefined
+- [Cabal: Display within which cabal.project we build](https://github.com/haskell/cabal/issues/8519)
