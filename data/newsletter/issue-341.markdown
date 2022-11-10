@@ -22,14 +22,17 @@ This is a weekly summary of what's going on in its community.
 - [Improving the experience of JSON in Haskell with autodocodec and bifunctors](https://www.dylanamartin.com/2022/11/08/improving-the-aeson-experience.html) by Dylan Martin
   > Given the advantages laid out in that discussion, I decided to give that library a try on my project's codebase, and it worked so well that, so I ended up refactoring basically all of my types to use autodocodec to generate JSON parsers for my types.
 
-- [Let's agree to be different. On empirical and deductive nature of coding.](https://rpeszek.github.io/posts/2022-11-07-empirical-programming.html) by Robert Peszek
-  > I have convinced myself that programmers tend to favor empirical or favor deductive. I call these camps pragmatists and theorists. This division impacts how we program and communicate.
-
 - [A map of Haskell's numeric types](https://blog.plover.com/prog/haskell/numbers.html) by Mark Dominus
   > I keep getting lost in the maze of Haskell's numeric types. Here's lso the map I drew to help myself out.
 
+- [One recursion for all! Catamorphism step by step](https://hacklewayne.com/one-recursion-for-all-catamorphism-step-by-step) by Hackle Wayne
+  > One of the thrills of learning Haskell, is how something can come up out of the blue to completely invalidate my existing knowledge.
+
 - [Recompilation avoidance in `rules_haskell`](https://www.tweag.io/blog/2022-11-03-blog_recompilation/) by Guillaume Genestier
   > In this blog post I explain how I improved recompilation avoidance in `rules_haskell`, a Bazel rule set to build Haskell code.
+
+- [Reinforcement learning for open games](https://www.tweag.io/blog/2022-11-10-learning-games-with-rllib/) by Georgios Karachalias & Noon van der Silk
+  > In this post we illustrate how we built "Learning Games", an integration between the `open-games-hs` framework and rllib, in order to gain access to the entire Python ecosystem and train agents for games written in Haskell.
 
 - [Security assessment by Trail of Bits, the new website and v4.2 released](https://simplex.chat/blog/20221108-simplex-chat-v4.2-security-audit-new-website.html) by Evgeny Poberezkin
   > We have a growing number of enthusiasts using SimpleX Chat who can accept the security risks of unaudited system, but the users who depend on their security were patiently waiting until some independent experts validate our claims.
@@ -37,12 +40,7 @@ This is a weekly summary of what's going on in its community.
 - [Uniplate is a Traversal](http://jackkelly.name/blog/archives/2022/10/30/uniplate_is_a_traversal/index.html) by Jack Kelly
   > While writing code to rewrite some Dhall syntax trees, I noticed a cool connection between the core uniplate operation and optics.
 
-- [Zoom! Enhance!](https://mmhaskell.com/blog/2022/11/7/zoom-enhance) by Monday Morning Haskell
-  > Today we'll be tackling the Day 20 problem from Advent of Code 2021. This problem is a fun take on the Zoom and Enhance cliche from TV dramas where cops and spies can always seem to get unrealistic details from grainy camera footage by "enhancing" it.
-
 ## Jobs
-
-undefined
 
 Trying to hire a Haskell developer?
 You should [advertise with us](https://haskellweekly.news/advertising.html)!
@@ -54,6 +52,12 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 - [Haskell Love 2021](https://www.youtube.com/playlist?list=PLBqWQH1MiwBTwo2wrwINAorzXRumxO41s)
 
 - [Haskell Talks as Mercury](https://www.youtube.com/playlist?list=PL_ay66lsB3X7t_LswomQ6vT9cXFzzEXd-)
+
+- [Let's agree to be different. On empirical and deductive nature of coding.](https://rpeszek.github.io/posts/2022-11-07-empirical-programming.html) by Robert Peszek
+  > I have convinced myself that programmers tend to favor empirical or favor deductive. I call these camps pragmatists and theorists. This division impacts how we program and communicate.
+
+- [Zoom! Enhance!](https://mmhaskell.com/blog/2022/11/7/zoom-enhance) by Monday Morning Haskell
+  > Today we'll be tackling the Day 20 problem from Advent of Code 2021. This problem is a fun take on the Zoom and Enhance cliche from TV dramas where cops and spies can always seem to get unrealistic details from grainy camera footage by "enhancing" it.
 
 ## Show & tell
 
