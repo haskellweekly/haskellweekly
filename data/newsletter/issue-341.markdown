@@ -63,3 +63,4 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 ## Call for participation
 
 - [Cabal: Display within which cabal.project we build](https://github.com/haskell/cabal/issues/8519)
+- [unison: Bad handling of missing arrow in pattern matching](https://github.com/unisonweb/unison/issues/3584)
