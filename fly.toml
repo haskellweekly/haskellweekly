@@ -4,7 +4,6 @@ app = "nameless-water-5259"
 image = "ghcr.io/haskellweekly/haskellweekly:latest"
 
 [env]
-AWS_REGION = "us-east-1"
 BASE_URL = "https://haskellweekly.news"
 
 [[services]]

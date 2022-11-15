@@ -6,7 +6,6 @@ where
 import qualified HW.Template.Base as Base
 import qualified HW.Template.Newsletter as Newsletter
 import qualified HW.Template.Podcast as Podcast
-import qualified HW.Template.Survey2022 as Survey2022
 import qualified HW.Type.BaseUrl as BaseUrl
 import qualified HW.Type.Config as Config
 import qualified HW.Type.Date as Date
@@ -60,7 +59,6 @@ template config maybeIssue maybeEpisode = do
       Just episode -> episodeTemplate baseUrl episode
     Podcast.callToAction baseUrl
     Html.h2_ [Html.class_ "f2 mv3 tracked-tight"] "Survey"
-    Survey2022.callToAction baseUrl
     Html.p_ $ do
       "The State of Haskell Survey is a yearly survey of the Haskell community. "
       "The survey is typically open for two weeks at the beginning of November. "
