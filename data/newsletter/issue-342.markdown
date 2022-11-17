@@ -15,12 +15,22 @@ This is a weekly summary of what's going on in its community.
 
 ## Jobs
 
+<!-- Runs from 2022-11-17 to 2022-12-08. -->
+- [Move Your Career Forward Developing Haskell at an AI Startup (Remote)](https://bit.ly/subtle-haskell) (ad)
+  > Subtle Medical has a very successful product offering and contracts in hand, but the company needs additional help delivering on all those contracts. If you might be interested in developing Haskell to provide the tools to accelerate delivery and thereby contribute prominently to the company's success, then we'd love to start a conversation. If you're reading this, then you're already the kind of person that we want to talk to.
+
 - [Scientific Programmer at JST START](https://group-mmm.org/eratommsd/open-position-for-a-scientific-programmer-towards-a-research-oriented-startup/)
 
 Trying to hire a Haskell developer?
 You should [advertise with us](https://haskellweekly.news/advertising.html)!
 
 ## In brief
+
+- [The 30th Netherlands Functional Programming Day](https://set.win.tue.nl/nl-fp-day-2023/)
+  > The Netherlands Functional Programming Day (a.k.a. FP Dag) is an annual gathering of researchers, students, and practitioners sharing a common interest in functional programming.
+
+- [Episode 18: Matthias Pall Gissurarson & Jimmy Koppel](https://haskell.foundation/podcast/17/) by The Haskell Interlude
+  > In this episode Matthias Pall Gissurarson & Jimmy Koppel are interviewed by Wouter Swierstra and Niki Vazou. They talk about program synthesis, typed holes, program repair, and generating properties using a new technique called ECTAs.
 
 - [FOSDEM 2023 Haskell devroom - Call for Participation](https://discourse.haskell.org/t/fosdem-2023-haskell-devroom-call-for-participation/5310?u=taylorfausak) by Fraser Tweedale
   > I am thrilled to announce that the 2023 edition of FOSDEM, Europe's largest free software conference, will feature a Haskell devroom (specialist track). The Call for Participation is open now, until 2022-11-28.
@@ -54,7 +64,7 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
   > Quickstrom is an autonomous testing tool for the web. It can find problems in any type of web application that renders to the DOM.
 
 - [`sqlite-easy`](https://discourse.haskell.org/t/sqlite-easy-a-primitive-yet-easy-to-use-sqlite-library/5315?u=taylorfausak) by Gil Mizrahi
-  > I’ve published a new package named `sqlite-easy`. It’s not much of an original content as much as it’s a basic wrapper around some functionality of `direct-sqlite`, `migrant-core`, and `resource-pool`.
+  > I've published a new package named `sqlite-easy`. It's not much of an original content as much as it's a basic wrapper around some functionality of `direct-sqlite`, `migrant-core`, and `resource-pool`.
 
 ## Call for participation
 
