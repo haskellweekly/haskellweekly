@@ -27,4 +27,6 @@ undefined
 
 ## Call for participation
 
-undefined
+- [curry-language-server: Add deprecation tag to completion item for `OPTIONS_CYMAKE`](https://github.com/fwcd/curry-language-server/issues/49)
+- [eclair-lang: Update to GHC9.2](https://github.com/luc-tielen/eclair-lang/issues/90)
+- [xrefcheck: Avoid resource leaking in scanners](https://github.com/serokell/xrefcheck/issues/220)
