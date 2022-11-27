@@ -40,9 +40,7 @@ template config maybeIssue maybeEpisode = do
     Html.p_ $ do
       "The Haskell Weekly Newsletter covers the Haskell programming language. "
       "Each issue features several hand-picked links to interesting content about Haskell from around the web."
-    case maybeIssue of
-      Nothing -> pure ()
-      Just issue -> issueTemplate baseUrl issue
+    mapM_ (issueTemplate baseUrl) maybeIssue
     Newsletter.callToAction baseUrl
     Html.h2_ [Html.class_ "f2 mv3 tracked-tight"] $
       Html.a_
@@ -54,9 +52,7 @@ template config maybeIssue maybeEpisode = do
       "The Haskell Weekly Podcast covers the Haskell programming language. "
       "Listen to professional software developers discuss using functional programming to solve real-world business problems. "
       "Each episode uses a conversational two-host format and runs for about 15 minutes."
-    case maybeEpisode of
-      Nothing -> pure ()
-      Just episode -> episodeTemplate baseUrl episode
+    mapM_ (episodeTemplate baseUrl) maybeEpisode
     Podcast.callToAction baseUrl
     Html.h2_ [Html.class_ "f2 mv3 tracked-tight"] "Survey"
     Html.p_ $ do

@@ -16,6 +16,8 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - uses: haskell/actions/hlint-setup@v2
+      with:
+        version: 3.5
     - uses: haskell/actions/hlint-run@v2
       with:
         fail-on: status
