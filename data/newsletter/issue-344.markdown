@@ -28,3 +28,5 @@ undefined
 ## Call for participation
 
 - [Cabal: Dependency resolution errors due to non-upgradeable packages should refer to compiler version](https://github.com/haskell/cabal/issues/7993)
+- [algebraic-graphs-io: Aeson instances for Graph](https://github.com/ocramz/algebraic-graphs-io/issues/11)
+- [fourmolu: Add unchanged mode to `haddock-style`](https://github.com/fourmolu/fourmolu/issues/266)
