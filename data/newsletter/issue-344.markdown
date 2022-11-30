@@ -27,4 +27,4 @@ undefined
 
 ## Call for participation
 
-undefined
+- [Cabal: Dependency resolution errors due to non-upgradeable packages should refer to compiler version](https://github.com/haskell/cabal/issues/7993)
