@@ -27,4 +27,5 @@ undefined
 
 ## Call for participation
 
-undefined
+- [algebraic-graphs-io: Aeson instances for Graph](https://github.com/ocramz/algebraic-graphs-io/issues/11)
+- [fourmolu: Add unchanged mode to `haddock-style`](https://github.com/fourmolu/fourmolu/issues/266)
