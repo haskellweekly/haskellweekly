@@ -19,6 +19,9 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 
 ## In brief
 
+- [Build your own Redis in Haskell](https://app.codecrafters.io/tracks/haskell) by CodeCrafters
+  > Discover concurrent programming in Haskell while also learning abbout TCP servers, network programming, and the Redis Protocol.
+
 - [Call for Haskell.org Committee Nominations](https://discourse.haskell.org/t/call-for-haskell-org-committee-nominations-the-2023-2025-term/5372?u=taylorfausak) by Ida Bzowska
   > The Haskell.org Committee is happy to announce that we are opening the call for nominations for new members to serve for the 2023-2025 term.
 
