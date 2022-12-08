@@ -27,4 +27,4 @@ undefined
 
 ## Call for participation
 
-undefined
+- [emanote: Verify in CI: small runtime dependencies](https://github.com/EmaApps/emanote/issues/393)
