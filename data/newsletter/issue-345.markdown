@@ -4,11 +4,13 @@ This is a weekly summary of what's going on in its community.
 
 ## Featured
 
-undefined
+- [The unreasonable effectiveness of polymorphic records](https://exploring-better-ways.bellroy.com/the-unreasonable-effectiveness-of-polymorphic-records.html) by Clément Delafargue
+  > An exploration of patterns made possible by polymorphic records in Haskell.
 
 ## Jobs
 
 <!-- Runs from 2022-11-17 to 2022-12-08. -->
+
 - [Move Your Career Forward Developing Haskell at an AI Startup (Remote)](https://bit.ly/subtle-haskell) (ad)
   > Subtle Medical has a very successful product offering and contracts in hand, but the company needs additional help delivering on all those contracts. If you might be interested in developing Haskell to provide the tools to accelerate delivery and thereby contribute prominently to the company's success, then we'd love to start a conversation. If you're reading this, then you're already the kind of person that we want to talk to.
 
