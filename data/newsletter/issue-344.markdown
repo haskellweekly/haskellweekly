@@ -37,7 +37,7 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 
 ## In brief
 
-- [Call for documentation: errors.haskell.org now supports Stack](https://discourse.haskell.org/t/call-for-documentation-errors-haskell-org-now-supports-stack/5356?u=taylorfausak) by David Thrane Christiansen
+- [Call for documentation: errors.haskell.org now supports Stack](https://discourse.haskell.org/t/call-for-documentation-errors-haskell-org-now-supports-stack/5356?u=taylorfausak) by David Christiansen
   > Thanks to the kind help of Mike Pilgrem, errors.haskell.org now supports the latest release candidate of Stack in addition to the development branch of GHC.
 
 - [Call for Haskell.org Committee Nominations](https://discourse.haskell.org/t/call-for-haskell-org-committee-nominations-the-2023-2025-term/5372?u=taylorfausak) by Ida Bzowska
