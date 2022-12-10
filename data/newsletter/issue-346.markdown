@@ -27,4 +27,4 @@ undefined
 
 ## Call for participation
 
-undefined
+- [Cabal: Document which programs can be overridden with flags like --with-gcc](https://github.com/haskell/cabal/issues/7899)
