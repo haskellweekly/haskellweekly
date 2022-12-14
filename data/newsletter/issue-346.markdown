@@ -4,7 +4,8 @@ This is a weekly summary of what's going on in its community.
 
 ## Featured
 
-undefined
+- [Building a Haskell CRUD stack with Obelisk for PowerZonePack](https://blog.obsidian.systems/shaping-a-crud-app-in-haskell-for-powerzonepack/) by Obsidian Systems
+  > There isn't an abundance online of writing about successful, reliable, and reproducible CRUD stacks for Haskell developers.
 
 ## Jobs
 
