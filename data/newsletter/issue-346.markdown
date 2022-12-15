@@ -25,7 +25,7 @@ This is a weekly summary of what's going on in its community.
 - [JavaScript backend merged into GHC](https://engineering.iog.io/2022-12-13-ghc-js-backend-merged/) by IOG
   > A new JavaScript backend was merged into GHC on November 30th, 2022! This means that the next release of GHC will be able to emit code that runs in web browsers without requiring any extra tools, enabling Haskell for both front-end and back-end web applications.
 
-- [Overloading the lambda abstraction in Haskell](https://web.archive.org/web/20221212080641/https://acatalepsie.fr/posts/overloading-lambda) by Lucas Escot
+- [Overloading the lambda abstraction in Haskell](https://acatalepsie.fr/posts/overloading-lambda) by Lucas Escot
   > As recently as 5 days ago, I was still convinced that there was no way to do such a thing without requiring a lot of engineering effort, either through GHC compiler plugins or with Template Haskell --- two things I'd rather stay far away from.
 
 - [Solving Advent Of Code Day 7 With Parsers, Zippers And Interpreters](https://notes.abhinavsarkar.net/2022/aoc-7) by Abhinav Sarkar
