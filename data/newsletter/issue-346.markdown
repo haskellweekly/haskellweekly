@@ -58,3 +58,4 @@ The secondary goal is to demonstrate that Haskell is great at computer graphics.
 ## Call for participation
 
 - [Cabal: Document which programs can be overridden with flags like --with-gcc](https://github.com/haskell/cabal/issues/7899)
+- [ghcup-hs: `OwnSource` setting lost after `ghcup config add-release-channel`](https://github.com/haskell/ghcup-hs/issues/708)
