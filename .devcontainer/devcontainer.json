@@ -1,13 +1,19 @@
 {
-  "build": {
-    "dockerfile": "Dockerfile"
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "taylorfausak.purple-yolk"
+      ],
+      "settings": {
+        "purple-yolk.haskell.formatter.command": "false",
+        "purple-yolk.haskell.linter.command": "false",
+        "purple-yolk.haskell.linter.onSave": false
+      }
+    }
   },
-  "extensions": [
-    "taylorfausak.purple-yolk"
-  ],
-  "settings": {
-    "purple-yolk.haskell.formatter.command": "false",
-    "purple-yolk.haskell.linter.command": "false",
-    "purple-yolk.haskell.linter.onSave": false
-  }  
+  "dockerComposeFile": "compose.yaml",
+  "initializeCommand": ".devcontainer/initialize.sh",
+  "onCreateCommand": ".devcontainer/on-create.sh",
+  "service": "devcontainer",
+  "workspaceFolder": "/workspaces/haskellweekly"
 }
