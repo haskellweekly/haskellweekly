@@ -13,7 +13,7 @@ This is a weekly summary of what's going on in its community.
 - [Haskell and C++ FFI for Fun and Profit](https://topikettunen.com/blog/haskell-cpp-ffi-for-fun-and-profit/) by Topi Kettunen
   > Lately, I've been banging my head against the wall with the FFI of Haskell since I wanted to write a particular piece of code in mainly Haskell, but I needed something from the world of C++.
 
-- [How does Prettyprinter print pretty?](https://tarmean.github.io/prettyprinter) by TODO
+- [How does Prettyprinter print pretty?](https://tarmean.github.io/prettyprinter)
   > This is a very brief and rough introduction into how Prettyprinter actually works. It is not a guide on how to use it, but after understanding the big ideas it should be easier to read the documentation and source code.
 
 - [Nixpkgs support for incremental Haskell builds](https://www.haskellforall.com/2022/12/nixpkgs-support-for-incremental-haskell.html) by Gabriella Gonzalez
