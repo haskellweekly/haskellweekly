@@ -62,3 +62,4 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 ## Call for participation
 
 - [Cabal: Document which programs can be overridden with flags like --with-gcc](https://github.com/haskell/cabal/issues/7899)
+- [natskell: Consider adding validators alongside transformers](https://github.com/samisagit/natskell/issues/78)
