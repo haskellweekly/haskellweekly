@@ -27,4 +27,5 @@ undefined
 
 ## Call for participation
 
-undefined
+- [flora-server: Display information about deprecated packages](https://github.com/flora-pm/flora-server/issues/319)
+- [natskell: New Connect field](https://github.com/samisagit/natskell/issues/84)
