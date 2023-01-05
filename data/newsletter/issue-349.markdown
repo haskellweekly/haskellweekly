@@ -19,7 +19,8 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 
 ## In brief
 
-undefined
+- [Seven GUIs in reflex-vty, Part 2: The Temperature Converter](https://blog.obsidian.systems/seven-guis-in-reflex-vty-part-2-the-temperature-converter/) by Obsidian Systems
+  > We're going to implement the 7GUIs in Haskell using the reflex functional reactive programming framework.
 
 ## Show & tell
 
