@@ -23,7 +23,7 @@ This is a weekly summary of what's going on in its community.
 -   [Leibniz equality in Haskell, part 2: heterogeneous equality](https://ryanglscott.github.io/2021/09/06/leibniz-equality-in-haskell-part-2-heterogeneous-equality/) by Ryan Scott
     > In this part of the blog series, we will examine heterogeneous equality, a more exotic form of equality where the type arguments are allowed to have different kinds.
 
--   [Mutating Lenses](https://tarmean.github.io/mutable_lenses) by Cyril Fahlenbock
+-   [Mutating Lenses](https://tarmean.github.io/mutable_lenses)
     > I will be sad about the state of mutable Haskell for a bit. Then we will figure out how to mix lenses with mutable state. And learn that the real mutable borrows were the pure values that we made along the way, kind of.
 
 -   [Parsing Layout, or: Haskell's Syntax is a Mess](https://abby.how/posts/parsing-layout.html) by Abigail
