@@ -10,6 +10,9 @@ This is a weekly summary of what's going on in its community.
 - [Deriving Simple Recursive Functions](http://jackkelly.name/blog/archives/2023/01/08/deriving_simple_recursive_functions/) by Jack Kelly
   > I used to teach Haskell to first-year university students, and many of them struggled to write their first recursive functions.
 
+- [Haskell at work](https://www.tweag.io/blog/2023-01-12-haskell-at-work/) by Marco Perone
+  > In this post I'd like to summarise what Tweag is doing in this space. In particular, there are three projects we are working on to help make Haskell adoption and usage a little bit simpler and more straightforward.
+
 - [Linking Smaller Haskell Binaries](http://brandon.si/code/linking-smaller-haskell-binaries/) by Brandon Simmons
   > Haskell binaries can get quite large (think ~100MB), especially for projects with many transitive dependencies. Here are two strategies that can help at link time, the latter being more experimental.
 
