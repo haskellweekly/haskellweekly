@@ -27,4 +27,5 @@ undefined
 
 ## Call for participation
 
-undefined
+- [pandoc: HTML → texinfo: `<var>` within `<code>` not taken into account](https://github.com/jgm/pandoc/issues/8534)
+- [wasp: examples/Waspello: Text protrudes out of the card when too long to fit](https://github.com/wasp-lang/wasp/issues/942)
