@@ -25,7 +25,7 @@ fromRoute = Redirect
 
 -- | Handles routing all redirect routes.
 fromText :: [Text.Text] -> Maybe Redirect
-fromText path = fmap Redirect $ case path of
+fromText path = fmap fromRoute $ case path of
   ["haskell-weekly.atom"] -> Just Route.NewsletterFeed
   ["haskell-weekly.rss"] -> Just Route.NewsletterFeed
   ["images", "favicon.ico"] -> Just Route.Favicon
