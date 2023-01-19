@@ -1,1 +1,4 @@
 packages: .
+
+allow-newer:
+  , cmark:text

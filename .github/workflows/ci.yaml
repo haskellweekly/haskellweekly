@@ -26,7 +26,7 @@ jobs:
     strategy:
       matrix:
         include:
-          - ghc: 9.2.4
+          - ghc: 9.4.4
             platform: ubuntu
     runs-on: ${{ matrix.platform }}-latest
     name: GHC ${{ matrix.ghc }} on ${{ matrix.platform }}

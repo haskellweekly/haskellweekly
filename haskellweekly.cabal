@@ -30,23 +30,23 @@ source-repository head
 library
   autogen-modules: Paths_haskellweekly
   build-depends:
-    base ^>= 4.16.1
+    base ^>= 4.17
     , bytestring ^>= 0.11.3
     , case-insensitive ^>= 1.2.1
     , cmark ^>= 0.6
-    , containers ^>= 0.6.5
+    , containers ^>= 0.6.6
     , cryptonite ^>= 0.30
     , filepath ^>= 1.4.2
     , http-types ^>= 0.12.3
     , lucid ^>= 2.11.1
     , memory ^>= 0.18
     , network-uri ^>= 2.6.4
-    , text ^>= 1.2.5
-    , time ^>= 1.11.1
+    , text ^>= 2.0.1
+    , time ^>= 1.12.2
     , transformers ^>= 0.5.6
     , uuid ^>= 1.3.15
     , wai ^>= 3.2.3
-    , wai-extra ^>= 3.1.12
+    , wai-extra ^>= 3.1.13
     , warp ^>= 3.3.23
     , xml-conduit ^>= 1.9.1
   default-extensions:
@@ -138,7 +138,7 @@ test-suite haskellweekly-test-suite
     base
     , bytestring
     , cmark
-    , directory ^>= 1.3.6
+    , directory ^>= 1.3.7
     , filepath
     , haskellweekly
     , text
