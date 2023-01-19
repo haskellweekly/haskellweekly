@@ -74,7 +74,7 @@ callToAction baseUrl =
       ]
       $ do
         Html.div_
-          [ Html.makeAttribute "aria-hidden" "true",
+          [ Html.makeAttributes "aria-hidden" "true",
             Html.class_ "absolute f7 top--2"
           ]
           $ Html.input_
@@ -84,7 +84,7 @@ callToAction baseUrl =
               Html.value_ ""
             ]
         Html.input_
-          [ Html.makeAttribute "aria-label" "Email address",
+          [ Html.makeAttributes "aria-label" "Email address",
             Html.class_ "ba br0 b--silver input-reset pa3 flex-auto",
             Html.name_ "EMAIL",
             Html.placeholder_ "you@example.com",

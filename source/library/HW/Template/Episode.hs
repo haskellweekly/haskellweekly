@@ -51,7 +51,7 @@ template baseUrl episode captions =
         [ Html.class_ "bg-black mw-100",
           Html.controls_ "controls",
           Html.height_ "432",
-          Html.makeAttribute "poster" $ Route.toText baseUrl Route.Logo,
+          Html.makeAttributes "poster" $ Route.toText baseUrl Route.Logo,
           Html.preload_ "metadata",
           Html.width_ "768"
         ]
@@ -59,14 +59,14 @@ template baseUrl episode captions =
           Html.source_
             [Html.src_ $ Episode.audioUrl episode, Html.type_ "audio/mpeg"]
           Html.track_
-            [ Html.makeAttribute "default" "",
-              Html.makeAttribute "kind" "captions",
+            [ Html.makeAttributes "default" "",
+              Html.makeAttributes "kind" "captions",
               Html.label_ "English captions",
               Html.src_
                 . Route.toText baseUrl
                 . Route.Captions
                 $ Episode.number episode,
-              Html.makeAttribute "srclang" "en-US"
+              Html.makeAttributes "srclang" "en-US"
             ]
       Html.h4_ [Html.class_ "f4 mv3"] "Links"
       Html.ul_ . mapM_ articleLink $ Episode.articles episode

@@ -11,7 +11,7 @@ import qualified Lucid.Base as Html
 openGraph :: Text.Text -> Text.Text -> Html.Html ()
 openGraph property content =
   Html.meta_
-    [Html.content_ content, Html.makeAttribute "property" $ "og:" <> property]
+    [Html.content_ content, Html.makeAttributes "property" $ "og:" <> property]
 
 twitter :: Text.Text -> Text.Text -> Html.Html ()
 twitter name content =

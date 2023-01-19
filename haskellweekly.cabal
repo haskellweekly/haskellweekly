@@ -38,7 +38,7 @@ library
     , cryptonite ^>= 0.30
     , filepath ^>= 1.4.2
     , http-types ^>= 0.12.3
-    , lucid ^>= 2.11.1
+    , lucid2 ^>= 0.0.20221012
     , memory ^>= 0.18
     , network-uri ^>= 2.6.4
     , text ^>= 2.0.1
