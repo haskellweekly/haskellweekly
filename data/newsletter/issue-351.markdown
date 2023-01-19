@@ -23,4 +23,5 @@ undefined
 
 ## Call for participation
 
-undefined
+- [GHAppy: Optimisie GHAppy to use `Text` instead of `String`](https://github.com/mlabs-haskell/GHAppy/issues/14)
+- [swarm: create recipe for detonator](https://github.com/swarm-game/swarm/issues/1017)
