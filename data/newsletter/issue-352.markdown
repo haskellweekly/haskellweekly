@@ -23,4 +23,4 @@ undefined
 
 ## Call for participation
 
-undefined
+- [wasp: Create `StrongPath` wrappers around file system functions](https://github.com/wasp-lang/wasp/issues/972)
