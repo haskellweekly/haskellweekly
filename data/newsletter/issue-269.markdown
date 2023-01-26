@@ -65,7 +65,7 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 - [HMock: First Rate Mocks in Haskell](https://itnext.io/hmock-first-rate-mocks-in-haskell-e59d7c3b066c) by Chris Smith
   > At the end of Zurihac this year, I released a preview version of HMock, a new library for testing with mocks in Haskell. Let's talk about what this is, why I wrote it, and how you can use it.
 
-- [Rel8](https://hackage.haskell.org/package/rel8-1.0.0.1) by Oliver Charles
+- [Rel8](https://hackage.haskell.org/package/rel8-1.0.0.1) by Ollie Charles
   > Rel8 is a Haskell library for interacting with PostgreSQL databases, built on top of the fantastic Opaleye library.
 
 ## Call for participation
