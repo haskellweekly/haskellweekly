@@ -62,7 +62,7 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
   > I wanted to share my experience with learning Haskell by following along to "Learn Haskell by building a blog generator".
 
 - [Pair Programming with ChatGPT & Haskell](https://cdsmithus.medium.com/pair-programming-with-chatgpt-haskell-1c4490b71da6) by Chris Smith
-  > Here, I present the (lightly edited) story of using ChatGPT conversationally to solve a non-trivial problem in Haskell. It definitely gets some things wrong, and it’s still unclear whether co-developing this with ChatGPT made anything easier than it would have been otherwise.
+  > Here, I present the (lightly edited) story of using ChatGPT conversationally to solve a non-trivial problem in Haskell. It definitely gets some things wrong, and it's still unclear whether co-developing this with ChatGPT made anything easier than it would have been otherwise.
 
 - [Reflections on Advent of Code 2022](https://mmhaskell.com/blog/2023/1/23/reflections-on-advent-of-code-2022) by Monday Morning Haskell
   > Now that I've had a couple weeks off from Advent of Code, I wanted to reflect a bit on some of the lessons I learned after my second year of doing all the puzzles. In this article I'll list some of the things that worked really well for me in my preparation so that I could solve a lot of the problems quickly!
