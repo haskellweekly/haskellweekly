@@ -35,7 +35,7 @@ This is a weekly summary of what's going on in its community.
 
 ## Jobs
 
-undefined
+- [Haskell Developer at IOG](https://discourse.haskell.org/t/job-opportunity-software-engineer-haskell-network-performance/5720?u=taylorfausak)
 
 Trying to hire a Haskell developer?
 You should [advertise with us](https://haskellweekly.news/advertising.html)!
