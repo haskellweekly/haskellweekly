@@ -70,4 +70,5 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 
 ## Call for participation
 
-undefined
+- [hoff: Use "reactions" for confirmation](https://github.com/channable/hoff/issues/198)
+- [spago: verbose error when Main module does not exist](https://github.com/purescript/spago/issues/940)
