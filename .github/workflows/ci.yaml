@@ -44,6 +44,9 @@ jobs:
 
       - run: mkdir ${{ steps.artifact.outputs.directory }}
 
+      # https://discourse.haskell.org/t/incident-github-actions-ci-failure-ghcup/5761
+      - run: sudo chown -R $USER /usr/local/.ghcup
+
       - id: setup-haskell
         uses: haskell/actions/setup@v2
         with:
