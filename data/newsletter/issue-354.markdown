@@ -23,4 +23,5 @@ undefined
 
 ## Call for participation
 
-undefined
+- [ihp: Refactor Tests to have default values for `CreateTable {..}` expressions](https://github.com/digitallyinduced/ihp/issues/1601)
+- [postgrest: Obtain the PostgREST version through SQL](https://github.com/PostgREST/postgrest/issues/2647)
