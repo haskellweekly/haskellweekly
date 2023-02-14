@@ -23,4 +23,4 @@ undefined
 
 ## Call for participation
 
-undefined
+[Haskell Playground: Display the available packages in the UI](https://github.com/tomsmeding/play-haskell/issues/17)
