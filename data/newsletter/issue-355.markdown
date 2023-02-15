@@ -4,7 +4,8 @@ This is a weekly summary of what's going on in its community.
 
 ## Featured
 
-undefined
+- [The hakyll-nix-template Tutorial](https://robertwpearce.com/the-hakyll-nix-template-tutorial.html) by Robert Pearce
+  > A full walkthrough for getting set up to create static sites using nix and hakyll.
 
 ## Jobs
 
