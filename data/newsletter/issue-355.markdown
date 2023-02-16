@@ -69,3 +69,4 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 ## Call for participation
 
 - [Haskell Playground: Display the available packages in the UI](https://github.com/tomsmeding/play-haskell/issues/17)
+- [libsodium-bindings: Add Eq & Ord instances to the ForeignPtr newtypes](https://github.com/haskell-cryptography/libsodium-bindings/issues/42)
