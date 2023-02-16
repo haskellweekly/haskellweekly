@@ -7,6 +7,9 @@ This is a weekly summary of what's going on in its community.
 - [A concise introduction to `generics-sop`](https://srid.ca/generics-sop-intro) by Sridhar Ratnakumar
   > Non-trivial generic programming is much [simpler](https://www.infoq.com/presentations/Simple-Made-Easy/) with `generics-sop` than GHC Generics. This post gives an introduction to the `generics-sop` library.
 
+- [The hakyll-nix-template Tutorial](https://robertwpearce.com/the-hakyll-nix-template-tutorial.html) by Robert Pearce
+  > A full walkthrough for getting set up to create static sites using nix and hakyll.
+
 ## Jobs
 
 undefined
