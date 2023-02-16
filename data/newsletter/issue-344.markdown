@@ -13,9 +13,6 @@ This is a weekly summary of what's going on in its community.
 - [Build your own Redis in Haskell](https://app.codecrafters.io/tracks/haskell) by CodeCrafters
   > Discover concurrent programming in Haskell while also learning abbout TCP servers, network programming, and the Redis Protocol.
 
-- [Haskell in Production: FOSSA](https://serokell.io/blog/haskell-in-production-fossa) by Gints Dreimanis
-  > Our today's guest is Leo Zhang, who works in the engineering team at FOSSA --- a tool for open-source risk management.
-
 - [Some tips and tricks for doing Advent of Code with Haskell](https://wjwh.eu/posts/2022-11-30-haskell-aoc-tricks.html) by Wander Hillen
   > Since every year there seems to be a sizable contingent trying to learn Haskell, I thought it would be nice to share some tips and tricks that I have picked up over the years.
 
