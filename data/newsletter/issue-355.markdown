@@ -4,7 +4,8 @@ This is a weekly summary of what's going on in its community.
 
 ## Featured
 
-undefined
+- [A concise introduction to `generics-sop`](https://srid.ca/generics-sop-intro) by Sridhar Ratnakumar
+  > Non-trivial generic programming is much [simpler](https://www.infoq.com/presentations/Simple-Made-Easy/) with `generics-sop` than GHC Generics. This post gives an introduction to the `generics-sop` library.
 
 ## Jobs
 
