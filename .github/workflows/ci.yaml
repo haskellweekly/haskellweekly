@@ -155,7 +155,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - uses: superfly/flyctl-actions/setup-flyctl@67ddda2a87628f1aff28a54b8a708879ec62c80f
+      - uses: superfly/flyctl-actions/setup-flyctl@dfdfedc86b296f5e5384f755a18bf400409a15d0
 
       - run: flyctl deploy --image ghcr.io/haskellweekly/haskellweekly:sha-${{ github.sha }}
         env:
