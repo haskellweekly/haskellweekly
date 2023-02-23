@@ -58,4 +58,5 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 
 ## Call for participation
 
-undefined
+- [dunai: Update link to paper mirror](https://github.com/ivanperez-keera/dunai/issues/346)
+- [openid-connect: Remove uses of deprecated jose functions](https://github.com/pjones/openid-connect/issues/13)
