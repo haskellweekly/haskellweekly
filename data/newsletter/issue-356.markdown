@@ -16,8 +16,8 @@ This is a weekly summary of what's going on in its community.
 - [Optimizing Haskell Code for Runtime Verification](https://serokell.io/blog/optimizing-k-framework) by Constantine Ter-Matevosian & Sergey Gulin
   > The collaboration involved work on making optimizations to K, a rewrite-based executable semantic framework in which programming languages, type systems, and formal analysis tools can be defined with the help of configurations and rewrite rules.
 
-- [Platonic Hask overview: subcategories, functors and natural transformations](https://viviag.io/blog/platonic-hask-overview-subcategories-functors-and-natural-transformations) by Vitalii Guzeev
-  > We have constructed the category of restricted Haskell types. There is nothing particularly useful in this construction yet. We need additional structure.
+- [Platonic Hask overview: representable functors and monoidal category structures](https://viviag.io/blog/platonic-hask-overview-monoidal-category-structure) by Vitalii Guzeev
+  > We have constructed the category of restricted Haskell types. There is nothing particularly useful in this construction yet. We need additional structure and we add it post by post.
 
 - [Squeezing a Sokoban game into 10 lines of code](https://www.cole-k.com/2023/02/21/tiny-games-hs/) by Cole Kurashige
   > Although code golfing is an ultimately frivilous endeavor, I had a lot of fun trying to fit as much as I could into my game and I'm pleased with how it turned out.
