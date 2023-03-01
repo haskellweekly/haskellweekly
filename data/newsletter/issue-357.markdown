@@ -4,7 +4,8 @@ This is a weekly summary of what's going on in its community.
 
 ## Featured
 
-undefined
+- [Bellroy's technology stack, and how we got here](https://exploring-better-ways.bellroy.com/our-technology-stack-and-how-we-got-here.html) by Michael Webb
+  > A short history: from off-the-shelf ecommerce platforms to statically typed functional programming languages
 
 ## Jobs
 
