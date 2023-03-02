@@ -32,7 +32,7 @@ This is a weekly summary of what's going on in its community.
   > This post is a last-minute write-up for my participation in the Haskell Tiny Game Jam. The goal was to implement a game that fits into 10 lines of 80 characters.
 
 - [Writing Servant combinators for fun and profit](https://williamyaoh.com/posts/2023-02-28-writing-servant-combinators.html) by William Yaoh
-  > Writing your own combinators is extremely useful and convenient, but up to now there hasn’t been a lot of information about how to go about doing so.
+  > Writing your own combinators is extremely useful and convenient, but up to now there hasn't been a lot of information about how to go about doing so.
 
 - [Why are FP devs obsessed with Referential Transparency?](https://dev.to/zelenya/why-are-fp-devs-obsessed-with-referential-transparency-50cb) by Impure Pics
   > We clarify referential transparency, why it is so cool, what it has to do with side-effects, and what common misconceptions are. (Available as video and text.)
@@ -50,6 +50,9 @@ Trying to hire a Haskell developer?
 You should [advertise with us](https://haskellweekly.news/advertising.html)!
 
 ## In brief
+
+- [2023 GHC Contributors' Workshop](https://haskell.foundation/events/2023-ghc-development-workshop.html) by The Haskell Foundation
+  > We are excited to announce the 2023 GHC Contributors' Workshop, June 7-9 2023, organized by the GHC developers, the Haskell Foundation, and the OST Eastern Switzerland University of Applied Sciences!
 
 - [Adding a Database to our AWS Server](https://mmhaskell.com/blog/2023/2/27/adding-a-database-to-our-aws-server) by Monday Morning Haskell
   > In the last few articles on the blog, we've been exploring how to launch a Haskell web server using AWS. In this final part of the series, we're going to learn to attach a database to our application.
@@ -80,6 +83,9 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 
 - [generic-persistence version 0.3.0](https://np.reddit.com/r/haskell/comments/11bs2zg/ann_genericpersistence_030_released/) by Thomas Mahler
   > Of course the library is still in an early stage of development. But all test cases are green and it should be ready for early adopters use.
+
+- [iris version 0.1.0.0](https://discourse.haskell.org/t/iris-0-1-0-0-a-haskell-cli-framework/5899?u=taylorfausak) by Dmitrii Kovanikov
+  > I would like to introduce the second release of Iris --- a Haskell CLI framework that supports CLI Guidelines.
 
 - [landlock version 0.2.1.0](https://discourse.haskell.org/t/ann-landlock-0-2-1-0/5882?u=taylorfausak) by Nicolas Trangez
   > I'm happy to announce the latest version of landlock, a Haskell library to access the Linux Landlock LSM API.
