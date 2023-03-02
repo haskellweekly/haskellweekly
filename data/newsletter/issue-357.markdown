@@ -34,6 +34,12 @@ This is a weekly summary of what's going on in its community.
 - [Writing Servant combinators for fun and profit](https://williamyaoh.com/posts/2023-02-28-writing-servant-combinators.html) by William Yaoh
   > Writing your own combinators is extremely useful and convenient, but up to now there hasn’t been a lot of information about how to go about doing so.
 
+- [Why are FP devs obsessed with Referential Transparency?](https://youtu.be/UsaduCPLiKc) by Impure Pics
+  > We clarify referential transparency, why it is so cool, what it has to do with side-effects, and what common misconceptions are. (Available as video and text.)
+
+- [There is No “Tooling Issue” in Haskell](https://youtu.be/c7FncTzvpUQ) by Impure Pics
+  > There is a stereotype that there exists a “Tooling issue” in Haskell. I want to cover the current state of things and show some tooling that other language ecosystems can only dream about. (Available as video and text.)
+
 ## Jobs
 
 - [Software Developer at Digitally Induced](https://join.com/companies/digitallyinduced/7262069-software-developer-ihp-haskell)
