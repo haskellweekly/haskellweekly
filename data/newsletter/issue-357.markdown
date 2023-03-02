@@ -24,4 +24,4 @@ undefined
 
 ## Call for participation
 
-undefined
+- [iris: Add 'Emoji' type](https://github.com/chshersh/iris/issues/109)
