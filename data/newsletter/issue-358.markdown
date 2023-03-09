@@ -47,6 +47,9 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 - [GHC WebAssembly Weekly Update, 2023-03-08](https://discourse.haskell.org/t/ghc-webassembly-weekly-update-2023-03-08/5946?u=taylorfausak) by Cheng Shao
   > Hi all, the GHC WebAssembly weekly update is back!
 
+- [Keelung Alpha Release](https://www.btq.com/en/blog/keelung-alpha-release) by BTQ
+  > After a year of intensive research and development focused on post-quantum zero-knowledge cryptography, we have created Keelung to empower developers to create secure and reliable post-quantum zero-knowledge proofs without requiring specialized cryptography skills.
+
 ## Show & tell
 
 - [dunai version 0.10.1 and bearriver version 0.14.1](https://np.reddit.com/r/haskell/comments/11kpf87/ann_dunai0101_and_bearriver0141/) by Ivan Perez
