@@ -56,4 +56,5 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 
 ## Call for participation
 
-undefined
+- [swarm: isPresent command](https://github.com/swarm-game/swarm/issues/1140)
+- [xmonad-contrib: Create a new CenterMainFluid layout](https://github.com/xmonad/xmonad-contrib/issues/803)
