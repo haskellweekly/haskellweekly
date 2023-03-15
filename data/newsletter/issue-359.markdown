@@ -8,7 +8,7 @@ undefined
 
 ## Jobs
 
-undefined
+- [Haskell Developer at Bellroy](https://bellroy.com/careers/developer-haskell)
 
 Trying to hire a Haskell developer?
 You should [advertise with us](https://haskellweekly.news/advertising.html)!
