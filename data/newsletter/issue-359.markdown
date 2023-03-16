@@ -23,4 +23,4 @@ undefined
 
 ## Call for participation
 
-undefined
+- [streamly: Expose wordsBy from Data.Stream module](https://github.com/composewell/streamly/issues/2347)
