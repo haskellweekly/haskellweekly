@@ -4,7 +4,8 @@ This is a weekly summary of what's going on in its community.
 
 ## Featured
 
-undefined
+- [State Monad: a bit of currying goes a long way](https://hacklewayne.com/state-monad-a-bit-of-currying-goes-a-long-way) by Hackle Wayne
+  > Even after getting Maybe, List and Either, the State Monad can still look like dark magic. This is an intro for the initiated.
 
 ## Jobs
 
