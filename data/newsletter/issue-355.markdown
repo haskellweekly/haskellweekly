@@ -52,7 +52,7 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 - [Creating a Local Docker Image](https://mmhaskell.com/blog/2023/2/13/creating-a-local-docker-image) by Monday Morning Haskell
   > Running a web server locally is easy. Deploying it so other people can use your web application can be challenging.
 
-- [Episode 21: Andrey Mokhov](https://haskell.foundation/podcast/21/) by Haskell Interlude
+- [Episode 21: Andrey Mokhov](https://haskell.foundation/podcast/21/) by The Haskell Interlude
   > In this episode Matthías Páll and Andres Löh talk with Andrey Mokhov. Andrey is best known for his work on the Hadrian build system and today he talks about algebraic graphs, selective functors, and the difference between OCaml and Haskell.
 
 - [GHC WebAssembly Weekly Update, 2023-02-15](https://discourse.haskell.org/t/ghc-webassembly-weekly-update-2023-02-15/5813?u=taylorfausak) by Cheng Shao

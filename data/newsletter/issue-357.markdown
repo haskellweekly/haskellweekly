@@ -60,7 +60,7 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 - [Competitive programming in Haskell: Infinite 2D array, Level 4](https://byorgey.wordpress.com/2023/02/24/competitive-programming-in-haskell-infinite-2d-array-level-4/) by Brent Yorgey
   > Last time we discussed how to efficiently calculate Fibonacci numbers and binomial coefficients modulo a prime. Today, we'll finally see some actual Haskell code for solving this problem.
 
-- [Episode 22: Alejandro Russo](https://haskell.foundation/podcast/22/) by Haskell Interlude
+- [Episode 22: Alejandro Russo](https://haskell.foundation/podcast/22/) by The Haskell Interlude
   > Alejandro is a professor at Chalmers University in Gothenburg Sweden, he is an enthusiastic functional programmer as well as a researcher in the fields of security and privacy.
 
 - [Haskell Foundation DevOps Weekly Log, 2023-03-01](https://discourse.haskell.org/t/haskell-foundation-devops-weekly-log-2023-03-01/5895?u=taylorfausak) by Bryan Richter
