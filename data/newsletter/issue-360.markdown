@@ -69,4 +69,4 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 
 ## Call for participation
 
-undefined
+- [wasp: Clean up the output of `wasp start`](https://github.com/wasp-lang/wasp/issues/1081)
