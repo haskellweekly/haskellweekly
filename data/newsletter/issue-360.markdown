@@ -56,7 +56,7 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 
 ## Show & tell
 
-- [Crazy Shell](https://crazyshell.horizon-haskell.net) by Las Safin
+- [Crazy Shell](https://crazyshell.horizon-haskell.net) by Daniel Firth
   > Crazy Shell is a nix function that makes a Haskell shell.
 
 - [`crem`](https://discourse.haskell.org/t/announcing-crem/6012?u=taylorfausak) by Marco Perone
