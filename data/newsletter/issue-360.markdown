@@ -22,6 +22,9 @@ This is a weekly summary of what's going on in its community.
 - [Multiple Component support for cabal repl](https://well-typed.com/blog/2023/03/cabal-multi-unit/) by Matthew Pickering
   > Following on from our work implementing support for compiling multiple units at once in GHC, we have now been extending the ecosystem to take advantage of this new support.
 
+- [Debunking Haskell Myths and Stereotypes](https://dev.to/zelenya/debunking-haskell-myths-and-stereotypes-1e04) by Impure Pics
+  > Haskell is covered with myths and stereotypes, such as “You need a Ph.D. to do Haskell” or “Haskell is only good for writing compilers”. These are silly and not true. Let’s debunk the most common ones.
+
 ## Jobs
 
 - [Haskell Intern at LMR Partners](https://discourse.haskell.org/t/haskell-internship-with-lmr-partners/6025?u=taylorfausak)
