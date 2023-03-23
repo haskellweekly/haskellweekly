@@ -62,7 +62,7 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 - [`crem`](https://discourse.haskell.org/t/announcing-crem/6012?u=taylorfausak) by Marco Perone
   > `crem` stands for compositional representable executable machines. It allows defining state machines (Mealy machines in fact), composing them to build bigger machines out of smaller ones and then running them and drawing their flow and their state space.
 
-- [`neotest-haskell` version 0.6.0](https://np.reddit.com/r/haskell/comments/11vkdsc/neotesthaskell_version_060_released_now_with/) by Marc Jakobias Safin
+- [`neotest-haskell` version 0.6.0](https://np.reddit.com/r/haskell/comments/11vkdsc/neotesthaskell_version_060_released_now_with/) by Marc Jakobias
 
 - [Scarf Gateway](https://github.com/scarf-sh/gateway/tree/2bea9f56f3893f42ea3ba1ef861deef1784a4758)
   > Scarf Gateway is a universal redirect layer for any digital artifact or URL, anywhere online. Scarf Gateway acts much like a customizable link shortener that also lets you serve software like Docker containers, Python packages, or anything other kind of software you distribute.
