@@ -23,4 +23,5 @@ undefined
 
 ## Call for participation
 
-undefined
+- [klister: Randomize the task queue at every iteration](https://github.com/gelisam/klister/issues/214)
+- [troupe: Unregister `after` timeouts](https://github.com/NicolasT/troupe/issues/41)
