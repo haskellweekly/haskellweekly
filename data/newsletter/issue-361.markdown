@@ -66,7 +66,7 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 
 ## Show & tell
 
-- [haskell-ai-shell](https://gitlab.horizon-haskell.net/shells/haskell-ai-shell) by Daniel Firth
+- [haskell-ai-shell](https://gitlab.horizon-haskell.net/shells/haskell-ai-shell) by Daniel Firth and Max Tomago
   > GPT enabled shell using the horizon-ai package set.
 
 ## Call for participation
