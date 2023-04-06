@@ -23,4 +23,4 @@ undefined
 
 ## Call for participation
 
-undefined
+- [wasp: Introduce support for rate limiting](https://github.com/wasp-lang/wasp/issues/1098)
