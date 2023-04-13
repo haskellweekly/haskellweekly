@@ -10,8 +10,14 @@ This is a weekly summary of what's going on in its community.
 - [Competitive programming in Haskell: topsort via laziness](https://byorgey.wordpress.com/2023/04/11/competitive-programming-in-haskell-topsort-via-laziness/) by Brent Yorgey
   > In this problem, we have a directed acyclic graph where each vertex represents a person, and there is an edge `p -> q` when person `p` sends their finished envelopes to person `q`.
 
+- [DNN to SQL translation](https://yaitskov.github.io/posts/2023-04-12-dnn-to-sql.html) by Daneel Yaitskov
+  > The idea to use DNN in SQL came out as a solution for the problem of classification text fields with high cardinality, such as mail address, into a few categories for building histograms, during exploratory data analysis in napkin tool.
+
 - [Haskell: The Free Boolean Cube](https://apotheca.io/articles/Free-Boolean-Cube.html) by Leo
   > There's a concept that I've been working with lately that I've taken to calling 'the free boolean cube'. If you're familiar with the lambda cube, you'll find this to be similar, albeit about different things.
+
+- [Haskell, the little things (1 of N) - where clauses](https://rvarago.github.io/2023/03/29/haskell-little-things-one-of-n.html) by Rafael Varago
+  > Today, we'll talk about `where` clauses and their support for writing functions scoped within functions.
 
 - [How to Make ChatGPT Go Around in Circles (with GHC and Haskell)](https://mmhaskell.com/blog/2023/4/10/how-to-make-chatgpt-go-around-in-circles-ghc) by Monday Morning Haskell
   > Can I use GHC to compile a Haskell module without its dependent source files?
@@ -45,6 +51,10 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 - [Haskell Foundation March 2023 Update](https://discourse.haskell.org/t/haskell-foundation-march-2023-update/6141?u=taylorfausak) by David Christiansen
 
 ## Show & tell
+
+- [agda2hs version 1.0](https://hackage.haskell.org/package/agda2hs-1.0) by Jesper Cockx
+
+  With [documentation](https://agda.github.io/agda2hs/) and a [paper](https://dl.acm.org/doi/10.1145/3546189.3549920).
 
 - [canadian-income-tax](https://discourse.haskell.org/t/a-command-line-application-written-in-haskell-for-canadian-taxes/6123?u=taylorfausak) by Mario Blažević
   > This package provides a library and executable to fill out incomplete Canadian tax forms in FDF format and to populate all fields therein that can be automatically calculated from the rest of the form.
