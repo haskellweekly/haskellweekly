@@ -78,4 +78,4 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 
 ## Call for participation
 
-undefined
+- [swarm: It's possible to get stuck in pilot mode](https://github.com/swarm-game/swarm/issues/1210)
