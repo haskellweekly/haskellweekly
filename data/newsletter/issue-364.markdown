@@ -23,4 +23,4 @@ undefined
 
 ## Call for participation
 
-undefined
+- [Cabal: `./Setup repl` is not documented (#8906)](https://github.com/haskell/cabal/issues/8906)
