@@ -61,3 +61,4 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 ## Call for participation
 
 - [Cabal: `./Setup repl` is not documented (#8906)](https://github.com/haskell/cabal/issues/8906)
+- [poseidon-hs: Shorten excessively long genotype data parsing warnings just as we do with errors](https://github.com/poseidon-framework/poseidon-hs/issues/244)
