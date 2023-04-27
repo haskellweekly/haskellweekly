@@ -45,4 +45,5 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 
 ## Call for participation
 
-undefined
+- [haskell-beginners-2022/exercises: Fix HLint warnings in test/Test/Lecture.hs](https://github.com/haskell-beginners-2022/exercises/issues/104)
+- [hoff: Do not mark a PR as unmergable when CI fails](https://github.com/channable/hoff/issues/214)
