@@ -1,7 +1,7 @@
 cabal-version: 2.0
 
 name: haskellweekly
-version: 0.2023.4.20
+version: 0.2023.4.27
 synopsis: Publishes curated news about Haskell.
 description:
   Haskell Weekly publishes curated news about the Haskell programming language.
