@@ -54,4 +54,4 @@ undefined
 
 ## Call for participation
 
-undefined
+- [openai-hs: Rate limiting support](https://github.com/agrafix/openai-hs/issues/7)
