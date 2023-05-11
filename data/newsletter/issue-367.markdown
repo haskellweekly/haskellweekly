@@ -30,4 +30,5 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 
 ## Call for participation
 
-undefined
+- [Drasil: Extract concepts from raw strings](https://github.com/JacquesCarette/Drasil/issues/3402)
+- [hslua: Update to latest Lua version](https://github.com/hslua/hslua/issues/138)
