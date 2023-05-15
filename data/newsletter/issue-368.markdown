@@ -19,6 +19,9 @@ undefined
 
 ## Show & tell
 
+- [unleash-client-haskell](https://github.com/finn-no/unleash-client-haskell) by Eirik Meland and Even Brenden
+  > Unleash is an open-source feature flag management service. This is a client SDK for use with Haskell applications.
+
 undefined
 
 ## Call for participation
