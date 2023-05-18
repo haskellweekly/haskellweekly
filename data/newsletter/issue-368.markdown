@@ -26,4 +26,7 @@ undefined
 
 ## Call for participation
 
-undefined
+- [hoff: Log git's output somewhere when git commands fail](https://github.com/channable/hoff/issues/220)
+- [pandoc: enable auto_identifiers for man reader](https://github.com/jgm/pandoc/issues/8852)
+- [rhine: Use hlint-scan?](https://github.com/turion/rhine/issues/224)
+- [xmonad-contrib: `X.L.ByWidth` handle `LayoutMessages`](https://github.com/xmonad/xmonad-contrib/issues/815)
