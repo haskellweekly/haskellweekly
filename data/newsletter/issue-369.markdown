@@ -42,6 +42,9 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 - [IOG GHC Update #10](https://engineering.iog.io/2023-05-18-ghc-update/) by IOG
   > Biweekly update from the GHC DevX team at IOG.
 
+- [MuniHac 2023](https://munihac.de/2023.html)
+  > MuniHac is an annual three-day hackathon and conference in Munich that brings together Haskell developers and enthusiasts from across the globe.
+
 - [The State of PureScript Survey 2023 - The Results Are In!](https://discourse.purescript.org/t/the-state-of-purescript-survey-2023-the-results-are-in/3523) by Mike Solomon
   > The results are in! PureScript's second annual survey revealed some key trends about the language and the broader context of functional programming.
 
