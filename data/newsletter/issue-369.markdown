@@ -55,4 +55,5 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 
 ## Call for participation
 
-undefined
+- [postgrest: die on "fe_sendauth: no password supplied"](https://github.com/PostgREST/postgrest/issues/2801)
+- [unison: expose current codebase schema version](https://github.com/unisonweb/unison/issues/4022)
