@@ -4,7 +4,8 @@ This is a weekly summary of what's going on in its community.
 
 ## Featured
 
-undefined
+- [Build your own grep in Haskell](https://app.codecrafters.io/courses/grep/overview?track=haskell&r=1Wi) by CodeCrafters
+  >  Build your own implementation of grep from scratch. Along the way, learn about Regex syntax and how Regexes are evaluated. 
 
 ## Jobs
 
