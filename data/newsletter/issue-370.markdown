@@ -23,4 +23,4 @@ undefined
 
 ## Call for participation
 
-undefined
+- [swarm: Syntax/type errors should be ephemeral](https://github.com/swarm-game/swarm/issues/1291)
