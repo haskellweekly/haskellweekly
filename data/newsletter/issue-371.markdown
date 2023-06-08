@@ -23,4 +23,4 @@ undefined
 
 ## Call for participation
 
-undefined
+- [ihp: add `JoinedTable` variants of `filterWherePast` and `filterWhereFuture`](https://github.com/digitallyinduced/ihp/issues/1702)
