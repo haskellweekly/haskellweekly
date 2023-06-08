@@ -7,6 +7,9 @@ This is a weekly summary of what's going on in its community.
 - [Build your own grep in Haskell](https://app.codecrafters.io/courses/grep/overview?track=haskell&r=1Wi) by CodeCrafters
   >  Build your own implementation of grep from scratch. Along the way, learn about Regex syntax and how Regexes are evaluated.
 
+- [Announcing halide-haskell - a Haskell interface for the Halide image and array processing language](https://www.tweag.io/blog/2023-06-08-announcing-halide-haskell/) by Tom Westerhout & Alex Drake
+  > If you are struggling with getting your computation to run on a GPU, or have a piece of code that isn't easily expressed with massiv's or Accelerate's builtins, or fail at making LLVM autovectorize your loop, the halide-haskell library might be for you.
+
 - [Announcement: Mensam](https://felixspringer.xyz/homepage/blog/mensamAnnouncement) by Felix Springer
   > Sometimes there are events at the office, that many people want to attend. At some point we had more employees than desks in the office, so we needed a reservation system.
 
