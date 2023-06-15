@@ -62,4 +62,5 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 
 ## Call for participation
 
-undefined
+- [gigaparsec: Low hanging optimizations](https://github.com/noughtmare/gigaparsec/issues/7)
+- [hoauth2: Implement instance `HasRefreshTokenRequest 'ResourceOwnerPassword`](https://github.com/freizl/hoauth2/issues/190)
