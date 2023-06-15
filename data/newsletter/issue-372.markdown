@@ -14,6 +14,9 @@ This is a weekly summary of what's going on in its community.
 - [Anonymous sums from scratch](https://jship.github.io/posts/2023-06-11-anonymous-sums-from-scratch/) by Jason Shipman
   > Haskell has strong support for sum types, but has no built-in notion of anonymous sum types.
 
+- [Coverage-guided fuzzing of Haskell programs for cheap](https://www.tweag.io/blog/2023-06-15-ghc-libfuzzer/) by Cheng Shao
+  > I discovered a simple trick that allows us to compile Haskell code in a manner that these fuzzers can handle.
+
 - [Derived Instances Can Break Smart Constructors, Too](https://jezenthomas.com/2023/06/derived-instances-can-break-smart-constructors/) by Jezen Thomas
   > When you have a newtype which wraps some primitive text value, it can be tempting to ask the compiler to derive the `FromJSON` instance using the `GeneralizedNewtypeDeriving` language extension.
 
@@ -48,6 +51,9 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 
 - [The Haskell Unfolder Episode 5: composing left folds](https://discourse.haskell.org/t/the-haskell-unfolder-episode-5-composing-left-folds/6441?u=taylorfausak) by Andres Löh
   > In this episode, which is based on a former Well-Typed interview problem, we will discuss how to perform multiple simultaneous computations on a text file, gathering some statistics.
+
+- [IOG GHC Update #12](https://engineering.iog.io/2023-06-15-ghc-update/) by IOG
+  > Biweekly update from the GHC DevX team at IOG.
 
 - [Stability Working Group May 2023 Update](https://discourse.haskell.org/t/stability-working-group-may-2023-update/6398?u=taylorfausak) by Trevis Elser
   > The Stability Working Group has continued to meet and this is to provide a monthly view into the discussions, and projects.
