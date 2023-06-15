@@ -4,6 +4,10 @@ This is a weekly summary of what's going on in its community.
 
 ## Featured
 
+<!-- Runs on 2023-06-15, 2023-06-22, 2023-07-06 & 2023-07-13. -->
+- [Developer Nation Survey](https://www.developereconomics.net/?member_id=haskell&utm_medium=nl_1) (ad)
+  > Participate in the latest [Developer Nation survey](https://www.developereconomics.net/?member_id=haskell&utm_medium=nl_1), accessible to all developers and no-code software creators, to share what you desire the most. Is it improved documentation, a genuine DevOps culture, alternative tools, or novel technologies the top priorities for developers at present? [Take the survey!](https://www.developereconomics.net/?member_id=haskell&utm_medium=nl_1)
+
 - [r/Haskell is going dark](https://discourse.haskell.org/t/r-haskell-is-going-dark/6405?u=taylorfausak) by Taylor Fausak
   > As one of its moderators, I am making the Haskell sub-Reddit private to protest Reddit's planned changes to API pricing.
 
