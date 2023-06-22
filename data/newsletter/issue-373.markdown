@@ -54,4 +54,5 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 
 ## Call for participation
 
-undefined
+- [ms-graph-api: Handle XML response bodies](https://github.com/unfoldml/ms-graph-api/issues/1)
+- [swarm: Stop printing type error context when reaching "while defining..."](https://github.com/swarm-game/swarm/issues/1336)
