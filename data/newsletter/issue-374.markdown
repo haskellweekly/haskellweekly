@@ -58,6 +58,9 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 
 - [ZuriHac 2023 videos](https://www.youtube.com/playlist?list=PLOvRW_utVPVmzDGGOJ2amgVBK168Vemke)
 
+- [Learn Haskell by Building a blog generator](https://www.youtube.com/watch?v=ZL0qExCnO8g&list=PLxn_Aq3QlOQcXoHWdzxnnuGlGWNXJg43R&ab_channel=ImpurePics)
+  > In this video series, we implement a simple static blog generator in Haskell, converting documents written in a custom markup language to HTML.
+
 ## Show & tell
 
 - [base16 version 1.0](https://discourse.haskell.org/t/ann-base16-1-0/6636?u=taylorfausak) by Emily Pillmore
