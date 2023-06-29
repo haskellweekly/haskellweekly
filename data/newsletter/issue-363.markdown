@@ -13,7 +13,7 @@ This is a weekly summary of what's going on in its community.
 - [DNN to SQL translation](https://yaitskov.github.io/posts/2023-04-12-dnn-to-sql.html) by Daneel Yaitskov
   > The idea to use DNN in SQL came out as a solution for the problem of classification text fields with high cardinality, such as mail address, into a few categories for building histograms, during exploratory data analysis in napkin tool.
 
-- [Haskell: The Free Boolean Cube](https://apotheca.io/articles/Free-Boolean-Cube.html) by Leo
+- [Haskell: The Free Boolean Cube](https://apotheca.io/articles/Free-Boolean-Cube.html) by Leo Dillinger
   > There's a concept that I've been working with lately that I've taken to calling 'the free boolean cube'. If you're familiar with the lambda cube, you'll find this to be similar, albeit about different things.
 
 - [Haskell, the little things (1 of N) - where clauses](https://rvarago.github.io/2023/03/29/haskell-little-things-one-of-n.html) by Rafael Varago

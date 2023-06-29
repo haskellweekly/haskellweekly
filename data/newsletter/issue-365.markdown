@@ -10,7 +10,7 @@ This is a weekly summary of what's going on in its community.
 - [Drawing trees functionally: Reingold and Tilford, 1981](https://williamyaoh.com/posts/2023-04-22-drawing-trees-functionally.html) by William Yaoh
   > Functional programmers often work with trees; for explanatory or debugging purposes, it is useful to be able to visualize them. I explain one such algorithm for drawing m-ary trees, the Reingold-Tilford algorithm, which runs in *O(n)* time.
 
-- [Haskell: Birecursion Schemes](https://apotheca.io/articles/Birecursion-Schemes.html) by Leo
+- [Haskell: Birecursion Schemes](https://apotheca.io/articles/Birecursion-Schemes.html) by Leo Dillinger
   > As part of a larger project, I've been examining the concept of birecursion. Here, I will do my best to explain my motivating factors, and point out which bits of the resulting code I find to be interesting, and why.
 
 - [More thoughts on a bootstrappable GHC](https://www.joachim-breitner.de/blog/802-More_thoughts_on_a_bootstrappable_GHC) by Joachim Breitner
