@@ -27,4 +27,5 @@ undefined
 
 ## Call for participation
 
-undefined
+- [servant-checked-exceptions: NamedRoutes not implemented](https://github.com/cdepillabout/servant-checked-exceptions/issues/40)
+- [unison: be more helpful when calling branch with an existing name](https://github.com/unisonweb/unison/issues/4119)
