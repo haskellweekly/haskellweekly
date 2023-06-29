@@ -10,7 +10,7 @@ This is a weekly summary of what's going on in its community.
 - [GHC 9.2.8 is now available](https://discourse.haskell.org/t/ghc-9-2-8-is-now-available/6328?u=taylorfausak) by Zubin Duggal
   > The GHC developers are happy to announce the availability of GHC 9.2.8. This release is primarily a bugfix release addressing one issue found in 9.2.7.
 
-- [Haskell: Indexed Recursion Schemes](https://apotheca.io/articles/Indexed-Recursion-Schemes.html) by Leo
+- [Haskell: Indexed Recursion Schemes](https://apotheca.io/articles/Indexed-Recursion-Schemes.html) by Leo Dillinger
   > Today, we are going on a deep dive to show how recursion schemes may be extended by the addition of indexing.
 
 - [Haskell Optimization Handbook](https://haskell.foundation/hs-opt-handbook.github.io/) by Jeffrey M. Young
