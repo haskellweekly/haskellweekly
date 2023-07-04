@@ -14,4 +14,10 @@ template baseUrl =
     Html.p_ $ do
       "Thank you for your submissions! "
       "This survey is now closed. "
-      "The results will be posted soon."
+      "You can "
+      Html.a_
+        [ Html.href_
+            "https://taylor.fausak.me/2022/11/18/haskell-survey-results/"
+        ]
+        "view the results"
+      "."
