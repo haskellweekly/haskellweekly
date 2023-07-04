@@ -67,9 +67,7 @@ callToAction baseUrl =
             Html.src_ . Route.toText baseUrl $ Route.GoogleBadge
           ]
       Html.p_ [Html.class_ "mb0"] $ do
-        "You can also follow us "
-        Html.a_ [Html.href_ "https://twitter.com/haskellweekly"] "on Twitter"
-        " or with "
+        "You can also follow "
         Html.a_
           [Html.href_ . Route.toText baseUrl $ Route.PodcastFeed]
           "our feed"

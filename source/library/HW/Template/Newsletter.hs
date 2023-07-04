@@ -55,9 +55,7 @@ callToAction baseUrl =
     Html.p_ [Html.class_ "mt0"] $ do
       "Subscribe now! "
       "We'll never send you spam. "
-      "You can also follow us "
-      Html.a_ [Html.href_ "https://twitter.com/haskellweekly"] "on Twitter"
-      " or with "
+      "You can also follow "
       Html.a_
         [Html.href_ $ Route.toText baseUrl Route.NewsletterFeed]
         "our feed"
