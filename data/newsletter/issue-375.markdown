@@ -60,4 +60,4 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 
 ## Call for participation
 
-undefined
+- [bittide-hardware: Make `Bittide.Counter.domainDiffCounter` overflow resistant](https://github.com/bittide/bittide-hardware/issues/328)
