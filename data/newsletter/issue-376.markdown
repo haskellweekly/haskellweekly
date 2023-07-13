@@ -99,3 +99,5 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 
 - [A transition plan for the subreddit](https://discourse.haskell.org/t/a-transition-plan-for-the-subreddit/6885?u=taylorfausak) by David Christiansen
   > Taylor Fausak has entrusted the Haskell Foundation with the task of reopening the Haskell subreddit. This involves recruiting a new moderator team.
+
+- [unison: delete help should mention varargs](https://github.com/unisonweb/unison/issues/4194)
