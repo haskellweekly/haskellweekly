@@ -51,4 +51,5 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 
 ## Call for participation
 
-undefined
+- [swarm: No scenarios load when a single scenario fails to parse](https://github.com/swarm-game/swarm/issues/1380)
+- [wasp: Rename password to hashedPassword in our User entity](https://github.com/wasp-lang/wasp/issues/1330)
