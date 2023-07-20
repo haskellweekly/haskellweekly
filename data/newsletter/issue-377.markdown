@@ -20,6 +20,9 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 
 ## In brief
 
+- [Episode 147: Gabriella Gonzalez discusses the intersection of algebra and programming](https://elucidations.vercel.app/posts/episode-147/) by Elucidations Podcast
+  > In this episode, Matt talks to Gabriella Gonzalez about how basic concepts from the branch of math known as abstract algebra can help us simplify our computer programs and organize our thoughts.
+
 - [Episode 30: Bartosz Milewski](https://haskell.foundation/podcast/30/) by The Haskell Interlude
   > Bartosz shares his thoughts on the "fringe topics" in programming, from C++ templates to category theory in Haskell. How he considers monads to be like fingers sticking out of the water. And he'll talk a little bit about his upcoming book and his thoughts on linear types.
 
