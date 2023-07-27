@@ -33,4 +33,5 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 
 ## Call for participation
 
-undefined
+- [cabal: cabal init logs at loglevel "Log"?](https://github.com/haskell/cabal/issues/915)
+- [postgrest: SwaggerUI missing endpoint order and attributes order](https://github.com/PostgREST/postgrest/issues/2872)
