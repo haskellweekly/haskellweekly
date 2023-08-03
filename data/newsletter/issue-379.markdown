@@ -58,4 +58,4 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 
 ## Call for participation
 
-undefined
+- [Populate "Input" and "Input Constraints" fields of IMs automatically](https://github.com/JacquesCarette/Drasil/issues/3584)
