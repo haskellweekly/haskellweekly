@@ -4,7 +4,8 @@ This is a weekly summary of what's going on in its community.
 
 ## Featured
 
-undefined
+- [Speeding up tree-sitter-haskell 50x](https://owen.cafe/posts/tree-sitter-haskell-perf/) by Owen Shepherd
+  > This article is about profiling and picking the low-hanging fruit of tree-sitter-haskell (warning: C(++)).
 
 ## Jobs
 
