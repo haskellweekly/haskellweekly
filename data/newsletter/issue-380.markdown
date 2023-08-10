@@ -22,6 +22,9 @@ This is a weekly summary of what's going on in its community.
 - [Reducing Haskell parallel build times using semaphores](https://well-typed.com/blog/2023/08/reducing-haskell-parallel-build-times/) by Well-Typed
 > This blog post explains a new feature for GHC & Cabal, which allows multiple simultaneously running GHC processes to coordinate their use of compute resources.
 
+- [Speeding up tree-sitter-haskell 50x](https://owen.cafe/posts/tree-sitter-haskell-perf/) by Owen Shepherd
+> This article is about profiling and picking the low-hanging fruit of tree-sitter-haskell (warning: C(++)).
+
 ## Jobs
 
 undefined
