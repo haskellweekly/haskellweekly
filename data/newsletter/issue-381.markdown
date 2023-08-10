@@ -8,7 +8,8 @@ undefined
 
 ## Jobs
 
-undefined
+- [Systems Haskell Engineer at SimpleX Chat](https://www.linkedin.com/jobs/view/3670109632) (ad)
+  > SimpleX Chat is a fully open-source, private and secure messaging platform. It is the first, and it seems the only, messaging network that does not have any kind of user identity in its design (not even random numbers) - it uses anonymous pairwise identifiers instead.
 
 Trying to hire a Haskell developer?
 You should [advertise with us](https://haskellweekly.news/advertising.html)!
