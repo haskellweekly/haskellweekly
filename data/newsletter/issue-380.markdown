@@ -72,3 +72,6 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 
 - [Functional Art, Music, Modeling and Design (FARM 2023) Sep 8: Call for Participation](https://discourse.haskell.org/t/functional-art-music-modeling-and-design-farm-2023-sep-8-call-for-participation/7228)
 > The ACM SIGPLAN International Workshop on Functional Art, Music, Modelling and Design (FARM) gathers together people who are harnessing functional techniques in the pursuit of creativity and expression.
+
+- [emanote: pandoc 3.X support](https://github.com/srid/emanote/issues/455)
+- [purescript: Add a link to non-prerelease releases](https://github.com/purescript/purescript/issues/4499)
