@@ -58,3 +58,6 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 
 - [Survey for Visually Impaired Programmers (18+)](https://hde.design/research/dev-vis/) by smm_research
 > Are you a software developer/engineer who uses a screen reader? If so, then we could use your input on the development processes and tools you use while developing software.
+
+- [hapistrano: Compress binary file](https://github.com/stackbuilders/hapistrano/issues/223)
+- [swarm: Add CLI option to really quit the game on Quit](https://github.com/swarm-game/swarm/issues/1423)
