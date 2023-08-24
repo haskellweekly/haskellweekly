@@ -57,4 +57,4 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 
 ## Call for participation
 
-undefined
+- [hegg: Refer to join semilattice in Analysis documentation](https://github.com/alt-romes/hegg/issues/28)
