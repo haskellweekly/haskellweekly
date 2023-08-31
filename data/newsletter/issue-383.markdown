@@ -76,3 +76,7 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 
 - [persistent: Postgres migrations should not trigger if the unique key is too long](https://github.com/yesodweb/persistent/issues/1515)
 - [swarm: Parse, format and parse again swarm scripts in CI](https://github.com/swarm-game/swarm/issues/1469)
+
+## Meetups
+
+- The Austin Haskell Users Group will meet Thursday, Sept 7th from 6pm to 8pm. Location: Central Library (710 W Cesar Chavez St) in room 522.
