@@ -74,4 +74,5 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 
 ## Call for participation
 
-undefined
+- [persistent: Postgres migrations should not trigger if the unique key is too long](https://github.com/yesodweb/persistent/issues/1515)
+- [swarm: Parse, format and parse again swarm scripts in CI](https://github.com/swarm-game/swarm/issues/1469)
