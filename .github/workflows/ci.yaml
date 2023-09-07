@@ -8,13 +8,13 @@ jobs:
   ormolu:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: haskell-actions/run-ormolu@v14
 
   hlint:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - uses: haskell/actions/hlint-setup@v2
       with:
         version: 3.5
@@ -31,7 +31,7 @@ jobs:
     runs-on: ${{ matrix.platform }}-latest
     name: GHC ${{ matrix.ghc }} on ${{ matrix.platform }}
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - run: mkdir artifact
 
@@ -90,7 +90,7 @@ jobs:
     runs-on: ubuntu-latest
     name: Docker
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - uses: actions/download-artifact@v3
         with:
@@ -132,7 +132,7 @@ jobs:
     if: github.ref == 'refs/heads/haskellweekly'
     steps:
 
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - uses: aws-actions/configure-aws-credentials@v3
         with:
@@ -153,7 +153,7 @@ jobs:
     name: Deploy to Fly.io
     if: github.ref == 'refs/heads/haskellweekly'
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - uses: superfly/flyctl-actions/setup-flyctl@dfdfedc86b296f5e5384f755a18bf400409a15d0
 
