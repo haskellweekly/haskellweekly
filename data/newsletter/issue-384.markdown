@@ -58,3 +58,6 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 
 - [The White House (yes, that one) wants to hear your thoughts on open-source and memory-safe programming languages](https://discourse.haskell.org/t/the-white-house-yes-that-one-wants-to-hear-your-thoughts-on-open-source-and-memory-safe-programming-languages/7504) by Bryan Richter
   > I wonder if anyone here is an expert in memory-safe programming languages or open-source software and would be interested in helping the US govt decide where to throw its money to promote these topics?
+
+- [cassava-megaparsec: Add All Contributors to Readme](https://github.com/stackbuilders/cassava-megaparsec/issues/35)
+- [pandoc: HTML reader and HTML writer out of sync on tasks](https://github.com/jgm/pandoc/issues/9047)
