@@ -4,7 +4,8 @@ This is a weekly summary of what's going on in its community.
 
 ## Featured
 
-- [Celebrating the release of Amazonka 2.0](https://exploring-better-ways.bellroy.com/celebrating-the-release-of-amazonka-2-0.html) How [Bellroy](https://bellroy.com) thinks about open source
+- [Celebrating the release of Amazonka 2.0](https://exploring-better-ways.bellroy.com/celebrating-the-release-of-amazonka-2-0.html) by Mike Webb
+  > Today, we at Bellroy are pleased to discuss our role in the the 2.0 release of Amazonka — a vital Haskell package providing bindings for the AWS (Amazon Web Services) infrastructure.
 
 ## Jobs
 
