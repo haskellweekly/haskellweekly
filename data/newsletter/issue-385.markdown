@@ -7,6 +7,9 @@ This is a weekly summary of what's going on in its community.
 - [XML stream processing with Haskell](https://martin.hoppenheit.info/blog/2023/xml-stream-processing-with-haskell/) by Martin Hoppenheit
   > Memory-efficient processing of large XML documents requires the use of a streaming parser. This post gives an introduction to XML stream processing with the Haskell programming language, in particular to the streaming API of the xml-conduit package.
 
+- [Nixify your haskell project: Introduction](https://zero-to-flakes.com/blog/nixify-haskell-project-intro) by Shivaraj B H
+  > This is the start of a series of blog posts aimed at simplifying Haskell development & packaging workflow using Nix. In this post, we begin the series by nixifying a Haskell application that uses PostgreSQL database and package it for end-users to run with one command.
+
 ## Jobs
 
 undefined
