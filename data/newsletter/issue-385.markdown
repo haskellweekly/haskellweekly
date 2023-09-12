@@ -4,7 +4,8 @@ This is a weekly summary of what's going on in its community.
 
 ## Featured
 
-undefined
+- [XML stream processing with Haskell](https://martin.hoppenheit.info/blog/2023/xml-stream-processing-with-haskell/) by Martin Hoppenheit
+  > Memory-efficient processing of large XML documents requires the use of a streaming parser. This post gives an introduction to XML stream processing with the Haskell programming language, in particular to the streaming API of the xml-conduit package.
 
 ## Jobs
 
