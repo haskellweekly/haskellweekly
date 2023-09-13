@@ -104,7 +104,7 @@ jobs:
       - run: mv artifact/ubuntu/haskellweekly docker
 
       - id: meta
-        uses: docker/metadata-action@v4
+        uses: docker/metadata-action@v5
         with:
           images: ghcr.io/${{ github.repository }}
           flavor: latest=false
