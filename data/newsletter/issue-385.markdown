@@ -54,4 +54,5 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 
 ## Call for participation
 
-undefined
+- [Drasil: Doxygen warns about “bad” comments: `\Generated`](https://github.com/JacquesCarette/Drasil/issues/3660)
+- [postgrest: Support `handling=strict` for `Prefer` header](https://github.com/PostgREST/postgrest/issues/2943)
