@@ -19,7 +19,9 @@ undefined
 
 ## Show & tell
 
-undefined
+- [A lambda calculus primer](https://youtu.be/9MtE5ONrQyk) by LigerLearn
+  > A ~35min primer on the lambda calculus intended for those just starting to learn functional programming. The video covers: (i) what the lambda calculus is, (ii) the simple untyped lambda calculus, (iii) evaluation rules (delta, beta, alpha, and eta conversion/reduction), and (iv) normal form and reduction orders.
+  
 
 ## Call for participation
 
