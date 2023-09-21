@@ -56,3 +56,6 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 
 - [Call for volunteers: a CLC proposal to improve the printing of IO errors](https://discourse.haskell.org/t/call-for-volunteers-a-clc-proposal-to-improve-the-printing-of-io-errors/7587) by David Thrane Christiansen
   > On the HF Slack instance, a user dropped by with a request: can programs that fail due to missing files be better about reporting to users which file was missing?
+
+- [nmonad: Add tests for NMonad.DBus that spawn temp daemons in containers](https://github.com/d3adb5/nmonad/issues/3)
+- [xmonad-contrib: `XMonad.Prompt` switch to previous completion](https://github.com/xmonad/xmonad-contrib/issues/831)
