@@ -48,7 +48,9 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 
 - [A lambda calculus primer](https://youtu.be/9MtE5ONrQyk) by LigerLearn
   > A ~35min primer on the lambda calculus intended for those just starting to learn functional programming. The video covers: (i) what the lambda calculus is, (ii) the simple untyped lambda calculus, (iii) evaluation rules (delta, beta, alpha, and eta conversion/reduction), and (iv) normal form and reduction orders.
-  
+
+- [Haskell Foundation DevOps Weekly Log, 2023-09-20](https://discourse.haskell.org/t/devops-weekly-log-2023-09-20/7635) by Bryan Richter
+  > This log has five things to mention, which are a mix of GHC and Haskell Foundation tasks. It’s been a busy couple weeks.
 
 ## Call for participation
 
