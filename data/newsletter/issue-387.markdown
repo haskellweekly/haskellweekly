@@ -4,7 +4,8 @@ This is a weekly summary of what's going on in its community.
 
 ## Featured
 
-undefined
+- [Defeating Return Type Polymorphism](https://philipphagenlocher.de/post/defeating-return-type-polymorphism/) by Philipp Hagenlocher
+> This post is an exploration of a generic technique to effectively circumvent return type polymorphism in Haskell programs using GADTs and existential quantification.
 
 ## Jobs
 
