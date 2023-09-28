@@ -49,3 +49,5 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 ## Call for participation
 
 - [Would you like to write a security advisory analyzer?](https://discourse.haskell.org/t/would-you-like-to-write-a-security-advisory-analyzer/7638) by David Thrane Christiansen
+
+- [inflections-hs: Include speed and memory reports on release](https://github.com/stackbuilders/inflections-hs/issues/74)
