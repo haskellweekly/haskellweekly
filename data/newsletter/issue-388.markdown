@@ -18,10 +18,13 @@ This is a weekly summary of what's going on in its community.
   
 - [Haskell Language Server 2.3.0.0 is now available](https://discourse.haskell.org/t/haskell-language-server-2-3-0-0-is-now-available/7721) by Zubin Duggal
 
-- [Stack 2.13.1](https://discourse.haskell.org/t/ann-stack-2-13-1/7726) by Mike Pilgrem
-  
 - [Improving GHC's configuration logic and cross-compilation support with ghc-toolchain](https://well-typed.com/blog/2023/10/improving-ghc-configuration-and-cross-compilation-with-ghc-toolchain/) by Rodrigo Mesquita
   > Rodrigo worked on an internship with the GHC team at Well-Typed this summer. In this post he reports on his progress improving GHC’s configuration tooling as a step towards better cross-compiler support.
+
+- [Stack 2.13.1](https://discourse.haskell.org/t/ann-stack-2-13-1/7726) by Mike Pilgrem
+
+- [The Haskell Unfolder Episode 12: parametricity](https://well-typed.com/blog/2023/10/haskell-unfolder-episode-12-parametricity/) by Andres Löh, Edsko de Vries
+  > We will look at the concept of parametricity, also known as “theorems for free.”
   
 - [My views on NeoHaskell](https://www.haskellforall.com/2023/10/my-views-on-neohaskell.html) by Gabriella Gonzalez
   > Recently Nick Seagull has announced a NeoHaskell project which (I believe) has generated some controversy.
@@ -67,3 +70,6 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 
 - [Migrating GHC’s real-time communications to Matrix?](https://discourse.haskell.org/t/migrating-ghcs-real-time-communications-to-matrix/7761) by Ben Gamari
   > Given that Matrix appears to be both more active and more accessible to newcomers, I suggest that we recognize this shift in our documentation. If you agree or disagree with this proposal please leave a :thumbsup: or :thumbsdown: on [#24010](https://gitlab.haskell.org/ghc/ghc/-/issues/24010) and feel free to leave a comment explaining your feelings.
+  
+- [RFC: “Haskell Camp”](https://discourse.haskell.org/t/rfc-haskell-camp/7780) by Armando Ramirez
+  > This is an idea I’ve been kicking around for a while now. I’ve been trying to think of ways to connect experienced Haskellers with Haskellers-to-be in a lightweight, fun way.
