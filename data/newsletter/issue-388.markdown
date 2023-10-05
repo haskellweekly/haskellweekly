@@ -73,3 +73,6 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
   
 - [RFC: “Haskell Camp”](https://discourse.haskell.org/t/rfc-haskell-camp/7780) by Armando Ramirez
   > This is an idea I’ve been kicking around for a while now. I’ve been trying to think of ways to connect experienced Haskellers with Haskellers-to-be in a lightweight, fun way.
+
+- [librarian: Add `--root` parameter to specify working directory](https://github.com/blackheaven/librarian/issues/5)
+- [scotty: Generate CI matrix from cabal file with get-tested](https://github.com/scotty-web/scotty/issues/328)
