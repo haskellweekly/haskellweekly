@@ -22,6 +22,8 @@ This is a weekly summary of what's going on in its community.
 - [GHC 9.8.1 is now available](https://discourse.haskell.org/t/ghc-9-8-1-is-now-available/7832) by Ben Gamari
   > The GHC developers are very pleased to announce the availability of the final release of GHC 9.8.1.
   
+- [Haskell Language Server 2.4.0.0 is now available](https://discourse.haskell.org/t/haskell-language-server-2-4-0-0-is-now-available/7840) by Zubin Duggal
+  
 - [How to use PostgreSQL with Haskell. 8-9 library reviews](https://discourse.haskell.org/t/how-to-use-postgresql-with-haskell-8-9-library-reviews/7811) by Zelenya
   > For each library, we’ll talk about features, basics like writing queries, complexity, pitfalls, (everyone’s favorite topic) errors, and so on.
   
