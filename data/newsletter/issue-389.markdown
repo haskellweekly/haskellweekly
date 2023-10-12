@@ -61,3 +61,6 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 
 - [XMonad for Wayland — call for help](https://discourse.haskell.org/t/xmonad-for-wayland-call-for-help/7812) by geekosaur
   > We on the XMonad devteam (Tomáš, Tony, Yecine, and myself) have been collecting contributions for the past two years with an eye toward paying someone to work on a port of XMonad to Wayland, since none of us is up to the task. We think we now have enough contributions coming in monthly to pay for someone to work with us on it.
+
+- [haskell-language-server: HLS setting for build system preference](https://github.com/haskell/haskell-language-server/issues/3832)
+- [hoff: Add configuration options for the event queue sizes](https://github.com/channable/hoff/issues/236)
