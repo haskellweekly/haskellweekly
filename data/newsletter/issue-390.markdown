@@ -4,11 +4,10 @@ This is a weekly summary of what's going on in its community.
 
 ## Featured
 
-undefined
+- [`rhine-bayes`: A library for online reactive Bayesian inference](https://www.tweag.io/blog/2023-10-12-rhine-bayes/) by Manuel Bärenz
+  > In this blog post, we will learn how to include Bayesian machine learning in a reactive `rhine` application.
 
 ## Jobs
-
-undefined
 
 Trying to hire a Haskell developer?
 You should [advertise with us](https://haskellweekly.news/advertising.html)!
