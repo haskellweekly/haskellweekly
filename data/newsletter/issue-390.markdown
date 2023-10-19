@@ -31,7 +31,7 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 
 ## In brief
 
-- [aeson-unqualified-ast - Aliases to "aeson" AST making it importable unqualified](https://hackage.haskell.org/package/aeson-unqualified-ast) by by Nikita Volkov
+- [aeson-unqualified-ast - Aliases to "aeson" AST making it importable unqualified](https://hackage.haskell.org/package/aeson-unqualified-ast) by Nikita Volkov
   > Reasonable type aliases and patterns for the AST definitions of "aeson", which are unlikely to cause any conflicts when imported unqualified.
 
 - [cabal-add: extend build-depends from the command line](https://github.com/Bodigrim/cabal-add/) by Bodigrim
