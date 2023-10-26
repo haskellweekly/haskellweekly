@@ -10,7 +10,7 @@ This is a weekly summary of what's going on in its community.
 - [Reason Isomorphically!](https://www.cs.ox.ac.uk/people/daniel.james/iso/iso.pdf) by Ralf Hinze, Daniel W. H. James
   > When are two types the same? In this paper we argue that isomorphism is a more useful notion than equality. 
 
-- [Sovereign Tech Fund invests in Cabal as critical Haskell infrastructure](https://well-typed.com/blog/2023/10/sovereign-tech-fund-invests-in-cabal/) by by Well-Typed
+- [Sovereign Tech Fund invests in Cabal as critical Haskell infrastructure](https://well-typed.com/blog/2023/10/sovereign-tech-fund-invests-in-cabal/) by Well-Typed
   > We are delighted to announce that the Sovereign Tech Fund is investing in the development and maintenance of Cabal, the Haskell build system, following a proposal Well-Typed submitted to the “Improve FOSS Developer Tooling” challenge.
   
 - [SQLiteDAV - A WebDAV Server for SQLite Databases](https://discourse.haskell.org/t/sqlitedav-a-webdav-server-for-sqlite-databases/7908) by Adrian Sieber
