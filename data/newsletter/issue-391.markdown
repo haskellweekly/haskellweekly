@@ -6,6 +6,9 @@ This is a weekly summary of what's going on in its community.
 
 - [Diverk: a Reflex app to browse GitHub repos](https://discourse.haskell.org/t/diverk-a-reflex-app-to-browse-github-repo/7904) by jecaro
   > That’s a super simple app that allows you to browse and search in the default branch of a GitHub repo. It can render markdown files. I’m a big note taker and all the notes I take live in a private git repo in this format. That was an additional motivation for me to do this project.
+  
+- [More traversals and more Cabal SAT](https://oleg.fi/gists/posts/2023-10-17-more-traverals-and-more-cabal-sat.html) by Oleg Grenrus
+  > In the previous post I discussed using traversals for batch operations. I forgot to mention any libraries which actually do this. They are kind of hard to find, as often the `Traversable` usage comes up very naturally.
 
 - [Reason Isomorphically!](https://www.cs.ox.ac.uk/people/daniel.james/iso/iso.pdf) by Ralf Hinze, Daniel W. H. James
   > When are two types the same? In this paper we argue that isomorphism is a more useful notion than equality. 
@@ -28,6 +31,9 @@ Trying to hire a Haskell developer?
 You should [advertise with us](https://haskellweekly.news/advertising.html)!
 
 ## In brief
+
+- [Alternatives to jupyter notebooks for haskell](https://discourse.haskell.org/t/alternatives-to-jupyter-notebooks-for-haskell/7931) by Pluto
+  > Are there alternatives to jupyter notebooks for haskell?
 
 - [Best way/resource to learn Haskell with a week to spare](https://www.reddit.com/r/haskell/comments/17bneno/best_wayresource_to_learn_haskell_with_a_week_to/) by unlikelytom
   > So I'll be joining a company in 10 days that primarily uses Haskell. I want to be better prepared when I join.
