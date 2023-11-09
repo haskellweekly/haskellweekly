@@ -9,8 +9,11 @@ This is a weekly summary of what's going on in its community.
   
 - [​Cabal-install 3.10.2.0 released](https://discourse.haskell.org/t/cabal-install-3-10-2-0-released/8009) by Hécate Moonlight
 
+- [Quick and Simple Benchmarking](https://mmhaskell.com/blog/2023/11/6/quick-and-simple-benchmarking) by Monday Morning Haskell
+  > As a programmer, you have to constantly be asking, "How Good is my Code?". There are a lot of different ways code can be "good" or "bad", but one of the key indicators in many cases is the time performance of your code. How long does it take your code to run on particular inputs?
+
 - [Stubbing I/O in Yesod](https://jezenthomas.com/2023/11/stubbing-io-in-yesod/) by Jezen Thomas
-  > I’ve seen people struggle with figuring out how to stub IO actions in Yesod request handlers for writing automated tests. Here’s a simple example of one way to approach this.
+  > I’ve seen people struggle with figuring out how to stub IO actions in Yesod request handlers for writing automated tests. Here’s a simple example of one way to approach this.  
 
 - [​The Botan Cryptography Community Project has been funded!](https://discourse.haskell.org/t/the-botan-cryptography-community-project-has-been-funded/7989) by ApothecaLabs
   > It is with great joy today that I may announce that the Botan Cryptography Community Project Proposal has been accepted for funding by the Haskell Foundation!
