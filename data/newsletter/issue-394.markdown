@@ -4,7 +4,8 @@ This is a weekly summary of what's going on in its community.
 
 ## Featured
 
-undefined
+- [Announcing Updo](https://blockscope.com/posts/2023-11-15-updo.html) by Phil de Joux
+  > Make projects fast from packages, versions and commits.
 
 ## Jobs
 
