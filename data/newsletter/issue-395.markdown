@@ -6,6 +6,9 @@ This is a weekly summary of what's going on in its community.
 
 - [Attribution armored code](https://joeyh.name/blog/entry/attribution_armored_code/) by Joey Hess
   > Attribution of source code has been limited to comments, but a deeper embedding of attribution into code is possible. When an embedded attribution is removed or is incorrect, the code should no longer work.
+  
+- [GHC2024 – community input](https://discourse.haskell.org/t/ghc2024-community-input/8168) by Joachim Breitner
+  > I have started the process where the GHC Steering Committee decides if we should have a GHC2024 language edition, and what it should contain.
 
 - [How to introduce Haskell into your company](https://dev.to/zelenya/how-to-introduce-haskell-into-your-company-9ff) by Zelenya
   > A lot of people want to get a Haskell job. One way to get a Haskell job is to make your current job a Haskell job.
@@ -36,6 +39,9 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 
 - [DevOps Weekly Log, 2023-11-15](https://discourse.haskell.org/t/devops-weekly-log-2023-11-15/8115) by Bryan Richter
   > The last week has mostly been a continuation of the previous. Issues with Darwin runners and Stackage migrations.
+  
+- [DevOps Weekly Log, 2023-11-22](https://discourse.haskell.org/t/devops-weekly-log-2023-11-22/8165) by Bryan Richter
+  > Since last time, I finished fixing head.hackage to comply with a recent bugfix in Cabal.
 
 - [Uku - Ukulele fingering charts in the terminal](https://discourse.haskell.org/t/uku-ukulele-fingering-charts-in-the-terminal/8153) by Adrian Sieber
   > A few years ago I wrote a blog post on how to build a CLI tool to show fingering charts for Ukuleles. However, I never properly released the app itself. On the weekend I finally found the time to do so.
