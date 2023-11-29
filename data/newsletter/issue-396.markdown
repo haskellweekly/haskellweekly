@@ -4,7 +4,8 @@ This is a weekly summary of what's going on in its community.
 
 ## Featured
 
-undefined
+- [Introducing Updo](https://blockscope.com/posts/2023-11-29-updo-steps.html) by Phil de Joux
+  > How to introduce Updo to a project using Cabal as an example.
 
 ## Jobs
 
