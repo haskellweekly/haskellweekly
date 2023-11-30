@@ -55,4 +55,5 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
   
 ## Call for participation
 
-undefined
+- [hnix-store: Switch `-nar` testsuite to `hspec`](https://github.com/haskell-nix/hnix-store/issues/262)
+- [swarm: Built robots should inherit display properties from parent](https://github.com/swarm-game/swarm/issues/1663)
