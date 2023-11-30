@@ -7,6 +7,9 @@ This is a weekly summary of what's going on in its community.
 - [Creating a macOS app with Haskell and Swift](https://alt-romes.github.io/posts/2023-11-10-creating-a-macos-app-with-haskell-and-swift.html) by Rodrigo Mequita
   > First part of an in-depth guide into developing a native macOS application using Haskell with Swift and SwiftUI. This part covers the set-up required to call Haskell functions from Swift in an XCode project using SwiftUI.
   
+- [Introducing Updo](https://blockscope.com/posts/2023-11-29-updo-steps.html) by Phil de Joux
+  > How to introduce Updo to a project using Cabal as an example.
+  
 - [MicroHaskell (YouTube)](https://www.youtube.com/watch?v=Zk5SJ79nOnA) by Lennart Augustsson
   > MicroHs is an implementation of a subset Haskell that is using combinators; pretty much as described in David Turner's 1979 paper A New Implementation Technique for Applicative Languages. The implementation has very few dependencies, and the binaries can run on almost anything that has a C compiler. The talk will illustrate a few aspects of compiling to combinators.
   
