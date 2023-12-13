@@ -4,7 +4,8 @@ This is a weekly summary of what's going on in its community.
 
 ## Featured
 
-undefined
+- [What's next for developers in 2024 and beyond?](https://developereconomics.net/?member_id=haskell) (ad)
+  > Take part in the most complete survey Developer Nation has ever created, shape the key trends among developers for 2024 and win amazing prizes such as laptops, courses, gifts cards and many more! [Start now!](https://developereconomics.net/?member_id=haskell)
 
 ## Jobs
 
