@@ -9,6 +9,10 @@ This is a weekly summary of what's going on in its community.
 
 ## Jobs
 
+<!-- Runs from 2023-12-28 to 2024-01-18. -->
+- [Haskell Engineer at Heilmann Software](https://www.heilmannsoftware.com/de/jobs/haskell-softwareentwickler/) (ad)
+  > We are expanding our Haskell team to include two developers starting in April 2024.
+
 Trying to hire a Haskell developer?
 You should [advertise with us](https://haskellweekly.news/advertising.html)!
 
