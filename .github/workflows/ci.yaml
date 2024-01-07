@@ -40,7 +40,7 @@ jobs:
       - run: cabal sdist --output-dir artifact
 
       - id: artifact
-        run: echo '::set-output name=directory::artifact/${{ matrix.platform }}'
+        run: echo "directory=artifact/${{ matrix.platform }}" >> $GITHUB_OUTPUT
 
       - run: mkdir ${{ steps.artifact.outputs.directory }}
 
