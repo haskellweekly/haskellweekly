@@ -1,6 +1,12 @@
-version: 2
-updates:
-  - package-ecosystem: github-actions
-    directory: /
-    schedule:
-      interval: daily
+{
+  "updates": [
+    {
+      "directory": "/",
+      "package-ecosystem": "github-actions",
+      "schedule": {
+        "interval": "daily"
+      }
+    }
+  ],
+  "version": 2
+}
