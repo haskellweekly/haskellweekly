@@ -5,8 +5,8 @@ This is a weekly summary of what's going on in its community.
 
 ## Featured
 
-- [Win new gear by taking this global developer survey](https://developereconomics.net/?member_id=haskell) (ad)
-  > Do you use any new tools, platforms & technologies? The Developer Nation Global Survey is out! Shape the key trends among developers for 2024, donate and enter amazing prize draws! Hurry up! [Start now!](https://developereconomics.net/?member_id=haskell)
+- [Help the world understand developers!](https://developereconomics.net/?member_id=haskell) (ad)
+  > Calling all coders, creators, and tech enthusiasts! Contribute to the Developer Nation Survey and steer the course of the tech ecosystem. Your insights can win you fantastic tech gear and rewards! [Start now!](https://developereconomics.net/?member_id=haskell)
   
 ## Jobs
 
