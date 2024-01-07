@@ -48,7 +48,7 @@ jobs:
       - run: sudo chown -R $USER /usr/local/.ghcup
 
       - id: setup-haskell
-        uses: haskell/actions/setup@v2
+        uses: haskell-actions/setup@v2
         with:
           ghc-version: ${{ matrix.ghc }}
 
