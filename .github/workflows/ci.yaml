@@ -15,10 +15,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
-    - uses: haskell/actions/hlint-setup@v2
+    - uses: haskell-actions/hlint-setup@v2
       with:
         version: 3.5
-    - uses: haskell/actions/hlint-run@v2
+    - uses: haskell-actions/hlint-run@v2
       with:
         fail-on: status
 
@@ -40,7 +40,7 @@ jobs:
       - run: cabal sdist --output-dir artifact
 
       - id: artifact
-        run: echo '::set-output name=directory::artifact/${{ matrix.platform }}'
+        run: echo "directory=artifact/${{ matrix.platform }}" >> $GITHUB_OUTPUT
 
       - run: mkdir ${{ steps.artifact.outputs.directory }}
 
@@ -48,7 +48,7 @@ jobs:
       - run: sudo chown -R $USER /usr/local/.ghcup
 
       - id: setup-haskell
-        uses: haskell/actions/setup@v2
+        uses: haskell-actions/setup@v2
         with:
           ghc-version: ${{ matrix.ghc }}
 
