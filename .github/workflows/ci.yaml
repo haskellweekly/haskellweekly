@@ -62,7 +62,7 @@ jobs:
 
       - run: cabal outdated --v2-freeze-file cabal.project.freeze
 
-      - uses: actions/cache@v3
+      - uses: actions/cache@v4
         with:
           path: ${{ steps.setup-haskell.outputs.cabal-store }}
           key: ${{ matrix.platform }}/${{ hashFiles('cabal.project.freeze') }}
