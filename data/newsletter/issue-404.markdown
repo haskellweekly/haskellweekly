@@ -4,7 +4,7 @@ This is a weekly summary of what's going on in its community.
 
 ## Featured
 
-- [A look under ghc's hood: desugaring linear types](https://www.tweag.io/blog/2024-01-18-linear-desugaring/) by Arnaud Spiwack
+- [A look under GHC's hood: desugaring linear types](https://www.tweag.io/blog/2024-01-18-linear-desugaring/) by Arnaud Spiwack
   > I thought I’d take the opportunity to discuss some of GHC’s inner workings and how they explain some of the features of linear types in Haskell. We’ll be discussing a frequently asked question: why can’t `Ur` be a newtype? And some new questions such as: why must linear let-bindings have a `!`?
   
 - [GHC Steering Committee Retrospective](https://www.joachim-breitner.de/blog/811-GHC_Steering_Committee_Retrospective) by Joachim Breitner
