@@ -25,6 +25,9 @@ This is a weekly summary of what's going on in its community.
 - [Seeking feedback on language editions proposal](https://discourse.haskell.org/t/seeking-feedback-on-language-editions-proposal/8780) by Richard Eisenberg
   > I’ve been spending a bunch of time recently thinking how to streamline GHC’s interface – mostly by trying to tame the unwieldy pile of extensions and warning flags that GHC supports. I’ve thus come up with a proposal about language editions.
 
+- [A QuickCheck Tutorial: Generators](https://www.stackbuilders.com/blog/a-quickcheck-tutorial-generators/) by Juan Pedro Villa
+  > From reversing lists to rolling dice and crafting generators for your data types, this tutorial will enhance your programming skills and help you get started with property-based testing in Haskell.
+
 ## Jobs
 
 <!-- Runs on 2024-02-08 & 2024-02-15. -->
