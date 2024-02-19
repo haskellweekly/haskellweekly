@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: haskell-actions/run-ormolu@v14
+      - uses: haskell-actions/run-ormolu@v15
 
   hlint:
     runs-on: ubuntu-latest
