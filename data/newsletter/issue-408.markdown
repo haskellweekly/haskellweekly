@@ -17,7 +17,7 @@ This is a weekly summary of what's going on in its community.
   > This article is part of a short series of articles that compares ad-hoc scripting in Haskell with solving the same problem in Python. The introductory article describes the problem to be solved, so here I'll jump straight into the Haskell code.
 
 - [Reactimate - A new AFRP library](https://discourse.haskell.org/t/reactimate-a-new-afrp-library/8852) by Simon
-  > I have been working on a new AFRP (Arrowized Functional Reactive Programming) library for about a month which I wanted to share. It is called reactimate 22 and is heavily inspired by the great `Yampa` library.
+  > I have been working on a new AFRP (Arrowized Functional Reactive Programming) library for about a month which I wanted to share. It is called reactimate and is heavily inspired by the great `Yampa` library.
   
 - [Status report of dnsext](https://kazu-yamamoto.hatenablog.jp/entry/2024/02/21/093743) by Kazu Yamamoto
   > This article reports the current status of the dnsext packages in Haskell.
