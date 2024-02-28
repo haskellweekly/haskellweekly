@@ -6,6 +6,7 @@ where
 import qualified Control.Exception as Exception
 import qualified Control.Monad as Monad
 import qualified Data.ByteString as ByteString
+import qualified Data.IORef as IORef
 import qualified Data.Text as Text
 import qualified Data.Text.Encoding as Text
 import qualified HaskellWeekly
@@ -25,18 +26,24 @@ main = do
   dataDirectory <- HaskellWeekly.getDataDir
   do
     putStrLn "Parsing issues ..."
-    let directory = FilePath.combine dataDirectory "newsletter"
-    entries <- Directory.listDirectory directory
-    Monad.forM_ entries $ \entry -> do
-      let file = FilePath.combine directory entry
-      contents <- ByteString.readFile file
-      Monad.void
-        . Exception.evaluate
-        . Text.length
-        . HaskellWeekly.toHtml
-        . HaskellWeekly.fromText
-        $ Text.decodeUtf8 contents
-    putStrLn $ "Parsed " <> pluralize "issue" (length entries) <> "."
+    counter <- IORef.newIORef (0 :: Int)
+    let newsletterDirectory = FilePath.combine dataDirectory "newsletter"
+    years <- Directory.listDirectory newsletterDirectory
+    Monad.forM_ years $ \year -> do
+      let yearDirectory = FilePath.combine newsletterDirectory year
+      entries <- Directory.listDirectory yearDirectory
+      Monad.forM_ entries $ \entry -> do
+        let file = FilePath.combine yearDirectory entry
+        contents <- ByteString.readFile file
+        Monad.void
+          . Exception.evaluate
+          . Text.length
+          . HaskellWeekly.toHtml
+          . HaskellWeekly.fromText
+          $ Text.decodeUtf8 contents
+        IORef.modifyIORef' counter succ
+    count <- IORef.readIORef counter
+    putStrLn $ "Parsed " <> pluralize "issue" count <> "."
   do
     putStrLn "Parsing episodes ..."
     let directory = FilePath.combine dataDirectory "podcast"

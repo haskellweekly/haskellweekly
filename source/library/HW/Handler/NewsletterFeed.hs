@@ -24,7 +24,7 @@ handler = do
   issues <-
     mapM
       ( \issue -> do
-          node <- Issue.readIssueFile $ Issue.issueNumber issue
+          node <- Issue.readIssueFile issue
           pure (issue, node)
       )
       . take 13

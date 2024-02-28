@@ -7,6 +7,7 @@ module HW.Type.Date
     toLongText,
     toRfc2822,
     toShortText,
+    toYear,
     fromGregorian,
   )
 where
@@ -38,6 +39,9 @@ toRfc2822 = formatDate "%a, %d %b %Y 12:00:00 GMT"
 -- recommending @YYYY-mm-dd@, like @2001-02-03@ for February 3rd, 2001.
 toShortText :: Date -> Text.Text
 toShortText = formatDate "%Y-%m-%d"
+
+toYear :: Date -> String
+toYear = Text.unpack . formatDate "%Y"
 
 -- | Renders a date using the given format.
 formatDate :: Text.Text -> Date -> Text.Text
