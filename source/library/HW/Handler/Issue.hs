@@ -9,9 +9,11 @@ import qualified Data.Text as Text
 import qualified Data.Text.Encoding as Text
 import qualified HW.Handler.Common as Common
 import qualified HW.Markdown as Markdown
-import qualified HW.Template.Issue as Issue
+import qualified HW.Template.Issue as IssueTemplate
 import qualified HW.Type.App as App
 import qualified HW.Type.Config as Config
+import qualified HW.Type.Date as Date
+import qualified HW.Type.Issue as Issue
 import qualified HW.Type.Number as Number
 import qualified HW.Type.State as State
 import qualified Network.HTTP.Types as Http
@@ -25,17 +27,19 @@ handler number = do
   case Map.lookup number issues of
     Nothing -> pure Common.notFound
     Just issue -> do
-      node <- readIssueFile number
+      node <- readIssueFile issue
       let baseUrl = Config.baseUrl $ State.config state
       pure
         . Common.html Http.ok200 [(Http.hCacheControl, "public, max-age=900")]
-        $ Issue.template baseUrl issue node
+        $ IssueTemplate.template baseUrl issue node
 
-readIssueFile :: Number.Number -> App.App Markdown.Markdown
-readIssueFile number = do
-  let name = "issue-" <> Number.toText number
+readIssueFile :: Issue.Issue -> App.App Markdown.Markdown
+readIssueFile issue = do
+  let year = Date.toYear $ Issue.issueDate issue
+      number = Issue.issueNumber issue
+      name = "issue-" <> Number.toText number
       file = FilePath.addExtension (Text.unpack name) "markdown"
-      path = FilePath.combine "newsletter" file
+      path = FilePath.joinPath ["newsletter", year, file]
   byteString <- App.readDataFile path
   case Text.decodeUtf8' byteString of
     Left exception -> fail $ show exception
