@@ -1,4 +1,4 @@
-cabal-version: 2.0
+cabal-version: 2.4
 
 name: haskellweekly
 version: 0.2024.2.29
@@ -17,7 +17,7 @@ data-files:
   favicon.ico
   google-podcasts.svg
   logo.png
-  newsletter/*.markdown
+  newsletter/**/*.markdown
   podcast/*.vtt
   tachyons.css
 extra-source-files: README.markdown
