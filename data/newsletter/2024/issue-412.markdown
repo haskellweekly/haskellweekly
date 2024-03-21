@@ -49,5 +49,7 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 
 ## Call for participation
 
+- [Utrecht Summer School on Advanced Functional Programming](https://www.afp.school) by Wouter Swierstra
+  > We're happy to announce the next edition of our summer school for developers and academics alike, looking to level up their Haskell skills.
 - [cabal: `cabal check`: Warn about "bad" bounds](https://github.com/haskell/cabal/issues/9806)
 - [lsp: Generalize `configSection` to a list](https://github.com/haskell/lsp/issues/561)
