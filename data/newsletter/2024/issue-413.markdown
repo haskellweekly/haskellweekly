@@ -46,7 +46,7 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 
 ## Call for participation
 
-- [LambdaConf 2024](lambdaconf.us)
+- [LambdaConf 2024](https://lambdaconf.us)
   > LambdaConf 2024 will be held in Estes Park, CO., from May 4 - 10. Speakers from across a range of disciplines, with a special emphasis on functional programming, will share their knowledge throughout two days of talks. Attendees will also have the opportunity to participate in pre-conference activities, a hackathon, and a professional development workshop on Rust.
   
 - [Survey for users of the tree-sitter Haskell grammar](https://discourse.haskell.org/t/survey-for-users-of-the-tree-sitter-haskell-grammar/9153) by Torsten Schmits
