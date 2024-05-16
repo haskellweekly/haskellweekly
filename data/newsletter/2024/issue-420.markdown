@@ -9,6 +9,9 @@ This is a weekly summary of what's going on in its community.
   
 - [Cabal exact printing](https://jappie.me/cabal-exact-printing.html) by Jappie J. T. Klooster
   > For a long time, I’ve been annoyed that cabal tells you to add modules to your cabal file. It’s can of detect missing modules, but won’t automatically add them. This is not a big deal for a single module, but if you like splitting code into many small modules, for example because you like fast compile times, then any refactor may cause many of these messages to appear, which becomes tedious to manage.
+  
+- [Episode 49 – Arseniy Seroka](https://haskell.foundation/podcast/49/) by The Haskell Interlude
+  > Wouter and Joachim interview Arseny Seroka, CEO of Serokell. Arseny got into Haskell because of a bet over Pizza, fell for it because it means fewer steps between his soul and his work, and founded Serokell because he could not get a Haskell job. He speaks about the business side of a Haskell company, about the need for more sales and marketing for Haskell itself, and about the Haskell Developer Certification.
 
 - [GHC 9.10.1 is now available!](https://discourse.haskell.org/t/ghc-9-10-1-is-now-available/9523) by Ben Gamari
   > The GHC developers are very pleased to announce the release of GHC 9.10.1.
@@ -21,6 +24,9 @@ This is a weekly summary of what's going on in its community.
   
 - [Please contribute to the GHC 9.10 breakage inventory](https://discourse.haskell.org/t/please-contribute-to-the-ghc-9-10-breakage-inventory/9533/2) by Tom Ellis
   > I’m collecting a list of all breaking changes between GHC 9.8 and 9.10, that is, anything that you have to change (except just bounds) to get code that previously compiled with 9.8 to compile with 9.10. My hope is that it will feed into a processes of making breaking changes less severe in the future. If you have come across any breaking changes please let me know here or in an issue or PR on the repo.
+  
+- [The Haskell Unfolder Episode 25: from Java to Haskell](https://well-typed.com/blog/2024/05/haskell-unfolder-episode-25-from-java-to-haskell/) by Andres Löh, Edsko de Vries
+  > In this episode, we will try to translate a gRPC server written in Java to Haskell. We will use it as an example to demonstrate some of the conceptual differences of the two languages, but also observe that the end result of the translation looks perhaps more similar to the Java version than one might expect. Unlike most of our episodes, we hope that this one is understandable to any software developer, even people without any previous exposure to Haskell. Of course, we won’t be able to explain everything, but the example used should help to establish an idea of the look and feel of Haskell code, and perhaps learn a bit more about the relationship between the object-oriented and functional programming paradigms.
   
 - [The ultimate guide to Haskell Strings](https://hasufell.github.io/posts/2024-05-07-ultimate-string-guide.html) by Julian Ospald
   > This guide is aimed at Haskellers who seek to improve their understanding of String types, be it beginners or seasoned developers. It is also meant to be a quick reference/cheat sheet for deciding which string type to use in a given situation.
