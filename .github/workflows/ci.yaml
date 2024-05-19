@@ -6,27 +6,42 @@ on:
 jobs:
 
   ormolu:
+    name: Ormolu
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: haskell-actions/run-ormolu@v15
 
   hlint:
+    name: HLint
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
-    - uses: haskell-actions/hlint-setup@v2
-      with:
-        version: 3.5
-    - uses: haskell-actions/hlint-run@v2
-      with:
-        fail-on: status
+      - uses: actions/checkout@v4
+      - uses: haskell-actions/hlint-setup@9e09cc3653fc13702000a35f638a27b064adfbbe
+      - uses: haskell-actions/hlint-run@v2
+        with:
+          fail-on: status
+
+  cabal:
+    name: Cabal
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: cabal check
+
+  gild:
+    name: Gild
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: tfausak/cabal-gild-setup-action@v2
+      - run: cabal-gild --input haskellweekly.cabal --mode check
 
   build:
     strategy:
       matrix:
         include:
-          - ghc: 9.4.4
+          - ghc: '9.10'
             platform: ubuntu
     runs-on: ${{ matrix.platform }}-latest
     name: GHC ${{ matrix.ghc }} on ${{ matrix.platform }}
@@ -35,7 +50,7 @@ jobs:
 
       - run: mkdir artifact
 
-      - run: cp -R data LICENSE.markdown README.markdown artifact
+      - run: cp -R data LICENSE.txt README.md artifact
 
       - run: cabal sdist --output-dir artifact
 
