@@ -1,5 +1,4 @@
 cabal-version: 2.4
-
 name: haskellweekly
 version: 0.2024.5.23
 synopsis: Publishes curated news about Haskell.
@@ -10,7 +9,6 @@ build-type: Simple
 category: Web
 license: MIT
 maintainer: Taylor Fausak
-
 data-dir: data
 data-files:
   apple-podcasts.svg
@@ -20,40 +18,17 @@ data-files:
   newsletter/**/*.markdown
   podcast/*.vtt
   tachyons.css
-extra-source-files: README.markdown
-license-file: LICENSE.markdown
+
+extra-doc-files: README.md
+license-file: LICENSE.txt
 
 source-repository head
-  location: https://github.com/haskellweekly/haskellweekly.git
+  location: https://github.com/haskellweekly/haskellweekly
   type: git
 
-library
-  autogen-modules: Paths_haskellweekly
-  build-depends:
-    base ^>= 4.17
-    , bytestring ^>= 0.11.3
-    , case-insensitive ^>= 1.2.1
-    , cmark ^>= 0.6
-    , containers ^>= 0.6.6
-    , cryptonite ^>= 0.30
-    , filepath ^>= 1.4.2
-    , http-types ^>= 0.12.3
-    , lucid2 ^>= 0.0.20221012
-    , memory ^>= 0.18
-    , network-uri ^>= 2.6.4
-    , text ^>= 2.0.1
-    , time ^>= 1.12.2
-    , transformers ^>= 0.5.6
-    , uuid ^>= 1.3.15
-    , wai ^>= 3.2.3
-    , wai-extra ^>= 3.1.13
-    , warp ^>= 3.3.23
-    , xml-conduit ^>= 1.9.1
-  default-extensions:
-    NamedFieldPuns
-    OverloadedStrings
+common library
+  build-depends: base ^>=4.20.0
   default-language: Haskell2010
-  exposed-modules: HaskellWeekly
   ghc-options:
     -Weverything
     -Wno-all-missed-specialisations
@@ -66,8 +41,43 @@ library
     -Wno-prepositive-qualified-module
     -Wno-safe
     -Wno-unsafe
-  hs-source-dirs: source/library
-  other-modules:
+
+common executable
+  import: library
+  build-depends: haskellweekly
+  ghc-options:
+    -rtsopts
+    -threaded
+
+library
+  import: library
+  autogen-modules: Paths_haskellweekly
+  build-depends:
+    bytestring ^>=0.12.1,
+    case-insensitive ^>=1.2.1,
+    cmark ^>=0.6.1,
+    containers ^>=0.7,
+    crypton ^>=1.0.0,
+    filepath ^>=1.5.2,
+    http-types ^>=0.12.4,
+    lucid2 ^>=0.0.20240424,
+    memory ^>=0.18.0,
+    network-uri ^>=2.6.4,
+    text ^>=2.1.1,
+    time ^>=1.12.2,
+    transformers ^>=0.6.1,
+    uuid ^>=1.3.15,
+    wai ^>=3.2.4,
+    wai-extra ^>=3.1.15,
+    warp ^>=3.3.30,
+    xml-conduit ^>=1.9.1,
+
+  default-extensions:
+    NamedFieldPuns
+    OverloadedStrings
+
+  -- cabal-gild: discover source/library
+  exposed-modules:
     HW.Application
     HW.Episodes
     HW.Handler.Advertising
@@ -124,26 +134,28 @@ library
     HW.Type.State
     HW.Type.Summary
     HW.Type.Title
-    Paths_haskellweekly
+    HaskellWeekly
+
+  hs-source-dirs: source/library
+  other-modules: Paths_haskellweekly
 
 executable haskellweekly
-  build-depends: base, haskellweekly
-  default-language: Haskell2010
-  ghc-options: -rtsopts -threaded
+  import: executable
   hs-source-dirs: source/executable
   main-is: Main.hs
 
 test-suite haskellweekly-test-suite
+  import: executable
   build-depends:
-    base
-    , bytestring
-    , cmark
-    , directory ^>= 1.3.7
-    , filepath
-    , haskellweekly
-    , text
-  default-language: Haskell2010
-  ghc-options: -rtsopts -threaded
+    bytestring,
+    directory ^>=1.3.8,
+    filepath,
+    text,
+
+  ghc-options:
+    -rtsopts
+    -threaded
+
   hs-source-dirs: source/test-suite
   main-is: Main.hs
   type: exitcode-stdio-1.0

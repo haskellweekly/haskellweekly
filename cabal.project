@@ -1,4 +1,5 @@
 packages: .
-
 allow-newer:
-  , cmark:text
+  , lucid2:base
+  , uuid-types:template-haskell
+  , vault:base
