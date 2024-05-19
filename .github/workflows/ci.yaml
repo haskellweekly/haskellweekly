@@ -33,7 +33,7 @@ jobs:
 
       - run: mkdir artifact
 
-      - run: cp -R data LICENSE.markdown README.markdown artifact
+      - run: cp -R data LICENSE.txt README.md artifact
 
       - run: cabal sdist --output-dir artifact
 
