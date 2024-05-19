@@ -15,9 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
-    - uses: haskell-actions/hlint-setup@v2
-      with:
-        version: 3.5
+    - uses: haskell-actions/hlint-setup@9e09cc3653fc13702000a35f638a27b064adfbbe
     - uses: haskell-actions/hlint-run@v2
       with:
         fail-on: status
@@ -26,7 +24,7 @@ jobs:
     strategy:
       matrix:
         include:
-          - ghc: 9.4.4
+          - ghc: '9.10'
             platform: ubuntu
     runs-on: ${{ matrix.platform }}-latest
     name: GHC ${{ matrix.ghc }} on ${{ matrix.platform }}
