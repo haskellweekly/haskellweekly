@@ -4,7 +4,8 @@ Haskell Weekly publishes curated news about the Haskell programming
 language. It is both a newsletter and a podcast. Find out more at
 [haskellweekly.news](https://haskellweekly.news).
 
-Haskell Weekly is run by [Taylor Fausak](https://taylor.fausak.me).
+Haskell Weekly is run by [Taylor Fausak](https://taylor.fausak.me)
+and [Alexey Zabelin](https://alexeyzabelin.com).
 
 ## Contributing content
 
