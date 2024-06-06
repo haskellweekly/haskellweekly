@@ -1,7 +1,12 @@
 name: CI
 
 on:
-  push: null
+  pull_request:
+    branches:
+      - haskellweekly
+  push:
+    branches:
+      - haskellweekly
 
 jobs:
 
