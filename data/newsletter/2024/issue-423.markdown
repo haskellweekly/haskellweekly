@@ -43,6 +43,9 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 - [Box drawing character library](https://discourse.haskell.org/t/box-drawing-character-library/9689) by Mike Ledger
   > This is a small library for rendering and combining Unicode box drawing characters with a simple monoidal interface. It is spun out of a text table/box drawing library I began but have not found the time for. It may also be useful for TUI libraries going for a little more fanciness.
 
+- [Starting with Haskell - An Introduction for Beginners](https://youtu.be/fGYf84aOSk4) by LigerLearn
+  > An introduction to the Haskell programming language covering fundamental concepts and theory that new programmers need to know to begin their functional programming career. Part of the [Intro to Functional Programming with Haskell Course](https://www.youtube.com/playlist?list=PLMWwct3_kb-2xtOziG1gQYMVr691GadR4)
+
 ## Call for participation
 
 - [plutus: The evaluate-builtins optimization isn't conservative](https://github.com/IntersectMBO/plutus/issues/6167)
