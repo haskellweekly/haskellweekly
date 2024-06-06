@@ -3,10 +3,10 @@ name: CI
 on:
   pull_request:
     branches:
-      - main
+      - haskellweekly
   push:
     branches:
-      - main
+      - haskellweekly
 
 jobs:
 
