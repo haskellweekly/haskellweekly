@@ -17,6 +17,9 @@ This is a weekly summary of what's going on in its community.
 - [Haskell Certification Program](https://discourse.haskell.org/t/haskell-certification-program/9798) by José Manuel Calderón Trilla
   > Serokell and the Haskell Foundation are excited to announce a community-led Haskell Certification program. Serokell has developed an online testing platform for administering practical and theoretical Haskell problems. Haskell is a complex language, offering a wide range of techniques and features for programmers. It's simply not feasible for a novice or intermediate programmer to master them all. The goal of the Haskell certification is to help standardize what it means to 'know Haskell' at various levels of experience.
 
+- [Mastering QuickCheck: Advanced yet Practical Techniques for Property-Based Testing](https://library.mlabs.city/mastering-quickcheck) by Koz Ross
+  > In this article, we aim to explore the powerful capabilities of QuickCheck and demonstrate how to leverage them effectively in real-world projects.
+
 - [ORM in Haskell | Beam Library Tutorial: Database Management Made Easy](https://www.youtube.com/watch?v=sbN9nL9LBQU) by Purely Haskell
   > Discover the power of the Beam library for database management in Haskell! In this comprehensive tutorial, we dive deep into Beam, a type-safe and feature-rich library for working with databases in Haskell. Follow along as we explore its capabilities through practical examples, demonstrating how to set up and interact with databases efficiently.
 
