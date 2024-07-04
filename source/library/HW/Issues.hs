@@ -450,7 +450,8 @@ issues = do
         issue423,
         issue424,
         issue425,
-        issue426
+        issue426,
+        issue427
       ]
   checkNumbers validIssues
   pure $ foldr insertIssue Map.empty validIssues
@@ -2164,3 +2165,7 @@ issue425 =
 issue426 :: Either String Issue.Issue
 issue426 =
   Issue.Issue <$> Date.fromGregorian 2024 6 27 <*> Number.fromNatural 426
+
+issue427 :: Either String Issue.Issue
+issue427 =
+  Issue.Issue <$> Date.fromGregorian 2024 7 4 <*> Number.fromNatural 427
