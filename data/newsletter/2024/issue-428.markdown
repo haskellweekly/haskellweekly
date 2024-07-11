@@ -4,7 +4,8 @@ This is a weekly summary of what's going on in its community.
 
 ## Featured
 
-undefined
+- [Servant on AWS Lambda, and Two New Libraries](https://exploring-better-ways.bellroy.com/servant-on-aws-lambda-and-two-new-libraries.html) by Jack Kelly
+  > In a previous post, I mentioned that we run most of our Haskell code on AWS Lambda. Today, I want to look inside those binaries, discuss the libraries we use to do “serverless” web services on AWS, and highlight a few new libraries we’ve recently open sourced.
 
 ## Jobs
 
