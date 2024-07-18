@@ -56,7 +56,7 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 
 ## Call for participation
 
-- [Silicon Valley Haskell Meetup - July 19, 2024](docs.google.com/document/d/1Tjy9gkyikih6PqjhQ8F5-Imtafj-7xyg3O0des3fRFw/edit?usp=sharing) by Marc Scholten
+- [Silicon Valley Haskell Meetup - July 19, 2024](https://docs.google.com/document/d/1Tjy9gkyikih6PqjhQ8F5-Imtafj-7xyg3O0des3fRFw/edit?usp=sharing) by Marc Scholten
   > The meetup will be around 2h and we’ll have two different talks. It will be focused on the real world use cases of Haskell (especially web dev) and less on category theory. The event is still in the early stages of planning, so things are up to change.
 
 - [clash-compiler: `OverridingBool` prevents auto derivation of various classes](https://github.com/clash-lang/clash-compiler/issues/2754)
