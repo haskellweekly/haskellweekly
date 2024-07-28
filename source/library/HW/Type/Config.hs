@@ -8,6 +8,7 @@ where
 
 import qualified Data.Text as Text
 import qualified HW.Type.BaseUrl as BaseUrl
+import qualified HW.Type.Listmonk as Listmonk
 import qualified Network.Wai.Handler.Warp as Warp
 import qualified Paths_haskellweekly as Package
 import qualified System.Environment as Environment
@@ -17,6 +18,7 @@ data Config = Config
   { baseUrl :: BaseUrl.BaseUrl,
     dataDirectory :: FilePath,
     googleSiteVerification :: Maybe Text.Text,
+    listmonk :: Maybe Listmonk.Listmonk,
     port :: Warp.Port
   }
   deriving (Eq, Show)
@@ -30,7 +32,8 @@ getConfig = do
   googleSiteVerification <- getGoogleSiteVerification
   port <- getPort
   baseUrl <- getBaseUrl
-  pure Config {baseUrl, dataDirectory, googleSiteVerification, port}
+  listmonk <- Listmonk.getListmonk
+  pure Config {baseUrl, dataDirectory, googleSiteVerification, listmonk, port}
 
 -- | Gets the base URL that the server will be available at. This is necessary
 -- because the server could be behind a reverse proxy or in a container or

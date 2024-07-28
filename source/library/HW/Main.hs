@@ -6,11 +6,13 @@ module HW.Main
   )
 where
 
+import qualified Control.Concurrent.Async as Async
 import qualified Data.IORef as IORef
 import qualified Data.Version as Version
 import qualified HW.Server as Server
 import qualified HW.Type.Config as Config
 import qualified HW.Type.State as State
+import qualified HW.Worker as Worker
 import qualified Paths_haskellweekly as Package
 import qualified System.IO as IO
 
@@ -25,4 +27,6 @@ defaultMain = do
   config <- Config.getConfig
   state <- State.configToState config
   stateRef <- IORef.newIORef state
-  Server.server stateRef
+  Async.race_
+    (Server.server stateRef)
+    (Worker.worker stateRef)
