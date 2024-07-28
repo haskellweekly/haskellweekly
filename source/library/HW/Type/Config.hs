@@ -23,8 +23,7 @@ data Config = Config
 
 -- | Gets all the necessary pieces of the 'Config' and stitches them together.
 -- Note that even if the config is valid, the server might fail to start. For
--- example if the database URL is syntactically valid but the database doesn't
--- actually exist.
+-- example if the data directory doesn't actually exist.
 getConfig :: IO Config
 getConfig = do
   dataDirectory <- Package.getDataDir
