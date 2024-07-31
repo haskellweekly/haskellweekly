@@ -8,6 +8,9 @@ undefined
 
 ## Jobs
 
+- [Seeking Senior Engineer to work with DevOps, Cloud, and Haskell!](https://smrtr.io/mrR8B) (ad)
+  > We are seeking an experienced and talented Senior Engineer in the Platform Team to help the transition from traditional ops to a platformcentric model. Play a key role in an impact driven culture and apply your expertise and creativity to make our team and company better.
+
 Trying to hire a Haskell developer?
 You should [advertise with us](https://haskellweekly.news/advertising.html)!
 
