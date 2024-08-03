@@ -187,7 +187,7 @@ contentSecurityPolicy =
     "; "
     [ "base-uri 'none'",
       "default-src 'none'",
-      "form-action https://duckduckgo.com https://news.us10.list-manage.com 'self'",
+      "form-action https://duckduckgo.com https://listmonk.haskellweekly.news 'self'",
       "frame-ancestors 'none'",
       "img-src data: 'self'",
       "media-src https://media.haskellweekly.news 'self'",

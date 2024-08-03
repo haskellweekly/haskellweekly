@@ -65,26 +65,24 @@ callToAction baseUrl =
         "the archives"
       "."
     Html.form_
-      [ Html.action_
-          "https://news.us10.list-manage.com/subscribe/post?u=49a6a2e17b12be2c5c4dcb232&id=ffbbbbd930",
+      [ Html.action_ "https://listmonk.haskellweekly.news/subscription/form",
         Html.class_ "flex",
         Html.method_ "post"
       ]
       $ do
-        Html.div_
-          [ Html.makeAttributes "aria-hidden" "true",
-            Html.class_ "absolute f7 top--2"
+        Html.input_
+          [ Html.name_ "nonce",
+            Html.type_ "hidden"
           ]
-          $ Html.input_
-            [ Html.name_ "b_49a6a2e17b12be2c5c4dcb232_ffbbbbd930",
-              Html.tabindex_ "-1",
-              Html.type_ "text",
-              Html.value_ ""
-            ]
+        Html.input_
+          [ Html.name_ "l",
+            Html.type_ "hidden",
+            Html.value_ "4295554f-8f91-4864-92fa-a75a7315d630"
+          ]
         Html.input_
           [ Html.makeAttributes "aria-label" "Email address",
             Html.class_ "ba br0 b--silver input-reset pa3 flex-auto",
-            Html.name_ "EMAIL",
+            Html.name_ "email",
             Html.placeholder_ "you@example.com",
             Html.required_ "required",
             Html.type_ "email"
