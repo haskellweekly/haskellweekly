@@ -4,7 +4,6 @@ module HW.Type.Listmonk
   )
 where
 
-import qualified Control.Monad.Trans.Maybe as MaybeT
 import qualified Data.Text as Text
 import qualified System.Environment as Environment
 import qualified Text.Read as Read
@@ -17,10 +16,14 @@ data Listmonk = Listmonk
   }
   deriving (Eq, Show)
 
-getListmonk :: IO (Maybe Listmonk)
-getListmonk = MaybeT.runMaybeT $ do
-  list <- MaybeT.MaybeT . fmap (>>= Read.readMaybe) $ Environment.lookupEnv "LISTMONK_LIST"
-  password <- fmap Text.pack . MaybeT.MaybeT $ Environment.lookupEnv "LISTMONK_PASSWORD"
-  url <- fmap Text.pack . MaybeT.MaybeT $ Environment.lookupEnv "LISTMONK_URL"
-  username <- fmap Text.pack . MaybeT.MaybeT $ Environment.lookupEnv "LISTMONK_USERNAME"
+getListmonk :: IO Listmonk
+getListmonk = do
+  list <- do
+    string <- Environment.getEnv "LISTMONK_LIST"
+    case Read.readMaybe string of
+      Nothing -> fail $ "invalid LISTMONK_LIST: " <> show string
+      Just list -> pure list
+  password <- Text.pack <$> Environment.getEnv "LISTMONK_PASSWORD"
+  url <- Text.pack <$> Environment.getEnv "LISTMONK_URL"
+  username <- Text.pack <$> Environment.getEnv "LISTMONK_USERNAME"
   pure Listmonk {list, password, url, username}

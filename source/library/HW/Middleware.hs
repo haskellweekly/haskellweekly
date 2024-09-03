@@ -185,14 +185,14 @@ addSecurityHeaders ref application request respond =
 -- | The value of the @Content-Security-Policy@ header.
 -- <https://scotthelme.co.uk/content-security-policy-an-introduction/>
 -- <https://www.ctrl.blog/entry/safari-csp-media-controls.html>
-contentSecurityPolicy :: Maybe Listmonk.Listmonk -> Text.Text
+contentSecurityPolicy :: Listmonk.Listmonk -> Text.Text
 contentSecurityPolicy listmonk =
   Text.intercalate
     "; "
     [ "base-uri 'none'",
       "default-src 'none'",
       "form-action https://duckduckgo.com "
-        <> maybe "" Listmonk.url listmonk
+        <> Listmonk.url listmonk
         <> " 'self'",
       "frame-ancestors 'none'",
       "img-src data: 'self'",
