@@ -5,6 +5,7 @@ module HW.Template.Newsletter
   )
 where
 
+import qualified Data.UUID as Uuid
 import qualified HW.Template.Base as Base
 import qualified HW.Template.Common as Common
 import qualified HW.Type.BaseUrl as BaseUrl
@@ -78,7 +79,7 @@ callToAction baseUrl listmonk =
         Html.input_
           [ Html.name_ "l",
             Html.type_ "hidden",
-            Html.value_ "4295554f-8f91-4864-92fa-a75a7315d630"
+            Html.value_ . Uuid.toText $ Listmonk.uuid listmonk
           ]
         Html.input_
           [ Html.makeAttributes "aria-label" "Email address",

@@ -5,6 +5,7 @@ module HW.Type.Listmonk
 where
 
 import qualified Data.Text as Text
+import qualified Data.UUID as Uuid
 import qualified System.Environment as Environment
 import qualified Text.Read as Read
 
@@ -12,7 +13,8 @@ data Listmonk = Listmonk
   { list :: Int,
     password :: Text.Text,
     url :: Text.Text,
-    username :: Text.Text
+    username :: Text.Text,
+    uuid :: Uuid.UUID
   }
   deriving (Eq, Show)
 
@@ -26,4 +28,9 @@ getListmonk = do
   password <- Text.pack <$> Environment.getEnv "LISTMONK_PASSWORD"
   url <- Text.pack <$> Environment.getEnv "LISTMONK_URL"
   username <- Text.pack <$> Environment.getEnv "LISTMONK_USERNAME"
-  pure Listmonk {list, password, url, username}
+  uuid <- do
+    string <- Environment.getEnv "LISTMONK_UUID"
+    case Uuid.fromString string of
+      Nothing -> fail $ "invalid LISTMONK_UUID: " <> show string
+      Just uuid -> pure uuid
+  pure Listmonk {list, password, url, username, uuid}
