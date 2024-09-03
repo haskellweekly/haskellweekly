@@ -22,6 +22,8 @@ import qualified Data.Text.Encoding.Error as Text
 import qualified Data.Time as Time
 import qualified Data.Word as Word
 import qualified GHC.Clock as Clock
+import qualified HW.Type.Config as Config
+import qualified HW.Type.Listmonk as Listmonk
 import qualified HW.Type.State as State
 import qualified Network.HTTP.Types as Http
 import qualified Network.HTTP.Types.Header as Http
@@ -40,7 +42,7 @@ middleware ref =
     . addLogging
     . addEntityTagHeader
     . addCaching ref
-    . addSecurityHeaders
+    . addSecurityHeaders ref
     . Middleware.autohead
 
 addCaching :: IORef.IORef State.State -> Wai.Middleware
@@ -167,27 +169,31 @@ sha1 :: LazyByteString.ByteString -> Crypto.Digest Crypto.SHA1
 sha1 = Crypto.hashlazy
 
 -- | Adds security headers as recommended by <https://securityheaders.com>.
-addSecurityHeaders :: Wai.Middleware
-addSecurityHeaders =
-  Wai.modifyResponse
-    . Wai.mapResponseHeaders
-    $ addHeader "Content-Security-Policy" contentSecurityPolicy
-      . addHeader "Feature-Policy" featurePolicy
-      . addHeader "Referrer-Policy" "no-referrer"
-      . addHeader "X-Content-Type-Options" "nosniff"
-      . addHeader "X-Frame-Options" "deny"
-      . addHeader "X-XSS-Protection" "1; mode=block"
+addSecurityHeaders :: IORef.IORef State.State -> Wai.Middleware
+addSecurityHeaders ref application request respond =
+  application request $ \response -> do
+    listmonk <- Config.listmonk . State.config <$> IORef.readIORef ref
+    let addHeaders =
+          addHeader "Content-Security-Policy" (contentSecurityPolicy listmonk)
+            . addHeader "Feature-Policy" featurePolicy
+            . addHeader "Referrer-Policy" "no-referrer"
+            . addHeader "X-Content-Type-Options" "nosniff"
+            . addHeader "X-Frame-Options" "deny"
+            . addHeader "X-XSS-Protection" "1; mode=block"
+    respond $ Wai.mapResponseHeaders addHeaders response
 
 -- | The value of the @Content-Security-Policy@ header.
 -- <https://scotthelme.co.uk/content-security-policy-an-introduction/>
 -- <https://www.ctrl.blog/entry/safari-csp-media-controls.html>
-contentSecurityPolicy :: Text.Text
-contentSecurityPolicy =
+contentSecurityPolicy :: Maybe Listmonk.Listmonk -> Text.Text
+contentSecurityPolicy listmonk =
   Text.intercalate
     "; "
     [ "base-uri 'none'",
       "default-src 'none'",
-      "form-action https://duckduckgo.com https://listmonk.haskellweekly.news 'self'",
+      "form-action https://duckduckgo.com "
+        <> maybe "" Listmonk.url listmonk
+        <> " 'self'",
       "frame-ancestors 'none'",
       "img-src data: 'self'",
       "media-src https://media.haskellweekly.news 'self'",
