@@ -53,7 +53,7 @@ worker stateRef = Monad.forever $ do
       case Aeson.eitherDecode $ Client.responseBody getResponse of
         Left err -> putStrLn $ "[worker] failed to parse campaigns: " <> err
         Right campaigns -> do
-          if campaignsTotal (payloadData campaigns) /= 0
+          if campaignsTotal (payloadData campaigns) > 0
             then putStrLn $ "[worker] campaign " <> show name <> " already exists"
             else do
               postRequest <- Client.parseRequest . Text.unpack $ url <> "/api/campaigns"
