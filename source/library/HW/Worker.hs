@@ -45,6 +45,8 @@ worker stateRef = Monad.forever $ do
           let username = Encoding.encodeUtf8 $ Listmonk.username listmonk
           let password = Encoding.encodeUtf8 $ Listmonk.password listmonk
           let name = "hwn-" <> Date.toShortText (Issue.issueDate issue)
+          -- `?query=x` becomes `like '%x%'`, so this will match any substring.
+          -- That's why we search for `hwn-YYYY-MM-DD` rather than `issue-NNN`.
           let query = Http.renderQuery True [("query", Just $ Encoding.encodeUtf8 name)]
           getResponse <-
             Client.httpLbs
