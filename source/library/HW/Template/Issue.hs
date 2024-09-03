@@ -7,7 +7,7 @@ import qualified Data.Text as Text
 import qualified HW.Markdown as Markdown
 import qualified HW.Template.Base as Base
 import qualified HW.Template.Newsletter as Newsletter
-import qualified HW.Type.BaseUrl as BaseUrl
+import qualified HW.Type.Config as Config
 import qualified HW.Type.Date as Date
 import qualified HW.Type.Issue as Issue
 import qualified HW.Type.Number as Number
@@ -15,8 +15,9 @@ import qualified HW.Type.Route as Route
 import qualified Lucid as Html
 
 template ::
-  BaseUrl.BaseUrl -> Issue.Issue -> Markdown.Markdown -> Html.Html ()
-template baseUrl issue markdown =
+  Config.Config -> Issue.Issue -> Markdown.Markdown -> Html.Html ()
+template config issue markdown = do
+  let baseUrl = Config.baseUrl config
   Base.template
     baseUrl
     (title issue <> " :: Haskell Weekly Newsletter")
@@ -32,7 +33,7 @@ template baseUrl issue markdown =
         Html.toHtml $ title issue
         " "
         Html.span_ [Html.class_ "mid-gray"] . Html.toHtml $ date issue
-      Newsletter.callToAction baseUrl
+      Newsletter.callToAction baseUrl $ Config.listmonk config
       Html.div_ . Html.toHtmlRaw $ Markdown.toHtml markdown
 
 title :: Issue.Issue -> Text.Text

@@ -11,7 +11,6 @@ import qualified HW.Handler.Common as Common
 import qualified HW.Markdown as Markdown
 import qualified HW.Template.Issue as IssueTemplate
 import qualified HW.Type.App as App
-import qualified HW.Type.Config as Config
 import qualified HW.Type.Date as Date
 import qualified HW.Type.Issue as Issue
 import qualified HW.Type.Number as Number
@@ -28,10 +27,10 @@ handler number = do
     Nothing -> pure Common.notFound
     Just issue -> do
       node <- readIssueFile issue
-      let baseUrl = Config.baseUrl $ State.config state
+      let config = State.config state
       pure
         . Common.html Http.ok200 [(Http.hCacheControl, "public, max-age=900")]
-        $ IssueTemplate.template baseUrl issue node
+        $ IssueTemplate.template config issue node
 
 readIssueFile :: Issue.Issue -> App.App Markdown.Markdown
 readIssueFile issue = do
