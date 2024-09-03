@@ -59,9 +59,6 @@ a single Haskell web service. However it relies on some external services:
 - [GitHub](https://github.com):
   Hosts source code.
 
-- [Mailchimp](https://mailchimp.com):
-  Manages subscriber information and sends weekly emails.
-
 - [Square](https://squareup.com):
   Accepts payments for advertisements.
 
