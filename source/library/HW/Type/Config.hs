@@ -18,7 +18,7 @@ data Config = Config
   { baseUrl :: BaseUrl.BaseUrl,
     dataDirectory :: FilePath,
     googleSiteVerification :: Maybe Text.Text,
-    listmonk :: Listmonk.Listmonk,
+    listmonk :: Maybe Listmonk.Listmonk,
     port :: Warp.Port
   }
   deriving (Eq, Show)

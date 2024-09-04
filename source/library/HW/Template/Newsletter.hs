@@ -5,6 +5,7 @@ module HW.Template.Newsletter
   )
 where
 
+import qualified Control.Monad as Monad
 import qualified Data.UUID as Uuid
 import qualified HW.Template.Base as Base
 import qualified HW.Template.Common as Common
@@ -17,15 +18,15 @@ import qualified HW.Type.Route as Route
 import qualified Lucid as Html
 import qualified Lucid.Base as Html
 
-template :: BaseUrl.BaseUrl -> Listmonk.Listmonk -> [Issue.Issue] -> Html.Html ()
-template baseUrl listmonk issues =
+template :: BaseUrl.BaseUrl -> Maybe Listmonk.Listmonk -> [Issue.Issue] -> Html.Html ()
+template baseUrl maybeListmonk issues =
   Base.template baseUrl "Haskell Weekly Newsletter" (header baseUrl Nothing) $
     do
       Html.h2_ [Html.class_ "f2 mv3 tracked-tight"] "Newsletter"
       Html.p_ $ do
         "The Haskell Weekly Newsletter covers the Haskell programming language. "
         "Each issue features several hand-picked links to interesting content about Haskell from around the web."
-      callToAction baseUrl listmonk
+      callToAction baseUrl maybeListmonk
       Html.ul_ $ mapM_ (issueTemplate baseUrl) issues
 
 header :: BaseUrl.BaseUrl -> Maybe Issue.Issue -> Html.Html ()
@@ -51,13 +52,16 @@ header baseUrl maybeIssue = do
         . Route.Issue
         $ Issue.issueNumber issue
 
-callToAction :: BaseUrl.BaseUrl -> Listmonk.Listmonk -> Html.Html ()
-callToAction baseUrl listmonk =
+callToAction :: BaseUrl.BaseUrl -> Maybe Listmonk.Listmonk -> Html.Html ()
+callToAction baseUrl maybeListmonk =
   Html.div_ [Html.class_ "ba b--yellow bg-washed-yellow center mw6 pa3"] $ do
     Html.p_ [Html.class_ "mt0"] $ do
-      "Subscribe now! "
-      "We'll never send you spam. "
-      "You can also follow "
+      case maybeListmonk of
+        Nothing -> "You can follow "
+        Just _ -> do
+          "Subscribe now! "
+          "We'll never send you spam. "
+          "You can also follow "
       Html.a_
         [Html.href_ $ Route.toText baseUrl Route.NewsletterFeed]
         "our feed"
@@ -66,7 +70,7 @@ callToAction baseUrl listmonk =
         [Html.href_ $ Route.toText baseUrl Route.Newsletter]
         "the archives"
       "."
-    Html.form_
+    Monad.forM_ maybeListmonk $ \listmonk -> Html.form_
       [ Html.action_ $ Listmonk.url listmonk <> "/subscription/form",
         Html.class_ "flex",
         Html.method_ "post"

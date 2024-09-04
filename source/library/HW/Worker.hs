@@ -29,61 +29,63 @@ worker stateRef = Monad.forever $ do
   now <- Time.getCurrentTime
   putStrLn $ "[worker] running at " <> Time.formatTime Time.defaultTimeLocale "%Y-%m-%dT%H:%M:%SZ" now
   state <- IORef.readIORef stateRef
-  let listmonk = Config.listmonk $ State.config state
-  let maybeLatest =
-        Maybe.listToMaybe
-          . List.sortOn (Ord.Down . Issue.issueDate)
-          . Map.elems
-          $ State.issues state
-  case maybeLatest of
-    Nothing -> putStrLn "[worker] no issues"
-    Just issue -> do
-      let url = Listmonk.url listmonk
-      getRequest <- Client.parseRequest . Text.unpack $ url <> "/api/campaigns"
-      let username = Encoding.encodeUtf8 $ Listmonk.username listmonk
-      let password = Encoding.encodeUtf8 $ Listmonk.password listmonk
-      let name = "hwn-" <> Date.toShortText (Issue.issueDate issue)
-      -- `?query=x` becomes `like '%x%'`, so this will match any substring.
-      -- That's why we search for `hwn-YYYY-MM-DD` rather than `issue-NNN`.
-      let query = Http.renderQuery True [("query", Just $ Encoding.encodeUtf8 name)]
-      getResponse <-
-        Client.httpLbs
-          (Client.applyBasicAuth username password getRequest) {Client.queryString = query}
-          (State.manager state)
-      case Aeson.eitherDecode $ Client.responseBody getResponse of
-        Left err -> putStrLn $ "[worker] failed to parse campaigns: " <> err
-        Right campaigns -> do
-          if campaignsTotal (payloadData campaigns) > 0
-            then putStrLn $ "[worker] campaign " <> show name <> " already exists"
-            else do
-              postRequest <- Client.parseRequest . Text.unpack $ url <> "/api/campaigns"
-              let number = Number.toText $ Issue.issueNumber issue
-              node <- Reader.runReaderT (Issue.readIssueFile issue) stateRef
-              let text = CMark.nodeToCommonmark [] Nothing node
-              let list = Listmonk.list listmonk
-              let campaign =
-                    Campaign
-                      { campaignBody = "# Haskell Weekly\n\n## Issue " <> number <> "\n\n" <> text,
-                        campaignContentType = Just "markdown",
-                        campaignLists = pure list,
-                        campaignName = name,
-                        campaignSubject = "Issue " <> number
-                      }
-              postResponse <-
-                Client.httpLbs
-                  ( Client.applyBasicAuth
-                      username
-                      password
-                      postRequest
-                        { Client.method = Http.methodPost,
-                          Client.requestBody = Client.RequestBodyLBS $ Aeson.encode campaign,
-                          Client.requestHeaders = [(Http.hContentType, "application/json")]
-                        }
-                  )
-                  (State.manager state)
-              case Aeson.eitherDecode $ Client.responseBody postResponse of
-                Left err -> putStrLn $ "[worker] failed to parse campaign: " <> err
-                Right result -> putStrLn $ "[worker] created campaign " <> show (resultId $ payloadData result)
+  case Config.listmonk $ State.config state of
+    Nothing -> putStrLn "[worker] missing listmonk config"
+    Just listmonk -> do
+      let maybeLatest =
+            Maybe.listToMaybe
+              . List.sortOn (Ord.Down . Issue.issueDate)
+              . Map.elems
+              $ State.issues state
+      case maybeLatest of
+        Nothing -> putStrLn "[worker] no issues"
+        Just issue -> do
+          let url = Listmonk.url listmonk
+          getRequest <- Client.parseRequest . Text.unpack $ url <> "/api/campaigns"
+          let username = Encoding.encodeUtf8 $ Listmonk.username listmonk
+          let password = Encoding.encodeUtf8 $ Listmonk.password listmonk
+          let name = "hwn-" <> Date.toShortText (Issue.issueDate issue)
+          -- `?query=x` becomes `like '%x%'`, so this will match any substring.
+          -- That's why we search for `hwn-YYYY-MM-DD` rather than `issue-NNN`.
+          let query = Http.renderQuery True [("query", Just $ Encoding.encodeUtf8 name)]
+          getResponse <-
+            Client.httpLbs
+              (Client.applyBasicAuth username password getRequest) {Client.queryString = query}
+              (State.manager state)
+          case Aeson.eitherDecode $ Client.responseBody getResponse of
+            Left err -> putStrLn $ "[worker] failed to parse campaigns: " <> err
+            Right campaigns -> do
+              if campaignsTotal (payloadData campaigns) > 0
+                then putStrLn $ "[worker] campaign " <> show name <> " already exists"
+                else do
+                  postRequest <- Client.parseRequest . Text.unpack $ url <> "/api/campaigns"
+                  let number = Number.toText $ Issue.issueNumber issue
+                  node <- Reader.runReaderT (Issue.readIssueFile issue) stateRef
+                  let text = CMark.nodeToCommonmark [] Nothing node
+                  let list = Listmonk.list listmonk
+                  let campaign =
+                        Campaign
+                          { campaignBody = "# Haskell Weekly\n\n## Issue " <> number <> "\n\n" <> text,
+                            campaignContentType = Just "markdown",
+                            campaignLists = pure list,
+                            campaignName = name,
+                            campaignSubject = "Issue " <> number
+                          }
+                  postResponse <-
+                    Client.httpLbs
+                      ( Client.applyBasicAuth
+                          username
+                          password
+                          postRequest
+                            { Client.method = Http.methodPost,
+                              Client.requestBody = Client.RequestBodyLBS $ Aeson.encode campaign,
+                              Client.requestHeaders = [(Http.hContentType, "application/json")]
+                            }
+                      )
+                      (State.manager state)
+                  case Aeson.eitherDecode $ Client.responseBody postResponse of
+                    Left err -> putStrLn $ "[worker] failed to parse campaign: " <> err
+                    Right result -> putStrLn $ "[worker] created campaign " <> show (resultId $ payloadData result)
   Concurrent.threadDelay $ 60 * 1000 * 1000
 
 newtype Payload a = Payload

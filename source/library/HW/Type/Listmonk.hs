@@ -4,6 +4,7 @@ module HW.Type.Listmonk
   )
 where
 
+import qualified Control.Monad.Trans.Maybe as MaybeT
 import qualified Data.Text as Text
 import qualified Data.UUID as Uuid
 import qualified System.Environment as Environment
@@ -18,18 +19,18 @@ data Listmonk = Listmonk
   }
   deriving (Eq, Show)
 
-getListmonk :: IO Listmonk
-getListmonk = do
+getListmonk :: IO (Maybe Listmonk)
+getListmonk = MaybeT.runMaybeT $ do
   list <- do
-    string <- Environment.getEnv "LISTMONK_LIST"
+    string <- MaybeT.MaybeT $ Environment.lookupEnv "LISTMONK_LIST"
     case Read.readMaybe string of
       Nothing -> fail $ "invalid LISTMONK_LIST: " <> show string
       Just list -> pure list
-  password <- Text.pack <$> Environment.getEnv "LISTMONK_PASSWORD"
-  url <- Text.pack <$> Environment.getEnv "LISTMONK_URL"
-  username <- Text.pack <$> Environment.getEnv "LISTMONK_USERNAME"
+  password <- fmap Text.pack . MaybeT.MaybeT $ Environment.lookupEnv "LISTMONK_PASSWORD"
+  url <- fmap Text.pack . MaybeT.MaybeT $ Environment.lookupEnv "LISTMONK_URL"
+  username <- fmap Text.pack . MaybeT.MaybeT $ Environment.lookupEnv "LISTMONK_USERNAME"
   uuid <- do
-    string <- Environment.getEnv "LISTMONK_UUID"
+    string <- MaybeT.MaybeT $ Environment.lookupEnv "LISTMONK_UUID"
     case Uuid.fromString string of
       Nothing -> fail $ "invalid LISTMONK_UUID: " <> show string
       Just uuid -> pure uuid

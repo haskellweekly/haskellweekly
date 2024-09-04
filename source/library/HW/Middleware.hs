@@ -172,9 +172,9 @@ sha1 = Crypto.hashlazy
 addSecurityHeaders :: IORef.IORef State.State -> Wai.Middleware
 addSecurityHeaders ref application request respond =
   application request $ \response -> do
-    listmonk <- Config.listmonk . State.config <$> IORef.readIORef ref
+    maybeListmonk <- Config.listmonk . State.config <$> IORef.readIORef ref
     let addHeaders =
-          addHeader "Content-Security-Policy" (contentSecurityPolicy listmonk)
+          addHeader "Content-Security-Policy" (contentSecurityPolicy maybeListmonk)
             . addHeader "Feature-Policy" featurePolicy
             . addHeader "Referrer-Policy" "no-referrer"
             . addHeader "X-Content-Type-Options" "nosniff"
@@ -185,14 +185,14 @@ addSecurityHeaders ref application request respond =
 -- | The value of the @Content-Security-Policy@ header.
 -- <https://scotthelme.co.uk/content-security-policy-an-introduction/>
 -- <https://www.ctrl.blog/entry/safari-csp-media-controls.html>
-contentSecurityPolicy :: Listmonk.Listmonk -> Text.Text
-contentSecurityPolicy listmonk =
+contentSecurityPolicy :: Maybe Listmonk.Listmonk -> Text.Text
+contentSecurityPolicy maybeListmonk =
   Text.intercalate
     "; "
     [ "base-uri 'none'",
       "default-src 'none'",
       "form-action https://duckduckgo.com "
-        <> Listmonk.url listmonk
+        <> maybe "" Listmonk.url maybeListmonk
         <> " 'self'",
       "frame-ancestors 'none'",
       "img-src data: 'self'",
