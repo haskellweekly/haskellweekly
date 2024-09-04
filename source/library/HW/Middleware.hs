@@ -177,6 +177,7 @@ addSecurityHeaders ref application request respond =
           addHeader "Content-Security-Policy" (contentSecurityPolicy maybeListmonk)
             . addHeader "Permissions-Policy" permissionsPolicy
             . addHeader "Referrer-Policy" "no-referrer"
+            . addHeader "Strict-Transport-Security" "max-age=31536000; includeSubDomains"
             . addHeader "X-Content-Type-Options" "nosniff"
             . addHeader "X-Frame-Options" "deny"
             . addHeader "X-XSS-Protection" "1; mode=block"
@@ -197,7 +198,6 @@ contentSecurityPolicy maybeListmonk =
       "frame-ancestors 'none'",
       "img-src data: 'self'",
       "media-src https://media.haskellweekly.news 'self'",
-      "script-src 'unsafe-inline'",
       "style-src 'self'"
     ]
 
