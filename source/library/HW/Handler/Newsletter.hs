@@ -23,6 +23,7 @@ handler = do
         List.sortOn (Ord.Down . Issue.issueNumber) . Map.elems $
           State.issues
             state
+      maybeListmonk = Config.listmonk $ State.config state
   pure
     . Common.html Http.ok200 [(Http.hCacheControl, "public, max-age=900")]
-    $ Newsletter.template baseUrl issues
+    $ Newsletter.template baseUrl maybeListmonk issues

@@ -41,7 +41,7 @@ template config maybeIssue maybeEpisode = do
       "The Haskell Weekly Newsletter covers the Haskell programming language. "
       "Each issue features several hand-picked links to interesting content about Haskell from around the web."
     mapM_ (issueTemplate baseUrl) maybeIssue
-    Newsletter.callToAction baseUrl
+    Newsletter.callToAction baseUrl $ Config.listmonk config
     Html.h2_ [Html.class_ "f2 mv3 tracked-tight"] $
       Html.a_
         [ Html.class_ "no-underline purple",

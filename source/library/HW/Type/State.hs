@@ -15,6 +15,8 @@ import qualified Data.Time as Time
 import qualified HW.Episodes as Episodes
 import qualified HW.Issues as Issues
 import qualified HW.Type.Config as Config
+import qualified Network.HTTP.Client as Client
+import qualified Network.HTTP.Client.TLS as Tls
 import qualified Network.Wai as Wai
 
 data State = State
@@ -22,6 +24,7 @@ data State = State
     episodes :: Episodes.Episodes,
     fileCache :: Map.Map FilePath ByteString.ByteString,
     issues :: Issues.Issues,
+    manager :: Client.Manager,
     responseCache ::
       Map.Map (Text.Text, Text.Text) (Time.UTCTime, Wai.Response)
   }
@@ -32,12 +35,14 @@ configToState :: Config.Config -> IO State
 configToState config = do
   episodes <- either fail pure Episodes.episodes
   issues <- either fail pure Issues.issues
+  manager <- Tls.newTlsManager
   pure
     State
       { config,
         episodes,
         fileCache = Map.empty,
         issues,
+        manager,
         responseCache = Map.empty
       }
 
