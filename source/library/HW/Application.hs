@@ -1,9 +1,6 @@
 -- | This module defines the application that the server, uh, serves.
 -- Applications take in requests and give out responses.
-module HW.Application
-  ( application,
-  )
-where
+module HW.Application where
 
 import qualified Control.Monad.Trans.Reader as Reader
 import qualified Data.IORef as IORef

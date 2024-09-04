@@ -1,11 +1,7 @@
 -- | This module defines all of the newsletter issues that are currently
 -- published on the website. Collecting them here makes it easy to create
 -- "draft" issues by simply not including them here.
-module HW.Issues
-  ( Issues,
-    issues,
-  )
-where
+module HW.Issues where
 
 import qualified Data.Bool as Bool
 import qualified Data.Map as Map

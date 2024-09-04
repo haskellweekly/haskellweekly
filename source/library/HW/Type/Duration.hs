@@ -2,12 +2,7 @@
 -- podcast episodes. By knowing the length of the episode ahead of time, we can
 -- provide that information to the RSS feed or browser media player without
 -- having to ask the source audio files.
-module HW.Type.Duration
-  ( Duration,
-    toText,
-    fromTimestamp,
-  )
-where
+module HW.Type.Duration where
 
 import qualified Data.Text as Text
 import qualified Numeric.Natural as Natural

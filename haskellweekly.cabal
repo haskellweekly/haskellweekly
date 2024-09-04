@@ -35,6 +35,7 @@ common library
     -Wno-implicit-prelude
     -Wno-missed-specialisations
     -Wno-missing-deriving-strategies
+    -Wno-missing-export-lists
     -Wno-missing-exported-signatures
     -Wno-missing-kind-signatures
     -Wno-missing-role-annotations
@@ -141,7 +142,6 @@ library
     HW.Type.Summary
     HW.Type.Title
     HW.Worker
-    HaskellWeekly
 
   hs-source-dirs: source/library
   other-modules: Paths_haskellweekly

@@ -1,8 +1,4 @@
-module HW.Handler.Issue
-  ( handler,
-    readIssueFile,
-  )
-where
+module HW.Handler.Issue where
 
 import qualified Data.Map as Map
 import qualified Data.Text as Text

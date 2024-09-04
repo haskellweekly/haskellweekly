@@ -3,12 +3,7 @@
 -- libraries for these things, the captions that Haskell Weekly uses don't use
 -- very many of the features. It felt better to write simple parsers and
 -- renderers rather than relying on a fully fledged library.
-module HW.Type.Caption
-  ( Caption,
-    parseVtt,
-    renderTranscript,
-  )
-where
+module HW.Type.Caption where
 
 import qualified Control.Monad as Monad
 import qualified Data.Char as Char

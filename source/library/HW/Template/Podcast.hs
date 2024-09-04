@@ -1,9 +1,4 @@
-module HW.Template.Podcast
-  ( template,
-    callToAction,
-    header,
-  )
-where
+module HW.Template.Podcast where
 
 import qualified HW.Template.Base as Base
 import qualified HW.Template.Common as Common

@@ -1,9 +1,4 @@
-module HW.Type.BaseUrl
-  ( BaseUrl,
-    toText,
-    fromText,
-  )
-where
+module HW.Type.BaseUrl where
 
 import qualified Data.Text as Text
 

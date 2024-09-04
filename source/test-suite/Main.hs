@@ -1,15 +1,14 @@
-module Main
-  ( main,
-  )
-where
-
 import qualified Control.Exception as Exception
 import qualified Control.Monad as Monad
 import qualified Data.ByteString as ByteString
 import qualified Data.IORef as IORef
 import qualified Data.Text as Text
 import qualified Data.Text.Encoding as Text
-import qualified HaskellWeekly
+import qualified HW.Episodes
+import qualified HW.Issues
+import qualified HW.Markdown
+import qualified HW.Type.Caption
+import qualified HW.Type.Config
 import qualified System.Directory as Directory
 import qualified System.FilePath as FilePath
 
@@ -17,13 +16,13 @@ main :: IO ()
 main = do
   do
     putStrLn "Getting issues ..."
-    issues <- either fail pure HaskellWeekly.issues
+    issues <- either fail pure HW.Issues.issues
     putStrLn $ "Got " <> pluralize "issue" (length issues) <> "."
   do
     putStrLn "Getting episodes ..."
-    episodes <- either fail pure HaskellWeekly.episodes
+    episodes <- either fail pure HW.Episodes.episodes
     putStrLn $ "Got " <> pluralize "episode" (length episodes) <> "."
-  dataDirectory <- HaskellWeekly.getDataDir
+  dataDirectory <- HW.Type.Config.dataDirectory <$> HW.Type.Config.getConfig
   do
     putStrLn "Parsing issues ..."
     counter <- IORef.newIORef (0 :: Int)
@@ -38,8 +37,8 @@ main = do
         Monad.void
           . Exception.evaluate
           . Text.length
-          . HaskellWeekly.toHtml
-          . HaskellWeekly.fromText
+          . HW.Markdown.toHtml
+          . HW.Markdown.fromText
           $ Text.decodeUtf8 contents
         IORef.modifyIORef' counter succ
     count <- IORef.readIORef counter
@@ -51,14 +50,14 @@ main = do
     Monad.forM_ entries $ \entry -> do
       let file = FilePath.combine directory entry
       contents <- ByteString.readFile file
-      case HaskellWeekly.parseVtt $ Text.decodeUtf8 contents of
+      case HW.Type.Caption.parseVtt $ Text.decodeUtf8 contents of
         Nothing -> fail entry
         Just captions ->
           Monad.void
             . Exception.evaluate
             . Text.length
             . mconcat
-            $ HaskellWeekly.renderTranscript captions
+            $ HW.Type.Caption.renderTranscript captions
     putStrLn $ "Parsed " <> pluralize "episode" (length entries) <> "."
 
 pluralize :: String -> Int -> String

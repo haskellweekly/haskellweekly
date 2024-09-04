@@ -1,7 +1,4 @@
-module HW.Handler.NewsletterFeed
-  ( handler,
-  )
-where
+module HW.Handler.NewsletterFeed where
 
 import qualified Data.List as List
 import qualified Data.Map as Map

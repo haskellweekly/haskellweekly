@@ -1,10 +1,6 @@
 -- | This module defines a type for capturing all of the configuration
 -- necessary to start the Haskell Weekly server.
-module HW.Type.Config
-  ( Config (..),
-    getConfig,
-  )
-where
+module HW.Type.Config where
 
 import qualified Data.Text as Text
 import qualified HW.Type.BaseUrl as BaseUrl

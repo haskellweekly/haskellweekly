@@ -1,7 +1,4 @@
-module HW.Handler.Episode
-  ( handler,
-  )
-where
+module HW.Handler.Episode where
 
 import qualified Data.Map as Map
 import qualified Data.Text as Text

@@ -1,12 +1,7 @@
 -- | This module defines a type for a brief summary of a piece of content. It's
 -- useful to have a summary as a separate concept so that it can be included
 -- with metadata, like a podcast feed or a link on Twitter.
-module HW.Type.Summary
-  ( Summary,
-    fromText,
-    toText,
-  )
-where
+module HW.Type.Summary where
 
 import qualified Data.Char as Char
 import qualified Data.Text as Text

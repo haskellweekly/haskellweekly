@@ -1,10 +1,7 @@
 -- | This module defines the command line interface for Haskell Weekly. Since
 -- the whole thing is meant to be run as a server, this is where all the
 -- functionality comes together.
-module HW.Main
-  ( defaultMain,
-  )
-where
+module HW.Main where
 
 import qualified Control.Concurrent.Async as Async
 import qualified Data.IORef as IORef

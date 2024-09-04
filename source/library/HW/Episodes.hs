@@ -1,11 +1,7 @@
 -- | This module defines all of the podcast episodes that are currently
 -- published on the website. Collecting them here makes it easy to create
 -- "draft" episodes by simply not including them here.
-module HW.Episodes
-  ( Episodes,
-    episodes,
-  )
-where
+module HW.Episodes where
 
 import qualified Data.Map as Map
 import qualified Data.Set as Set

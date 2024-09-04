@@ -3,14 +3,7 @@
 -- differentiate between them. Although "number" sounds pretty general, it
 -- might be better to think of this as an ID for a piece of content (episode or
 -- issue) instead.
-module HW.Type.Number
-  ( Number,
-    fromNatural,
-    toNatural,
-    toText,
-    fromText,
-  )
-where
+module HW.Type.Number where
 
 import qualified Data.Text as Text
 import qualified Numeric.Natural as Natural

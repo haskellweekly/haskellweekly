@@ -4,12 +4,7 @@
 --
 -- In Windows this is given by the \"Size\" property, not the "Size on disk".
 -- In Linux it's reported by @ls -l@.
-module HW.Type.Size
-  ( Size,
-    fromNatural,
-    toNatural,
-  )
-where
+module HW.Type.Size where
 
 import qualified Numeric.Natural as Natural
 

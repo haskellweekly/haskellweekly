@@ -1,9 +1,6 @@
 -- | This module defines all the server middlewares, which wrap around the
 -- application to change requests, responses, or both.
-module HW.Middleware
-  ( middleware,
-  )
-where
+module HW.Middleware where
 
 import qualified Control.Monad as Monad
 import qualified Crypto.Hash as Crypto

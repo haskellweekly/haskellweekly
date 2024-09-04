@@ -1,11 +1,6 @@
 -- | This module defines a type for capturing all of the runtime state of the
 -- Haskell Weekly server.
-module HW.Type.State
-  ( State (..),
-    configToState,
-    modifyState,
-  )
-where
+module HW.Type.State where
 
 import qualified Data.ByteString as ByteString
 import qualified Data.IORef as IORef

@@ -2,12 +2,7 @@
 -- that's easier to say out loud as a word. These GUIDs are used in the RSS
 -- feed to uniquely identify podcast episodes by something other than their
 -- URL, which may change.
-module HW.Type.Guid
-  ( Guid,
-    toText,
-    fromText,
-  )
-where
+module HW.Type.Guid where
 
 import qualified Data.Text as Text
 import qualified Data.UUID as Uuid
