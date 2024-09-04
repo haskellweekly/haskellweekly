@@ -198,7 +198,6 @@ contentSecurityPolicy maybeListmonk =
       "frame-ancestors 'none'",
       "img-src data: 'self'",
       "media-src https://media.haskellweekly.news 'self'",
-      "script-src 'unsafe-inline'",
       "style-src 'self'"
     ]
 
