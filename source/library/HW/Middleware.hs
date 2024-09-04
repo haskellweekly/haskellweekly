@@ -175,7 +175,7 @@ addSecurityHeaders ref application request respond =
     maybeListmonk <- Config.listmonk . State.config <$> IORef.readIORef ref
     let addHeaders =
           addHeader "Content-Security-Policy" (contentSecurityPolicy maybeListmonk)
-            . addHeader "Feature-Policy" featurePolicy
+            . addHeader "Permissions-Policy" permissionsPolicy
             . addHeader "Referrer-Policy" "no-referrer"
             . addHeader "X-Content-Type-Options" "nosniff"
             . addHeader "X-Frame-Options" "deny"
@@ -201,25 +201,25 @@ contentSecurityPolicy maybeListmonk =
       "style-src 'self'"
     ]
 
--- | The value of the @Feature-Policy@ header.
--- <https://scotthelme.co.uk/a-new-security-header-feature-policy/>
-featurePolicy :: Text.Text
-featurePolicy =
+-- | The value of the @Permissions-Policy@ header.
+-- <https://scotthelme.co.uk/goodbye-feature-policy-and-hello-permissions-policy//>
+permissionsPolicy :: Text.Text
+permissionsPolicy =
   Text.intercalate
-    "; "
-    [ "camera 'none'",
-      "fullscreen 'none'",
-      "geolocation 'none'",
-      "gyroscope 'none'",
-      "magnetometer 'none'",
-      "microphone 'none'",
-      "midi 'none'",
-      "notifications 'none'",
-      "payment 'none'",
-      "push 'none'",
-      "speaker 'self'",
-      "sync-xhr 'none'",
-      "vibrate 'none'"
+    ", "
+    [ "camera=()",
+      "fullscreen=()",
+      "geolocation=()",
+      "gyroscope=()",
+      "magnetometer=()",
+      "microphone=()",
+      "midi=()",
+      "notifications=()",
+      "payment=()",
+      "push=()",
+      "speaker=(self)",
+      "sync-xhr=()",
+      "vibrate=()"
     ]
 
 -- | Adds a header to a response. This doesn't remove any existing headers with
