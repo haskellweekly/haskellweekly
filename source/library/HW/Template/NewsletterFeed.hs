@@ -1,7 +1,4 @@
-module HW.Template.NewsletterFeed
-  ( template,
-  )
-where
+module HW.Template.NewsletterFeed where
 
 import qualified Data.List as List
 import qualified Data.Map as Map

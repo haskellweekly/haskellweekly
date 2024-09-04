@@ -1,8 +1,4 @@
-module HW.Type.Listmonk
-  ( Listmonk (..),
-    getListmonk,
-  )
-where
+module HW.Type.Listmonk where
 
 import qualified Control.Monad.Trans.Maybe as MaybeT
 import qualified Data.Text as Text

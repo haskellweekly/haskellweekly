@@ -1,7 +1,4 @@
-module HW.Template.PodcastFeed
-  ( template,
-  )
-where
+module HW.Template.PodcastFeed where
 
 import qualified Data.List.NonEmpty as NonEmpty
 import qualified Data.Map as Map

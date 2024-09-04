@@ -1,9 +1,4 @@
-module HW.Template.Newsletter
-  ( template,
-    callToAction,
-    header,
-  )
-where
+module HW.Template.Newsletter where
 
 import qualified Control.Monad as Monad
 import qualified Data.UUID as Uuid

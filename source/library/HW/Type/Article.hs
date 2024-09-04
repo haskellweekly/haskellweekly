@@ -1,12 +1,7 @@
 -- | This module defines a type for a link to an article referenced by a piece
 -- of content. It is helpful to have a separate type for this we can analyze
 -- linked content rather than all outbound links.
-module HW.Type.Article
-  ( Article,
-    toText,
-    fromText,
-  )
-where
+module HW.Type.Article where
 
 import qualified Data.Text as Text
 import qualified Network.URI as Uri

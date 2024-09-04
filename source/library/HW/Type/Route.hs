@@ -1,13 +1,7 @@
 -- | This module defines a type for all of the routes that the server knows
 -- about. By representing the possible routes as a type, it's possible to do
 -- type safe routing.
-module HW.Type.Route
-  ( Route (..),
-    toText,
-    fromText,
-    routeContent,
-  )
-where
+module HW.Type.Route where
 
 import qualified Data.Text as Text
 import qualified HW.Type.BaseUrl as BaseUrl

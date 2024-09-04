@@ -1,10 +1,5 @@
 -- | This module defines a type for podcast titles.
-module HW.Type.Title
-  ( Title,
-    fromText,
-    toText,
-  )
-where
+module HW.Type.Title where
 
 import qualified Data.Char as Char
 import qualified Data.Text as Text

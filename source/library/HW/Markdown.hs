@@ -1,9 +1,4 @@
-module HW.Markdown
-  ( Markdown,
-    fromText,
-    toHtml,
-  )
-where
+module HW.Markdown where
 
 import qualified CMark
 import qualified Data.Char as Char

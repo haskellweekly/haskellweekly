@@ -1,7 +1,4 @@
-module HW.Handler.Survey
-  ( handler,
-  )
-where
+module HW.Handler.Survey where
 
 import qualified HW.Handler.Common as Common
 import qualified HW.Template.Survey2017 as Survey2017

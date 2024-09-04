@@ -1,9 +1,5 @@
 -- | This module defines a type for an episode of the podcast.
-module HW.Type.Episode
-  ( Episode (..),
-    audioUrl,
-  )
-where
+module HW.Type.Episode where
 
 import qualified Data.Text as Text
 import qualified HW.Type.Articles as Articles

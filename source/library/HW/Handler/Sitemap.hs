@@ -1,7 +1,4 @@
-module HW.Handler.Sitemap
-  ( handler,
-  )
-where
+module HW.Handler.Sitemap where
 
 import qualified Data.Map as Map
 import qualified Data.Text as Text

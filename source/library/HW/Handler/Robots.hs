@@ -1,7 +1,4 @@
-module HW.Handler.Robots
-  ( handler,
-  )
-where
+module HW.Handler.Robots where
 
 import qualified Data.Text as Text
 import qualified HW.Handler.Common as Common

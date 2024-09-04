@@ -1,4 +1,4 @@
-module HW.Worker (worker) where
+module HW.Worker where
 
 import qualified CMark
 import qualified Control.Concurrent as Concurrent

@@ -1,7 +1,4 @@
-module HW.Handler.Advertising
-  ( handler,
-  )
-where
+module HW.Handler.Advertising where
 
 import qualified HW.Handler.Common as Common
 import qualified HW.Template.Advertising as Advertising

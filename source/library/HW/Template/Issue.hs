@@ -1,7 +1,4 @@
-module HW.Template.Issue
-  ( template,
-  )
-where
+module HW.Template.Issue where
 
 import qualified Data.Text as Text
 import qualified HW.Markdown as Markdown

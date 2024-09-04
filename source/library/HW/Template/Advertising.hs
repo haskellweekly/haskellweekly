@@ -1,7 +1,4 @@
-module HW.Template.Advertising
-  ( template,
-  )
-where
+module HW.Template.Advertising where
 
 import qualified HW.Template.Base as Base
 import qualified HW.Type.BaseUrl as BaseUrl

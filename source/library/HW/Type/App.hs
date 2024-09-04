@@ -1,10 +1,4 @@
-module HW.Type.App
-  ( App,
-    getConfig,
-    getState,
-    readDataFile,
-  )
-where
+module HW.Type.App where
 
 import qualified Control.Monad.IO.Class as IO
 import qualified Control.Monad.Trans.Reader as Reader

@@ -1,7 +1,4 @@
-module HW.Handler.Podcast
-  ( handler,
-  )
-where
+module HW.Handler.Podcast where
 
 import qualified Data.List as List
 import qualified Data.Map as Map

@@ -1,7 +1,4 @@
-module HW.Template.Base
-  ( template,
-  )
-where
+module HW.Template.Base where
 
 import qualified Data.Text as Text
 import qualified Data.Version as Version

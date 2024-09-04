@@ -1,12 +1,4 @@
-module HW.Handler.Common
-  ( file,
-    html,
-    lbs,
-    notFound,
-    status,
-    text,
-  )
-where
+module HW.Handler.Common where
 
 import qualified Data.ByteString as ByteString
 import qualified Data.ByteString.Lazy as LazyByteString

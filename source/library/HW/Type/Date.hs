@@ -2,15 +2,7 @@
 -- Haskell Weekly produces (newsletters and podcasts) don't really need more
 -- precision than that. It's easier to say that something was published on
 -- "July 6th, 2019" without adding the unnecessarily precise "at 7:54 AM ET".
-module HW.Type.Date
-  ( Date,
-    toLongText,
-    toRfc2822,
-    toShortText,
-    toYear,
-    fromGregorian,
-  )
-where
+module HW.Type.Date where
 
 import qualified Data.Text as Text
 import qualified Data.Time as Time
