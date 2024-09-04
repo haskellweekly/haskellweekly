@@ -202,7 +202,7 @@ contentSecurityPolicy maybeListmonk =
     ]
 
 -- | The value of the @Permissions-Policy@ header.
--- <https://scotthelme.co.uk/goodbye-feature-policy-and-hello-permissions-policy//>
+-- <https://scotthelme.co.uk/goodbye-feature-policy-and-hello-permissions-policy/>
 permissionsPolicy :: Text.Text
 permissionsPolicy =
   Text.intercalate
