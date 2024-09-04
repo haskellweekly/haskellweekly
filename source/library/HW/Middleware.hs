@@ -177,6 +177,7 @@ addSecurityHeaders ref application request respond =
           addHeader "Content-Security-Policy" (contentSecurityPolicy maybeListmonk)
             . addHeader "Feature-Policy" featurePolicy
             . addHeader "Referrer-Policy" "no-referrer"
+            . addHeader "Strict-Transport-Security" "max-age=31536000; includeSubDomains"
             . addHeader "X-Content-Type-Options" "nosniff"
             . addHeader "X-Frame-Options" "deny"
             . addHeader "X-XSS-Protection" "1; mode=block"
