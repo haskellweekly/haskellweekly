@@ -85,6 +85,8 @@ library
   -- cabal-gild: discover source/library
   exposed-modules:
     HW.Application
+    HW.Data.Episodes
+    HW.Data.Issues
     HW.Episodes
     HW.Handler.Advertising
     HW.Handler.Common
