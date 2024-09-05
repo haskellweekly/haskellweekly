@@ -65,7 +65,7 @@ worker stateRef = Monad.forever $ do
                   let list = Listmonk.list listmonk
                   let campaign =
                         Campaign
-                          { campaignBody = "# Haskell Weekly\n\n## Issue " <> number <> "\n\n" <> text,
+                          { campaignBody = "# Haskell Weekly\n\n## [Issue " <> number <> "](https://haskellweekly.news/issue/" <> number <> ".html)\n\n" <> text,
                             campaignContentType = Just "markdown",
                             campaignLists = pure list,
                             campaignName = name,
