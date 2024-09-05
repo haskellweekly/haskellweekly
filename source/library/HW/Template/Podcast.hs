@@ -48,18 +48,8 @@ callToAction baseUrl =
         ]
         $ Html.img_
           [ Html.alt_ "Listen on Apple Podcasts",
-            Html.class_ "dib w-40-ns",
+            Html.class_ "w-40-ns",
             Html.src_ . Route.toText baseUrl $ Route.AppleBadge
-          ]
-      Html.div_ [Html.class_ "dib w-10-ns"] ""
-      Html.a_
-        [ Html.href_
-            "https://podcasts.google.com/?feed=aHR0cHM6Ly9oYXNrZWxsd2Vla2x5Lm5ld3MvcG9kY2FzdC9mZWVkLnJzcw=="
-        ]
-        $ Html.img_
-          [ Html.alt_ "Listen on Google Podcasts",
-            Html.class_ "dib w-40-ns",
-            Html.src_ . Route.toText baseUrl $ Route.GoogleBadge
           ]
       Html.p_ [Html.class_ "mb0"] $ do
         "You can also follow "
