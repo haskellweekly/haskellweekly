@@ -83,6 +83,7 @@ worker stateRef = Monad.forever $ do
                             campaignContentType = Just "markdown",
                             campaignLists = pure list,
                             campaignName = name,
+                            campaignSendAt = Just $ Time.addUTCTime (15 * 60) now,
                             campaignSubject = "Issue " <> Number.toText number
                           }
                   postResponse <-
@@ -99,7 +100,29 @@ worker stateRef = Monad.forever $ do
                       (State.manager state)
                   case Aeson.eitherDecode $ Client.responseBody postResponse of
                     Left err -> putStrLn $ "[worker] failed to parse campaign: " <> err
-                    Right result -> putStrLn $ "[worker] created campaign " <> show (resultId $ payloadData result)
+                    Right result -> do
+                      let campaignId = resultId $ payloadData result
+                      putStrLn $ "[worker] created campaign " <> show campaignId
+                      let status =
+                            CampaignStatus
+                              { campaignStatusStatus = StatusScheduled
+                              }
+                      putRequest <- Client.parseRequest $ Text.unpack url <> "/api/campaigns/" <> show campaignId <> "/status"
+                      putResponse <-
+                        Client.httpLbs
+                          ( Client.applyBasicAuth
+                              username
+                              password
+                              putRequest
+                                { Client.method = Http.methodPut,
+                                  Client.requestBody = Client.RequestBodyLBS $ Aeson.encode status,
+                                  Client.requestHeaders = [(Http.hContentType, "application/json")]
+                                }
+                          )
+                          (State.manager state)
+                      Monad.unless (Http.statusIsSuccessful $ Client.responseStatus putResponse)
+                        . putStrLn
+                        $ "[worker] failed to schedule campaign: " <> show (Client.responseBody putResponse)
   Concurrent.threadDelay $ 60 * 1000 * 1000
 
 newtype Payload a = Payload
@@ -127,6 +150,7 @@ data Campaign = Campaign
     campaignContentType :: Maybe Text.Text,
     campaignLists :: NonEmpty.NonEmpty Int,
     campaignName :: Text.Text,
+    campaignSendAt :: Maybe Time.UTCTime,
     campaignSubject :: Text.Text
   }
   deriving (Eq, Show)
@@ -138,6 +162,7 @@ instance Aeson.ToJSON Campaign where
         "content_type" Aeson..= campaignContentType x,
         "lists" Aeson..= campaignLists x,
         "name" Aeson..= campaignName x,
+        "send_at" Aeson..= campaignSendAt x,
         "subject" Aeson..= campaignSubject x
       ]
 
@@ -150,3 +175,30 @@ instance Aeson.FromJSON Result where
   parseJSON = Aeson.withObject "Result" $ \object -> do
     id_ <- object Aeson..: "id"
     pure Result {resultId = id_}
+
+newtype CampaignStatus = CampaignStatus
+  { campaignStatusStatus :: Status
+  }
+  deriving (Eq, Show)
+
+instance Aeson.ToJSON CampaignStatus where
+  toJSON x =
+    Aeson.object
+      [ "status" Aeson..= campaignStatusStatus x
+      ]
+
+data Status
+  = StatusCancelled
+  | StatusDraft
+  | StatusPaused
+  | StatusRunning
+  | StatusScheduled
+  deriving (Eq, Show)
+
+instance Aeson.ToJSON Status where
+  toJSON x = case x of
+    StatusCancelled -> "cancelled"
+    StatusDraft -> "draft"
+    StatusPaused -> "paused"
+    StatusRunning -> "running"
+    StatusScheduled -> "scheduled"
