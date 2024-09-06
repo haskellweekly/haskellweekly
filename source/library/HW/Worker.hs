@@ -20,6 +20,7 @@ import qualified HW.Type.Date as Date
 import qualified HW.Type.Issue as Issue
 import qualified HW.Type.Listmonk as Listmonk
 import qualified HW.Type.Number as Number
+import qualified HW.Type.Route as Route
 import qualified HW.Type.State as State
 import qualified Network.HTTP.Client as Client
 import qualified Network.HTTP.Types as Http
@@ -29,7 +30,8 @@ worker stateRef = Monad.forever $ do
   now <- Time.getCurrentTime
   putStrLn $ "[worker] running at " <> Time.formatTime Time.defaultTimeLocale "%Y-%m-%dT%H:%M:%SZ" now
   state <- IORef.readIORef stateRef
-  case Config.listmonk $ State.config state of
+  let config = State.config state
+  case Config.listmonk config of
     Nothing -> putStrLn "[worker] missing listmonk config"
     Just listmonk -> do
       let maybeLatest =
@@ -59,17 +61,29 @@ worker stateRef = Monad.forever $ do
                 then putStrLn $ "[worker] campaign " <> show name <> " already exists"
                 else do
                   postRequest <- Client.parseRequest . Text.unpack $ url <> "/api/campaigns"
-                  let number = Number.toText $ Issue.issueNumber issue
+                  let number = Issue.issueNumber issue
                   node <- Reader.runReaderT (Issue.readIssueFile issue) stateRef
                   let text = CMark.nodeToCommonmark [] Nothing node
                   let list = Listmonk.list listmonk
                   let campaign =
                         Campaign
-                          { campaignBody = "# Haskell Weekly\n\n## Issue " <> number <> "\n\n" <> text,
+                          { campaignBody =
+                              Text.intercalate
+                                "\n\n"
+                                [ "# [Haskell Weekly]("
+                                    <> Route.toText (Config.baseUrl config) Route.Index
+                                    <> ")",
+                                  "## [Issue "
+                                    <> Number.toText number
+                                    <> "]("
+                                    <> Route.toText (Config.baseUrl config) (Route.Issue number)
+                                    <> ")",
+                                  text
+                                ],
                             campaignContentType = Just "markdown",
                             campaignLists = pure list,
                             campaignName = name,
-                            campaignSubject = "Issue " <> number
+                            campaignSubject = "Issue " <> Number.toText number
                           }
                   postResponse <-
                     Client.httpLbs
