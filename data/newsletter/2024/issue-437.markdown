@@ -35,6 +35,9 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 
 ## In brief
 
+- [Unison Forall 2024 - virtual conference Sept 20th](https://www.unison-lang.org/unison-forall-2024/) (ad)
+  > Unison Forall is a full day of talks dedicated to the Unison programming language and ecosystem. Whether you're interested in web development or distributed systems, or if you're just curious about the future of programming languages, this conference is a chance to explore the friendly and powerful world of Unison: a statically typed, functional language designed from the ground up to simplify modern software development.
+
 - [heftia-effects: higher-order effects done right](https://www.reddit.com/r/haskell/comments/1fbvmo8/ann_heftiaeffects_higherorder_effects_done_right/) by u/ymdfield
   > This library aims to provide users with predictable behavior when working with higher-order effects. It offers consistent continuation-based semantics similar to those found in the eff library.
   
