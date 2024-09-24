@@ -67,7 +67,6 @@ callToAction baseUrl maybeListmonk =
       "."
     Monad.forM_ maybeListmonk $ \listmonk -> Html.form_
       [ Html.action_ $ Listmonk.url listmonk <> "/subscription/form",
-        Html.class_ "flex",
         Html.method_ "post"
       ]
       $ do
@@ -80,19 +79,32 @@ callToAction baseUrl maybeListmonk =
             Html.type_ "hidden",
             Html.value_ . Uuid.toText $ Listmonk.uuid listmonk
           ]
-        Html.input_
-          [ Html.makeAttributes "aria-label" "Email address",
-            Html.class_ "ba br0 b--silver input-reset pa3 flex-auto",
-            Html.name_ "email",
-            Html.placeholder_ "you@example.com",
-            Html.required_ "required",
-            Html.type_ "email"
-          ]
-        Html.button_
-          [ Html.class_ "b bn bg-dark-blue input-reset pa3 pointer white",
-            Html.type_ "submit"
-          ]
-          "Subscribe"
+        Html.div_ [Html.class_ "captcha tc"] $ do
+          Html.div_
+            [ Html.class_ "h-captcha",
+              Html.data_ "sitekey" . Uuid.toText $ Listmonk.sitekey listmonk
+            ]
+            ""
+          Html.script_
+            [ Html.async_ "async",
+              Html.defer_ "defer",
+              Html.src_ "https://js.hcaptcha.com/1/api.js"
+            ]
+            (mempty :: Html.Html ())
+        Html.div_ [Html.class_ "flex"] $ do
+          Html.input_
+            [ Html.makeAttributes "aria-label" "Email address",
+              Html.class_ "ba br0 b--silver input-reset pa3 flex-auto",
+              Html.name_ "email",
+              Html.placeholder_ "you@example.com",
+              Html.required_ "required",
+              Html.type_ "email"
+            ]
+          Html.button_
+            [ Html.class_ "b bn bg-dark-blue input-reset pa3 pointer white",
+              Html.type_ "submit"
+            ]
+            "Subscribe"
 
 issueTemplate :: BaseUrl.BaseUrl -> Issue.Issue -> Html.Html ()
 issueTemplate baseUrl issue = Html.li_ $ do

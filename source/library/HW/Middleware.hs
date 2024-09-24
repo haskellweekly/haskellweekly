@@ -188,14 +188,17 @@ contentSecurityPolicy maybeListmonk =
   Text.intercalate
     "; "
     [ "base-uri 'none'",
+      "connect-src https://hcaptcha.com, https://*.hcaptcha.com",
       "default-src 'none'",
       "form-action https://duckduckgo.com "
         <> maybe "" Listmonk.url maybeListmonk
         <> " 'self'",
       "frame-ancestors 'none'",
+      "frame-src https://hcaptcha.com, https://*.hcaptcha.com",
       "img-src data: 'self'",
       "media-src https://media.haskellweekly.news 'self'",
-      "style-src 'self'"
+      "script-src https://hcaptcha.com, https://*.hcaptcha.com",
+      "style-src https://hcaptcha.com, https://*.hcaptcha.com 'self'"
     ]
 
 -- | The value of the @Permissions-Policy@ header.

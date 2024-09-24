@@ -6,6 +6,7 @@ image = "ghcr.io/haskellweekly/haskellweekly:latest"
 [env]
 BASE_URL = "https://haskellweekly.news"
 LISTMONK_LIST = "3"
+LISTMONK_SITEKEY = "52d006fe-18bc-40d2-bec2-d78e9b40f1bc"
 LISTMONK_URL = "https://listmonk.haskellweekly.news"
 LISTMONK_UUID = "4295554f-8f91-4864-92fa-a75a7315d630"
 
