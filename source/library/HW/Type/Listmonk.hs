@@ -9,6 +9,7 @@ import qualified Text.Read as Read
 data Listmonk = Listmonk
   { list :: Int,
     password :: Text.Text,
+    sitekey :: Uuid.UUID,
     url :: Text.Text,
     username :: Text.Text,
     uuid :: Uuid.UUID
@@ -23,6 +24,11 @@ getListmonk = MaybeT.runMaybeT $ do
       Nothing -> fail $ "invalid LISTMONK_LIST: " <> show string
       Just list -> pure list
   password <- fmap Text.pack . MaybeT.MaybeT $ Environment.lookupEnv "LISTMONK_PASSWORD"
+  sitekey <- do
+    string <- MaybeT.MaybeT $ Environment.lookupEnv "LISTMONK_SITEKEY"
+    case Uuid.fromString string of
+      Nothing -> fail $ "invalid LISTMONK_SITEKEY: " <> show string
+      Just sitekey -> pure sitekey
   url <- fmap Text.pack . MaybeT.MaybeT $ Environment.lookupEnv "LISTMONK_URL"
   username <- fmap Text.pack . MaybeT.MaybeT $ Environment.lookupEnv "LISTMONK_USERNAME"
   uuid <- do
@@ -30,4 +36,4 @@ getListmonk = MaybeT.runMaybeT $ do
     case Uuid.fromString string of
       Nothing -> fail $ "invalid LISTMONK_UUID: " <> show string
       Just uuid -> pure uuid
-  pure Listmonk {list, password, url, username, uuid}
+  pure Listmonk {list, password, sitekey, url, username, uuid}
