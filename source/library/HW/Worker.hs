@@ -2,6 +2,7 @@ module HW.Worker where
 
 import qualified CMark
 import qualified Control.Concurrent as Concurrent
+import qualified Control.Exception as Exception
 import qualified Control.Monad as Monad
 import qualified Control.Monad.Trans.Reader as Reader
 import qualified Data.Aeson as Aeson
@@ -25,6 +26,7 @@ import qualified HW.Type.Route as Route
 import qualified HW.Type.State as State
 import qualified Network.HTTP.Client as Client
 import qualified Network.HTTP.Types as Http
+import qualified System.IO as IO
 
 worker :: IORef.IORef State.State -> IO ()
 worker stateRef = Monad.forever $ do
@@ -34,7 +36,7 @@ worker stateRef = Monad.forever $ do
   let config = State.config state
   case Config.listmonk config of
     Nothing -> putStrLn "[worker] missing listmonk config"
-    Just listmonk -> do
+    Just listmonk -> Exception.handle handleException $ do
       let maybeLatest =
             Maybe.listToMaybe
               . List.sortOn (Ord.Down . Issue.issueDate)
@@ -44,7 +46,7 @@ worker stateRef = Monad.forever $ do
         Nothing -> putStrLn "[worker] no issues"
         Just issue -> do
           let url = Listmonk.url listmonk
-          getRequest <- Client.parseRequest . Text.unpack $ url <> "/api/campaigns"
+          getRequest <- Client.parseUrlThrow . Text.unpack $ url <> "/api/campaigns"
           let username = Encoding.encodeUtf8 $ Listmonk.username listmonk
           let password = Encoding.encodeUtf8 $ Listmonk.password listmonk
           let name = "hwn-" <> Date.toShortText (Issue.issueDate issue)
@@ -61,7 +63,7 @@ worker stateRef = Monad.forever $ do
               if campaignsTotal (payloadData campaigns) > 0
                 then putStrLn $ "[worker] campaign " <> show name <> " already exists"
                 else do
-                  postRequest <- Client.parseRequest . Text.unpack $ url <> "/api/campaigns"
+                  postRequest <- Client.parseUrlThrow . Text.unpack $ url <> "/api/campaigns"
                   let number = Issue.issueNumber issue
                   node <- Reader.runReaderT (Issue.readIssueFile issue) stateRef
                   let text = CMark.nodeToCommonmark [] Nothing $ Markdown.trackLinks node
@@ -108,7 +110,7 @@ worker stateRef = Monad.forever $ do
                             CampaignStatus
                               { campaignStatusStatus = StatusScheduled
                               }
-                      putRequest <- Client.parseRequest $ Text.unpack url <> "/api/campaigns/" <> show campaignId <> "/status"
+                      putRequest <- Client.parseUrlThrow $ Text.unpack url <> "/api/campaigns/" <> show campaignId <> "/status"
                       putResponse <-
                         Client.httpLbs
                           ( Client.applyBasicAuth
@@ -125,6 +127,14 @@ worker stateRef = Monad.forever $ do
                         . putStrLn
                         $ "[worker] failed to schedule campaign: " <> show (Client.responseBody putResponse)
   Concurrent.threadDelay $ 60 * 1000 * 1000
+
+handleException :: Exception.SomeException -> IO ()
+handleException se
+  | Just he <- Exception.fromException se =
+      IO.hPutStrLn IO.stderr $
+        "[worker] [error] "
+          <> Exception.displayException (he :: Client.HttpException)
+  | otherwise = Exception.throwIO se
 
 newtype Payload a = Payload
   { payloadData :: a
