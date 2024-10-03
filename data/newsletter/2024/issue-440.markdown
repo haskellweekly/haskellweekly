@@ -10,6 +10,9 @@ This is a weekly summary of what's going on in its community.
 - [Episode 56 – Satnam Singh](https://haskell.foundation/podcast/56/) by The Haskell Interlude
   > Today on the Haskell Interlude, Matti and Sam are joined by Satnam Singh. Satnam has been a lecturer at Glasgow, and Software Engineer at Google, Meta, and now Groq. He talks about convincing people to use Haskell, laying out circuits, why community matters, and why you should not be afraid to lose your job!
   
+- [Queenside Castling on Cardano: Bitwise Operations for Better Solutions and Improved Plutus Scripts](https://library.mlabs.city/queenside-castling-on-cardano-unlocki-bitwise-operations-for-better-solutions-and-improved-plutus-scripts) by Koz Ross
+  > In this article, we will describe two solutions to the n-queens problem, both using operations over a bit-oriented structure. Our first solution will be intuitive, while our second will demonstrate how we can improve on our first attempt, both in theory and in practice.
+  
 - [Static-ls v1.0 announcement](https://mercury.com/blog/static-is-v1-announcement) by Joseph Sumabat
   > Mercury is pleased to announce the v1.0 release of our own internal language server implementation for Haskell. The goal of `static-ls` is to provide a high-speed, low-memory language server for enterprise-sized projects.
   
@@ -18,9 +21,6 @@ This is a weekly summary of what's going on in its community.
   
 - [Total Denotational Semantics](https://fixpt.de/blog/2024-09-23-total-denotational-semantics.html) by Sebastian Graf
   > Denotational semantics assign meaning to a program (e.g., in untyped lambda calculus) by mapping the program into a self-contained domain model in some meta language (e.g., Scott domains). Traditionally, what is complicated about denotational semantics is not so much the function that defines them; rather it is to find a sound mathematical definition of the semantic domain, and a general methodology of doing so that scales to recursive types and hence general recursion, global mutable state, exceptions and concurrency. In this post, I discuss a related issue: I argue that traditional Scott/Strachey denotational semantics are partial (in a precise sense). After exemplifying the problem, I will discuss total denotational semantics as a viable alternative, and how to define one using guarded recursion.
-
-- [Queenside Castling on Cardano: Bitwise Operations for Better Solutions and Improved Plutus Scripts](https://library.mlabs.city/queenside-castling-on-cardano-unlocki-bitwise-operations-for-better-solutions-and-improved-plutus-scripts) by Koz Ross
-  > In this article, we will describe two solutions to the n-queens problem, both using operations over a bit-oriented structure. Our first solution will be intuitive, while our second will demonstrate how we can improve on our first attempt, both in theory and in practice.
 
 ## Jobs
 
