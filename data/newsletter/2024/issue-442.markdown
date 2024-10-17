@@ -4,6 +4,9 @@ This is a weekly summary of what's going on in its community.
 
 ## Featured
 
+- [Developer Nation Survey](https://developereconomics.net/?member_id=haskell&utm_medium=nl_ad_4) (ad)
+  > Calling All Devs! Help shape the future of development by taking the Developer Nation survey. We'll donate to charity on your behalf and you could win a Samsung Galaxy Watch 7, a Portable Projector, Raspberry Pi 5s, and many more.
+
 - [A Dictionary of Single-Letter Variable Names](http://jackkelly.name/blog/archives/2024/10/12/a_dictionary_of_single-letter_variable_names/) by Jack Kelly
   > Haskell’s expressive type system means that type signatures can carry a lot of information. Haskell’s polymorphism means that you sometime write a function that works across an enormous range of types, and are often left wondering “what do I actually call my variables?”. It is often the case that there’s nothing to say beyond “this variable is a Functor”, or “this variable is a monadic action”, and so a single-letter variable name is appropriate. An unofficial and largely undocumented convention has emerged around these variable names, and so I wanted to write them all down in one place.
   
