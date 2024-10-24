@@ -16,7 +16,7 @@ This is a weekly summary of what's going on in its community.
 - [Legacy Security Manager in Haskell](https://blog.ploeh.dk/2024/10/21/legacy-security-manager-in-haskell/) by Mark Seemann
   > In early 2013 Richard Dalton published an article about legacy code katas. The idea is to present a piece of 'legacy code' that you have to somehow refactor or improve. Of course, in order to make the exercise manageable, it's necessary to reduce it to some essence of what we might regard as legacy code. It'll only be one aspect of true legacy code. For the legacy Security Manager exercise, the main problem is that the code is difficult to unit test.
   
-- [MuniHac 2024 video playlist](youtube.com/playlist?list=PLxxF72uPfQVRWswMN2-KsSYW6fDdQY1wi) by TNG Technology Consulting GmbH 
+- [MuniHac 2024 video playlist](https://www.youtube.com/playlist?list=PLxxF72uPfQVRWswMN2-KsSYW6fDdQY1wi) by TNG Technology Consulting GmbH 
   > MuniHac is an annual three-day hackathon and conference in Munich that brings together Haskell developers and enthusiasts from across the globe. This event offers a unique opportunity to improve Haskell skills, network with experts in the community, and participate in a range of workshops, talks, and projects for both beginners and experienced developers.
   
 - [Plucking constraints in Bluefin](https://h2.jaguarpaw.co.uk/posts/bluefin-plucking-constraints/) by Tom Ellis
