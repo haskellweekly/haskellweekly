@@ -19,10 +19,7 @@ getState = Reader.ask
 -- returns nothing if the file doesn't exist and raises an exception for all
 -- other failure modes.
 readDataFile :: FilePath -> App ByteString.ByteString
-readDataFile = readDataFileWithoutCache
-
-readDataFileWithoutCache :: FilePath -> App ByteString.ByteString
-readDataFileWithoutCache file = do
+readDataFile file = do
   config <- getConfig
   let directory = Config.dataDirectory config
       path = FilePath.combine directory file
