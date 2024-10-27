@@ -2,7 +2,6 @@
 -- application to change requests, responses, or both.
 module HW.Middleware where
 
-import qualified Control.Monad as Monad
 import qualified Crypto.Hash as Crypto
 import qualified Data.ByteArray as ByteArray
 import qualified Data.ByteArray.Encoding as ByteArray
@@ -12,7 +11,6 @@ import qualified Data.ByteString.Lazy as LazyByteString
 import qualified Data.CaseInsensitive as CI
 import qualified Data.IORef as IORef
 import qualified Data.Int as Int
-import qualified Data.Map as Map
 import qualified Data.Text as Text
 import qualified Data.Text.Encoding as Text
 import qualified Data.Text.Encoding.Error as Text
@@ -38,30 +36,8 @@ middleware ref =
   Middleware.gzip Middleware.def
     . addLogging
     . addEntityTagHeader
-    . addCaching ref
     . addSecurityHeaders ref
     . Middleware.autohead
-
-addCaching :: IORef.IORef State.State -> Wai.Middleware
-addCaching ref application request respond = do
-  let method = requestMethod request
-      key = (method, requestPath request)
-  cache <- State.responseCache <$> IORef.readIORef ref
-  now <- Time.getCurrentTime
-  case Map.lookup key cache of
-    Just (expires, response) | expires >= now -> respond response
-    _ -> application request $ \response -> do
-      let fifteenMinutes = 900 :: Time.NominalDiffTime
-          expires = Time.addUTCTime fifteenMinutes now
-      Monad.when (method == "GET" && responseStatus response == 200)
-        . State.modifyState ref
-        $ \state ->
-          state
-            { State.responseCache =
-                Map.insert key (expires, response) $
-                  State.responseCache state
-            }
-      respond response
 
 -- | Logs a request/response as a JSON object. Each object will have the
 -- following fields:
