@@ -9,7 +9,6 @@ import qualified Data.ByteString as ByteString
 import qualified Data.ByteString.Builder as Builder
 import qualified Data.ByteString.Lazy as LazyByteString
 import qualified Data.CaseInsensitive as CI
-import qualified Data.IORef as IORef
 import qualified Data.Int as Int
 import qualified Data.Text as Text
 import qualified Data.Text.Encoding as Text
@@ -31,12 +30,12 @@ import qualified Text.Printf as Printf
 
 -- | All of the middlewares are wrapped up in this single one so that you only
 -- have to apply one.
-middleware :: IORef.IORef State.State -> Wai.Middleware
-middleware ref =
+middleware :: State.State -> Wai.Middleware
+middleware state =
   Middleware.gzip Middleware.def
     . addLogging
     . addEntityTagHeader
-    . addSecurityHeaders ref
+    . addSecurityHeaders state
     . Middleware.autohead
 
 -- | Logs a request/response as a JSON object. Each object will have the
@@ -142,11 +141,11 @@ sha1 :: LazyByteString.ByteString -> Crypto.Digest Crypto.SHA1
 sha1 = Crypto.hashlazy
 
 -- | Adds security headers as recommended by <https://securityheaders.com>.
-addSecurityHeaders :: IORef.IORef State.State -> Wai.Middleware
-addSecurityHeaders ref application request respond =
+addSecurityHeaders :: State.State -> Wai.Middleware
+addSecurityHeaders state application request respond =
   application request $ \response -> do
-    maybeListmonk <- Config.listmonk . State.config <$> IORef.readIORef ref
-    let addHeaders =
+    let maybeListmonk = Config.listmonk $ State.config state
+        addHeaders =
           addHeader "Content-Security-Policy" (contentSecurityPolicy maybeListmonk)
             . addHeader "Permissions-Policy" permissionsPolicy
             . addHeader "Referrer-Policy" "no-referrer"

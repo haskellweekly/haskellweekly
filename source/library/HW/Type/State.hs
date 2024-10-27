@@ -2,7 +2,6 @@
 -- Haskell Weekly server.
 module HW.Type.State where
 
-import qualified Data.IORef as IORef
 import qualified HW.Episodes as Episodes
 import qualified HW.Issues as Issues
 import qualified HW.Type.Config as Config
@@ -30,7 +29,3 @@ configToState config = do
         issues,
         manager
       }
-
-modifyState :: IORef.IORef State -> (State -> State) -> IO ()
-modifyState ref modify =
-  IORef.atomicModifyIORef' ref $ \state -> (modify state, ())

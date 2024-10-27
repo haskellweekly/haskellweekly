@@ -3,7 +3,6 @@
 module HW.Application where
 
 import qualified Control.Monad.Trans.Reader as Reader
-import qualified Data.IORef as IORef
 import qualified Data.Text as Text
 import qualified Data.Text.Encoding as Text
 import qualified Data.Text.Encoding.Error as Text
@@ -32,11 +31,11 @@ import qualified Network.Wai as Wai
 -- | The whole application. From a high level, this is responsible for checking
 -- the request method and path. If those route to an appropriate handler, this
 -- calls that handler and returns the response.
-application :: IORef.IORef State.State -> Wai.Application
-application ref request respond =
+application :: State.State -> Wai.Application
+application state request respond =
   case (requestMethod request, requestRoute request) of
     ("GET", Just routeOrRedirect) -> do
-      response <- Reader.runReaderT (handle routeOrRedirect request) ref
+      response <- Reader.runReaderT (handle routeOrRedirect request) state
       respond response
     _ -> respond Common.notFound
 
