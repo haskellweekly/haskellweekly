@@ -4,7 +4,6 @@ import qualified Control.Monad.IO.Class as IO
 import qualified Control.Monad.Trans.Reader as Reader
 import qualified Data.ByteString as ByteString
 import qualified Data.IORef as IORef
-import qualified Data.Map as Map
 import qualified HW.Type.Config as Config
 import qualified HW.Type.State as State
 import qualified System.FilePath as FilePath
@@ -23,18 +22,7 @@ getState = do
 -- returns nothing if the file doesn't exist and raises an exception for all
 -- other failure modes.
 readDataFile :: FilePath -> App ByteString.ByteString
-readDataFile file = do
-  state <- getState
-  case Map.lookup file (State.fileCache state) of
-    Just contents -> pure contents
-    Nothing -> do
-      contents <- readDataFileWithoutCache file
-      stateRef <- Reader.ask
-      IO.liftIO . State.modifyState stateRef $ \oldState ->
-        oldState
-          { State.fileCache = Map.insert file contents $ State.fileCache oldState
-          }
-      pure contents
+readDataFile = readDataFileWithoutCache
 
 readDataFileWithoutCache :: FilePath -> App ByteString.ByteString
 readDataFileWithoutCache file = do

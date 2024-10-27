@@ -2,7 +2,6 @@
 -- Haskell Weekly server.
 module HW.Type.State where
 
-import qualified Data.ByteString as ByteString
 import qualified Data.IORef as IORef
 import qualified Data.Map as Map
 import qualified Data.Text as Text
@@ -17,7 +16,6 @@ import qualified Network.Wai as Wai
 data State = State
   { config :: Config.Config,
     episodes :: Episodes.Episodes,
-    fileCache :: Map.Map FilePath ByteString.ByteString,
     issues :: Issues.Issues,
     manager :: Client.Manager,
     responseCache ::
@@ -35,7 +33,6 @@ configToState config = do
     State
       { config,
         episodes,
-        fileCache = Map.empty,
         issues,
         manager,
         responseCache = Map.empty
