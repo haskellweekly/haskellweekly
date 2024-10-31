@@ -6,7 +6,6 @@ import qualified Control.Exception as Exception
 import qualified Control.Monad as Monad
 import qualified Control.Monad.Trans.Reader as Reader
 import qualified Data.Aeson as Aeson
-import qualified Data.IORef as IORef
 import qualified Data.List as List
 import qualified Data.List.NonEmpty as NonEmpty
 import qualified Data.Map as Map
@@ -28,11 +27,10 @@ import qualified Network.HTTP.Client as Client
 import qualified Network.HTTP.Types as Http
 import qualified System.IO as IO
 
-worker :: IORef.IORef State.State -> IO ()
-worker stateRef = Monad.forever $ do
+worker :: State.State -> IO ()
+worker state = Monad.forever $ do
   now <- Time.getCurrentTime
   putStrLn $ "[worker] running at " <> Time.formatTime Time.defaultTimeLocale "%Y-%m-%dT%H:%M:%SZ" now
-  state <- IORef.readIORef stateRef
   let config = State.config state
   case Config.listmonk config of
     Nothing -> putStrLn "[worker] missing listmonk config"
@@ -65,7 +63,7 @@ worker stateRef = Monad.forever $ do
                 else do
                   postRequest <- Client.parseUrlThrow . Text.unpack $ url <> "/api/campaigns"
                   let number = Issue.issueNumber issue
-                  node <- Reader.runReaderT (Issue.readIssueFile issue) stateRef
+                  node <- Reader.runReaderT (Issue.readIssueFile issue) state
                   let text = CMark.nodeToCommonmark [] Nothing $ Markdown.trackLinks node
                   let list = Listmonk.list listmonk
                   let campaign =

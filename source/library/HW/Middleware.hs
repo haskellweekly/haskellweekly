@@ -2,7 +2,6 @@
 -- application to change requests, responses, or both.
 module HW.Middleware where
 
-import qualified Control.Monad as Monad
 import qualified Crypto.Hash as Crypto
 import qualified Data.ByteArray as ByteArray
 import qualified Data.ByteArray.Encoding as ByteArray
@@ -10,9 +9,7 @@ import qualified Data.ByteString as ByteString
 import qualified Data.ByteString.Builder as Builder
 import qualified Data.ByteString.Lazy as LazyByteString
 import qualified Data.CaseInsensitive as CI
-import qualified Data.IORef as IORef
 import qualified Data.Int as Int
-import qualified Data.Map as Map
 import qualified Data.Text as Text
 import qualified Data.Text.Encoding as Text
 import qualified Data.Text.Encoding.Error as Text
@@ -33,35 +30,13 @@ import qualified Text.Printf as Printf
 
 -- | All of the middlewares are wrapped up in this single one so that you only
 -- have to apply one.
-middleware :: IORef.IORef State.State -> Wai.Middleware
-middleware ref =
+middleware :: State.State -> Wai.Middleware
+middleware state =
   Middleware.gzip Middleware.def
     . addLogging
     . addEntityTagHeader
-    . addCaching ref
-    . addSecurityHeaders ref
+    . addSecurityHeaders state
     . Middleware.autohead
-
-addCaching :: IORef.IORef State.State -> Wai.Middleware
-addCaching ref application request respond = do
-  let method = requestMethod request
-      key = (method, requestPath request)
-  cache <- State.responseCache <$> IORef.readIORef ref
-  now <- Time.getCurrentTime
-  case Map.lookup key cache of
-    Just (expires, response) | expires >= now -> respond response
-    _ -> application request $ \response -> do
-      let fifteenMinutes = 900 :: Time.NominalDiffTime
-          expires = Time.addUTCTime fifteenMinutes now
-      Monad.when (method == "GET" && responseStatus response == 200)
-        . State.modifyState ref
-        $ \state ->
-          state
-            { State.responseCache =
-                Map.insert key (expires, response) $
-                  State.responseCache state
-            }
-      respond response
 
 -- | Logs a request/response as a JSON object. Each object will have the
 -- following fields:
@@ -166,11 +141,11 @@ sha1 :: LazyByteString.ByteString -> Crypto.Digest Crypto.SHA1
 sha1 = Crypto.hashlazy
 
 -- | Adds security headers as recommended by <https://securityheaders.com>.
-addSecurityHeaders :: IORef.IORef State.State -> Wai.Middleware
-addSecurityHeaders ref application request respond =
+addSecurityHeaders :: State.State -> Wai.Middleware
+addSecurityHeaders state application request respond =
   application request $ \response -> do
-    maybeListmonk <- Config.listmonk . State.config <$> IORef.readIORef ref
-    let addHeaders =
+    let maybeListmonk = Config.listmonk $ State.config state
+        addHeaders =
           addHeader "Content-Security-Policy" (contentSecurityPolicy maybeListmonk)
             . addHeader "Permissions-Policy" permissionsPolicy
             . addHeader "Referrer-Policy" "no-referrer"

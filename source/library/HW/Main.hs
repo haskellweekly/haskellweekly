@@ -4,7 +4,6 @@
 module HW.Main where
 
 import qualified Control.Concurrent.Async as Async
-import qualified Data.IORef as IORef
 import qualified Data.Version as Version
 import qualified HW.Server as Server
 import qualified HW.Type.Config as Config
@@ -23,7 +22,6 @@ defaultMain = do
       <> " ..."
   config <- Config.getConfig
   state <- State.configToState config
-  stateRef <- IORef.newIORef state
   Async.race_
-    (Server.server stateRef)
-    (Worker.worker stateRef)
+    (Server.server state)
+    (Worker.worker state)

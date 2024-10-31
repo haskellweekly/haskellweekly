@@ -2,7 +2,6 @@
 module HW.Server where
 
 import qualified Data.ByteString as ByteString
-import qualified Data.IORef as IORef
 import qualified Data.Text as Text
 import qualified Data.Text.Encoding as Text
 import qualified Data.Version as Version
@@ -17,13 +16,12 @@ import qualified Network.Wai.Handler.Warp as Warp
 import qualified Paths_haskellweekly as Package
 
 -- | Starts up the server. This function never returns.
-server :: IORef.IORef State.State -> IO ()
-server ref = do
-  state <- IORef.readIORef ref
+server :: State.State -> IO ()
+server state = do
   let config = State.config state
   Warp.runSettings (configToSettings config)
-    . Middleware.middleware ref
-    $ Application.application ref
+    . Middleware.middleware state
+    $ Application.application state
 
 -- | Converts a Haskell Weekly config into Warp server settings.
 configToSettings :: Config.Config -> Warp.Settings
