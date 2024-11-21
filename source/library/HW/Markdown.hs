@@ -43,12 +43,3 @@ toSlug =
         . Text.map (\c -> if p c then c else ' ')
         . Text.toLower
         . Text.unwords
-
-trackLinks :: Markdown -> Markdown
-trackLinks node =
-  let CMark.Node posInfo nodeType nodes = node
-      newNodes = fmap trackLinks nodes
-      newNodeType = case nodeType of
-        CMark.LINK url title -> CMark.LINK (url <> "@TrackLink") title
-        _ -> nodeType
-   in CMark.Node posInfo newNodeType newNodes
