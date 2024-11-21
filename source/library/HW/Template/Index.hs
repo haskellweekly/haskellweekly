@@ -104,13 +104,6 @@ template config maybeIssue maybeEpisode = do
         [Html.href_ "mailto:info@haskellweekly.news"]
         "info@haskellweekly.news"
       "."
-    Html.h2_ [Html.class_ "f2 mv3 tracked-tight"] "Advertising"
-    Html.p_ $ do
-      "If you would like to advertise with Haskell Weekly, please consult our "
-      Html.a_
-        [Html.href_ $ Route.toText baseUrl Route.Advertising]
-        "advertising page"
-      "."
 
 episodeTemplate :: BaseUrl.BaseUrl -> Episode.Episode -> Html.Html ()
 episodeTemplate baseUrl episode = Html.p_ $ do
