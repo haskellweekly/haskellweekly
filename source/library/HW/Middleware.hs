@@ -32,7 +32,7 @@ import qualified Text.Printf as Printf
 -- have to apply one.
 middleware :: State.State -> Wai.Middleware
 middleware state =
-  Middleware.gzip Middleware.def
+  Middleware.gzip Middleware.defaultGzipSettings
     . addLogging
     . addEntityTagHeader
     . addSecurityHeaders state

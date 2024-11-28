@@ -15,7 +15,6 @@ import qualified Data.Text as Text
 import qualified Data.Text.Encoding as Encoding
 import qualified Data.Time as Time
 import qualified HW.Handler.Issue as Issue
-import qualified HW.Markdown as Markdown
 import qualified HW.Type.Config as Config
 import qualified HW.Type.Date as Date
 import qualified HW.Type.Issue as Issue
@@ -64,7 +63,7 @@ worker state = Monad.forever $ do
                   postRequest <- Client.parseUrlThrow . Text.unpack $ url <> "/api/campaigns"
                   let number = Issue.issueNumber issue
                   node <- Reader.runReaderT (Issue.readIssueFile issue) state
-                  let text = CMark.nodeToCommonmark [] Nothing $ Markdown.trackLinks node
+                  let text = CMark.nodeToCommonmark [] Nothing node
                   let list = Listmonk.list listmonk
                   let campaign =
                         Campaign
@@ -73,12 +72,12 @@ worker state = Monad.forever $ do
                                 "\n\n"
                                 [ "# [Haskell Weekly]("
                                     <> Route.toText (Config.baseUrl config) Route.Index
-                                    <> "@TrackLink)",
+                                    <> ")",
                                   "## [Issue "
                                     <> Number.toText number
                                     <> "]("
                                     <> Route.toText (Config.baseUrl config) (Route.Issue number)
-                                    <> "@TrackLink)",
+                                    <> ")",
                                   text
                                 ],
                             campaignContentType = Just "markdown",
