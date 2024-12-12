@@ -4,7 +4,7 @@ This is a weekly summary of what's going on in its community.
 
 ## Featured
 
-- [Debugging your Haskell application with debuggable](https://www.well-typed.com/blog/2024/12/debuggable/) by Edsko de Vries
+- [Debugging your Haskell application with `debuggable`](https://www.well-typed.com/blog/2024/12/debuggable/) by Edsko de Vries
   > In this blog post we will introduce a new open source Haskell library called `debuggable`, which provides various utilities designed to make it easier to debug your applications. Some of these are intended for use during actual debugging, others are designed to be a regular part of your application, ready to be used if and when necessary.
   
 - [Domain errors with HasCallStack](https://h2.jaguarpaw.co.uk/posts/hascallstack-domain-errors/) by Tom Ellis
