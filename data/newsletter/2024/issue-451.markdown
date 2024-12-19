@@ -4,7 +4,11 @@ This is a weekly summary of what's going on in its community.
 
 ## Featured
 
--
+undefined
+
+## Jobs
+
+undefined
 
 ## In brief
 
@@ -15,8 +19,8 @@ This is a weekly summary of what's going on in its community.
 
 ## Show & tell
 
--
+undefined
 
 ## Call for participation
 
--
+undefined
