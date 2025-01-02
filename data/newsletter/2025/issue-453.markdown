@@ -18,7 +18,7 @@ This is a weekly summary of what's going on in its community.
 
 ## In brief
 
-- [[Flora](https://flora.pm/) 1.0.22 is here! With this release you can view security advisories for Haskell packages of the Hackage ecosystem](https://github.com/flora-pm/flora-server/releases/tag/v1.0.22) by Théophile Choutri
+- [Flora 1.0.22 is here! With this release you can view security advisories for Haskell packages of the Hackage ecosystem](https://github.com/flora-pm/flora-server/releases/tag/v1.0.22) by Théophile Choutri
 
 - [GHCup 0.1.40.0 released](https://discourse.haskell.org/t/ann-ghcup-0-1-40-0-released/11107) by Julian Ospald 
 
