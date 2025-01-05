@@ -31,7 +31,7 @@ This is a weekly summary of what's going on in its community.
 - [Trying to compose non-composable: lift everything!](https://iokasimov.github.io/posts/2020/02/joint) by Murat Kasimov
   > According to Stephen Diehl, algebraic effects are one of the most important problems that will be solved in the future for Haskell and I would like to make my modest contribution.
 
-- [Why Monad Composes Operations Sequentially](https://odone.io/posts/2020-02-03-monad-composes-sequentially.html) by Riccardo Odone
+- [Why Monad Composes Operations Sequentially](https://odone.me/posts/2020-02-03-monad-composes-sequentially/) by Riccardo Odone
   > I've been in the dark for a long time, until a few days ago it clicked. So here I am, writing the post my past self would have loved to read.
 
 ## Jobs

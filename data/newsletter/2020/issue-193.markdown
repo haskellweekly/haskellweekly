@@ -31,7 +31,7 @@ This is a weekly summary of what's going on in its community.
 - [Semigroup resonance FizzBuzz](https://blog.ploeh.dk/2019/12/30/semigroup-resonance-fizzbuzz/) by Mark Seemann
   > You can implement the FizzBuzz kata using the fundamental concepts catamorphism, semigroup and monoid. No if-then-else instructions or pattern matching is required. Instead, you use the string concatenation semigroup to enable resonance between two pulses, and the maybe catamorphism to combine with the list of numbers.
 
-- [Tweeting a Blog Post via command line](https://odone.io/posts/2020-01-06-posting-a-tweet-with-haskell.html) by Riccardo Odone
+- [Tweeting a Blog Post via command line](https://odone.me/posts/2020-01-06-posting-a-tweet-with-haskell/) by Riccardo Odone
   > In the previous post we have seen how to scaffold a blog post with a Haskell script. Today, we are going to automate tweeting.
 
 ## Jobs
