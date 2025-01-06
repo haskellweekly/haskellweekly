@@ -53,7 +53,7 @@ You should [advertise with us](https://haskellweekly.news/advertising.html)!
 - [Reconciling concepts from FP and OOP](https://thma.github.io/posts/2020-12-20-reconciling-fp-and-oop-concepts.html) by Thomas Mahler
   > In the following sections I will have a look at the Haskell language to see how the principles of Ad-hoc Polymorphism and Referential Transparency are covered in our favourite language.
 
-- [Scripting the Hell out of Trello with Haskell](https://odone.io/posts/2020-12-21-scripting-the-hell-out-of-trello-in-haskell.html) by Riccardo Odone
+- [Scripting the Hell out of Trello with Haskell](https://odone.me/posts/2020-12-21-scripting-the-hell-out-of-trello-in-haskell/) by Riccardo Odone
   > Trello is excellent when it comes to one-off cards. Unfortunately, it doesn't offer any support for recurring tasks out of the box.
 
 - [Silly Haskell Code Formatting Is Prevalent](https://yairchu.github.io/posts/silly-haskell-formatting) by Yair Chuchem

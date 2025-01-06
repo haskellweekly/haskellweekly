@@ -13,7 +13,7 @@ This is a weekly summary of what's going on in its community.
 - [Polymorphic Perplexion](https://ucsd-progsys.github.io/liquidhaskell-blog/2020/04/12/polymorphic-perplexion.lhs/) by Ranjit Jhala
   > Thanks to its ubiquity, we often take polymorphism for granted, and it can be quite baffling to figure out why verification fails with monomorphic signatures.
 
-- [Rewriting to Haskell: Testing](https://odone.io/posts/2020-04-13-rewriting-haskell-testing.html) by Riccardo Odone
+- [Rewriting to Haskell: Testing](https://odone.me/posts/2020-04-13-rewriting-haskell-testing/) by Riccardo Odone
   > We have managed to delay testing by leaning on Ruby RSpec for a while. It's time to do the right thing and write some tests in Haskell.
 
 - [Servant Testing Helpers!](https://mmhaskell.com/blog/2020/3/30/servant-testing-helpers) by Monday Morning Haskell

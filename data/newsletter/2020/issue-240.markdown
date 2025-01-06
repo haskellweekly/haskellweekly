@@ -22,7 +22,7 @@ This is a weekly summary of what's going on in its community.
 - [The Haskell runtime is what sets it apart from the competition](https://harporoeder.com/posts/haskell-runtime/) by Harpo Roeder
   > Here I explore some of the lesser talked about features that greatly contribute to the Haskells power, performance, and convenience.
 
-- [How would I do it in Haskell?](https://odone.io/posts/2020-11-26-how-would-i-do-it-in-haskell.html) by Riccardo Odone
+- [How would I do it in Haskell?](https://odone.me/posts/2020-11-26-how-would-i-do-it-in-haskell/) by Riccardo Odone
   > Since I started playing with functional programming, not only I've dot-chained the hell out of object-oriented code, but I often catch myself thinking: how would I do this in Haskell?
 
 - [Is Haskell fast?](https://arifordsham.com/is-haskell-fast/) by Ari Fordsham

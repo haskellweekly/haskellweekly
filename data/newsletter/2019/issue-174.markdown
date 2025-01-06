@@ -16,7 +16,7 @@ This is a weekly summary of what's going on in its community.
 -   [Haskell-y Ever After: Summer Tales for Every Full-stack Developer (Part Two)](https://medium.com/@rizary/haskell-y-ever-after-summer-tales-for-every-full-stack-developer-part-two-1a0b0c0b8879) by Andika Demas Riyandi
     > A Google Summer of Code's student story about implementing Haskell on the Hackage Matrix Builder's frontend application using Functional Reactive Programming approach.
 
--   [Building a Blog in Haskell with Yesod--Giving Back](https://odone.io/posts/2019-08-26-building-a-blog-in-haskell-with-yesod%E2%80%93giving-back.html) by Riccardo Odone
+-   [Building a Blog in Haskell with Yesod--Giving Back](https://odone.me/posts/2019-08-26-building-a-blog-in-haskell-with-yesod%E2%80%93giving-back/) by Riccardo Odone
     > This is a series about Yesod: a Haskell web framework that follows a similar philosophy to Rails. In fact, it is strongly opinionated and provides a lot of functionality out of the box.
 
 -   [PatternSynonyms for expressive code](https://haskell-explained.gitlab.io/blog/posts/2019/08/27/pattern-synonyms/index.html) by Raghu Kaippully
