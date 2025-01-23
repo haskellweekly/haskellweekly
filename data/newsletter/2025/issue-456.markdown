@@ -46,10 +46,6 @@ This is a weekly summary of what's going on in its community.
 - [Tracing foreign function invocations](https://well-typed.com/blog/2025/01/trace-foreign-calls/) by Edsko de Vries, Zubin Duggal, Matthew Pickering
   > When profiling Haskell programs, time spent in foreign functions (functions defined in C) does not show up on normal time profiles, which can be problematic when debugging or optimizing performance of code that makes heavy use of the foreign function interface (FFI). In this blog post we present a new compiler plugin called `trace-foreign-calls`, which makes this time visible and available for analysis.
 
-## Jobs
-
-undefined
-
 ## In brief
 
 - [Documentation on using Renovate with haskell-actions](https://github.com/haskell-actions/setup/issues/111) by Janus Troelsen
