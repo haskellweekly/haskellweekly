@@ -22,14 +22,14 @@ This is a weekly summary of what's going on in its community.
 - [Song recommendations as a Haskell Impureim Sandwich](https://blog.ploeh.dk/2025/05/26/song-recommendations-as-a-haskell-impureim-sandwich/) by Mark Seemann
   > This article is part of a larger article series called Alternative ways to design with functional programming. As the title suggests, these articles discuss various ways to apply functional-programming principles to a particular problem. All the articles engage with the same problem. In short, the task is to calculate song recommendations for a user, based on massive data sets. Earlier articles in this series give you detailed explanation of the problem.
 
-## Jobs
-
-undefined
-
 ## In brief
+
+- [An experimental implementation of the Lox programming language in Haskell](https://discourse.haskell.org/t/an-experimental-implementation-of-the-lox-programming-language-in-haskell/12183) by Qiao Wang
 
 - [Copilot 4.4](https://www.reddit.com/r/haskell/comments/1kv9j12/ann_copilot_44/) by ivanpd
   > We are really excited to announce Copilot 4.4. Copilot is a stream-based EDSL in Haskell for writing and monitoring embedded C programs, with an emphasis on correctness and hard realtime requirements. Copilot is typically used as a high-level runtime verification framework, and supports temporal logic (LTL, PTLTL and MTL), clocks and voting algorithms. Compilation to Bluespec, to target FPGAs, is also supported.
+  
+- [Haskell Language Server 2.11.0.0 is now available](https://discourse.haskell.org/t/haskell-language-server-2-11-0-0-is-now-available/12186) by Zubin Duggal
   
 - [Haskell project: RAG with text embeddings and cosine similarity graph](https://www.reddit.com/r/haskell/comments/1kvhtct/haskell_project_rag_with_text_embeddings_and/) by Davi Tostes
   > Just built a small Haskell tool that reads `.txt` files, generates embeddings (via `nomic-embed-text` API), builds a similarity graph using cosine distance, and performs RAG-style search over it.
@@ -38,10 +38,6 @@ undefined
 
 - [Servant-routes-golden: automatic golden tests for Servant APIs](https://discourse.haskell.org/t/servant-routes-golden-automatic-golden-tests-for-servant-apis/12180) by Frederick Pringle
   > Following servant-routes, I’ve uploaded a new package candidate servant-routes-golden. As the name suggests, the idea is to use the HasRoutes class to generate golden tests from API types.
-
-## Show & tell
-
-undefined
 
 ## Call for participation
 
