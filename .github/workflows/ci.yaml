@@ -14,14 +14,14 @@ jobs:
     name: Ormolu
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - uses: haskell-actions/run-ormolu@v17
 
   hlint:
     name: HLint
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - uses: haskell-actions/hlint-setup@fe9cd1cd1af94a23900c06738e73f6ddb092966a
       - uses: haskell-actions/hlint-run@v2
         with:
@@ -31,14 +31,14 @@ jobs:
     name: Cabal
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - run: cabal check
 
   gild:
     name: Gild
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - uses: tfausak/cabal-gild-setup-action@v2
       - run: cabal-gild --input haskellweekly.cabal --mode check
 
@@ -51,7 +51,7 @@ jobs:
     runs-on: ${{ matrix.platform }}-latest
     name: GHC ${{ matrix.ghc }} on ${{ matrix.platform }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - run: mkdir artifact
 
@@ -111,7 +111,7 @@ jobs:
     runs-on: ubuntu-latest
     name: Docker
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - uses: actions/download-artifact@v4
         with:
@@ -153,7 +153,7 @@ jobs:
     if: github.ref == 'refs/heads/main'
     steps:
 
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - uses: aws-actions/configure-aws-credentials@v4
         with:
@@ -174,7 +174,7 @@ jobs:
     name: Deploy to Fly.io
     if: github.ref == 'refs/heads/main'
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - uses: superfly/flyctl-actions/setup-flyctl@1.5
 
