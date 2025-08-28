@@ -13,6 +13,9 @@ This is a weekly summary of what's going on in its community.
 - [Episode 69 – Jurriaan Hage](https://haskell.foundation/podcast/69/) by The Haskell Interlude
   > Today’s guest is Jurriaan Hage. Jurriaan is a professor at Heriot-Watt University in Edinburgh who’s worked with and on Haskell for many years. He’s known for the Helium Haskell compiler, specifically designed for teaching, and he has plenty of other projects related to Haskell, including improvements to the type system, the generation of better error messages, or detection of plagiarism.
   
+- [Episode 9 - Hécate](https://podcasts.apple.com/se/podcast/9-h%C3%A9cate/id1808829721?i=1000723686150) by Func Prog Podcast
+  > Hécate is a Haskell engineer and prolific contributor to the Haskell ecosystem—in this episode we talk about using Haskell in production, effect systems and how empathy can help you build better software.
+  
 - [The Baby Paradox in Haskell](https://blog.jle.im/entry/the-baby-paradox-in-haskell.html) by Justin Le
   > First, some background: when using Haskell as a theorem prover, you represent the theorem as a type, and proving it involves constructing a value of that type — you create an inhabitant of that type.
 
