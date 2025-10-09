@@ -26,7 +26,7 @@ This is a weekly summary of what's going on in its community.
 - [Announcing template-haskell-lift and template-haskell-quasiquoter](https://informal.codes/posts/ann-th-lift-and-quasi/) by Teo Camarasu
   > I’m happy to announce the first release of two libraries that expose stable subsets of the template-haskell interface.
   
-- [`cabal-install` external command feature without passing the subcommand’s name as `argv\[1\]`](https://discourse.haskell.org/t/cabal-install-external-command-feature-without-passing-the-subcommands-name-as-argv-1/13062) by MangoIV
+- [`cabal-install` external command feature without passing the subcommand’s name as `argv[1]`](https://discourse.haskell.org/t/cabal-install-external-command-feature-without-passing-the-subcommands-name-as-argv-1/13062) by MangoIV
   > We would like to announce the proposed change here, since we want to warn and survey users who have a single executable that serves multiple cabal subcommands.
   
 - [Non-Obvious Haskell Idiom: ViewPattern Argument Transform](https://entropicthoughts.com/non-obvious-haskell-idiom-viewpattern-argument-transform) by kqr
