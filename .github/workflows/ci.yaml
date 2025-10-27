@@ -101,7 +101,7 @@ jobs:
         with:
           file: ${{ steps.artifact.outputs.directory }}/haskellweekly${{ matrix.extension }}
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v5
         with:
           name: haskellweekly-${{ github.sha }}
           path: artifact
