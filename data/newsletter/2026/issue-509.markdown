@@ -7,7 +7,7 @@ This is a weekly summary of what's going on in its community.
 - [Episode 76 – Jeffrey Young](https://haskell.foundation/podcast/76/) by The Haskell Interlude
   > Today, Matti and Mike talk to Jeffrey Young. Jeff has had a long history of working with Haskell and on ghc itself. We talk about what makes Haskell so compelling, the good and bad of highly optimized code and the beauty of well-modularized code, how to get into compiler development, and how to benefit from Domain-Driven Design.
 
-- [Haskell Language Server 2.13.0.0 release](Haskell Language Server 2.13.0.0 release) by VeryMilkyJoe
+- [Haskell Language Server 2.13.0.0 release](https://blog.haskell.org/hls-2-13-0-0/) by VeryMilkyJoe
   > The HLS team is happy to announce the 2.13.0.0 Haskell Language Server release which introduces two new exciting features!
   
 - [Hello, Haskell: Getting Started in 2026](https://lukastymo.com/posts/025-hello-haskell-a-hands-on-lab-for-2026/) by Lukasz Tymoszczuk
