@@ -1,4 +1,5 @@
-app = "nameless-water-5259"
+app = "haskellweekly-short-air-1386"
+primary_region = "ord"
 
 [build]
 image = "ghcr.io/haskellweekly/haskellweekly:latest"
@@ -8,20 +9,17 @@ BASE_URL = "https://haskellweekly.news"
 LISTMONK_LIST = "3"
 LISTMONK_SITEKEY = "52d006fe-18bc-40d2-bec2-d78e9b40f1bc"
 LISTMONK_URL = "https://listmonk.haskellweekly.news"
-LISTMONK_UUID = "4295554f-8f91-4864-92fa-a75a7315d630"
+LISTMONK_UUID = "2aecd758-acab-4120-8c7b-2d43aad34572"
 
-[[services]]
-internal_port = 8080
-protocol = "tcp"
-
-[[services.http_checks]]
-path = "/health-check"
-
-[[services.ports]]
+[http_service]
+auto_start_machines = true
+auto_stop_machines = true
 force_https = true
-handlers = ["http"]
-port = 80
+internal_port = 8_080
+min_machines_running = 0
+processes = [ "app" ]
 
-[[services.ports]]
-handlers = ["tls", "http"]
-port = 443
+[[vm]]
+cpus = 1
+memory = "256mb"
+memory_mb = 256
