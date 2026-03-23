@@ -64,9 +64,6 @@ jobs:
 
       - run: mkdir ${{ steps.artifact.outputs.directory }}
 
-      # https://discourse.haskell.org/t/incident-github-actions-ci-failure-ghcup/5761
-      - run: sudo chown -R $USER /usr/local/.ghcup
-
       - id: setup-haskell
         uses: haskell-actions/setup@v2
         with:
@@ -96,10 +93,6 @@ jobs:
       - run: cabal run -- haskellweekly-test-suite --fail-on-focused --randomize
 
       - run: cp "$( cabal list-bin haskellweekly )" ${{ steps.artifact.outputs.directory }}
-
-      - uses: svenstaro/upx-action@v2
-        with:
-          file: ${{ steps.artifact.outputs.directory }}/haskellweekly${{ matrix.extension }}
 
       - uses: actions/upload-artifact@v7
         with:
@@ -176,7 +169,7 @@ jobs:
     steps:
       - uses: actions/checkout@v6
 
-      - uses: superfly/flyctl-actions/setup-flyctl@1.5
+      - uses: superfly/flyctl-actions/setup-flyctl@63da3ecc5e2793b98a3f2519b3d75d4f4c11cec2
 
       - run: flyctl deploy --image ghcr.io/haskellweekly/haskellweekly:sha-${{ github.sha }}
         env:
