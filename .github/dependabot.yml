@@ -1,6 +1,10 @@
+version: 2
 updates:
   - directory: /
     package-ecosystem: github-actions
     schedule:
       interval: weekly
-version: 2
+  - directory: /docker
+    package-ecosystem: docker
+    schedule:
+      interval: weekly
