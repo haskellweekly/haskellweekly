@@ -97,7 +97,7 @@ jobs:
 
       - run: cp "$( cabal list-bin haskellweekly )" ${{ steps.artifact.outputs.directory }}
 
-      - uses: svenstaro/upx-action@v2
+      - uses: svenstaro/upx-action@v3
         with:
           file: ${{ steps.artifact.outputs.directory }}/haskellweekly${{ matrix.extension }}
 
