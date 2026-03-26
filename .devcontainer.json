@@ -1,0 +1,11 @@
+{
+  "features": {
+    "ghcr.io/devcontainers/features/nix:1": {
+      "extraNixConfig": "experimental-features = flakes nix-command"
+    }
+  },
+  "image": "mcr.microsoft.com/devcontainers/base:alpine",
+  "remoteEnv": {
+    "LC_ALL": "C.UTF-8"
+  }
+}
