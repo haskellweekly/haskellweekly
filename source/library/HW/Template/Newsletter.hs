@@ -68,7 +68,7 @@ callToAction baseUrl maybeListmonk =
       "."
     Monad.forM_ maybeListmonk $ \listmonk -> Html.form_
       [ Html.action_ $ Listmonk.url listmonk <> "/subscription/form",
-        Html.id_ "subscribe",
+        Html.id_ "subscribe-form",
         Html.method_ "post"
       ]
       $ do
@@ -85,8 +85,6 @@ callToAction baseUrl maybeListmonk =
           Html.input_
             [ Html.makeAttributes "aria-label" "Email address",
               Html.class_ "ba br0 b--silver input-reset pa3 flex-auto",
-              Html.disabled_ "disabled",
-              Html.id_ "subscribe-email",
               Html.name_ "email",
               Html.placeholder_ "you@example.com",
               Html.required_ "required",

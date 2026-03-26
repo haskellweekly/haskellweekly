@@ -19,22 +19,17 @@ contentSecurityPolicy =
 script :: Text.Text
 script =
   Text.unlines
-    [ "function onCaptchaPass() {",
-      "  document.getElementById('subscribe').requestSubmit();",
+    [ "var button = document.getElementById('subscribe-button');"
+      , "function onCaptchaPass() {",
+      "  document.getElementById('subscribe-form').requestSubmit();",
       "}",
       "function onCaptchaReset() {",
-      "  var email = document.getElementById('subscribe-email');",
-      "  var button = document.getElementById('subscribe-button');",
-      "  email.disabled = false;",
       "  button.disabled = false;",
       "  button.textContent = 'Subscribe';",
       "}",
       "function onCaptchaLoad() {",
       "  onCaptchaReset();",
-      "  document.getElementById('subscribe-button').addEventListener('click', function () {",
-      "    var email = document.getElementById('subscribe-email');",
-      "    var button = document.getElementById('subscribe-button');",
-      "    email.disabled = true;",
+      "  button.addEventListener('click', function () {",
       "    button.disabled = true;",
       "    button.textContent = 'Subscribing\\u2026';",
       "  });",
