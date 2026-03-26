@@ -81,14 +81,6 @@ callToAction baseUrl maybeListmonk =
             Html.type_ "hidden",
             Html.value_ . Uuid.toText $ Listmonk.uuid listmonk
           ]
-        Html.script_
-          [ Html.async_ "async",
-            Html.src_ "https://js.hcaptcha.com/1/api.js?onload=onCaptchaLoad"
-          ]
-          (mempty :: Html.Html ())
-        Html.script_ [] $ Html.toHtmlRaw Captcha.script
-        Html.noscript_ $ do
-          Html.p_ "Please enable JavaScript to complete the CAPTCHA."
         Html.div_ [Html.class_ "flex"] $ do
           Html.input_
             [ Html.makeAttributes "aria-label" "Email address",
@@ -112,6 +104,13 @@ callToAction baseUrl maybeListmonk =
               Html.type_ "submit"
             ]
             "Loading\x2026"
+        Html.script_ [] $ Html.toHtmlRaw Captcha.script
+        Html.script_
+          [ Html.defer_ "defer",
+            Html.src_ "https://js.hcaptcha.com/1/api.js?onload=onCaptchaLoad"
+          ]
+          (mempty :: Html.Html ())
+        Html.noscript_ $ Html.p_ "You must enable JavaScript to complete the CAPTCHA."
 
 issueTemplate :: BaseUrl.BaseUrl -> Issue.Issue -> Html.Html ()
 issueTemplate baseUrl issue = Html.li_ $ do
