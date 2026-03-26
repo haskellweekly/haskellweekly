@@ -4,7 +4,8 @@ This is a weekly summary of what's going on in its community.
 
 ## Featured
 
-undefined
+- [Haskell Weekly lost its subscriber list](https://taylor.fausak.me/2026/03/25/haskell-weekly/) by Taylor Fausak
+  > If you haven’t received an email from Haskell Weekly in a while, you’re not the only one! The last successful newsletter email went out on February 12th, which was a little more than a month ago. Unfortunately something caused the subscriber list to be reset. The problem is fixed now, but you will have to re-subscribe.
 
 ## Jobs
 
