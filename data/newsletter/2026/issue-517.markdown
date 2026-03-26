@@ -19,7 +19,7 @@ This is a weekly summary of what's going on in its community.
 - [Haskell ecosystem activities report: December 2025–February 2026](https://www.well-typed.com/blog/2026/03/haskell-ecosystem-report-q1-2026/) by Well-Typed
   > This is the thirtieth edition of our Haskell ecosystem activities report, which describes the work Well-Typed are doing on GHC, Cabal, HLS and other parts of the core Haskell toolchain. The current edition covers roughly the months of December 2025 to February 2026.
   
-- [Math Update: Semigroup, and the Cooler Semigroup](https://discourse.haskell.org/t/sneak-peek-bolt-math/13766/23) by ApothecaLabs
+- [Math Update: Semigroup, and the Cooler Semigroup](https://discourse.haskell.org/t/sneak-peek-bolt-math/13766/24) by ApothecaLabs
   > So, I have been paying close attention to feedback, and I thought I would address one of the concerns that is on many people’s minds - lawfulness. I have a ton more coming down the pipeline (topological spaces, manifolds, discrete spaces, projective and conformal geometry - fun stuff) but they need a solid foundation, and I’m still nailing down some design points.
   
 - [The Hidden Perils of MonadBaseControl](https://serokell.io/blog/the-hidden-perils-of-monadbasecontrol) by Diogo Castro
