@@ -91,6 +91,8 @@ callToAction baseUrl maybeListmonk =
               Html.src_ "https://js.hcaptcha.com/1/api.js"
             ]
             (mempty :: Html.Html ())
+          Html.noscript_ $ do
+            Html.p_ "Please enable JavaScript to complete the CAPTCHA."
         Html.div_ [Html.class_ "flex"] $ do
           Html.input_
             [ Html.makeAttributes "aria-label" "Email address",
