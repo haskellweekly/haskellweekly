@@ -2,7 +2,6 @@ module HW.Template.Newsletter where
 
 import qualified Control.Monad as Monad
 import qualified Data.UUID as Uuid
-import qualified HW.Data.Captcha as Captcha
 import qualified HW.Template.Base as Base
 import qualified HW.Template.Common as Common
 import qualified HW.Type.BaseUrl as BaseUrl
@@ -68,7 +67,6 @@ callToAction baseUrl maybeListmonk =
       "."
     Monad.forM_ maybeListmonk $ \listmonk -> Html.form_
       [ Html.action_ $ Listmonk.url listmonk <> "/subscription/form",
-        Html.id_ "subscribe",
         Html.method_ "post"
       ]
       $ do
@@ -81,36 +79,34 @@ callToAction baseUrl maybeListmonk =
             Html.type_ "hidden",
             Html.value_ . Uuid.toText $ Listmonk.uuid listmonk
           ]
+        Html.div_ [Html.class_ "captcha tc"] $ do
+          Html.div_
+            [ Html.class_ "h-captcha",
+              Html.data_ "sitekey" . Uuid.toText $ Listmonk.sitekey listmonk
+            ]
+            ""
+          Html.script_
+            [ Html.async_ "async",
+              Html.defer_ "defer",
+              Html.src_ "https://js.hcaptcha.com/1/api.js"
+            ]
+            (mempty :: Html.Html ())
+          Html.noscript_ $ do
+            Html.p_ "Please enable JavaScript to complete the CAPTCHA."
         Html.div_ [Html.class_ "flex"] $ do
           Html.input_
             [ Html.makeAttributes "aria-label" "Email address",
               Html.class_ "ba br0 b--silver input-reset pa3 flex-auto",
-              Html.disabled_ "disabled",
-              Html.id_ "subscribe-email",
               Html.name_ "email",
               Html.placeholder_ "you@example.com",
               Html.required_ "required",
               Html.type_ "email"
             ]
           Html.button_
-            [ Html.class_ "h-captcha b bn bg-dark-blue input-reset pa3 pointer white",
-              Html.data_ "callback" "onCaptchaPass",
-              Html.data_ "close-callback" "onCaptchaReset",
-              Html.data_ "error-callback" "onCaptchaReset",
-              Html.data_ "sitekey" . Uuid.toText $ Listmonk.sitekey listmonk,
-              Html.data_ "size" "invisible",
-              Html.disabled_ "disabled",
-              Html.id_ "subscribe-button",
+            [ Html.class_ "b bn bg-dark-blue input-reset pa3 pointer white",
               Html.type_ "submit"
             ]
-            "Loading\x2026"
-        Html.script_ [] $ Html.toHtmlRaw Captcha.script
-        Html.script_
-          [ Html.defer_ "defer",
-            Html.src_ "https://js.hcaptcha.com/1/api.js?onload=onCaptchaLoad"
-          ]
-          (mempty :: Html.Html ())
-        Html.noscript_ $ Html.p_ "You must enable JavaScript to complete the CAPTCHA."
+            "Subscribe"
 
 issueTemplate :: BaseUrl.BaseUrl -> Issue.Issue -> Html.Html ()
 issueTemplate baseUrl issue = Html.li_ $ do

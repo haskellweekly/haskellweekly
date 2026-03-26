@@ -16,7 +16,6 @@ import qualified Data.Text.Encoding.Error as Text
 import qualified Data.Time as Time
 import qualified Data.Word as Word
 import qualified GHC.Clock as Clock
-import qualified HW.Data.Captcha as Captcha
 import qualified HW.Type.Config as Config
 import qualified HW.Type.Listmonk as Listmonk
 import qualified HW.Type.State as State
@@ -173,8 +172,7 @@ contentSecurityPolicy maybeListmonk =
       "frame-src https://hcaptcha.com https://*.hcaptcha.com",
       "img-src data: 'self'",
       "media-src https://media.haskellweekly.news 'self'",
-      "script-src https://hcaptcha.com https://*.hcaptcha.com "
-        <> Captcha.contentSecurityPolicy,
+      "script-src https://hcaptcha.com https://*.hcaptcha.com",
       "style-src https://hcaptcha.com https://*.hcaptcha.com 'self'"
     ]
 
