@@ -19,8 +19,8 @@ contentSecurityPolicy =
 script :: Text.Text
 script =
   Text.unlines
-    [ "var button = document.getElementById('subscribe-button');"
-      , "function onCaptchaPass() {",
+    [ "var button = document.getElementById('subscribe-button');",
+      "function onCaptchaPass() {",
       "  document.getElementById('subscribe-form').requestSubmit();",
       "}",
       "function onCaptchaReset() {",
