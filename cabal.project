@@ -1,1 +1,7 @@
 packages: .
+constraints:
+    http2 < 5.3.9          
+allow-newer:
+  , lucid2:base
+  , uuid-types:template-haskell
+  , vault:base
