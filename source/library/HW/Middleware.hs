@@ -16,6 +16,7 @@ import qualified Data.Text.Encoding.Error as Text
 import qualified Data.Time as Time
 import qualified Data.Word as Word
 import qualified GHC.Clock as Clock
+import qualified HW.Template.Newsletter as Newsletter
 import qualified HW.Type.Config as Config
 import qualified HW.Type.Listmonk as Listmonk
 import qualified HW.Type.State as State
@@ -140,6 +141,9 @@ base64 = ByteArray.convertToBase ByteArray.Base64
 sha1 :: LazyByteString.ByteString -> Crypto.Digest Crypto.SHA1
 sha1 = Crypto.hashlazy
 
+sha256 :: ByteString.ByteString -> Crypto.Digest Crypto.SHA256
+sha256 = Crypto.hash
+
 -- | Adds security headers as recommended by <https://securityheaders.com>.
 addSecurityHeaders :: State.State -> Wai.Middleware
 addSecurityHeaders state application request respond =
@@ -172,7 +176,9 @@ contentSecurityPolicy maybeListmonk =
       "frame-src https://hcaptcha.com https://*.hcaptcha.com",
       "img-src data: 'self'",
       "media-src https://media.haskellweekly.news 'self'",
-      "script-src https://hcaptcha.com https://*.hcaptcha.com",
+      "script-src https://hcaptcha.com https://*.hcaptcha.com 'sha256-"
+        <> (Text.decodeUtf8Lenient . base64 . sha256 $ Text.encodeUtf8 Newsletter.captchaScript)
+        <> "'",
       "style-src https://hcaptcha.com https://*.hcaptcha.com 'self'"
     ]
 
