@@ -1,8 +1,8 @@
 module HW.Template.Newsletter where
 
 import qualified Control.Monad as Monad
-import qualified Data.Text as Text
 import qualified Data.UUID as Uuid
+import qualified HW.Data.Captcha as Captcha
 import qualified HW.Template.Base as Base
 import qualified HW.Template.Common as Common
 import qualified HW.Type.BaseUrl as BaseUrl
@@ -89,12 +89,11 @@ callToAction baseUrl maybeListmonk =
             ]
             ""
           Html.script_
-            [ Html.async_ "async",
-              Html.defer_ "defer",
+            [ Html.defer_ "defer",
               Html.src_ "https://js.hcaptcha.com/1/api.js"
             ]
             (mempty :: Html.Html ())
-          Html.script_ [] $ Html.toHtmlRaw captchaScript
+          Html.script_ [] $ Html.toHtmlRaw Captcha.script
           Html.noscript_ $ do
             Html.p_ "Please enable JavaScript to complete the CAPTCHA."
         Html.div_ [Html.class_ "flex"] $ do
@@ -127,21 +126,3 @@ issueTemplate baseUrl issue = Html.li_ $ do
     . Html.toHtml
     . Date.toShortText
     $ Issue.issueDate issue
-
-captchaScript :: Text.Text
-captchaScript =
-  Text.unlines
-    [ "function onCaptchaPass() {",
-      "  document.querySelector('.h-captcha').closest('form').submit();",
-      "}",
-      "document.addEventListener('DOMContentLoaded', function () {",
-      "  var form = document.querySelector('.h-captcha').closest('form');",
-      "  form.addEventListener('submit', function (e) {",
-      "    var r = form.querySelector('[name=\"h-captcha-response\"]');",
-      "    if (!r || !r.value) {",
-      "      e.preventDefault();",
-      "      hcaptcha.execute();",
-      "    }",
-      "  });",
-      "});"
-    ]
