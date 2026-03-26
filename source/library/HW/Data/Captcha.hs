@@ -20,16 +20,23 @@ script :: Text.Text
 script =
   Text.unlines
     [ "function onCaptchaPass() {",
-      "  document.querySelector('.h-captcha').closest('form').submit();",
+      "  document.getElementById('subscribe').requestSubmit();",
       "}",
-      "document.addEventListener('DOMContentLoaded', function () {",
-      "  var form = document.querySelector('.h-captcha').closest('form');",
-      "  form.addEventListener('submit', function (e) {",
-      "    var r = form.querySelector('[name=\"h-captcha-response\"]');",
-      "    if (!r || !r.value) {",
-      "      e.preventDefault();",
-      "      hcaptcha.execute();",
-      "    }",
+      "function onCaptchaReset() {",
+      "  var email = document.getElementById('subscribe-email');",
+      "  var button = document.getElementById('subscribe-button');",
+      "  email.disabled = false;",
+      "  button.disabled = false;",
+      "  button.textContent = 'Subscribe';",
+      "}",
+      "function onCaptchaLoad() {",
+      "  onCaptchaReset();",
+      "  document.getElementById('subscribe-button').addEventListener('click', function () {",
+      "    var email = document.getElementById('subscribe-email');",
+      "    var button = document.getElementById('subscribe-button');",
+      "    email.disabled = true;",
+      "    button.disabled = true;",
+      "    button.textContent = 'Subscribing\\u2026';",
       "  });",
-      "});"
+      "}"
     ]
