@@ -10,7 +10,8 @@ This is a weekly summary of what's going on in its community.
 - [Haskell: the re-export module X pattern](https://unformeddelta.wiki/rJylKYFWAsAP/haskell-the-re-export-module-x-pattern) by Devin Lehmacher
   > Haskell’s syntax for declaring module exports is clunky and second-class. Exports must be declared after the module header either by name, or re-exporting an entire module.
   
-- [miso v1.9.0 release](https://www.reddit.com/r/haskell/comments/1sanpyz/miso_v190_release/) by dmjio  
+- [miso v1.9.0 release](https://www.reddit.com/r/haskell/comments/1sanpyz/miso_v190_release/) by dmjio
+  > Miso is a small, production-ready, component-oriented, reactive, isomorphic Haskell front-end framework for quickly building highly interactive single-page web and mobile applications. The major feature added in 1.9 is React-style components (`VComp`). Isolated `Component` can now be created and communicate with each other via message-passing. The original DSL has been extended to support this feature using an existential encoding (shown below). This feature allows type-safe embedding of `Component` in `View`. See the `+>` combinator to nest `Component` (this combinator unifies `Component` along the parent-child relationship, creating a typesafe `Component` hierarchy).
 
 - [Type-level programming is still programming](https://mchav.github.io/type-level-programming-is-still-programming/) by Michael Chavinda
   > I was showing a friend the typed dataframe API. The whole pitch was: look, you derive a schema from your data, and then the compiler catches column name typos, type mismatches, all the stuff that would otherwise blow up at runtime. 
