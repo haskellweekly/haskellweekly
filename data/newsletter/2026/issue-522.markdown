@@ -60,7 +60,7 @@ This is a weekly summary of what's going on in its community.
 
 ## Show & tell
 
-- [Я language (β) - Transformations, functors, categories/](https://muratkasimov.art/Ya/Articles/Transformations,-functors,-categories/) by Murat Kasimov
+- [Я language (β) - Transformations, functors, categories](https://muratkasimov.art/Ya/Articles/Transformations,-functors,-categories/) by Murat Kasimov
   > This order in the title is not accidental - functors start making sense in the context of natural transformations and categories are rarely interesting without reasoning in terms of mappings between them i.e. functors. In this article I briefly introduce these concepts and demonstrate how to use other categories in Я besides Arrow (regular functions) - Scope category and Event precategory; along with how they are related to each other.
   
 - [Cardano redemption codes are private keys](https://jaredcorduan.github.io/posts/2026-04-26--cardano-redemption-codes-are-private-keys.html) by Jared Corduan
