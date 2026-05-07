@@ -29,7 +29,7 @@ This is a weekly summary of what's going on in its community.
 - [Call for proposals: Reviewing, testing, and managing LLM generated Haskell](https://discourse.haskell.org/t/call-for-proposals-reviewing-testing-and-managing-llm-generated-haskell/14041) by José Manuel Calderón Trilla
   > The Haskell Foundation is considering running an online 1-day workshop on how companies are managing/navigating their use of LLMs and how open source maintainers view LLM contributions. Ideally this would be a quick turnaround, hosted sometime mid-June (likely June 19th), as there’s lots of hunger for folks to learn from each other.
 
-- [MuniHac 2026](munihac.de/2026.html) by TNG Technology Consulting
+- [MuniHac 2026](https://munihac.de/2026.html) by TNG Technology Consulting
   > MuniHac 2026 will take place form 09th - 11th October 2026 in Unterföhring. We just opened the registration for participants. All information can be found on the website: munihac.de/2026.html. Additionally, here is our event announcement: tngtech.com/en/about-us/news/event-announcement-munihac-2026
 
 - [ZuriHac 2026 Schedule Online](https://discourse.haskell.org/t/zurihac-2026-schedule-online/14018) by Farhad Mehta
