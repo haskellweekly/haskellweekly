@@ -40,7 +40,7 @@ This is a weekly summary of what's going on in its community.
 
 ## Show & tell
 
-- [Я: Components of natural transformations (vertical composition)](muratkasimov.art/Ya/Articles/Components-of-natural-transformations) by Murat Kasimov
+- [Я: Components of natural transformations (vertical composition)](http://muratkasimov.art/Ya/Articles/Components-of-natural-transformations) by Murat Kasimov
   > It's about components of natural transformations (that surprisingly could be composed vertically). Featuring how to work with some primitives like List, Nonempty List and Scrolling List.
   
 - [Lambda on Lambda: Serverless Haskell on AWS](https://git.sr.ht/~jack/lambda-on-lambda) by Jack Kelly
