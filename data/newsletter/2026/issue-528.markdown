@@ -36,9 +36,6 @@ This is a weekly summary of what's going on in its community.
 - [Haskell distro packaging channel on Matrix](https://discourse.haskell.org/t/haskell-distro-packaging-channel-on-matrix/14235) by Jens Petersen
   > I wanted to announce that since early Feb 2026 we have a matrix room for people involved in distribution packaging of Haskell.
 
-- [Haskell’s missing mutable reference type](https://discourse.haskell.org/t/haskells-missing-mutable-reference-type/14248) by Tom Ellis
-  > Whilst looking at the Scoped thread-locals GHC proposal I realised that Haskell is missing a mutable reference type that some other languges have (and people have tried to encode in Haskell), so I wrote it up.
-  
 - [idna2008 1.0 — pure-Haskell IDNA 2008 with UCD 17.0.0 tables](https://discourse.haskell.org/t/ann-idna2008-1-0-pure-haskell-idna-2008-with-ucd-17-0-0-tables/14254) by Viktor Dukhovni
   > `idna2008` is a ground-up, pure-Haskell implementation of Internationalized Domain Names in Applications (IDNA 2008).
 
