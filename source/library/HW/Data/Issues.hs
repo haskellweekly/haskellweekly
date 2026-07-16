@@ -537,5 +537,6 @@ all =
     Issue.Issue <$> Date.fromGregorian 2026 6 18 <*> Number.fromNatural 529,
     Issue.Issue <$> Date.fromGregorian 2026 6 25 <*> Number.fromNatural 530,
     Issue.Issue <$> Date.fromGregorian 2026 7 2 <*> Number.fromNatural 531,
-    Issue.Issue <$> Date.fromGregorian 2026 7 9 <*> Number.fromNatural 532
+    Issue.Issue <$> Date.fromGregorian 2026 7 9 <*> Number.fromNatural 532,
+    Issue.Issue <$> Date.fromGregorian 2026 7 16 <*> Number.fromNatural 533
   ]
