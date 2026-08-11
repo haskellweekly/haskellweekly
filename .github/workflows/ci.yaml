@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
-      - uses: haskell-actions/run-ormolu@v20
+      - uses: haskell-actions/run-ormolu@v21
 
   hlint:
     name: HLint
