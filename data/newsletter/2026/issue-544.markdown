@@ -25,6 +25,7 @@ This is a weekly summary of what's going on in its community.
 ## In brief
 
 - [Moggi - a kind of strict version of Haskell running on JVM, .NET & PHP](https://discourse.haskell.org/t/moggi-a-kind-of-strict-version-of-haskell-running-on-jvm-net-php/14725) by Sascha-Oliver Prolić
+  > Moggi is a statically typed, purely functional programming language with strict evaluation. It has algebraic data types, GADTs, pattern matching, type classes, type inference, Generic Deriving, and an IO monad. It targets the JVM, .NET, and PHP, with typed FFI for existing Java, .NET, and PHP libraries.
 
 - [Releasing crypton v2.0.0](https://kazu-yamamoto.hatenablog.jp/entry/2026/09/25/110313) by Kazu Yamamoto
   > `crypton` is a cryptographic library widely used in the Haskell community. However, the library had several issues.
