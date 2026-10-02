@@ -44,13 +44,8 @@ jobs:
       - run: cabal-gild --input haskellweekly.cabal --mode check
 
   build:
-    strategy:
-      matrix:
-        include:
-          - ghc: '9.10'
-            platform: ubuntu
-    runs-on: ${{ matrix.platform }}-latest
-    name: GHC ${{ matrix.ghc }} on ${{ matrix.platform }}
+    runs-on: ubuntu-26.04
+    name: Build
     steps:
       - uses: actions/checkout@v7
 
@@ -60,15 +55,10 @@ jobs:
 
       - run: cabal sdist --output-dir artifact
 
-      - id: artifact
-        run: echo "directory=artifact/${{ matrix.platform }}" >> $GITHUB_OUTPUT
-
-      - run: mkdir ${{ steps.artifact.outputs.directory }}
-
       - id: setup-haskell
         uses: haskell-actions/setup@v2
         with:
-          ghc-version: ${{ matrix.ghc }}
+          ghc-version: '9.10'
           cabal-version: '3.14.2.0' # https://github.com/haskellweekly/haskellweekly/issues/445
 
       - run: cabal configure --enable-optimization=2 --enable-tests --jobs
@@ -77,15 +67,15 @@ jobs:
 
       - run: cat cabal.project.freeze
 
-      - run: cp cabal.project.freeze ${{ steps.artifact.outputs.directory }}
+      - run: cp cabal.project.freeze artifact
 
       - run: cabal outdated --v2-freeze-file cabal.project.freeze
 
       - uses: actions/cache@v6
         with:
           path: ${{ steps.setup-haskell.outputs.cabal-store }}
-          key: ${{ matrix.platform }}/${{ hashFiles('cabal.project.freeze') }}
-          restore-keys: ${{ matrix.platform }}/
+          key: ${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('cabal.project.freeze') }}
+          restore-keys: ${{ runner.os }}-${{ runner.arch }}-
 
       - run: cabal build --only-dependencies
 
@@ -93,7 +83,7 @@ jobs:
 
       - run: cabal run -- haskellweekly-test-suite --fail-on-focused --randomize
 
-      - run: cp "$( cabal list-bin haskellweekly )" ${{ steps.artifact.outputs.directory }}
+      - run: cp "$( cabal list-bin haskellweekly )" artifact
 
       - uses: actions/upload-artifact@v7
         with:
@@ -114,9 +104,9 @@ jobs:
 
       - run: mv artifact/data docker
 
-      - run: chmod +x artifact/ubuntu/haskellweekly
+      - run: chmod +x artifact/haskellweekly
 
-      - run: mv artifact/ubuntu/haskellweekly docker
+      - run: mv artifact/haskellweekly docker
 
       - id: meta
         uses: docker/metadata-action@v6
