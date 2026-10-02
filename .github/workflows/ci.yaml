@@ -47,9 +47,8 @@ jobs:
       matrix:
         include:
           - ghc: '9.10'
-            platform: ubuntu
-    runs-on: ${{ matrix.platform }}-latest
-    name: GHC ${{ matrix.ghc }} on ${{ matrix.platform }}
+    runs-on: ubuntu-latest
+    name: GHC ${{ matrix.ghc }}
     steps:
       - uses: actions/checkout@v7
 
@@ -59,10 +58,7 @@ jobs:
 
       - run: cabal sdist --output-dir artifact
 
-      - id: artifact
-        run: echo "directory=artifact/${{ matrix.platform }}" >> $GITHUB_OUTPUT
-
-      - run: mkdir ${{ steps.artifact.outputs.directory }}
+      - run: mkdir artifact
 
       - id: setup-haskell
         uses: haskell-actions/setup@v2
@@ -76,15 +72,14 @@ jobs:
 
       - run: cat cabal.project.freeze
 
-      - run: cp cabal.project.freeze ${{ steps.artifact.outputs.directory }}
+      - run: cp cabal.project.freeze artifact
 
       - run: cabal outdated --v2-freeze-file cabal.project.freeze
 
       - uses: actions/cache@v6
         with:
           path: ${{ steps.setup-haskell.outputs.cabal-store }}
-          key: ${{ matrix.platform }}/${{ hashFiles('cabal.project.freeze') }}
-          restore-keys: ${{ matrix.platform }}/
+          key: ${{ hashFiles('cabal.project.freeze') }}
 
       - run: cabal build --only-dependencies
 
@@ -92,7 +87,7 @@ jobs:
 
       - run: cabal run -- haskellweekly-test-suite --fail-on-focused --randomize
 
-      - run: cp "$( cabal list-bin haskellweekly )" ${{ steps.artifact.outputs.directory }}
+      - run: cp "$( cabal list-bin haskellweekly )" artifact
 
       - uses: actions/upload-artifact@v7
         with:
