@@ -43,7 +43,7 @@ jobs:
       - run: cabal-gild --input haskellweekly.cabal --mode check
 
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     name: Build
     steps:
       - uses: actions/checkout@v7
