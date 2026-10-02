@@ -73,7 +73,8 @@ jobs:
       - uses: actions/cache@v6
         with:
           path: ${{ steps.setup-haskell.outputs.cabal-store }}
-          key: ${{ hashFiles('cabal.project.freeze') }}
+          key: ${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('cabal.project.freeze') }}
+          restore-keys: ${{ runner.os }}-${{ runner.arch }}-
 
       - run: cabal build --only-dependencies
 
