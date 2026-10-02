@@ -54,8 +54,6 @@ jobs:
 
       - run: cabal sdist --output-dir artifact
 
-      - run: mkdir artifact
-
       - id: setup-haskell
         uses: haskell-actions/setup@v2
         with:
@@ -104,9 +102,9 @@ jobs:
 
       - run: mv artifact/data docker
 
-      - run: chmod +x artifact/ubuntu/haskellweekly
+      - run: chmod +x artifact/haskellweekly
 
-      - run: mv artifact/ubuntu/haskellweekly docker
+      - run: mv artifact/haskellweekly docker
 
       - id: meta
         uses: docker/metadata-action@v6
